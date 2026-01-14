@@ -10,8 +10,6 @@ final class HeartRateVariabilitySDNNHandler: @unchecked Sendable,
 {
     typealias RecordDto = HeartRateVariabilitySDNNRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = TimeDurationDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -23,9 +21,9 @@ final class HeartRateVariabilitySDNNHandler: @unchecked Sendable,
     // Supports min, max, avg, sum
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg, .sum]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> TimeDurationDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         // SDNN is stored in seconds in HealthKit, DTO also expects seconds
         let seconds = quantity.doubleValue(for: .second())
-        return TimeDurationDto(seconds: seconds)
+        return seconds * 1000.0 // Convert to millis
     }
 }

@@ -8,9 +8,7 @@ import androidx.health.connect.client.units.kilocalories
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MassDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MealTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
@@ -62,9 +60,9 @@ class NutritionRecordMapperTest {
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.foodName shouldBe TEST_FOOD_NAME
         result.mealType shouldBe MealTypeDto.BREAKFAST
-        result.energy?.kilocalories shouldBe TEST_ENERGY_KCAL
-        result.protein?.kilograms shouldBe TEST_PROTEIN_GRAMS / 1000.0 // Grams to kgs
-        result.totalCarbohydrate?.kilograms shouldBe TEST_CARBS_GRAMS / 1000.0 // Grams to kgs
+        result.energyInKilocalories shouldBe TEST_ENERGY_KCAL
+        result.proteinInGrams shouldBe TEST_PROTEIN_GRAMS
+        result.totalCarbohydrateInGrams shouldBe TEST_CARBS_GRAMS
         result.healthDataType shouldBe HealthDataTypeDto.NUTRITION
     }
 
@@ -81,8 +79,8 @@ class NutritionRecordMapperTest {
             healthDataType = HealthDataTypeDto.NUTRITION,
             foodName = TEST_FOOD_NAME,
             mealType = MealTypeDto.LUNCH,
-            energy = EnergyDto(kilocalories = TEST_ENERGY_KCAL),
-            protein = MassDto(kilograms = TEST_PROTEIN_GRAMS / 1000.0),
+            energyInKilocalories = TEST_ENERGY_KCAL,
+            proteinInGrams = TEST_PROTEIN_GRAMS,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

@@ -8,10 +8,8 @@ import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggrega
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -35,11 +33,11 @@ internal class TotalEnergyBurnedHandler(
         AggregationMetricDto.SUM to TotalCaloriesBurnedRecord.ENERGY_TOTAL,
     )
 
-    override fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto {
+    override fun convertAggregatedValue(aggregatedValue: Any): Double {
         val energy = aggregatedValue as? Energy
             ?: throw IllegalArgumentException(
                 "Aggregated value is not Energy type: ${aggregatedValue::class.simpleName}",
             )
-        return energy.toDto()
+        return energy.inKilocalories
     }
 }

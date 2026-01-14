@@ -42,7 +42,7 @@ void main() {
               expect(dto.startZoneOffsetSeconds, 0);
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(dto.endZoneOffsetSeconds, 0);
-              expect(dto.energy.kilocalories, 250.0);
+              expect(dto.kilocalories, 250.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -69,7 +69,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                energy: EnergyDto(kilocalories: 220.0),
+                kilocalories: 220.0,
               );
 
               final record = dto.toDomain();
@@ -102,7 +102,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                energy: EnergyDto(kilocalories: 180.0),
+                kilocalories: 180.0,
               );
 
               final record = dto.toDomain();

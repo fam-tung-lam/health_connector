@@ -49,6 +49,9 @@ final class HeartRateVariabilityRMSSDDataType
   ];
 
   @override
+  List<AggregationMetric> get supportedAggregationMetrics => [];
+
+  @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override

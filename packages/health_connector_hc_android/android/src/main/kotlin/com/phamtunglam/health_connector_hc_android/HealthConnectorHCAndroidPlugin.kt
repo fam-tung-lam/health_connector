@@ -20,7 +20,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureD
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
@@ -933,10 +932,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      * @param callback Called with a [Result] containing the aggregation response
      */
     @Throws(HealthConnectorErrorDto::class)
-    override fun aggregate(
-        request: AggregateRequestDto,
-        callback: (Result<MeasurementUnitDto>) -> Unit,
-    ) {
+    override fun aggregate(request: AggregateRequestDto, callback: (Result<Double>) -> Unit) {
         val operation = "aggregate"
         val logContext = mapOf(
             "data_type" to request.dataType,

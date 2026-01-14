@@ -54,7 +54,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.distance.meters, 2000.0);
+              expect(dto.meters, 2000.0);
               expect(dto.activityType, DistanceActivityTypeDto.wheelchair);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
@@ -85,7 +85,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.distance.meters, 1500.0);
+              expect(dto.meters, 1500.0);
               expect(dto.activityType, DistanceActivityTypeDto.wheelchair);
             },
           );
@@ -113,7 +113,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                distance: LengthDto(meters: 1800.0),
+                meters: 1800.0,
                 activityType: DistanceActivityTypeDto.wheelchair,
               );
 
@@ -149,7 +149,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 2200.0),
+                meters: 2200.0,
                 activityType: DistanceActivityTypeDto.wheelchair,
               );
 
@@ -178,7 +178,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 900.0),
+                meters: 900.0,
                 activityType: DistanceActivityTypeDto.wheelchair,
               );
 

@@ -6,7 +6,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsRecordDto
 import io.kotest.matchers.shouldBe
@@ -55,7 +54,7 @@ class StepsRecordMapperTest {
         result.endTime shouldBe TEST_END_TIME
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
-        result.count.value shouldBe TEST_COUNT.toDouble()
+        result.count shouldBe TEST_COUNT.toDouble()
         result.metadata shouldNotBe null
     }
 
@@ -73,7 +72,7 @@ class StepsRecordMapperTest {
             endTime = TEST_END_TIME,
             startZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
             endZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            count = NumberDto(TEST_COUNT.toDouble()),
+            count = TEST_COUNT.toDouble(),
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

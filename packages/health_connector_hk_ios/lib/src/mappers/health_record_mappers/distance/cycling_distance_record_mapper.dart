@@ -1,7 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show CyclingDistanceRecord, HealthRecordId, sinceV2_0_0, DateTimeToDto;
+    show
+        CyclingDistanceRecord,
+        DateTimeToDto,
+        HealthRecordId,
+        Length,
+        sinceV2_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show DistanceActivityRecordDto, DistanceActivityTypeDto;
@@ -23,7 +27,7 @@ extension CyclingDistanceRecordToDto on CyclingDistanceRecord {
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      distance: distance.toDto(),
+      meters: distance.inMeters,
       activityType: DistanceActivityTypeDto.cycling,
     );
   }
@@ -41,7 +45,7 @@ extension CyclingDistanceRecordDtoToDomain on DistanceActivityRecordDto {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      distance: distance.toDomain(),
+      distance: Length.meters(meters),
     );
   }
 }

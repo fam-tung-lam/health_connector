@@ -27,117 +27,6 @@ class HealthConnectorConfigDto {
   final bool isLoggerEnabled;
 }
 
-// region Measurement Unit
-
-/// Sealed class for all measurement unit DTOs.
-sealed class MeasurementUnitDto {}
-
-/// Represents a blood glucose measurement in millimoles per liter.
-class BloodGlucoseDto extends MeasurementUnitDto {
-  BloodGlucoseDto(this.millimolesPerLiter);
-
-  /// Blood glucose value in millimoles per liter (mmol/L).
-  final double millimolesPerLiter;
-}
-
-/// Represents an energy measurement in kilocalories.
-class EnergyDto extends MeasurementUnitDto {
-  EnergyDto(this.kilocalories);
-
-  /// Energy value in kilocalories (kcal).
-  final double kilocalories;
-}
-
-/// Represents a time duration in seconds.
-class TimeDurationDto extends MeasurementUnitDto {
-  TimeDurationDto(this.seconds);
-
-  /// Duration value in seconds (s).
-  final double seconds;
-}
-
-/// Represents a length measurement in meters.
-class LengthDto extends MeasurementUnitDto {
-  LengthDto(this.meters);
-
-  /// Length value in meters (m).
-  final double meters;
-}
-
-/// Represents a mass measurement in kilograms.
-class MassDto extends MeasurementUnitDto {
-  MassDto(this.kilograms);
-
-  /// Mass value in kilograms (kg).
-  final double kilograms;
-}
-
-/// Represents a number for platform transfer.
-class NumberDto extends MeasurementUnitDto {
-  NumberDto(this.value);
-
-  /// The number value.
-  final double value;
-}
-
-/// Represents a frequency measurement in events per minute.
-class FrequencyDto extends MeasurementUnitDto {
-  FrequencyDto(this.perMinute);
-
-  /// Frequency value in events per minute.
-  final double perMinute;
-}
-
-/// Represents a percentage as a decimal value (0.0 to 1.0).
-class PercentageDto extends MeasurementUnitDto {
-  PercentageDto(this.decimal);
-
-  /// Percentage value as decimal (0.0 to 1.0).
-  final double decimal;
-}
-
-/// Represents a power measurement in watts.
-class PowerDto extends MeasurementUnitDto {
-  PowerDto(this.watts);
-
-  /// Power value in watts (W).
-  final double watts;
-}
-
-/// Represents a pressure measurement in millimeters of mercury.
-class PressureDto extends MeasurementUnitDto {
-  PressureDto(this.millimetersOfMercury);
-
-  /// Pressure value in millimeters of mercury (mmHg).
-  final double millimetersOfMercury;
-}
-
-/// Represents a temperature measurement in celsius.
-class TemperatureDto extends MeasurementUnitDto {
-  TemperatureDto(this.celsius);
-
-  /// Temperature value in degrees Celsius (°C).
-  final double celsius;
-}
-
-/// Represents a velocity measurement in meters per second.
-class VelocityDto extends MeasurementUnitDto {
-  VelocityDto(this.metersPerSecond);
-
-  /// Velocity value in meters per second (m/s).
-  final double metersPerSecond;
-}
-
-/// Represents a volume measurement in liters.
-class VolumeDto extends MeasurementUnitDto {
-  VolumeDto(this.liters);
-
-  /// Volume value in liters (L).
-  final double liters;
-}
-
-// endregion
-
 // region Metadata
 
 /// Device type for health data recording.
@@ -1031,7 +920,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Resting heart rate in beats per minute.
-  final FrequencyDto beatsPerMinute;
+  final double beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1046,7 +935,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.mLPerKgPerMin,
+    required this.millilitersPerKilogramPerMinute,
     this.testType,
     this.zoneOffsetSeconds,
   });
@@ -1061,7 +950,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The VO2 max value in mL/kg/min.
-  final NumberDto mLPerKgPerMin;
+  final double millilitersPerKilogramPerMinute;
 
   /// The test type used to determine VO2 max.
   ///
@@ -1092,7 +981,7 @@ class BodyMassIndexRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The body mass index value.
-  final NumberDto bodyMassIndex;
+  final double bodyMassIndex;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1104,7 +993,7 @@ class WaistCircumferenceRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.circumference,
+    required this.meters,
     this.zoneOffsetSeconds,
   });
 
@@ -1118,7 +1007,7 @@ class WaistCircumferenceRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The waist circumference measurement.
-  final LengthDto circumference;
+  final double meters;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1156,7 +1045,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.bloodGlucose,
+    required this.millimolesPerLiter,
     this.mealType,
     this.relationToMeal,
     this.specimenSource,
@@ -1173,7 +1062,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The blood glucose measurement.
-  final BloodGlucoseDto bloodGlucose;
+  final double millimolesPerLiter;
 
   /// The type of meal associated with this measurement.
   final MealTypeDto? mealType;
@@ -1284,13 +1173,13 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
     required this.startTime,
     required this.endTime,
     required this.metadata,
-    required this.energy,
+    required this.kilocalories,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
 
   /// Energy burned during the interval.
-  final EnergyDto energy;
+  final double kilocalories;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1318,14 +1207,14 @@ class DistanceActivityRecordDto extends HealthRecordDto {
     required this.startTime,
     required this.endTime,
     required this.metadata,
-    required this.distance,
+    required this.meters,
     required this.activityType,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
 
   /// Distance traveled during the interval.
-  final LengthDto distance;
+  final double meters;
 
   /// The type of distance activity.
   final DistanceActivityTypeDto activityType;
@@ -1358,13 +1247,13 @@ class SpeedActivityRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.speed,
+    required this.metersPerSecond,
     required this.activityType,
     this.zoneOffsetSeconds,
   });
 
   /// Speed measurement.
-  final VelocityDto speed;
+  final double metersPerSecond;
 
   /// The type of speed activity.
   final SpeedActivityTypeDto activityType;
@@ -1395,7 +1284,7 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   });
 
   /// Number of floors (flights of stairs) climbed during the interval.
-  final NumberDto floors;
+  final double floors;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1429,7 +1318,7 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   });
 
   /// Number of wheelchair pushes performed during the interval.
-  final NumberDto pushes;
+  final double pushes;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1463,7 +1352,7 @@ class StepsRecordDto extends HealthRecordDto {
   });
 
   /// Number of steps taken during the interval (must be >= 0).
-  final NumberDto count;
+  final double count;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1490,7 +1379,7 @@ class WeightRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.weight,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -1504,7 +1393,7 @@ class WeightRecordDto extends HealthRecordDto {
   final int time;
 
   /// Weight measurement.
-  final MassDto weight;
+  final double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1517,8 +1406,8 @@ class BloodPressureRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.systolic,
-    required this.diastolic,
+    required this.systolicInMillimetersOfMercury,
+    required this.diastolicInMillimetersOfMercury,
     required this.bodyPosition,
     required this.measurementLocation,
     this.zoneOffsetSeconds,
@@ -1534,10 +1423,10 @@ class BloodPressureRecordDto extends HealthRecordDto {
   final int time;
 
   /// Systolic blood pressure measurement.
-  final PressureDto systolic;
+  final double systolicInMillimetersOfMercury;
 
   /// Diastolic blood pressure measurement.
-  final PressureDto diastolic;
+  final double diastolicInMillimetersOfMercury;
 
   /// Body position during measurement (Android Health Connect Only, always
   /// unknown on iOS HealthKit).
@@ -1558,7 +1447,7 @@ class SystolicBloodPressureRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.pressure,
+    required this.millimetersOfMercury,
     required this.bodyPosition,
     required this.measurementLocation,
     this.zoneOffsetSeconds,
@@ -1574,7 +1463,7 @@ class SystolicBloodPressureRecordDto extends HealthRecordDto {
   final int time;
 
   /// Systolic blood pressure measurement.
-  final PressureDto pressure;
+  final double millimetersOfMercury;
 
   /// Body position during measurement (Android Health Connect Only, always
   /// unknown on iOS HealthKit).
@@ -1595,7 +1484,7 @@ class DiastolicBloodPressureRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.pressure,
+    required this.millimetersOfMercury,
     required this.bodyPosition,
     required this.measurementLocation,
     this.zoneOffsetSeconds,
@@ -1611,7 +1500,7 @@ class DiastolicBloodPressureRecordDto extends HealthRecordDto {
   final int time;
 
   /// Diastolic blood pressure measurement.
-  final PressureDto pressure;
+  final double millimetersOfMercury;
 
   /// Body position during measurement (Android Health Connect Only, always
   /// unknown on iOS HealthKit).
@@ -1631,7 +1520,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.mass,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -1645,7 +1534,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
   final int time;
 
   /// Lean body mass measurement.
-  final MassDto mass;
+  final double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1657,7 +1546,7 @@ class HeightRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.height,
+    required this.meters,
     this.zoneOffsetSeconds,
   });
 
@@ -1671,7 +1560,7 @@ class HeightRecordDto extends HealthRecordDto {
   final int time;
 
   /// Height measurement.
-  final LengthDto height;
+  final double meters;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1697,7 +1586,7 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
   final int time;
 
   /// Body fat percentage measurement.
-  final PercentageDto percentage;
+  final double percentage;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1709,7 +1598,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.temperature,
+    required this.celsius,
     this.zoneOffsetSeconds,
   });
 
@@ -1723,7 +1612,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   final int time;
 
   /// Body temperature measurement.
-  final TemperatureDto temperature;
+  final double celsius;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1735,7 +1624,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.temperature,
+    required this.celsius,
     required this.measurementLocation,
     this.zoneOffsetSeconds,
   });
@@ -1750,7 +1639,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
   final int time;
 
   /// Basal body temperature measurement.
-  final TemperatureDto temperature;
+  final double celsius;
 
   /// The location on the body where the measurement was taken.
   final BasalBodyTemperatureMeasurementLocationDto measurementLocation;
@@ -1806,7 +1695,7 @@ class CyclingPowerRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.power,
+    required this.watts,
     this.zoneOffsetSeconds,
   });
 
@@ -1820,7 +1709,7 @@ class CyclingPowerRecordDto extends HealthRecordDto {
   final int time;
 
   /// Cycling power measurement.
-  final PowerDto power;
+  final double watts;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1846,7 +1735,7 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Oxygen saturation percentage.
-  final PercentageDto percentage;
+  final double percentage;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1949,7 +1838,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.breathsPerMin,
+    required this.breathsPerMinute,
     this.zoneOffsetSeconds,
   });
 
@@ -1963,7 +1852,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Respiratory rate in breaths per minute.
-  final FrequencyDto breathsPerMin;
+  final double breathsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1976,7 +1865,7 @@ class HydrationRecordDto extends HealthRecordDto {
     required this.startTime,
     required this.endTime,
     required this.metadata,
-    required this.volume,
+    required this.liters,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
@@ -1994,7 +1883,7 @@ class HydrationRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Volume of water consumed during the interval.
-  final VolumeDto volume;
+  final double liters;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;
@@ -2017,7 +1906,7 @@ class HeartRateMeasurementDto {
   final int time;
 
   /// Heart rate value in beats per minute (BPM).
-  final FrequencyDto beatsPerMinute;
+  final double beatsPerMinute;
 }
 
 /// Represents a heart rate measurement record for platform
@@ -2041,7 +1930,7 @@ class HeartRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The heart rate value in beats per minute (BPM).
-  final FrequencyDto beatsPerMinute;
+  final double beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -2147,7 +2036,7 @@ class DietaryEnergyConsumedRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.kilocalories,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2166,7 +2055,7 @@ class DietaryEnergyConsumedRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 
   /// Energy value (in kilocalories).
-  final EnergyDto value;
+  final double kilocalories;
 
   /// Name of the food (optional).
   final String? foodName;
@@ -2181,7 +2070,7 @@ class DietaryCaffeineRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2191,7 +2080,7 @@ class DietaryCaffeineRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2202,7 +2091,7 @@ class DietaryProteinRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2212,7 +2101,7 @@ class DietaryProteinRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2223,7 +2112,7 @@ class DietaryTotalCarbohydrateRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2233,7 +2122,7 @@ class DietaryTotalCarbohydrateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2244,7 +2133,7 @@ class DietaryTotalFatRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2254,7 +2143,7 @@ class DietaryTotalFatRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2265,7 +2154,7 @@ class DietarySaturatedFatRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2275,7 +2164,7 @@ class DietarySaturatedFatRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2286,7 +2175,7 @@ class DietaryMonounsaturatedFatRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2296,7 +2185,7 @@ class DietaryMonounsaturatedFatRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2307,7 +2196,7 @@ class DietaryPolyunsaturatedFatRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2317,7 +2206,7 @@ class DietaryPolyunsaturatedFatRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2328,7 +2217,7 @@ class DietaryCholesterolRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2338,7 +2227,7 @@ class DietaryCholesterolRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2349,7 +2238,7 @@ class DietaryFiberRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2359,7 +2248,7 @@ class DietaryFiberRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2370,7 +2259,7 @@ class DietarySugarRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2380,7 +2269,7 @@ class DietarySugarRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2391,7 +2280,7 @@ class DietaryVitaminARecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2401,7 +2290,7 @@ class DietaryVitaminARecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2412,7 +2301,7 @@ class DietaryVitaminB6RecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2422,7 +2311,7 @@ class DietaryVitaminB6RecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2433,7 +2322,7 @@ class DietaryVitaminB12RecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2443,7 +2332,7 @@ class DietaryVitaminB12RecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2454,7 +2343,7 @@ class DietaryVitaminCRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2464,7 +2353,7 @@ class DietaryVitaminCRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2475,7 +2364,7 @@ class DietaryVitaminDRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2485,7 +2374,7 @@ class DietaryVitaminDRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2496,7 +2385,7 @@ class DietaryVitaminERecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2506,7 +2395,7 @@ class DietaryVitaminERecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2517,7 +2406,7 @@ class DietaryVitaminKRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2527,7 +2416,7 @@ class DietaryVitaminKRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2538,7 +2427,7 @@ class DietaryThiaminRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2548,7 +2437,7 @@ class DietaryThiaminRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2559,7 +2448,7 @@ class DietaryRiboflavinRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2569,7 +2458,7 @@ class DietaryRiboflavinRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2580,7 +2469,7 @@ class DietaryNiacinRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2590,7 +2479,7 @@ class DietaryNiacinRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2601,7 +2490,7 @@ class DietaryFolateRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2611,7 +2500,7 @@ class DietaryFolateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2622,7 +2511,7 @@ class DietaryBiotinRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2632,7 +2521,7 @@ class DietaryBiotinRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2643,7 +2532,7 @@ class DietaryPantothenicAcidRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2653,7 +2542,7 @@ class DietaryPantothenicAcidRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2664,7 +2553,7 @@ class DietaryCalciumRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2674,7 +2563,7 @@ class DietaryCalciumRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2685,7 +2574,7 @@ class DietaryIronRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2695,7 +2584,7 @@ class DietaryIronRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2706,7 +2595,7 @@ class DietaryMagnesiumRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2716,7 +2605,7 @@ class DietaryMagnesiumRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2727,7 +2616,7 @@ class DietaryManganeseRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2737,7 +2626,7 @@ class DietaryManganeseRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2748,7 +2637,7 @@ class DietaryPhosphorusRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2758,7 +2647,7 @@ class DietaryPhosphorusRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2769,7 +2658,7 @@ class DietaryPotassiumRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2779,7 +2668,7 @@ class DietaryPotassiumRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2790,7 +2679,7 @@ class DietarySeleniumRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2800,7 +2689,7 @@ class DietarySeleniumRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2811,7 +2700,7 @@ class DietarySodiumRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2821,7 +2710,7 @@ class DietarySodiumRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2832,7 +2721,7 @@ class DietaryZincRecordDto extends HealthRecordDto {
     required this.id,
     required this.metadata,
     required this.time,
-    required this.value,
+    required this.grams,
     this.zoneOffsetSeconds,
     this.foodName,
     this.mealType,
@@ -2842,7 +2731,7 @@ class DietaryZincRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
   final int time;
   final int? zoneOffsetSeconds;
-  final MassDto value;
+  final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
 }
@@ -2867,43 +2756,43 @@ class NutritionRecordDto extends HealthRecordDto {
     this.foodName,
     this.mealType,
     // Energy
-    this.energy,
+    this.energyKilocalories,
     // Macronutrients
-    this.protein,
-    this.totalCarbohydrate,
-    this.totalFat,
-    this.saturatedFat,
-    this.monounsaturatedFat,
-    this.polyunsaturatedFat,
-    this.cholesterol,
-    this.dietaryFiber,
-    this.sugar,
+    this.proteinInGrams,
+    this.totalCarbohydrateInGrams,
+    this.totalFatInGrams,
+    this.saturatedFatInGrams,
+    this.monounsaturatedFatInGrams,
+    this.polyunsaturatedFatInGrams,
+    this.cholesterolInGrams,
+    this.dietaryFiberInGrams,
+    this.sugarInGrams,
     // Vitamins
-    this.vitaminA,
-    this.vitaminB6,
-    this.vitaminB12,
-    this.vitaminC,
-    this.vitaminD,
-    this.vitaminE,
-    this.vitaminK,
-    this.thiamin,
-    this.riboflavin,
-    this.niacin,
-    this.folate,
-    this.biotin,
-    this.pantothenicAcid,
+    this.vitaminAInGrams,
+    this.vitaminB6InGrams,
+    this.vitaminB12InGrams,
+    this.vitaminCInGrams,
+    this.vitaminDInGrams,
+    this.vitaminEInGrams,
+    this.vitaminKInGrams,
+    this.thiaminInGrams,
+    this.riboflavinInGrams,
+    this.niacinInGrams,
+    this.folateInGrams,
+    this.biotinInGrams,
+    this.pantothenicAcidInGrams,
     // Minerals
-    this.calcium,
-    this.iron,
-    this.magnesium,
-    this.manganese,
-    this.phosphorus,
-    this.potassium,
-    this.selenium,
-    this.sodium,
-    this.zinc,
+    this.calciumInGrams,
+    this.ironInGrams,
+    this.magnesiumInGrams,
+    this.manganeseInGrams,
+    this.phosphorusInGrams,
+    this.potassiumInGrams,
+    this.seleniumInGrams,
+    this.sodiumInGrams,
+    this.zincInGrams,
     // Other
-    this.caffeine,
+    this.caffeineInGrams,
   });
 
   /// Platform-assigned unique identifier.
@@ -2932,106 +2821,106 @@ class NutritionRecordDto extends HealthRecordDto {
 
   // Energy
   /// Energy value (in kilocalories).
-  final EnergyDto? energy;
+  final double? energyKilocalories;
 
   // Macronutrients (all Mass)
   /// Protein amount.
-  final MassDto? protein;
+  final double? proteinInGrams;
 
   /// Total carbohydrate amount.
-  final MassDto? totalCarbohydrate;
+  final double? totalCarbohydrateInGrams;
 
   /// Total fat amount.
-  final MassDto? totalFat;
+  final double? totalFatInGrams;
 
   /// Saturated fat amount.
-  final MassDto? saturatedFat;
+  final double? saturatedFatInGrams;
 
   /// Monounsaturated fat amount.
-  final MassDto? monounsaturatedFat;
+  final double? monounsaturatedFatInGrams;
 
   /// Polyunsaturated fat amount.
-  final MassDto? polyunsaturatedFat;
+  final double? polyunsaturatedFatInGrams;
 
   /// Cholesterol amount.
-  final MassDto? cholesterol;
+  final double? cholesterolInGrams;
 
   /// Dietary fiber amount.
-  final MassDto? dietaryFiber;
+  final double? dietaryFiberInGrams;
 
   /// Sugar amount.
-  final MassDto? sugar;
+  final double? sugarInGrams;
 
   // Vitamins (all Mass)
   /// Vitamin A amount.
-  final MassDto? vitaminA;
+  final double? vitaminAInGrams;
 
   /// Vitamin B6 amount.
-  final MassDto? vitaminB6;
+  final double? vitaminB6InGrams;
 
   /// Vitamin B12 amount.
-  final MassDto? vitaminB12;
+  final double? vitaminB12InGrams;
 
   /// Vitamin C amount.
-  final MassDto? vitaminC;
+  final double? vitaminCInGrams;
 
   /// Vitamin D amount.
-  final MassDto? vitaminD;
+  final double? vitaminDInGrams;
 
   /// Vitamin E amount.
-  final MassDto? vitaminE;
+  final double? vitaminEInGrams;
 
   /// Vitamin K amount.
-  final MassDto? vitaminK;
+  final double? vitaminKInGrams;
 
   /// Thiamin amount.
-  final MassDto? thiamin;
+  final double? thiaminInGrams;
 
   /// Riboflavin amount.
-  final MassDto? riboflavin;
+  final double? riboflavinInGrams;
 
   /// Niacin amount.
-  final MassDto? niacin;
+  final double? niacinInGrams;
 
   /// Folate amount.
-  final MassDto? folate;
+  final double? folateInGrams;
 
   /// Biotin amount.
-  final MassDto? biotin;
+  final double? biotinInGrams;
 
   /// Pantothenic acid amount.
-  final MassDto? pantothenicAcid;
+  final double? pantothenicAcidInGrams;
 
   // Minerals (all Mass)
   /// Calcium amount.
-  final MassDto? calcium;
+  final double? calciumInGrams;
 
   /// Iron amount.
-  final MassDto? iron;
+  final double? ironInGrams;
 
   /// Magnesium amount.
-  final MassDto? magnesium;
+  final double? magnesiumInGrams;
 
   /// Manganese amount.
-  final MassDto? manganese;
+  final double? manganeseInGrams;
 
   /// Phosphorus amount.
-  final MassDto? phosphorus;
+  final double? phosphorusInGrams;
 
   /// Potassium amount.
-  final MassDto? potassium;
+  final double? potassiumInGrams;
 
   /// Selenium amount.
-  final MassDto? selenium;
+  final double? seleniumInGrams;
 
   /// Sodium amount.
-  final MassDto? sodium;
+  final double? sodiumInGrams;
 
-  final MassDto? zinc;
+  final double? zincInGrams;
 
   // Other
   /// Caffeine amount.
-  final MassDto? caffeine;
+  final double? caffeineInGrams;
 }
 
 /// Represents a basal energy burned record for platform transfer.
@@ -3041,7 +2930,7 @@ class BasalEnergyBurnedRecordDto extends HealthRecordDto {
     required this.metadata,
     required this.startTime,
     required this.endTime,
-    required this.energy,
+    required this.kilocalories,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
@@ -3065,7 +2954,7 @@ class BasalEnergyBurnedRecordDto extends HealthRecordDto {
   final int? endZoneOffsetSeconds;
 
   /// Energy burned.
-  final EnergyDto energy;
+  final double kilocalories;
 }
 
 // region Sync DTOs
@@ -3452,7 +3341,7 @@ abstract class HealthConnectorHKIOSApi {
   void initialize(HealthConnectorConfigDto config);
 
   @async
-  MeasurementUnitDto aggregate(AggregateRequestDto request);
+  double aggregate(AggregateRequestDto request);
 
   @async
   void deleteRecords(DeleteRecordsRequestDto request);

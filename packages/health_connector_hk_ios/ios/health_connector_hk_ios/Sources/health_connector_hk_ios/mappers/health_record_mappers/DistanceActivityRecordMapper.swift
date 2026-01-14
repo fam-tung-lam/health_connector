@@ -10,7 +10,8 @@ extension DistanceActivityRecordDto {
         let quantityTypeIdentifier = try activityType.toHealthKitIdentifier()
         let type = try HKQuantityType.make(from: quantityTypeIdentifier)
 
-        let quantity = distance.toHealthKit()
+        let unit = HKUnit.meter()
+        let quantity = HKQuantity(unit: unit, doubleValue: meters)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
@@ -165,7 +166,7 @@ extension HKQuantitySample {
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         return try DistanceActivityRecordDto(
-            distance: quantity.toLengthDto(),
+            meters: quantity.doubleValue(for: HKUnit.meter()),
             activityType: distanceActivityType,
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,

@@ -1,7 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show ActiveEnergyBurnedRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
+    show
+        ActiveEnergyBurnedRecord,
+        HealthRecordId,
+        sinceV1_0_0,
+        DateTimeToDto,
+        Energy;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show ActiveEnergyBurnedRecordDto;
@@ -23,7 +27,7 @@ extension ActiveEnergyBurnedRecordToDto on ActiveEnergyBurnedRecord {
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      energy: energy.toDto(),
+      kilocalories: energy.inKilocalories,
     );
   }
 }
@@ -40,7 +44,7 @@ extension ActiveEnergyBurnedRecordDtoToDomain on ActiveEnergyBurnedRecordDto {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      energy: energy.toDomain(),
+      energy: Energy.kilocalories(kilocalories),
     );
   }
 }

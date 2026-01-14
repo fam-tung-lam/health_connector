@@ -42,60 +42,60 @@ extension HKCorrelation {
             endZoneOffsetSeconds: zoneOffset,
             foodName: foodName,
             mealType: mealType,
-            energy: extractEnergy(),
-            protein: extractMass(for: .dietaryProtein),
-            totalCarbohydrate: extractMass(for: .dietaryCarbohydrates),
-            totalFat: extractMass(for: .dietaryFatTotal),
-            saturatedFat: extractMass(for: .dietaryFatSaturated),
-            monounsaturatedFat: extractMass(for: .dietaryFatMonounsaturated),
-            polyunsaturatedFat: extractMass(for: .dietaryFatPolyunsaturated),
-            cholesterol: extractMass(for: .dietaryCholesterol),
-            dietaryFiber: extractMass(for: .dietaryFiber),
-            sugar: extractMass(for: .dietarySugar),
-            vitaminA: extractMass(for: .dietaryVitaminA),
-            vitaminB6: extractMass(for: .dietaryVitaminB6),
-            vitaminB12: extractMass(for: .dietaryVitaminB12),
-            vitaminC: extractMass(for: .dietaryVitaminC),
-            vitaminD: extractMass(for: .dietaryVitaminD),
-            vitaminE: extractMass(for: .dietaryVitaminE),
-            vitaminK: extractMass(for: .dietaryVitaminK),
-            thiamin: extractMass(for: .dietaryThiamin),
-            riboflavin: extractMass(for: .dietaryRiboflavin),
-            niacin: extractMass(for: .dietaryNiacin),
-            folate: extractMass(for: .dietaryFolate),
-            biotin: extractMass(for: .dietaryBiotin),
-            pantothenicAcid: extractMass(for: .dietaryPantothenicAcid),
-            calcium: extractMass(for: .dietaryCalcium),
-            iron: extractMass(for: .dietaryIron),
-            magnesium: extractMass(for: .dietaryMagnesium),
-            manganese: extractMass(for: .dietaryManganese),
-            phosphorus: extractMass(for: .dietaryPhosphorus),
-            potassium: extractMass(for: .dietaryPotassium),
-            selenium: extractMass(for: .dietarySelenium),
-            sodium: extractMass(for: .dietarySodium),
-            zinc: extractMass(for: .dietaryZinc),
-            caffeine: extractMass(for: .dietaryCaffeine)
+            energyKilocalories: extractEnergy(),
+            proteinInGrams: extractMass(for: .dietaryProtein),
+            totalCarbohydrateInGrams: extractMass(for: .dietaryCarbohydrates),
+            totalFatInGrams: extractMass(for: .dietaryFatTotal),
+            saturatedFatInGrams: extractMass(for: .dietaryFatSaturated),
+            monounsaturatedFatInGrams: extractMass(for: .dietaryFatMonounsaturated),
+            polyunsaturatedFatInGrams: extractMass(for: .dietaryFatPolyunsaturated),
+            cholesterolInGrams: extractMass(for: .dietaryCholesterol),
+            dietaryFiberInGrams: extractMass(for: .dietaryFiber),
+            sugarInGrams: extractMass(for: .dietarySugar),
+            vitaminAInGrams: extractMass(for: .dietaryVitaminA),
+            vitaminB6InGrams: extractMass(for: .dietaryVitaminB6),
+            vitaminB12InGrams: extractMass(for: .dietaryVitaminB12),
+            vitaminCInGrams: extractMass(for: .dietaryVitaminC),
+            vitaminDInGrams: extractMass(for: .dietaryVitaminD),
+            vitaminEInGrams: extractMass(for: .dietaryVitaminE),
+            vitaminKInGrams: extractMass(for: .dietaryVitaminK),
+            thiaminInGrams: extractMass(for: .dietaryThiamin),
+            riboflavinInGrams: extractMass(for: .dietaryRiboflavin),
+            niacinInGrams: extractMass(for: .dietaryNiacin),
+            folateInGrams: extractMass(for: .dietaryFolate),
+            biotinInGrams: extractMass(for: .dietaryBiotin),
+            pantothenicAcidInGrams: extractMass(for: .dietaryPantothenicAcid),
+            calciumInGrams: extractMass(for: .dietaryCalcium),
+            ironInGrams: extractMass(for: .dietaryIron),
+            magnesiumInGrams: extractMass(for: .dietaryMagnesium),
+            manganeseInGrams: extractMass(for: .dietaryManganese),
+            phosphorusInGrams: extractMass(for: .dietaryPhosphorus),
+            potassiumInGrams: extractMass(for: .dietaryPotassium),
+            seleniumInGrams: extractMass(for: .dietarySelenium),
+            sodiumInGrams: extractMass(for: .dietarySodium),
+            zincInGrams: extractMass(for: .dietaryZinc),
+            caffeineInGrams: extractMass(for: .dietaryCaffeine)
         )
     }
 
     /// Extracts energy value from contained samples
-    private func extractEnergy() -> EnergyDto? {
+    private func extractEnergy() -> Double? {
         guard let energyType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed),
               let sample = objects(for: energyType).first as? HKQuantitySample
         else {
             return nil
         }
-        return sample.quantity.toEnergyDto()
+        return sample.quantity.doubleValue(for: .kilocalorie())
     }
 
     /// Extracts mass value for a specific nutrient type from contained samples
-    private func extractMass(for identifier: HKQuantityTypeIdentifier) -> MassDto? {
+    private func extractMass(for identifier: HKQuantityTypeIdentifier) -> Double? {
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier),
               let sample = objects(for: quantityType).first as? HKQuantitySample
         else {
             return nil
         }
-        return sample.quantity.toMassDto()
+        return sample.quantity.doubleValue(for: .gram())
     }
 }
 
@@ -113,108 +113,135 @@ extension NutritionRecordDto {
 
         // Build nutrient samples
         var samples: Set<HKSample> = []
-        addEnergySample(to: &samples, for: energy, start: startDate, end: endDate)
+        addEnergySample(to: &samples, for: energyKilocalories, start: startDate, end: endDate)
         addMassSample(
-            to: &samples, for: protein, type: .dietaryProtein, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: totalCarbohydrate, type: .dietaryCarbohydrates, start: startDate,
+            to: &samples, for: proteinInGrams, type: .dietaryProtein, start: startDate,
             end: endDate
         )
         addMassSample(
-            to: &samples, for: totalFat, type: .dietaryFatTotal, start: startDate, end: endDate
+            to: &samples, for: totalCarbohydrateInGrams, type: .dietaryCarbohydrates,
+            start: startDate,
+            end: endDate
         )
         addMassSample(
-            to: &samples, for: saturatedFat, type: .dietaryFatSaturated, start: startDate,
+            to: &samples, for: totalFatInGrams, type: .dietaryFatTotal, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: saturatedFatInGrams, type: .dietaryFatSaturated, start: startDate,
             end: endDate
         )
         addMassSample(
             to: &samples,
-            for: monounsaturatedFat,
+            for: monounsaturatedFatInGrams,
             type: .dietaryFatMonounsaturated,
             start: startDate,
             end: endDate
         )
         addMassSample(
             to: &samples,
-            for: polyunsaturatedFat,
+            for: polyunsaturatedFatInGrams,
             type: .dietaryFatPolyunsaturated,
             start: startDate,
             end: endDate
         )
         addMassSample(
-            to: &samples, for: cholesterol, type: .dietaryCholesterol, start: startDate,
+            to: &samples, for: cholesterolInGrams, type: .dietaryCholesterol, start: startDate,
             end: endDate
         )
         addMassSample(
-            to: &samples, for: dietaryFiber, type: .dietaryFiber, start: startDate, end: endDate
-        )
-        addMassSample(to: &samples, for: sugar, type: .dietarySugar, start: startDate, end: endDate)
-        addMassSample(
-            to: &samples, for: vitaminA, type: .dietaryVitaminA, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: vitaminB6, type: .dietaryVitaminB6, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: vitaminB12, type: .dietaryVitaminB12, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: vitaminC, type: .dietaryVitaminC, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: vitaminD, type: .dietaryVitaminD, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: vitaminE, type: .dietaryVitaminE, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: vitaminK, type: .dietaryVitaminK, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: thiamin, type: .dietaryThiamin, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: riboflavin, type: .dietaryRiboflavin, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: niacin, type: .dietaryNiacin, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: folate, type: .dietaryFolate, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: biotin, type: .dietaryBiotin, start: startDate, end: endDate
-        )
-        addMassSample(
-            to: &samples, for: pantothenicAcid, type: .dietaryPantothenicAcid, start: startDate,
+            to: &samples, for: dietaryFiberInGrams, type: .dietaryFiber, start: startDate,
             end: endDate
         )
         addMassSample(
-            to: &samples, for: calcium, type: .dietaryCalcium, start: startDate, end: endDate
-        )
-        addMassSample(to: &samples, for: iron, type: .dietaryIron, start: startDate, end: endDate)
-        addMassSample(
-            to: &samples, for: magnesium, type: .dietaryMagnesium, start: startDate, end: endDate
+            to: &samples, for: sugarInGrams, type: .dietarySugar, start: startDate, end: endDate
         )
         addMassSample(
-            to: &samples, for: manganese, type: .dietaryManganese, start: startDate, end: endDate
+            to: &samples, for: vitaminAInGrams, type: .dietaryVitaminA, start: startDate,
+            end: endDate
         )
         addMassSample(
-            to: &samples, for: phosphorus, type: .dietaryPhosphorus, start: startDate, end: endDate
+            to: &samples, for: vitaminB6InGrams, type: .dietaryVitaminB6, start: startDate,
+            end: endDate
         )
         addMassSample(
-            to: &samples, for: potassium, type: .dietaryPotassium, start: startDate, end: endDate
+            to: &samples, for: vitaminB12InGrams, type: .dietaryVitaminB12, start: startDate,
+            end: endDate
         )
         addMassSample(
-            to: &samples, for: selenium, type: .dietarySelenium, start: startDate, end: endDate
+            to: &samples, for: vitaminCInGrams, type: .dietaryVitaminC, start: startDate,
+            end: endDate
         )
         addMassSample(
-            to: &samples, for: sodium, type: .dietarySodium, start: startDate, end: endDate
+            to: &samples, for: vitaminDInGrams, type: .dietaryVitaminD, start: startDate,
+            end: endDate
         )
-        addMassSample(to: &samples, for: zinc, type: .dietaryZinc, start: startDate, end: endDate)
         addMassSample(
-            to: &samples, for: caffeine, type: .dietaryCaffeine, start: startDate, end: endDate
+            to: &samples, for: vitaminEInGrams, type: .dietaryVitaminE, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: vitaminKInGrams, type: .dietaryVitaminK, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: thiaminInGrams, type: .dietaryThiamin, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: riboflavinInGrams, type: .dietaryRiboflavin, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: niacinInGrams, type: .dietaryNiacin, start: startDate, end: endDate
+        )
+        addMassSample(
+            to: &samples, for: folateInGrams, type: .dietaryFolate, start: startDate, end: endDate
+        )
+        addMassSample(
+            to: &samples, for: biotinInGrams, type: .dietaryBiotin, start: startDate, end: endDate
+        )
+        addMassSample(
+            to: &samples, for: pantothenicAcidInGrams, type: .dietaryPantothenicAcid,
+            start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: calciumInGrams, type: .dietaryCalcium, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: ironInGrams, type: .dietaryIron, start: startDate, end: endDate
+        )
+        addMassSample(
+            to: &samples, for: magnesiumInGrams, type: .dietaryMagnesium, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: manganeseInGrams, type: .dietaryManganese, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: phosphorusInGrams, type: .dietaryPhosphorus, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: potassiumInGrams, type: .dietaryPotassium, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: seleniumInGrams, type: .dietarySelenium, start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples, for: sodiumInGrams, type: .dietarySodium, start: startDate, end: endDate
+        )
+        addMassSample(
+            to: &samples, for: zincInGrams, type: .dietaryZinc, start: startDate, end: endDate
+        )
+        addMassSample(
+            to: &samples, for: caffeineInGrams, type: .dietaryCaffeine, start: startDate,
+            end: endDate
         )
 
         // Build metadata with timezone offset
@@ -244,56 +271,56 @@ extension NutritionRecordDto {
     }
 
     /// Creates an energy sample for the correlation
-    private func createEnergySample(_ energy: EnergyDto, start: Date, end: Date)
+    private func createEnergySample(_ energyKilocalories: Double, start: Date, end: Date)
         -> HKQuantitySample?
     {
         guard let energyType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
         else {
             return nil
         }
-        let quantity = energy.toHealthKit()
+        let quantity = HKQuantity(unit: .kilocalorie(), doubleValue: energyKilocalories)
         return HKQuantitySample(type: energyType, quantity: quantity, start: start, end: end)
     }
 
     /// Creates a mass sample for a specific nutrient type
     private func createMassSample(
         _ identifier: HKQuantityTypeIdentifier,
-        _ mass: MassDto,
+        _ mass: Double,
         start: Date,
         end: Date
     ) -> HKQuantitySample? {
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier) else {
             return nil
         }
-        let quantity = mass.toHealthKit()
+        let quantity = HKQuantity(unit: .gram(), doubleValue: mass)
         return HKQuantitySample(type: quantityType, quantity: quantity, start: start, end: end)
     }
 
-    /// Adds an energy sample to the set if the DTO is present
+    /// Adds an energy sample to the set if the value is present
     private func addEnergySample(
         to samples: inout Set<HKSample>,
-        for dto: EnergyDto?,
+        for value: Double?,
         start: Date,
         end: Date
     ) {
-        guard let dto,
-              let sample = createEnergySample(dto, start: start, end: end)
+        guard let value,
+              let sample = createEnergySample(value, start: start, end: end)
         else {
             return
         }
         samples.insert(sample)
     }
 
-    /// Adds a mass sample to the set if the DTO is present
+    /// Adds a mass sample to the set if the value is present
     private func addMassSample(
         to samples: inout Set<HKSample>,
-        for dto: MassDto?,
+        for value: Double?,
         type: HKQuantityTypeIdentifier,
         start: Date,
         end: Date
     ) {
-        guard let dto,
-              let sample = createMassSample(type, dto, start: start, end: end)
+        guard let value,
+              let sample = createMassSample(type, value, start: start, end: end)
         else {
             return
         }

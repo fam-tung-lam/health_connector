@@ -488,13 +488,13 @@ actor HealthConnectorClient: Taggable {
     /// Performs an aggregation query on health records.
     ///
     /// - Parameter request: Contains data type, aggregation metric, and time range
-    /// - Returns: MeasurementUnitDto with the aggregated value
+    /// - Returns: Double with the aggregated value
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or metric is invalid
     /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
-    func aggregate(request: AggregateRequestDto) async throws -> MeasurementUnitDto {
+    func aggregate(request: AggregateRequestDto) async throws -> Double {
         try await process(
             operation: "aggregate",
             context: [

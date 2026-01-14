@@ -10,7 +10,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.VelocityDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
 import java.time.ZoneOffset
@@ -55,7 +54,7 @@ class SpeedSeriesRecordMapperTest {
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.samples.size shouldBe 1
-        result.samples[0].speed.metersPerSecond shouldBe TEST_SPEED_MPS
+        result.samples[0].metersPerSecond shouldBe TEST_SPEED_MPS
     }
 
     @Test
@@ -76,9 +75,7 @@ class SpeedSeriesRecordMapperTest {
             samples = listOf(
                 SpeedSampleDto(
                     time = TEST_START_TIME,
-                    speed = VelocityDto(
-                        metersPerSecond = TEST_SPEED_MPS,
-                    ),
+                    metersPerSecond = TEST_SPEED_MPS,
                 ),
             ),
 

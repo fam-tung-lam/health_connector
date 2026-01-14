@@ -5,11 +5,9 @@ import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHe
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -47,8 +45,6 @@ internal class Vo2MaxHandler(
             )
         }
 
-        return recordDto.mLPerKgPerMin.value
+        return recordDto.millilitersPerKilogramPerMinute
     }
-
-    override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toNumberDto()
 }

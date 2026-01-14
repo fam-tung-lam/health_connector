@@ -46,8 +46,6 @@ class DistanceActivityHandler<T: DistanceActivityHandlerConfig>: Sendable,
 {
     typealias RecordDto = DistanceActivityRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = LengthDto
-
     // HKHealthStore is Sendable, so no @unchecked needed
     nonisolated(unsafe) let healthStore: HKHealthStore
 
@@ -69,9 +67,9 @@ class DistanceActivityHandler<T: DistanceActivityHandlerConfig>: Sendable,
         [.sum]
     }
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> LengthDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         let meters = quantity.doubleValue(for: .meter())
-        return LengthDto(meters: meters)
+        return meters
     }
 }
 

@@ -6,7 +6,6 @@ import androidx.health.connect.client.units.Energy
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.TotalEnergyBurnedRecordDto
@@ -52,7 +51,7 @@ class TotalEnergyBurnedRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.energy.kilocalories shouldBe TEST_ENERGY_KCAL
+        result.kilocalories shouldBe TEST_ENERGY_KCAL
         result.metadata shouldNotBe null
     }
 
@@ -70,7 +69,7 @@ class TotalEnergyBurnedRecordMapperTest {
             endTime = TEST_END_TIME,
             startZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
             endZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            energy = EnergyDto(kilocalories = TEST_ENERGY_KCAL),
+            kilocalories = TEST_ENERGY_KCAL,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.AUTOMATICALLY_RECORDED,

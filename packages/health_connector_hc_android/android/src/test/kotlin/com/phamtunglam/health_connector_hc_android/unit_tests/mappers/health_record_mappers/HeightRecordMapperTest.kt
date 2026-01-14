@@ -7,7 +7,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.LengthDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
@@ -39,7 +38,7 @@ class HeightRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.height.meters shouldBe TEST_HEIGHT_METERS
+        result.meters shouldBe TEST_HEIGHT_METERS
     }
 
     @Test
@@ -50,7 +49,7 @@ class HeightRecordMapperTest {
             id = TEST_ID,
             time = TEST_TIME,
             zoneOffsetSeconds = null,
-            height = LengthDto(meters = TEST_HEIGHT_METERS),
+            meters = TEST_HEIGHT_METERS,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

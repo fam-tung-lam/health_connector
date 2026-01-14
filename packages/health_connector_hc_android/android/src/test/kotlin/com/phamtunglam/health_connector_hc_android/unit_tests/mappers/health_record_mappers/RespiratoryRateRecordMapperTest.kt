@@ -5,7 +5,6 @@ import androidx.health.connect.client.records.metadata.Metadata
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.FrequencyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
@@ -40,7 +39,7 @@ class RespiratoryRateRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.breathsPerMin.perMinute shouldBe TEST_RATE
+        result.breathsPerMinute shouldBe TEST_RATE
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }
@@ -53,7 +52,7 @@ class RespiratoryRateRecordMapperTest {
             id = TEST_ID,
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            breathsPerMin = FrequencyDto(perMinute = TEST_RATE),
+            breathsPerMinute = TEST_RATE,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

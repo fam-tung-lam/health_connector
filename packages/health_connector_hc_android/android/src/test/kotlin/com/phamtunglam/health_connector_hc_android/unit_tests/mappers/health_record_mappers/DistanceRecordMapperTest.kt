@@ -7,7 +7,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.LengthDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
@@ -42,7 +41,7 @@ class DistanceRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.distance.meters shouldBe TEST_DISTANCE_METERS
+        result.meters shouldBe TEST_DISTANCE_METERS
     }
 
     @Test
@@ -55,7 +54,7 @@ class DistanceRecordMapperTest {
             endTime = TEST_END_TIME,
             startZoneOffsetSeconds = null,
             endZoneOffsetSeconds = null,
-            distance = LengthDto(meters = TEST_DISTANCE_METERS),
+            meters = TEST_DISTANCE_METERS,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.AUTOMATICALLY_RECORDED,

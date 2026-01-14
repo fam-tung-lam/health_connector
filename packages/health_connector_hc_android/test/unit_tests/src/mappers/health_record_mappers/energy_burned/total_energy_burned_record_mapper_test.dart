@@ -49,7 +49,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.energy.kilocalories, 2100.0);
+              expect(dto.kilocalories, 2100.0);
             },
           );
         },
@@ -76,7 +76,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                energy: EnergyDto(kilocalories: 1800.0),
+                kilocalories: 1800.0,
               );
 
               final record = dto.toDomain();
@@ -103,7 +103,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                energy: EnergyDto(kilocalories: 2000.0),
+                kilocalories: 2000.0,
               );
 
               final record = dto.toDomain();

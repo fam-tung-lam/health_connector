@@ -14,6 +14,15 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthRecord,
         HealthRecordId,
         MeasurementUnit,
+        Energy,
+        Frequency,
+        Length,
+        Mass,
+        Number,
+        Percentage,
+        Pressure,
+        Temperature,
+        Volume,
         Permission,
         PermissionRequestResult,
         PermissionStatus,
@@ -35,7 +44,6 @@ import 'package:health_connector_hk_ios/src/mappers/health_data_sync/health_data
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -601,7 +609,8 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
       final responseDto = await _platformClient.aggregate(requestDto);
 
-      final response = responseDto.toDomain() as U;
+      final response =
+          _mapAggregationResult(responseDto, request.dataType) as U;
 
       HealthConnectorLogger.info(
         tag,
@@ -741,5 +750,68 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
     }
+  }
+
+  MeasurementUnit _mapAggregationResult(
+    double result,
+    HealthDataType dataType,
+  ) {
+    return switch (dataType) {
+      HealthDataType.steps => Number(result),
+      HealthDataType.activeEnergyBurned ||
+      HealthDataType.basalEnergyBurned ||
+      HealthDataType.dietaryEnergyConsumed ||
+      HealthDataType.totalEnergyBurned => Energy.kilocalories(result),
+      HealthDataType.distance ||
+      HealthDataType.walkingRunningDistance ||
+      HealthDataType.cyclingDistance ||
+      HealthDataType.wheelchairDistance ||
+      HealthDataType.height => Length.meters(result),
+      HealthDataType.weight ||
+      HealthDataType.leanBodyMass ||
+      HealthDataType.dietaryCalcium ||
+      HealthDataType.dietaryIron ||
+      HealthDataType.dietaryZinc ||
+      HealthDataType.dietaryPotassium ||
+      HealthDataType.dietarySodium ||
+      HealthDataType.dietaryMagnesium ||
+      HealthDataType.dietaryManganese ||
+      HealthDataType.dietarySelenium ||
+      HealthDataType.dietaryCaffeine ||
+      HealthDataType.dietaryVitaminA ||
+      HealthDataType.dietaryThiamin ||
+      HealthDataType.dietaryRiboflavin ||
+      HealthDataType.dietaryNiacin ||
+      HealthDataType.dietaryPantothenicAcid ||
+      HealthDataType.dietaryVitaminB6 ||
+      HealthDataType.dietaryBiotin ||
+      HealthDataType.dietaryVitaminB12 ||
+      HealthDataType.dietaryFolate ||
+      HealthDataType.dietaryVitaminC ||
+      HealthDataType.dietaryVitaminD ||
+      HealthDataType.dietaryVitaminE ||
+      HealthDataType.dietaryVitaminK ||
+      HealthDataType.dietarySugar ||
+      HealthDataType.dietaryFiber ||
+      HealthDataType.dietaryCholesterol ||
+      HealthDataType.dietaryTotalFat ||
+      HealthDataType.dietarySaturatedFat ||
+      HealthDataType.dietaryMonounsaturatedFat ||
+      HealthDataType.dietaryPolyunsaturatedFat ||
+      HealthDataType.dietaryProtein ||
+      HealthDataType.dietaryTotalCarbohydrate => Mass.grams(result),
+      HealthDataType.hydration => Volume.liters(result),
+      HealthDataType.bodyFatPercentage => Percentage.fromDecimal(result),
+      HealthDataType.heartRate ||
+      HealthDataType.restingHeartRate ||
+      HealthDataType.respiratoryRate => Frequency.perMinute(result),
+      HealthDataType.systolicBloodPressure ||
+      HealthDataType.diastolicBloodPressure => Pressure.millimetersOfMercury(
+        result,
+      ),
+      HealthDataType.bodyTemperature ||
+      HealthDataType.basalBodyTemperature => Temperature.celsius(result),
+      _ => Number(result),
+    };
   }
 }

@@ -51,7 +51,9 @@ abstract class BaseHealthRecordWriteFormState<
   /// Current metadata built from form state.
   Metadata get metadata {
     return switch (_recordingMethod) {
-      RecordingMethod.manualEntry => Metadata.manualEntry(),
+      RecordingMethod.manualEntry => Metadata.manualEntry(
+        device: _device,
+      ),
       RecordingMethod.automaticallyRecorded => Metadata.automaticallyRecorded(
         device: _device!,
       ),

@@ -10,8 +10,6 @@ final class BasalEnergyBurnedHandler: @unchecked Sendable,
 {
     typealias RecordDto = BasalEnergyBurnedRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = EnergyDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,7 +20,7 @@ final class BasalEnergyBurnedHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> EnergyDto {
-        quantity.toEnergyDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
+        quantity.doubleValue(for: HKUnit.kilocalorie())
     }
 }

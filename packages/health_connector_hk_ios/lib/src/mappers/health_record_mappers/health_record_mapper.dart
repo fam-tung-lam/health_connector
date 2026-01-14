@@ -308,7 +308,7 @@ extension HealthRecordToDto on HealthRecord {
       case final HeartRateRecord record:
         return HeartRateRecordToDto(record).toDto();
       case final CyclingPedalingCadenceRecord record:
-        return CyclingPedalingCadenceMeasurementRecordToDto(record).toDto();
+        return CyclingPedalingCadenceRecordToDto(record).toDto();
       case final SexualActivityRecord record:
         return SexualActivityRecordToDto(record).toDto();
       case final SleepStageRecord record:
@@ -512,7 +512,7 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final HeartRateRecordDto dto:
         return HeartRateRecordDtoToDomain(dto).toDomain();
       case final CyclingPedalingCadenceRecordDto dto:
-        return CyclingPedalingCadenceMeasurementRecordDtoToDomain(
+        return CyclingPedalingCadenceRecordDtoToDomain(
           dto,
         ).toDomain();
       case final SexualActivityRecordDto dto:

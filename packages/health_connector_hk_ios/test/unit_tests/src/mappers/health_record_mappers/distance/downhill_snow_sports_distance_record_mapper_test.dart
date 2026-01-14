@@ -55,7 +55,7 @@ void main() {
                 dto.endTime,
                 FakeData.fakeEndTime.millisecondsSinceEpoch,
               );
-              expect(dto.distance.meters, 3000.0);
+              expect(dto.meters, 3000.0);
               expect(
                 dto.activityType,
                 DistanceActivityTypeDto.downhillSnowSports,
@@ -90,7 +90,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.distance.meters, 5000.0);
+              expect(dto.meters, 5000.0);
               expect(
                 dto.activityType,
                 DistanceActivityTypeDto.downhillSnowSports,
@@ -122,7 +122,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                distance: LengthDto(meters: 2500.0),
+                meters: 2500.0,
                 activityType: DistanceActivityTypeDto.downhillSnowSports,
               );
 
@@ -158,7 +158,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 4000.0),
+                meters: 4000.0,
                 activityType: DistanceActivityTypeDto.downhillSnowSports,
               );
 
@@ -187,7 +187,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 1200.0),
+                meters: 1200.0,
                 activityType: DistanceActivityTypeDto.downhillSnowSports,
               );
 

@@ -7,7 +7,7 @@ extension BodyMassIndexRecordDto {
         let type = try HKQuantityType.make(from: .bodyMassIndex)
 
         // Body Mass Index is a count unit
-        let quantity = HKQuantity(unit: .count(), doubleValue: bodyMassIndex.value)
+        let quantity = HKQuantity(unit: .count(), doubleValue: bodyMassIndex)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -57,7 +57,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            bodyMassIndex: NumberDto(value: quantity.doubleValue(for: .count())),
+            bodyMassIndex: quantity.doubleValue(for: .count()),
             zoneOffsetSeconds: zoneOffset
         )
     }

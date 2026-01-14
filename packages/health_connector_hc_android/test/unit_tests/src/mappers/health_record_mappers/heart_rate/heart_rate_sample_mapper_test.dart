@@ -22,7 +22,7 @@ void main() {
               final dto = measurement.toDto();
 
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.beatsPerMinute.perMinute, 75);
+              expect(dto.beatsPerMinute, 75);
             },
           );
         },
@@ -38,7 +38,7 @@ void main() {
 
               final dto = HeartRateSampleDto(
                 time: time.millisecondsSinceEpoch,
-                beatsPerMinute: FrequencyDto(perMinute: 80),
+                beatsPerMinute: 80.0,
               );
 
               final measurement = dto.toDomain();

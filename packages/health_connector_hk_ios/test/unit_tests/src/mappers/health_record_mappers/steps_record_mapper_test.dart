@@ -48,7 +48,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.count.value, 12000);
+              expect(dto.count, 12000);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -73,7 +73,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                count: NumberDto(value: 8500),
+                count: 8500,
               );
 
               final record = dto.toDomain();
@@ -103,7 +103,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                count: NumberDto(value: 10000),
+                count: 10000,
               );
 
               final record = dto.toDomain();

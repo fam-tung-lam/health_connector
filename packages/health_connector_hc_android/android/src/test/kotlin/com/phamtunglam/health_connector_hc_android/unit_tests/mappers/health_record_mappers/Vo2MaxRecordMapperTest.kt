@@ -6,7 +6,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxMeasurementMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
@@ -42,7 +41,7 @@ class Vo2MaxRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.mLPerKgPerMin.value shouldBe TEST_VO2
+        result.millilitersPerKilogramPerMinute shouldBe TEST_VO2
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.measurementMethod shouldBe Vo2MaxMeasurementMethodDto.COOPER_TEST
@@ -56,7 +55,7 @@ class Vo2MaxRecordMapperTest {
             id = TEST_ID,
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            mLPerKgPerMin = NumberDto(value = TEST_VO2),
+            millilitersPerKilogramPerMinute = TEST_VO2,
             measurementMethod = Vo2MaxMeasurementMethodDto.METABOLIC_CART,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",

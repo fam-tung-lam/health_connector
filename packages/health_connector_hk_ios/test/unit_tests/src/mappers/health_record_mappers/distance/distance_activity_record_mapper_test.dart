@@ -38,7 +38,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.cycling);
-              expect(dto.distance.meters, 5000.0);
+              expect(dto.meters, 5000.0);
             },
           );
 
@@ -68,7 +68,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.swimming);
-              expect(dto.distance.meters, 1000.0);
+              expect(dto.meters, 1000.0);
             },
           );
 
@@ -98,7 +98,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.wheelchair);
-              expect(dto.distance.meters, 2000.0);
+              expect(dto.meters, 2000.0);
             },
           );
 
@@ -131,7 +131,7 @@ void main() {
                 dto.activityType,
                 DistanceActivityTypeDto.downhillSnowSports,
               );
-              expect(dto.distance.meters, 3000.0);
+              expect(dto.meters, 3000.0);
             },
           );
 
@@ -161,7 +161,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.rowing);
-              expect(dto.distance.meters, 4000.0);
+              expect(dto.meters, 4000.0);
             },
           );
 
@@ -191,7 +191,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.paddleSports);
-              expect(dto.distance.meters, 3500.0);
+              expect(dto.meters, 3500.0);
             },
           );
 
@@ -224,7 +224,7 @@ void main() {
                 dto.activityType,
                 DistanceActivityTypeDto.crossCountrySkiing,
               );
-              expect(dto.distance.meters, 8000.0);
+              expect(dto.meters, 8000.0);
             },
           );
 
@@ -254,7 +254,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.skatingSports);
-              expect(dto.distance.meters, 6000.0);
+              expect(dto.meters, 6000.0);
             },
           );
 
@@ -287,7 +287,7 @@ void main() {
                 dto.activityType,
                 DistanceActivityTypeDto.sixMinuteWalkTest,
               );
-              expect(dto.distance.meters, 500.0);
+              expect(dto.meters, 500.0);
             },
           );
 
@@ -317,7 +317,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.walkingRunning);
-              expect(dto.distance.meters, 8000.0);
+              expect(dto.meters, 8000.0);
             },
           );
         },
@@ -342,7 +342,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 4500.0),
+                meters: 4500.0,
                 activityType: DistanceActivityTypeDto.cycling,
               );
 
@@ -371,7 +371,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 800.0),
+                meters: 800.0,
                 activityType: DistanceActivityTypeDto.swimming,
               );
 
@@ -400,7 +400,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 1800.0),
+                meters: 1800.0,
                 activityType: DistanceActivityTypeDto.wheelchair,
               );
 
@@ -430,7 +430,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 2500.0),
+                meters: 2500.0,
                 activityType: DistanceActivityTypeDto.downhillSnowSports,
               );
 
@@ -459,7 +459,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 3500.0),
+                meters: 3500.0,
                 activityType: DistanceActivityTypeDto.rowing,
               );
 
@@ -488,7 +488,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 2800.0),
+                meters: 2800.0,
                 activityType: DistanceActivityTypeDto.paddleSports,
               );
 
@@ -518,7 +518,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 7500.0),
+                meters: 7500.0,
                 activityType: DistanceActivityTypeDto.crossCountrySkiing,
               );
 
@@ -547,7 +547,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 5500.0),
+                meters: 5500.0,
                 activityType: DistanceActivityTypeDto.skatingSports,
               );
 
@@ -577,7 +577,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 450.0),
+                meters: 450.0,
                 activityType: DistanceActivityTypeDto.sixMinuteWalkTest,
               );
 
@@ -606,7 +606,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 7000.0),
+                meters: 7000.0,
                 activityType: DistanceActivityTypeDto.walkingRunning,
               );
 

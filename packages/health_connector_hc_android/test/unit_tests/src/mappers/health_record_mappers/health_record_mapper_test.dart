@@ -67,7 +67,7 @@ void main() {
           endTime: DateTime(
             2025,
           ).add(const Duration(hours: 1)).millisecondsSinceEpoch,
-          energy: EnergyDto(kilocalories: 0.1), // 100 cal = 0.1 kcal
+          kilocalories: 0.1, // 100 cal = 0.1 kcal
           metadata: MetadataDto(
             dataOrigin: 'com.example',
             deviceType: DeviceTypeDto.unknown,
@@ -81,7 +81,7 @@ void main() {
         final stepsDto = StepsRecordDto(
           startTime: DateTime(2023, 1, 1, 10).millisecondsSinceEpoch,
           endTime: DateTime(2023, 1, 1, 11).millisecondsSinceEpoch,
-          count: NumberDto(value: 1000.0),
+          count: 1000.0,
           metadata: MetadataDto(
             dataOrigin: 'com.example',
             deviceType: DeviceTypeDto.unknown,

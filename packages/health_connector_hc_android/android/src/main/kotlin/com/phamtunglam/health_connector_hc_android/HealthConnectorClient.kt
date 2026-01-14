@@ -32,7 +32,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureD
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
@@ -889,49 +888,48 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto =
-        withContext(dispatchers.io) {
-            val operation = "aggregate"
-            val context = mapOf(
-                "data_type" to request.dataType,
-                "metric" to request.aggregationMetric,
-            )
+    suspend fun aggregate(request: AggregateRequestDto): Double = withContext(dispatchers.io) {
+        val operation = "aggregate"
+        val context = mapOf(
+            "data_type" to request.dataType,
+            "metric" to request.aggregationMetric,
+        )
 
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = operation,
-                message = "Aggregating Health Connect data",
-                context = context,
-            )
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = operation,
+            message = "Aggregating Health Connect data",
+            context = context,
+        )
 
-            return@withContext process(operation) {
-                val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                    ?: throw HealthConnectorException.UnsupportedOperation(
-                        message = "Data type ${request.dataType} does not support aggregation",
-                    )
-
-                val responseDto = when (handler) {
-                    is HealthConnectAggregatableHealthRecordHandler -> handler.aggregate(request)
-
-                    is CustomAggregatableHealthRecordHandler -> handler.aggregate(request)
-
-                    else -> throw HealthConnectorException.UnsupportedOperation(
-                        message = "Type ${request.dataType} does not support aggregation",
-                    )
-                }
-
-                HealthConnectorLogger.info(
-                    tag = TAG,
-                    operation = operation,
-                    message = "Health Connect data aggregated successfully",
-                    context = context + mapOf(
-                        "result_type" to responseDto::class.simpleName,
-                    ),
+        return@withContext process(operation) {
+            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "Data type ${request.dataType} does not support aggregation",
                 )
 
-                responseDto
+            val responseDto = when (handler) {
+                is HealthConnectAggregatableHealthRecordHandler -> handler.aggregate(request)
+
+                is CustomAggregatableHealthRecordHandler -> handler.aggregate(request)
+
+                else -> throw HealthConnectorException.UnsupportedOperation(
+                    message = "Type ${request.dataType} does not support aggregation",
+                )
             }
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = operation,
+                message = "Health Connect data aggregated successfully",
+                context = context + mapOf(
+                    "result_type" to responseDto::class.simpleName,
+                ),
+            )
+
+            responseDto
         }
+    }
 
     /**
      * Synchronizes health data using incremental change tracking.

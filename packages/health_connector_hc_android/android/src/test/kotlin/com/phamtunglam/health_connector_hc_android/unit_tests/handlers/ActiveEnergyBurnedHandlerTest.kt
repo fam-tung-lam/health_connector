@@ -17,7 +17,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ActiveEnergyBurnedReco
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
@@ -109,9 +108,7 @@ class ActiveEnergyBurnedHandlerTest {
             val dto = ActiveEnergyBurnedRecordDto(
                 startTime = startTime,
                 endTime = endTime,
-                energy = EnergyDto(
-                    kilocalories = energyValue,
-                ),
+                kilocalories = energyValue,
                 metadata = MetadataDto(
                     dataOrigin = "com.test",
                     deviceType = DeviceTypeDto.PHONE,
@@ -181,7 +178,7 @@ class ActiveEnergyBurnedHandlerTest {
             result.first.size shouldBe 5
             result.first.forEachIndexed { index, dto ->
                 dto.shouldBeInstanceOf<ActiveEnergyBurnedRecordDto>()
-                dto.energy.kilocalories shouldBe (index + 1) * 10.0
+                dto.kilocalories shouldBe (index + 1) * 10.0
             }
         }
 
@@ -277,9 +274,7 @@ class ActiveEnergyBurnedHandlerTest {
                 id = recordId,
                 startTime = startTime.toEpochMilli(),
                 endTime = endTime.toEpochMilli(),
-                energy = EnergyDto(
-                    kilocalories = updatedEnergy,
-                ),
+                kilocalories = updatedEnergy,
                 metadata = MetadataDto(
                     dataOrigin = FAKE_PACKAGE_NAME,
                     deviceType = DeviceTypeDto.PHONE,
@@ -431,8 +426,7 @@ class ActiveEnergyBurnedHandlerTest {
 
             val response = systemUnderTest.aggregate(request)
 
-            response.shouldBeInstanceOf<EnergyDto>()
-            response.kilocalories shouldBe expectedEnergy
+            response shouldBe expectedEnergy
         }
 
         @Test

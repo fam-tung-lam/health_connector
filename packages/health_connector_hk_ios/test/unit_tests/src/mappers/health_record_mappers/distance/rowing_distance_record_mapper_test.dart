@@ -54,7 +54,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.distance.meters, 4000.0);
+              expect(dto.meters, 4000.0);
               expect(dto.activityType, DistanceActivityTypeDto.rowing);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
@@ -85,7 +85,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.distance.meters, 6000.0);
+              expect(dto.meters, 6000.0);
               expect(dto.activityType, DistanceActivityTypeDto.rowing);
             },
           );
@@ -113,7 +113,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                distance: LengthDto(meters: 3500.0),
+                meters: 3500.0,
                 activityType: DistanceActivityTypeDto.rowing,
               );
 
@@ -149,7 +149,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 5500.0),
+                meters: 5500.0,
                 activityType: DistanceActivityTypeDto.rowing,
               );
 
@@ -178,7 +178,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 2000.0),
+                meters: 2000.0,
                 activityType: DistanceActivityTypeDto.rowing,
               );
 

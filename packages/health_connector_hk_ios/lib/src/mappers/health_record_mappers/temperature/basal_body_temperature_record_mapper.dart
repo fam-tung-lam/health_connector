@@ -1,8 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BasalBodyTemperatureRecord, HealthRecordId, sinceV2_2_0;
+    show BasalBodyTemperatureRecord, HealthRecordId, Temperature, sinceV2_2_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/basal_body_temperature_measurement_location_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show BasalBodyTemperatureRecordDto;
@@ -17,7 +16,7 @@ extension BasalBodyTemperatureRecordToDto on BasalBodyTemperatureRecord {
       id: id.toDto(),
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      temperature: temperature.toDto(),
+      celsius: temperature.inCelsius,
       measurementLocation: measurementLocation.toDto(),
       metadata: metadata.toDto(),
     );
@@ -34,7 +33,7 @@ extension BasalBodyTemperatureRecordDtoToDomain
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
-      temperature: temperature.toDomain(),
+      temperature: Temperature.celsius(celsius),
       measurementLocation: measurementLocation.toDomain(),
       metadata: metadata.toDomain(),
     );

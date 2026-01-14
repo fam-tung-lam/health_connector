@@ -47,8 +47,8 @@ void main() {
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(dto.mealType, MealTypeDto.lunch);
               expect(dto.foodName, 'Chicken Salad');
-              expect(dto.energy?.kilocalories, 0.5);
-              expect(dto.protein?.kilograms, 0.03);
+              expect(dto.energyKilocalories, 0.5);
+              expect(dto.proteinInGrams, 30);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -77,10 +77,10 @@ void main() {
                 ),
                 mealType: MealTypeDto.dinner,
                 foodName: 'Pasta',
-                energy: EnergyDto(kilocalories: 600),
-                protein: MassDto(kilograms: 25),
-                totalCarbohydrate: MassDto(kilograms: 80),
-                totalFat: MassDto(kilograms: 15),
+                energyKilocalories: 600,
+                proteinInGrams: 25,
+                totalCarbohydrateInGrams: 80,
+                totalFatInGrams: 15,
               );
 
               final record = dto.toDomain();
@@ -91,7 +91,7 @@ void main() {
               expect(record.mealType, MealType.dinner);
               expect(record.foodName, 'Pasta');
               expect(record.energy?.inKilocalories, 600);
-              expect(record.protein?.inKilograms, 25);
+              expect(record.protein?.inGrams, 25);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

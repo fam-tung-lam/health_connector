@@ -33,7 +33,7 @@ void main() {
               final dto = record.toDto();
 
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.beatsPerMinute.perMinute, 72.0);
+              expect(dto.beatsPerMinute, 72.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -58,7 +58,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                beatsPerMinute: FrequencyDto(perMinute: 68.0),
+                beatsPerMinute: 68.0,
               );
 
               final record = dto.toDomain();
@@ -87,7 +87,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                beatsPerMinute: FrequencyDto(perMinute: 75.0),
+                beatsPerMinute: 75.0,
               );
 
               final record = dto.toDomain();

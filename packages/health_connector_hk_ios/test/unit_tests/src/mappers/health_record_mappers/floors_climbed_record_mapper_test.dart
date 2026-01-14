@@ -48,7 +48,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.floors.value, 15.0);
+              expect(dto.floors, 15.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -73,7 +73,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                floors: NumberDto(value: 12.0),
+                floors: 12.0,
               );
 
               final record = dto.toDomain();
@@ -104,7 +104,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                floors: NumberDto(value: 8.0),
+                floors: 8.0,
               );
 
               final record = dto.toDomain();

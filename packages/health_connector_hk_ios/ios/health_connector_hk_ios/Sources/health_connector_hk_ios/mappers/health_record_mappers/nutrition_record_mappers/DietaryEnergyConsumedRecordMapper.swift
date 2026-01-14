@@ -40,7 +40,7 @@ extension HKQuantitySample {
             metadata: metadataDto,
             time: time,
             zoneOffsetSeconds: zoneOffset,
-            value: quantity.toEnergyDto(),
+            kilocalories: quantity.doubleValue(for: HKUnit.kilocalorie()),
             foodName: foodName,
             mealType: mealType
         )
@@ -51,7 +51,8 @@ extension DietaryEnergyConsumedRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKitQuantitySample() throws -> HKQuantitySample {
         let quantityType = try HKQuantityType.make(from: .dietaryEnergyConsumed)
-        let quantity = value.toHealthKit()
+        let unit = HKUnit.kilocalorie()
+        let quantity = HKQuantity(unit: unit, doubleValue: kilocalories)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset

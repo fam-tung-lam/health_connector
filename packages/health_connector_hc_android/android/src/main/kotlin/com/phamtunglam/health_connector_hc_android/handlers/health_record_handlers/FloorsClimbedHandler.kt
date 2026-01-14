@@ -7,10 +7,8 @@ import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggrega
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -34,11 +32,11 @@ internal class FloorsClimbedHandler(
         AggregationMetricDto.SUM to FloorsClimbedRecord.FLOORS_CLIMBED_TOTAL,
     )
 
-    override fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto {
-        val floors = aggregatedValue as? Long
+    override fun convertAggregatedValue(aggregatedValue: Any): Double {
+        val floors = aggregatedValue as? Double
             ?: throw IllegalArgumentException(
                 "Aggregated value is not Number type: ${aggregatedValue::class.simpleName}",
             )
-        return floors.toNumberDto()
+        return floors
     }
 }

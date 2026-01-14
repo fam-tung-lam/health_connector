@@ -10,8 +10,6 @@ final class BodyFatPercentageHandler: @unchecked Sendable,
 {
     typealias RecordDto = BodyFatPercentageRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = PercentageDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,7 +20,7 @@ final class BodyFatPercentageHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> PercentageDto {
-        quantity.toPercentageDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
+        quantity.doubleValue(for: HKUnit.percent())
     }
 }

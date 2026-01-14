@@ -9,8 +9,6 @@ final class DietaryVitaminB12Handler: @unchecked Sendable,
 {
     typealias RecordDto = DietaryVitaminB12RecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = MassDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -21,7 +19,7 @@ final class DietaryVitaminB12Handler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> MassDto {
-        quantity.toMassDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
+        quantity.doubleValue(for: HKUnit.gram())
     }
 }

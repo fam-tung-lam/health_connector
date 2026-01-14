@@ -1,7 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show WheelchairPushesRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
+    show
+        WheelchairPushesRecord,
+        HealthRecordId,
+        sinceV1_0_0,
+        DateTimeToDto,
+        Number;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show WheelchairPushesRecordDto;
@@ -23,7 +27,7 @@ extension WheelchairPushesRecordToDto on WheelchairPushesRecord {
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      pushes: count.toDto(),
+      pushes: count.value.toDouble(),
     );
   }
 }
@@ -40,7 +44,7 @@ extension WheelchairPushesRecordDtoToDomain on WheelchairPushesRecordDto {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      count: pushes.toDomain(),
+      count: Number(pushes),
     );
   }
 }

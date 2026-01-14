@@ -2,8 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.PowerRecord.Sample
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import androidx.health.connect.client.units.Power
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerSampleDto
@@ -24,7 +23,7 @@ internal fun PowerRecord.toDto(): PowerSeriesRecordDto = PowerSeriesRecordDto(
     samples = samples.map { sample ->
         PowerSampleDto(
             time = sample.time.toEpochMilli(),
-            power = sample.power.toDto(),
+            watts = sample.power.inWatts,
         )
     },
 )
@@ -36,7 +35,7 @@ internal fun PowerSeriesRecordDto.toHealthConnect(): PowerRecord = PowerRecord(
     samples = samples.map { sample ->
         Sample(
             time = Instant.ofEpochMilli(sample.time),
-            power = sample.power.toHealthConnect(),
+            power = Power.watts(sample.watts),
         )
     },
     startTime = Instant.ofEpochMilli(startTime),

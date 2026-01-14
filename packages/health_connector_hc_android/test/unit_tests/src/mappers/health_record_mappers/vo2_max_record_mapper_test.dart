@@ -33,7 +33,7 @@ void main() {
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, isEmpty);
-              expect(dto.mLPerKgPerMin.value, 45.5);
+              expect(dto.millilitersPerKilogramPerMinute, 45.5);
               expect(
                 dto.measurementMethod,
                 Vo2MaxMeasurementMethodDto.rockportFitnessTest,
@@ -58,7 +58,7 @@ void main() {
                   recordingMethod: RecordingMethodDto.manualEntry,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                mLPerKgPerMin: NumberDto(value: 50.0),
+                millilitersPerKilogramPerMinute: 50.0,
                 measurementMethod: Vo2MaxMeasurementMethodDto.cooperTest,
               );
 
@@ -90,7 +90,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                mLPerKgPerMin: NumberDto(value: 42.0),
+                millilitersPerKilogramPerMinute: 42.0,
                 measurementMethod: Vo2MaxMeasurementMethodDto.other,
               );
 
@@ -140,7 +140,7 @@ void main() {
                   recordingMethod: RecordingMethodDto.manualEntry,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                mLPerKgPerMin: NumberDto(value: 45.0),
+                millilitersPerKilogramPerMinute: 45.0,
                 measurementMethod: dtoVal,
               );
 

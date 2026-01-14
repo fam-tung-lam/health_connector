@@ -1,7 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, RunningSpeedRecord, sinceV2_0_0;
+    show HealthRecordId, RunningSpeedRecord, Velocity, sinceV2_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show SpeedActivityRecordDto, SpeedActivityTypeDto;
@@ -14,7 +13,7 @@ extension RunningSpeedRecordToDto on RunningSpeedRecord {
   /// Converts this running speed record to a DTO for platform transfer.
   SpeedActivityRecordDto toDto() {
     return SpeedActivityRecordDto(
-      speed: speed.toDto(),
+      metersPerSecond: speed.inMetersPerSecond,
       activityType: SpeedActivityTypeDto.running,
       time: time.millisecondsSinceEpoch,
       id: id.toDto(),
@@ -32,7 +31,7 @@ extension RunningSpeedRecordDtoToDomain on SpeedActivityRecordDto {
   RunningSpeedRecord toDomain() {
     return RunningSpeedRecord.internal(
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
-      speed: speed.toDomain(),
+      speed: Velocity.metersPerSecond(metersPerSecond),
       metadata: metadata.toDomain(),
       id: id?.toDomain() ?? HealthRecordId.none,
       zoneOffsetSeconds: zoneOffsetSeconds,

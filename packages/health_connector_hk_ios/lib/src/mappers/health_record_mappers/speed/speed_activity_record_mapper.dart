@@ -40,8 +40,6 @@ extension SpeedActivityRecordToDto on SpeedActivityRecord {
 /// Converts [SpeedActivityRecordDto] to [SpeedActivityRecord].
 @sinceV2_0_0
 @internal
-@sinceV2_0_0
-@internal
 extension SpeedActivityRecordDtoToDomain on SpeedActivityRecordDto {
   /// Converts this DTO to a speed activity record.
   SpeedActivityRecord toDomain() {

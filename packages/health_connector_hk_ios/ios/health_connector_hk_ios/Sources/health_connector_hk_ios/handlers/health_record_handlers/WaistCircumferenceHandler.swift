@@ -10,8 +10,6 @@ final class WaistCircumferenceHandler: @unchecked Sendable,
 {
     typealias RecordDto = WaistCircumferenceRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = LengthDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -23,8 +21,8 @@ final class WaistCircumferenceHandler: @unchecked Sendable,
     // Supports min, max, avg, sum
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg, .sum]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> LengthDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         let meters = quantity.doubleValue(for: .meter())
-        return LengthDto(meters: meters)
+        return meters
     }
 }

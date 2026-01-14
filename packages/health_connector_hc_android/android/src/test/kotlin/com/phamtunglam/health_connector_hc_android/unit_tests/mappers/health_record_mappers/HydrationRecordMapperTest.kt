@@ -9,7 +9,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
-import com.phamtunglam.health_connector_hc_android.pigeon.VolumeDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
 import java.time.ZoneOffset
@@ -44,7 +43,7 @@ class HydrationRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.volume.liters shouldBe TEST_VOLUME_LITERS
+        result.liters shouldBe TEST_VOLUME_LITERS
         result.startTime shouldBe TEST_START_TIME
         result.endTime shouldBe TEST_END_TIME
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
@@ -61,7 +60,7 @@ class HydrationRecordMapperTest {
             endTime = TEST_END_TIME,
             startZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
             endZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            volume = VolumeDto(liters = TEST_VOLUME_LITERS),
+            liters = TEST_VOLUME_LITERS,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

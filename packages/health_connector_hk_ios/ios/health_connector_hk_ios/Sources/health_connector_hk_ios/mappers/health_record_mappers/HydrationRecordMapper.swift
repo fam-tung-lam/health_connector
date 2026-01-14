@@ -6,7 +6,8 @@ extension HydrationRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .dietaryWater)
 
-        let quantity = volume.toHealthKit()
+        let unit = HKUnit.liter()
+        let quantity = HKQuantity(unit: unit, doubleValue: liters)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
@@ -59,7 +60,7 @@ extension HKQuantitySample {
             startTime: startDate.millisecondsSince1970,
             endTime: endDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            volume: quantity.toVolumeDto(),
+            liters: quantity.doubleValue(for: HKUnit.liter()),
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset
         )

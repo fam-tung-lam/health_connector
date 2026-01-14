@@ -8,7 +8,7 @@ extension StepsRecordDto {
     func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .stepCount)
 
-        let quantity = HKQuantity(unit: .count(), doubleValue: count.toDouble())
+        let quantity = HKQuantity(unit: .count(), doubleValue: count)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
@@ -45,7 +45,7 @@ extension HKQuantitySample {
             )
         }
 
-        let count = Int64(quantity.doubleValue(for: .count()))
+        let count = quantity.doubleValue(for: .count())
 
         // Create builder from HK metadata with source and device
         var builder = MetadataBuilder(
@@ -59,7 +59,7 @@ extension HKQuantitySample {
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         return try StepsRecordDto(
-            count: count.toNumberDto(),
+            count: count,
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),

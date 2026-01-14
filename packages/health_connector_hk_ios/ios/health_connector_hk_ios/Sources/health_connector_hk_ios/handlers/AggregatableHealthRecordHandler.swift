@@ -9,9 +9,6 @@ import HealthKit
 /// - Handler must provide a sample type (via `ReadableHealthRecordHandler`)
 /// - Handler must support HealthKit statistics queries
 protocol AggregatableHealthRecordHandler: HealthRecordHandler {
-    /// The type of measurement unit DTO returned by aggregation
-    associatedtype AggregatedResultMeasurementUnitDto: MeasurementUnitDto
-
     /// The aggregation metrics supported by this handler.
     ///
     /// For discrete (instantaneous) types: typically `.min`, `.max`, `.avg`
@@ -30,7 +27,7 @@ protocol AggregatableHealthRecordHandler: HealthRecordHandler {
         metric: AggregationMetricDto,
         startTime: Date,
         endTime: Date
-    ) async throws -> AggregatedResultMeasurementUnitDto
+    ) async throws -> Double
 }
 
 // MARK: - Aggregatable Health Record Handler Helpers
@@ -76,7 +73,7 @@ protocol AggregatableQuantityHealthRecordHandler: AggregatableHealthRecordHandle
     /// - Parameter quantity: The HealthKit quantity to convert
     /// - Returns: The converted measurement DTO
     /// - Throws: If conversion fails
-    func convertQuantity(_ quantity: HKQuantity) throws -> AggregatedResultMeasurementUnitDto
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double
 }
 
 // MARK: - Default Aggregate Implementation
@@ -86,7 +83,7 @@ extension AggregatableQuantityHealthRecordHandler {
         metric: AggregationMetricDto,
         startTime: Date,
         endTime: Date
-    ) async throws -> AggregatedResultMeasurementUnitDto {
+    ) async throws -> Double {
         let tag = String(describing: type(of: self))
         let operation = "aggregate"
         let querySpanDays =

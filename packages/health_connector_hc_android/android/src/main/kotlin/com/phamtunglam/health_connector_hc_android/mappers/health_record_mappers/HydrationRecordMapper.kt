@@ -1,8 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.HydrationRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import androidx.health.connect.client.units.Volume
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
@@ -19,14 +18,14 @@ internal fun HydrationRecord.toDto(): HydrationRecordDto = HydrationRecordDto(
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    volume = volume.toDto(),
+    liters = volume.inLiters,
 )
 
 /**
  * Converts a [HydrationRecordDto] to a Health Connect [HydrationRecord] object.
  */
 internal fun HydrationRecordDto.toHealthConnect(): HydrationRecord = HydrationRecord(
-    volume = volume.toHealthConnect(),
+    volume = Volume.liters(liters),
     startTime = Instant.ofEpochMilli(startTime),
     endTime = Instant.ofEpochMilli(endTime),
     startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },

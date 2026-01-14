@@ -60,6 +60,7 @@ void main() {
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.samples, hasLength(1));
+              expect(dto.samples[0].watts, 200.0);
             },
           );
         },
@@ -89,7 +90,7 @@ void main() {
                 samples: [
                   PowerSampleDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
-                    power: PowerDto(watts: 200),
+                    watts: 200.0,
                   ),
                 ],
               );

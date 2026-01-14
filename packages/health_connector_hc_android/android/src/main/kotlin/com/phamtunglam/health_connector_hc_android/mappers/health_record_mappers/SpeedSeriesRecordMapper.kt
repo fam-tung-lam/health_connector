@@ -2,8 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.SpeedRecord.Sample
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import androidx.health.connect.client.units.Velocity
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSampleDto
@@ -24,7 +23,7 @@ internal fun SpeedRecord.toDto(): SpeedSeriesRecordDto = SpeedSeriesRecordDto(
     samples = samples.map { sample ->
         SpeedSampleDto(
             time = sample.time.toEpochMilli(),
-            speed = sample.speed.toDto(),
+            metersPerSecond = sample.speed.inMetersPerSecond,
         )
     },
 )
@@ -36,7 +35,7 @@ internal fun SpeedSeriesRecordDto.toHealthConnect(): SpeedRecord = SpeedRecord(
     samples = samples.map { sample ->
         Sample(
             time = Instant.ofEpochMilli(sample.time),
-            speed = sample.speed.toHealthConnect(),
+            speed = Velocity.metersPerSecond(sample.metersPerSecond),
         )
     },
     startTime = Instant.ofEpochMilli(startTime),

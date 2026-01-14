@@ -1,8 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.LeanBodyMassRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import androidx.health.connect.client.units.Mass
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
@@ -17,14 +16,14 @@ internal fun LeanBodyMassRecord.toDto(): LeanBodyMassRecordDto = LeanBodyMassRec
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    mass = mass.toDto(),
+    kilograms = mass.inKilograms,
 )
 
 /**
  * Converts a [LeanBodyMassRecordDto] to a Health Connect [LeanBodyMassRecord] object.
  */
 internal fun LeanBodyMassRecordDto.toHealthConnect(): LeanBodyMassRecord = LeanBodyMassRecord(
-    mass = mass.toHealthConnect(),
+    mass = Mass.kilograms(kilograms),
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     metadata = metadata.toHealthConnect(id),

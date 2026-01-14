@@ -10,8 +10,6 @@ final class CyclingPowerHandler: @unchecked Sendable,
 {
     typealias RecordDto = CyclingPowerRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = PowerDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,7 +20,7 @@ final class CyclingPowerHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> PowerDto {
-        try quantity.toPowerDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
+        try quantity.doubleValue(for: HKUnit(from: "W"))
     }
 }

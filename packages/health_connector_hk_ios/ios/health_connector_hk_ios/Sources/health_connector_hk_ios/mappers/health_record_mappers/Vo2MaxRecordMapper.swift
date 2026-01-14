@@ -9,7 +9,7 @@ extension Vo2MaxRecordDto {
         let type = try HKQuantityType.make(from: .vo2Max)
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
-        let quantity = HKQuantity(unit: unit, doubleValue: mLPerKgPerMin.value)
+        let quantity = HKQuantity(unit: unit, doubleValue: millilitersPerKilogramPerMinute)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -72,7 +72,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            mLPerKgPerMin: NumberDto(value: value),
+            millilitersPerKilogramPerMinute: value,
             testType: testTypeDto,
             zoneOffsetSeconds: zoneOffset
         )

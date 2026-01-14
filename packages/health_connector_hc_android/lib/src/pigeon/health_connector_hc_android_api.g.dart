@@ -786,568 +786,6 @@ class HealthConnectorConfigDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Sealed class for all measurement unit DTOs.
-sealed class MeasurementUnitDto {}
-
-/// Represents a blood glucose measurement in millimoles per liter.
-class BloodGlucoseDto extends MeasurementUnitDto {
-  BloodGlucoseDto({
-    required this.millimolesPerLiter,
-  });
-
-  /// Blood glucose value in millimoles per liter (mmol/L).
-  double millimolesPerLiter;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      millimolesPerLiter,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static BloodGlucoseDto decode(Object result) {
-    result as List<Object?>;
-    return BloodGlucoseDto(
-      millimolesPerLiter: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! BloodGlucoseDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents an energy measurement in kilocalories.
-class EnergyDto extends MeasurementUnitDto {
-  EnergyDto({
-    required this.kilocalories,
-  });
-
-  /// Energy value in kilocalories (kcal).
-  double kilocalories;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      kilocalories,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static EnergyDto decode(Object result) {
-    result as List<Object?>;
-    return EnergyDto(
-      kilocalories: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! EnergyDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a time duration in seconds.
-class TimeDurationDto extends MeasurementUnitDto {
-  TimeDurationDto({
-    required this.seconds,
-  });
-
-  /// Duration value in seconds (s).
-  double seconds;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      seconds,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static TimeDurationDto decode(Object result) {
-    result as List<Object?>;
-    return TimeDurationDto(
-      seconds: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! TimeDurationDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a length measurement in meters.
-class LengthDto extends MeasurementUnitDto {
-  LengthDto({
-    required this.meters,
-  });
-
-  /// Length value in meters (m).
-  double meters;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      meters,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static LengthDto decode(Object result) {
-    result as List<Object?>;
-    return LengthDto(
-      meters: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! LengthDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a mass measurement in kilograms.
-class MassDto extends MeasurementUnitDto {
-  MassDto({
-    required this.kilograms,
-  });
-
-  /// Mass value in kilograms (kg).
-  double kilograms;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      kilograms,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static MassDto decode(Object result) {
-    result as List<Object?>;
-    return MassDto(
-      kilograms: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! MassDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a number for platform transfer.
-class NumberDto extends MeasurementUnitDto {
-  NumberDto({
-    required this.value,
-  });
-
-  /// The count value.
-  double value;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      value,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static NumberDto decode(Object result) {
-    result as List<Object?>;
-    return NumberDto(
-      value: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! NumberDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a frequency measurement in events per minute.
-class FrequencyDto extends MeasurementUnitDto {
-  FrequencyDto({
-    required this.perMinute,
-  });
-
-  /// Frequency value in events per minute.
-  double perMinute;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      perMinute,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static FrequencyDto decode(Object result) {
-    result as List<Object?>;
-    return FrequencyDto(
-      perMinute: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! FrequencyDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a percentage as a decimal value (0.0 to 1.0).
-class PercentageDto extends MeasurementUnitDto {
-  PercentageDto({
-    required this.decimal,
-  });
-
-  /// Percentage value as decimal (0.0 to 1.0).
-  double decimal;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      decimal,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static PercentageDto decode(Object result) {
-    result as List<Object?>;
-    return PercentageDto(
-      decimal: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! PercentageDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a power measurement in watts.
-class PowerDto extends MeasurementUnitDto {
-  PowerDto({
-    required this.watts,
-  });
-
-  /// Power value in watts (W).
-  double watts;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      watts,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static PowerDto decode(Object result) {
-    result as List<Object?>;
-    return PowerDto(
-      watts: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! PowerDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a pressure measurement in millimeters of mercury.
-class PressureDto extends MeasurementUnitDto {
-  PressureDto({
-    required this.millimetersOfMercury,
-  });
-
-  /// Pressure value in millimeters of mercury (mmHg).
-  double millimetersOfMercury;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      millimetersOfMercury,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static PressureDto decode(Object result) {
-    result as List<Object?>;
-    return PressureDto(
-      millimetersOfMercury: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! PressureDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a temperature measurement in celsius.
-class TemperatureDto extends MeasurementUnitDto {
-  TemperatureDto({
-    required this.celsius,
-  });
-
-  /// Temperature value in degrees Celsius (°C).
-  double celsius;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      celsius,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static TemperatureDto decode(Object result) {
-    result as List<Object?>;
-    return TemperatureDto(
-      celsius: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! TemperatureDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a velocity measurement in meters per second.
-class VelocityDto extends MeasurementUnitDto {
-  VelocityDto({
-    required this.metersPerSecond,
-  });
-
-  /// Velocity value in meters per second (m/s).
-  double metersPerSecond;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      metersPerSecond,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static VelocityDto decode(Object result) {
-    result as List<Object?>;
-    return VelocityDto(
-      metersPerSecond: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! VelocityDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Represents a volume measurement in liters.
-class VolumeDto extends MeasurementUnitDto {
-  VolumeDto({
-    required this.liters,
-  });
-
-  /// Volume value in liters (L).
-  double liters;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      liters,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static VolumeDto decode(Object result) {
-    result as List<Object?>;
-    return VolumeDto(
-      liters: result[0]! as double,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! VolumeDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Represents metadata for a health record.
 class MetadataDto {
   MetadataDto({
@@ -1449,7 +887,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
     this.id,
     required this.time,
     required this.metadata,
-    required this.bloodGlucose,
+    required this.millimolesPerLiter,
     this.relationToMeal,
     this.specimenSource,
     this.mealType,
@@ -1466,7 +904,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// The blood glucose level.
-  BloodGlucoseDto bloodGlucose;
+  double millimolesPerLiter;
 
   /// The relationship to a meal (optional).
   BloodGlucoseRelationToMealDto? relationToMeal;
@@ -1485,7 +923,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
       id,
       time,
       metadata,
-      bloodGlucose,
+      millimolesPerLiter,
       relationToMeal,
       specimenSource,
       mealType,
@@ -1503,7 +941,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       time: result[1]! as int,
       metadata: result[2]! as MetadataDto,
-      bloodGlucose: result[3]! as BloodGlucoseDto,
+      millimolesPerLiter: result[3]! as double,
       relationToMeal: result[4] as BloodGlucoseRelationToMealDto?,
       specimenSource: result[5] as BloodGlucoseSpecimenSourceDto?,
       mealType: result[6] as MealTypeDto?,
@@ -1548,7 +986,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// Resting heart rate in beats per minute.
-  FrequencyDto beatsPerMinute;
+  double beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -1573,7 +1011,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       time: result[1]! as int,
       metadata: result[2]! as MetadataDto,
-      beatsPerMinute: result[3]! as FrequencyDto,
+      beatsPerMinute: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -1616,7 +1054,7 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// The oxygen saturation percentage.
-  PercentageDto percentage;
+  double percentage;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -1641,7 +1079,7 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       time: result[1]! as int,
       metadata: result[2]! as MetadataDto,
-      percentage: result[3]! as PercentageDto,
+      percentage: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -1870,7 +1308,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
     this.id,
     required this.time,
     required this.metadata,
-    required this.breathsPerMin,
+    required this.breathsPerMinute,
     this.zoneOffsetSeconds,
   });
 
@@ -1884,7 +1322,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// Respiratory rate in breaths per minute.
-  FrequencyDto breathsPerMin;
+  double breathsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -1894,7 +1332,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
       id,
       time,
       metadata,
-      breathsPerMin,
+      breathsPerMinute,
       zoneOffsetSeconds,
     ];
   }
@@ -1909,7 +1347,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       time: result[1]! as int,
       metadata: result[2]! as MetadataDto,
-      breathsPerMin: result[3]! as FrequencyDto,
+      breathsPerMinute: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -1941,7 +1379,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
     this.id,
     required this.time,
     required this.metadata,
-    required this.mLPerKgPerMin,
+    required this.millilitersPerKilogramPerMinute,
     this.measurementMethod,
     this.zoneOffsetSeconds,
   });
@@ -1956,7 +1394,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// The VO2 max value in mL/kg/min.
-  NumberDto mLPerKgPerMin;
+  double millilitersPerKilogramPerMinute;
 
   /// The method used to measure or estimate VO2 max.
   ///
@@ -1971,7 +1409,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
       id,
       time,
       metadata,
-      mLPerKgPerMin,
+      millilitersPerKilogramPerMinute,
       measurementMethod,
       zoneOffsetSeconds,
     ];
@@ -1987,7 +1425,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       time: result[1]! as int,
       metadata: result[2]! as MetadataDto,
-      mLPerKgPerMin: result[3]! as NumberDto,
+      millilitersPerKilogramPerMinute: result[3]! as double,
       measurementMethod: result[4] as Vo2MaxMeasurementMethodDto?,
       zoneOffsetSeconds: result[5] as int?,
     );
@@ -2012,7 +1450,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
 
 class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
   ActiveEnergyBurnedRecordDto({
-    required this.energy,
+    required this.kilocalories,
     required this.endTime,
     this.id,
     required this.metadata,
@@ -2022,7 +1460,7 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
   });
 
   /// Energy burned during the interval.
-  EnergyDto energy;
+  double kilocalories;
 
   /// End time in milliseconds since epoch (UTC).
   int endTime;
@@ -2044,7 +1482,7 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
 
   List<Object?> _toList() {
     return <Object?>[
-      energy,
+      kilocalories,
       endTime,
       id,
       metadata,
@@ -2061,7 +1499,7 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
   static ActiveEnergyBurnedRecordDto decode(Object result) {
     result as List<Object?>;
     return ActiveEnergyBurnedRecordDto(
-      energy: result[0]! as EnergyDto,
+      kilocalories: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
@@ -2092,7 +1530,7 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
 /// Represents a distance record for platform transfer.
 class DistanceRecordDto extends HealthRecordDto {
   DistanceRecordDto({
-    required this.distance,
+    required this.meters,
     required this.endTime,
     this.id,
     required this.metadata,
@@ -2102,7 +1540,7 @@ class DistanceRecordDto extends HealthRecordDto {
   });
 
   /// Distance traveled during the interval.
-  LengthDto distance;
+  double meters;
 
   /// End time in milliseconds since epoch (UTC).
   int endTime;
@@ -2124,7 +1562,7 @@ class DistanceRecordDto extends HealthRecordDto {
 
   List<Object?> _toList() {
     return <Object?>[
-      distance,
+      meters,
       endTime,
       id,
       metadata,
@@ -2141,7 +1579,7 @@ class DistanceRecordDto extends HealthRecordDto {
   static DistanceRecordDto decode(Object result) {
     result as List<Object?>;
     return DistanceRecordDto(
-      distance: result[0]! as LengthDto,
+      meters: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
@@ -2181,7 +1619,7 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   });
 
   /// Number of floors (flights of stairs) climbed during the interval.
-  NumberDto floors;
+  double floors;
 
   /// End time in milliseconds since epoch (UTC).
   int endTime;
@@ -2220,7 +1658,7 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   static FloorsClimbedRecordDto decode(Object result) {
     result as List<Object?>;
     return FloorsClimbedRecordDto(
-      floors: result[0]! as NumberDto,
+      floors: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
@@ -2260,7 +1698,7 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   });
 
   /// Number of wheelchair pushes performed during the interval.
-  NumberDto pushes;
+  double pushes;
 
   /// End time in milliseconds since epoch (UTC).
   int endTime;
@@ -2299,7 +1737,7 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   static WheelchairPushesRecordDto decode(Object result) {
     result as List<Object?>;
     return WheelchairPushesRecordDto(
-      pushes: result[0]! as NumberDto,
+      pushes: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
@@ -2340,7 +1778,7 @@ class StepsRecordDto extends HealthRecordDto {
   });
 
   /// Number of steps taken during the interval (must be >= 0).
-  NumberDto count;
+  double count;
 
   /// End time in milliseconds since epoch (UTC).
   int endTime;
@@ -2379,7 +1817,7 @@ class StepsRecordDto extends HealthRecordDto {
   static StepsRecordDto decode(Object result) {
     result as List<Object?>;
     return StepsRecordDto(
-      count: result[0]! as NumberDto,
+      count: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
@@ -2412,7 +1850,7 @@ class WeightRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.time,
-    required this.weight,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -2426,7 +1864,7 @@ class WeightRecordDto extends HealthRecordDto {
   int time;
 
   /// Weight measurement.
-  MassDto weight;
+  double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -2436,7 +1874,7 @@ class WeightRecordDto extends HealthRecordDto {
       id,
       metadata,
       time,
-      weight,
+      kilograms,
       zoneOffsetSeconds,
     ];
   }
@@ -2451,7 +1889,7 @@ class WeightRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      weight: result[3]! as MassDto,
+      kilograms: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -2479,8 +1917,8 @@ class BloodPressureRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.time,
-    required this.systolic,
-    required this.diastolic,
+    required this.systolicInMillimetersOfMercury,
+    required this.diastolicInMillimetersOfMercury,
     required this.bodyPosition,
     required this.measurementLocation,
     this.zoneOffsetSeconds,
@@ -2496,10 +1934,10 @@ class BloodPressureRecordDto extends HealthRecordDto {
   int time;
 
   /// Systolic blood pressure measurement.
-  PressureDto systolic;
+  double systolicInMillimetersOfMercury;
 
   /// Diastolic blood pressure measurement.
-  PressureDto diastolic;
+  double diastolicInMillimetersOfMercury;
 
   /// Body position during measurement.
   BodyPositionDto bodyPosition;
@@ -2515,8 +1953,8 @@ class BloodPressureRecordDto extends HealthRecordDto {
       id,
       metadata,
       time,
-      systolic,
-      diastolic,
+      systolicInMillimetersOfMercury,
+      diastolicInMillimetersOfMercury,
       bodyPosition,
       measurementLocation,
       zoneOffsetSeconds,
@@ -2533,8 +1971,8 @@ class BloodPressureRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      systolic: result[3]! as PressureDto,
-      diastolic: result[4]! as PressureDto,
+      systolicInMillimetersOfMercury: result[3]! as double,
+      diastolicInMillimetersOfMercury: result[4]! as double,
       bodyPosition: result[5]! as BodyPositionDto,
       measurementLocation: result[6]! as MeasurementLocationDto,
       zoneOffsetSeconds: result[7] as int?,
@@ -2564,7 +2002,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.time,
-    required this.mass,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -2578,7 +2016,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
   int time;
 
   /// Lean body mass measurement.
-  MassDto mass;
+  double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -2588,7 +2026,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
       id,
       metadata,
       time,
-      mass,
+      kilograms,
       zoneOffsetSeconds,
     ];
   }
@@ -2603,7 +2041,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      mass: result[3]! as MassDto,
+      kilograms: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -2631,7 +2069,7 @@ class HeightRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.time,
-    required this.height,
+    required this.meters,
     this.zoneOffsetSeconds,
   });
 
@@ -2645,7 +2083,7 @@ class HeightRecordDto extends HealthRecordDto {
   int time;
 
   /// Height measurement.
-  LengthDto height;
+  double meters;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -2655,7 +2093,7 @@ class HeightRecordDto extends HealthRecordDto {
       id,
       metadata,
       time,
-      height,
+      meters,
       zoneOffsetSeconds,
     ];
   }
@@ -2670,7 +2108,7 @@ class HeightRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      height: result[3]! as LengthDto,
+      meters: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -2712,7 +2150,7 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
   int time;
 
   /// Body fat percentage measurement.
-  PercentageDto percentage;
+  double percentage;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -2737,7 +2175,7 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      percentage: result[3]! as PercentageDto,
+      percentage: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -2766,7 +2204,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.time,
-    required this.temperature,
+    required this.celsius,
     this.zoneOffsetSeconds,
   });
 
@@ -2780,7 +2218,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   int time;
 
   /// Body temperature measurement.
-  TemperatureDto temperature;
+  double celsius;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -2790,7 +2228,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
       id,
       metadata,
       time,
-      temperature,
+      celsius,
       zoneOffsetSeconds,
     ];
   }
@@ -2805,7 +2243,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      temperature: result[3]! as TemperatureDto,
+      celsius: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -2834,7 +2272,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.time,
-    required this.temperature,
+    required this.celsius,
     required this.measurementLocation,
     this.zoneOffsetSeconds,
   });
@@ -2849,7 +2287,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
   int time;
 
   /// Basal body temperature measurement.
-  TemperatureDto temperature;
+  double celsius;
 
   /// The location on the body where the measurement was taken.
   BasalBodyTemperatureMeasurementLocationDto measurementLocation;
@@ -2862,7 +2300,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
       id,
       metadata,
       time,
-      temperature,
+      celsius,
       measurementLocation,
       zoneOffsetSeconds,
     ];
@@ -2878,7 +2316,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      temperature: result[3]! as TemperatureDto,
+      celsius: result[3]! as double,
       measurementLocation:
           result[4]! as BasalBodyTemperatureMeasurementLocationDto,
       zoneOffsetSeconds: result[5] as int?,
@@ -2983,7 +2421,7 @@ class HydrationRecordDto extends HealthRecordDto {
     required this.startTime,
     required this.endTime,
     required this.metadata,
-    required this.volume,
+    required this.liters,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
@@ -3001,7 +2439,7 @@ class HydrationRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// Volume of water consumed during the interval.
-  VolumeDto volume;
+  double liters;
 
   /// Timezone offset in seconds for start time (optional).
   int? startZoneOffsetSeconds;
@@ -3015,7 +2453,7 @@ class HydrationRecordDto extends HealthRecordDto {
       startTime,
       endTime,
       metadata,
-      volume,
+      liters,
       startZoneOffsetSeconds,
       endZoneOffsetSeconds,
     ];
@@ -3032,7 +2470,7 @@ class HydrationRecordDto extends HealthRecordDto {
       startTime: result[1]! as int,
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
-      volume: result[4]! as VolumeDto,
+      liters: result[4]! as double,
       startZoneOffsetSeconds: result[5] as int?,
       endZoneOffsetSeconds: result[6] as int?,
     );
@@ -3069,7 +2507,7 @@ class HeartRateSampleDto {
   int time;
 
   /// Heart rate value in beats per minute (BPM).
-  FrequencyDto beatsPerMinute;
+  double beatsPerMinute;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -3086,7 +2524,7 @@ class HeartRateSampleDto {
     result as List<Object?>;
     return HeartRateSampleDto(
       time: result[0]! as int,
-      beatsPerMinute: result[1]! as FrequencyDto,
+      beatsPerMinute: result[1]! as double,
     );
   }
 
@@ -3326,19 +2764,19 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
 class SpeedSampleDto {
   SpeedSampleDto({
     required this.time,
-    required this.speed,
+    required this.metersPerSecond,
   });
 
   /// Timestamp in milliseconds since epoch (UTC).
   int time;
 
   /// Speed measurement.
-  VelocityDto speed;
+  double metersPerSecond;
 
   List<Object?> _toList() {
     return <Object?>[
       time,
-      speed,
+      metersPerSecond,
     ];
   }
 
@@ -3350,7 +2788,7 @@ class SpeedSampleDto {
     result as List<Object?>;
     return SpeedSampleDto(
       time: result[0]! as int,
-      speed: result[1]! as VelocityDto,
+      metersPerSecond: result[1]! as double,
     );
   }
 
@@ -3454,19 +2892,19 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
 class PowerSampleDto {
   PowerSampleDto({
     required this.time,
-    required this.power,
+    required this.watts,
   });
 
   /// Timestamp in milliseconds since epoch (UTC).
   int time;
 
   /// Power measurement.
-  PowerDto power;
+  double watts;
 
   List<Object?> _toList() {
     return <Object?>[
       time,
-      power,
+      watts,
     ];
   }
 
@@ -3478,7 +2916,7 @@ class PowerSampleDto {
     result as List<Object?>;
     return PowerSampleDto(
       time: result[0]! as int,
-      power: result[1]! as PowerDto,
+      watts: result[1]! as double,
     );
   }
 
@@ -3988,39 +3426,39 @@ class NutritionRecordDto extends HealthRecordDto {
     this.endZoneOffsetSeconds,
     this.foodName,
     required this.mealType,
-    this.energy,
-    this.protein,
-    this.totalCarbohydrate,
-    this.totalFat,
-    this.saturatedFat,
-    this.monounsaturatedFat,
-    this.polyunsaturatedFat,
-    this.cholesterol,
-    this.dietaryFiber,
-    this.sugar,
-    this.vitaminA,
-    this.vitaminB6,
-    this.vitaminB12,
-    this.vitaminC,
-    this.vitaminD,
-    this.vitaminE,
-    this.vitaminK,
-    this.thiamin,
-    this.riboflavin,
-    this.niacin,
-    this.folate,
-    this.biotin,
-    this.pantothenicAcid,
-    this.calcium,
-    this.iron,
-    this.magnesium,
-    this.manganese,
-    this.phosphorus,
-    this.potassium,
-    this.selenium,
-    this.sodium,
-    this.zinc,
-    this.caffeine,
+    this.energyInKilocalories,
+    this.proteinInGrams,
+    this.totalCarbohydrateInGrams,
+    this.totalFatInGrams,
+    this.saturatedFatInGrams,
+    this.monounsaturatedFatInGrams,
+    this.polyunsaturatedFatInGrams,
+    this.cholesterolInGrams,
+    this.dietaryFiberInGrams,
+    this.sugarInGrams,
+    this.vitaminAInGrams,
+    this.vitaminB6InGrams,
+    this.vitaminB12InGrams,
+    this.vitaminCInGrams,
+    this.vitaminDInGrams,
+    this.vitaminEInGrams,
+    this.vitaminKInGrams,
+    this.thiaminInGrams,
+    this.riboflavinInGrams,
+    this.niacinInGrams,
+    this.folateInGrams,
+    this.biotinInGrams,
+    this.pantothenicAcidInGrams,
+    this.calciumInGrams,
+    this.ironInGrams,
+    this.magnesiumInGrams,
+    this.manganeseInGrams,
+    this.phosphorusInGrams,
+    this.potassiumInGrams,
+    this.seleniumInGrams,
+    this.sodiumInGrams,
+    this.zincInGrams,
+    this.caffeineInGrams,
   });
 
   /// Platform-assigned unique identifier.
@@ -4053,103 +3491,103 @@ class NutritionRecordDto extends HealthRecordDto {
   MealTypeDto mealType;
 
   /// Energy nutrient (kilocalories).
-  EnergyDto? energy;
+  double? energyInKilocalories;
 
   /// Protein nutrient (grams).
-  MassDto? protein;
+  double? proteinInGrams;
 
   /// Total carbohydrate nutrient (grams).
-  MassDto? totalCarbohydrate;
+  double? totalCarbohydrateInGrams;
 
   /// Total fat nutrient (grams).
-  MassDto? totalFat;
+  double? totalFatInGrams;
 
   /// Saturated fat nutrient (grams).
-  MassDto? saturatedFat;
+  double? saturatedFatInGrams;
 
   /// Monounsaturated fat nutrient (grams).
-  MassDto? monounsaturatedFat;
+  double? monounsaturatedFatInGrams;
 
   /// Polyunsaturated fat nutrient (grams).
-  MassDto? polyunsaturatedFat;
+  double? polyunsaturatedFatInGrams;
 
   /// Cholesterol nutrient (grams).
-  MassDto? cholesterol;
+  double? cholesterolInGrams;
 
   /// Dietary fiber nutrient (grams).
-  MassDto? dietaryFiber;
+  double? dietaryFiberInGrams;
 
   /// Sugar nutrient (grams).
-  MassDto? sugar;
+  double? sugarInGrams;
 
   /// Vitamin A nutrient (grams).
-  MassDto? vitaminA;
+  double? vitaminAInGrams;
 
   /// Vitamin B6 nutrient (grams).
-  MassDto? vitaminB6;
+  double? vitaminB6InGrams;
 
   /// Vitamin B12 nutrient (grams).
-  MassDto? vitaminB12;
+  double? vitaminB12InGrams;
 
   /// Vitamin C nutrient (grams).
-  MassDto? vitaminC;
+  double? vitaminCInGrams;
 
   /// Vitamin D nutrient (grams).
-  MassDto? vitaminD;
+  double? vitaminDInGrams;
 
   /// Vitamin E nutrient (grams).
-  MassDto? vitaminE;
+  double? vitaminEInGrams;
 
   /// Vitamin K nutrient (grams).
-  MassDto? vitaminK;
+  double? vitaminKInGrams;
 
   /// Thiamin (vitamin B1) nutrient (grams).
-  MassDto? thiamin;
+  double? thiaminInGrams;
 
   /// Riboflavin (vitamin B2) nutrient (grams).
-  MassDto? riboflavin;
+  double? riboflavinInGrams;
 
   /// Niacin (vitamin B3) nutrient (grams).
-  MassDto? niacin;
+  double? niacinInGrams;
 
   /// Folate (vitamin B9) nutrient (grams).
-  MassDto? folate;
+  double? folateInGrams;
 
   /// Biotin (vitamin B7) nutrient (grams).
-  MassDto? biotin;
+  double? biotinInGrams;
 
   /// Pantothenic acid (vitamin B5) nutrient (grams).
-  MassDto? pantothenicAcid;
+  double? pantothenicAcidInGrams;
 
   /// Calcium nutrient (grams).
-  MassDto? calcium;
+  double? calciumInGrams;
 
   /// Iron nutrient (grams).
-  MassDto? iron;
+  double? ironInGrams;
 
   /// Magnesium nutrient (grams).
-  MassDto? magnesium;
+  double? magnesiumInGrams;
 
   /// Manganese nutrient (grams).
-  MassDto? manganese;
+  double? manganeseInGrams;
 
   /// Phosphorus nutrient (grams).
-  MassDto? phosphorus;
+  double? phosphorusInGrams;
 
   /// Potassium nutrient (grams).
-  MassDto? potassium;
+  double? potassiumInGrams;
 
   /// Selenium nutrient (grams).
-  MassDto? selenium;
+  double? seleniumInGrams;
 
   /// Sodium nutrient (grams).
-  MassDto? sodium;
+  double? sodiumInGrams;
 
   /// Zinc nutrient (grams).
-  MassDto? zinc;
+  double? zincInGrams;
 
   /// Caffeine nutrient (grams).
-  MassDto? caffeine;
+  double? caffeineInGrams;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -4162,39 +3600,39 @@ class NutritionRecordDto extends HealthRecordDto {
       endZoneOffsetSeconds,
       foodName,
       mealType,
-      energy,
-      protein,
-      totalCarbohydrate,
-      totalFat,
-      saturatedFat,
-      monounsaturatedFat,
-      polyunsaturatedFat,
-      cholesterol,
-      dietaryFiber,
-      sugar,
-      vitaminA,
-      vitaminB6,
-      vitaminB12,
-      vitaminC,
-      vitaminD,
-      vitaminE,
-      vitaminK,
-      thiamin,
-      riboflavin,
-      niacin,
-      folate,
-      biotin,
-      pantothenicAcid,
-      calcium,
-      iron,
-      magnesium,
-      manganese,
-      phosphorus,
-      potassium,
-      selenium,
-      sodium,
-      zinc,
-      caffeine,
+      energyInKilocalories,
+      proteinInGrams,
+      totalCarbohydrateInGrams,
+      totalFatInGrams,
+      saturatedFatInGrams,
+      monounsaturatedFatInGrams,
+      polyunsaturatedFatInGrams,
+      cholesterolInGrams,
+      dietaryFiberInGrams,
+      sugarInGrams,
+      vitaminAInGrams,
+      vitaminB6InGrams,
+      vitaminB12InGrams,
+      vitaminCInGrams,
+      vitaminDInGrams,
+      vitaminEInGrams,
+      vitaminKInGrams,
+      thiaminInGrams,
+      riboflavinInGrams,
+      niacinInGrams,
+      folateInGrams,
+      biotinInGrams,
+      pantothenicAcidInGrams,
+      calciumInGrams,
+      ironInGrams,
+      magnesiumInGrams,
+      manganeseInGrams,
+      phosphorusInGrams,
+      potassiumInGrams,
+      seleniumInGrams,
+      sodiumInGrams,
+      zincInGrams,
+      caffeineInGrams,
     ];
   }
 
@@ -4214,39 +3652,39 @@ class NutritionRecordDto extends HealthRecordDto {
       endZoneOffsetSeconds: result[6] as int?,
       foodName: result[7] as String?,
       mealType: result[8]! as MealTypeDto,
-      energy: result[9] as EnergyDto?,
-      protein: result[10] as MassDto?,
-      totalCarbohydrate: result[11] as MassDto?,
-      totalFat: result[12] as MassDto?,
-      saturatedFat: result[13] as MassDto?,
-      monounsaturatedFat: result[14] as MassDto?,
-      polyunsaturatedFat: result[15] as MassDto?,
-      cholesterol: result[16] as MassDto?,
-      dietaryFiber: result[17] as MassDto?,
-      sugar: result[18] as MassDto?,
-      vitaminA: result[19] as MassDto?,
-      vitaminB6: result[20] as MassDto?,
-      vitaminB12: result[21] as MassDto?,
-      vitaminC: result[22] as MassDto?,
-      vitaminD: result[23] as MassDto?,
-      vitaminE: result[24] as MassDto?,
-      vitaminK: result[25] as MassDto?,
-      thiamin: result[26] as MassDto?,
-      riboflavin: result[27] as MassDto?,
-      niacin: result[28] as MassDto?,
-      folate: result[29] as MassDto?,
-      biotin: result[30] as MassDto?,
-      pantothenicAcid: result[31] as MassDto?,
-      calcium: result[32] as MassDto?,
-      iron: result[33] as MassDto?,
-      magnesium: result[34] as MassDto?,
-      manganese: result[35] as MassDto?,
-      phosphorus: result[36] as MassDto?,
-      potassium: result[37] as MassDto?,
-      selenium: result[38] as MassDto?,
-      sodium: result[39] as MassDto?,
-      zinc: result[40] as MassDto?,
-      caffeine: result[41] as MassDto?,
+      energyInKilocalories: result[9] as double?,
+      proteinInGrams: result[10] as double?,
+      totalCarbohydrateInGrams: result[11] as double?,
+      totalFatInGrams: result[12] as double?,
+      saturatedFatInGrams: result[13] as double?,
+      monounsaturatedFatInGrams: result[14] as double?,
+      polyunsaturatedFatInGrams: result[15] as double?,
+      cholesterolInGrams: result[16] as double?,
+      dietaryFiberInGrams: result[17] as double?,
+      sugarInGrams: result[18] as double?,
+      vitaminAInGrams: result[19] as double?,
+      vitaminB6InGrams: result[20] as double?,
+      vitaminB12InGrams: result[21] as double?,
+      vitaminCInGrams: result[22] as double?,
+      vitaminDInGrams: result[23] as double?,
+      vitaminEInGrams: result[24] as double?,
+      vitaminKInGrams: result[25] as double?,
+      thiaminInGrams: result[26] as double?,
+      riboflavinInGrams: result[27] as double?,
+      niacinInGrams: result[28] as double?,
+      folateInGrams: result[29] as double?,
+      biotinInGrams: result[30] as double?,
+      pantothenicAcidInGrams: result[31] as double?,
+      calciumInGrams: result[32] as double?,
+      ironInGrams: result[33] as double?,
+      magnesiumInGrams: result[34] as double?,
+      manganeseInGrams: result[35] as double?,
+      phosphorusInGrams: result[36] as double?,
+      potassiumInGrams: result[37] as double?,
+      seleniumInGrams: result[38] as double?,
+      sodiumInGrams: result[39] as double?,
+      zincInGrams: result[40] as double?,
+      caffeineInGrams: result[41] as double?,
     );
   }
 
@@ -4276,7 +3714,7 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
     required this.endTime,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
-    required this.energy,
+    required this.kilocalories,
   });
 
   /// Platform-assigned unique identifier.
@@ -4298,7 +3736,7 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
   int? endZoneOffsetSeconds;
 
   /// Energy burned.
-  EnergyDto energy;
+  double kilocalories;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -4308,7 +3746,7 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
       endTime,
       startZoneOffsetSeconds,
       endZoneOffsetSeconds,
-      energy,
+      kilocalories,
     ];
   }
 
@@ -4325,7 +3763,7 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
       endTime: result[3]! as int,
       startZoneOffsetSeconds: result[4] as int?,
       endZoneOffsetSeconds: result[5] as int?,
-      energy: result[6]! as EnergyDto,
+      kilocalories: result[6]! as double,
     );
   }
 
@@ -4353,7 +3791,7 @@ class BoneMassRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.time,
-    required this.mass,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -4367,7 +3805,7 @@ class BoneMassRecordDto extends HealthRecordDto {
   int time;
 
   /// Bone mass measurement.
-  MassDto mass;
+  double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -4377,7 +3815,7 @@ class BoneMassRecordDto extends HealthRecordDto {
       id,
       metadata,
       time,
-      mass,
+      kilograms,
       zoneOffsetSeconds,
     ];
   }
@@ -4392,7 +3830,7 @@ class BoneMassRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      mass: result[3]! as MassDto,
+      kilograms: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -4488,7 +3926,7 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.time,
-    required this.mass,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -4502,7 +3940,7 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
   int time;
 
   /// Body water mass measurement.
-  MassDto mass;
+  double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -4512,7 +3950,7 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
       id,
       metadata,
       time,
-      mass,
+      kilograms,
       zoneOffsetSeconds,
     ];
   }
@@ -4527,7 +3965,7 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
-      mass: result[3]! as MassDto,
+      kilograms: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -5550,215 +4988,176 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is HealthConnectorConfigDto) {
       buffer.putUint8(157);
       writeValue(buffer, value.encode());
-    } else if (value is BloodGlucoseDto) {
+    } else if (value is MetadataDto) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    } else if (value is EnergyDto) {
+    } else if (value is BloodGlucoseRecordDto) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    } else if (value is TimeDurationDto) {
+    } else if (value is RestingHeartRateRecordDto) {
       buffer.putUint8(160);
       writeValue(buffer, value.encode());
-    } else if (value is LengthDto) {
+    } else if (value is OxygenSaturationRecordDto) {
       buffer.putUint8(161);
       writeValue(buffer, value.encode());
-    } else if (value is MassDto) {
+    } else if (value is OvulationTestRecordDto) {
       buffer.putUint8(162);
       writeValue(buffer, value.encode());
-    } else if (value is NumberDto) {
+    } else if (value is IntermenstrualBleedingRecordDto) {
       buffer.putUint8(163);
       writeValue(buffer, value.encode());
-    } else if (value is FrequencyDto) {
+    } else if (value is MenstrualFlowInstantRecordDto) {
       buffer.putUint8(164);
       writeValue(buffer, value.encode());
-    } else if (value is PercentageDto) {
+    } else if (value is RespiratoryRateRecordDto) {
       buffer.putUint8(165);
       writeValue(buffer, value.encode());
-    } else if (value is PowerDto) {
+    } else if (value is Vo2MaxRecordDto) {
       buffer.putUint8(166);
       writeValue(buffer, value.encode());
-    } else if (value is PressureDto) {
+    } else if (value is ActiveEnergyBurnedRecordDto) {
       buffer.putUint8(167);
       writeValue(buffer, value.encode());
-    } else if (value is TemperatureDto) {
+    } else if (value is DistanceRecordDto) {
       buffer.putUint8(168);
       writeValue(buffer, value.encode());
-    } else if (value is VelocityDto) {
+    } else if (value is FloorsClimbedRecordDto) {
       buffer.putUint8(169);
       writeValue(buffer, value.encode());
-    } else if (value is VolumeDto) {
+    } else if (value is WheelchairPushesRecordDto) {
       buffer.putUint8(170);
       writeValue(buffer, value.encode());
-    } else if (value is MetadataDto) {
+    } else if (value is StepsRecordDto) {
       buffer.putUint8(171);
       writeValue(buffer, value.encode());
-    } else if (value is BloodGlucoseRecordDto) {
+    } else if (value is WeightRecordDto) {
       buffer.putUint8(172);
       writeValue(buffer, value.encode());
-    } else if (value is RestingHeartRateRecordDto) {
+    } else if (value is BloodPressureRecordDto) {
       buffer.putUint8(173);
       writeValue(buffer, value.encode());
-    } else if (value is OxygenSaturationRecordDto) {
+    } else if (value is LeanBodyMassRecordDto) {
       buffer.putUint8(174);
       writeValue(buffer, value.encode());
-    } else if (value is OvulationTestRecordDto) {
+    } else if (value is HeightRecordDto) {
       buffer.putUint8(175);
       writeValue(buffer, value.encode());
-    } else if (value is IntermenstrualBleedingRecordDto) {
+    } else if (value is BodyFatPercentageRecordDto) {
       buffer.putUint8(176);
       writeValue(buffer, value.encode());
-    } else if (value is MenstrualFlowInstantRecordDto) {
+    } else if (value is BodyTemperatureRecordDto) {
       buffer.putUint8(177);
       writeValue(buffer, value.encode());
-    } else if (value is RespiratoryRateRecordDto) {
+    } else if (value is BasalBodyTemperatureRecordDto) {
       buffer.putUint8(178);
       writeValue(buffer, value.encode());
-    } else if (value is Vo2MaxRecordDto) {
+    } else if (value is CervicalMucusRecordDto) {
       buffer.putUint8(179);
       writeValue(buffer, value.encode());
-    } else if (value is ActiveEnergyBurnedRecordDto) {
+    } else if (value is HydrationRecordDto) {
       buffer.putUint8(180);
       writeValue(buffer, value.encode());
-    } else if (value is DistanceRecordDto) {
+    } else if (value is HeartRateSampleDto) {
       buffer.putUint8(181);
       writeValue(buffer, value.encode());
-    } else if (value is FloorsClimbedRecordDto) {
+    } else if (value is HeartRateSeriesRecordDto) {
       buffer.putUint8(182);
       writeValue(buffer, value.encode());
-    } else if (value is WheelchairPushesRecordDto) {
+    } else if (value is CyclingPedalingCadenceSampleDto) {
       buffer.putUint8(183);
       writeValue(buffer, value.encode());
-    } else if (value is StepsRecordDto) {
+    } else if (value is CyclingPedalingCadenceSeriesRecordDto) {
       buffer.putUint8(184);
       writeValue(buffer, value.encode());
-    } else if (value is WeightRecordDto) {
+    } else if (value is SpeedSampleDto) {
       buffer.putUint8(185);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureRecordDto) {
+    } else if (value is SpeedSeriesRecordDto) {
       buffer.putUint8(186);
       writeValue(buffer, value.encode());
-    } else if (value is LeanBodyMassRecordDto) {
+    } else if (value is PowerSampleDto) {
       buffer.putUint8(187);
       writeValue(buffer, value.encode());
-    } else if (value is HeightRecordDto) {
+    } else if (value is PowerSeriesRecordDto) {
       buffer.putUint8(188);
       writeValue(buffer, value.encode());
-    } else if (value is BodyFatPercentageRecordDto) {
+    } else if (value is SleepStageSampleDto) {
       buffer.putUint8(189);
       writeValue(buffer, value.encode());
-    } else if (value is BodyTemperatureRecordDto) {
+    } else if (value is SleepSessionRecordDto) {
       buffer.putUint8(190);
       writeValue(buffer, value.encode());
-    } else if (value is BasalBodyTemperatureRecordDto) {
+    } else if (value is SexualActivityRecordDto) {
       buffer.putUint8(191);
       writeValue(buffer, value.encode());
-    } else if (value is CervicalMucusRecordDto) {
+    } else if (value is ExerciseSessionRecordDto) {
       buffer.putUint8(192);
       writeValue(buffer, value.encode());
-    } else if (value is HydrationRecordDto) {
+    } else if (value is MindfulnessSessionRecordDto) {
       buffer.putUint8(193);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateSampleDto) {
+    } else if (value is NutritionRecordDto) {
       buffer.putUint8(194);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateSeriesRecordDto) {
+    } else if (value is TotalEnergyBurnedRecordDto) {
       buffer.putUint8(195);
       writeValue(buffer, value.encode());
-    } else if (value is CyclingPedalingCadenceSampleDto) {
+    } else if (value is BoneMassRecordDto) {
       buffer.putUint8(196);
       writeValue(buffer, value.encode());
-    } else if (value is CyclingPedalingCadenceSeriesRecordDto) {
+    } else if (value is HeartRateVariabilityRMSSDRecordDto) {
       buffer.putUint8(197);
       writeValue(buffer, value.encode());
-    } else if (value is SpeedSampleDto) {
+    } else if (value is BodyWaterMassRecordDto) {
       buffer.putUint8(198);
       writeValue(buffer, value.encode());
-    } else if (value is SpeedSeriesRecordDto) {
+    } else if (value is HealthDataSyncTokenDto) {
       buffer.putUint8(199);
       writeValue(buffer, value.encode());
-    } else if (value is PowerSampleDto) {
+    } else if (value is HealthDataSyncResultDto) {
       buffer.putUint8(200);
       writeValue(buffer, value.encode());
-    } else if (value is PowerSeriesRecordDto) {
+    } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
       buffer.putUint8(201);
       writeValue(buffer, value.encode());
-    } else if (value is SleepStageSampleDto) {
+    } else if (value is HealthDataPermissionRequestDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
-    } else if (value is SleepSessionRecordDto) {
+    } else if (value is HealthDataPermissionRequestResultDto) {
       buffer.putUint8(203);
       writeValue(buffer, value.encode());
-    } else if (value is SexualActivityRecordDto) {
+    } else if (value is HealthPlatformFeaturePermissionRequest) {
       buffer.putUint8(204);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseSessionRecordDto) {
+    } else if (value is PermissionRequestsDto) {
       buffer.putUint8(205);
       writeValue(buffer, value.encode());
-    } else if (value is MindfulnessSessionRecordDto) {
+    } else if (value is CommonAggregateRequestDto) {
       buffer.putUint8(206);
       writeValue(buffer, value.encode());
-    } else if (value is NutritionRecordDto) {
+    } else if (value is BloodPressureAggregateRequestDto) {
       buffer.putUint8(207);
       writeValue(buffer, value.encode());
-    } else if (value is TotalEnergyBurnedRecordDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
-    } else if (value is BoneMassRecordDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(209);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateVariabilityRMSSDRecordDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(210);
       writeValue(buffer, value.encode());
-    } else if (value is BodyWaterMassRecordDto) {
+    } else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(211);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataSyncTokenDto) {
+    } else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(212);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataSyncResultDto) {
+    } else if (value is HealthConnectorExceptionDto) {
       buffer.putUint8(213);
       writeValue(buffer, value.encode());
-    } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
-      buffer.putUint8(214);
-      writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestDto) {
-      buffer.putUint8(215);
-      writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestResultDto) {
-      buffer.putUint8(216);
-      writeValue(buffer, value.encode());
-    } else if (value is HealthPlatformFeaturePermissionRequest) {
-      buffer.putUint8(217);
-      writeValue(buffer, value.encode());
-    } else if (value is PermissionRequestsDto) {
-      buffer.putUint8(218);
-      writeValue(buffer, value.encode());
-    } else if (value is CommonAggregateRequestDto) {
-      buffer.putUint8(219);
-      writeValue(buffer, value.encode());
-    } else if (value is BloodPressureAggregateRequestDto) {
-      buffer.putUint8(220);
-      writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
-      buffer.putUint8(221);
-      writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
-      buffer.putUint8(222);
-      writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
-      buffer.putUint8(223);
-      writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
-      buffer.putUint8(224);
-      writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
-      buffer.putUint8(225);
-      writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorExceptionDto) {
-      buffer.putUint8(226);
-      writeValue(buffer, value.encode());
     } else if (value is HealthConnectorLogDto) {
-      buffer.putUint8(227);
+      buffer.putUint8(214);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -5865,148 +5264,122 @@ class _PigeonCodec extends StandardMessageCodec {
       case 157:
         return HealthConnectorConfigDto.decode(readValue(buffer)!);
       case 158:
-        return BloodGlucoseDto.decode(readValue(buffer)!);
-      case 159:
-        return EnergyDto.decode(readValue(buffer)!);
-      case 160:
-        return TimeDurationDto.decode(readValue(buffer)!);
-      case 161:
-        return LengthDto.decode(readValue(buffer)!);
-      case 162:
-        return MassDto.decode(readValue(buffer)!);
-      case 163:
-        return NumberDto.decode(readValue(buffer)!);
-      case 164:
-        return FrequencyDto.decode(readValue(buffer)!);
-      case 165:
-        return PercentageDto.decode(readValue(buffer)!);
-      case 166:
-        return PowerDto.decode(readValue(buffer)!);
-      case 167:
-        return PressureDto.decode(readValue(buffer)!);
-      case 168:
-        return TemperatureDto.decode(readValue(buffer)!);
-      case 169:
-        return VelocityDto.decode(readValue(buffer)!);
-      case 170:
-        return VolumeDto.decode(readValue(buffer)!);
-      case 171:
         return MetadataDto.decode(readValue(buffer)!);
-      case 172:
+      case 159:
         return BloodGlucoseRecordDto.decode(readValue(buffer)!);
-      case 173:
+      case 160:
         return RestingHeartRateRecordDto.decode(readValue(buffer)!);
-      case 174:
+      case 161:
         return OxygenSaturationRecordDto.decode(readValue(buffer)!);
-      case 175:
+      case 162:
         return OvulationTestRecordDto.decode(readValue(buffer)!);
-      case 176:
+      case 163:
         return IntermenstrualBleedingRecordDto.decode(readValue(buffer)!);
-      case 177:
+      case 164:
         return MenstrualFlowInstantRecordDto.decode(readValue(buffer)!);
-      case 178:
+      case 165:
         return RespiratoryRateRecordDto.decode(readValue(buffer)!);
-      case 179:
+      case 166:
         return Vo2MaxRecordDto.decode(readValue(buffer)!);
-      case 180:
+      case 167:
         return ActiveEnergyBurnedRecordDto.decode(readValue(buffer)!);
-      case 181:
+      case 168:
         return DistanceRecordDto.decode(readValue(buffer)!);
-      case 182:
+      case 169:
         return FloorsClimbedRecordDto.decode(readValue(buffer)!);
-      case 183:
+      case 170:
         return WheelchairPushesRecordDto.decode(readValue(buffer)!);
-      case 184:
+      case 171:
         return StepsRecordDto.decode(readValue(buffer)!);
-      case 185:
+      case 172:
         return WeightRecordDto.decode(readValue(buffer)!);
-      case 186:
+      case 173:
         return BloodPressureRecordDto.decode(readValue(buffer)!);
-      case 187:
+      case 174:
         return LeanBodyMassRecordDto.decode(readValue(buffer)!);
-      case 188:
+      case 175:
         return HeightRecordDto.decode(readValue(buffer)!);
-      case 189:
+      case 176:
         return BodyFatPercentageRecordDto.decode(readValue(buffer)!);
-      case 190:
+      case 177:
         return BodyTemperatureRecordDto.decode(readValue(buffer)!);
-      case 191:
+      case 178:
         return BasalBodyTemperatureRecordDto.decode(readValue(buffer)!);
-      case 192:
+      case 179:
         return CervicalMucusRecordDto.decode(readValue(buffer)!);
-      case 193:
+      case 180:
         return HydrationRecordDto.decode(readValue(buffer)!);
-      case 194:
+      case 181:
         return HeartRateSampleDto.decode(readValue(buffer)!);
-      case 195:
+      case 182:
         return HeartRateSeriesRecordDto.decode(readValue(buffer)!);
-      case 196:
+      case 183:
         return CyclingPedalingCadenceSampleDto.decode(readValue(buffer)!);
-      case 197:
+      case 184:
         return CyclingPedalingCadenceSeriesRecordDto.decode(readValue(buffer)!);
-      case 198:
+      case 185:
         return SpeedSampleDto.decode(readValue(buffer)!);
-      case 199:
+      case 186:
         return SpeedSeriesRecordDto.decode(readValue(buffer)!);
-      case 200:
+      case 187:
         return PowerSampleDto.decode(readValue(buffer)!);
-      case 201:
+      case 188:
         return PowerSeriesRecordDto.decode(readValue(buffer)!);
-      case 202:
+      case 189:
         return SleepStageSampleDto.decode(readValue(buffer)!);
-      case 203:
+      case 190:
         return SleepSessionRecordDto.decode(readValue(buffer)!);
-      case 204:
+      case 191:
         return SexualActivityRecordDto.decode(readValue(buffer)!);
-      case 205:
+      case 192:
         return ExerciseSessionRecordDto.decode(readValue(buffer)!);
-      case 206:
+      case 193:
         return MindfulnessSessionRecordDto.decode(readValue(buffer)!);
-      case 207:
+      case 194:
         return NutritionRecordDto.decode(readValue(buffer)!);
-      case 208:
+      case 195:
         return TotalEnergyBurnedRecordDto.decode(readValue(buffer)!);
-      case 209:
+      case 196:
         return BoneMassRecordDto.decode(readValue(buffer)!);
-      case 210:
+      case 197:
         return HeartRateVariabilityRMSSDRecordDto.decode(readValue(buffer)!);
-      case 211:
+      case 198:
         return BodyWaterMassRecordDto.decode(readValue(buffer)!);
-      case 212:
+      case 199:
         return HealthDataSyncTokenDto.decode(readValue(buffer)!);
-      case 213:
+      case 200:
         return HealthDataSyncResultDto.decode(readValue(buffer)!);
-      case 214:
+      case 201:
         return HealthPlatformFeaturePermissionRequestResultDto.decode(
           readValue(buffer)!,
         );
-      case 215:
+      case 202:
         return HealthDataPermissionRequestDto.decode(readValue(buffer)!);
-      case 216:
+      case 203:
         return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
-      case 217:
+      case 204:
         return HealthPlatformFeaturePermissionRequest.decode(
           readValue(buffer)!,
         );
-      case 218:
+      case 205:
         return PermissionRequestsDto.decode(readValue(buffer)!);
-      case 219:
+      case 206:
         return CommonAggregateRequestDto.decode(readValue(buffer)!);
-      case 220:
+      case 207:
         return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
-      case 221:
+      case 208:
         return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
-      case 222:
+      case 209:
         return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
-      case 223:
+      case 210:
         return ReadRecordRequestDto.decode(readValue(buffer)!);
-      case 224:
+      case 211:
         return ReadRecordsRequestDto.decode(readValue(buffer)!);
-      case 225:
+      case 212:
         return ReadRecordsResponseDto.decode(readValue(buffer)!);
-      case 226:
+      case 213:
         return HealthConnectorExceptionDto.decode(readValue(buffer)!);
-      case 227:
+      case 214:
         return HealthConnectorLogDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -6159,7 +5532,7 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<MeasurementUnitDto> aggregate(AggregateRequestDto request) async {
+  Future<double> aggregate(AggregateRequestDto request) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.aggregate$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -6187,7 +5560,7 @@ class HealthConnectorHCAndroidApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as MeasurementUnitDto?)!;
+      return (pigeonVar_replyList[0] as double?)!;
     }
   }
 

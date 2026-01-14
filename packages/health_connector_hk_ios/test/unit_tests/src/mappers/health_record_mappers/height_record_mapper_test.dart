@@ -38,7 +38,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.height.meters, 1.75);
+              expect(dto.meters, 1.75);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -63,7 +63,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                height: LengthDto(meters: 1.82),
+                meters: 1.82,
               );
 
               final record = dto.toDomain();
@@ -92,7 +92,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                height: LengthDto(meters: 1.68),
+                meters: 1.68,
               );
 
               final record = dto.toDomain();

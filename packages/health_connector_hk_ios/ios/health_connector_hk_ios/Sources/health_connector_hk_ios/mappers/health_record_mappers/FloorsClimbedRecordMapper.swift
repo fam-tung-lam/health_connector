@@ -6,7 +6,7 @@ extension FloorsClimbedRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .flightsClimbed)
 
-        let quantity = HKQuantity(unit: .count(), doubleValue: floors.toDouble())
+        let quantity = HKQuantity(unit: .count(), doubleValue: floors)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
@@ -56,7 +56,7 @@ extension HKQuantitySample {
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         return try FloorsClimbedRecordDto(
-            floors: NumberDto(value: floorsClimbed),
+            floors: floorsClimbed,
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),

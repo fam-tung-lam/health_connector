@@ -23,8 +23,6 @@ final class ExerciseSessionHandler: @unchecked Sendable,
 {
     typealias RecordDto = ExerciseSessionRecordDto
     typealias SampleType = HKWorkout
-    typealias AggregatedResultMeasurementUnitDto = TimeDurationDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -57,7 +55,7 @@ extension ExerciseSessionHandler {
         metric: AggregationMetricDto,
         startTime: Date,
         endTime: Date
-    ) async throws -> TimeDurationDto {
+    ) async throws -> Double {
         try await process(
             operation: "aggregate",
             context: [
@@ -89,7 +87,7 @@ extension ExerciseSessionHandler {
                 )
             }
 
-            return result.toIntervalDto()
+            return result
         }
     }
 }

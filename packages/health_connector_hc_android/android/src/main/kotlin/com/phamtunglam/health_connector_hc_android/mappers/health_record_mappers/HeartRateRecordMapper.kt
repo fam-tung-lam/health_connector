@@ -2,7 +2,6 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeartRateRecord.Sample
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toFrequencyDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSampleDto
@@ -24,7 +23,7 @@ internal fun HeartRateRecord.toDto(): HeartRateSeriesRecordDto = HeartRateSeries
     samples = samples.map { sample ->
         HeartRateSampleDto(
             time = sample.time.toEpochMilli(),
-            beatsPerMinute = sample.beatsPerMinute.toFrequencyDto(),
+            beatsPerMinute = sample.beatsPerMinute.toDouble(),
         )
     },
 )
@@ -36,7 +35,7 @@ internal fun HeartRateSeriesRecordDto.toHealthConnect(): HeartRateRecord = Heart
     samples = samples.map { sample ->
         Sample(
             time = Instant.ofEpochMilli(sample.time),
-            beatsPerMinute = sample.beatsPerMinute.perMinute.roundToLong(),
+            beatsPerMinute = sample.beatsPerMinute.roundToLong(),
         )
     },
     startTime = Instant.ofEpochMilli(startTime),

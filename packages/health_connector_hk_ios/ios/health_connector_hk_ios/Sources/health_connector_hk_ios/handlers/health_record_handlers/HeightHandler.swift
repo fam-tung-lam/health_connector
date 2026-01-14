@@ -10,8 +10,6 @@ final class HeightHandler: @unchecked Sendable,
 {
     typealias RecordDto = HeightRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = LengthDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,8 +20,8 @@ final class HeightHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> LengthDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         let meters = quantity.doubleValue(for: .meter())
-        return LengthDto(meters: meters)
+        return meters
     }
 }
