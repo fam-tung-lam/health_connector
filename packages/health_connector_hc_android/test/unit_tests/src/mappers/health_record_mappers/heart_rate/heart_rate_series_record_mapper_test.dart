@@ -50,7 +50,7 @@ void main() {
               );
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(dto.samples, hasLength(1));
-              expect(dto.samples.first.beatsPerMinute.perMinute, 75);
+              expect(dto.samples.first.beatsPerMinute, 75);
             },
           );
         },
@@ -79,7 +79,7 @@ void main() {
                 samples: [
                   HeartRateSampleDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
-                    beatsPerMinute: FrequencyDto(perMinute: 80),
+                    beatsPerMinute: 80.0,
                   ),
                 ],
               );

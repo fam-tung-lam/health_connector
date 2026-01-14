@@ -10,8 +10,6 @@ final class BodyMassIndexHandler: @unchecked Sendable,
 {
     typealias RecordDto = BodyMassIndexRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = NumberDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -23,7 +21,7 @@ final class BodyMassIndexHandler: @unchecked Sendable,
     // Supports min, max, avg, sum
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg, .sum]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> NumberDto {
-        NumberDto(value: quantity.doubleValue(for: .count()))
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
+        quantity.doubleValue(for: .count())
     }
 }

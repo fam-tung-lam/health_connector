@@ -66,7 +66,7 @@ void main() {
       );
       registerFallbackValue(
         StepsRecordDto(
-          count: NumberDto(value: 100),
+          count: 100,
           startTime: 0,
           endTime: 1000,
           startZoneOffsetSeconds: 0,
@@ -373,7 +373,7 @@ void main() {
                 () async {
                   when(() => mockApi.readRecord(any())).thenAnswer(
                     (_) async => StepsRecordDto(
-                      count: NumberDto(value: 100),
+                      count: 100,
                       startTime: 0,
                       endTime: 1000,
                       startZoneOffsetSeconds: 0,
@@ -448,7 +448,7 @@ void main() {
                     (_) async => ReadRecordsResponseDto(
                       records: [
                         StepsRecordDto(
-                          count: NumberDto(value: 100),
+                          count: 100,
                           startTime: 0,
                           endTime: 1000,
                           startZoneOffsetSeconds: 0,
@@ -669,7 +669,7 @@ void main() {
                 'returns aggregated value on success',
                 () async {
                   when(() => mockApi.aggregate(any())).thenAnswer(
-                    (_) async => NumberDto(value: 5000),
+                    (_) async => 5000.0,
                   );
 
                   final now = DateTime.now();

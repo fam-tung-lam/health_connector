@@ -2,7 +2,6 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.units.Temperature
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toTemperatureDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
@@ -17,7 +16,7 @@ internal fun BodyTemperatureRecord.toDto(): BodyTemperatureRecordDto = BodyTempe
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    temperature = temperature.inCelsius.toTemperatureDto(),
+    celsius = temperature.inCelsius,
 )
 
 /**
@@ -25,7 +24,7 @@ internal fun BodyTemperatureRecord.toDto(): BodyTemperatureRecordDto = BodyTempe
  */
 internal fun BodyTemperatureRecordDto.toHealthConnect(): BodyTemperatureRecord =
     BodyTemperatureRecord(
-        temperature = Temperature.celsius(temperature.celsius),
+        temperature = Temperature.celsius(celsius),
         time = Instant.ofEpochMilli(time),
         zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
         metadata = metadata.toHealthConnect(id),

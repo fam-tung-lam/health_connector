@@ -1,7 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.FloorsClimbedRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
@@ -18,14 +17,14 @@ internal fun FloorsClimbedRecord.toDto(): FloorsClimbedRecordDto = FloorsClimbed
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    floors = floors.toNumberDto(),
+    floors = floors,
 )
 
 /**
  * Converts a [FloorsClimbedRecordDto] to a Health Connect [FloorsClimbedRecord] object.
  */
 internal fun FloorsClimbedRecordDto.toHealthConnect(): FloorsClimbedRecord = FloorsClimbedRecord(
-    floors = floors.value,
+    floors = floors,
     startTime = Instant.ofEpochMilli(startTime),
     endTime = Instant.ofEpochMilli(endTime),
     startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },

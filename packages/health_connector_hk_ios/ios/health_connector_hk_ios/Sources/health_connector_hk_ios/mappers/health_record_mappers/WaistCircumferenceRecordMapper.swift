@@ -6,7 +6,7 @@ extension WaistCircumferenceRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .waistCircumference)
 
-        let quantity = try circumference.toHealthKit()
+        let quantity = HKQuantity(unit: .meter(), doubleValue: meters)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -56,7 +56,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            circumference: quantity.toLengthDto(),
+            meters: quantity.doubleValue(for: HKUnit.meter()),
             zoneOffsetSeconds: zoneOffset
         )
     }

@@ -41,7 +41,7 @@ void main() {
               expect(dto, isA<ActiveEnergyBurnedRecordDto>());
               final caloriesDto = dto as ActiveEnergyBurnedRecordDto;
               expect(caloriesDto.id, FakeData.fakeId);
-              expect(caloriesDto.energy.kilocalories, 350.0);
+              expect(caloriesDto.kilocalories, 350.0);
             },
           );
 
@@ -73,7 +73,7 @@ void main() {
               expect(dto, isA<StepsRecordDto>());
               final stepsDto = dto as StepsRecordDto;
               expect(stepsDto.id, FakeData.fakeId);
-              expect(stepsDto.count.value, 5000);
+              expect(stepsDto.count, 5000);
             },
           );
 
@@ -103,7 +103,7 @@ void main() {
               expect(dto, isA<WeightRecordDto>());
               final weightDto = dto as WeightRecordDto;
               expect(weightDto.id, FakeData.fakeId);
-              expect(weightDto.weight.kilograms, 70.5);
+              expect(weightDto.kilograms, 70.5);
             },
           );
 
@@ -134,8 +134,8 @@ void main() {
               expect(dto, isA<BloodPressureRecordDto>());
               final bpDto = dto as BloodPressureRecordDto;
               expect(bpDto.id, FakeData.fakeId);
-              expect(bpDto.systolic.millimetersOfMercury, 120.0);
-              expect(bpDto.diastolic.millimetersOfMercury, 80.0);
+              expect(bpDto.systolicInMillimetersOfMercury, 120.0);
+              expect(bpDto.diastolicInMillimetersOfMercury, 80.0);
             },
           );
 
@@ -268,7 +268,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                energy: EnergyDto(kilocalories: 275.0),
+                kilocalories: 275.0,
               );
 
               // When
@@ -300,7 +300,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                count: NumberDto(value: 8000),
+                count: 8000,
               );
 
               // When
@@ -330,7 +330,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                weight: MassDto(kilograms: 68.2),
+                kilograms: 68.2,
               );
 
               // When
@@ -388,7 +388,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 1.3),
+                metersPerSecond: 1.3,
                 activityType: SpeedActivityTypeDto.walking,
               );
 

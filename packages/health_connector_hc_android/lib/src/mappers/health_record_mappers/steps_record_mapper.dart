@@ -1,7 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show StepsRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
+    show StepsRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto, Number;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show StepsRecordDto;
@@ -23,7 +22,7 @@ extension StepsRecordToDto on StepsRecord {
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      count: count.toDto(),
+      count: count.value.toDouble(),
     );
   }
 }
@@ -40,7 +39,7 @@ extension StepsRecordDtoToDomain on StepsRecordDto {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      count: count.toDomain(),
+      count: Number(count),
     );
   }
 }

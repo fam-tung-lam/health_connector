@@ -10,8 +10,6 @@ final class LeanBodyMassHandler: @unchecked Sendable,
 {
     typealias RecordDto = LeanBodyMassRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = MassDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,8 +20,8 @@ final class LeanBodyMassHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> MassDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         let kilograms = quantity.doubleValue(for: .gramUnit(with: .kilo))
-        return MassDto(kilograms: kilograms)
+        return kilograms
     }
 }

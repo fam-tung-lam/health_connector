@@ -40,7 +40,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.bloodGlucose.millimolesPerLiter, 5.5);
+              expect(dto.millimolesPerLiter, 5.5);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -65,7 +65,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                bloodGlucose: BloodGlucoseDto(millimolesPerLiter: 6.1),
+                millimolesPerLiter: 6.1,
               );
 
               final record = dto.toDomain();
@@ -95,7 +95,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                bloodGlucose: BloodGlucoseDto(millimolesPerLiter: 4.8),
+                millimolesPerLiter: 4.8,
               );
 
               final record = dto.toDomain();

@@ -8,7 +8,7 @@ extension WheelchairPushesRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .pushCount)
 
-        let quantity = HKQuantity(unit: .count(), doubleValue: pushes.toDouble())
+        let quantity = HKQuantity(unit: .count(), doubleValue: pushes)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
@@ -58,7 +58,7 @@ extension HKQuantitySample {
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         return try WheelchairPushesRecordDto(
-            pushes: NumberDto(value: wheelchairPushes),
+            pushes: wheelchairPushes,
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),

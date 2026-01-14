@@ -1,7 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HydrationRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
+    show DateTimeToDto, HealthRecordId, HydrationRecord, Volume, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HydrationRecordDto;
@@ -23,7 +22,7 @@ extension HydrationRecordToDto on HydrationRecord {
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      volume: volume.toDto(),
+      liters: volume.inLiters,
     );
   }
 }
@@ -40,7 +39,7 @@ extension HydrationRecordDtoToDomain on HydrationRecordDto {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      volume: volume.toDomain(),
+      volume: Volume.liters(liters),
     );
   }
 }

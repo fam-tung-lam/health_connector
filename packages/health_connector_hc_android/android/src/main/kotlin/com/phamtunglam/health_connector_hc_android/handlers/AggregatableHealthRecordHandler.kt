@@ -9,7 +9,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import com.phamtunglam.health_connector_hc_android.utils.endTime
@@ -23,7 +22,7 @@ import kotlinx.coroutines.withContext
  * Capability for handlers that support aggregation operations.
  */
 internal interface AggregatableHealthRecordHandler : HealthRecordHandler {
-    suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto
+    suspend fun aggregate(request: AggregateRequestDto): Double
 }
 
 /**
@@ -37,7 +36,7 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
     val aggregateMetricMappings: Map<AggregationMetricDto, AggregateMetric<*>>
 
     @Throws(IllegalArgumentException::class)
-    fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto
+    fun convertAggregatedValue(aggregatedValue: Any): Double
 
     /**
      * Performs aggregation using native Health Connect SDK.
@@ -47,7 +46,7 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
      * @throws HealthConnectorErrorDto if [startTime] > [endTime] or exception by [HealthConnectClient.aggregate]
      */
     @Throws(HealthConnectorErrorDto::class)
-    override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto = process(
+    override suspend fun aggregate(request: AggregateRequestDto): Double = process(
         operation = "aggregate",
         context = mapOf("request" to request),
     ) {
@@ -86,7 +85,6 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
  * This interface provides a default paginated aggregation implementation.
  *
  * @see extractValueForAggregation
- * @see wrapAggregationResult
  */
 internal interface CustomAggregatableHealthRecordHandler :
     AggregatableHealthRecordHandler,
@@ -112,26 +110,7 @@ internal interface CustomAggregatableHealthRecordHandler :
     fun extractValueForAggregation(recordDto: HealthRecordDto): Double
 
     /**
-     * Wrap the aggregated numeric result into the appropriate response format.
-     *
-     * @param value The aggregated numeric value (AVG, MIN, or MAX)
-     * @return The measurement unit DTO appropriate for this data type
-     */
-    fun wrapAggregationResult(value: Double): MeasurementUnitDto
-
-    /**
      * Performs custom paginated aggregation over health records within a time range.
-     *
-     * This default implementation:
-     * 1. Validates the request (time range, supported metrics)
-     * 2. Paginates through all records in the time range
-     * 3. Accumulates statistics (count, sum, min, max)
-     * 4. Calculates the requested metric (AVG, MIN, MAX, or SUM)
-     * 5. Wraps the result in the appropriate format
-     *
-     * Implementations can override this method if custom aggregation logic is needed,
-     * but in most cases, only [extractValueForAggregation] and [wrapAggregationResult]
-     * need to be implemented.
      *
      * @param request The aggregation request containing data type, metric, and time range
      * @return The aggregation response with the computed value
@@ -140,7 +119,7 @@ internal interface CustomAggregatableHealthRecordHandler :
     @Throws(
         HealthConnectorErrorDto::class,
     )
-    override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto {
+    override suspend fun aggregate(request: AggregateRequestDto): Double {
         val startTime = Instant.ofEpochMilli(request.startTime)
         val endTime = Instant.ofEpochMilli(request.endTime)
         val querySpanDays = Duration.between(startTime, endTime).toDays()
@@ -195,7 +174,7 @@ internal interface CustomAggregatableHealthRecordHandler :
                 ),
             )
 
-            wrapAggregationResult(resultValue)
+            return@process resultValue
         }
     }
 

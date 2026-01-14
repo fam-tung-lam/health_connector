@@ -1,7 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show CyclingPowerRecord, HealthRecordId, sinceV2_1_0;
+    show CyclingPowerRecord, HealthRecordId, Power, sinceV2_1_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show CyclingPowerRecordDto;
@@ -17,7 +16,7 @@ extension CyclingPowerRecordToDto on CyclingPowerRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      power: power.toDto(),
+      watts: power.inWatts,
     );
   }
 }
@@ -32,7 +31,7 @@ extension CyclingPowerRecordDtoToDomain on CyclingPowerRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      power: power.toDomain(),
+      power: Power.watts(watts),
     );
   }
 }

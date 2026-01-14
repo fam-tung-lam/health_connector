@@ -6,7 +6,8 @@ extension BodyFatPercentageRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bodyFatPercentage)
 
-        let quantity = percentage.toHealthKit()
+        let unit = HKUnit.percent()
+        let quantity = HKQuantity(unit: unit, doubleValue: percentage)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -56,7 +57,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
-            percentage: quantity.toPercentageDto(),
+            percentage: quantity.doubleValue(for: HKUnit.percent()),
             zoneOffsetSeconds: zoneOffset
         )
     }

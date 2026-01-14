@@ -48,7 +48,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.pushes.value, 42.0);
+              expect(dto.pushes, 42.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -73,7 +73,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                pushes: NumberDto(value: 35.0),
+                pushes: 35.0,
               );
 
               final record = dto.toDomain();
@@ -104,7 +104,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                pushes: NumberDto(value: 20.0),
+                pushes: 20.0,
               );
 
               final record = dto.toDomain();

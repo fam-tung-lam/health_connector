@@ -37,7 +37,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.temperature.celsius, 36.5);
+              expect(dto.celsius, 36.5);
             },
           );
         },
@@ -62,7 +62,7 @@ void main() {
                 ),
                 measurementLocation:
                     BasalBodyTemperatureMeasurementLocationDto.wrist,
-                temperature: TemperatureDto(celsius: 37.0),
+                celsius: 37.0,
               );
 
               final record = dto.toDomain();
@@ -92,7 +92,7 @@ void main() {
                 ),
                 measurementLocation:
                     BasalBodyTemperatureMeasurementLocationDto.wrist,
-                temperature: TemperatureDto(celsius: 37.0),
+                celsius: 37.0,
               );
 
               final record = dto.toDomain();

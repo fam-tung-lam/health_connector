@@ -31,7 +31,7 @@ void main() {
           FakeData.fakeTime.timeZoneOffset.inSeconds,
         );
         expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-        expect(dto.value.kilocalories, closeTo(0.5, 0.0001));
+        expect(dto.kilocalories, closeTo(0.5, 0.0001));
         expect(dto.foodName, 'Test Food');
         expect(dto.mealType, MealTypeDto.breakfast);
       },
@@ -49,7 +49,7 @@ void main() {
             clientRecordVersion: 1,
             deviceType: DeviceTypeDto.phone,
           ),
-          value: EnergyDto(kilocalories: 500.0),
+          kilocalories: 500.0,
           foodName: 'Test Food',
           mealType: MealTypeDto.breakfast,
         );

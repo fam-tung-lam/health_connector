@@ -28,7 +28,7 @@ void main() {
 
               // Then
               expect(dto.time, fakeSampleTime.millisecondsSinceEpoch);
-              expect(dto.power.watts, 200);
+              expect(dto.watts, 200);
             },
           );
         },
@@ -43,7 +43,7 @@ void main() {
               // Given
               final dto = PowerSampleDto(
                 time: fakeSampleTime.millisecondsSinceEpoch,
-                power: PowerDto(watts: 200),
+                watts: 200.0,
               );
 
               // When

@@ -10,8 +10,6 @@ final class BloodGlucoseHandler: @unchecked Sendable,
 {
     typealias RecordDto = BloodGlucoseRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = BloodGlucoseDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,7 +20,9 @@ final class BloodGlucoseHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> BloodGlucoseDto {
-        quantity.toBloodGlucoseDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
+        quantity
+            .doubleValue(for: HKUnit.moleUnit(with: .milli, molarMass: HKUnitMolarMassBloodGlucose)
+                .unitDivided(by: HKUnit.liter()))
     }
 }

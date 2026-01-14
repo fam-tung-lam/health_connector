@@ -1,6 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart' show internal;
@@ -15,7 +14,9 @@ extension Vo2MaxRecordDtoToDomain on Vo2MaxRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      vo2MlPerMinPerKg: mLPerKgPerMin.toDomain(),
+      vo2MlPerMinPerKg: Number(
+        millilitersPerKilogramPerMinute,
+      ),
       testType: testType?.toDomain(),
     );
   }
@@ -31,7 +32,7 @@ extension Vo2MaxRecordToDto on Vo2MaxRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      mLPerKgPerMin: vo2MlPerMinPerKg.toDto(),
+      millilitersPerKilogramPerMinute: vo2MlPerMinPerKg.value.toDouble(),
       testType: testType?.toDto(),
     );
   }
@@ -48,8 +49,6 @@ extension Vo2MaxTestTypeDtoToDomain on Vo2MaxTestTypeDto {
       case Vo2MaxTestTypeDto.predictionNonExercise:
         return Vo2MaxTestType.heartRateRatio;
       case Vo2MaxTestTypeDto.predictionSubMaxExercise:
-        // This maps to multiple domain types (Cooper, Rockport, etc.),
-        // so we map to 'other' as we can't be specific without more info.
         return Vo2MaxTestType.other;
       case Vo2MaxTestTypeDto.predictionStepTest:
         return Vo2MaxTestType.predictionStepTest;

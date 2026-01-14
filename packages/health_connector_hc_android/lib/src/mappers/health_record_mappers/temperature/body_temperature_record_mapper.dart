@@ -1,7 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BodyTemperatureRecord, HealthRecordId, sinceV1_0_0;
+    show BodyTemperatureRecord, HealthRecordId, sinceV1_0_0, Temperature;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show BodyTemperatureRecordDto;
@@ -17,7 +16,7 @@ extension BodyTemperatureRecordToDto on BodyTemperatureRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      temperature: temperature.toDto(),
+      celsius: temperature.inCelsius,
     );
   }
 }
@@ -32,7 +31,7 @@ extension BodyTemperatureRecordDtoToDomain on BodyTemperatureRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      temperature: temperature.toDomain(),
+      temperature: Temperature.celsius(celsius),
     );
   }
 }

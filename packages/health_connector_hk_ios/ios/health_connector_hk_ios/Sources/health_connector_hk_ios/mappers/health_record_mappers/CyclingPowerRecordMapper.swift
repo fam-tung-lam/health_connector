@@ -7,7 +7,7 @@ extension CyclingPowerRecordDto {
         if #available(iOS 17.0, *) {
             let type = try HKQuantityType.make(from: .cyclingPower)
 
-            let quantity = try power.toHealthKit()
+            let quantity = HKQuantity(unit: .watt(), doubleValue: watts)
             let date = Date(millisecondsSince1970: time)
 
             // Create builder with timezone offset
@@ -63,7 +63,7 @@ extension HKQuantitySample {
                 id: uuid.uuidString,
                 metadata: builder.toMetadataDto(),
                 time: startDate.millisecondsSince1970,
-                power: quantity.toPowerDto(),
+                watts: quantity.doubleValue(for: HKUnit.watt()),
                 zoneOffsetSeconds: zoneOffset
             )
         } else {

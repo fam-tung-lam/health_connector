@@ -2,8 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.MealType
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import androidx.health.connect.client.units.BloodGlucose
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
@@ -76,7 +75,7 @@ internal fun BloodGlucoseRecord.toDto(): BloodGlucoseRecordDto = BloodGlucoseRec
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    bloodGlucose = level.toDto(),
+    millimolesPerLiter = level.inMillimolesPerLiter,
     relationToMeal = relationToMeal.toBloodGlucoseRelationToMealDto(),
     specimenSource = specimenSource.toBloodGlucoseSpecimenSourceDto(),
     mealType = mealType.toMealTypeDto(),
@@ -89,7 +88,7 @@ internal fun BloodGlucoseRecordDto.toHealthConnect(): BloodGlucoseRecord = Blood
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     metadata = metadata.toHealthConnect(id),
-    level = bloodGlucose.toHealthConnect(),
+    level = BloodGlucose.millimolesPerLiter(millimolesPerLiter),
     relationToMeal = relationToMeal?.toHealthConnect()
         ?: BloodGlucoseRecord.RELATION_TO_MEAL_UNKNOWN,
     specimenSource = specimenSource?.toHealthConnect()

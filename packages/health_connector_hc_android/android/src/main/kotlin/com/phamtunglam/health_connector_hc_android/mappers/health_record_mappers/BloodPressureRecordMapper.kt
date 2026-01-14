@@ -1,8 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.BloodPressureRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import androidx.health.connect.client.units.Pressure
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
@@ -70,8 +69,8 @@ internal fun BloodPressureRecord.toDto(): BloodPressureRecordDto = BloodPressure
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    systolic = systolic.toDto(),
-    diastolic = diastolic.toDto(),
+    systolicInMillimetersOfMercury = systolic.inMillimetersOfMercury,
+    diastolicInMillimetersOfMercury = diastolic.inMillimetersOfMercury,
     bodyPosition = bodyPosition.toBodyPositionDto(),
     measurementLocation = measurementLocation.toMeasurementLocationDto(),
 )
@@ -82,8 +81,8 @@ internal fun BloodPressureRecord.toDto(): BloodPressureRecordDto = BloodPressure
 internal fun BloodPressureRecordDto.toHealthConnect(): BloodPressureRecord = BloodPressureRecord(
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    systolic = systolic.toHealthConnect(),
-    diastolic = diastolic.toHealthConnect(),
+    systolic = Pressure.millimetersOfMercury(systolicInMillimetersOfMercury),
+    diastolic = Pressure.millimetersOfMercury(diastolicInMillimetersOfMercury),
     bodyPosition = bodyPosition.toHealthConnect(),
     measurementLocation = measurementLocation.toHealthConnect(),
     metadata = metadata.toHealthConnect(id),

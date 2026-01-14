@@ -25,8 +25,6 @@ final class MindfulnessSessionHandler: @unchecked Sendable,
 {
     typealias RecordDto = MindfulnessSessionRecordDto
     typealias SampleType = HKCategorySample
-    typealias AggregatedResultMeasurementUnitDto = TimeDurationDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -57,7 +55,7 @@ extension MindfulnessSessionHandler {
         metric: AggregationMetricDto,
         startTime: Date,
         endTime: Date
-    ) async throws -> TimeDurationDto {
+    ) async throws -> Double {
         try await process(
             operation: "aggregate",
             context: [
@@ -74,7 +72,7 @@ extension MindfulnessSessionHandler {
                 samples
                     .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
 
-            return totalMindfulnessSeconds.toIntervalDto()
+            return totalMindfulnessSeconds
         }
     }
 }

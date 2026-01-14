@@ -55,7 +55,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.distance.meters, 8000.0);
+              expect(dto.meters, 8000.0);
               expect(
                 dto.activityType,
                 DistanceActivityTypeDto.crossCountrySkiing,
@@ -90,7 +90,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.distance.meters, 12000.0);
+              expect(dto.meters, 12000.0);
               expect(
                 dto.activityType,
                 DistanceActivityTypeDto.crossCountrySkiing,
@@ -122,7 +122,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                distance: LengthDto(meters: 7500.0),
+                meters: 7500.0,
                 activityType: DistanceActivityTypeDto.crossCountrySkiing,
               );
 
@@ -158,7 +158,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 9500.0),
+                meters: 9500.0,
                 activityType: DistanceActivityTypeDto.crossCountrySkiing,
               );
 
@@ -187,7 +187,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 4500.0),
+                meters: 4500.0,
                 activityType: DistanceActivityTypeDto.crossCountrySkiing,
               );
 

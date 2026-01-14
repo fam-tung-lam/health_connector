@@ -38,7 +38,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.mLPerKgPerMin.value, 45.5);
+              expect(dto.millilitersPerKilogramPerMinute, 45.5);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -63,7 +63,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                mLPerKgPerMin: NumberDto(value: 42.3),
+                millilitersPerKilogramPerMinute: 42.3,
               );
 
               final record = dto.toDomain();
@@ -92,7 +92,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                mLPerKgPerMin: NumberDto(value: 38.0),
+                millilitersPerKilogramPerMinute: 38.0,
               );
 
               final record = dto.toDomain();

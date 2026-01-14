@@ -34,7 +34,7 @@ void main() {
 
               // Then
               expect(dto.activityType, SpeedActivityTypeDto.walking);
-              expect(dto.speed.metersPerSecond, 1.5);
+              expect(dto.metersPerSecond, 1.5);
             },
           );
 
@@ -60,7 +60,7 @@ void main() {
 
               // Then
               expect(dto.activityType, SpeedActivityTypeDto.running);
-              expect(dto.speed.metersPerSecond, 3.5);
+              expect(dto.metersPerSecond, 3.5);
             },
           );
 
@@ -86,7 +86,7 @@ void main() {
 
               // Then
               expect(dto.activityType, SpeedActivityTypeDto.stairAscent);
-              expect(dto.speed.metersPerSecond, 0.5);
+              expect(dto.metersPerSecond, 0.5);
             },
           );
 
@@ -112,7 +112,7 @@ void main() {
 
               // Then
               expect(dto.activityType, SpeedActivityTypeDto.stairDescent);
-              expect(dto.speed.metersPerSecond, 0.8);
+              expect(dto.metersPerSecond, 0.8);
             },
           );
         },
@@ -135,7 +135,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 1.3),
+                metersPerSecond: 1.3,
                 activityType: SpeedActivityTypeDto.walking,
               );
 
@@ -162,7 +162,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 4.2),
+                metersPerSecond: 4.2,
                 activityType: SpeedActivityTypeDto.running,
               );
 
@@ -189,7 +189,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 0.5),
+                metersPerSecond: 0.5,
                 activityType: SpeedActivityTypeDto.stairAscent,
               );
 
@@ -216,7 +216,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 0.8),
+                metersPerSecond: 0.8,
                 activityType: SpeedActivityTypeDto.stairDescent,
               );
 

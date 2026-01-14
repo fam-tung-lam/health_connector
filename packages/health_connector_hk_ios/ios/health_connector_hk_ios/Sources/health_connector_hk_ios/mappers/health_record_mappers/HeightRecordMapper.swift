@@ -6,7 +6,8 @@ extension HeightRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .height)
 
-        let quantity = height.toHealthKit()
+        let unit = HKUnit.meter()
+        let quantity = HKQuantity(unit: unit, doubleValue: meters)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -55,7 +56,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
-            height: quantity.toLengthDto(),
+            meters: quantity.doubleValue(for: HKUnit.meter()),
             zoneOffsetSeconds: zoneOffset
         )
     }

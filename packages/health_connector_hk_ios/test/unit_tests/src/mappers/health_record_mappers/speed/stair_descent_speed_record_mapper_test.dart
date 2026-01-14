@@ -10,7 +10,7 @@ void main() {
     'StairDescentSpeedRecordMapper',
     () {
       group(
-        'StairDescentSpeedRecordToDto',
+        'StairDescentVelocityRecordToDto',
         () {
           test(
             'converts StairDescentSpeedRecord to SpeedActivityRecordDto',
@@ -41,7 +41,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.speed.metersPerSecond, 0.8);
+              expect(dto.metersPerSecond, 0.8);
 
               expect(dto.activityType, SpeedActivityTypeDto.stairDescent);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
@@ -77,7 +77,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.speed.metersPerSecond, 0.6);
+              expect(dto.metersPerSecond, 0.6);
               expect(dto.activityType, SpeedActivityTypeDto.stairDescent);
               expect(
                 dto.metadata.recordingMethod,
@@ -90,7 +90,7 @@ void main() {
       );
 
       group(
-        'StairDescentSpeedRecordDtoToDomain',
+        'StairDescentVelocityRecordDtoToDomain',
         () {
           test(
             'converts SpeedActivityRecordDto to StairDescentSpeedRecord',
@@ -108,7 +108,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 0.8),
+                metersPerSecond: 0.8,
                 activityType: SpeedActivityTypeDto.stairDescent,
               );
 
@@ -153,7 +153,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(metersPerSecond: 0.7),
+                metersPerSecond: 0.7,
                 activityType: SpeedActivityTypeDto.stairDescent,
               );
 
@@ -182,7 +182,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(metersPerSecond: 0.6),
+                metersPerSecond: 0.6,
                 activityType: SpeedActivityTypeDto.stairDescent,
               );
 

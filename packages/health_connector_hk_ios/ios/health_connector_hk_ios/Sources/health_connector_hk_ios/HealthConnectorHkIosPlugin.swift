@@ -221,7 +221,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///   - completion: Called with a `Result` containing the aggregated measurement unit
     public func aggregate(
         request: AggregateRequestDto,
-        completion: @escaping (Result<MeasurementUnitDto, Error>) -> Void
+        completion: @escaping (Result<Double, Error>) -> Void
     ) {
         let operation = "aggregate"
         let context: [String: Any] = [

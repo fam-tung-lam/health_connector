@@ -6,7 +6,8 @@ extension OxygenSaturationRecordDto {
     func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .oxygenSaturation)
 
-        let quantity = percentage.toHealthKit()
+        let unit = HKUnit.percent()
+        let quantity = HKQuantity(unit: unit, doubleValue: percentage)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -55,7 +56,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            percentage: quantity.toPercentageDto(),
+            percentage: quantity.doubleValue(for: HKUnit.percent()),
             zoneOffsetSeconds: zoneOffset
         )
     }

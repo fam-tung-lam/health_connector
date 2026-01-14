@@ -3,7 +3,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show BodyMassIndexRecordDto, NumberDto;
+    show BodyMassIndexRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 @sinceV2_2_0
@@ -15,7 +15,7 @@ extension BodyMassIndexRecordToDto on BodyMassIndexRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      bodyMassIndex: NumberDto(value: bmi.value.toDouble()),
+      bodyMassIndex: bmi.value.toDouble(),
     );
   }
 }
@@ -29,7 +29,7 @@ extension BodyMassIndexRecordDtoToDomain on BodyMassIndexRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      bmi: Number(bodyMassIndex.value),
+      bmi: Number(bodyMassIndex),
     );
   }
 }

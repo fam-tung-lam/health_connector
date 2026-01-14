@@ -6,7 +6,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
 import io.kotest.matchers.shouldBe
@@ -43,7 +42,7 @@ class WheelchairPushesRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.pushes.value shouldBe TEST_COUNT.toDouble()
+        result.pushes shouldBe TEST_COUNT.toDouble()
         result.startTime shouldBe TEST_START_TIME
         result.endTime shouldBe TEST_END_TIME
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
@@ -60,7 +59,7 @@ class WheelchairPushesRecordMapperTest {
             endTime = TEST_END_TIME,
             startZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
             endZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            pushes = NumberDto(value = TEST_COUNT.toDouble()),
+            pushes = TEST_COUNT.toDouble(),
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

@@ -49,7 +49,7 @@ void main() {
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.count.value, 5000);
+              expect(dto.count, 5000);
             },
           );
         },
@@ -75,7 +75,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                count: NumberDto(value: 10000),
+                count: 10000,
               );
 
               final record = dto.toDomain();
@@ -109,7 +109,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                count: NumberDto(value: 3000),
+                count: 3000,
               );
 
               final record = dto.toDomain();

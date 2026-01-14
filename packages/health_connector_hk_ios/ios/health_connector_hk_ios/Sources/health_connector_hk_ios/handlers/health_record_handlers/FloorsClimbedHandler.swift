@@ -10,8 +10,6 @@ final class FloorsClimbedHandler: @unchecked Sendable,
 {
     typealias RecordDto = FloorsClimbedRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = NumberDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,8 +20,8 @@ final class FloorsClimbedHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> NumberDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         let count = quantity.doubleValue(for: .count())
-        return NumberDto(value: count)
+        return count
     }
 }

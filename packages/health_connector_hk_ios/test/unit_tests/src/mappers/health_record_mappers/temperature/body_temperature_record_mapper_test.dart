@@ -38,7 +38,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.temperature.celsius, 37.2);
+              expect(dto.celsius, 37.2);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -63,7 +63,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                temperature: TemperatureDto(celsius: 36.8),
+                celsius: 36.8,
               );
 
               final record = dto.toDomain();
@@ -93,7 +93,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                temperature: TemperatureDto(celsius: 37.0),
+                celsius: 37.0,
               );
 
               final record = dto.toDomain();

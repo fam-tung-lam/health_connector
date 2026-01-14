@@ -41,7 +41,7 @@ void main() {
               );
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.pushes.value, 150);
+              expect(dto.pushes, 150);
             },
           );
         },
@@ -67,7 +67,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                pushes: NumberDto(value: 200),
+                pushes: 200.0,
               );
 
               final record = dto.toDomain();
@@ -98,7 +98,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                pushes: NumberDto(value: 100),
+                pushes: 100.0,
               );
 
               final record = dto.toDomain();

@@ -38,7 +38,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.mass.kilograms, 55.0);
+              expect(dto.kilograms, 55.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -63,7 +63,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                mass: MassDto(kilograms: 58.0),
+                kilograms: 58.0,
               );
 
               final record = dto.toDomain();
@@ -93,7 +93,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                mass: MassDto(kilograms: 52.0),
+                kilograms: 52.0,
               );
 
               final record = dto.toDomain();

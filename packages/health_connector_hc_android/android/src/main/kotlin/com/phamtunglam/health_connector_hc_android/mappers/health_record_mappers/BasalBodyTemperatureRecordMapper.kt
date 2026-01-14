@@ -3,7 +3,6 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BodyTemperatureMeasurementLocation
 import androidx.health.connect.client.units.Temperature
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toTemperatureDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.BasalBodyTemperatureMeasurementLocationDto
@@ -20,7 +19,7 @@ internal fun BasalBodyTemperatureRecord.toDto(): BasalBodyTemperatureRecordDto =
         time = time.toEpochMilli(),
         zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
         metadata = metadata.toDto(),
-        temperature = temperature.inCelsius.toTemperatureDto(),
+        celsius = temperature.inCelsius,
         measurementLocation = measurementLocation.toBasalBodyTemperatureMeasurementLocationDto(),
     )
 
@@ -29,7 +28,7 @@ internal fun BasalBodyTemperatureRecord.toDto(): BasalBodyTemperatureRecordDto =
  */
 internal fun BasalBodyTemperatureRecordDto.toHealthConnect(): BasalBodyTemperatureRecord =
     BasalBodyTemperatureRecord(
-        temperature = Temperature.celsius(temperature.celsius),
+        temperature = Temperature.celsius(celsius),
         measurementLocation = measurementLocation.toHealthConnect(),
         time = Instant.ofEpochMilli(time),
         zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },

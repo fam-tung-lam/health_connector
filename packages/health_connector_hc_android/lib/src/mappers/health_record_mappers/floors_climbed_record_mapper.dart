@@ -1,7 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show FloorsClimbedRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
+    show
+        FloorsClimbedRecord,
+        HealthRecordId,
+        sinceV1_0_0,
+        DateTimeToDto,
+        Number;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show FloorsClimbedRecordDto;
@@ -23,7 +27,7 @@ extension FloorsClimbedRecordToDto on FloorsClimbedRecord {
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      floors: count.toDto(),
+      floors: count.value.toDouble(),
     );
   }
 }
@@ -40,7 +44,7 @@ extension FloorsClimbedRecordDtoToDomain on FloorsClimbedRecordDto {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      count: floors.toDomain(),
+      count: Number(floors),
     );
   }
 }

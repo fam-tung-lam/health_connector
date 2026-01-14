@@ -42,7 +42,7 @@ void main() {
                       clientRecordVersion: 1,
                       deviceType: DeviceTypeDto.phone,
                     ),
-                    count: NumberDto(value: 1000),
+                    count: 1000,
                   ),
                   StepsRecordDto(
                     id: 'record-2',
@@ -58,7 +58,7 @@ void main() {
                       clientRecordVersion: 1,
                       deviceType: DeviceTypeDto.watch,
                     ),
-                    count: NumberDto(value: 2000),
+                    count: 2000,
                   ),
                 ],
                 nextPageToken: 'next-page-token-456',
@@ -122,7 +122,7 @@ void main() {
                       clientRecordVersion: 1,
                       deviceType: DeviceTypeDto.phone,
                     ),
-                    weight: MassDto(kilograms: 70.5),
+                    kilograms: 70.5,
                   ),
                 ],
               );

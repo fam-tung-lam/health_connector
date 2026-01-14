@@ -10,8 +10,6 @@ final class Vo2MaxHandler: @unchecked Sendable,
 {
     typealias RecordDto = Vo2MaxRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = NumberDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,12 +20,12 @@ final class Vo2MaxHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> NumberDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         // VO2 Max is in ml/(kg·min)
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: .gramUnit(with: .kilo))
             .unitDivided(by: .minute())
         let vo2Max = quantity.doubleValue(for: unit)
-        return NumberDto(value: vo2Max)
+        return vo2Max
     }
 }

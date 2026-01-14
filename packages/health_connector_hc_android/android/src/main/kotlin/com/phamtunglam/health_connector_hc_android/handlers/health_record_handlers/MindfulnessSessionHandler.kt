@@ -8,11 +8,8 @@ import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggrega
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
-import kotlin.time.toKotlinDuration
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -37,14 +34,11 @@ internal class MindfulnessSessionHandler(
         AggregationMetricDto.SUM to MindfulnessSessionRecord.MINDFULNESS_DURATION_TOTAL,
     )
 
-    override fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto {
-        // Health Connect returns java.time.Duration, so we need to cast to that type
-        // and convert it to kotlin.time.Duration before calling toDto()
+    override fun convertAggregatedValue(aggregatedValue: Any): Double {
         val javaDuration = aggregatedValue as? java.time.Duration
             ?: throw IllegalArgumentException(
                 "Aggregated value is not java.time.Duration type: ${aggregatedValue::class.qualifiedName}",
             )
-        val kotlinDuration = javaDuration.toKotlinDuration()
-        return kotlinDuration.toDto()
+        return javaDuration.toMillis().toDouble()
     }
 }

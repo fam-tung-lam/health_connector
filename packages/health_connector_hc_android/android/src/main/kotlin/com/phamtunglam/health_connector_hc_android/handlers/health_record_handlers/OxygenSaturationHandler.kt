@@ -7,7 +7,6 @@ import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -44,9 +43,6 @@ internal class OxygenSaturationHandler(
             )
         }
 
-        return recordDto.percentage.decimal
+        return recordDto.percentage
     }
-
-    override fun wrapAggregationResult(value: Double): MeasurementUnitDto =
-        com.phamtunglam.health_connector_hc_android.pigeon.PercentageDto(decimal = value)
 }

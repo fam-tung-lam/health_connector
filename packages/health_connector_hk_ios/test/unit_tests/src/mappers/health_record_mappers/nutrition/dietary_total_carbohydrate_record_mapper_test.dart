@@ -33,7 +33,7 @@ void main() {
           FakeData.fakeTime.timeZoneOffset.inSeconds,
         );
         expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-        expect(dto.value.kilograms, closeTo(0.01, 0.0001));
+        expect(dto.grams, closeTo(10, 0.1));
 
         expect(dto.foodName, 'Test Food');
         expect(dto.mealType, MealTypeDto.breakfast);
@@ -53,7 +53,7 @@ void main() {
             clientRecordVersion: 1,
             deviceType: DeviceTypeDto.phone,
           ),
-          value: MassDto(kilograms: 0.01),
+          grams: 10,
           foodName: 'Test Food',
           mealType: MealTypeDto.breakfast,
         );
@@ -69,7 +69,7 @@ void main() {
           record.metadata.dataOrigin?.packageName,
           FakeData.fakeDataOrigin,
         );
-        expect(record.mass.inKilograms, closeTo(0.01, 0.0001));
+        expect(record.mass.inGrams, closeTo(10, 0.1));
         expect(record.foodName, 'Test Food');
         expect(record.mealType, MealType.breakfast);
       },

@@ -10,8 +10,6 @@ final class BasalBodyTemperatureHandler: @unchecked Sendable,
 {
     typealias RecordDto = BasalBodyTemperatureRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = TemperatureDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,7 +20,7 @@ final class BasalBodyTemperatureHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> TemperatureDto {
-        quantity.toTemperatureDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
+        quantity.doubleValue(for: .degreeCelsius())
     }
 }

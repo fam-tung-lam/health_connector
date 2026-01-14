@@ -1,8 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.HeightRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import androidx.health.connect.client.units.Length
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
@@ -17,14 +16,14 @@ internal fun HeightRecord.toDto(): HeightRecordDto = HeightRecordDto(
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    height = height.toDto(),
+    meters = height.inMeters,
 )
 
 /**
  * Converts a [HeightRecordDto] to a Health Connect [HeightRecord] object.
  */
 internal fun HeightRecordDto.toHealthConnect(): HeightRecord = HeightRecord(
-    height = height.toHealthConnect(),
+    height = Length.meters(meters),
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     metadata = metadata.toHealthConnect(id),

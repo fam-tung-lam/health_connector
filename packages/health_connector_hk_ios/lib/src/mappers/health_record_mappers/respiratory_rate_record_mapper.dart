@@ -1,38 +1,34 @@
-import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show Frequency, HealthRecordId, RespiratoryRateRecord, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
-import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
+    show RespiratoryRateRecordDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Mapper extensions for [RespiratoryRateRecord].
-@sinceV1_3_0
+@sinceV1_0_0
 @internal
 extension RespiratoryRateRecordToDto on RespiratoryRateRecord {
-  /// Converts [RespiratoryRateRecord] to its [RespiratoryRateRecordDto].
   RespiratoryRateRecordDto toDto() {
     return RespiratoryRateRecordDto(
       id: id.toDto(),
-      time: time.toUtc().millisecondsSinceEpoch,
-      zoneOffsetSeconds: zoneOffsetSeconds,
+      time: time.millisecondsSinceEpoch,
       metadata: metadata.toDto(),
-      breathsPerMin: rate.toDto(),
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      breathsPerMinute: rate.inPerMinute,
     );
   }
 }
 
-/// Mapper extensions for [RespiratoryRateRecordDto].
-@sinceV1_3_0
+@sinceV1_0_0
 @internal
 extension RespiratoryRateRecordDtoToDomain on RespiratoryRateRecordDto {
-  /// Converts [RespiratoryRateRecordDto] to its domain representation.
   RespiratoryRateRecord toDomain() {
     return RespiratoryRateRecord.internal(
-      id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
-      zoneOffsetSeconds: zoneOffsetSeconds,
+      id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
-      rate: breathsPerMin.toDomain(),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
+      rate: Frequency.perMinute(breathsPerMinute),
     );
   }
 }

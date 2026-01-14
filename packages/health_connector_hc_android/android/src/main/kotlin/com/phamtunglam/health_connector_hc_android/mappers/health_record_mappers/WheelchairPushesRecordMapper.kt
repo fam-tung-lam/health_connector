@@ -1,7 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.WheelchairPushesRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
@@ -18,7 +17,7 @@ internal fun WheelchairPushesRecord.toDto(): WheelchairPushesRecordDto = Wheelch
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    pushes = count.toNumberDto(),
+    pushes = count.toDouble(),
 )
 
 /**
@@ -26,7 +25,7 @@ internal fun WheelchairPushesRecord.toDto(): WheelchairPushesRecordDto = Wheelch
  */
 internal fun WheelchairPushesRecordDto.toHealthConnect(): WheelchairPushesRecord =
     WheelchairPushesRecord(
-        count = pushes.value.toLong(),
+        count = pushes.toLong(),
         startTime = Instant.ofEpochMilli(startTime),
         endTime = Instant.ofEpochMilli(endTime),
         startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },

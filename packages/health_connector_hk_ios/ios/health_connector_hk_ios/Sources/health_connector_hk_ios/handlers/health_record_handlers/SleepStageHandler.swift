@@ -10,8 +10,6 @@ final class SleepStageHandler: @unchecked Sendable,
 {
     typealias RecordDto = SleepStageRecordDto
     typealias SampleType = HKCategorySample
-    typealias AggregatedResultMeasurementUnitDto = TimeDurationDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -46,7 +44,7 @@ extension SleepStageHandler {
         metric: AggregationMetricDto,
         startTime: Date,
         endTime: Date
-    ) async throws -> TimeDurationDto {
+    ) async throws -> Double {
         try await process(
             operation: "aggregate",
             context: [
@@ -64,7 +62,7 @@ extension SleepStageHandler {
                     .filter(isActualSleepStage)
                     .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
 
-            return totalSleepSeconds.toIntervalDto()
+            return totalSleepSeconds
         }
     }
 

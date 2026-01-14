@@ -10,8 +10,6 @@ final class DiastolicBloodPressureHandler: @unchecked Sendable,
 {
     typealias RecordDto = DiastolicBloodPressureRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = PressureDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,7 +20,7 @@ final class DiastolicBloodPressureHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> PressureDto {
-        quantity.toPressureDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
+        quantity.doubleValue(for: HKUnit.millimeterOfMercury())
     }
 }

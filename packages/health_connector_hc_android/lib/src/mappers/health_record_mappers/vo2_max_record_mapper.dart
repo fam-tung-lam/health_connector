@@ -3,7 +3,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show Vo2MaxMeasurementMethodDto, Vo2MaxRecordDto, NumberDto;
+    show Vo2MaxMeasurementMethodDto, Vo2MaxRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [Vo2MaxRecordDto] to [Vo2MaxRecord].
@@ -16,7 +16,7 @@ extension Vo2MaxRecordDtoToDomain on Vo2MaxRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      vo2MlPerMinPerKg: Number(mLPerKgPerMin.value),
+      vo2MlPerMinPerKg: Number(millilitersPerKilogramPerMinute),
       testType: measurementMethod?.toDomain(),
     );
   }
@@ -32,7 +32,7 @@ extension Vo2MaxRecordToDto on Vo2MaxRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      mLPerKgPerMin: NumberDto(value: vo2MlPerMinPerKg.value.toDouble()),
+      millilitersPerKilogramPerMinute: vo2MlPerMinPerKg.value.toDouble(),
       measurementMethod: testType?.toDto(),
     );
   }

@@ -1,8 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import androidx.health.connect.client.units.Energy
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveEnergyBurnedRecordDto
@@ -20,7 +19,7 @@ internal fun ActiveCaloriesBurnedRecord.toDto(): ActiveEnergyBurnedRecordDto =
         startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
         endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
         metadata = metadata.toDto(),
-        energy = energy.toDto(),
+        kilocalories = energy.inKilocalories,
     )
 
 /**
@@ -28,7 +27,7 @@ internal fun ActiveCaloriesBurnedRecord.toDto(): ActiveEnergyBurnedRecordDto =
  */
 internal fun ActiveEnergyBurnedRecordDto.toHealthConnect(): ActiveCaloriesBurnedRecord =
     ActiveCaloriesBurnedRecord(
-        energy = energy.toHealthConnect(),
+        energy = Energy.kilocalories(kilocalories),
         startTime = Instant.ofEpochMilli(startTime),
         endTime = Instant.ofEpochMilli(endTime),
         startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },

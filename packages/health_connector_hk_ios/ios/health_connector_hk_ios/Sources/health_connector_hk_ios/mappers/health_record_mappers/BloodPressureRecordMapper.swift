@@ -67,8 +67,8 @@ extension HKCorrelation {
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
-            systolic: PressureDto(millimetersOfMercury: systolic),
-            diastolic: PressureDto(millimetersOfMercury: diastolic),
+            systolicInMillimetersOfMercury: systolic,
+            diastolicInMillimetersOfMercury: diastolic,
             bodyPosition: bodyPosition,
             measurementLocation: measurementLocation,
             zoneOffsetSeconds: zoneOffset
@@ -87,10 +87,10 @@ extension BloodPressureRecordDto {
         let mmHgUnit = HKUnit.millimeterOfMercury()
 
         let systolicQuantity = HKQuantity(
-            unit: mmHgUnit, doubleValue: systolic.millimetersOfMercury
+            unit: mmHgUnit, doubleValue: systolicInMillimetersOfMercury
         )
         let diastolicQuantity = HKQuantity(
-            unit: mmHgUnit, doubleValue: diastolic.millimetersOfMercury
+            unit: mmHgUnit, doubleValue: diastolicInMillimetersOfMercury
         )
 
         // Create builder with timezone offset
@@ -171,7 +171,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
-            pressure: PressureDto(millimetersOfMercury: value),
+            millimetersOfMercury: value,
             bodyPosition: bodyPosition,
             measurementLocation: measurementLocation,
             zoneOffsetSeconds: zoneOffset
@@ -216,7 +216,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
-            pressure: PressureDto(millimetersOfMercury: value),
+            millimetersOfMercury: value,
             bodyPosition: bodyPosition,
             measurementLocation: measurementLocation,
             zoneOffsetSeconds: zoneOffset
@@ -230,7 +230,7 @@ extension SystolicBloodPressureRecordDto {
         let type = try HKQuantityType.make(from: .bloodPressureSystolic)
 
         let mmHgUnit = HKUnit.millimeterOfMercury()
-        let quantity = HKQuantity(unit: mmHgUnit, doubleValue: pressure.millimetersOfMercury)
+        let quantity = HKQuantity(unit: mmHgUnit, doubleValue: millimetersOfMercury)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -260,7 +260,7 @@ extension DiastolicBloodPressureRecordDto {
         let type = try HKQuantityType.make(from: .bloodPressureDiastolic)
 
         let mmHgUnit = HKUnit.millimeterOfMercury()
-        let quantity = HKQuantity(unit: mmHgUnit, doubleValue: pressure.millimetersOfMercury)
+        let quantity = HKQuantity(unit: mmHgUnit, doubleValue: millimetersOfMercury)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset

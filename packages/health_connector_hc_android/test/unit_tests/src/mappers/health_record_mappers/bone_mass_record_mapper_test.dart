@@ -38,7 +38,7 @@ void main() {
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.mass.kilograms, 3.2);
+              expect(dto.kilograms, 3.2);
             },
           );
         },
@@ -60,7 +60,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                mass: MassDto(kilograms: 3.5),
+                kilograms: 3.5,
               );
 
               final record = dto.toDomain();
@@ -91,7 +91,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                mass: MassDto(kilograms: 3.0),
+                kilograms: 3.0,
               );
 
               final record = dto.toDomain();

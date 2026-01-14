@@ -37,7 +37,7 @@ void main() {
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.percentage.decimal, 0.225);
+              expect(dto.percentage, 22.5);
             },
           );
         },
@@ -59,7 +59,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                percentage: PercentageDto(decimal: 0.18),
+                percentage: 18.0,
               );
 
               final record = dto.toDomain();
@@ -91,7 +91,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                percentage: PercentageDto(decimal: 0.20),
+                percentage: 20.0,
               );
 
               final record = dto.toDomain();

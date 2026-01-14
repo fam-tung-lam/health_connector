@@ -1,7 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show WeightRecord, HealthRecordId, sinceV1_0_0;
+    show WeightRecord, HealthRecordId, sinceV1_0_0, Mass;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show WeightRecordDto;
@@ -17,7 +17,7 @@ extension WeightRecordToDto on WeightRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      weight: weight.toDto(),
+      kilograms: weight.inKilograms,
     );
   }
 }
@@ -32,7 +32,7 @@ extension WeightRecordDtoToDomain on WeightRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      weight: weight.toDomain(),
+      weight: Mass.kilograms(kilograms),
     );
   }
 }

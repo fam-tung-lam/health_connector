@@ -1,8 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, MealType, NutritionRecord, sinceV1_1_0;
+    show Energy, HealthRecordId, Mass, MealType, NutritionRecord, sinceV1_1_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show NutritionRecordDto;
@@ -23,43 +22,43 @@ extension NutritionRecordToDto on NutritionRecord {
       foodName: foodName,
       mealType: mealType.toDto(),
       // Energy
-      energy: energy?.toDto(),
+      energyKilocalories: energy?.inKilocalories,
       // Macronutrients
-      protein: protein?.toDto(),
-      totalCarbohydrate: totalCarbohydrate?.toDto(),
-      totalFat: totalFat?.toDto(),
-      saturatedFat: saturatedFat?.toDto(),
-      monounsaturatedFat: monounsaturatedFat?.toDto(),
-      polyunsaturatedFat: polyunsaturatedFat?.toDto(),
-      cholesterol: cholesterol?.toDto(),
-      dietaryFiber: dietaryFiber?.toDto(),
-      sugar: sugar?.toDto(),
+      proteinInGrams: protein?.inGrams,
+      totalCarbohydrateInGrams: totalCarbohydrate?.inGrams,
+      totalFatInGrams: totalFat?.inGrams,
+      saturatedFatInGrams: saturatedFat?.inGrams,
+      monounsaturatedFatInGrams: monounsaturatedFat?.inGrams,
+      polyunsaturatedFatInGrams: polyunsaturatedFat?.inGrams,
+      cholesterolInGrams: cholesterol?.inGrams,
+      dietaryFiberInGrams: dietaryFiber?.inGrams,
+      sugarInGrams: sugar?.inGrams,
       // Vitamins
-      vitaminA: vitaminA?.toDto(),
-      vitaminB6: vitaminB6?.toDto(),
-      vitaminB12: vitaminB12?.toDto(),
-      vitaminC: vitaminC?.toDto(),
-      vitaminD: vitaminD?.toDto(),
-      vitaminE: vitaminE?.toDto(),
-      vitaminK: vitaminK?.toDto(),
-      thiamin: thiamin?.toDto(),
-      riboflavin: riboflavin?.toDto(),
-      niacin: niacin?.toDto(),
-      folate: folate?.toDto(),
-      biotin: biotin?.toDto(),
-      pantothenicAcid: pantothenicAcid?.toDto(),
+      vitaminAInGrams: vitaminA?.inGrams,
+      vitaminB6InGrams: vitaminB6?.inGrams,
+      vitaminB12InGrams: vitaminB12?.inGrams,
+      vitaminCInGrams: vitaminC?.inGrams,
+      vitaminDInGrams: vitaminD?.inGrams,
+      vitaminEInGrams: vitaminE?.inGrams,
+      vitaminKInGrams: vitaminK?.inGrams,
+      thiaminInGrams: thiamin?.inGrams,
+      riboflavinInGrams: riboflavin?.inGrams,
+      niacinInGrams: niacin?.inGrams,
+      folateInGrams: folate?.inGrams,
+      biotinInGrams: biotin?.inGrams,
+      pantothenicAcidInGrams: pantothenicAcid?.inGrams,
       // Minerals
-      calcium: calcium?.toDto(),
-      iron: iron?.toDto(),
-      magnesium: magnesium?.toDto(),
-      manganese: manganese?.toDto(),
-      phosphorus: phosphorus?.toDto(),
-      potassium: potassium?.toDto(),
-      selenium: selenium?.toDto(),
-      sodium: sodium?.toDto(),
-      zinc: zinc?.toDto(),
+      calciumInGrams: calcium?.inGrams,
+      ironInGrams: iron?.inGrams,
+      magnesiumInGrams: magnesium?.inGrams,
+      manganeseInGrams: manganese?.inGrams,
+      phosphorusInGrams: phosphorus?.inGrams,
+      potassiumInGrams: potassium?.inGrams,
+      seleniumInGrams: selenium?.inGrams,
+      sodiumInGrams: sodium?.inGrams,
+      zincInGrams: zinc?.inGrams,
       // Other
-      caffeine: caffeine?.toDto(),
+      caffeineInGrams: caffeine?.inGrams,
     );
   }
 }
@@ -79,43 +78,73 @@ extension NutritionRecordDtoToDomain on NutritionRecordDto {
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
       // Energy
-      energy: energy?.toDomain(),
+      energy: energyKilocalories != null
+          ? Energy.kilocalories(energyKilocalories!)
+          : null,
       // Macronutrients
-      protein: protein?.toDomain(),
-      totalCarbohydrate: totalCarbohydrate?.toDomain(),
-      totalFat: totalFat?.toDomain(),
-      saturatedFat: saturatedFat?.toDomain(),
-      monounsaturatedFat: monounsaturatedFat?.toDomain(),
-      polyunsaturatedFat: polyunsaturatedFat?.toDomain(),
-      cholesterol: cholesterol?.toDomain(),
-      dietaryFiber: dietaryFiber?.toDomain(),
-      sugar: sugar?.toDomain(),
+      protein: proteinInGrams != null ? Mass.grams(proteinInGrams!) : null,
+      totalCarbohydrate: totalCarbohydrateInGrams != null
+          ? Mass.grams(totalCarbohydrateInGrams!)
+          : null,
+      totalFat: totalFatInGrams != null ? Mass.grams(totalFatInGrams!) : null,
+      saturatedFat: saturatedFatInGrams != null
+          ? Mass.grams(saturatedFatInGrams!)
+          : null,
+      monounsaturatedFat: monounsaturatedFatInGrams != null
+          ? Mass.grams(monounsaturatedFatInGrams!)
+          : null,
+      polyunsaturatedFat: polyunsaturatedFatInGrams != null
+          ? Mass.grams(polyunsaturatedFatInGrams!)
+          : null,
+      cholesterol: cholesterolInGrams != null
+          ? Mass.grams(cholesterolInGrams!)
+          : null,
+      dietaryFiber: dietaryFiberInGrams != null
+          ? Mass.grams(dietaryFiberInGrams!)
+          : null,
+      sugar: sugarInGrams != null ? Mass.grams(sugarInGrams!) : null,
       // Vitamins
-      vitaminA: vitaminA?.toDomain(),
-      vitaminB6: vitaminB6?.toDomain(),
-      vitaminB12: vitaminB12?.toDomain(),
-      vitaminC: vitaminC?.toDomain(),
-      vitaminD: vitaminD?.toDomain(),
-      vitaminE: vitaminE?.toDomain(),
-      vitaminK: vitaminK?.toDomain(),
-      thiamin: thiamin?.toDomain(),
-      riboflavin: riboflavin?.toDomain(),
-      niacin: niacin?.toDomain(),
-      folate: folate?.toDomain(),
-      biotin: biotin?.toDomain(),
-      pantothenicAcid: pantothenicAcid?.toDomain(),
+      vitaminA: vitaminAInGrams != null ? Mass.grams(vitaminAInGrams!) : null,
+      vitaminB6: vitaminB6InGrams != null
+          ? Mass.grams(vitaminB6InGrams!)
+          : null,
+      vitaminB12: vitaminB12InGrams != null
+          ? Mass.grams(vitaminB12InGrams!)
+          : null,
+      vitaminC: vitaminCInGrams != null ? Mass.grams(vitaminCInGrams!) : null,
+      vitaminD: vitaminDInGrams != null ? Mass.grams(vitaminDInGrams!) : null,
+      vitaminE: vitaminEInGrams != null ? Mass.grams(vitaminEInGrams!) : null,
+      vitaminK: vitaminKInGrams != null ? Mass.grams(vitaminKInGrams!) : null,
+      thiamin: thiaminInGrams != null ? Mass.grams(thiaminInGrams!) : null,
+      riboflavin: riboflavinInGrams != null
+          ? Mass.grams(riboflavinInGrams!)
+          : null,
+      niacin: niacinInGrams != null ? Mass.grams(niacinInGrams!) : null,
+      folate: folateInGrams != null ? Mass.grams(folateInGrams!) : null,
+      biotin: biotinInGrams != null ? Mass.grams(biotinInGrams!) : null,
+      pantothenicAcid: pantothenicAcidInGrams != null
+          ? Mass.grams(pantothenicAcidInGrams!)
+          : null,
       // Minerals
-      calcium: calcium?.toDomain(),
-      iron: iron?.toDomain(),
-      magnesium: magnesium?.toDomain(),
-      manganese: manganese?.toDomain(),
-      phosphorus: phosphorus?.toDomain(),
-      potassium: potassium?.toDomain(),
-      selenium: selenium?.toDomain(),
-      sodium: sodium?.toDomain(),
-      zinc: zinc?.toDomain(),
+      calcium: calciumInGrams != null ? Mass.grams(calciumInGrams!) : null,
+      iron: ironInGrams != null ? Mass.grams(ironInGrams!) : null,
+      magnesium: magnesiumInGrams != null
+          ? Mass.grams(magnesiumInGrams!)
+          : null,
+      manganese: manganeseInGrams != null
+          ? Mass.grams(manganeseInGrams!)
+          : null,
+      phosphorus: phosphorusInGrams != null
+          ? Mass.grams(phosphorusInGrams!)
+          : null,
+      potassium: potassiumInGrams != null
+          ? Mass.grams(potassiumInGrams!)
+          : null,
+      selenium: seleniumInGrams != null ? Mass.grams(seleniumInGrams!) : null,
+      sodium: sodiumInGrams != null ? Mass.grams(sodiumInGrams!) : null,
+      zinc: zincInGrams != null ? Mass.grams(zincInGrams!) : null,
       // Other
-      caffeine: caffeine?.toDomain(),
+      caffeine: caffeineInGrams != null ? Mass.grams(caffeineInGrams!) : null,
     );
   }
 }

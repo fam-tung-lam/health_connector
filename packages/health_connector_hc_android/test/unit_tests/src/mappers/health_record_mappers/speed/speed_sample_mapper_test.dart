@@ -26,7 +26,7 @@ void main() {
 
               // Then
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.speed.metersPerSecond, 2.5);
+              expect(dto.metersPerSecond, 2.5);
             },
           );
         },
@@ -43,7 +43,7 @@ void main() {
               final time = DateTime(2025, 1, 15, 10).toUtc();
               final dto = SpeedSampleDto(
                 time: time.millisecondsSinceEpoch,
-                speed: VelocityDto(metersPerSecond: 3.0),
+                metersPerSecond: 3.0,
               );
 
               // When

@@ -39,7 +39,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.temperature.celsius, 36.5);
+              expect(dto.celsius, 36.5);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -65,7 +65,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                temperature: TemperatureDto(celsius: 36.8),
+                celsius: 36.8,
                 measurementLocation:
                     BasalBodyTemperatureMeasurementLocationDto.unknown,
               );
@@ -97,7 +97,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                temperature: TemperatureDto(celsius: 36.2),
+                celsius: 36.2,
                 measurementLocation:
                     BasalBodyTemperatureMeasurementLocationDto.unknown,
               );

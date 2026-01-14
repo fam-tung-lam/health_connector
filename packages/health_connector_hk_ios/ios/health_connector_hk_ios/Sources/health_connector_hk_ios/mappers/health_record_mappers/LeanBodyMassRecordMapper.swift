@@ -6,7 +6,8 @@ extension LeanBodyMassRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .leanBodyMass)
 
-        let quantity = mass.toHealthKit()
+        let unit = HKUnit.gramUnit(with: .kilo)
+        let quantity = HKQuantity(unit: unit, doubleValue: kilograms)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -55,7 +56,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
-            mass: quantity.toMassDto(),
+            kilograms: quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo)),
             zoneOffsetSeconds: zoneOffset
         )
     }

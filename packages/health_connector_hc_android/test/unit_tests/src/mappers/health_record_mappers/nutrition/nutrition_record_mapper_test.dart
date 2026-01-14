@@ -49,8 +49,8 @@ void main() {
               expect(dto.foodName, foodName);
               expect(dto.mealType, MealTypeDto.lunch);
               expect(dto.mealType, MealTypeDto.lunch);
-              expect(dto.energy?.kilocalories, 350);
-              expect(dto.protein?.kilograms, 0.025);
+              expect(dto.energyInKilocalories, 350);
+              expect(dto.proteinInGrams, 25);
             },
           );
         },
@@ -79,9 +79,9 @@ void main() {
                 ),
                 foodName: 'Salmon Dinner',
                 mealType: MealTypeDto.dinner,
-                energy: EnergyDto(kilocalories: 500),
-                protein: MassDto(kilograms: 0.040),
-                calcium: MassDto(kilograms: 0.300),
+                energyInKilocalories: 500.0,
+                proteinInGrams: 40.0,
+                calciumInGrams: 300.0,
               );
 
               final record = dto.toDomain() as NutritionRecord;

@@ -39,8 +39,8 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.systolic.millimetersOfMercury, 120.0);
-              expect(dto.diastolic.millimetersOfMercury, 80.0);
+              expect(dto.systolicInMillimetersOfMercury, 120.0);
+              expect(dto.diastolicInMillimetersOfMercury, 80.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -65,8 +65,8 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                systolic: PressureDto(millimetersOfMercury: 125.0),
-                diastolic: PressureDto(millimetersOfMercury: 85.0),
+                systolicInMillimetersOfMercury: 125.0,
+                diastolicInMillimetersOfMercury: 85.0,
                 measurementLocation: MeasurementLocationDto.unknown,
                 bodyPosition: BodyPositionDto.unknown,
               );
@@ -99,8 +99,8 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                systolic: PressureDto(millimetersOfMercury: 115.0),
-                diastolic: PressureDto(millimetersOfMercury: 75.0),
+                systolicInMillimetersOfMercury: 115.0,
+                diastolicInMillimetersOfMercury: 75.0,
                 measurementLocation: MeasurementLocationDto.unknown,
                 bodyPosition: BodyPositionDto.unknown,
               );

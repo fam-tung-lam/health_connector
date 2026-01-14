@@ -873,378 +873,6 @@ public struct HealthConnectorConfigDto: Hashable {
   }
 }
 
-/// Sealed class for all measurement unit DTOs.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-/// This protocol should not be extended by any user class outside of the generated file.
-public protocol MeasurementUnitDto {
-
-}
-
-/// Represents a blood glucose measurement in millimoles per liter.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct BloodGlucoseDto: MeasurementUnitDto {
-  /// Blood glucose value in millimoles per liter (mmol/L).
-  var millimolesPerLiter: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> BloodGlucoseDto? {
-    let millimolesPerLiter = pigeonVar_list[0] as! Double
-
-    return BloodGlucoseDto(
-      millimolesPerLiter: millimolesPerLiter
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      millimolesPerLiter
-    ]
-  }
-  public static func == (lhs: BloodGlucoseDto, rhs: BloodGlucoseDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents an energy measurement in kilocalories.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct EnergyDto: MeasurementUnitDto {
-  /// Energy value in kilocalories (kcal).
-  var kilocalories: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> EnergyDto? {
-    let kilocalories = pigeonVar_list[0] as! Double
-
-    return EnergyDto(
-      kilocalories: kilocalories
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      kilocalories
-    ]
-  }
-  public static func == (lhs: EnergyDto, rhs: EnergyDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a time duration in seconds.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct TimeDurationDto: MeasurementUnitDto {
-  /// Duration value in seconds (s).
-  var seconds: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> TimeDurationDto? {
-    let seconds = pigeonVar_list[0] as! Double
-
-    return TimeDurationDto(
-      seconds: seconds
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      seconds
-    ]
-  }
-  public static func == (lhs: TimeDurationDto, rhs: TimeDurationDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a length measurement in meters.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct LengthDto: MeasurementUnitDto {
-  /// Length value in meters (m).
-  var meters: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> LengthDto? {
-    let meters = pigeonVar_list[0] as! Double
-
-    return LengthDto(
-      meters: meters
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      meters
-    ]
-  }
-  public static func == (lhs: LengthDto, rhs: LengthDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a mass measurement in kilograms.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct MassDto: MeasurementUnitDto {
-  /// Mass value in kilograms (kg).
-  var kilograms: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> MassDto? {
-    let kilograms = pigeonVar_list[0] as! Double
-
-    return MassDto(
-      kilograms: kilograms
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      kilograms
-    ]
-  }
-  public static func == (lhs: MassDto, rhs: MassDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a number for platform transfer.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct NumberDto: MeasurementUnitDto {
-  /// The number value.
-  var value: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> NumberDto? {
-    let value = pigeonVar_list[0] as! Double
-
-    return NumberDto(
-      value: value
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      value
-    ]
-  }
-  public static func == (lhs: NumberDto, rhs: NumberDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a frequency measurement in events per minute.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct FrequencyDto: MeasurementUnitDto {
-  /// Frequency value in events per minute.
-  var perMinute: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> FrequencyDto? {
-    let perMinute = pigeonVar_list[0] as! Double
-
-    return FrequencyDto(
-      perMinute: perMinute
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      perMinute
-    ]
-  }
-  public static func == (lhs: FrequencyDto, rhs: FrequencyDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a percentage as a decimal value (0.0 to 1.0).
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct PercentageDto: MeasurementUnitDto {
-  /// Percentage value as decimal (0.0 to 1.0).
-  var decimal: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> PercentageDto? {
-    let decimal = pigeonVar_list[0] as! Double
-
-    return PercentageDto(
-      decimal: decimal
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      decimal
-    ]
-  }
-  public static func == (lhs: PercentageDto, rhs: PercentageDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a power measurement in watts.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct PowerDto: MeasurementUnitDto {
-  /// Power value in watts (W).
-  var watts: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> PowerDto? {
-    let watts = pigeonVar_list[0] as! Double
-
-    return PowerDto(
-      watts: watts
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      watts
-    ]
-  }
-  public static func == (lhs: PowerDto, rhs: PowerDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a pressure measurement in millimeters of mercury.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct PressureDto: MeasurementUnitDto {
-  /// Pressure value in millimeters of mercury (mmHg).
-  var millimetersOfMercury: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> PressureDto? {
-    let millimetersOfMercury = pigeonVar_list[0] as! Double
-
-    return PressureDto(
-      millimetersOfMercury: millimetersOfMercury
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      millimetersOfMercury
-    ]
-  }
-  public static func == (lhs: PressureDto, rhs: PressureDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a temperature measurement in celsius.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct TemperatureDto: MeasurementUnitDto {
-  /// Temperature value in degrees Celsius (°C).
-  var celsius: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> TemperatureDto? {
-    let celsius = pigeonVar_list[0] as! Double
-
-    return TemperatureDto(
-      celsius: celsius
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      celsius
-    ]
-  }
-  public static func == (lhs: TemperatureDto, rhs: TemperatureDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a velocity measurement in meters per second.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct VelocityDto: MeasurementUnitDto {
-  /// Velocity value in meters per second (m/s).
-  var metersPerSecond: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> VelocityDto? {
-    let metersPerSecond = pigeonVar_list[0] as! Double
-
-    return VelocityDto(
-      metersPerSecond: metersPerSecond
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      metersPerSecond
-    ]
-  }
-  public static func == (lhs: VelocityDto, rhs: VelocityDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a volume measurement in liters.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct VolumeDto: MeasurementUnitDto {
-  /// Volume value in liters (L).
-  var liters: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> VolumeDto? {
-    let liters = pigeonVar_list[0] as! Double
-
-    return VolumeDto(
-      liters: liters
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      liters
-    ]
-  }
-  public static func == (lhs: VolumeDto, rhs: VolumeDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
 /// Represents metadata for a health record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -1357,7 +985,7 @@ public struct RestingHeartRateRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Resting heart rate in beats per minute.
-  var beatsPerMinute: FrequencyDto
+  var beatsPerMinute: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -1367,7 +995,7 @@ public struct RestingHeartRateRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let beatsPerMinute = pigeonVar_list[3] as! FrequencyDto
+    let beatsPerMinute = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return RestingHeartRateRecordDto(
@@ -1408,7 +1036,7 @@ public struct Vo2MaxRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// The VO2 max value in mL/kg/min.
-  var mLPerKgPerMin: NumberDto
+  var millilitersPerKilogramPerMinute: Double
   /// The test type used to determine VO2 max.
   ///
   /// Maps to HKMetadataKeyVO2MaxTestType.
@@ -1422,7 +1050,7 @@ public struct Vo2MaxRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let mLPerKgPerMin = pigeonVar_list[3] as! NumberDto
+    let millilitersPerKilogramPerMinute = pigeonVar_list[3] as! Double
     let testType: Vo2MaxTestTypeDto? = nilOrValue(pigeonVar_list[4])
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
@@ -1430,7 +1058,7 @@ public struct Vo2MaxRecordDto: HealthRecordDto {
       id: id,
       time: time,
       metadata: metadata,
-      mLPerKgPerMin: mLPerKgPerMin,
+      millilitersPerKilogramPerMinute: millilitersPerKilogramPerMinute,
       testType: testType,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
@@ -1440,7 +1068,7 @@ public struct Vo2MaxRecordDto: HealthRecordDto {
       id,
       time,
       metadata,
-      mLPerKgPerMin,
+      millilitersPerKilogramPerMinute,
       testType,
       zoneOffsetSeconds,
     ]
@@ -1463,7 +1091,7 @@ public struct BodyMassIndexRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// The body mass index value.
-  var bodyMassIndex: NumberDto
+  var bodyMassIndex: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -1473,7 +1101,7 @@ public struct BodyMassIndexRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let bodyMassIndex = pigeonVar_list[3] as! NumberDto
+    let bodyMassIndex = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return BodyMassIndexRecordDto(
@@ -1511,7 +1139,7 @@ public struct WaistCircumferenceRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// The waist circumference measurement.
-  var circumference: LengthDto
+  var meters: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -1521,14 +1149,14 @@ public struct WaistCircumferenceRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let circumference = pigeonVar_list[3] as! LengthDto
+    let meters = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return WaistCircumferenceRecordDto(
       id: id,
       time: time,
       metadata: metadata,
-      circumference: circumference,
+      meters: meters,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -1537,7 +1165,7 @@ public struct WaistCircumferenceRecordDto: HealthRecordDto {
       id,
       time,
       metadata,
-      circumference,
+      meters,
       zoneOffsetSeconds,
     ]
   }
@@ -1607,7 +1235,7 @@ public struct BloodGlucoseRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// The blood glucose measurement.
-  var bloodGlucose: BloodGlucoseDto
+  var millimolesPerLiter: Double
   /// The type of meal associated with this measurement.
   var mealType: MealTypeDto? = nil
   /// The relationship of this measurement to a meal.
@@ -1623,7 +1251,7 @@ public struct BloodGlucoseRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let bloodGlucose = pigeonVar_list[3] as! BloodGlucoseDto
+    let millimolesPerLiter = pigeonVar_list[3] as! Double
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[4])
     let relationToMeal: BloodGlucoseRelationToMealDto? = nilOrValue(pigeonVar_list[5])
     let specimenSource: BloodGlucoseSpecimenSourceDto? = nilOrValue(pigeonVar_list[6])
@@ -1633,7 +1261,7 @@ public struct BloodGlucoseRecordDto: HealthRecordDto {
       id: id,
       time: time,
       metadata: metadata,
-      bloodGlucose: bloodGlucose,
+      millimolesPerLiter: millimolesPerLiter,
       mealType: mealType,
       relationToMeal: relationToMeal,
       specimenSource: specimenSource,
@@ -1645,7 +1273,7 @@ public struct BloodGlucoseRecordDto: HealthRecordDto {
       id,
       time,
       metadata,
-      bloodGlucose,
+      millimolesPerLiter,
       mealType,
       relationToMeal,
       specimenSource,
@@ -1804,7 +1432,7 @@ public struct MindfulnessSessionRecordDto: HealthRecordDto {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ActiveEnergyBurnedRecordDto: HealthRecordDto {
   /// Energy burned during the interval.
-  var energy: EnergyDto
+  var kilocalories: Double
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
@@ -1821,7 +1449,7 @@ public struct ActiveEnergyBurnedRecordDto: HealthRecordDto {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> ActiveEnergyBurnedRecordDto? {
-    let energy = pigeonVar_list[0] as! EnergyDto
+    let kilocalories = pigeonVar_list[0] as! Double
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
@@ -1830,7 +1458,7 @@ public struct ActiveEnergyBurnedRecordDto: HealthRecordDto {
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
     return ActiveEnergyBurnedRecordDto(
-      energy: energy,
+      kilocalories: kilocalories,
       endTime: endTime,
       id: id,
       metadata: metadata,
@@ -1841,7 +1469,7 @@ public struct ActiveEnergyBurnedRecordDto: HealthRecordDto {
   }
   func toList() -> [Any?] {
     return [
-      energy,
+      kilocalories,
       endTime,
       id,
       metadata,
@@ -1862,7 +1490,7 @@ public struct ActiveEnergyBurnedRecordDto: HealthRecordDto {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct DistanceActivityRecordDto: HealthRecordDto {
   /// Distance traveled during the interval.
-  var distance: LengthDto
+  var meters: Double
   /// The type of distance activity.
   var activityType: DistanceActivityTypeDto
   /// End time in milliseconds since epoch (UTC).
@@ -1881,7 +1509,7 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> DistanceActivityRecordDto? {
-    let distance = pigeonVar_list[0] as! LengthDto
+    let meters = pigeonVar_list[0] as! Double
     let activityType = pigeonVar_list[1] as! DistanceActivityTypeDto
     let endTime = pigeonVar_list[2] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[3])
@@ -1891,7 +1519,7 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[7])
 
     return DistanceActivityRecordDto(
-      distance: distance,
+      meters: meters,
       activityType: activityType,
       endTime: endTime,
       id: id,
@@ -1903,7 +1531,7 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
   }
   func toList() -> [Any?] {
     return [
-      distance,
+      meters,
       activityType,
       endTime,
       id,
@@ -1928,7 +1556,7 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct SpeedActivityRecordDto: HealthRecordDto {
   /// Speed measurement.
-  var speed: VelocityDto
+  var metersPerSecond: Double
   /// The type of speed activity.
   var activityType: SpeedActivityTypeDto
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1943,7 +1571,7 @@ public struct SpeedActivityRecordDto: HealthRecordDto {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> SpeedActivityRecordDto? {
-    let speed = pigeonVar_list[0] as! VelocityDto
+    let metersPerSecond = pigeonVar_list[0] as! Double
     let activityType = pigeonVar_list[1] as! SpeedActivityTypeDto
     let time = pigeonVar_list[2] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[3])
@@ -1951,7 +1579,7 @@ public struct SpeedActivityRecordDto: HealthRecordDto {
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
     return SpeedActivityRecordDto(
-      speed: speed,
+      metersPerSecond: metersPerSecond,
       activityType: activityType,
       time: time,
       id: id,
@@ -1961,7 +1589,7 @@ public struct SpeedActivityRecordDto: HealthRecordDto {
   }
   func toList() -> [Any?] {
     return [
-      speed,
+      metersPerSecond,
       activityType,
       time,
       id,
@@ -1981,7 +1609,7 @@ public struct SpeedActivityRecordDto: HealthRecordDto {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct FloorsClimbedRecordDto: HealthRecordDto {
   /// Number of floors (flights of stairs) climbed during the interval.
-  var floors: NumberDto
+  var floors: Double
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
@@ -1998,7 +1626,7 @@ public struct FloorsClimbedRecordDto: HealthRecordDto {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> FloorsClimbedRecordDto? {
-    let floors = pigeonVar_list[0] as! NumberDto
+    let floors = pigeonVar_list[0] as! Double
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
@@ -2039,7 +1667,7 @@ public struct FloorsClimbedRecordDto: HealthRecordDto {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WheelchairPushesRecordDto: HealthRecordDto {
   /// Number of wheelchair pushes performed during the interval.
-  var pushes: NumberDto
+  var pushes: Double
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
@@ -2056,7 +1684,7 @@ public struct WheelchairPushesRecordDto: HealthRecordDto {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> WheelchairPushesRecordDto? {
-    let pushes = pigeonVar_list[0] as! NumberDto
+    let pushes = pigeonVar_list[0] as! Double
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
@@ -2097,7 +1725,7 @@ public struct WheelchairPushesRecordDto: HealthRecordDto {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct StepsRecordDto: HealthRecordDto {
   /// Number of steps taken during the interval (must be >= 0).
-  var count: NumberDto
+  var count: Double
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
@@ -2114,7 +1742,7 @@ public struct StepsRecordDto: HealthRecordDto {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> StepsRecordDto? {
-    let count = pigeonVar_list[0] as! NumberDto
+    let count = pigeonVar_list[0] as! Double
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
@@ -2161,7 +1789,7 @@ public struct WeightRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Weight measurement.
-  var weight: MassDto
+  var kilograms: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2171,14 +1799,14 @@ public struct WeightRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let weight = pigeonVar_list[3] as! MassDto
+    let kilograms = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return WeightRecordDto(
       id: id,
       metadata: metadata,
       time: time,
-      weight: weight,
+      kilograms: kilograms,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -2187,7 +1815,7 @@ public struct WeightRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      weight,
+      kilograms,
       zoneOffsetSeconds,
     ]
   }
@@ -2210,9 +1838,9 @@ public struct BloodPressureRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Systolic blood pressure measurement.
-  var systolic: PressureDto
+  var systolicInMillimetersOfMercury: Double
   /// Diastolic blood pressure measurement.
-  var diastolic: PressureDto
+  var diastolicInMillimetersOfMercury: Double
   /// Body position during measurement (Android Health Connect Only, always
   /// unknown on iOS HealthKit).
   var bodyPosition: BodyPositionDto
@@ -2228,8 +1856,8 @@ public struct BloodPressureRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let systolic = pigeonVar_list[3] as! PressureDto
-    let diastolic = pigeonVar_list[4] as! PressureDto
+    let systolicInMillimetersOfMercury = pigeonVar_list[3] as! Double
+    let diastolicInMillimetersOfMercury = pigeonVar_list[4] as! Double
     let bodyPosition = pigeonVar_list[5] as! BodyPositionDto
     let measurementLocation = pigeonVar_list[6] as! MeasurementLocationDto
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[7])
@@ -2238,8 +1866,8 @@ public struct BloodPressureRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       time: time,
-      systolic: systolic,
-      diastolic: diastolic,
+      systolicInMillimetersOfMercury: systolicInMillimetersOfMercury,
+      diastolicInMillimetersOfMercury: diastolicInMillimetersOfMercury,
       bodyPosition: bodyPosition,
       measurementLocation: measurementLocation,
       zoneOffsetSeconds: zoneOffsetSeconds
@@ -2250,8 +1878,8 @@ public struct BloodPressureRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      systolic,
-      diastolic,
+      systolicInMillimetersOfMercury,
+      diastolicInMillimetersOfMercury,
       bodyPosition,
       measurementLocation,
       zoneOffsetSeconds,
@@ -2276,7 +1904,7 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Systolic blood pressure measurement.
-  var pressure: PressureDto
+  var millimetersOfMercury: Double
   /// Body position during measurement (Android Health Connect Only, always
   /// unknown on iOS HealthKit).
   var bodyPosition: BodyPositionDto
@@ -2292,7 +1920,7 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let pressure = pigeonVar_list[3] as! PressureDto
+    let millimetersOfMercury = pigeonVar_list[3] as! Double
     let bodyPosition = pigeonVar_list[4] as! BodyPositionDto
     let measurementLocation = pigeonVar_list[5] as! MeasurementLocationDto
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
@@ -2301,7 +1929,7 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       time: time,
-      pressure: pressure,
+      millimetersOfMercury: millimetersOfMercury,
       bodyPosition: bodyPosition,
       measurementLocation: measurementLocation,
       zoneOffsetSeconds: zoneOffsetSeconds
@@ -2312,7 +1940,7 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      pressure,
+      millimetersOfMercury,
       bodyPosition,
       measurementLocation,
       zoneOffsetSeconds,
@@ -2337,7 +1965,7 @@ public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Diastolic blood pressure measurement.
-  var pressure: PressureDto
+  var millimetersOfMercury: Double
   /// Body position during measurement (Android Health Connect Only, always
   /// unknown on iOS HealthKit).
   var bodyPosition: BodyPositionDto
@@ -2353,7 +1981,7 @@ public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let pressure = pigeonVar_list[3] as! PressureDto
+    let millimetersOfMercury = pigeonVar_list[3] as! Double
     let bodyPosition = pigeonVar_list[4] as! BodyPositionDto
     let measurementLocation = pigeonVar_list[5] as! MeasurementLocationDto
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
@@ -2362,7 +1990,7 @@ public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       time: time,
-      pressure: pressure,
+      millimetersOfMercury: millimetersOfMercury,
       bodyPosition: bodyPosition,
       measurementLocation: measurementLocation,
       zoneOffsetSeconds: zoneOffsetSeconds
@@ -2373,7 +2001,7 @@ public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      pressure,
+      millimetersOfMercury,
       bodyPosition,
       measurementLocation,
       zoneOffsetSeconds,
@@ -2397,7 +2025,7 @@ public struct LeanBodyMassRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Lean body mass measurement.
-  var mass: MassDto
+  var kilograms: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2407,14 +2035,14 @@ public struct LeanBodyMassRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let mass = pigeonVar_list[3] as! MassDto
+    let kilograms = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return LeanBodyMassRecordDto(
       id: id,
       metadata: metadata,
       time: time,
-      mass: mass,
+      kilograms: kilograms,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -2423,7 +2051,7 @@ public struct LeanBodyMassRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      mass,
+      kilograms,
       zoneOffsetSeconds,
     ]
   }
@@ -2445,7 +2073,7 @@ public struct HeightRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Height measurement.
-  var height: LengthDto
+  var meters: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2455,14 +2083,14 @@ public struct HeightRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let height = pigeonVar_list[3] as! LengthDto
+    let meters = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return HeightRecordDto(
       id: id,
       metadata: metadata,
       time: time,
-      height: height,
+      meters: meters,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -2471,7 +2099,7 @@ public struct HeightRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      height,
+      meters,
       zoneOffsetSeconds,
     ]
   }
@@ -2493,7 +2121,7 @@ public struct BodyFatPercentageRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Body fat percentage measurement.
-  var percentage: PercentageDto
+  var percentage: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2503,7 +2131,7 @@ public struct BodyFatPercentageRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let percentage = pigeonVar_list[3] as! PercentageDto
+    let percentage = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return BodyFatPercentageRecordDto(
@@ -2541,7 +2169,7 @@ public struct BodyTemperatureRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Body temperature measurement.
-  var temperature: TemperatureDto
+  var celsius: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2551,14 +2179,14 @@ public struct BodyTemperatureRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let temperature = pigeonVar_list[3] as! TemperatureDto
+    let celsius = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return BodyTemperatureRecordDto(
       id: id,
       metadata: metadata,
       time: time,
-      temperature: temperature,
+      celsius: celsius,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -2567,7 +2195,7 @@ public struct BodyTemperatureRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      temperature,
+      celsius,
       zoneOffsetSeconds,
     ]
   }
@@ -2589,7 +2217,7 @@ public struct BasalBodyTemperatureRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Basal body temperature measurement.
-  var temperature: TemperatureDto
+  var celsius: Double
   /// The location on the body where the measurement was taken.
   var measurementLocation: BasalBodyTemperatureMeasurementLocationDto
   /// Timezone offset in seconds for measurement time (optional).
@@ -2601,7 +2229,7 @@ public struct BasalBodyTemperatureRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let temperature = pigeonVar_list[3] as! TemperatureDto
+    let celsius = pigeonVar_list[3] as! Double
     let measurementLocation = pigeonVar_list[4] as! BasalBodyTemperatureMeasurementLocationDto
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
@@ -2609,7 +2237,7 @@ public struct BasalBodyTemperatureRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       time: time,
-      temperature: temperature,
+      celsius: celsius,
       measurementLocation: measurementLocation,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
@@ -2619,7 +2247,7 @@ public struct BasalBodyTemperatureRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      temperature,
+      celsius,
       measurementLocation,
       zoneOffsetSeconds,
     ]
@@ -2706,7 +2334,7 @@ public struct CyclingPowerRecordDto: HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Cycling power measurement.
-  var power: PowerDto
+  var watts: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2716,14 +2344,14 @@ public struct CyclingPowerRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
-    let power = pigeonVar_list[3] as! PowerDto
+    let watts = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return CyclingPowerRecordDto(
       id: id,
       metadata: metadata,
       time: time,
-      power: power,
+      watts: watts,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -2732,7 +2360,7 @@ public struct CyclingPowerRecordDto: HealthRecordDto {
       id,
       metadata,
       time,
-      power,
+      watts,
       zoneOffsetSeconds,
     ]
   }
@@ -2754,7 +2382,7 @@ public struct OxygenSaturationRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Oxygen saturation percentage.
-  var percentage: PercentageDto
+  var percentage: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2764,7 +2392,7 @@ public struct OxygenSaturationRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let percentage = pigeonVar_list[3] as! PercentageDto
+    let percentage = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return OxygenSaturationRecordDto(
@@ -2961,7 +2589,7 @@ public struct RespiratoryRateRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Respiratory rate in breaths per minute.
-  var breathsPerMin: FrequencyDto
+  var breathsPerMinute: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2971,14 +2599,14 @@ public struct RespiratoryRateRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let breathsPerMin = pigeonVar_list[3] as! FrequencyDto
+    let breathsPerMinute = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return RespiratoryRateRecordDto(
       id: id,
       time: time,
       metadata: metadata,
-      breathsPerMin: breathsPerMin,
+      breathsPerMinute: breathsPerMinute,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -2987,7 +2615,7 @@ public struct RespiratoryRateRecordDto: HealthRecordDto {
       id,
       time,
       metadata,
-      breathsPerMin,
+      breathsPerMinute,
       zoneOffsetSeconds,
     ]
   }
@@ -3011,7 +2639,7 @@ public struct HydrationRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Volume of water consumed during the interval.
-  var volume: VolumeDto
+  var liters: Double
   /// Timezone offset in seconds for start time (optional).
   var startZoneOffsetSeconds: Int64? = nil
   /// Timezone offset in seconds for end time (optional).
@@ -3024,7 +2652,7 @@ public struct HydrationRecordDto: HealthRecordDto {
     let startTime = pigeonVar_list[1] as! Int64
     let endTime = pigeonVar_list[2] as! Int64
     let metadata = pigeonVar_list[3] as! MetadataDto
-    let volume = pigeonVar_list[4] as! VolumeDto
+    let liters = pigeonVar_list[4] as! Double
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
@@ -3033,7 +2661,7 @@ public struct HydrationRecordDto: HealthRecordDto {
       startTime: startTime,
       endTime: endTime,
       metadata: metadata,
-      volume: volume,
+      liters: liters,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds
     )
@@ -3044,7 +2672,7 @@ public struct HydrationRecordDto: HealthRecordDto {
       startTime,
       endTime,
       metadata,
-      volume,
+      liters,
       startZoneOffsetSeconds,
       endZoneOffsetSeconds,
     ]
@@ -3066,13 +2694,13 @@ public struct HeartRateMeasurementDto: Hashable {
   /// Timestamp in milliseconds since epoch (UTC).
   var time: Int64
   /// Heart rate value in beats per minute (BPM).
-  var beatsPerMinute: FrequencyDto
+  var beatsPerMinute: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateMeasurementDto? {
     let time = pigeonVar_list[0] as! Int64
-    let beatsPerMinute = pigeonVar_list[1] as! FrequencyDto
+    let beatsPerMinute = pigeonVar_list[1] as! Double
 
     return HeartRateMeasurementDto(
       time: time,
@@ -3104,7 +2732,7 @@ public struct HeartRateRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// The heart rate value in beats per minute (BPM).
-  var beatsPerMinute: FrequencyDto
+  var beatsPerMinute: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -3114,7 +2742,7 @@ public struct HeartRateRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let beatsPerMinute = pigeonVar_list[3] as! FrequencyDto
+    let beatsPerMinute = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return HeartRateRecordDto(
@@ -3316,7 +2944,7 @@ public struct DietaryEnergyConsumedRecordDto: HealthRecordDto {
   /// Timezone offset in seconds (optional).
   var zoneOffsetSeconds: Int64? = nil
   /// Energy value (in kilocalories).
-  var value: EnergyDto
+  var kilocalories: Double
   /// Name of the food (optional).
   var foodName: String? = nil
   /// Meal type classification.
@@ -3329,7 +2957,7 @@ public struct DietaryEnergyConsumedRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! EnergyDto
+    let kilocalories = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3338,7 +2966,7 @@ public struct DietaryEnergyConsumedRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      kilocalories: kilocalories,
       foodName: foodName,
       mealType: mealType
     )
@@ -3349,7 +2977,7 @@ public struct DietaryEnergyConsumedRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      kilocalories,
       foodName,
       mealType,
     ]
@@ -3369,7 +2997,7 @@ public struct DietaryCaffeineRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3380,7 +3008,7 @@ public struct DietaryCaffeineRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3389,7 +3017,7 @@ public struct DietaryCaffeineRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3400,7 +3028,7 @@ public struct DietaryCaffeineRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3420,7 +3048,7 @@ public struct DietaryProteinRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3431,7 +3059,7 @@ public struct DietaryProteinRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3440,7 +3068,7 @@ public struct DietaryProteinRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3451,7 +3079,7 @@ public struct DietaryProteinRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3471,7 +3099,7 @@ public struct DietaryTotalCarbohydrateRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3482,7 +3110,7 @@ public struct DietaryTotalCarbohydrateRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3491,7 +3119,7 @@ public struct DietaryTotalCarbohydrateRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3502,7 +3130,7 @@ public struct DietaryTotalCarbohydrateRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3522,7 +3150,7 @@ public struct DietaryTotalFatRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3533,7 +3161,7 @@ public struct DietaryTotalFatRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3542,7 +3170,7 @@ public struct DietaryTotalFatRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3553,7 +3181,7 @@ public struct DietaryTotalFatRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3573,7 +3201,7 @@ public struct DietarySaturatedFatRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3584,7 +3212,7 @@ public struct DietarySaturatedFatRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3593,7 +3221,7 @@ public struct DietarySaturatedFatRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3604,7 +3232,7 @@ public struct DietarySaturatedFatRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3624,7 +3252,7 @@ public struct DietaryMonounsaturatedFatRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3635,7 +3263,7 @@ public struct DietaryMonounsaturatedFatRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3644,7 +3272,7 @@ public struct DietaryMonounsaturatedFatRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3655,7 +3283,7 @@ public struct DietaryMonounsaturatedFatRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3675,7 +3303,7 @@ public struct DietaryPolyunsaturatedFatRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3686,7 +3314,7 @@ public struct DietaryPolyunsaturatedFatRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3695,7 +3323,7 @@ public struct DietaryPolyunsaturatedFatRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3706,7 +3334,7 @@ public struct DietaryPolyunsaturatedFatRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3726,7 +3354,7 @@ public struct DietaryCholesterolRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3737,7 +3365,7 @@ public struct DietaryCholesterolRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3746,7 +3374,7 @@ public struct DietaryCholesterolRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3757,7 +3385,7 @@ public struct DietaryCholesterolRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3777,7 +3405,7 @@ public struct DietaryFiberRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3788,7 +3416,7 @@ public struct DietaryFiberRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3797,7 +3425,7 @@ public struct DietaryFiberRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3808,7 +3436,7 @@ public struct DietaryFiberRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3828,7 +3456,7 @@ public struct DietarySugarRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3839,7 +3467,7 @@ public struct DietarySugarRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3848,7 +3476,7 @@ public struct DietarySugarRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3859,7 +3487,7 @@ public struct DietarySugarRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3879,7 +3507,7 @@ public struct DietaryVitaminARecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3890,7 +3518,7 @@ public struct DietaryVitaminARecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3899,7 +3527,7 @@ public struct DietaryVitaminARecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3910,7 +3538,7 @@ public struct DietaryVitaminARecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3930,7 +3558,7 @@ public struct DietaryVitaminB6RecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3941,7 +3569,7 @@ public struct DietaryVitaminB6RecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -3950,7 +3578,7 @@ public struct DietaryVitaminB6RecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -3961,7 +3589,7 @@ public struct DietaryVitaminB6RecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -3981,7 +3609,7 @@ public struct DietaryVitaminB12RecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -3992,7 +3620,7 @@ public struct DietaryVitaminB12RecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4001,7 +3629,7 @@ public struct DietaryVitaminB12RecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4012,7 +3640,7 @@ public struct DietaryVitaminB12RecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4032,7 +3660,7 @@ public struct DietaryVitaminCRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4043,7 +3671,7 @@ public struct DietaryVitaminCRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4052,7 +3680,7 @@ public struct DietaryVitaminCRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4063,7 +3691,7 @@ public struct DietaryVitaminCRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4083,7 +3711,7 @@ public struct DietaryVitaminDRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4094,7 +3722,7 @@ public struct DietaryVitaminDRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4103,7 +3731,7 @@ public struct DietaryVitaminDRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4114,7 +3742,7 @@ public struct DietaryVitaminDRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4134,7 +3762,7 @@ public struct DietaryVitaminERecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4145,7 +3773,7 @@ public struct DietaryVitaminERecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4154,7 +3782,7 @@ public struct DietaryVitaminERecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4165,7 +3793,7 @@ public struct DietaryVitaminERecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4185,7 +3813,7 @@ public struct DietaryVitaminKRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4196,7 +3824,7 @@ public struct DietaryVitaminKRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4205,7 +3833,7 @@ public struct DietaryVitaminKRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4216,7 +3844,7 @@ public struct DietaryVitaminKRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4236,7 +3864,7 @@ public struct DietaryThiaminRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4247,7 +3875,7 @@ public struct DietaryThiaminRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4256,7 +3884,7 @@ public struct DietaryThiaminRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4267,7 +3895,7 @@ public struct DietaryThiaminRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4287,7 +3915,7 @@ public struct DietaryRiboflavinRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4298,7 +3926,7 @@ public struct DietaryRiboflavinRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4307,7 +3935,7 @@ public struct DietaryRiboflavinRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4318,7 +3946,7 @@ public struct DietaryRiboflavinRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4338,7 +3966,7 @@ public struct DietaryNiacinRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4349,7 +3977,7 @@ public struct DietaryNiacinRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4358,7 +3986,7 @@ public struct DietaryNiacinRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4369,7 +3997,7 @@ public struct DietaryNiacinRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4389,7 +4017,7 @@ public struct DietaryFolateRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4400,7 +4028,7 @@ public struct DietaryFolateRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4409,7 +4037,7 @@ public struct DietaryFolateRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4420,7 +4048,7 @@ public struct DietaryFolateRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4440,7 +4068,7 @@ public struct DietaryBiotinRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4451,7 +4079,7 @@ public struct DietaryBiotinRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4460,7 +4088,7 @@ public struct DietaryBiotinRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4471,7 +4099,7 @@ public struct DietaryBiotinRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4491,7 +4119,7 @@ public struct DietaryPantothenicAcidRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4502,7 +4130,7 @@ public struct DietaryPantothenicAcidRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4511,7 +4139,7 @@ public struct DietaryPantothenicAcidRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4522,7 +4150,7 @@ public struct DietaryPantothenicAcidRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4542,7 +4170,7 @@ public struct DietaryCalciumRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4553,7 +4181,7 @@ public struct DietaryCalciumRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4562,7 +4190,7 @@ public struct DietaryCalciumRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4573,7 +4201,7 @@ public struct DietaryCalciumRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4593,7 +4221,7 @@ public struct DietaryIronRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4604,7 +4232,7 @@ public struct DietaryIronRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4613,7 +4241,7 @@ public struct DietaryIronRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4624,7 +4252,7 @@ public struct DietaryIronRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4644,7 +4272,7 @@ public struct DietaryMagnesiumRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4655,7 +4283,7 @@ public struct DietaryMagnesiumRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4664,7 +4292,7 @@ public struct DietaryMagnesiumRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4675,7 +4303,7 @@ public struct DietaryMagnesiumRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4695,7 +4323,7 @@ public struct DietaryManganeseRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4706,7 +4334,7 @@ public struct DietaryManganeseRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4715,7 +4343,7 @@ public struct DietaryManganeseRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4726,7 +4354,7 @@ public struct DietaryManganeseRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4746,7 +4374,7 @@ public struct DietaryPhosphorusRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4757,7 +4385,7 @@ public struct DietaryPhosphorusRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4766,7 +4394,7 @@ public struct DietaryPhosphorusRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4777,7 +4405,7 @@ public struct DietaryPhosphorusRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4797,7 +4425,7 @@ public struct DietaryPotassiumRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4808,7 +4436,7 @@ public struct DietaryPotassiumRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4817,7 +4445,7 @@ public struct DietaryPotassiumRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4828,7 +4456,7 @@ public struct DietaryPotassiumRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4848,7 +4476,7 @@ public struct DietarySeleniumRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4859,7 +4487,7 @@ public struct DietarySeleniumRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4868,7 +4496,7 @@ public struct DietarySeleniumRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4879,7 +4507,7 @@ public struct DietarySeleniumRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4899,7 +4527,7 @@ public struct DietarySodiumRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4910,7 +4538,7 @@ public struct DietarySodiumRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4919,7 +4547,7 @@ public struct DietarySodiumRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4930,7 +4558,7 @@ public struct DietarySodiumRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -4950,7 +4578,7 @@ public struct DietaryZincRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   var time: Int64
   var zoneOffsetSeconds: Int64? = nil
-  var value: MassDto
+  var grams: Double
   var foodName: String? = nil
   var mealType: MealTypeDto? = nil
 
@@ -4961,7 +4589,7 @@ public struct DietaryZincRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let value = pigeonVar_list[4] as! MassDto
+    let grams = pigeonVar_list[4] as! Double
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
@@ -4970,7 +4598,7 @@ public struct DietaryZincRecordDto: HealthRecordDto {
       metadata: metadata,
       time: time,
       zoneOffsetSeconds: zoneOffsetSeconds,
-      value: value,
+      grams: grams,
       foodName: foodName,
       mealType: mealType
     )
@@ -4981,7 +4609,7 @@ public struct DietaryZincRecordDto: HealthRecordDto {
       metadata,
       time,
       zoneOffsetSeconds,
-      value,
+      grams,
       foodName,
       mealType,
     ]
@@ -5022,70 +4650,70 @@ public struct NutritionRecordDto: HealthRecordDto {
   /// Meal type classification.
   var mealType: MealTypeDto? = nil
   /// Energy value (in kilocalories).
-  var energy: EnergyDto? = nil
+  var energyKilocalories: Double? = nil
   /// Protein amount.
-  var protein: MassDto? = nil
+  var proteinInGrams: Double? = nil
   /// Total carbohydrate amount.
-  var totalCarbohydrate: MassDto? = nil
+  var totalCarbohydrateInGrams: Double? = nil
   /// Total fat amount.
-  var totalFat: MassDto? = nil
+  var totalFatInGrams: Double? = nil
   /// Saturated fat amount.
-  var saturatedFat: MassDto? = nil
+  var saturatedFatInGrams: Double? = nil
   /// Monounsaturated fat amount.
-  var monounsaturatedFat: MassDto? = nil
+  var monounsaturatedFatInGrams: Double? = nil
   /// Polyunsaturated fat amount.
-  var polyunsaturatedFat: MassDto? = nil
+  var polyunsaturatedFatInGrams: Double? = nil
   /// Cholesterol amount.
-  var cholesterol: MassDto? = nil
+  var cholesterolInGrams: Double? = nil
   /// Dietary fiber amount.
-  var dietaryFiber: MassDto? = nil
+  var dietaryFiberInGrams: Double? = nil
   /// Sugar amount.
-  var sugar: MassDto? = nil
+  var sugarInGrams: Double? = nil
   /// Vitamin A amount.
-  var vitaminA: MassDto? = nil
+  var vitaminAInGrams: Double? = nil
   /// Vitamin B6 amount.
-  var vitaminB6: MassDto? = nil
+  var vitaminB6InGrams: Double? = nil
   /// Vitamin B12 amount.
-  var vitaminB12: MassDto? = nil
+  var vitaminB12InGrams: Double? = nil
   /// Vitamin C amount.
-  var vitaminC: MassDto? = nil
+  var vitaminCInGrams: Double? = nil
   /// Vitamin D amount.
-  var vitaminD: MassDto? = nil
+  var vitaminDInGrams: Double? = nil
   /// Vitamin E amount.
-  var vitaminE: MassDto? = nil
+  var vitaminEInGrams: Double? = nil
   /// Vitamin K amount.
-  var vitaminK: MassDto? = nil
+  var vitaminKInGrams: Double? = nil
   /// Thiamin amount.
-  var thiamin: MassDto? = nil
+  var thiaminInGrams: Double? = nil
   /// Riboflavin amount.
-  var riboflavin: MassDto? = nil
+  var riboflavinInGrams: Double? = nil
   /// Niacin amount.
-  var niacin: MassDto? = nil
+  var niacinInGrams: Double? = nil
   /// Folate amount.
-  var folate: MassDto? = nil
+  var folateInGrams: Double? = nil
   /// Biotin amount.
-  var biotin: MassDto? = nil
+  var biotinInGrams: Double? = nil
   /// Pantothenic acid amount.
-  var pantothenicAcid: MassDto? = nil
+  var pantothenicAcidInGrams: Double? = nil
   /// Calcium amount.
-  var calcium: MassDto? = nil
+  var calciumInGrams: Double? = nil
   /// Iron amount.
-  var iron: MassDto? = nil
+  var ironInGrams: Double? = nil
   /// Magnesium amount.
-  var magnesium: MassDto? = nil
+  var magnesiumInGrams: Double? = nil
   /// Manganese amount.
-  var manganese: MassDto? = nil
+  var manganeseInGrams: Double? = nil
   /// Phosphorus amount.
-  var phosphorus: MassDto? = nil
+  var phosphorusInGrams: Double? = nil
   /// Potassium amount.
-  var potassium: MassDto? = nil
+  var potassiumInGrams: Double? = nil
   /// Selenium amount.
-  var selenium: MassDto? = nil
+  var seleniumInGrams: Double? = nil
   /// Sodium amount.
-  var sodium: MassDto? = nil
-  var zinc: MassDto? = nil
+  var sodiumInGrams: Double? = nil
+  var zincInGrams: Double? = nil
   /// Caffeine amount.
-  var caffeine: MassDto? = nil
+  var caffeineInGrams: Double? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -5098,39 +4726,39 @@ public struct NutritionRecordDto: HealthRecordDto {
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
     let foodName: String? = nilOrValue(pigeonVar_list[6])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[7])
-    let energy: EnergyDto? = nilOrValue(pigeonVar_list[8])
-    let protein: MassDto? = nilOrValue(pigeonVar_list[9])
-    let totalCarbohydrate: MassDto? = nilOrValue(pigeonVar_list[10])
-    let totalFat: MassDto? = nilOrValue(pigeonVar_list[11])
-    let saturatedFat: MassDto? = nilOrValue(pigeonVar_list[12])
-    let monounsaturatedFat: MassDto? = nilOrValue(pigeonVar_list[13])
-    let polyunsaturatedFat: MassDto? = nilOrValue(pigeonVar_list[14])
-    let cholesterol: MassDto? = nilOrValue(pigeonVar_list[15])
-    let dietaryFiber: MassDto? = nilOrValue(pigeonVar_list[16])
-    let sugar: MassDto? = nilOrValue(pigeonVar_list[17])
-    let vitaminA: MassDto? = nilOrValue(pigeonVar_list[18])
-    let vitaminB6: MassDto? = nilOrValue(pigeonVar_list[19])
-    let vitaminB12: MassDto? = nilOrValue(pigeonVar_list[20])
-    let vitaminC: MassDto? = nilOrValue(pigeonVar_list[21])
-    let vitaminD: MassDto? = nilOrValue(pigeonVar_list[22])
-    let vitaminE: MassDto? = nilOrValue(pigeonVar_list[23])
-    let vitaminK: MassDto? = nilOrValue(pigeonVar_list[24])
-    let thiamin: MassDto? = nilOrValue(pigeonVar_list[25])
-    let riboflavin: MassDto? = nilOrValue(pigeonVar_list[26])
-    let niacin: MassDto? = nilOrValue(pigeonVar_list[27])
-    let folate: MassDto? = nilOrValue(pigeonVar_list[28])
-    let biotin: MassDto? = nilOrValue(pigeonVar_list[29])
-    let pantothenicAcid: MassDto? = nilOrValue(pigeonVar_list[30])
-    let calcium: MassDto? = nilOrValue(pigeonVar_list[31])
-    let iron: MassDto? = nilOrValue(pigeonVar_list[32])
-    let magnesium: MassDto? = nilOrValue(pigeonVar_list[33])
-    let manganese: MassDto? = nilOrValue(pigeonVar_list[34])
-    let phosphorus: MassDto? = nilOrValue(pigeonVar_list[35])
-    let potassium: MassDto? = nilOrValue(pigeonVar_list[36])
-    let selenium: MassDto? = nilOrValue(pigeonVar_list[37])
-    let sodium: MassDto? = nilOrValue(pigeonVar_list[38])
-    let zinc: MassDto? = nilOrValue(pigeonVar_list[39])
-    let caffeine: MassDto? = nilOrValue(pigeonVar_list[40])
+    let energyKilocalories: Double? = nilOrValue(pigeonVar_list[8])
+    let proteinInGrams: Double? = nilOrValue(pigeonVar_list[9])
+    let totalCarbohydrateInGrams: Double? = nilOrValue(pigeonVar_list[10])
+    let totalFatInGrams: Double? = nilOrValue(pigeonVar_list[11])
+    let saturatedFatInGrams: Double? = nilOrValue(pigeonVar_list[12])
+    let monounsaturatedFatInGrams: Double? = nilOrValue(pigeonVar_list[13])
+    let polyunsaturatedFatInGrams: Double? = nilOrValue(pigeonVar_list[14])
+    let cholesterolInGrams: Double? = nilOrValue(pigeonVar_list[15])
+    let dietaryFiberInGrams: Double? = nilOrValue(pigeonVar_list[16])
+    let sugarInGrams: Double? = nilOrValue(pigeonVar_list[17])
+    let vitaminAInGrams: Double? = nilOrValue(pigeonVar_list[18])
+    let vitaminB6InGrams: Double? = nilOrValue(pigeonVar_list[19])
+    let vitaminB12InGrams: Double? = nilOrValue(pigeonVar_list[20])
+    let vitaminCInGrams: Double? = nilOrValue(pigeonVar_list[21])
+    let vitaminDInGrams: Double? = nilOrValue(pigeonVar_list[22])
+    let vitaminEInGrams: Double? = nilOrValue(pigeonVar_list[23])
+    let vitaminKInGrams: Double? = nilOrValue(pigeonVar_list[24])
+    let thiaminInGrams: Double? = nilOrValue(pigeonVar_list[25])
+    let riboflavinInGrams: Double? = nilOrValue(pigeonVar_list[26])
+    let niacinInGrams: Double? = nilOrValue(pigeonVar_list[27])
+    let folateInGrams: Double? = nilOrValue(pigeonVar_list[28])
+    let biotinInGrams: Double? = nilOrValue(pigeonVar_list[29])
+    let pantothenicAcidInGrams: Double? = nilOrValue(pigeonVar_list[30])
+    let calciumInGrams: Double? = nilOrValue(pigeonVar_list[31])
+    let ironInGrams: Double? = nilOrValue(pigeonVar_list[32])
+    let magnesiumInGrams: Double? = nilOrValue(pigeonVar_list[33])
+    let manganeseInGrams: Double? = nilOrValue(pigeonVar_list[34])
+    let phosphorusInGrams: Double? = nilOrValue(pigeonVar_list[35])
+    let potassiumInGrams: Double? = nilOrValue(pigeonVar_list[36])
+    let seleniumInGrams: Double? = nilOrValue(pigeonVar_list[37])
+    let sodiumInGrams: Double? = nilOrValue(pigeonVar_list[38])
+    let zincInGrams: Double? = nilOrValue(pigeonVar_list[39])
+    let caffeineInGrams: Double? = nilOrValue(pigeonVar_list[40])
 
     return NutritionRecordDto(
       id: id,
@@ -5141,39 +4769,39 @@ public struct NutritionRecordDto: HealthRecordDto {
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       foodName: foodName,
       mealType: mealType,
-      energy: energy,
-      protein: protein,
-      totalCarbohydrate: totalCarbohydrate,
-      totalFat: totalFat,
-      saturatedFat: saturatedFat,
-      monounsaturatedFat: monounsaturatedFat,
-      polyunsaturatedFat: polyunsaturatedFat,
-      cholesterol: cholesterol,
-      dietaryFiber: dietaryFiber,
-      sugar: sugar,
-      vitaminA: vitaminA,
-      vitaminB6: vitaminB6,
-      vitaminB12: vitaminB12,
-      vitaminC: vitaminC,
-      vitaminD: vitaminD,
-      vitaminE: vitaminE,
-      vitaminK: vitaminK,
-      thiamin: thiamin,
-      riboflavin: riboflavin,
-      niacin: niacin,
-      folate: folate,
-      biotin: biotin,
-      pantothenicAcid: pantothenicAcid,
-      calcium: calcium,
-      iron: iron,
-      magnesium: magnesium,
-      manganese: manganese,
-      phosphorus: phosphorus,
-      potassium: potassium,
-      selenium: selenium,
-      sodium: sodium,
-      zinc: zinc,
-      caffeine: caffeine
+      energyKilocalories: energyKilocalories,
+      proteinInGrams: proteinInGrams,
+      totalCarbohydrateInGrams: totalCarbohydrateInGrams,
+      totalFatInGrams: totalFatInGrams,
+      saturatedFatInGrams: saturatedFatInGrams,
+      monounsaturatedFatInGrams: monounsaturatedFatInGrams,
+      polyunsaturatedFatInGrams: polyunsaturatedFatInGrams,
+      cholesterolInGrams: cholesterolInGrams,
+      dietaryFiberInGrams: dietaryFiberInGrams,
+      sugarInGrams: sugarInGrams,
+      vitaminAInGrams: vitaminAInGrams,
+      vitaminB6InGrams: vitaminB6InGrams,
+      vitaminB12InGrams: vitaminB12InGrams,
+      vitaminCInGrams: vitaminCInGrams,
+      vitaminDInGrams: vitaminDInGrams,
+      vitaminEInGrams: vitaminEInGrams,
+      vitaminKInGrams: vitaminKInGrams,
+      thiaminInGrams: thiaminInGrams,
+      riboflavinInGrams: riboflavinInGrams,
+      niacinInGrams: niacinInGrams,
+      folateInGrams: folateInGrams,
+      biotinInGrams: biotinInGrams,
+      pantothenicAcidInGrams: pantothenicAcidInGrams,
+      calciumInGrams: calciumInGrams,
+      ironInGrams: ironInGrams,
+      magnesiumInGrams: magnesiumInGrams,
+      manganeseInGrams: manganeseInGrams,
+      phosphorusInGrams: phosphorusInGrams,
+      potassiumInGrams: potassiumInGrams,
+      seleniumInGrams: seleniumInGrams,
+      sodiumInGrams: sodiumInGrams,
+      zincInGrams: zincInGrams,
+      caffeineInGrams: caffeineInGrams
     )
   }
   func toList() -> [Any?] {
@@ -5186,39 +4814,39 @@ public struct NutritionRecordDto: HealthRecordDto {
       endZoneOffsetSeconds,
       foodName,
       mealType,
-      energy,
-      protein,
-      totalCarbohydrate,
-      totalFat,
-      saturatedFat,
-      monounsaturatedFat,
-      polyunsaturatedFat,
-      cholesterol,
-      dietaryFiber,
-      sugar,
-      vitaminA,
-      vitaminB6,
-      vitaminB12,
-      vitaminC,
-      vitaminD,
-      vitaminE,
-      vitaminK,
-      thiamin,
-      riboflavin,
-      niacin,
-      folate,
-      biotin,
-      pantothenicAcid,
-      calcium,
-      iron,
-      magnesium,
-      manganese,
-      phosphorus,
-      potassium,
-      selenium,
-      sodium,
-      zinc,
-      caffeine,
+      energyKilocalories,
+      proteinInGrams,
+      totalCarbohydrateInGrams,
+      totalFatInGrams,
+      saturatedFatInGrams,
+      monounsaturatedFatInGrams,
+      polyunsaturatedFatInGrams,
+      cholesterolInGrams,
+      dietaryFiberInGrams,
+      sugarInGrams,
+      vitaminAInGrams,
+      vitaminB6InGrams,
+      vitaminB12InGrams,
+      vitaminCInGrams,
+      vitaminDInGrams,
+      vitaminEInGrams,
+      vitaminKInGrams,
+      thiaminInGrams,
+      riboflavinInGrams,
+      niacinInGrams,
+      folateInGrams,
+      biotinInGrams,
+      pantothenicAcidInGrams,
+      calciumInGrams,
+      ironInGrams,
+      magnesiumInGrams,
+      manganeseInGrams,
+      phosphorusInGrams,
+      potassiumInGrams,
+      seleniumInGrams,
+      sodiumInGrams,
+      zincInGrams,
+      caffeineInGrams,
     ]
   }
   public static func == (lhs: NutritionRecordDto, rhs: NutritionRecordDto) -> Bool {
@@ -5245,7 +4873,7 @@ public struct BasalEnergyBurnedRecordDto: HealthRecordDto {
   /// Timezone offset in seconds for end time (optional).
   var endZoneOffsetSeconds: Int64? = nil
   /// Energy burned.
-  var energy: EnergyDto
+  var kilocalories: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -5256,7 +4884,7 @@ public struct BasalEnergyBurnedRecordDto: HealthRecordDto {
     let endTime = pigeonVar_list[3] as! Int64
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
-    let energy = pigeonVar_list[6] as! EnergyDto
+    let kilocalories = pigeonVar_list[6] as! Double
 
     return BasalEnergyBurnedRecordDto(
       id: id,
@@ -5265,7 +4893,7 @@ public struct BasalEnergyBurnedRecordDto: HealthRecordDto {
       endTime: endTime,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
-      energy: energy
+      kilocalories: kilocalories
     )
   }
   func toList() -> [Any?] {
@@ -5276,7 +4904,7 @@ public struct BasalEnergyBurnedRecordDto: HealthRecordDto {
       endTime,
       startZoneOffsetSeconds,
       endZoneOffsetSeconds,
-      energy,
+      kilocalories,
     ]
   }
   public static func == (lhs: BasalEnergyBurnedRecordDto, rhs: BasalEnergyBurnedRecordDto) -> Bool {
@@ -5799,42 +5427,6 @@ public struct HealthConnectorLogDto: Hashable {
   }
 }
 
-
-private struct PigeonInternalCodecOverflow {
-  var type: Int
-  var wrapped: Any? = nil
-
-  func toList() -> [Any?] {
-    return [
-      type,
-      wrapped,
-    ]
-  }
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> Any? {
-    let type = pigeonVar_list[0] as! Int
-    let wrapped: Any? = pigeonVar_list[1]
-
-    let wrapper = PigeonInternalCodecOverflow(
-      type: type,
-      wrapped: wrapped
-    )
-
-    return wrapper.unwrap()
-  }
-
-  func unwrap() -> Any? {
-    if (wrapped == nil) {
-      return nil;
-    }
-        
-    switch type {
-      default: 
-        return nil
-    }
-  }
-}
-
 private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -6003,203 +5595,175 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 156:
       return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
     case 157:
-      return BloodGlucoseDto.fromList(self.readValue() as! [Any?])
-    case 158:
-      return EnergyDto.fromList(self.readValue() as! [Any?])
-    case 159:
-      return TimeDurationDto.fromList(self.readValue() as! [Any?])
-    case 160:
-      return LengthDto.fromList(self.readValue() as! [Any?])
-    case 161:
-      return MassDto.fromList(self.readValue() as! [Any?])
-    case 162:
-      return NumberDto.fromList(self.readValue() as! [Any?])
-    case 163:
-      return FrequencyDto.fromList(self.readValue() as! [Any?])
-    case 164:
-      return PercentageDto.fromList(self.readValue() as! [Any?])
-    case 165:
-      return PowerDto.fromList(self.readValue() as! [Any?])
-    case 166:
-      return PressureDto.fromList(self.readValue() as! [Any?])
-    case 167:
-      return TemperatureDto.fromList(self.readValue() as! [Any?])
-    case 168:
-      return VelocityDto.fromList(self.readValue() as! [Any?])
-    case 169:
-      return VolumeDto.fromList(self.readValue() as! [Any?])
-    case 170:
       return MetadataDto.fromList(self.readValue() as! [Any?])
-    case 171:
+    case 158:
       return RestingHeartRateRecordDto.fromList(self.readValue() as! [Any?])
-    case 172:
+    case 159:
       return Vo2MaxRecordDto.fromList(self.readValue() as! [Any?])
-    case 173:
+    case 160:
       return BodyMassIndexRecordDto.fromList(self.readValue() as! [Any?])
-    case 174:
+    case 161:
       return WaistCircumferenceRecordDto.fromList(self.readValue() as! [Any?])
-    case 175:
+    case 162:
       return HeartRateVariabilitySDNNRecordDto.fromList(self.readValue() as! [Any?])
-    case 176:
+    case 163:
       return BloodGlucoseRecordDto.fromList(self.readValue() as! [Any?])
-    case 177:
+    case 164:
       return ExerciseSessionRecordDto.fromList(self.readValue() as! [Any?])
-    case 178:
+    case 165:
       return MindfulnessSessionRecordDto.fromList(self.readValue() as! [Any?])
-    case 179:
+    case 166:
       return ActiveEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
-    case 180:
+    case 167:
       return DistanceActivityRecordDto.fromList(self.readValue() as! [Any?])
-    case 181:
+    case 168:
       return SpeedActivityRecordDto.fromList(self.readValue() as! [Any?])
-    case 182:
+    case 169:
       return FloorsClimbedRecordDto.fromList(self.readValue() as! [Any?])
-    case 183:
+    case 170:
       return WheelchairPushesRecordDto.fromList(self.readValue() as! [Any?])
-    case 184:
+    case 171:
       return StepsRecordDto.fromList(self.readValue() as! [Any?])
-    case 185:
+    case 172:
       return WeightRecordDto.fromList(self.readValue() as! [Any?])
-    case 186:
+    case 173:
       return BloodPressureRecordDto.fromList(self.readValue() as! [Any?])
-    case 187:
+    case 174:
       return SystolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
-    case 188:
+    case 175:
       return DiastolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
-    case 189:
+    case 176:
       return LeanBodyMassRecordDto.fromList(self.readValue() as! [Any?])
-    case 190:
+    case 177:
       return HeightRecordDto.fromList(self.readValue() as! [Any?])
-    case 191:
+    case 178:
       return BodyFatPercentageRecordDto.fromList(self.readValue() as! [Any?])
-    case 192:
+    case 179:
       return BodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
-    case 193:
+    case 180:
       return BasalBodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
-    case 194:
+    case 181:
       return CervicalMucusRecordDto.fromList(self.readValue() as! [Any?])
-    case 195:
+    case 182:
       return CyclingPowerRecordDto.fromList(self.readValue() as! [Any?])
-    case 196:
+    case 183:
       return OxygenSaturationRecordDto.fromList(self.readValue() as! [Any?])
-    case 197:
+    case 184:
       return OvulationTestRecordDto.fromList(self.readValue() as! [Any?])
-    case 198:
+    case 185:
       return IntermenstrualBleedingRecordDto.fromList(self.readValue() as! [Any?])
-    case 199:
+    case 186:
       return MenstrualFlowRecordDto.fromList(self.readValue() as! [Any?])
-    case 200:
+    case 187:
       return RespiratoryRateRecordDto.fromList(self.readValue() as! [Any?])
-    case 201:
+    case 188:
       return HydrationRecordDto.fromList(self.readValue() as! [Any?])
-    case 202:
+    case 189:
       return HeartRateMeasurementDto.fromList(self.readValue() as! [Any?])
-    case 203:
+    case 190:
       return HeartRateRecordDto.fromList(self.readValue() as! [Any?])
-    case 204:
+    case 191:
       return CyclingPedalingCadenceRecordDto.fromList(self.readValue() as! [Any?])
-    case 205:
+    case 192:
       return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
-    case 206:
+    case 193:
       return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
-    case 207:
+    case 194:
       return DietaryEnergyConsumedRecordDto.fromList(self.readValue() as! [Any?])
-    case 208:
+    case 195:
       return DietaryCaffeineRecordDto.fromList(self.readValue() as! [Any?])
-    case 209:
+    case 196:
       return DietaryProteinRecordDto.fromList(self.readValue() as! [Any?])
-    case 210:
+    case 197:
       return DietaryTotalCarbohydrateRecordDto.fromList(self.readValue() as! [Any?])
-    case 211:
+    case 198:
       return DietaryTotalFatRecordDto.fromList(self.readValue() as! [Any?])
-    case 212:
+    case 199:
       return DietarySaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
-    case 213:
+    case 200:
       return DietaryMonounsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
-    case 214:
+    case 201:
       return DietaryPolyunsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
-    case 215:
+    case 202:
       return DietaryCholesterolRecordDto.fromList(self.readValue() as! [Any?])
-    case 216:
+    case 203:
       return DietaryFiberRecordDto.fromList(self.readValue() as! [Any?])
-    case 217:
+    case 204:
       return DietarySugarRecordDto.fromList(self.readValue() as! [Any?])
-    case 218:
+    case 205:
       return DietaryVitaminARecordDto.fromList(self.readValue() as! [Any?])
-    case 219:
+    case 206:
       return DietaryVitaminB6RecordDto.fromList(self.readValue() as! [Any?])
-    case 220:
+    case 207:
       return DietaryVitaminB12RecordDto.fromList(self.readValue() as! [Any?])
-    case 221:
+    case 208:
       return DietaryVitaminCRecordDto.fromList(self.readValue() as! [Any?])
-    case 222:
+    case 209:
       return DietaryVitaminDRecordDto.fromList(self.readValue() as! [Any?])
-    case 223:
+    case 210:
       return DietaryVitaminERecordDto.fromList(self.readValue() as! [Any?])
-    case 224:
+    case 211:
       return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
-    case 225:
+    case 212:
       return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
-    case 226:
+    case 213:
       return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
-    case 227:
+    case 214:
       return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
-    case 228:
+    case 215:
       return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
-    case 229:
+    case 216:
       return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
-    case 230:
+    case 217:
       return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
-    case 231:
+    case 218:
       return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
-    case 232:
+    case 219:
       return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
-    case 233:
+    case 220:
       return DietaryMagnesiumRecordDto.fromList(self.readValue() as! [Any?])
-    case 234:
+    case 221:
       return DietaryManganeseRecordDto.fromList(self.readValue() as! [Any?])
-    case 235:
+    case 222:
       return DietaryPhosphorusRecordDto.fromList(self.readValue() as! [Any?])
-    case 236:
+    case 223:
       return DietaryPotassiumRecordDto.fromList(self.readValue() as! [Any?])
-    case 237:
+    case 224:
       return DietarySeleniumRecordDto.fromList(self.readValue() as! [Any?])
-    case 238:
+    case 225:
       return DietarySodiumRecordDto.fromList(self.readValue() as! [Any?])
-    case 239:
+    case 226:
       return DietaryZincRecordDto.fromList(self.readValue() as! [Any?])
-    case 240:
+    case 227:
       return NutritionRecordDto.fromList(self.readValue() as! [Any?])
-    case 241:
+    case 228:
       return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
-    case 242:
+    case 229:
       return HealthDataSyncTokenDto.fromList(self.readValue() as! [Any?])
-    case 243:
+    case 230:
       return HealthDataSyncResultDto.fromList(self.readValue() as! [Any?])
-    case 244:
+    case 231:
       return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
-    case 245:
+    case 232:
       return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
-    case 246:
+    case 233:
       return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
-    case 247:
+    case 234:
       return AggregateRequestDto.fromList(self.readValue() as! [Any?])
-    case 248:
+    case 235:
       return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
-    case 249:
+    case 236:
       return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
-    case 250:
+    case 237:
       return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
-    case 251:
+    case 238:
       return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
-    case 252:
+    case 239:
       return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
-    case 253:
+    case 240:
       return HealthConnectorExceptionDto.fromList(self.readValue() as! [Any?])
-    case 254:
+    case 241:
       return HealthConnectorLogDto.fromList(self.readValue() as! [Any?])
-    case 255:
-      return PigeonInternalCodecOverflow.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
     }
@@ -6292,299 +5856,260 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? HealthConnectorConfigDto {
       super.writeByte(156)
       super.writeValue(value.toList())
-    } else if let value = value as? BloodGlucoseDto {
+    } else if let value = value as? MetadataDto {
       super.writeByte(157)
       super.writeValue(value.toList())
-    } else if let value = value as? EnergyDto {
+    } else if let value = value as? RestingHeartRateRecordDto {
       super.writeByte(158)
       super.writeValue(value.toList())
-    } else if let value = value as? TimeDurationDto {
+    } else if let value = value as? Vo2MaxRecordDto {
       super.writeByte(159)
       super.writeValue(value.toList())
-    } else if let value = value as? LengthDto {
+    } else if let value = value as? BodyMassIndexRecordDto {
       super.writeByte(160)
       super.writeValue(value.toList())
-    } else if let value = value as? MassDto {
+    } else if let value = value as? WaistCircumferenceRecordDto {
       super.writeByte(161)
       super.writeValue(value.toList())
-    } else if let value = value as? NumberDto {
+    } else if let value = value as? HeartRateVariabilitySDNNRecordDto {
       super.writeByte(162)
       super.writeValue(value.toList())
-    } else if let value = value as? FrequencyDto {
+    } else if let value = value as? BloodGlucoseRecordDto {
       super.writeByte(163)
       super.writeValue(value.toList())
-    } else if let value = value as? PercentageDto {
+    } else if let value = value as? ExerciseSessionRecordDto {
       super.writeByte(164)
       super.writeValue(value.toList())
-    } else if let value = value as? PowerDto {
+    } else if let value = value as? MindfulnessSessionRecordDto {
       super.writeByte(165)
       super.writeValue(value.toList())
-    } else if let value = value as? PressureDto {
+    } else if let value = value as? ActiveEnergyBurnedRecordDto {
       super.writeByte(166)
       super.writeValue(value.toList())
-    } else if let value = value as? TemperatureDto {
+    } else if let value = value as? DistanceActivityRecordDto {
       super.writeByte(167)
       super.writeValue(value.toList())
-    } else if let value = value as? VelocityDto {
+    } else if let value = value as? SpeedActivityRecordDto {
       super.writeByte(168)
       super.writeValue(value.toList())
-    } else if let value = value as? VolumeDto {
+    } else if let value = value as? FloorsClimbedRecordDto {
       super.writeByte(169)
       super.writeValue(value.toList())
-    } else if let value = value as? MetadataDto {
+    } else if let value = value as? WheelchairPushesRecordDto {
       super.writeByte(170)
       super.writeValue(value.toList())
-    } else if let value = value as? RestingHeartRateRecordDto {
+    } else if let value = value as? StepsRecordDto {
       super.writeByte(171)
       super.writeValue(value.toList())
-    } else if let value = value as? Vo2MaxRecordDto {
+    } else if let value = value as? WeightRecordDto {
       super.writeByte(172)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyMassIndexRecordDto {
+    } else if let value = value as? BloodPressureRecordDto {
       super.writeByte(173)
       super.writeValue(value.toList())
-    } else if let value = value as? WaistCircumferenceRecordDto {
+    } else if let value = value as? SystolicBloodPressureRecordDto {
       super.writeByte(174)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateVariabilitySDNNRecordDto {
+    } else if let value = value as? DiastolicBloodPressureRecordDto {
       super.writeByte(175)
       super.writeValue(value.toList())
-    } else if let value = value as? BloodGlucoseRecordDto {
+    } else if let value = value as? LeanBodyMassRecordDto {
       super.writeByte(176)
       super.writeValue(value.toList())
-    } else if let value = value as? ExerciseSessionRecordDto {
+    } else if let value = value as? HeightRecordDto {
       super.writeByte(177)
       super.writeValue(value.toList())
-    } else if let value = value as? MindfulnessSessionRecordDto {
+    } else if let value = value as? BodyFatPercentageRecordDto {
       super.writeByte(178)
       super.writeValue(value.toList())
-    } else if let value = value as? ActiveEnergyBurnedRecordDto {
+    } else if let value = value as? BodyTemperatureRecordDto {
       super.writeByte(179)
       super.writeValue(value.toList())
-    } else if let value = value as? DistanceActivityRecordDto {
+    } else if let value = value as? BasalBodyTemperatureRecordDto {
       super.writeByte(180)
       super.writeValue(value.toList())
-    } else if let value = value as? SpeedActivityRecordDto {
+    } else if let value = value as? CervicalMucusRecordDto {
       super.writeByte(181)
       super.writeValue(value.toList())
-    } else if let value = value as? FloorsClimbedRecordDto {
+    } else if let value = value as? CyclingPowerRecordDto {
       super.writeByte(182)
       super.writeValue(value.toList())
-    } else if let value = value as? WheelchairPushesRecordDto {
+    } else if let value = value as? OxygenSaturationRecordDto {
       super.writeByte(183)
       super.writeValue(value.toList())
-    } else if let value = value as? StepsRecordDto {
+    } else if let value = value as? OvulationTestRecordDto {
       super.writeByte(184)
       super.writeValue(value.toList())
-    } else if let value = value as? WeightRecordDto {
+    } else if let value = value as? IntermenstrualBleedingRecordDto {
       super.writeByte(185)
       super.writeValue(value.toList())
-    } else if let value = value as? BloodPressureRecordDto {
+    } else if let value = value as? MenstrualFlowRecordDto {
       super.writeByte(186)
       super.writeValue(value.toList())
-    } else if let value = value as? SystolicBloodPressureRecordDto {
+    } else if let value = value as? RespiratoryRateRecordDto {
       super.writeByte(187)
       super.writeValue(value.toList())
-    } else if let value = value as? DiastolicBloodPressureRecordDto {
+    } else if let value = value as? HydrationRecordDto {
       super.writeByte(188)
       super.writeValue(value.toList())
-    } else if let value = value as? LeanBodyMassRecordDto {
+    } else if let value = value as? HeartRateMeasurementDto {
       super.writeByte(189)
       super.writeValue(value.toList())
-    } else if let value = value as? HeightRecordDto {
+    } else if let value = value as? HeartRateRecordDto {
       super.writeByte(190)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyFatPercentageRecordDto {
+    } else if let value = value as? CyclingPedalingCadenceRecordDto {
       super.writeByte(191)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyTemperatureRecordDto {
+    } else if let value = value as? SleepStageRecordDto {
       super.writeByte(192)
       super.writeValue(value.toList())
-    } else if let value = value as? BasalBodyTemperatureRecordDto {
+    } else if let value = value as? SexualActivityRecordDto {
       super.writeByte(193)
       super.writeValue(value.toList())
-    } else if let value = value as? CervicalMucusRecordDto {
+    } else if let value = value as? DietaryEnergyConsumedRecordDto {
       super.writeByte(194)
       super.writeValue(value.toList())
-    } else if let value = value as? CyclingPowerRecordDto {
+    } else if let value = value as? DietaryCaffeineRecordDto {
       super.writeByte(195)
       super.writeValue(value.toList())
-    } else if let value = value as? OxygenSaturationRecordDto {
+    } else if let value = value as? DietaryProteinRecordDto {
       super.writeByte(196)
       super.writeValue(value.toList())
-    } else if let value = value as? OvulationTestRecordDto {
+    } else if let value = value as? DietaryTotalCarbohydrateRecordDto {
       super.writeByte(197)
       super.writeValue(value.toList())
-    } else if let value = value as? IntermenstrualBleedingRecordDto {
+    } else if let value = value as? DietaryTotalFatRecordDto {
       super.writeByte(198)
       super.writeValue(value.toList())
-    } else if let value = value as? MenstrualFlowRecordDto {
+    } else if let value = value as? DietarySaturatedFatRecordDto {
       super.writeByte(199)
       super.writeValue(value.toList())
-    } else if let value = value as? RespiratoryRateRecordDto {
+    } else if let value = value as? DietaryMonounsaturatedFatRecordDto {
       super.writeByte(200)
       super.writeValue(value.toList())
-    } else if let value = value as? HydrationRecordDto {
+    } else if let value = value as? DietaryPolyunsaturatedFatRecordDto {
       super.writeByte(201)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateMeasurementDto {
+    } else if let value = value as? DietaryCholesterolRecordDto {
       super.writeByte(202)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateRecordDto {
+    } else if let value = value as? DietaryFiberRecordDto {
       super.writeByte(203)
       super.writeValue(value.toList())
-    } else if let value = value as? CyclingPedalingCadenceRecordDto {
+    } else if let value = value as? DietarySugarRecordDto {
       super.writeByte(204)
       super.writeValue(value.toList())
-    } else if let value = value as? SleepStageRecordDto {
+    } else if let value = value as? DietaryVitaminARecordDto {
       super.writeByte(205)
       super.writeValue(value.toList())
-    } else if let value = value as? SexualActivityRecordDto {
+    } else if let value = value as? DietaryVitaminB6RecordDto {
       super.writeByte(206)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryEnergyConsumedRecordDto {
+    } else if let value = value as? DietaryVitaminB12RecordDto {
       super.writeByte(207)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCaffeineRecordDto {
+    } else if let value = value as? DietaryVitaminCRecordDto {
       super.writeByte(208)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryProteinRecordDto {
+    } else if let value = value as? DietaryVitaminDRecordDto {
       super.writeByte(209)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryTotalCarbohydrateRecordDto {
+    } else if let value = value as? DietaryVitaminERecordDto {
       super.writeByte(210)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryTotalFatRecordDto {
+    } else if let value = value as? DietaryVitaminKRecordDto {
       super.writeByte(211)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySaturatedFatRecordDto {
+    } else if let value = value as? DietaryThiaminRecordDto {
       super.writeByte(212)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMonounsaturatedFatRecordDto {
+    } else if let value = value as? DietaryRiboflavinRecordDto {
       super.writeByte(213)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPolyunsaturatedFatRecordDto {
+    } else if let value = value as? DietaryNiacinRecordDto {
       super.writeByte(214)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCholesterolRecordDto {
+    } else if let value = value as? DietaryFolateRecordDto {
       super.writeByte(215)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFiberRecordDto {
+    } else if let value = value as? DietaryBiotinRecordDto {
       super.writeByte(216)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySugarRecordDto {
+    } else if let value = value as? DietaryPantothenicAcidRecordDto {
       super.writeByte(217)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminARecordDto {
+    } else if let value = value as? DietaryCalciumRecordDto {
       super.writeByte(218)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminB6RecordDto {
+    } else if let value = value as? DietaryIronRecordDto {
       super.writeByte(219)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminB12RecordDto {
+    } else if let value = value as? DietaryMagnesiumRecordDto {
       super.writeByte(220)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminCRecordDto {
+    } else if let value = value as? DietaryManganeseRecordDto {
       super.writeByte(221)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminDRecordDto {
+    } else if let value = value as? DietaryPhosphorusRecordDto {
       super.writeByte(222)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminERecordDto {
+    } else if let value = value as? DietaryPotassiumRecordDto {
       super.writeByte(223)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminKRecordDto {
+    } else if let value = value as? DietarySeleniumRecordDto {
       super.writeByte(224)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryThiaminRecordDto {
+    } else if let value = value as? DietarySodiumRecordDto {
       super.writeByte(225)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryRiboflavinRecordDto {
+    } else if let value = value as? DietaryZincRecordDto {
       super.writeByte(226)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryNiacinRecordDto {
+    } else if let value = value as? NutritionRecordDto {
       super.writeByte(227)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFolateRecordDto {
+    } else if let value = value as? BasalEnergyBurnedRecordDto {
       super.writeByte(228)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryBiotinRecordDto {
+    } else if let value = value as? HealthDataSyncTokenDto {
       super.writeByte(229)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPantothenicAcidRecordDto {
+    } else if let value = value as? HealthDataSyncResultDto {
       super.writeByte(230)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCalciumRecordDto {
+    } else if let value = value as? HealthDataPermissionDto {
       super.writeByte(231)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryIronRecordDto {
+    } else if let value = value as? HealthDataPermissionRequestResultDto {
       super.writeByte(232)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMagnesiumRecordDto {
+    } else if let value = value as? PermissionsRequestDto {
       super.writeByte(233)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryManganeseRecordDto {
+    } else if let value = value as? AggregateRequestDto {
       super.writeByte(234)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPhosphorusRecordDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       super.writeByte(235)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPotassiumRecordDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       super.writeByte(236)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySeleniumRecordDto {
+    } else if let value = value as? ReadRecordRequestDto {
       super.writeByte(237)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySodiumRecordDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       super.writeByte(238)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryZincRecordDto {
+    } else if let value = value as? ReadRecordsResponseDto {
       super.writeByte(239)
       super.writeValue(value.toList())
-    } else if let value = value as? NutritionRecordDto {
+    } else if let value = value as? HealthConnectorExceptionDto {
       super.writeByte(240)
       super.writeValue(value.toList())
-    } else if let value = value as? BasalEnergyBurnedRecordDto {
-      super.writeByte(241)
-      super.writeValue(value.toList())
-    } else if let value = value as? HealthDataSyncTokenDto {
-      super.writeByte(242)
-      super.writeValue(value.toList())
-    } else if let value = value as? HealthDataSyncResultDto {
-      super.writeByte(243)
-      super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionDto {
-      super.writeByte(244)
-      super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionRequestResultDto {
-      super.writeByte(245)
-      super.writeValue(value.toList())
-    } else if let value = value as? PermissionsRequestDto {
-      super.writeByte(246)
-      super.writeValue(value.toList())
-    } else if let value = value as? AggregateRequestDto {
-      super.writeByte(247)
-      super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
-      super.writeByte(248)
-      super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
-      super.writeByte(249)
-      super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordRequestDto {
-      super.writeByte(250)
-      super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
-      super.writeByte(251)
-      super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsResponseDto {
-      super.writeByte(252)
-      super.writeValue(value.toList())
-    } else if let value = value as? HealthConnectorExceptionDto {
-      super.writeByte(253)
-      super.writeValue(value.toList())
     } else if let value = value as? HealthConnectorLogDto {
-      super.writeByte(254)
+      super.writeByte(241)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -6679,7 +6204,7 @@ class HealthConnectorNativeLogApi: HealthConnectorNativeLogApiProtocol {
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol HealthConnectorHKIOSApi {
   func initialize(config: HealthConnectorConfigDto, completion: @escaping (Result<Void, Error>) -> Void)
-  func aggregate(request: AggregateRequestDto, completion: @escaping (Result<MeasurementUnitDto, Error>) -> Void)
+  func aggregate(request: AggregateRequestDto, completion: @escaping (Result<Double, Error>) -> Void)
   func deleteRecords(request: DeleteRecordsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
   func getHealthPlatformStatus(completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void)
   func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<[HealthDataPermissionRequestResultDto], Error>) -> Void)

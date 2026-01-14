@@ -37,7 +37,7 @@ void main() {
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.beatsPerMinute.perMinute, 60);
+              expect(dto.beatsPerMinute, 60);
             },
           );
         },
@@ -59,7 +59,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                beatsPerMinute: FrequencyDto(perMinute: 65),
+                beatsPerMinute: 65,
               );
 
               final record = dto.toDomain();
@@ -91,7 +91,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                beatsPerMinute: FrequencyDto(perMinute: 58),
+                beatsPerMinute: 58,
               );
 
               final record = dto.toDomain();

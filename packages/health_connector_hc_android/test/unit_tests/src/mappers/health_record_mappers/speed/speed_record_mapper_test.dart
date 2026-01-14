@@ -63,7 +63,7 @@ void main() {
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.samples, hasLength(1));
-              expect(dto.samples[0].speed.metersPerSecond, 2.5);
+              expect(dto.samples[0].metersPerSecond, 2.5);
             },
           );
         },
@@ -92,7 +92,7 @@ void main() {
                 samples: [
                   SpeedSampleDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
-                    speed: VelocityDto(metersPerSecond: 3.0),
+                    metersPerSecond: 3.0,
                   ),
                 ],
               );

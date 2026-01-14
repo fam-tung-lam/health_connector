@@ -8,7 +8,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PercentageDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
@@ -41,7 +40,7 @@ class OxygenSaturationRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.percentage.decimal shouldBe TEST_PERCENTAGE
+        result.percentage shouldBe TEST_PERCENTAGE
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }
@@ -54,7 +53,7 @@ class OxygenSaturationRecordMapperTest {
             id = TEST_ID,
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            percentage = PercentageDto(decimal = TEST_PERCENTAGE),
+            percentage = TEST_PERCENTAGE,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

@@ -8,7 +8,8 @@ extension BasalEnergyBurnedRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .basalEnergyBurned)
 
-        let quantity = energy.toHealthKit()
+        let unit = HKUnit.kilocalorie()
+        let quantity = HKQuantity(unit: unit, doubleValue: kilocalories)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
@@ -64,7 +65,7 @@ extension HKQuantitySample {
             endTime: endDate.millisecondsSince1970,
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset,
-            energy: quantity.toEnergyDto()
+            kilocalories: quantity.doubleValue(for: HKUnit.kilocalorie())
         )
     }
 }

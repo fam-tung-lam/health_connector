@@ -41,7 +41,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.pressure.millimetersOfMercury, 120.0);
+              expect(dto.millimetersOfMercury, 120.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -67,7 +67,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                pressure: PressureDto(millimetersOfMercury: 115.0),
+                millimetersOfMercury: 115.0,
                 bodyPosition: BodyPositionDto.standingUp,
                 measurementLocation: MeasurementLocationDto.rightUpperArm,
               );
@@ -76,7 +76,10 @@ void main() {
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.pressure.inMillimetersOfMercury, 115.0);
+              expect(
+                record.pressure.inMillimetersOfMercury,
+                115.0,
+              );
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
@@ -99,7 +102,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                pressure: PressureDto(millimetersOfMercury: 110.0),
+                millimetersOfMercury: 110.0,
                 bodyPosition: BodyPositionDto.sittingDown,
                 measurementLocation: MeasurementLocationDto.leftUpperArm,
               );

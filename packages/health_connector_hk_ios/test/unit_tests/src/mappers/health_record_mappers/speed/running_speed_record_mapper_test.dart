@@ -41,7 +41,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.speed.metersPerSecond, 3.5);
+              expect(dto.metersPerSecond, 3.5);
 
               expect(dto.activityType, SpeedActivityTypeDto.running);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
@@ -77,7 +77,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.speed.metersPerSecond, 5.2);
+              expect(dto.metersPerSecond, 5.2);
               expect(dto.activityType, SpeedActivityTypeDto.running);
               expect(
                 dto.metadata.recordingMethod,
@@ -108,7 +108,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 4.2),
+                metersPerSecond: 4.2,
                 activityType: SpeedActivityTypeDto.running,
               );
 
@@ -153,7 +153,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(metersPerSecond: 3.8),
+                metersPerSecond: 3.8,
                 activityType: SpeedActivityTypeDto.running,
               );
 
@@ -182,7 +182,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(metersPerSecond: 6.5),
+                metersPerSecond: 6.5,
                 activityType: SpeedActivityTypeDto.running,
               );
 

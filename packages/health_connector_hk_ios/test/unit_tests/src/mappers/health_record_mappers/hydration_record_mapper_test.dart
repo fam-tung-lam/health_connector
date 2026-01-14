@@ -48,7 +48,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.volume.liters, 2.5);
+              expect(dto.liters, 2.5);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -73,7 +73,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                volume: VolumeDto(liters: 1.5),
+                liters: 1.5,
               );
 
               final record = dto.toDomain();
@@ -103,7 +103,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                volume: VolumeDto(liters: 2.0),
+                liters: 2.0,
               );
 
               final record = dto.toDomain();

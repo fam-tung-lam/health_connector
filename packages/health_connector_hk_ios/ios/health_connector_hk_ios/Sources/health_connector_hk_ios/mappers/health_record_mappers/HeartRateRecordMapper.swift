@@ -10,7 +10,7 @@ extension HeartRateRecordDto {
 
         // Heart rate is measured in beats per minute (count/minute)
         let unit = HKUnit.count().unitDivided(by: .minute())
-        let quantity = HKQuantity(unit: unit, doubleValue: beatsPerMinute.perMinute)
+        let quantity = HKQuantity(unit: unit, doubleValue: beatsPerMinute)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -63,7 +63,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            beatsPerMinute: toFrequencyDto(bpmValue),
+            beatsPerMinute: bpmValue,
             zoneOffsetSeconds: zoneOffset
         )
     }

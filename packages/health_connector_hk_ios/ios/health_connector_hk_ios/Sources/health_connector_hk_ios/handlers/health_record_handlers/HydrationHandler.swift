@@ -10,8 +10,6 @@ final class HydrationHandler: @unchecked Sendable,
 {
     typealias RecordDto = HydrationRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = VolumeDto
-
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -22,8 +20,8 @@ final class HydrationHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> VolumeDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         let liters = quantity.doubleValue(for: .liter())
-        return VolumeDto(liters: liters)
+        return liters
     }
 }

@@ -30,117 +30,6 @@ class HealthConnectorConfigDto {
   final bool isLoggerEnabled;
 }
 
-// region Measurement Unit
-
-/// Sealed class for all measurement unit DTOs.
-sealed class MeasurementUnitDto {}
-
-/// Represents a blood glucose measurement in millimoles per liter.
-class BloodGlucoseDto extends MeasurementUnitDto {
-  BloodGlucoseDto(this.millimolesPerLiter);
-
-  /// Blood glucose value in millimoles per liter (mmol/L).
-  final double millimolesPerLiter;
-}
-
-/// Represents an energy measurement in kilocalories.
-class EnergyDto extends MeasurementUnitDto {
-  EnergyDto(this.kilocalories);
-
-  /// Energy value in kilocalories (kcal).
-  final double kilocalories;
-}
-
-/// Represents a time duration in seconds.
-class TimeDurationDto extends MeasurementUnitDto {
-  TimeDurationDto(this.seconds);
-
-  /// Duration value in seconds (s).
-  final double seconds;
-}
-
-/// Represents a length measurement in meters.
-class LengthDto extends MeasurementUnitDto {
-  LengthDto(this.meters);
-
-  /// Length value in meters (m).
-  final double meters;
-}
-
-/// Represents a mass measurement in kilograms.
-class MassDto extends MeasurementUnitDto {
-  MassDto(this.kilograms);
-
-  /// Mass value in kilograms (kg).
-  final double kilograms;
-}
-
-/// Represents a number for platform transfer.
-class NumberDto extends MeasurementUnitDto {
-  NumberDto(this.value);
-
-  /// The count value.
-  final double value;
-}
-
-/// Represents a frequency measurement in events per minute.
-class FrequencyDto extends MeasurementUnitDto {
-  FrequencyDto(this.perMinute);
-
-  /// Frequency value in events per minute.
-  final double perMinute;
-}
-
-/// Represents a percentage as a decimal value (0.0 to 1.0).
-class PercentageDto extends MeasurementUnitDto {
-  PercentageDto(this.decimal);
-
-  /// Percentage value as decimal (0.0 to 1.0).
-  final double decimal;
-}
-
-/// Represents a power measurement in watts.
-class PowerDto extends MeasurementUnitDto {
-  PowerDto(this.watts);
-
-  /// Power value in watts (W).
-  final double watts;
-}
-
-/// Represents a pressure measurement in millimeters of mercury.
-class PressureDto extends MeasurementUnitDto {
-  PressureDto(this.millimetersOfMercury);
-
-  /// Pressure value in millimeters of mercury (mmHg).
-  final double millimetersOfMercury;
-}
-
-/// Represents a temperature measurement in celsius.
-class TemperatureDto extends MeasurementUnitDto {
-  TemperatureDto(this.celsius);
-
-  /// Temperature value in degrees Celsius (°C).
-  final double celsius;
-}
-
-/// Represents a velocity measurement in meters per second.
-class VelocityDto extends MeasurementUnitDto {
-  VelocityDto(this.metersPerSecond);
-
-  /// Velocity value in meters per second (m/s).
-  final double metersPerSecond;
-}
-
-/// Represents a volume measurement in liters.
-class VolumeDto extends MeasurementUnitDto {
-  VolumeDto(this.liters);
-
-  /// Volume value in liters (L).
-  final double liters;
-}
-
-// endregion
-
 // region Metadata
 
 /// Device type for health data recording.
@@ -725,7 +614,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.bloodGlucose,
+    required this.millimolesPerLiter,
     this.relationToMeal,
     this.specimenSource,
     this.mealType,
@@ -742,7 +631,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The blood glucose level.
-  final BloodGlucoseDto bloodGlucose;
+  final double millimolesPerLiter;
 
   /// The relationship to a meal (optional).
   final BloodGlucoseRelationToMealDto? relationToMeal;
@@ -777,7 +666,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Resting heart rate in beats per minute.
-  final FrequencyDto beatsPerMinute;
+  final double beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -803,7 +692,7 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The oxygen saturation percentage.
-  final PercentageDto percentage;
+  final double percentage;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -892,7 +781,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.breathsPerMin,
+    required this.breathsPerMinute,
     this.zoneOffsetSeconds,
   });
 
@@ -906,7 +795,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Respiratory rate in breaths per minute.
-  final FrequencyDto breathsPerMin;
+  final double breathsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -921,7 +810,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.mLPerKgPerMin,
+    required this.millilitersPerKilogramPerMinute,
     this.measurementMethod,
     this.zoneOffsetSeconds,
   });
@@ -936,7 +825,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The VO2 max value in mL/kg/min.
-  final NumberDto mLPerKgPerMin;
+  final double millilitersPerKilogramPerMinute;
 
   /// The method used to measure or estimate VO2 max.
   ///
@@ -953,13 +842,13 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
     required this.startTime,
     required this.endTime,
     required this.metadata,
-    required this.energy,
+    required this.kilocalories,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
 
   /// Energy burned during the interval.
-  final EnergyDto energy;
+  final double kilocalories;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -987,13 +876,13 @@ class DistanceRecordDto extends HealthRecordDto {
     required this.startTime,
     required this.endTime,
     required this.metadata,
-    required this.distance,
+    required this.meters,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
 
   /// Distance traveled during the interval.
-  final LengthDto distance;
+  final double meters;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1027,7 +916,7 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   });
 
   /// Number of floors (flights of stairs) climbed during the interval.
-  final NumberDto floors;
+  final double floors;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1061,7 +950,7 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   });
 
   /// Number of wheelchair pushes performed during the interval.
-  final NumberDto pushes;
+  final double pushes;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1095,7 +984,7 @@ class StepsRecordDto extends HealthRecordDto {
   });
 
   /// Number of steps taken during the interval (must be >= 0).
-  final NumberDto count;
+  final double count;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1122,7 +1011,7 @@ class WeightRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.weight,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -1136,7 +1025,7 @@ class WeightRecordDto extends HealthRecordDto {
   final int time;
 
   /// Weight measurement.
-  final MassDto weight;
+  final double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1148,8 +1037,8 @@ class BloodPressureRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.systolic,
-    required this.diastolic,
+    required this.systolicInMillimetersOfMercury,
+    required this.diastolicInMillimetersOfMercury,
     required this.bodyPosition,
     required this.measurementLocation,
     this.zoneOffsetSeconds,
@@ -1165,10 +1054,10 @@ class BloodPressureRecordDto extends HealthRecordDto {
   final int time;
 
   /// Systolic blood pressure measurement.
-  final PressureDto systolic;
+  final double systolicInMillimetersOfMercury;
 
   /// Diastolic blood pressure measurement.
-  final PressureDto diastolic;
+  final double diastolicInMillimetersOfMercury;
 
   /// Body position during measurement.
   final BodyPositionDto bodyPosition;
@@ -1186,7 +1075,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.mass,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -1200,7 +1089,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
   final int time;
 
   /// Lean body mass measurement.
-  final MassDto mass;
+  final double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1212,7 +1101,7 @@ class HeightRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.height,
+    required this.meters,
     this.zoneOffsetSeconds,
   });
 
@@ -1226,7 +1115,7 @@ class HeightRecordDto extends HealthRecordDto {
   final int time;
 
   /// Height measurement.
-  final LengthDto height;
+  final double meters;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1252,7 +1141,7 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
   final int time;
 
   /// Body fat percentage measurement.
-  final PercentageDto percentage;
+  final double percentage;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1264,7 +1153,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.temperature,
+    required this.celsius,
     this.zoneOffsetSeconds,
   });
 
@@ -1278,7 +1167,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   final int time;
 
   /// Body temperature measurement.
-  final TemperatureDto temperature;
+  final double celsius;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1290,7 +1179,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.temperature,
+    required this.celsius,
     required this.measurementLocation,
     this.zoneOffsetSeconds,
   });
@@ -1305,7 +1194,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
   final int time;
 
   /// Basal body temperature measurement.
-  final TemperatureDto temperature;
+  final double celsius;
 
   /// The location on the body where the measurement was taken.
   final BasalBodyTemperatureMeasurementLocationDto measurementLocation;
@@ -1351,7 +1240,7 @@ class HydrationRecordDto extends HealthRecordDto {
     required this.startTime,
     required this.endTime,
     required this.metadata,
-    required this.volume,
+    required this.liters,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
@@ -1369,7 +1258,7 @@ class HydrationRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Volume of water consumed during the interval.
-  final VolumeDto volume;
+  final double liters;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;
@@ -1392,7 +1281,7 @@ class HeartRateSampleDto {
   final int time;
 
   /// Heart rate value in beats per minute (BPM).
-  final FrequencyDto beatsPerMinute;
+  final double beatsPerMinute;
 }
 
 /// Represents a heart rate series record for platform transfer.
@@ -1485,14 +1374,14 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
 class SpeedSampleDto {
   SpeedSampleDto({
     required this.time,
-    required this.speed,
+    required this.metersPerSecond,
   });
 
   /// Timestamp in milliseconds since epoch (UTC).
   final int time;
 
   /// Speed measurement.
-  final VelocityDto speed;
+  final double metersPerSecond;
 }
 
 /// Represents a speed series record for platform transfer.
@@ -1533,14 +1422,14 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
 class PowerSampleDto {
   PowerSampleDto({
     required this.time,
-    required this.power,
+    required this.watts,
   });
 
   /// Timestamp in milliseconds since epoch (UTC).
   final int time;
 
   /// Power measurement.
-  final PowerDto power;
+  final double watts;
 }
 
 /// Represents a power series record for platform transfer.
@@ -1764,39 +1653,39 @@ class NutritionRecordDto extends HealthRecordDto {
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
     this.foodName,
-    this.energy,
-    this.protein,
-    this.totalCarbohydrate,
-    this.totalFat,
-    this.saturatedFat,
-    this.monounsaturatedFat,
-    this.polyunsaturatedFat,
-    this.cholesterol,
-    this.dietaryFiber,
-    this.sugar,
-    this.vitaminA,
-    this.vitaminB6,
-    this.vitaminB12,
-    this.vitaminC,
-    this.vitaminD,
-    this.vitaminE,
-    this.vitaminK,
-    this.thiamin,
-    this.riboflavin,
-    this.niacin,
-    this.folate,
-    this.biotin,
-    this.pantothenicAcid,
-    this.calcium,
-    this.iron,
-    this.magnesium,
-    this.manganese,
-    this.phosphorus,
-    this.potassium,
-    this.selenium,
-    this.sodium,
-    this.zinc,
-    this.caffeine,
+    this.energyInKilocalories,
+    this.proteinInGrams,
+    this.totalCarbohydrateInGrams,
+    this.totalFatInGrams,
+    this.saturatedFatInGrams,
+    this.monounsaturatedFatInGrams,
+    this.polyunsaturatedFatInGrams,
+    this.cholesterolInGrams,
+    this.dietaryFiberInGrams,
+    this.sugarInGrams,
+    this.vitaminAInGrams,
+    this.vitaminB6InGrams,
+    this.vitaminB12InGrams,
+    this.vitaminCInGrams,
+    this.vitaminDInGrams,
+    this.vitaminEInGrams,
+    this.vitaminKInGrams,
+    this.thiaminInGrams,
+    this.riboflavinInGrams,
+    this.niacinInGrams,
+    this.folateInGrams,
+    this.biotinInGrams,
+    this.pantothenicAcidInGrams,
+    this.calciumInGrams,
+    this.ironInGrams,
+    this.magnesiumInGrams,
+    this.manganeseInGrams,
+    this.phosphorusInGrams,
+    this.potassiumInGrams,
+    this.seleniumInGrams,
+    this.sodiumInGrams,
+    this.zincInGrams,
+    this.caffeineInGrams,
   });
 
   /// Platform-assigned unique identifier.
@@ -1831,103 +1720,103 @@ class NutritionRecordDto extends HealthRecordDto {
   // All nutrient fields (all optional)
 
   /// Energy nutrient (kilocalories).
-  final EnergyDto? energy;
+  final double? energyInKilocalories;
 
   /// Protein nutrient (grams).
-  final MassDto? protein;
+  final double? proteinInGrams;
 
   /// Total carbohydrate nutrient (grams).
-  final MassDto? totalCarbohydrate;
+  final double? totalCarbohydrateInGrams;
 
   /// Total fat nutrient (grams).
-  final MassDto? totalFat;
+  final double? totalFatInGrams;
 
   /// Saturated fat nutrient (grams).
-  final MassDto? saturatedFat;
+  final double? saturatedFatInGrams;
 
   /// Monounsaturated fat nutrient (grams).
-  final MassDto? monounsaturatedFat;
+  final double? monounsaturatedFatInGrams;
 
   /// Polyunsaturated fat nutrient (grams).
-  final MassDto? polyunsaturatedFat;
+  final double? polyunsaturatedFatInGrams;
 
   /// Cholesterol nutrient (grams).
-  final MassDto? cholesterol;
+  final double? cholesterolInGrams;
 
   /// Dietary fiber nutrient (grams).
-  final MassDto? dietaryFiber;
+  final double? dietaryFiberInGrams;
 
   /// Sugar nutrient (grams).
-  final MassDto? sugar;
+  final double? sugarInGrams;
 
   /// Vitamin A nutrient (grams).
-  final MassDto? vitaminA;
+  final double? vitaminAInGrams;
 
   /// Vitamin B6 nutrient (grams).
-  final MassDto? vitaminB6;
+  final double? vitaminB6InGrams;
 
   /// Vitamin B12 nutrient (grams).
-  final MassDto? vitaminB12;
+  final double? vitaminB12InGrams;
 
   /// Vitamin C nutrient (grams).
-  final MassDto? vitaminC;
+  final double? vitaminCInGrams;
 
   /// Vitamin D nutrient (grams).
-  final MassDto? vitaminD;
+  final double? vitaminDInGrams;
 
   /// Vitamin E nutrient (grams).
-  final MassDto? vitaminE;
+  final double? vitaminEInGrams;
 
   /// Vitamin K nutrient (grams).
-  final MassDto? vitaminK;
+  final double? vitaminKInGrams;
 
   /// Thiamin (vitamin B1) nutrient (grams).
-  final MassDto? thiamin;
+  final double? thiaminInGrams;
 
   /// Riboflavin (vitamin B2) nutrient (grams).
-  final MassDto? riboflavin;
+  final double? riboflavinInGrams;
 
   /// Niacin (vitamin B3) nutrient (grams).
-  final MassDto? niacin;
+  final double? niacinInGrams;
 
   /// Folate (vitamin B9) nutrient (grams).
-  final MassDto? folate;
+  final double? folateInGrams;
 
   /// Biotin (vitamin B7) nutrient (grams).
-  final MassDto? biotin;
+  final double? biotinInGrams;
 
   /// Pantothenic acid (vitamin B5) nutrient (grams).
-  final MassDto? pantothenicAcid;
+  final double? pantothenicAcidInGrams;
 
   /// Calcium nutrient (grams).
-  final MassDto? calcium;
+  final double? calciumInGrams;
 
   /// Iron nutrient (grams).
-  final MassDto? iron;
+  final double? ironInGrams;
 
   /// Magnesium nutrient (grams).
-  final MassDto? magnesium;
+  final double? magnesiumInGrams;
 
   /// Manganese nutrient (grams).
-  final MassDto? manganese;
+  final double? manganeseInGrams;
 
   /// Phosphorus nutrient (grams).
-  final MassDto? phosphorus;
+  final double? phosphorusInGrams;
 
   /// Potassium nutrient (grams).
-  final MassDto? potassium;
+  final double? potassiumInGrams;
 
   /// Selenium nutrient (grams).
-  final MassDto? selenium;
+  final double? seleniumInGrams;
 
   /// Sodium nutrient (grams).
-  final MassDto? sodium;
+  final double? sodiumInGrams;
 
   /// Zinc nutrient (grams).
-  final MassDto? zinc;
+  final double? zincInGrams;
 
   /// Caffeine nutrient (grams).
-  final MassDto? caffeine;
+  final double? caffeineInGrams;
 }
 
 /// Represents a total energy burned record for platform transfer.
@@ -1937,7 +1826,7 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
     required this.metadata,
     required this.startTime,
     required this.endTime,
-    required this.energy,
+    required this.kilocalories,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
@@ -1961,7 +1850,7 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
   final int? endZoneOffsetSeconds;
 
   /// Energy burned.
-  final EnergyDto energy;
+  final double kilocalories;
 }
 
 /// Represents a bone mass record for platform transfer.
@@ -1970,7 +1859,7 @@ class BoneMassRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.mass,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -1984,7 +1873,7 @@ class BoneMassRecordDto extends HealthRecordDto {
   final int time;
 
   /// Bone mass measurement.
-  final MassDto mass;
+  final double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -2022,7 +1911,7 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.mass,
+    required this.kilograms,
     this.zoneOffsetSeconds,
   });
 
@@ -2036,7 +1925,7 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
   final int time;
 
   /// Body water mass measurement.
-  final MassDto mass;
+  final double kilograms;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -2526,7 +2415,7 @@ abstract class HealthConnectorHCAndroidApi {
   void launchHealthConnectPageInGooglePlay();
 
   @async
-  MeasurementUnitDto aggregate(AggregateRequestDto request);
+  double aggregate(AggregateRequestDto request);
 
   @async
   void deleteRecords(DeleteRecordsRequestDto request);

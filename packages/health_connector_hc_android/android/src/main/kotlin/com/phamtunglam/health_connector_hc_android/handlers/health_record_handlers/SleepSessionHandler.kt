@@ -7,10 +7,8 @@ import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggrega
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import kotlin.time.Duration
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -35,11 +33,11 @@ internal class SleepSessionHandler(
         AggregationMetricDto.SUM to SleepSessionRecord.SLEEP_DURATION_TOTAL,
     )
 
-    override fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto {
+    override fun convertAggregatedValue(aggregatedValue: Any): Double {
         val duration = aggregatedValue as? Duration
             ?: throw IllegalArgumentException(
                 "Aggregated value is not Duration: ${aggregatedValue::class.simpleName}",
             )
-        return duration.toDto()
+        return duration.inWholeMilliseconds.toDouble()
     }
 }

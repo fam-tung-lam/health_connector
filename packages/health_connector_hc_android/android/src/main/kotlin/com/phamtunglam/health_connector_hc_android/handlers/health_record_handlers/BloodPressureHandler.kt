@@ -11,13 +11,11 @@ import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecor
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import java.time.Instant
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +36,7 @@ internal class BloodPressureHandler(
 
     override val tag = "BloodPressureHandler"
 
-    override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto = process(
+    override suspend fun aggregate(request: AggregateRequestDto): Double = process(
         operation = "aggregate",
         context = mapOf("request" to request),
     ) {
@@ -63,9 +61,9 @@ internal class BloodPressureHandler(
 
         val result = client.aggregate(aggregateRequest)
 
-        val valueDto = result[metric]?.toDto() ?: error("Aggregation result for $metric is null")
+        val value = result[metric] ?: error("Aggregation result for $metric is null")
 
-        valueDto
+        value.inMillimetersOfMercury
     }
 
     private fun getAggregateMetric(

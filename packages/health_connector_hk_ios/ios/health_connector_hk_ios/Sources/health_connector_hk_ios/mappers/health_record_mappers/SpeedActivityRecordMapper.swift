@@ -10,7 +10,8 @@ extension SpeedActivityRecordDto {
         let quantityTypeIdentifier = try activityType.toHealthKitIdentifier()
         let type = try HKQuantityType.make(from: quantityTypeIdentifier)
 
-        let quantity = speed.toHealthKit()
+        let unit = HKUnit.meter().unitDivided(by: .second())
+        let quantity = HKQuantity(unit: unit, doubleValue: metersPerSecond)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -112,7 +113,7 @@ extension HKQuantitySample {
         let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         return try SpeedActivityRecordDto(
-            speed: quantity.toVelocityDto(),
+            metersPerSecond: quantity.doubleValue(for: HKUnit.meter().unitDivided(by: .second())),
             activityType: speedActivityType,
             time: startDate.millisecondsSince1970,
             id: uuid.uuidString,

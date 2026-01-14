@@ -13,7 +13,8 @@ extension BloodGlucoseRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bloodGlucose)
 
-        let quantity = bloodGlucose.toHealthKit()
+        let unit = HKUnit.moleUnit(with: .milli, molarMass: HKUnitMolarMassBloodGlucose).unitDivided(by: .liter())
+        let quantity = HKQuantity(unit: unit, doubleValue: millimolesPerLiter)
         let date = Date(millisecondsSince1970: time)
 
         // Build metadata using centralized builder
@@ -117,7 +118,10 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            bloodGlucose: quantity.toBloodGlucoseDto(),
+            millimolesPerLiter: quantity.doubleValue(for: HKUnit.moleUnit(
+                with: .milli,
+                molarMass: HKUnitMolarMassBloodGlucose
+            ).unitDivided(by: .liter())),
             mealType: meal,
             relationToMeal: relation,
             specimenSource: source,

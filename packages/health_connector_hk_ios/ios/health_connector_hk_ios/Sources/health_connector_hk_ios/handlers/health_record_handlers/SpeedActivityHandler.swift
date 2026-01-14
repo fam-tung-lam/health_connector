@@ -22,8 +22,6 @@ class SpeedActivityHandler<T: SpeedActivityHandlerConfig>: Sendable,
 {
     typealias RecordDto = SpeedActivityRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = VelocityDto
-
     // HKHealthStore is Sendable, so no @unchecked needed
     nonisolated(unsafe) let healthStore: HKHealthStore
 
@@ -45,9 +43,9 @@ class SpeedActivityHandler<T: SpeedActivityHandlerConfig>: Sendable,
         [.avg]
     }
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> VelocityDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> Double {
         let metersPerSecond = quantity.doubleValue(for: HKUnit.meter().unitDivided(by: .second()))
-        return VelocityDto(metersPerSecond: metersPerSecond)
+        return metersPerSecond
     }
 }
 

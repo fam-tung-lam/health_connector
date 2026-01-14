@@ -43,7 +43,7 @@ void main() {
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.bloodGlucose.millimolesPerLiter, 5.5);
+              expect(dto.millimolesPerLiter, 5.5);
               expect(
                 dto.relationToMeal,
                 BloodGlucoseRelationToMealDto.fasting,
@@ -75,7 +75,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                bloodGlucose: BloodGlucoseDto(millimolesPerLiter: 6.0),
+                millimolesPerLiter: 6.0,
                 relationToMeal: BloodGlucoseRelationToMealDto.afterMeal,
                 specimenSource: BloodGlucoseSpecimenSourceDto.plasma,
                 mealType: MealTypeDto.lunch,
@@ -122,7 +122,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                bloodGlucose: BloodGlucoseDto(millimolesPerLiter: 5.5),
+                millimolesPerLiter: 5.5,
               );
 
               // When

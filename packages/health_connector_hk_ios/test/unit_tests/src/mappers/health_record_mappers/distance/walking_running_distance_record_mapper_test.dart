@@ -55,7 +55,7 @@ void main() {
                 dto.endTime,
                 FakeData.fakeEndTime.millisecondsSinceEpoch,
               );
-              expect(dto.distance.meters, 8000.0);
+              expect(dto.meters, 8000.0);
               expect(
                 dto.activityType,
                 DistanceActivityTypeDto.walkingRunning,
@@ -90,7 +90,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.distance.meters, 12000.0);
+              expect(dto.meters, 12000.0);
               expect(
                 dto.activityType,
                 DistanceActivityTypeDto.walkingRunning,
@@ -122,7 +122,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                distance: LengthDto(meters: 7000.0),
+                meters: 7000.0,
                 activityType: DistanceActivityTypeDto.walkingRunning,
               );
 
@@ -158,7 +158,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 9500.0),
+                meters: 9500.0,
                 activityType: DistanceActivityTypeDto.walkingRunning,
               );
 
@@ -187,7 +187,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(meters: 4200.0),
+                meters: 4200.0,
                 activityType: DistanceActivityTypeDto.walkingRunning,
               );
 
