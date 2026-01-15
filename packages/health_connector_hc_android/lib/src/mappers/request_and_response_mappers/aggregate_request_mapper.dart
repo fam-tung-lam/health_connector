@@ -138,6 +138,7 @@ extension AggregateRequestDtoMapper<
           case BodyMassIndexDataType _:
           case WaistCircumferenceDataType _:
           case MenstrualFlowDataType _:
+          case LactationDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

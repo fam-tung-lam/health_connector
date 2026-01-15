@@ -902,6 +902,9 @@ enum HealthDataTypeDto {
   /// Progesterone test data (iOS only).
   progesteroneTest,
 
+  /// Lactation data (iOS only).
+  lactation,
+
   /// Ovulation test result.
   ovulationTestResult,
 
@@ -2524,6 +2527,25 @@ class DietaryVitaminERecordDto extends HealthRecordDto {
   final double grams;
   final String? foodName;
   final MealTypeDto? mealType;
+}
+
+/// Represents lactation data for platform transfer (iOS only).
+class LactationRecordDto extends HealthRecordDto {
+  LactationRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int startTime;
+  final int endTime;
+  final int? startZoneOffsetSeconds;
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents vitamin K nutrient data for platform transfer.

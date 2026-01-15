@@ -87,6 +87,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ExerciseSessionRecord,
         MenstrualFlowRecord,
         MenstrualFlowInstantRecord,
+        LactationRecord,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_record_mapper.dart';
@@ -150,6 +151,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrit
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen_saturation_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/cycling_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/running_power_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/lactation_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sexual_activity/sexual_activity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep/sleep_stage_record_mapper.dart';
@@ -236,6 +238,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         Vo2MaxRecordDto,
         SpeedActivityRecordDto,
         MenstrualFlowRecordDto,
+        LactationRecordDto,
         ExerciseSessionRecordDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -498,6 +501,8 @@ extension HealthRecordToDto on HealthRecord {
           '$MenstrualFlowInstantRecord is not supported on iOS HealthKit. '
           'Use $MenstrualFlowRecord instead.',
         );
+      case final LactationRecord record:
+        return LactationRecordToDto(record).toDto();
     }
   }
 }
@@ -656,6 +661,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return MenstrualFlowRecordDtoToDomain(dto).toDomain();
       case final HeartRateVariabilitySDNNRecordDto dto:
         return HeartRateVariabilitySDNNRecordDtoToDomain(dto).toDomain();
+      case final LactationRecordDto dto:
+        return LactationRecordDtoToDomain(dto).toDomain();
     }
   }
 }

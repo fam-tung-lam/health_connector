@@ -176,6 +176,8 @@ extension HKSample {
                 return .intermenstrualBleeding
             case HKCategoryTypeIdentifier.menstrualFlow.rawValue:
                 return .menstrualFlow
+            case HKCategoryTypeIdentifier.lactation.rawValue:
+                return .lactation
             // Correlation types
             case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
                 return .bloodPressure

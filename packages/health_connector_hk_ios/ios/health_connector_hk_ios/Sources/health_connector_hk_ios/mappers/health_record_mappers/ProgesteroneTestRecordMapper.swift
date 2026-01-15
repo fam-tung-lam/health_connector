@@ -27,10 +27,10 @@ extension HKCategorySample {
 
         return try ProgesteroneTestRecordDto(
             id: uuid.uuidString,
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
             metadata: builder.toMetadataDto(),
-            result: hkResult.toProgesteroneTestResultDto(),
-            zoneOffsetSeconds: zoneOffset
+            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            zoneOffsetSeconds: zoneOffset,
+            result: hkResult.toProgesteroneTestResultDto()
         )
     }
 }

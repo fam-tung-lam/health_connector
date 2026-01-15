@@ -143,6 +143,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.respiratoryRate;
       case HealthDataTypeDto.bloodGlucose:
         return HealthDataType.bloodGlucose;
+      case HealthDataTypeDto.lactation:
+        return HealthDataType.lactation;
       case HealthDataTypeDto.vo2Max:
         return HealthDataType.vo2Max;
       case HealthDataTypeDto.cyclingDistance:
@@ -370,6 +372,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.exerciseSession;
       case MindfulnessSessionDataType():
         return HealthDataTypeDto.mindfulnessSession;
+      case LactationDataType _:
+        return HealthDataTypeDto.lactation;
       case HeartRateVariabilitySDNNDataType _:
         return HealthDataTypeDto.heartRateVariabilitySDNN;
       case ElevationGainedDataType _:

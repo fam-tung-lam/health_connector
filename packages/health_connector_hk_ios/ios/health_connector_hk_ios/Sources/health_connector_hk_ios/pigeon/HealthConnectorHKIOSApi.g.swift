@@ -769,34 +769,36 @@ public enum HealthDataTypeDto: Int {
   case pregnancyTest = 73
   /// Progesterone test data (iOS only).
   case progesteroneTest = 74
+  /// Lactation data (iOS only).
+  case lactation = 75
   /// Ovulation test result.
-  case ovulationTestResult = 75
+  case ovulationTestResult = 76
   /// Progesterone test result (iOS only).
-  case progesteroneTestResult = 76
+  case progesteroneTestResult = 77
   /// Sleep stage type.
-  case sleepStage = 77
+  case sleepStage = 78
   /// Intermenstrual bleeding data.
-  case intermenstrualBleeding = 78
+  case intermenstrualBleeding = 79
   /// Menstrual flow data (iOS HealthKit only).
-  case menstrualFlow = 79
+  case menstrualFlow = 80
   /// Oxygen saturation data.
-  case oxygenSaturation = 80
+  case oxygenSaturation = 81
   /// Respiratory rate data.
-  case respiratoryRate = 81
+  case respiratoryRate = 82
   /// VO2 max (maximal oxygen uptake) data.
-  case vo2Max = 82
+  case vo2Max = 83
   /// Blood glucose data.
-  case bloodGlucose = 83
+  case bloodGlucose = 84
   /// Exercise session data.
-  case exerciseSession = 84
+  case exerciseSession = 85
   /// Mindfulness session data.
-  case mindfulnessSession = 85
+  case mindfulnessSession = 86
   /// Body mass index data.
-  case bodyMassIndex = 86
+  case bodyMassIndex = 87
   /// Waist circumference data.
-  case waistCircumference = 87
+  case waistCircumference = 88
   /// Heart rate variability (SDNN) data.
-  case heartRateVariabilitySDNN = 88
+  case heartRateVariabilitySDNN = 89
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -3987,6 +3989,53 @@ public struct DietaryVitaminERecordDto: HealthRecordDto {
   }
 }
 
+/// Represents lactation data for platform transfer (iOS only).
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct LactationRecordDto: HealthRecordDto {
+  var id: String? = nil
+  var metadata: MetadataDto
+  var startTime: Int64
+  var endTime: Int64
+  var startZoneOffsetSeconds: Int64? = nil
+  var endZoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> LactationRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let startTime = pigeonVar_list[2] as! Int64
+    let endTime = pigeonVar_list[3] as! Int64
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+
+    return LactationRecordDto(
+      id: id,
+      metadata: metadata,
+      startTime: startTime,
+      endTime: endTime,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      startTime,
+      endTime,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: LactationRecordDto, rhs: LactationRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 /// Represents vitamin K nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -5903,66 +5952,68 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 215:
       return DietaryVitaminERecordDto.fromList(self.readValue() as! [Any?])
     case 216:
-      return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
+      return LactationRecordDto.fromList(self.readValue() as! [Any?])
     case 217:
-      return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
     case 218:
-      return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
     case 219:
-      return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
     case 220:
-      return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
     case 221:
-      return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
     case 222:
-      return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
     case 223:
-      return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
     case 224:
-      return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
     case 225:
-      return DietaryMagnesiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
     case 226:
-      return DietaryManganeseRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryMagnesiumRecordDto.fromList(self.readValue() as! [Any?])
     case 227:
-      return DietaryPhosphorusRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryManganeseRecordDto.fromList(self.readValue() as! [Any?])
     case 228:
-      return DietaryPotassiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPhosphorusRecordDto.fromList(self.readValue() as! [Any?])
     case 229:
-      return DietarySeleniumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPotassiumRecordDto.fromList(self.readValue() as! [Any?])
     case 230:
-      return DietarySodiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySeleniumRecordDto.fromList(self.readValue() as! [Any?])
     case 231:
-      return DietaryZincRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySodiumRecordDto.fromList(self.readValue() as! [Any?])
     case 232:
-      return NutritionRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryZincRecordDto.fromList(self.readValue() as! [Any?])
     case 233:
-      return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
+      return NutritionRecordDto.fromList(self.readValue() as! [Any?])
     case 234:
-      return HealthDataSyncTokenDto.fromList(self.readValue() as! [Any?])
+      return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
     case 235:
-      return HealthDataSyncResultDto.fromList(self.readValue() as! [Any?])
+      return HealthDataSyncTokenDto.fromList(self.readValue() as! [Any?])
     case 236:
-      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
+      return HealthDataSyncResultDto.fromList(self.readValue() as! [Any?])
     case 237:
-      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
+      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
     case 238:
-      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
+      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
     case 239:
-      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
+      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
     case 240:
-      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
+      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
     case 241:
-      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
+      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
     case 242:
-      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
+      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
     case 243:
-      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
     case 244:
-      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
     case 245:
-      return HealthConnectorExceptionDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
     case 246:
+      return HealthConnectorExceptionDto.fromList(self.readValue() as! [Any?])
+    case 247:
       return HealthConnectorLogDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -6233,98 +6284,101 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? DietaryVitaminERecordDto {
       super.writeByte(215)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminKRecordDto {
+    } else if let value = value as? LactationRecordDto {
       super.writeByte(216)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryThiaminRecordDto {
+    } else if let value = value as? DietaryVitaminKRecordDto {
       super.writeByte(217)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryRiboflavinRecordDto {
+    } else if let value = value as? DietaryThiaminRecordDto {
       super.writeByte(218)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryNiacinRecordDto {
+    } else if let value = value as? DietaryRiboflavinRecordDto {
       super.writeByte(219)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFolateRecordDto {
+    } else if let value = value as? DietaryNiacinRecordDto {
       super.writeByte(220)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryBiotinRecordDto {
+    } else if let value = value as? DietaryFolateRecordDto {
       super.writeByte(221)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPantothenicAcidRecordDto {
+    } else if let value = value as? DietaryBiotinRecordDto {
       super.writeByte(222)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCalciumRecordDto {
+    } else if let value = value as? DietaryPantothenicAcidRecordDto {
       super.writeByte(223)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryIronRecordDto {
+    } else if let value = value as? DietaryCalciumRecordDto {
       super.writeByte(224)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMagnesiumRecordDto {
+    } else if let value = value as? DietaryIronRecordDto {
       super.writeByte(225)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryManganeseRecordDto {
+    } else if let value = value as? DietaryMagnesiumRecordDto {
       super.writeByte(226)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPhosphorusRecordDto {
+    } else if let value = value as? DietaryManganeseRecordDto {
       super.writeByte(227)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPotassiumRecordDto {
+    } else if let value = value as? DietaryPhosphorusRecordDto {
       super.writeByte(228)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySeleniumRecordDto {
+    } else if let value = value as? DietaryPotassiumRecordDto {
       super.writeByte(229)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySodiumRecordDto {
+    } else if let value = value as? DietarySeleniumRecordDto {
       super.writeByte(230)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryZincRecordDto {
+    } else if let value = value as? DietarySodiumRecordDto {
       super.writeByte(231)
       super.writeValue(value.toList())
-    } else if let value = value as? NutritionRecordDto {
+    } else if let value = value as? DietaryZincRecordDto {
       super.writeByte(232)
       super.writeValue(value.toList())
-    } else if let value = value as? BasalEnergyBurnedRecordDto {
+    } else if let value = value as? NutritionRecordDto {
       super.writeByte(233)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataSyncTokenDto {
+    } else if let value = value as? BasalEnergyBurnedRecordDto {
       super.writeByte(234)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataSyncResultDto {
+    } else if let value = value as? HealthDataSyncTokenDto {
       super.writeByte(235)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionDto {
+    } else if let value = value as? HealthDataSyncResultDto {
       super.writeByte(236)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionRequestResultDto {
+    } else if let value = value as? HealthDataPermissionDto {
       super.writeByte(237)
       super.writeValue(value.toList())
-    } else if let value = value as? PermissionsRequestDto {
+    } else if let value = value as? HealthDataPermissionRequestResultDto {
       super.writeByte(238)
       super.writeValue(value.toList())
-    } else if let value = value as? AggregateRequestDto {
+    } else if let value = value as? PermissionsRequestDto {
       super.writeByte(239)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+    } else if let value = value as? AggregateRequestDto {
       super.writeByte(240)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       super.writeByte(241)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordRequestDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       super.writeByte(242)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
+    } else if let value = value as? ReadRecordRequestDto {
       super.writeByte(243)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsResponseDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       super.writeByte(244)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthConnectorExceptionDto {
+    } else if let value = value as? ReadRecordsResponseDto {
       super.writeByte(245)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthConnectorLogDto {
+    } else if let value = value as? HealthConnectorExceptionDto {
       super.writeByte(246)
+      super.writeValue(value.toList())
+    } else if let value = value as? HealthConnectorLogDto {
+      super.writeByte(247)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)

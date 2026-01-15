@@ -109,6 +109,7 @@ extension HealthDataTypeUI on HealthDataType {
       HeartRateVariabilitySDNNDataType _ => AppTexts.heartRateVariabilitySDNN,
       MenstrualFlowDataType _ => AppTexts.menstrualFlow,
       MenstrualFlowInstantDataType _ => AppTexts.menstrualFlow,
+      LactationDataType _ => 'Lactation',
     };
   }
 
@@ -229,6 +230,7 @@ extension HealthDataTypeUI on HealthDataType {
       MenstrualFlowDataType _ => 'Menstrual flow intensity over time (iOS)',
       MenstrualFlowInstantDataType _ =>
         'Menstrual flow intensity snapshot (Android)',
+      LactationDataType _ => 'Record of lactation events',
     };
   }
 
@@ -336,6 +338,7 @@ extension HealthDataTypeUI on HealthDataType {
       HeartRateVariabilitySDNNDataType _ => AppIcons.favorite,
       MenstrualFlowDataType _ => AppIcons.waterDrop,
       MenstrualFlowInstantDataType _ => AppIcons.waterDrop,
+      LactationDataType _ => AppIcons.childCare,
     };
   }
 }

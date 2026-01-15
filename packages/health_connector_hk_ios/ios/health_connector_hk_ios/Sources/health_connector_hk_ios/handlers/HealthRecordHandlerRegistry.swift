@@ -162,6 +162,8 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(StairAscentSpeedHandler(healthStore: healthStore))
         register(StairDescentSpeedHandler(healthStore: healthStore))
         register(PregnancyTestHandler(healthStore: healthStore))
+        register(ProgesteroneTestHandler(healthStore: healthStore))
+        register(LactationHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

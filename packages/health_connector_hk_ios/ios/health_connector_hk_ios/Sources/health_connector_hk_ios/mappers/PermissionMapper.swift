@@ -46,6 +46,7 @@ extension HealthDataPermissionDto {
              .heartRateMeasurementRecord,
              .restingHeartRate,
              .sleepStageRecord,
+             .sleepStage,
              .dietaryEnergyConsumed,
              .caffeine,
              .protein,
@@ -97,9 +98,12 @@ extension HealthDataPermissionDto {
              .cervicalMucus,
              .intermenstrualBleeding,
              .menstrualFlow,
+             .lactation,
              .ovulationTest,
+             .ovulationTestResult,
              .pregnancyTest,
-             .progesteroneTest:
+             .progesteroneTest,
+             .progesteroneTestResult:
             try [healthDataType.toHealthKit()]
         // Exercise sessions use HKWorkoutType, not HKQuantityType
         case .exerciseSession:

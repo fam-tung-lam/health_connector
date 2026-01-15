@@ -107,6 +107,7 @@ abstract final class AppIcons {
   static const IconData arrowForward = Icons.arrow_forward;
   static const IconData nightlight = Icons.nightlight;
   static const IconData waterDrop = Icons.water_drop;
+  static const IconData childCare = Icons.child_care;
 
   // Permissions Page
   static const IconData checkCircleOutline = Icons.check_circle_outline;

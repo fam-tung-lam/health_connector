@@ -86,6 +86,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       OvulationTestRecord _ => HealthDataType.ovulationTest,
       PregnancyTestRecord _ => HealthDataType.pregnancyTest,
       ProgesteroneTestRecord _ => HealthDataType.progesteroneTest,
+      LactationRecord _ => HealthDataType.lactation,
       IntermenstrualBleedingRecord _ => HealthDataType.intermenstrualBleeding,
       MenstrualFlowInstantRecord _ => HealthDataType.menstrualFlowInstant,
       MenstrualFlowRecord _ => HealthDataType.menstrualFlow,

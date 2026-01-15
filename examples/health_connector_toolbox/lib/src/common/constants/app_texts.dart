@@ -124,6 +124,7 @@ abstract final class AppTexts {
       IntermenstrualBleedingDataType() => intermenstrualBleeding,
       MenstrualFlowDataType() => menstrualFlow,
       MenstrualFlowInstantDataType() => menstrualFlowInstant,
+      LactationDataType() => lactation,
       OvulationTestDataType() => ovulationTest,
       PregnancyTestDataType() => pregnancyTest,
       ProgesteroneTestDataType() => progesteroneTest,
@@ -423,6 +424,7 @@ abstract final class AppTexts {
   static const String menstrualFlow = 'Menstrual Flow';
   static const String menstrualFlowInstant = 'Menstrual Flow (Instant)';
   static const String intermenstrualBleeding = 'Intermenstrual Bleeding';
+  static const String lactation = 'Lactation';
   static const String flow = 'Flow';
   static const String isCycleStart = 'Is Cycle Start';
   static const String ovulationTest = 'Ovulation Test';

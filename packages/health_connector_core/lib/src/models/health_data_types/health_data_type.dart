@@ -98,6 +98,7 @@ part 'nutrition/dietary_vitamin_data_type.dart';
 part 'nutrition/dietary_vitamin_e_data_type.dart';
 part 'nutrition/dietary_vitamin_k_data_type.dart';
 part 'nutrition/dietary_zinc_data_type.dart';
+part 'reproductive_health/lactation_data_type.dart';
 part 'nutrition/nutrition_data_type.dart';
 part 'oxygen_saturation_data_type.dart';
 part 'power/cycling_power_data_type.dart';
@@ -611,6 +612,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const menstrualFlow = MenstrualFlowDataType();
 
+  /// Lactation data type.
+  ///
+  /// Represents the act of breastfeeding or expressing breast milk.
+  /// Supports reading, writing, and deletion.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const lactation = LactationDataType();
+
   /// Oxygen saturation data type.
   ///
   /// Represents the percentage of oxygen-saturated hemoglobin relative
@@ -1003,6 +1012,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     height,
     hydration,
     intermenstrualBleeding,
+    lactation,
     leanBodyMass,
     menstrualFlow,
     menstrualFlowInstant,
@@ -1013,6 +1023,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     paddleSportsDistance,
     powerSeries,
     pregnancyTest,
+    progesteroneTest,
     respiratoryRate,
     restingHeartRate,
     runningPower,

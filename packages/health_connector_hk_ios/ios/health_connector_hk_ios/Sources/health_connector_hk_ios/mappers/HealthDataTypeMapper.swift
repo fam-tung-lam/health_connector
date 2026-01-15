@@ -8,7 +8,7 @@ extension HealthDataTypeDto {
     /// - Throws: HealthConnectorError if type creation fails
     func toHealthKit() throws -> HKSampleType {
         switch self {
-        case .sleepStageRecord:
+        case .sleepStageRecord, .sleepStage:
             try HKCategoryType.make(from: .sleepAnalysis)
         case .bloodPressure:
             try HKCorrelationType.make(from: .bloodPressure)
@@ -245,11 +245,20 @@ extension HealthDataTypeDto {
             try HKCategoryType.make(from: .cervicalMucusQuality)
         case .intermenstrualBleeding:
             try HKCategoryType.make(from: .intermenstrualBleeding)
-        case .ovulationTest:
+        case .ovulationTest, .ovulationTestResult:
             try HKCategoryType.make(from: .ovulationTestResult)
         case .pregnancyTest:
             try HKCategoryType.make(from: .pregnancyTestResult)
-        case .progesteroneTest:
+        case .lactation:
+            if #available(iOS 14.3, *) {
+                try HKCategoryType.make(from: .lactation)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Lactation is only supported on iOS 14.3 and later",
+                    context: ["dataType": "lactation", "minimumIOSVersion": "14.3"]
+                )
+            }
+        case .progesteroneTest, .progesteroneTestResult:
             try HKCategoryType.make(from: .progesteroneTestResult)
         case .menstrualFlow:
             try HKCategoryType.make(from: .menstrualFlow)

@@ -114,6 +114,7 @@ part 'oxygen_saturation_record.dart';
 part 'power/cycling_power_record.dart';
 part 'power/power_series_record.dart';
 part 'power/running_power_record.dart';
+part 'reproductive_health/lactation_record.dart';
 part 'respiratory_rate_record.dart';
 part 'series_health_record.dart';
 part 'sexual_activity/sexual_activity_protection_used.dart';

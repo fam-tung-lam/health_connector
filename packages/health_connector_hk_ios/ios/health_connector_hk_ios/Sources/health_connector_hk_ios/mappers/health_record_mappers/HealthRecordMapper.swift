@@ -83,6 +83,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as MenstrualFlowRecordDto:
             return try dto.toHealthKit()
+        case let dto as LactationRecordDto:
+            return try dto.toHealthKit()
         case let dto as BodyMassIndexRecordDto:
             return try dto.toHealthKit()
         case let dto as HeartRateVariabilitySDNNRecordDto:
@@ -212,10 +214,21 @@ extension HKCategorySample {
             try toOvulationTestRecordDto()
         case .pregnancyTest:
             try toPregnancyTestRecordDto()
+        case .progesteroneTest:
+            try toProgesteroneTestRecordDto()
         case .intermenstrualBleeding:
             try toIntermenstrualBleedingRecordDto()
         case .menstrualFlow:
             try toMenstrualFlowRecordDto()
+        case .lactation:
+            if #available(iOS 14.3, *) {
+                try toLactationRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Lactation is only supported on iOS 14.3 and later",
+                    context: ["dataType": "lactation", "minimumIOSVersion": "14.3"]
+                )
+            }
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported health data type for HKCategorySample",
