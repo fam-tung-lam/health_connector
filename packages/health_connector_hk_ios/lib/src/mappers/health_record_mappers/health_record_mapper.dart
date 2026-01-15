@@ -76,6 +76,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         IntermenstrualBleedingRecord,
         OvulationTestRecord,
         PregnancyRecord,
+        ContraceptiveRecord,
         PregnancyTestRecord,
         ProgesteroneTestRecord,
         OxygenSaturationRecord,
@@ -153,6 +154,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrit
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen_saturation_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/cycling_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/running_power_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/contraceptive_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/lactation_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/pregnancy_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
@@ -233,6 +235,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         IntermenstrualBleedingRecordDto,
         OvulationTestRecordDto,
         PregnancyRecordDto,
+        ContraceptiveRecordDto,
         PregnancyTestRecordDto,
         ProgesteroneTestRecordDto,
         OxygenSaturationRecordDto,
@@ -509,6 +512,8 @@ extension HealthRecordToDto on HealthRecord {
         return LactationRecordToDto(record).toDto();
       case final PregnancyRecord record:
         return PregnancyRecordToDto(record).toDto();
+      case final ContraceptiveRecord record:
+        return ContraceptiveRecordToDto(record).toDto();
     }
   }
 }
@@ -671,6 +676,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return LactationRecordDtoToDomain(dto).toDomain();
       case final PregnancyRecordDto dto:
         return PregnancyRecordDtoToDomain(dto).toDomain();
+      case final ContraceptiveRecordDto dto:
+        return ContraceptiveRecordDtoToDomain(dto).toDomain();
     }
   }
 }

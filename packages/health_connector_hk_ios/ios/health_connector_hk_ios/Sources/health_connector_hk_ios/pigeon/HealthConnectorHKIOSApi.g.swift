@@ -425,6 +425,27 @@ public enum ProgesteroneTestResultDto: Int {
   case inconclusive = 2
 }
 
+/// Contraceptive type classification.
+///
+/// Maps to iOS HealthKit HKCategoryValueContraceptive enum.
+/// iOS only (iOS 14.3+).
+public enum ContraceptiveTypeDto: Int {
+  /// Unspecified or unknown contraceptive method.
+  case unknown = 0
+  /// Contraceptive implant.
+  case implant = 1
+  /// Contraceptive injection.
+  case injection = 2
+  /// Intrauterine device (IUD).
+  case intrauterineDevice = 3
+  /// Intravaginal ring.
+  case intravaginalRing = 4
+  /// Oral contraceptive (birth control pill).
+  case oral = 5
+  /// Contraceptive patch.
+  case patch = 6
+}
+
 /// Measurement location for basal body temperature reading.
 public enum BasalBodyTemperatureMeasurementLocationDto: Int {
   /// Unknown location.
@@ -769,38 +790,40 @@ public enum HealthDataTypeDto: Int {
   case pregnancyTest = 73
   /// Pregnancy data (iOS only).
   case pregnancy = 74
+  /// Contraceptive data (iOS only).
+  case contraceptive = 75
   /// Progesterone test data (iOS only).
-  case progesteroneTest = 75
+  case progesteroneTest = 76
   /// Lactation data (iOS only).
-  case lactation = 76
+  case lactation = 77
   /// Ovulation test result.
-  case ovulationTestResult = 77
+  case ovulationTestResult = 78
   /// Progesterone test result (iOS only).
-  case progesteroneTestResult = 78
+  case progesteroneTestResult = 79
   /// Sleep stage type.
-  case sleepStage = 79
+  case sleepStage = 80
   /// Intermenstrual bleeding data.
-  case intermenstrualBleeding = 80
+  case intermenstrualBleeding = 81
   /// Menstrual flow data (iOS HealthKit only).
-  case menstrualFlow = 81
+  case menstrualFlow = 82
   /// Oxygen saturation data.
-  case oxygenSaturation = 82
+  case oxygenSaturation = 83
   /// Respiratory rate data.
-  case respiratoryRate = 83
+  case respiratoryRate = 84
   /// VO2 max (maximal oxygen uptake) data.
-  case vo2Max = 84
+  case vo2Max = 85
   /// Blood glucose data.
-  case bloodGlucose = 85
+  case bloodGlucose = 86
   /// Exercise session data.
-  case exerciseSession = 86
+  case exerciseSession = 87
   /// Mindfulness session data.
-  case mindfulnessSession = 87
+  case mindfulnessSession = 88
   /// Body mass index data.
-  case bodyMassIndex = 88
+  case bodyMassIndex = 89
   /// Waist circumference data.
-  case waistCircumference = 89
+  case waistCircumference = 90
   /// Heart rate variability (SDNN) data.
-  case heartRateVariabilitySDNN = 90
+  case heartRateVariabilitySDNN = 91
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -2652,6 +2675,64 @@ public struct PregnancyRecordDto: HealthRecordDto {
     ]
   }
   public static func == (lhs: PregnancyRecordDto, rhs: PregnancyRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
+/// Represents a contraceptive record for platform transfer (iOS HealthKit).
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct ContraceptiveRecordDto: HealthRecordDto {
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// The type of contraceptive method used during this period.
+  var contraceptiveType: ContraceptiveTypeDto
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ContraceptiveRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let startTime = pigeonVar_list[2] as! Int64
+    let endTime = pigeonVar_list[3] as! Int64
+    let contraceptiveType = pigeonVar_list[4] as! ContraceptiveTypeDto
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
+
+    return ContraceptiveRecordDto(
+      id: id,
+      metadata: metadata,
+      startTime: startTime,
+      endTime: endTime,
+      contraceptiveType: contraceptiveType,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      startTime,
+      endTime,
+      contraceptiveType,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: ContraceptiveRecordDto, rhs: ContraceptiveRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -5815,262 +5896,270 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 145:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return BasalBodyTemperatureMeasurementLocationDto(rawValue: enumResultAsInt)
+        return ContraceptiveTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 146:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MenstrualFlowDto(rawValue: enumResultAsInt)
+        return BasalBodyTemperatureMeasurementLocationDto(rawValue: enumResultAsInt)
       }
       return nil
     case 147:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return SpeedActivityTypeDto(rawValue: enumResultAsInt)
+        return MenstrualFlowDto(rawValue: enumResultAsInt)
       }
       return nil
     case 148:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return ExerciseTypeDto(rawValue: enumResultAsInt)
+        return SpeedActivityTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 149:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MindfulnessSessionTypeDto(rawValue: enumResultAsInt)
+        return ExerciseTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 150:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return HealthDataTypeDto(rawValue: enumResultAsInt)
+        return MindfulnessSessionTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 151:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return HealthConnectorErrorCodeDto(rawValue: enumResultAsInt)
+        return HealthDataTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 152:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return HealthPlatformStatusDto(rawValue: enumResultAsInt)
+        return HealthConnectorErrorCodeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 153:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return PermissionAccessTypeDto(rawValue: enumResultAsInt)
+        return HealthPlatformStatusDto(rawValue: enumResultAsInt)
       }
       return nil
     case 154:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return PermissionStatusDto(rawValue: enumResultAsInt)
+        return PermissionAccessTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 155:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return AggregationMetricDto(rawValue: enumResultAsInt)
+        return PermissionStatusDto(rawValue: enumResultAsInt)
       }
       return nil
     case 156:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return SortOrderDto(rawValue: enumResultAsInt)
+        return AggregationMetricDto(rawValue: enumResultAsInt)
       }
       return nil
     case 157:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return HealthConnectorLogLevelDto(rawValue: enumResultAsInt)
+        return SortOrderDto(rawValue: enumResultAsInt)
       }
       return nil
     case 158:
-      return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return HealthConnectorLogLevelDto(rawValue: enumResultAsInt)
+      }
+      return nil
     case 159:
-      return MetadataDto.fromList(self.readValue() as! [Any?])
+      return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
     case 160:
-      return RestingHeartRateRecordDto.fromList(self.readValue() as! [Any?])
+      return MetadataDto.fromList(self.readValue() as! [Any?])
     case 161:
-      return Vo2MaxRecordDto.fromList(self.readValue() as! [Any?])
+      return RestingHeartRateRecordDto.fromList(self.readValue() as! [Any?])
     case 162:
-      return BodyMassIndexRecordDto.fromList(self.readValue() as! [Any?])
+      return Vo2MaxRecordDto.fromList(self.readValue() as! [Any?])
     case 163:
-      return WaistCircumferenceRecordDto.fromList(self.readValue() as! [Any?])
+      return BodyMassIndexRecordDto.fromList(self.readValue() as! [Any?])
     case 164:
-      return HeartRateVariabilitySDNNRecordDto.fromList(self.readValue() as! [Any?])
+      return WaistCircumferenceRecordDto.fromList(self.readValue() as! [Any?])
     case 165:
-      return BloodGlucoseRecordDto.fromList(self.readValue() as! [Any?])
+      return HeartRateVariabilitySDNNRecordDto.fromList(self.readValue() as! [Any?])
     case 166:
-      return ExerciseSessionRecordDto.fromList(self.readValue() as! [Any?])
+      return BloodGlucoseRecordDto.fromList(self.readValue() as! [Any?])
     case 167:
-      return MindfulnessSessionRecordDto.fromList(self.readValue() as! [Any?])
+      return ExerciseSessionRecordDto.fromList(self.readValue() as! [Any?])
     case 168:
-      return ActiveEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
+      return MindfulnessSessionRecordDto.fromList(self.readValue() as! [Any?])
     case 169:
-      return DistanceActivityRecordDto.fromList(self.readValue() as! [Any?])
+      return ActiveEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
     case 170:
-      return SpeedActivityRecordDto.fromList(self.readValue() as! [Any?])
+      return DistanceActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 171:
-      return FloorsClimbedRecordDto.fromList(self.readValue() as! [Any?])
+      return SpeedActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 172:
-      return WheelchairPushesRecordDto.fromList(self.readValue() as! [Any?])
+      return FloorsClimbedRecordDto.fromList(self.readValue() as! [Any?])
     case 173:
-      return StepsRecordDto.fromList(self.readValue() as! [Any?])
+      return WheelchairPushesRecordDto.fromList(self.readValue() as! [Any?])
     case 174:
-      return WeightRecordDto.fromList(self.readValue() as! [Any?])
+      return StepsRecordDto.fromList(self.readValue() as! [Any?])
     case 175:
-      return BloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+      return WeightRecordDto.fromList(self.readValue() as! [Any?])
     case 176:
-      return SystolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+      return BloodPressureRecordDto.fromList(self.readValue() as! [Any?])
     case 177:
-      return DiastolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+      return SystolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
     case 178:
-      return LeanBodyMassRecordDto.fromList(self.readValue() as! [Any?])
+      return DiastolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
     case 179:
-      return HeightRecordDto.fromList(self.readValue() as! [Any?])
+      return LeanBodyMassRecordDto.fromList(self.readValue() as! [Any?])
     case 180:
-      return BodyFatPercentageRecordDto.fromList(self.readValue() as! [Any?])
+      return HeightRecordDto.fromList(self.readValue() as! [Any?])
     case 181:
-      return BodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
+      return BodyFatPercentageRecordDto.fromList(self.readValue() as! [Any?])
     case 182:
-      return BasalBodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
+      return BodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
     case 183:
-      return CervicalMucusRecordDto.fromList(self.readValue() as! [Any?])
+      return BasalBodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
     case 184:
-      return CyclingPowerRecordDto.fromList(self.readValue() as! [Any?])
+      return CervicalMucusRecordDto.fromList(self.readValue() as! [Any?])
     case 185:
-      return RunningPowerRecordDto.fromList(self.readValue() as! [Any?])
+      return CyclingPowerRecordDto.fromList(self.readValue() as! [Any?])
     case 186:
-      return OxygenSaturationRecordDto.fromList(self.readValue() as! [Any?])
+      return RunningPowerRecordDto.fromList(self.readValue() as! [Any?])
     case 187:
-      return OvulationTestRecordDto.fromList(self.readValue() as! [Any?])
+      return OxygenSaturationRecordDto.fromList(self.readValue() as! [Any?])
     case 188:
-      return PregnancyTestRecordDto.fromList(self.readValue() as! [Any?])
+      return OvulationTestRecordDto.fromList(self.readValue() as! [Any?])
     case 189:
-      return PregnancyRecordDto.fromList(self.readValue() as! [Any?])
+      return PregnancyTestRecordDto.fromList(self.readValue() as! [Any?])
     case 190:
-      return ProgesteroneTestRecordDto.fromList(self.readValue() as! [Any?])
+      return PregnancyRecordDto.fromList(self.readValue() as! [Any?])
     case 191:
-      return IntermenstrualBleedingRecordDto.fromList(self.readValue() as! [Any?])
+      return ContraceptiveRecordDto.fromList(self.readValue() as! [Any?])
     case 192:
-      return MenstrualFlowRecordDto.fromList(self.readValue() as! [Any?])
+      return ProgesteroneTestRecordDto.fromList(self.readValue() as! [Any?])
     case 193:
-      return RespiratoryRateRecordDto.fromList(self.readValue() as! [Any?])
+      return IntermenstrualBleedingRecordDto.fromList(self.readValue() as! [Any?])
     case 194:
-      return HydrationRecordDto.fromList(self.readValue() as! [Any?])
+      return MenstrualFlowRecordDto.fromList(self.readValue() as! [Any?])
     case 195:
-      return HeartRateMeasurementDto.fromList(self.readValue() as! [Any?])
+      return RespiratoryRateRecordDto.fromList(self.readValue() as! [Any?])
     case 196:
-      return HeartRateRecordDto.fromList(self.readValue() as! [Any?])
+      return HydrationRecordDto.fromList(self.readValue() as! [Any?])
     case 197:
-      return CyclingPedalingCadenceRecordDto.fromList(self.readValue() as! [Any?])
+      return HeartRateMeasurementDto.fromList(self.readValue() as! [Any?])
     case 198:
-      return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
+      return HeartRateRecordDto.fromList(self.readValue() as! [Any?])
     case 199:
-      return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
+      return CyclingPedalingCadenceRecordDto.fromList(self.readValue() as! [Any?])
     case 200:
-      return DietaryEnergyConsumedRecordDto.fromList(self.readValue() as! [Any?])
+      return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
     case 201:
-      return DietaryCaffeineRecordDto.fromList(self.readValue() as! [Any?])
+      return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 202:
-      return DietaryProteinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryEnergyConsumedRecordDto.fromList(self.readValue() as! [Any?])
     case 203:
-      return DietaryTotalCarbohydrateRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCaffeineRecordDto.fromList(self.readValue() as! [Any?])
     case 204:
-      return DietaryTotalFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryProteinRecordDto.fromList(self.readValue() as! [Any?])
     case 205:
-      return DietarySaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryTotalCarbohydrateRecordDto.fromList(self.readValue() as! [Any?])
     case 206:
-      return DietaryMonounsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryTotalFatRecordDto.fromList(self.readValue() as! [Any?])
     case 207:
-      return DietaryPolyunsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 208:
-      return DietaryCholesterolRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryMonounsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 209:
-      return DietaryFiberRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPolyunsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 210:
-      return DietarySugarRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCholesterolRecordDto.fromList(self.readValue() as! [Any?])
     case 211:
-      return DietaryVitaminARecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryFiberRecordDto.fromList(self.readValue() as! [Any?])
     case 212:
-      return DietaryVitaminB6RecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySugarRecordDto.fromList(self.readValue() as! [Any?])
     case 213:
-      return DietaryVitaminB12RecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminARecordDto.fromList(self.readValue() as! [Any?])
     case 214:
-      return DietaryVitaminCRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminB6RecordDto.fromList(self.readValue() as! [Any?])
     case 215:
-      return DietaryVitaminDRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminB12RecordDto.fromList(self.readValue() as! [Any?])
     case 216:
-      return DietaryVitaminERecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminCRecordDto.fromList(self.readValue() as! [Any?])
     case 217:
-      return LactationRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminDRecordDto.fromList(self.readValue() as! [Any?])
     case 218:
-      return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminERecordDto.fromList(self.readValue() as! [Any?])
     case 219:
-      return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
+      return LactationRecordDto.fromList(self.readValue() as! [Any?])
     case 220:
-      return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
     case 221:
-      return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
     case 222:
-      return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
     case 223:
-      return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
     case 224:
-      return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
     case 225:
-      return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
     case 226:
-      return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
     case 227:
-      return DietaryMagnesiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
     case 228:
-      return DietaryManganeseRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
     case 229:
-      return DietaryPhosphorusRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryMagnesiumRecordDto.fromList(self.readValue() as! [Any?])
     case 230:
-      return DietaryPotassiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryManganeseRecordDto.fromList(self.readValue() as! [Any?])
     case 231:
-      return DietarySeleniumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPhosphorusRecordDto.fromList(self.readValue() as! [Any?])
     case 232:
-      return DietarySodiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPotassiumRecordDto.fromList(self.readValue() as! [Any?])
     case 233:
-      return DietaryZincRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySeleniumRecordDto.fromList(self.readValue() as! [Any?])
     case 234:
-      return NutritionRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySodiumRecordDto.fromList(self.readValue() as! [Any?])
     case 235:
-      return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryZincRecordDto.fromList(self.readValue() as! [Any?])
     case 236:
-      return HealthDataSyncTokenDto.fromList(self.readValue() as! [Any?])
+      return NutritionRecordDto.fromList(self.readValue() as! [Any?])
     case 237:
-      return HealthDataSyncResultDto.fromList(self.readValue() as! [Any?])
+      return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
     case 238:
-      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
+      return HealthDataSyncTokenDto.fromList(self.readValue() as! [Any?])
     case 239:
-      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
+      return HealthDataSyncResultDto.fromList(self.readValue() as! [Any?])
     case 240:
-      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
+      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
     case 241:
-      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
+      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
     case 242:
-      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
+      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
     case 243:
-      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
+      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
     case 244:
-      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
+      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
     case 245:
-      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
+      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
     case 246:
-      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
     case 247:
-      return HealthConnectorExceptionDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
     case 248:
+      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
+    case 249:
+      return HealthConnectorExceptionDto.fromList(self.readValue() as! [Any?])
+    case 250:
       return HealthConnectorLogDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -6128,317 +6217,323 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? ProgesteroneTestResultDto {
       super.writeByte(144)
       super.writeValue(value.rawValue)
-    } else if let value = value as? BasalBodyTemperatureMeasurementLocationDto {
+    } else if let value = value as? ContraceptiveTypeDto {
       super.writeByte(145)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MenstrualFlowDto {
+    } else if let value = value as? BasalBodyTemperatureMeasurementLocationDto {
       super.writeByte(146)
       super.writeValue(value.rawValue)
-    } else if let value = value as? SpeedActivityTypeDto {
+    } else if let value = value as? MenstrualFlowDto {
       super.writeByte(147)
       super.writeValue(value.rawValue)
-    } else if let value = value as? ExerciseTypeDto {
+    } else if let value = value as? SpeedActivityTypeDto {
       super.writeByte(148)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MindfulnessSessionTypeDto {
+    } else if let value = value as? ExerciseTypeDto {
       super.writeByte(149)
       super.writeValue(value.rawValue)
-    } else if let value = value as? HealthDataTypeDto {
+    } else if let value = value as? MindfulnessSessionTypeDto {
       super.writeByte(150)
       super.writeValue(value.rawValue)
-    } else if let value = value as? HealthConnectorErrorCodeDto {
+    } else if let value = value as? HealthDataTypeDto {
       super.writeByte(151)
       super.writeValue(value.rawValue)
-    } else if let value = value as? HealthPlatformStatusDto {
+    } else if let value = value as? HealthConnectorErrorCodeDto {
       super.writeByte(152)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PermissionAccessTypeDto {
+    } else if let value = value as? HealthPlatformStatusDto {
       super.writeByte(153)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PermissionStatusDto {
+    } else if let value = value as? PermissionAccessTypeDto {
       super.writeByte(154)
       super.writeValue(value.rawValue)
-    } else if let value = value as? AggregationMetricDto {
+    } else if let value = value as? PermissionStatusDto {
       super.writeByte(155)
       super.writeValue(value.rawValue)
-    } else if let value = value as? SortOrderDto {
+    } else if let value = value as? AggregationMetricDto {
       super.writeByte(156)
       super.writeValue(value.rawValue)
-    } else if let value = value as? HealthConnectorLogLevelDto {
+    } else if let value = value as? SortOrderDto {
       super.writeByte(157)
       super.writeValue(value.rawValue)
-    } else if let value = value as? HealthConnectorConfigDto {
+    } else if let value = value as? HealthConnectorLogLevelDto {
       super.writeByte(158)
-      super.writeValue(value.toList())
-    } else if let value = value as? MetadataDto {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? HealthConnectorConfigDto {
       super.writeByte(159)
       super.writeValue(value.toList())
-    } else if let value = value as? RestingHeartRateRecordDto {
+    } else if let value = value as? MetadataDto {
       super.writeByte(160)
       super.writeValue(value.toList())
-    } else if let value = value as? Vo2MaxRecordDto {
+    } else if let value = value as? RestingHeartRateRecordDto {
       super.writeByte(161)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyMassIndexRecordDto {
+    } else if let value = value as? Vo2MaxRecordDto {
       super.writeByte(162)
       super.writeValue(value.toList())
-    } else if let value = value as? WaistCircumferenceRecordDto {
+    } else if let value = value as? BodyMassIndexRecordDto {
       super.writeByte(163)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateVariabilitySDNNRecordDto {
+    } else if let value = value as? WaistCircumferenceRecordDto {
       super.writeByte(164)
       super.writeValue(value.toList())
-    } else if let value = value as? BloodGlucoseRecordDto {
+    } else if let value = value as? HeartRateVariabilitySDNNRecordDto {
       super.writeByte(165)
       super.writeValue(value.toList())
-    } else if let value = value as? ExerciseSessionRecordDto {
+    } else if let value = value as? BloodGlucoseRecordDto {
       super.writeByte(166)
       super.writeValue(value.toList())
-    } else if let value = value as? MindfulnessSessionRecordDto {
+    } else if let value = value as? ExerciseSessionRecordDto {
       super.writeByte(167)
       super.writeValue(value.toList())
-    } else if let value = value as? ActiveEnergyBurnedRecordDto {
+    } else if let value = value as? MindfulnessSessionRecordDto {
       super.writeByte(168)
       super.writeValue(value.toList())
-    } else if let value = value as? DistanceActivityRecordDto {
+    } else if let value = value as? ActiveEnergyBurnedRecordDto {
       super.writeByte(169)
       super.writeValue(value.toList())
-    } else if let value = value as? SpeedActivityRecordDto {
+    } else if let value = value as? DistanceActivityRecordDto {
       super.writeByte(170)
       super.writeValue(value.toList())
-    } else if let value = value as? FloorsClimbedRecordDto {
+    } else if let value = value as? SpeedActivityRecordDto {
       super.writeByte(171)
       super.writeValue(value.toList())
-    } else if let value = value as? WheelchairPushesRecordDto {
+    } else if let value = value as? FloorsClimbedRecordDto {
       super.writeByte(172)
       super.writeValue(value.toList())
-    } else if let value = value as? StepsRecordDto {
+    } else if let value = value as? WheelchairPushesRecordDto {
       super.writeByte(173)
       super.writeValue(value.toList())
-    } else if let value = value as? WeightRecordDto {
+    } else if let value = value as? StepsRecordDto {
       super.writeByte(174)
       super.writeValue(value.toList())
-    } else if let value = value as? BloodPressureRecordDto {
+    } else if let value = value as? WeightRecordDto {
       super.writeByte(175)
       super.writeValue(value.toList())
-    } else if let value = value as? SystolicBloodPressureRecordDto {
+    } else if let value = value as? BloodPressureRecordDto {
       super.writeByte(176)
       super.writeValue(value.toList())
-    } else if let value = value as? DiastolicBloodPressureRecordDto {
+    } else if let value = value as? SystolicBloodPressureRecordDto {
       super.writeByte(177)
       super.writeValue(value.toList())
-    } else if let value = value as? LeanBodyMassRecordDto {
+    } else if let value = value as? DiastolicBloodPressureRecordDto {
       super.writeByte(178)
       super.writeValue(value.toList())
-    } else if let value = value as? HeightRecordDto {
+    } else if let value = value as? LeanBodyMassRecordDto {
       super.writeByte(179)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyFatPercentageRecordDto {
+    } else if let value = value as? HeightRecordDto {
       super.writeByte(180)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyTemperatureRecordDto {
+    } else if let value = value as? BodyFatPercentageRecordDto {
       super.writeByte(181)
       super.writeValue(value.toList())
-    } else if let value = value as? BasalBodyTemperatureRecordDto {
+    } else if let value = value as? BodyTemperatureRecordDto {
       super.writeByte(182)
       super.writeValue(value.toList())
-    } else if let value = value as? CervicalMucusRecordDto {
+    } else if let value = value as? BasalBodyTemperatureRecordDto {
       super.writeByte(183)
       super.writeValue(value.toList())
-    } else if let value = value as? CyclingPowerRecordDto {
+    } else if let value = value as? CervicalMucusRecordDto {
       super.writeByte(184)
       super.writeValue(value.toList())
-    } else if let value = value as? RunningPowerRecordDto {
+    } else if let value = value as? CyclingPowerRecordDto {
       super.writeByte(185)
       super.writeValue(value.toList())
-    } else if let value = value as? OxygenSaturationRecordDto {
+    } else if let value = value as? RunningPowerRecordDto {
       super.writeByte(186)
       super.writeValue(value.toList())
-    } else if let value = value as? OvulationTestRecordDto {
+    } else if let value = value as? OxygenSaturationRecordDto {
       super.writeByte(187)
       super.writeValue(value.toList())
-    } else if let value = value as? PregnancyTestRecordDto {
+    } else if let value = value as? OvulationTestRecordDto {
       super.writeByte(188)
       super.writeValue(value.toList())
-    } else if let value = value as? PregnancyRecordDto {
+    } else if let value = value as? PregnancyTestRecordDto {
       super.writeByte(189)
       super.writeValue(value.toList())
-    } else if let value = value as? ProgesteroneTestRecordDto {
+    } else if let value = value as? PregnancyRecordDto {
       super.writeByte(190)
       super.writeValue(value.toList())
-    } else if let value = value as? IntermenstrualBleedingRecordDto {
+    } else if let value = value as? ContraceptiveRecordDto {
       super.writeByte(191)
       super.writeValue(value.toList())
-    } else if let value = value as? MenstrualFlowRecordDto {
+    } else if let value = value as? ProgesteroneTestRecordDto {
       super.writeByte(192)
       super.writeValue(value.toList())
-    } else if let value = value as? RespiratoryRateRecordDto {
+    } else if let value = value as? IntermenstrualBleedingRecordDto {
       super.writeByte(193)
       super.writeValue(value.toList())
-    } else if let value = value as? HydrationRecordDto {
+    } else if let value = value as? MenstrualFlowRecordDto {
       super.writeByte(194)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateMeasurementDto {
+    } else if let value = value as? RespiratoryRateRecordDto {
       super.writeByte(195)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateRecordDto {
+    } else if let value = value as? HydrationRecordDto {
       super.writeByte(196)
       super.writeValue(value.toList())
-    } else if let value = value as? CyclingPedalingCadenceRecordDto {
+    } else if let value = value as? HeartRateMeasurementDto {
       super.writeByte(197)
       super.writeValue(value.toList())
-    } else if let value = value as? SleepStageRecordDto {
+    } else if let value = value as? HeartRateRecordDto {
       super.writeByte(198)
       super.writeValue(value.toList())
-    } else if let value = value as? SexualActivityRecordDto {
+    } else if let value = value as? CyclingPedalingCadenceRecordDto {
       super.writeByte(199)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryEnergyConsumedRecordDto {
+    } else if let value = value as? SleepStageRecordDto {
       super.writeByte(200)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCaffeineRecordDto {
+    } else if let value = value as? SexualActivityRecordDto {
       super.writeByte(201)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryProteinRecordDto {
+    } else if let value = value as? DietaryEnergyConsumedRecordDto {
       super.writeByte(202)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryTotalCarbohydrateRecordDto {
+    } else if let value = value as? DietaryCaffeineRecordDto {
       super.writeByte(203)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryTotalFatRecordDto {
+    } else if let value = value as? DietaryProteinRecordDto {
       super.writeByte(204)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySaturatedFatRecordDto {
+    } else if let value = value as? DietaryTotalCarbohydrateRecordDto {
       super.writeByte(205)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMonounsaturatedFatRecordDto {
+    } else if let value = value as? DietaryTotalFatRecordDto {
       super.writeByte(206)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPolyunsaturatedFatRecordDto {
+    } else if let value = value as? DietarySaturatedFatRecordDto {
       super.writeByte(207)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCholesterolRecordDto {
+    } else if let value = value as? DietaryMonounsaturatedFatRecordDto {
       super.writeByte(208)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFiberRecordDto {
+    } else if let value = value as? DietaryPolyunsaturatedFatRecordDto {
       super.writeByte(209)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySugarRecordDto {
+    } else if let value = value as? DietaryCholesterolRecordDto {
       super.writeByte(210)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminARecordDto {
+    } else if let value = value as? DietaryFiberRecordDto {
       super.writeByte(211)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminB6RecordDto {
+    } else if let value = value as? DietarySugarRecordDto {
       super.writeByte(212)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminB12RecordDto {
+    } else if let value = value as? DietaryVitaminARecordDto {
       super.writeByte(213)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminCRecordDto {
+    } else if let value = value as? DietaryVitaminB6RecordDto {
       super.writeByte(214)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminDRecordDto {
+    } else if let value = value as? DietaryVitaminB12RecordDto {
       super.writeByte(215)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminERecordDto {
+    } else if let value = value as? DietaryVitaminCRecordDto {
       super.writeByte(216)
       super.writeValue(value.toList())
-    } else if let value = value as? LactationRecordDto {
+    } else if let value = value as? DietaryVitaminDRecordDto {
       super.writeByte(217)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminKRecordDto {
+    } else if let value = value as? DietaryVitaminERecordDto {
       super.writeByte(218)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryThiaminRecordDto {
+    } else if let value = value as? LactationRecordDto {
       super.writeByte(219)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryRiboflavinRecordDto {
+    } else if let value = value as? DietaryVitaminKRecordDto {
       super.writeByte(220)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryNiacinRecordDto {
+    } else if let value = value as? DietaryThiaminRecordDto {
       super.writeByte(221)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFolateRecordDto {
+    } else if let value = value as? DietaryRiboflavinRecordDto {
       super.writeByte(222)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryBiotinRecordDto {
+    } else if let value = value as? DietaryNiacinRecordDto {
       super.writeByte(223)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPantothenicAcidRecordDto {
+    } else if let value = value as? DietaryFolateRecordDto {
       super.writeByte(224)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCalciumRecordDto {
+    } else if let value = value as? DietaryBiotinRecordDto {
       super.writeByte(225)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryIronRecordDto {
+    } else if let value = value as? DietaryPantothenicAcidRecordDto {
       super.writeByte(226)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMagnesiumRecordDto {
+    } else if let value = value as? DietaryCalciumRecordDto {
       super.writeByte(227)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryManganeseRecordDto {
+    } else if let value = value as? DietaryIronRecordDto {
       super.writeByte(228)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPhosphorusRecordDto {
+    } else if let value = value as? DietaryMagnesiumRecordDto {
       super.writeByte(229)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPotassiumRecordDto {
+    } else if let value = value as? DietaryManganeseRecordDto {
       super.writeByte(230)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySeleniumRecordDto {
+    } else if let value = value as? DietaryPhosphorusRecordDto {
       super.writeByte(231)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySodiumRecordDto {
+    } else if let value = value as? DietaryPotassiumRecordDto {
       super.writeByte(232)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryZincRecordDto {
+    } else if let value = value as? DietarySeleniumRecordDto {
       super.writeByte(233)
       super.writeValue(value.toList())
-    } else if let value = value as? NutritionRecordDto {
+    } else if let value = value as? DietarySodiumRecordDto {
       super.writeByte(234)
       super.writeValue(value.toList())
-    } else if let value = value as? BasalEnergyBurnedRecordDto {
+    } else if let value = value as? DietaryZincRecordDto {
       super.writeByte(235)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataSyncTokenDto {
+    } else if let value = value as? NutritionRecordDto {
       super.writeByte(236)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataSyncResultDto {
+    } else if let value = value as? BasalEnergyBurnedRecordDto {
       super.writeByte(237)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionDto {
+    } else if let value = value as? HealthDataSyncTokenDto {
       super.writeByte(238)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionRequestResultDto {
+    } else if let value = value as? HealthDataSyncResultDto {
       super.writeByte(239)
       super.writeValue(value.toList())
-    } else if let value = value as? PermissionsRequestDto {
+    } else if let value = value as? HealthDataPermissionDto {
       super.writeByte(240)
       super.writeValue(value.toList())
-    } else if let value = value as? AggregateRequestDto {
+    } else if let value = value as? HealthDataPermissionRequestResultDto {
       super.writeByte(241)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+    } else if let value = value as? PermissionsRequestDto {
       super.writeByte(242)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+    } else if let value = value as? AggregateRequestDto {
       super.writeByte(243)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordRequestDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       super.writeByte(244)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       super.writeByte(245)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsResponseDto {
+    } else if let value = value as? ReadRecordRequestDto {
       super.writeByte(246)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthConnectorExceptionDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       super.writeByte(247)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthConnectorLogDto {
+    } else if let value = value as? ReadRecordsResponseDto {
       super.writeByte(248)
+      super.writeValue(value.toList())
+    } else if let value = value as? HealthConnectorExceptionDto {
+      super.writeByte(249)
+      super.writeValue(value.toList())
+    } else if let value = value as? HealthConnectorLogDto {
+      super.writeByte(250)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)

@@ -649,6 +649,9 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       PregnancyDataType() => throw UnsupportedError(
         'Pregnancy does not support aggregation',
       ),
+      ContraceptiveDataType() => throw UnsupportedError(
+        'Contraceptive does not support aggregation',
+      ),
     };
   }
 

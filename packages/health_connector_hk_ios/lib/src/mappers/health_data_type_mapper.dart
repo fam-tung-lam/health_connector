@@ -187,6 +187,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
       case HealthDataTypeDto.progesteroneTestResult:
       case HealthDataTypeDto.pregnancy:
         return HealthDataType.pregnancy;
+      case HealthDataTypeDto.contraceptive:
+        return HealthDataType.contraceptive;
       case HealthDataTypeDto.sleepStage:
         throw UnsupportedError(
           'Test result types are not valid as HealthDataType.',
@@ -326,6 +328,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.progesteroneTest;
       case PregnancyDataType _:
         return HealthDataTypeDto.pregnancy;
+      case ContraceptiveDataType _:
+        return HealthDataTypeDto.contraceptive;
       case IntermenstrualBleedingDataType _:
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowDataType _:

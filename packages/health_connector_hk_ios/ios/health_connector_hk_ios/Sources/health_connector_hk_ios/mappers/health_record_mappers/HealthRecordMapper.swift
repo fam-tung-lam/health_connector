@@ -85,6 +85,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as PregnancyRecordDto:
             return try dto.toHealthKit()
+        case let dto as ContraceptiveRecordDto:
+            return try dto.toHealthKit()
         case let dto as LactationRecordDto:
             return try dto.toHealthKit()
         case let dto as BodyMassIndexRecordDto:
@@ -187,7 +189,7 @@ extension HKSample {
         }
 
         throw HealthConnectorError.invalidArgument(
-            message: "Unsupported HKSample type",
+            message: "Unsupported or unimplemented `HKSample.toDto` for data type",
             context: [
                 "sampleType": String(describing: type(of: self)),
                 "healthDataType": dataType.rawValue,
@@ -229,6 +231,15 @@ extension HKCategorySample {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Pregnancy is only supported on iOS 14.3 and later",
                     context: ["dataType": "pregnancy", "minimumIOSVersion": "14.3"]
+                )
+            }
+        case .contraceptive:
+            if #available(iOS 14.3, *) {
+                try toContraceptiveRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Contraceptive is only supported on iOS 14.3 and later",
+                    context: ["dataType": "contraceptive", "minimumIOSVersion": "14.3"]
                 )
             }
         case .lactation:

@@ -127,6 +127,7 @@ abstract final class AppTexts {
       LactationDataType() => lactation,
       OvulationTestDataType() => ovulationTest,
       PregnancyDataType() => pregnancy,
+      ContraceptiveDataType() => contraceptive,
       PregnancyTestDataType() => pregnancyTest,
       ProgesteroneTestDataType() => progesteroneTest,
       DietaryEnergyConsumedDataType() => energy,
@@ -432,6 +433,9 @@ abstract final class AppTexts {
   static const String pregnancyTest = 'Pregnancy Test';
   static const String pregnancy = 'Pregnancy';
   static const String pregnancyDescription = 'Record of pregnancy';
+  static const String contraceptive = 'Contraceptive';
+  static const String contraceptiveType = 'Contraceptive Type';
+  static const String selectContraceptiveType = 'Select contraceptive type';
   static const String progesteroneTest = 'Progesterone Test';
   static const String testResult = 'Test Result';
   static const String selectTestResult = 'Select test result';

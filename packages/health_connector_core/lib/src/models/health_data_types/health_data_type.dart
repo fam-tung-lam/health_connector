@@ -101,6 +101,7 @@ part 'nutrition/dietary_vitamin_data_type.dart';
 part 'nutrition/dietary_vitamin_e_data_type.dart';
 part 'nutrition/dietary_vitamin_k_data_type.dart';
 part 'nutrition/dietary_zinc_data_type.dart';
+part 'reproductive_health/contraceptive_data_type.dart';
 part 'reproductive_health/lactation_data_type.dart';
 part 'nutrition/nutrition_data_type.dart';
 part 'oxygen_saturation_data_type.dart';
@@ -587,6 +588,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const pregnancy = PregnancyDataType();
 
+  /// Contraceptive data type.
+  ///
+  /// Represents contraceptive usage periods, tracking the time during which
+  /// specific contraceptive methods are used.
+  /// Supports reading, writing, and deletion.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const contraceptive = ContraceptiveDataType();
+
   /// Progesterone test data type.
   ///
   /// Represents progesterone test results used to confirm ovulation.
@@ -1003,6 +1013,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     bodyFatPercentage,
     bodyTemperature,
     cervicalMucus,
+    contraceptive,
     crossCountrySkiingDistance,
     cyclingPedalingCadence,
     cyclingPedalingCadenceSeries,

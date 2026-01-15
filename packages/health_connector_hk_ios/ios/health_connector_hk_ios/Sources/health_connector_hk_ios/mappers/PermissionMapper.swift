@@ -99,6 +99,7 @@ extension HealthDataPermissionDto {
              .intermenstrualBleeding,
              .menstrualFlow,
              .lactation,
+             .contraceptive,
              .ovulationTest,
              .ovulationTestResult,
              .pregnancyTest,

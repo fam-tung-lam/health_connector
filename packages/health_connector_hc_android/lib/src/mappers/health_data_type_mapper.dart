@@ -156,6 +156,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$ProgesteroneTestDataType is not supported on Android Health '
           'Connect.',
         );
+      case ContraceptiveDataType _:
+        throw UnsupportedError(
+          '$ContraceptiveDataType is not supported on Android Health Connect. '
+          'This data type is iOS-only (requires iOS 14.3+).',
+        );
       case LactationDataType _:
         throw UnsupportedError(
           '$LactationDataType is not supported on Android Health Connect. '

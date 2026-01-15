@@ -180,6 +180,8 @@ extension HKSample {
                 return .lactation
             case HKCategoryTypeIdentifier.pregnancy.rawValue:
                 return .pregnancy
+            case HKCategoryTypeIdentifier.contraceptive.rawValue:
+                return .contraceptive
             // Correlation types
             case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
                 return .bloodPressure

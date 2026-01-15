@@ -187,6 +187,11 @@ extension HealthRecordToDto on HealthRecord {
           'ProgesteroneTestRecord is not supported on Android Health Connect. '
           'This data type is iOS-only (requires iOS 15.0+).',
         );
+      case ContraceptiveRecord():
+        throw UnsupportedError(
+          'ContraceptiveRecord is not supported on Android Health Connect. '
+          'This data type is iOS-only (requires iOS 14.3+).',
+        );
       case LactationRecord():
         throw UnsupportedError(
           'LactationRecord is not supported on Android Health Connect. '

@@ -333,9 +333,11 @@ extension HealthRecordDto {
                 return .waistCircumference
             case is HeartRateVariabilitySDNNRecordDto:
                 return .heartRateVariabilitySDNN
+            case is ContraceptiveRecordDto:
+                return .contraceptive
             default:
                 throw HealthConnectorError.invalidArgument(
-                    message: "Unimplemented HealthRecordDto type: \(type(of: self))")
+                    message: "Unimplemented `HealthRecordDto.dataType` for health record DTO: \(type(of: self))")
             }
         }
     }
@@ -505,7 +507,7 @@ extension HealthRecordDto {
             return dto.time
         default:
             throw HealthConnectorError.invalidArgument(
-                message: "Unimplemented HealthRecordDto type: \(type(of: self))"
+                message: "Unimplemented `HealthRecordDto.extractTimestamp` for health record DTO: \(type(of: self))"
             )
         }
     }

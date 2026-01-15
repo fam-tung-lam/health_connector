@@ -444,6 +444,33 @@ enum ProgesteroneTestResultDto {
   inconclusive,
 }
 
+/// Contraceptive type classification.
+///
+/// Maps to iOS HealthKit HKCategoryValueContraceptive enum.
+/// iOS only (iOS 14.3+).
+enum ContraceptiveTypeDto {
+  /// Unspecified or unknown contraceptive method.
+  unknown,
+
+  /// Contraceptive implant.
+  implant,
+
+  /// Contraceptive injection.
+  injection,
+
+  /// Intrauterine device (IUD).
+  intrauterineDevice,
+
+  /// Intravaginal ring.
+  intravaginalRing,
+
+  /// Oral contraceptive (birth control pill).
+  oral,
+
+  /// Contraceptive patch.
+  patch,
+}
+
 /// Measurement location for basal body temperature reading.
 enum BasalBodyTemperatureMeasurementLocationDto {
   /// Unknown location.
@@ -901,6 +928,9 @@ enum HealthDataTypeDto {
 
   /// Pregnancy data (iOS only).
   pregnancy,
+
+  /// Contraceptive data (iOS only).
+  contraceptive,
 
   /// Progesterone test data (iOS only).
   progesteroneTest,
@@ -1895,6 +1925,40 @@ class PregnancyRecordDto extends HealthRecordDto {
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a contraceptive record for platform transfer (iOS HealthKit).
+class ContraceptiveRecordDto extends HealthRecordDto {
+  ContraceptiveRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.contraceptiveType,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// The type of contraceptive method used during this period.
+  final ContraceptiveTypeDto contraceptiveType;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;

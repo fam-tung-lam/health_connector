@@ -138,6 +138,7 @@ extension AggregateRequestDtoMapper<
           case BodyMassIndexDataType _:
           case WaistCircumferenceDataType _:
           case MenstrualFlowDataType _:
+          case ContraceptiveDataType _:
           case LactationDataType _:
           case PregnancyDataType _:
             throw ArgumentError(
