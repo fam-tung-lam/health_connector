@@ -75,6 +75,7 @@ extension AggregateRequestDtoMapper<
           case NutritionDataType _:
           case OvulationTestDataType _:
           case PregnancyTestDataType _:
+          case ProgesteroneTestDataType _:
           case IntermenstrualBleedingDataType _:
           case MenstrualFlowInstantDataType _:
           case SexualActivityDataType _:

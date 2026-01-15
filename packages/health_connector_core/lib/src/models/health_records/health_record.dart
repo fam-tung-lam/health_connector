@@ -65,6 +65,8 @@ part 'menstruation/ovulation_test/ovulation_test_record.dart';
 part 'menstruation/ovulation_test/ovulation_test_result.dart';
 part 'menstruation/pregnancy_test/pregnancy_test_record.dart';
 part 'menstruation/pregnancy_test/pregnancy_test_result.dart';
+part 'menstruation/progesterone_test/progesterone_test_record.dart';
+part 'menstruation/progesterone_test/progesterone_test_result.dart';
 part 'mindfulness/mindfulness_session_record.dart';
 // Vitamin nutrient records
 part 'nutrition/dietary_biotin_record.dart';

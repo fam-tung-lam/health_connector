@@ -77,6 +77,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as PregnancyTestRecordDto:
             return try dto.toHealthKit()
+        case let dto as ProgesteroneTestRecordDto:
+            return try dto.toHealthKit()
         case let dto as IntermenstrualBleedingRecordDto:
             return try dto.toHealthKit()
         case let dto as MenstrualFlowRecordDto:

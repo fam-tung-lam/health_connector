@@ -131,6 +131,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.ovulationTest;
       case HealthDataTypeDto.pregnancyTest:
         return HealthDataType.pregnancyTest;
+      case HealthDataTypeDto.progesteroneTest:
+        return HealthDataType.progesteroneTest;
       case HealthDataTypeDto.intermenstrualBleeding:
         return HealthDataType.intermenstrualBleeding;
       case HealthDataTypeDto.menstrualFlow:
@@ -179,6 +181,12 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.exerciseSession;
       case HealthDataTypeDto.mindfulnessSession:
         return HealthDataType.mindfulnessSession;
+      case HealthDataTypeDto.ovulationTestResult:
+      case HealthDataTypeDto.progesteroneTestResult:
+      case HealthDataTypeDto.sleepStage:
+        throw UnsupportedError(
+          'Test result types are not valid as HealthDataType.',
+        );
     }
   }
 }
@@ -310,6 +318,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.ovulationTest;
       case PregnancyTestDataType _:
         return HealthDataTypeDto.pregnancyTest;
+      case ProgesteroneTestDataType _:
+        return HealthDataTypeDto.progesteroneTest;
       case IntermenstrualBleedingDataType _:
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowDataType _:

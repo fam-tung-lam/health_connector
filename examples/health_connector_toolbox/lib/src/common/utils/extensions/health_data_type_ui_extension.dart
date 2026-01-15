@@ -51,6 +51,7 @@ extension HealthDataTypeUI on HealthDataType {
       IntermenstrualBleedingDataType _ => AppTexts.intermenstrualBleeding,
       OvulationTestDataType _ => AppTexts.ovulationTest,
       PregnancyTestDataType _ => AppTexts.pregnancyTest,
+      ProgesteroneTestDataType _ => AppTexts.progesteroneTest,
       OxygenSaturationDataType _ => AppTexts.oxygenSaturation,
       NutritionDataType _ => AppTexts.nutrition,
       DietaryEnergyConsumedDataType _ => AppTexts.energy,
@@ -216,6 +217,7 @@ extension HealthDataTypeUI on HealthDataType {
         'Record of intermenstrual bleeding or spotting between periods',
       OvulationTestDataType _ => AppTexts.ovulationTestDescription,
       PregnancyTestDataType _ => AppTexts.pregnancyTestDescription,
+      ProgesteroneTestDataType _ => AppTexts.progesteroneTestDescription,
       BoneMassDataType _ => AppTexts.boneMassDescription,
       BodyWaterMassDataType _ => AppTexts.bodyWaterMassDescription,
       HeartRateVariabilityRMSSDDataType _ =>
@@ -324,6 +326,7 @@ extension HealthDataTypeUI on HealthDataType {
       IntermenstrualBleedingDataType _ => AppIcons.waterDrop,
       OvulationTestDataType _ => AppIcons.science,
       PregnancyTestDataType _ => AppIcons.science,
+      ProgesteroneTestDataType _ => AppIcons.science,
       MindfulnessSessionDataType _ => AppIcons.selfImprovement,
       BoneMassDataType _ => AppIcons.monitorWeight,
       BodyWaterMassDataType _ => AppIcons.waterDrop,

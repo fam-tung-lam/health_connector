@@ -429,6 +429,21 @@ enum PregnancyTestResultDto {
   inconclusive,
 }
 
+/// Progesterone test result classification.
+///
+/// Maps to iOS HealthKit HKCategoryValueProgesteroneTestResult enum.
+/// iOS only (iOS 15.0+).
+enum ProgesteroneTestResultDto {
+  /// Test result is positive (progesterone surge detected).
+  positive,
+
+  /// Test result is negative (no progesterone surge detected).
+  negative,
+
+  /// Test result is inconclusive.
+  inconclusive,
+}
+
 /// Measurement location for basal body temperature reading.
 enum BasalBodyTemperatureMeasurementLocationDto {
   /// Unknown location.
@@ -883,6 +898,18 @@ enum HealthDataTypeDto {
 
   /// Pregnancy test data (iOS only).
   pregnancyTest,
+
+  /// Progesterone test data (iOS only).
+  progesteroneTest,
+
+  /// Ovulation test result.
+  ovulationTestResult,
+
+  /// Progesterone test result (iOS only).
+  progesteroneTestResult,
+
+  /// Sleep stage type.
+  sleepStage,
 
   /// Intermenstrual bleeding data.
   intermenstrualBleeding,
@@ -1838,6 +1865,32 @@ class PregnancyTestRecordDto extends HealthRecordDto {
 
   /// The pregnancy test result.
   final PregnancyTestResultDto result;
+}
+
+/// Represents a progesterone test record for platform transfer.
+class ProgesteroneTestRecordDto extends HealthRecordDto {
+  ProgesteroneTestRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.result,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+
+  /// The progesterone test result.
+  final ProgesteroneTestResultDto result;
 }
 
 /// Represents an intermenstrual bleeding record for platform transfer.

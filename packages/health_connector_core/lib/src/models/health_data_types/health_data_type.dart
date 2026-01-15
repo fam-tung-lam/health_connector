@@ -59,6 +59,7 @@ part 'menstruation/menstrual_flow_data_type.dart';
 part 'menstruation/menstrual_flow_instant_data_type.dart';
 part 'menstruation/ovulation_test_data_type.dart';
 part 'menstruation/pregnancy_test_data_type.dart';
+part 'menstruation/progesterone_test_data_type.dart';
 part 'mindfulness_session_data_type.dart';
 part 'nutrition/dietary_biotin_data_type.dart';
 part 'nutrition/dietary_caffeine_data_type.dart';
@@ -574,6 +575,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV3_1_0
   @supportedOnAppleHealth
   static const pregnancyTest = PregnancyTestDataType();
+
+  /// Progesterone test data type.
+  ///
+  /// Represents progesterone test results used to confirm ovulation.
+  /// Results can be positive, negative, or inconclusive.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const progesteroneTest = ProgesteroneTestDataType();
 
   /// Intermenstrual bleeding data type.
   ///

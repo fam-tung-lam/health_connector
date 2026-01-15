@@ -76,6 +76,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         IntermenstrualBleedingRecord,
         OvulationTestRecord,
         PregnancyTestRecord,
+        ProgesteroneTestRecord,
         OxygenSaturationRecord,
         RespiratoryRateRecord,
         RunningPowerRecord,
@@ -110,6 +111,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstr
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/menstrual_flow/menstrual_flow_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/ovulation_test_result/ovulation_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/pregnancy_test_result/pregnancy_test_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/progesterone_test_result/progesterone_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_biotin_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_caffeine_record_mapper.dart';
@@ -226,6 +228,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         IntermenstrualBleedingRecordDto,
         OvulationTestRecordDto,
         PregnancyTestRecordDto,
+        ProgesteroneTestRecordDto,
         OxygenSaturationRecordDto,
         RespiratoryRateRecordDto,
         BloodGlucoseRecordDto,
@@ -393,6 +396,8 @@ extension HealthRecordToDto on HealthRecord {
         return OvulationTestRecordToDto(record).toDto();
       case final PregnancyTestRecord record:
         return PregnancyTestRecordToDto(record).toDto();
+      case final ProgesteroneTestRecord record:
+        return ProgesteroneTestRecordToDto(record).toDto();
       case final IntermenstrualBleedingRecord record:
         return IntermenstrualBleedingRecordToDto(record).toDto();
       case final OxygenSaturationRecord record:
@@ -621,6 +626,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return OvulationTestRecordDtoToDomain(dto).toDomain();
       case final PregnancyTestRecordDto dto:
         return PregnancyTestRecordDtoToDomain(dto).toDomain();
+      case final ProgesteroneTestRecordDto dto:
+        return ProgesteroneTestRecordDtoToDomain(dto).toDomain();
       case final IntermenstrualBleedingRecordDto dto:
         return IntermenstrualBleedingRecordDtoToDomain(dto).toDomain();
       case final NutritionRecordDto dto:

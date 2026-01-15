@@ -126,6 +126,7 @@ abstract final class AppTexts {
       MenstrualFlowInstantDataType() => menstrualFlowInstant,
       OvulationTestDataType() => ovulationTest,
       PregnancyTestDataType() => pregnancyTest,
+      ProgesteroneTestDataType() => progesteroneTest,
       DietaryEnergyConsumedDataType() => energy,
       DietaryCaffeineDataType() => caffeine,
       DietaryProteinDataType() => protein,
@@ -307,6 +308,8 @@ abstract final class AppTexts {
   static const String stepsCadenceDescription = 'Rate of steps per minute';
   static const String stepsCadenceSeriesRecordDescription =
       'Rate of steps per minute over time';
+  static const String progesteroneTestDescription =
+      'Result of a home progesterone urine test';
   static const String stepCount = 'Step Count';
   static const String weight = 'Weight';
 
@@ -424,6 +427,7 @@ abstract final class AppTexts {
   static const String isCycleStart = 'Is Cycle Start';
   static const String ovulationTest = 'Ovulation Test';
   static const String pregnancyTest = 'Pregnancy Test';
+  static const String progesteroneTest = 'Progesterone Test';
   static const String testResult = 'Test Result';
   static const String selectTestResult = 'Select test result';
   static const String appearance = 'Appearance';

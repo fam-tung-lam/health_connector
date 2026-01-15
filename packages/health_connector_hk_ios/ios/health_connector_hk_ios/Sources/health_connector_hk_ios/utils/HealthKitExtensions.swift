@@ -168,6 +168,8 @@ extension HKSample {
                 return .ovulationTest
             case HKCategoryTypeIdentifier.pregnancyTestResult.rawValue:
                 return .pregnancyTest
+            case HKCategoryTypeIdentifier.progesteroneTestResult.rawValue:
+                return .progesteroneTest
             case HKCategoryTypeIdentifier.mindfulSession.rawValue:
                 return .mindfulnessSession
             case HKCategoryTypeIdentifier.intermenstrualBleeding.rawValue:
