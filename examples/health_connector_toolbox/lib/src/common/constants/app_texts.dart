@@ -125,6 +125,7 @@ abstract final class AppTexts {
       MenstrualFlowDataType() => menstrualFlow,
       MenstrualFlowInstantDataType() => menstrualFlowInstant,
       OvulationTestDataType() => ovulationTest,
+      PregnancyTestDataType() => pregnancyTest,
       DietaryEnergyConsumedDataType() => energy,
       DietaryCaffeineDataType() => caffeine,
       DietaryProteinDataType() => protein,
@@ -422,6 +423,7 @@ abstract final class AppTexts {
   static const String flow = 'Flow';
   static const String isCycleStart = 'Is Cycle Start';
   static const String ovulationTest = 'Ovulation Test';
+  static const String pregnancyTest = 'Pregnancy Test';
   static const String testResult = 'Test Result';
   static const String selectTestResult = 'Select test result';
   static const String appearance = 'Appearance';
@@ -957,6 +959,10 @@ abstract final class AppTexts {
   // Ovulation Test
   static const String ovulationTestDescription =
       'Ovulation test results to track fertility cycles';
+
+  // Pregnancy Test
+  static const String pregnancyTestDescription =
+      'Pregnancy test results to detect pregnancy';
 
   // Respiratory and Oxygen
   static const String oxygenSaturationDescription =

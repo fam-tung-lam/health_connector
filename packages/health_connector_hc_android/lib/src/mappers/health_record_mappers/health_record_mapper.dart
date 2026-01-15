@@ -177,6 +177,11 @@ extension HealthRecordToDto on HealthRecord {
         return RestingHeartRateRecordToDto(record).toDto();
       case final OvulationTestRecord record:
         return OvulationTestRecordToDto(record).toDto();
+      case PregnancyTestRecord():
+        throw UnsupportedError(
+          'PregnancyTestRecord is not supported on Android Health Connect. '
+          'This data type is iOS-only (requires iOS 15.0+).',
+        );
       case final IntermenstrualBleedingRecord record:
         return IntermenstrualBleedingRecordToDto(record).toDto();
       case final MenstrualFlowInstantRecord record:

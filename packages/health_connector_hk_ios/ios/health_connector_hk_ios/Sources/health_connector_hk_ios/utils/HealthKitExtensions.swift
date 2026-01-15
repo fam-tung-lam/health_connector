@@ -166,6 +166,8 @@ extension HKSample {
                 return .cervicalMucus
             case HKCategoryTypeIdentifier.ovulationTestResult.rawValue:
                 return .ovulationTest
+            case HKCategoryTypeIdentifier.pregnancyTestResult.rawValue:
+                return .pregnancyTest
             case HKCategoryTypeIdentifier.mindfulSession.rawValue:
                 return .mindfulnessSession
             case HKCategoryTypeIdentifier.intermenstrualBleeding.rawValue:

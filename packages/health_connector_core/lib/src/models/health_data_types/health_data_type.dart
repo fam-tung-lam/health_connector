@@ -58,6 +58,7 @@ part 'menstruation/intermenstrual_bleeding_data_type.dart';
 part 'menstruation/menstrual_flow_data_type.dart';
 part 'menstruation/menstrual_flow_instant_data_type.dart';
 part 'menstruation/ovulation_test_data_type.dart';
+part 'menstruation/pregnancy_test_data_type.dart';
 part 'mindfulness_session_data_type.dart';
 part 'nutrition/dietary_biotin_data_type.dart';
 part 'nutrition/dietary_caffeine_data_type.dart';
@@ -565,6 +566,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_2_0
   static const ovulationTest = OvulationTestDataType();
 
+  /// Pregnancy test data type.
+  ///
+  /// Represents pregnancy test results that detect the presence of human
+  /// chorionic gonadotropin (hCG) hormone to determine pregnancy status.
+  /// Results can be positive, negative, or inconclusive.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const pregnancyTest = PregnancyTestDataType();
+
   /// Intermenstrual bleeding data type.
   ///
   /// Represents occurrences of vaginal bleeding between menstrual periods
@@ -993,6 +1003,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     oxygenSaturation,
     paddleSportsDistance,
     powerSeries,
+    pregnancyTest,
     respiratoryRate,
     restingHeartRate,
     runningPower,

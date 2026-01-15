@@ -74,6 +74,7 @@ extension AggregateRequestDtoMapper<
           case LeanBodyMassDataType _:
           case NutritionDataType _:
           case OvulationTestDataType _:
+          case PregnancyTestDataType _:
           case IntermenstrualBleedingDataType _:
           case MenstrualFlowInstantDataType _:
           case SexualActivityDataType _:

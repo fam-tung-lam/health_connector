@@ -146,6 +146,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.bloodPressure;
       case OvulationTestDataType _:
         return HealthDataTypeDto.ovulationTest;
+      case PregnancyTestDataType _:
+        throw UnsupportedError(
+          '$PregnancyTestDataType is not supported on Android Health Connect. '
+          'This data type is iOS-only (requires iOS 15.0+).',
+        );
       case IntermenstrualBleedingDataType _:
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowInstantDataType _:

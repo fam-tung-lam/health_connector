@@ -75,6 +75,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as OvulationTestRecordDto:
             return try dto.toHealthKit()
+        case let dto as PregnancyTestRecordDto:
+            return try dto.toHealthKit()
         case let dto as IntermenstrualBleedingRecordDto:
             return try dto.toHealthKit()
         case let dto as MenstrualFlowRecordDto:
@@ -206,6 +208,8 @@ extension HKCategorySample {
             try toMindfulnessSessionDto()
         case .ovulationTest:
             try toOvulationTestRecordDto()
+        case .pregnancyTest:
+            try toPregnancyTestRecordDto()
         case .intermenstrualBleeding:
             try toIntermenstrualBleedingRecordDto()
         case .menstrualFlow:
