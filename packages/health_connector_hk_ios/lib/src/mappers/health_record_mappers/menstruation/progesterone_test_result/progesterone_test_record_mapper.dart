@@ -5,7 +5,8 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart' show internal;
 
-/// Extension to convert [ProgesteroneTestRecord] to [ProgesteroneTestRecordDto].
+/// Extension to convert [ProgesteroneTestRecord] to
+/// [ProgesteroneTestRecordDto].
 @sinceV3_1_0
 @internal
 extension ProgesteroneTestRecordToDto on ProgesteroneTestRecord {
@@ -21,7 +22,8 @@ extension ProgesteroneTestRecordToDto on ProgesteroneTestRecord {
   }
 }
 
-/// Extension to convert [ProgesteroneTestRecordDto] to [ProgesteroneTestRecord].
+/// Extension to convert [ProgesteroneTestRecordDto] to
+/// [ProgesteroneTestRecord].
 @sinceV3_1_0
 @internal
 extension ProgesteroneTestRecordDtoToDomain on ProgesteroneTestRecordDto {

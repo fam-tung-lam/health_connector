@@ -83,6 +83,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as MenstrualFlowRecordDto:
             return try dto.toHealthKit()
+        case let dto as PregnancyRecordDto:
+            return try dto.toHealthKit()
         case let dto as LactationRecordDto:
             return try dto.toHealthKit()
         case let dto as BodyMassIndexRecordDto:
@@ -220,6 +222,15 @@ extension HKCategorySample {
             try toIntermenstrualBleedingRecordDto()
         case .menstrualFlow:
             try toMenstrualFlowRecordDto()
+        case .pregnancy:
+            if #available(iOS 14.3, *) {
+                try toPregnancyRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Pregnancy is only supported on iOS 14.3 and later",
+                    context: ["dataType": "pregnancy", "minimumIOSVersion": "14.3"]
+                )
+            }
         case .lactation:
             if #available(iOS 14.3, *) {
                 try toLactationRecordDto()

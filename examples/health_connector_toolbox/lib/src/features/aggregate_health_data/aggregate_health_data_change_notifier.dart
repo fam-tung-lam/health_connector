@@ -450,8 +450,16 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         metric,
       ),
 
+      // Energy - sum only
+      DietaryEnergyConsumedDataType() => _buildSum(
+        () => HealthDataType.dietaryEnergyConsumed.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+
       // Nutrient types - sum only (all nutrients)
-      DietaryEnergyConsumedDataType() ||
       DietaryCaffeineDataType() ||
       DietaryProteinDataType() ||
       DietaryTotalCarbohydrateDataType() ||
@@ -638,6 +646,9 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       LactationDataType() => throw UnsupportedError(
         'Lactation does not support aggregation',
       ),
+      PregnancyDataType() => throw UnsupportedError(
+        'Pregnancy does not support aggregation',
+      ),
     };
   }
 
@@ -759,11 +770,6 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
 
     // Delegate to specific data type instances
     return switch (dataType) {
-      DietaryEnergyConsumedDataType() =>
-        HealthDataType.dietaryEnergyConsumed.aggregateSum(
-          startTime: startTime,
-          endTime: endTime,
-        ),
       DietaryCaffeineDataType() => HealthDataType.dietaryCaffeine.aggregateSum(
         startTime: startTime,
         endTime: endTime,

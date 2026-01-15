@@ -57,8 +57,9 @@ final class ProgesteroneTestRecord extends InstantHealthRecord {
   /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [ProgesteroneTestRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// [ProgesteroneTestRecord] constructor, which enforces validation and
+  /// business rules. This factory is restricted to the SDK developers and
+  /// contributors.
   @internalUse
   factory ProgesteroneTestRecord.internal({
     required HealthRecordId id,

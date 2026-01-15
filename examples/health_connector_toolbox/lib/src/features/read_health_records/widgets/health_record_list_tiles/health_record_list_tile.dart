@@ -29,9 +29,11 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/lactation_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/menstrual_flow_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/mindfulness_session_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/pregnancy_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/simple_interval_measurement_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_session_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_stage_list_tile.dart';
+
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/cycling_pedaling_cadence_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/heart_rate_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/power_series_list_tile.dart';
@@ -371,6 +373,10 @@ final class HealthRecordListTile extends StatelessWidget {
         onDelete: onDelete,
       ),
       final LactationRecord r => LactationRecordListTile(
+        record: r,
+        onDelete: onDelete,
+      ),
+      final PregnancyRecord r => PregnancyRecordListTile(
         record: r,
         onDelete: onDelete,
       ),

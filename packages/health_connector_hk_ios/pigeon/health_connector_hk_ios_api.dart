@@ -899,6 +899,9 @@ enum HealthDataTypeDto {
   /// Pregnancy test data (iOS only).
   pregnancyTest,
 
+  /// Pregnancy data (iOS only).
+  pregnancy,
+
   /// Progesterone test data (iOS only).
   progesteroneTest,
 
@@ -1868,6 +1871,36 @@ class PregnancyTestRecordDto extends HealthRecordDto {
 
   /// The pregnancy test result.
   final PregnancyTestResultDto result;
+}
+
+/// Represents a pregnancy record for platform transfer (iOS HealthKit).
+class PregnancyRecordDto extends HealthRecordDto {
+  PregnancyRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a progesterone test record for platform transfer.

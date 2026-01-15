@@ -75,6 +75,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DietaryZincRecord,
         IntermenstrualBleedingRecord,
         OvulationTestRecord,
+        PregnancyRecord,
         PregnancyTestRecord,
         ProgesteroneTestRecord,
         OxygenSaturationRecord,
@@ -112,6 +113,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstr
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/menstrual_flow/menstrual_flow_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/ovulation_test_result/ovulation_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/pregnancy_test_result/pregnancy_test_record_mapper.dart';
+
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/progesterone_test_result/progesterone_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_biotin_record_mapper.dart';
@@ -152,6 +154,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/cycling_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/running_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/lactation_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/pregnancy_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sexual_activity/sexual_activity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep/sleep_stage_record_mapper.dart';
@@ -229,6 +232,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         DietaryZincRecordDto,
         IntermenstrualBleedingRecordDto,
         OvulationTestRecordDto,
+        PregnancyRecordDto,
         PregnancyTestRecordDto,
         ProgesteroneTestRecordDto,
         OxygenSaturationRecordDto,
@@ -503,6 +507,8 @@ extension HealthRecordToDto on HealthRecord {
         );
       case final LactationRecord record:
         return LactationRecordToDto(record).toDto();
+      case final PregnancyRecord record:
+        return PregnancyRecordToDto(record).toDto();
     }
   }
 }
@@ -663,6 +669,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return HeartRateVariabilitySDNNRecordDtoToDomain(dto).toDomain();
       case final LactationRecordDto dto:
         return LactationRecordDtoToDomain(dto).toDomain();
+      case final PregnancyRecordDto dto:
+        return PregnancyRecordDtoToDomain(dto).toDomain();
     }
   }
 }

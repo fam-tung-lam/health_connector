@@ -60,6 +60,8 @@ extension HealthRecordDto {
             record.id
         case let record as PregnancyTestRecordDto:
             record.id
+        case let record as PregnancyRecordDto:
+            record.id
         case let record as ProgesteroneTestRecordDto:
             record.id
         case let record as IntermenstrualBleedingRecordDto:
@@ -315,6 +317,8 @@ extension HealthRecordDto {
                 return .ovulationTest
             case is PregnancyTestRecordDto:
                 return .pregnancyTest
+            case is PregnancyRecordDto:
+                return .pregnancy
             case is ProgesteroneTestRecordDto:
                 return .progesteroneTest
             case is IntermenstrualBleedingRecordDto:
@@ -487,6 +491,8 @@ extension HealthRecordDto {
             return dto.time
         case let dto as PregnancyTestRecordDto:
             return dto.time
+        case let dto as PregnancyRecordDto:
+            return dto.endTime
         case let dto as ProgesteroneTestRecordDto:
             return dto.time
         case let dto as IntermenstrualBleedingRecordDto:

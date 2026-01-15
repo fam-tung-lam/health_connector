@@ -1,19 +1,18 @@
 part of '../health_data_type.dart';
 
-/// Progesterone test data type.
+/// Pregnancy data type.
 ///
-/// Progesterone test records track the results of tests that detect the
-/// presence of progesterone hormone to confirm ovulation.
+/// Pregnancy records track the state of pregnancy.
 ///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not currently supported
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.progesteroneTestResult`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/progesteronetestresult)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.pregnancy`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/pregnancy)
 ///
 /// ## Capabilities
 ///
-/// - Readable: Query progesterone test records
-/// - Writeable: Write progesterone test records
+/// - Readable: Query pregnancy records
+/// - Writeable: Write pregnancy records
 /// - Deletable: Delete records by IDs or time range
 /// - Aggregation: Not supported (categorical data)
 ///
@@ -22,74 +21,69 @@ part of '../health_data_type.dart';
 /// ```dart
 /// // Request permissions
 /// final permissions = [
-///   HealthDataType.progesteroneTest.readPermission,
-///   HealthDataType.progesteroneTest.writePermission,
+///   HealthDataType.pregnancy.readPermission,
+///   HealthDataType.pregnancy.writePermission,
 /// ];
 /// await connector.requestPermissions(permissions);
 ///
 /// // Read records
-/// final request = HealthDataType.progesteroneTest.readInTimeRange(
-///   startTime: DateTime.now().subtract(Duration(days: 30)),
+/// final request = HealthDataType.pregnancy.readInTimeRange(
+///   startTime: DateTime.now().subtract(Duration(days: 300)),
 ///   endTime: DateTime.now(),
 /// );
 /// final response = await connector.readRecords(request);
 ///
 /// // Delete records by IDs
-/// final deleteRequest = HealthDataType.progesteroneTest.deleteByIds([id1]);
+/// final deleteRequest = HealthDataType.pregnancy.deleteByIds([id1]);
 /// await connector.deleteRecords(deleteRequest);
 /// ```
 ///
 /// ## See also
 ///
-/// - [ProgesteroneTestRecord]
-/// - [ProgesteroneTestResult]
+/// - [PregnancyRecord]
 ///
 /// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable
-final class ProgesteroneTestDataType
-    extends HealthDataType<ProgesteroneTestRecord, TimeDuration>
+final class PregnancyDataType
+    extends HealthDataType<PregnancyRecord, TimeDuration>
     implements
-        ReadableHealthDataType<ProgesteroneTestRecord>,
-        WriteableHealthDataType<ProgesteroneTestRecord>,
-        DeletableHealthDataType<ProgesteroneTestRecord> {
-  /// Creates a progesterone test data type.
+        ReadableHealthDataType<PregnancyRecord>,
+        WriteableHealthDataType<PregnancyRecord>,
+        DeletableHealthDataType<PregnancyRecord> {
+  /// Creates a pregnancy data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const ProgesteroneTestDataType();
+  const PregnancyDataType() : super();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
+  String get id => 'pregnancy';
+
+  @override
+  HealthDataTypeCategory get category =>
+      HealthDataTypeCategory.reproductiveHealth;
+
+  @override
+  List<AggregationMetric> get supportedAggregationMetrics => const [];
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => const [
     HealthPlatform.appleHealth,
   ];
-
-  @override
-  String get id => 'progesterone_test';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ProgesteroneTestDataType && runtimeType == other.runtimeType;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  List<AggregationMetric> get supportedAggregationMetrics => [];
 
   @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<ProgesteroneTestRecord> readById(HealthRecordId id) {
+  ReadRecordByIdRequest<PregnancyRecord> readById(HealthRecordId id) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<ProgesteroneTestRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<PregnancyRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
@@ -113,11 +107,7 @@ final class ProgesteroneTestDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
-  HealthDataTypeCategory get category =>
-      HealthDataTypeCategory.reproductiveHealth;
-
-  @override
-  DeleteRecordsByIdsRequest<ProgesteroneTestRecord> deleteByIds(
+  DeleteRecordsByIdsRequest<PregnancyRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -127,7 +117,7 @@ final class ProgesteroneTestDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<ProgesteroneTestRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest<PregnancyRecord> deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -46,7 +46,8 @@ class LactationRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
   });
 
-  /// Creates a copy of this record with the given fields replaced by the new values.
+  /// Creates a copy of this record with the given fields replaced by the new
+  /// values.
   LactationRecord copyWith({
     DateTime? startTime,
     DateTime? endTime,

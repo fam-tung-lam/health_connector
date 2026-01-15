@@ -103,7 +103,8 @@ extension HealthDataPermissionDto {
              .ovulationTestResult,
              .pregnancyTest,
              .progesteroneTest,
-             .progesteroneTestResult:
+             .progesteroneTestResult,
+             .pregnancy:
             try [healthDataType.toHealthKit()]
         // Exercise sessions use HKWorkoutType, not HKQuantityType
         case .exerciseSession:

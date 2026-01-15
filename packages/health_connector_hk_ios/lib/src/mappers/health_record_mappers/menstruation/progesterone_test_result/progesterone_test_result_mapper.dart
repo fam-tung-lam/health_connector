@@ -2,7 +2,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart' show internal;
 
-/// Extension to convert [ProgesteroneTestResult] to [ProgesteroneTestResultDto].
+/// Extension to convert [ProgesteroneTestResult] to
+/// [ProgesteroneTestResultDto].
 @sinceV3_1_0
 @internal
 extension ProgesteroneTestResultToDto on ProgesteroneTestResult {
@@ -19,7 +20,8 @@ extension ProgesteroneTestResultToDto on ProgesteroneTestResult {
   }
 }
 
-/// Extension to convert [ProgesteroneTestResultDto] to [ProgesteroneTestResult].
+/// Extension to convert [ProgesteroneTestResultDto] to
+/// [ProgesteroneTestResult].
 @sinceV3_1_0
 @internal
 extension ProgesteroneTestResultDtoToDomain on ProgesteroneTestResultDto {

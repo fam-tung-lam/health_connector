@@ -16,6 +16,9 @@ import 'package:health_connector_core/src/models/requests/delete_records_request
 import 'package:health_connector_core/src/models/requests/read_records_request.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
+part 'reproductive_health/pregnancy_data_type.dart';
+part 'menstruation/pregnancy_test_data_type.dart';
+
 part 'blood_glucose_data_type.dart';
 part 'blood_pressure/blood_pressure_data_type.dart';
 part 'blood_pressure/diastolic_blood_pressure_data_type.dart';
@@ -58,8 +61,8 @@ part 'menstruation/intermenstrual_bleeding_data_type.dart';
 part 'menstruation/menstrual_flow_data_type.dart';
 part 'menstruation/menstrual_flow_instant_data_type.dart';
 part 'menstruation/ovulation_test_data_type.dart';
-part 'menstruation/pregnancy_test_data_type.dart';
 part 'menstruation/progesterone_test_data_type.dart';
+
 part 'mindfulness_session_data_type.dart';
 part 'nutrition/dietary_biotin_data_type.dart';
 part 'nutrition/dietary_caffeine_data_type.dart';
@@ -577,6 +580,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const pregnancyTest = PregnancyTestDataType();
 
+  /// Pregnancy data type.
+  ///
+  /// Represents a pregnancy period.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const pregnancy = PregnancyDataType();
+
   /// Progesterone test data type.
   ///
   /// Represents progesterone test results used to confirm ovulation.
@@ -1023,6 +1033,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     paddleSportsDistance,
     powerSeries,
     pregnancyTest,
+    pregnancy,
     progesteroneTest,
     respiratoryRate,
     restingHeartRate,

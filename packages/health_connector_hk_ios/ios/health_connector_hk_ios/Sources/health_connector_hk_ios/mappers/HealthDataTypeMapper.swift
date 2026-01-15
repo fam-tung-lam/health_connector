@@ -258,6 +258,15 @@ extension HealthDataTypeDto {
                     context: ["dataType": "lactation", "minimumIOSVersion": "14.3"]
                 )
             }
+        case .pregnancy:
+            if #available(iOS 14.3, *) {
+                try HKCategoryType.make(from: .pregnancy)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Pregnancy is only supported on iOS 14.3 and later",
+                    context: ["dataType": "pregnancy", "minimumIOSVersion": "14.3"]
+                )
+            }
         case .progesteroneTest, .progesteroneTestResult:
             try HKCategoryType.make(from: .progesteroneTestResult)
         case .menstrualFlow:
