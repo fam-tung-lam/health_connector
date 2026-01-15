@@ -77,6 +77,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         OvulationTestRecord,
         OxygenSaturationRecord,
         RespiratoryRateRecord,
+        RunningPowerRecord,
         BloodGlucoseRecord,
         Vo2MaxRecord,
         SpeedActivityRecord,
@@ -144,6 +145,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrit
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/nutrition_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen_saturation_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/cycling_power_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/running_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sexual_activity/sexual_activity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep/sleep_stage_record_mapper.dart';
@@ -224,6 +226,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         OxygenSaturationRecordDto,
         RespiratoryRateRecordDto,
         BloodGlucoseRecordDto,
+        RunningPowerRecordDto,
         Vo2MaxRecordDto,
         SpeedActivityRecordDto,
         MenstrualFlowRecordDto,
@@ -405,6 +408,8 @@ extension HealthRecordToDto on HealthRecord {
         return BloodGlucoseRecordToDto(record).toDto();
       case final CyclingPowerRecord record:
         return CyclingPowerRecordToDto(record).toDto();
+      case final RunningPowerRecord record:
+        return RunningPowerRecordToDto(record).toDto();
       case final DistanceActivityRecord record:
         return DistanceActivityRecordToDto(record).toDto();
       case final MindfulnessSessionRecord record:
@@ -619,6 +624,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return BloodGlucoseRecordDtoToDomain(dto).toDomain();
       case final CyclingPowerRecordDto dto:
         return CyclingPowerRecordDtoToDomain(dto).toDomain();
+      case final RunningPowerRecordDto dto:
+        return RunningPowerRecordDtoToDomain(dto).toDomain();
       case final DistanceActivityRecordDto dto:
         return DistanceActivityRecordDtoToDomain(dto).toDomain();
       case final SpeedActivityRecordDto dto:

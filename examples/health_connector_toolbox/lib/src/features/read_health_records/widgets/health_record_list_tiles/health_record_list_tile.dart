@@ -159,6 +159,13 @@ final class HealthRecordListTile extends StatelessWidget {
         valueExtractor: (r) => r.power,
         onDelete: onDelete,
       ),
+      final RunningPowerRecord r => SimpleInstantMeasurementListTile(
+        record: r,
+        icon: AppIcons.runCircle,
+        titleBuilder: (r) => '${r.power.inWatts.toStringAsFixed(1)} W',
+        valueExtractor: (r) => r.power,
+        onDelete: onDelete,
+      ),
 
       final WalkingSpeedRecord r => SpeedActivityTile(
         record: r,

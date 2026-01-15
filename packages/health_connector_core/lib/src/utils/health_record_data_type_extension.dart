@@ -55,6 +55,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       StairDescentSpeedRecord _ => HealthDataType.stairDescentSpeed,
       PowerSeriesRecord _ => HealthDataType.powerSeries,
       CyclingPowerRecord _ => HealthDataType.cyclingPower,
+      RunningPowerRecord _ => HealthDataType.runningPower,
       StepsRecord _ => HealthDataType.steps,
       StepsCadenceSeriesRecord _ => HealthDataType.stepsCadenceSeries,
       WeightRecord _ => HealthDataType.weight,

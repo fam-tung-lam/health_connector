@@ -101,6 +101,7 @@ part 'oxygen_saturation_data_type.dart';
 part 'power/cycling_power_data_type.dart';
 part 'power/power_series_data_type.dart';
 part 'respiratory_rate_data_type.dart';
+part 'running_power/running_power_health_data_type.dart';
 part 'sexual_activity_data_type.dart';
 part 'sleep/sleep_session_data_type.dart';
 part 'sleep/sleep_stage_record_data_type.dart';
@@ -548,7 +549,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// first thing in the morning before getting out of bed.
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_3_0
-  static const restingHeartRate = RestingHeartRateDataType();
+  static const RestingHeartRateDataType restingHeartRate =
+      RestingHeartRateDataType();
+
+  /// Running power data type.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const RunningPowerDataType runningPower = RunningPowerDataType._();
 
   /// Ovulation test data type.
   ///
@@ -988,6 +995,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     powerSeries,
     respiratoryRate,
     restingHeartRate,
+    runningPower,
     rowingDistance,
     runningSpeed,
     sexualActivity,

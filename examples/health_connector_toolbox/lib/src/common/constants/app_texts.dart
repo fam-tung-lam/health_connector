@@ -171,6 +171,7 @@ abstract final class AppTexts {
       StairDescentSpeedDataType() => speed,
       PowerSeriesDataType() => powerSeries,
       CyclingPowerDataType() => cyclingPower,
+      RunningPowerDataType() => runningPower,
       ExerciseSessionDataType() => exerciseSession,
       MindfulnessSessionDataType() => mindfulnessSession,
       BoneMassDataType() => boneMass,
@@ -337,6 +338,7 @@ abstract final class AppTexts {
   static const String walkingRunning = 'Walking/Running';
   static const String walking = 'Walking';
   static const String running = 'Running';
+  static const String runningPower = 'Running Power';
   static const String stairAscent = 'Stair Ascent';
   static const String stairDescent = 'Stair Descent';
   static const String distance = 'Distance';

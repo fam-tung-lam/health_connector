@@ -188,6 +188,8 @@ extension HKSample {
                         return .stairAscentSpeed
                     case HKQuantityTypeIdentifier.stairDescentSpeed.rawValue:
                         return .stairDescentSpeed
+                    case HKQuantityTypeIdentifier.runningPower.rawValue:
+                        return .runningPower
                     default:
                         break
                     }
@@ -220,7 +222,7 @@ extension HKSample {
                 }
 
                 throw HealthConnectorError.invalidArgument(
-                    message: "Unrecognized HealthKit identifier: \(identifier)",
+                    message: "Unsupported/unimplemented HealthKit identifier: \(identifier)",
                     context: ["identifier": identifier]
                 )
             }

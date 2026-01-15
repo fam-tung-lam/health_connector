@@ -46,6 +46,8 @@ extension HealthRecordDto {
             record.id
         case let record as CyclingPowerRecordDto:
             record.id
+        case let record as RunningPowerRecordDto:
+            record.id
         case let record as SexualActivityRecordDto:
             record.id
         case let record as CervicalMucusRecordDto:
@@ -293,6 +295,8 @@ extension HealthRecordDto {
                 return .exerciseSession
             case is CyclingPowerRecordDto:
                 return .cyclingPower
+            case is RunningPowerRecordDto:
+                return .runningPower
             case is SexualActivityRecordDto:
                 return .sexualActivity
             case is CervicalMucusRecordDto:
@@ -458,6 +462,8 @@ extension HealthRecordDto {
         case let dto as CyclingPedalingCadenceRecordDto:
             return dto.time
         case let dto as CyclingPowerRecordDto:
+            return dto.time
+        case let dto as RunningPowerRecordDto:
             return dto.time
         case let dto as SexualActivityRecordDto:
             return dto.time

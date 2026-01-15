@@ -34,6 +34,7 @@ abstract final class AppIcons {
   static const IconData fastfood = Icons.fastfood;
   static const IconData bloodPressure = Icons.compress;
   static const IconData vo2Max = Icons.directions_run;
+  static const IconData runCircle = Icons.run_circle;
   static const IconData terrain = Icons.terrain;
 
   // Permissions & Security

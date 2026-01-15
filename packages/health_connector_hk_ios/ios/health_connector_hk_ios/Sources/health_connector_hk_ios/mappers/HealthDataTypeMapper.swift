@@ -131,6 +131,15 @@ extension HealthDataTypeDto {
                     context: ["dataType": "cyclingPower", "minimumIOSVersion": "17.0"]
                 )
             }
+        case .runningPower:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .runningPower)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Running power is only supported on iOS 16.0 and later",
+                    context: ["dataType": "runningPower", "minimumIOSVersion": "16.0"]
+                )
+            }
         case .cyclingPedalingCadence:
             if #available(iOS 17.0, *) {
                 try HKQuantityType.make(from: .cyclingCadence)
