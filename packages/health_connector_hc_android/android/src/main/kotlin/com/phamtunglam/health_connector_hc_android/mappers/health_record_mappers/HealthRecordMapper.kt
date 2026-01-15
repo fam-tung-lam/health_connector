@@ -32,6 +32,7 @@ import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
+import androidx.health.connect.client.records.StepsCadenceRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.records.Vo2MaxRecord
@@ -69,6 +70,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.StepsCadenceSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.TotalEnergyBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
@@ -111,6 +113,8 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is PowerSeriesRecordDto -> HealthDataTypeDto.POWER_SERIES
         is CyclingPedalingCadenceSeriesRecordDto ->
             HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
+        is StepsCadenceSeriesRecordDto ->
+            HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD
         is RespiratoryRateRecordDto -> HealthDataTypeDto.RESPIRATORY_RATE
         is TotalEnergyBurnedRecordDto -> HealthDataTypeDto.TOTAL_CALORIES_BURNED
         is Vo2MaxRecordDto -> HealthDataTypeDto.VO2MAX
@@ -157,6 +161,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is OxygenSaturationRecordDto -> toHealthConnect()
     is PowerSeriesRecordDto -> toHealthConnect()
     is CyclingPedalingCadenceSeriesRecordDto -> toHealthConnect()
+    is StepsCadenceSeriesRecordDto -> toHealthConnect()
     is RespiratoryRateRecordDto -> toHealthConnect()
     is TotalEnergyBurnedRecordDto -> toHealthConnect()
     is Vo2MaxRecordDto -> toHealthConnect()
@@ -205,6 +210,7 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is OxygenSaturationRecord -> toDto()
     is PowerRecord -> toDto()
     is CyclingPedalingCadenceRecord -> toDto()
+    is StepsCadenceRecord -> toDto()
     is RespiratoryRateRecord -> toDto()
     is TotalCaloriesBurnedRecord -> toDto()
     is Vo2MaxRecord -> toDto()

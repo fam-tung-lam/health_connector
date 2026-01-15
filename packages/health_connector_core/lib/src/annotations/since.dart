@@ -64,3 +64,9 @@ const sinceV2_4_0 = _Since('2.4.0');
 
 /// Marks APIs added in version 3.0.0 of the SDK.
 const sinceV3_0_0 = _Since('3.0.0');
+
+/// Marks APIs added in version 3.0.1 of the SDK.
+const sinceV3_0_1 = _Since('3.0.1');
+
+/// Marks APIs added in version 3.0.0 of the SDK.
+const sinceV3_1_0 = _Since('3.1.0');

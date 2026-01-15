@@ -34,6 +34,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/power_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/speed_activity_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/speed_series_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/steps_cadence_series_list_tile.dart';
 
 /// A widget that displays a health record in a list tile format.
 ///
@@ -112,6 +113,10 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.sdnn,
           onDelete: onDelete,
         ),
+      final StepsCadenceSeriesRecord r => StepsCadenceSeriesTile(
+        record: r,
+        onDelete: onDelete,
+      ),
 
       // Respiratory records
       final RespiratoryRateRecord r => RespiratoryRateTile(

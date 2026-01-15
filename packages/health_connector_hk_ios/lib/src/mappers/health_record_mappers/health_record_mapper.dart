@@ -16,6 +16,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DietaryCholesterolRecord,
         CyclingPedalingCadenceRecord,
         CyclingPedalingCadenceSeriesRecord,
+        StepsCadenceSeriesRecord,
         CyclingPowerRecord,
         DietaryFiberRecord,
         DiastolicBloodPressureRecord,
@@ -428,6 +429,10 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$CyclingPedalingCadenceSeriesRecord is not supported on iOS '
           'HealthKit. Use $CyclingPedalingCadenceRecord instead.',
+        );
+      case final StepsCadenceSeriesRecord _:
+        throw UnsupportedError(
+          '$StepsCadenceSeriesRecord is not supported on iOS HealthKit.',
         );
       case final SleepSessionRecord _:
         throw UnsupportedError(

@@ -40,6 +40,7 @@ extension HealthDataTypeUI on HealthDataType {
       HydrationDataType _ => AppTexts.hydration,
       HeartRateDataType _ => AppTexts.heartRate,
       HeartRateSeriesDataType _ => AppTexts.heartRate,
+      StepsCadenceSeriesDataType _ => AppTexts.stepsCadence,
       CyclingPedalingCadenceDataType _ => AppTexts.cyclingPedalingCadence,
       CyclingPedalingCadenceSeriesDataType _ => AppTexts.cyclingPedalingCadence,
       RestingHeartRateDataType _ => AppTexts.restingHeartRate,
@@ -145,6 +146,8 @@ extension HealthDataTypeUI on HealthDataType {
       HydrationDataType _ => AppTexts.hydrationDescription,
       HeartRateDataType _ => AppTexts.heartRateRecordDescription,
       HeartRateSeriesDataType _ => AppTexts.heartRateSeriesRecordDescription,
+      StepsCadenceSeriesDataType _ =>
+        AppTexts.stepsCadenceSeriesRecordDescription,
       CyclingPedalingCadenceDataType _ =>
         AppTexts.cyclingPedalingCadenceRecordDescription,
       CyclingPedalingCadenceSeriesDataType _ =>
@@ -256,6 +259,7 @@ extension HealthDataTypeUI on HealthDataType {
       HydrationDataType _ => AppIcons.volume,
       HeartRateDataType _ => AppIcons.favorite,
       HeartRateSeriesDataType _ => AppIcons.favorite,
+      StepsCadenceSeriesDataType _ => AppIcons.speed,
       CyclingPedalingCadenceDataType _ => AppIcons.speed,
       CyclingPedalingCadenceSeriesDataType _ => AppIcons.speed,
       RestingHeartRateDataType _ => AppIcons.favorite,
@@ -355,6 +359,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (HeartRateDataType) => AppTexts.valueWithUnit(
         AppTexts.heartRate,
         AppTexts.bpm,
+      ),
+      const (StepsCadenceSeriesDataType) => AppTexts.valueWithUnit(
+        AppTexts.stepsCadence,
+        AppTexts.stepsPerMinute,
       ),
       const (RestingHeartRateDataType) => AppTexts.valueWithUnit(
         AppTexts.restingHeartRate,
