@@ -12,6 +12,7 @@ import androidx.health.connect.client.records.BoneMassRecord
 import androidx.health.connect.client.records.CervicalMucusRecord
 import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.DistanceRecord
+import androidx.health.connect.client.records.ElevationGainedRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
@@ -51,6 +52,7 @@ import kotlin.reflect.KClass
 internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> = when (this) {
     HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> ActiveCaloriesBurnedRecord::class
     HealthDataTypeDto.DISTANCE -> DistanceRecord::class
+    HealthDataTypeDto.ELEVATION_GAINED -> ElevationGainedRecord::class
     HealthDataTypeDto.FLOORS_CLIMBED -> FloorsClimbedRecord::class
     HealthDataTypeDto.EXERCISE_SESSION -> ExerciseSessionRecord::class
     HealthDataTypeDto.HEIGHT -> HeightRecord::class

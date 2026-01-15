@@ -38,6 +38,7 @@ part 'distance/skating_sports_distance_data_type.dart';
 part 'distance/swimming_distance_data_type.dart';
 part 'distance/walking_running_distance_data_type.dart';
 part 'distance/wheelchair_distance_data_type.dart';
+part 'elevation_gained/elevation_gained_data_type.dart';
 part 'energy_burned/active_energy_burned_data_type.dart';
 part 'energy_burned/basal_energy_burned_data_type.dart';
 part 'energy_burned/total_energy_burned_data_type.dart';
@@ -454,6 +455,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// of approximately 3 meters (10 feet). Supports both reading existing
   /// floors climbed data and writing new measurements.
   static const floorsClimbed = FloorsClimbedDataType();
+
+  /// Elevation gained data type.
+  ///
+  /// Represents the elevation gain accumulated during physical activity.
+  /// Supports both reading existing data and writing new measurements.
+  @sinceV3_1_0
+  @supportedOnHealthConnect
+  static const elevationGained = ElevationGainedDataType();
 
   /// Wheelchair pushes data type.
   ///
@@ -956,6 +965,9 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     diastolicBloodPressure,
     distance,
     downhillSnowSportsDistance,
+    downhillSnowSportsDistance,
+    elevationGained,
+    exerciseSession,
     exerciseSession,
     floorsClimbed,
     heartRate,

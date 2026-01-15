@@ -112,6 +112,7 @@ abstract final class AppTexts {
       BasalEnergyBurnedDataType() => basalEnergyBurned,
       TotalEnergyBurnedDataType() => totalEnergyBurned,
       FloorsClimbedDataType() => floorsClimbed,
+      ElevationGainedDataType() => elevationGained,
       WheelchairPushesDataType() => wheelchairPushes,
       HydrationDataType() => hydration,
       HeartRateDataType() || HeartRateSeriesDataType() => heartRate,
@@ -351,6 +352,7 @@ abstract final class AppTexts {
   static const String wheelchairDistance = '$wheelchair $distance';
   static const String walkingRunningDistance = '$walkingRunning $distance';
   static const String floorsClimbed = 'Floors Climbed';
+  static const String elevationGained = 'Elevation Gained';
   static const String wheelchairPushes = 'Wheelchair Pushes';
   static const String pushes = 'pushes';
   static const String wheelchairPushesLabel = pushes;

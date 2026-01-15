@@ -6,6 +6,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bo
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bone_mass_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence/cycling_pedaling_cadence_series_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/elevation_gained_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/active_energy_burned_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/total_energy_burned_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
@@ -73,7 +74,8 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         RespiratoryRateRecordDto,
         TotalEnergyBurnedRecordDto,
         SpeedSeriesRecordDto,
-        StepsCadenceSeriesRecordDto;
+        StepsCadenceSeriesRecordDto,
+        ElevationGainedRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// ## ⚠️ CRITICAL: Infinite Recursion Prevention
@@ -131,6 +133,8 @@ extension HealthRecordToDto on HealthRecord {
         return ActiveEnergyBurnedRecordToDto(record).toDto();
       case final DistanceRecord record:
         return DistanceRecordToDto(record).toDto();
+      case final ElevationGainedRecord record:
+        return ElevationGainedRecordToDto(record).toDto();
       case final FloorsClimbedRecord record:
         return FloorsClimbedRecordToDto(record).toDto();
       case final HeightRecord record:
@@ -444,6 +448,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return ActiveEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final DistanceRecordDto dto:
         return DistanceRecordDtoToDomain(dto).toDomain();
+      case final ElevationGainedRecordDto dto:
+        return ElevationGainedRecordDtoToDomain(dto).toDomain();
       case final FloorsClimbedRecordDto dto:
         return FloorsClimbedRecordDtoToDomain(dto).toDomain();
       case final HeightRecordDto dto:

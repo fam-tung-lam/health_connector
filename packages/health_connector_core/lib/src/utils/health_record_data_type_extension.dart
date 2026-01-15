@@ -34,6 +34,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
   HealthDataType<HealthRecord, MeasurementUnit> get dataType {
     return switch (this) {
       DistanceRecord _ => HealthDataType.distance,
+      ElevationGainedRecord _ => HealthDataType.elevationGained,
       CyclingDistanceRecord _ => HealthDataType.cyclingDistance,
       SwimmingDistanceRecord _ => HealthDataType.swimmingDistance,
       WheelchairDistanceRecord _ => HealthDataType.wheelchairDistance,
