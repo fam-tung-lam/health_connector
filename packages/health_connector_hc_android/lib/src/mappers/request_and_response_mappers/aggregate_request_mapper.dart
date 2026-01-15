@@ -52,6 +52,7 @@ extension AggregateRequestDtoMapper<
           case CrossCountrySkiingDistanceDataType _:
           case CyclingDistanceDataType _:
           case CyclingPowerDataType _:
+          case RunningPowerDataType _:
           case PowerSeriesDataType _:
           case DownhillSnowSportsDistanceDataType _:
           case PaddleSportsDistanceDataType _:

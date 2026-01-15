@@ -110,7 +110,7 @@ abstract class MeasurementUnitValueParser {
       StairDescentSpeedDataType() => _parseVelocity(value),
 
       // Power
-      CyclingPowerDataType() => _parsePower(value),
+      CyclingPowerDataType() || RunningPowerDataType() => _parsePower(value),
 
       // Respiratory Rate
       RespiratoryRateDataType() => _parseFrequency(value),

@@ -95,6 +95,7 @@ extension HealthDataTypeUI on HealthDataType {
       StairDescentSpeedDataType _ => AppTexts.stairDescentSpeed,
       PowerSeriesDataType _ => AppTexts.powerSeries,
       CyclingPowerDataType _ => AppTexts.cyclingPower,
+      RunningPowerDataType _ => AppTexts.runningPower,
       ExerciseSessionDataType _ => AppTexts.exerciseSession,
       CervicalMucusDataType _ => AppTexts.cervicalMucus,
       MindfulnessSessionDataType _ => AppTexts.mindfulnessSession,
@@ -206,6 +207,7 @@ extension HealthDataTypeUI on HealthDataType {
       StairDescentSpeedDataType _ => AppTexts.speedDescription,
       PowerSeriesDataType _ => 'Power output measurements over time (Android)',
       CyclingPowerDataType _ => 'Cycling power output in watts (iOS)',
+      RunningPowerDataType _ => 'Running power output in watts (iOS)',
       ExerciseSessionDataType _ => 'Period of physical activity',
       MindfulnessSessionDataType _ => 'Period of mindfulness practice',
       CervicalMucusDataType _ => AppTexts.cervicalMucusDescription,
@@ -314,6 +316,7 @@ extension HealthDataTypeUI on HealthDataType {
       StairDescentSpeedDataType _ => AppIcons.speed,
       PowerSeriesDataType _ => AppIcons.power,
       CyclingPowerDataType _ => AppIcons.power,
+      RunningPowerDataType _ => AppIcons.runCircle,
       ExerciseSessionDataType _ => AppIcons.fitnessCenter,
       CervicalMucusDataType _ => AppIcons.waterDrop,
       IntermenstrualBleedingDataType _ => AppIcons.waterDrop,
@@ -664,6 +667,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
 
       // Power Types
       const (CyclingPowerDataType) => AppTexts.cyclingPower,
+      const (RunningPowerDataType) => AppTexts.runningPower,
 
       // Reproductive Health
       const (SexualActivityDataType) => AppTexts.sexualActivity,
@@ -720,7 +724,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (HeartRateVariabilitySDNNDataType) => AppTexts.millisecond,
 
       // Power
-      const (CyclingPowerDataType) => 'W',
+      const (CyclingPowerDataType) || const (RunningPowerDataType) => 'W',
 
       // Activity & Energy
       const (ActiveEnergyBurnedDataType) ||
@@ -839,7 +843,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.vo2Max,
       ),
       const (CyclingPowerDataType) => AppTexts.getPleaseEnterText(
-        AppTexts.power,
+        AppTexts.cyclingPower,
+      ),
+      const (RunningPowerDataType) => AppTexts.getPleaseEnterText(
+        AppTexts.runningPower,
       ),
       const (ActiveEnergyBurnedDataType) => AppTexts.getPleaseEnterText(
         AppTexts.activeEnergyBurned,

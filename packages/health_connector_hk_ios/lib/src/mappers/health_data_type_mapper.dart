@@ -145,6 +145,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.cyclingDistance;
       case HealthDataTypeDto.cyclingPower:
         return HealthDataType.cyclingPower;
+      case HealthDataTypeDto.runningPower:
+        return HealthDataType.runningPower;
       case HealthDataTypeDto.swimmingDistance:
         return HealthDataType.swimmingDistance;
       case HealthDataTypeDto.wheelchairDistance:
@@ -321,6 +323,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.cyclingDistance;
       case CyclingPowerDataType _:
         return HealthDataTypeDto.cyclingPower;
+      case RunningPowerDataType _:
+        return HealthDataTypeDto.runningPower;
       case SwimmingDistanceDataType _:
         return HealthDataTypeDto.swimmingDistance;
       case WheelchairDistanceDataType _:

@@ -257,6 +257,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$CyclingPowerDataType is not supported on Android Health '
           'Connect. Use general $PowerSeriesDataType instead',
         );
+      case RunningPowerDataType _:
+        throw UnsupportedError(
+          '$RunningPowerDataType is not supported on Android Health '
+          'Connect. Use general $PowerSeriesDataType instead',
+        );
       case WalkingSpeedDataType _:
       case RunningSpeedDataType _:
       case StairAscentSpeedDataType _:

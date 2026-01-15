@@ -148,6 +148,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         // Distance activity handlers (iOS HealthKit only)
         register(CyclingDistanceHandler(healthStore: healthStore))
         register(CyclingPowerHandler(healthStore: healthStore))
+        register(RunningPowerHandler(healthStore: healthStore))
         register(SwimmingDistanceHandler(healthStore: healthStore))
         register(WheelchairDistanceHandler(healthStore: healthStore))
         register(WalkingRunningDistanceHandler(healthStore: healthStore))

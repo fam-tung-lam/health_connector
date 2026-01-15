@@ -551,6 +551,21 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      RunningPowerDataType() => _buildAvgMinMax(
+        () => HealthDataType.runningPower.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.runningPower.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.runningPower.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
 
       ExerciseSessionDataType() => _buildSum(
         () => HealthDataType.exerciseSession.aggregateSum(
