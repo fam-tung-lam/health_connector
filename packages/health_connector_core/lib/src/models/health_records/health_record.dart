@@ -121,6 +121,7 @@ part 'speed/speed_series_record.dart';
 part 'speed/stair_ascent_speed_record.dart';
 part 'speed/stair_descent_speed_record.dart';
 part 'speed/walking_speed_record.dart';
+part 'steps_cadence/steps_cadence_series_record.dart';
 part 'steps_record.dart';
 part 'temperature/basal_body_temperature_record.dart';
 part 'temperature/body_temperature_record.dart';

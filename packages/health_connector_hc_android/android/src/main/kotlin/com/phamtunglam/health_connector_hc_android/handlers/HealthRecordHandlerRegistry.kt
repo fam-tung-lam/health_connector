@@ -33,6 +33,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SexualActivityHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SleepSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SpeedSeriesHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsCadenceSeriesHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.TotalEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.Vo2MaxHandler
@@ -235,6 +236,12 @@ internal class HealthRecordHandlerRegistry(
             )
             register(
                 SpeedSeriesHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                StepsCadenceSeriesHandler(
                     dispatcher = dispatchers.io,
                     client = client,
                 ),

@@ -66,6 +66,7 @@ extension AggregateRequestDtoMapper<
           case HeartRateSeriesDataType _:
           case CyclingPedalingCadenceDataType _:
           case CyclingPedalingCadenceSeriesDataType _:
+          case StepsCadenceSeriesDataType _:
           case HeightDataType _:
           case HydrationDataType _:
           case LeanBodyMassDataType _:

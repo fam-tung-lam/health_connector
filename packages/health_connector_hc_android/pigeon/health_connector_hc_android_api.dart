@@ -606,6 +606,9 @@ enum HealthDataTypeDto {
 
   /// Body water mass data.
   bodyWaterMass,
+
+  /// Steps cadence series record data.
+  stepsCadenceSeriesRecord,
 }
 
 /// Represents a blood glucose record for platform transfer.
@@ -1368,6 +1371,54 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
 
   /// List of cadence measurements.
   final List<CyclingPedalingCadenceSampleDto> samples;
+}
+
+/// Represents a single steps cadence measurement.
+class StepsCadenceSampleDto {
+  StepsCadenceSampleDto({
+    required this.time,
+    required this.stepsPerMinute,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Steps cadence measurement in steps per minute.
+  final double stepsPerMinute;
+}
+
+/// Represents a steps cadence series record.
+class StepsCadenceSeriesRecordDto extends HealthRecordDto {
+  StepsCadenceSeriesRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.samples,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier. Null if not yet synced.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Start timezone offset in seconds. Null if unknown.
+  final int? startZoneOffsetSeconds;
+
+  /// End timezone offset in seconds. Null if unknown.
+  final int? endZoneOffsetSeconds;
+
+  /// Metadata for this record.
+  final MetadataDto metadata;
+
+  /// List of cadence measurements.
+  final List<StepsCadenceSampleDto?> samples;
 }
 
 /// Represents a single speed measurement within a [SpeedSeriesRecordDto].

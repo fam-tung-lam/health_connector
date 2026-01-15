@@ -388,6 +388,10 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           'supported on iOS HealthKit. '
           'Use $CyclingPedalingCadenceDataType instead.',
         );
+      case StepsCadenceSeriesDataType _:
+        throw UnsupportedError(
+          '$StepsCadenceSeriesDataType is not supported on iOS HealthKit.',
+        );
       case TotalEnergyBurnedDataType _:
         throw UnsupportedError(
           '$TotalEnergyBurnedDataType is not supported on iOS '

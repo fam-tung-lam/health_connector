@@ -66,6 +66,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/series_health_record_write_forms/power_series_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/series_health_record_write_forms/sleep_session_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/series_health_record_write_forms/speed_series_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/series_health_record_write_forms/steps_cadence_series_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -193,6 +194,10 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
           healthPlatform: _notifier.healthPlatform,
           onSubmit: _onSubmit,
         ),
+      StepsCadenceSeriesDataType _ => StepsCadenceSeriesWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
       BloodGlucoseDataType _ => BloodGlucoseWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,

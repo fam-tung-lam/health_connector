@@ -39,6 +39,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.heartRateSeries;
       case HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord:
         return HealthDataType.cyclingPedalingCadenceSeries;
+      case HealthDataTypeDto.stepsCadenceSeriesRecord:
+        return HealthDataType.stepsCadenceSeries;
       case HealthDataTypeDto.sexualActivity:
         return HealthDataType.sexualActivity;
       case HealthDataTypeDto.sleepSession:
@@ -120,6 +122,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.heartRateSeriesRecord;
       case CyclingPedalingCadenceSeriesDataType _:
         return HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord;
+      case StepsCadenceSeriesDataType _:
+        return HealthDataTypeDto.stepsCadenceSeriesRecord;
       case SexualActivityDataType _:
         return HealthDataTypeDto.sexualActivity;
       case SleepSessionDataType _:

@@ -86,6 +86,7 @@ abstract final class AppTexts {
   static String getLabel(HealthDataType type) {
     return switch (type) {
       StepsDataType() => steps,
+      StepsCadenceSeriesDataType() => stepsCadence,
       WeightDataType() => weight,
       HeightDataType() => height,
       BodyFatPercentageDataType() => bodyFatPercentage,
@@ -299,6 +300,10 @@ abstract final class AppTexts {
 
   // region Health Data Types
   static const String steps = 'Steps';
+  static const String stepsCadence = 'Steps Cadence';
+  static const String stepsCadenceDescription = 'Rate of steps per minute';
+  static const String stepsCadenceSeriesRecordDescription =
+      'Rate of steps per minute over time';
   static const String stepCount = 'Step Count';
   static const String weight = 'Weight';
 
@@ -489,6 +494,7 @@ abstract final class AppTexts {
   static const String breathsPerMinute = 'breaths/min';
   static const String millilitersPerKilogramPerMinute = 'mL/kg/min';
   static const String bpm = 'BPM';
+  static const String stepsPerMinute = 'steps/min';
   static const String perMinute = '/min';
   static const String perSecond = '/s';
   static const String frequency = 'Frequency';

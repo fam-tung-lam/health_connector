@@ -28,6 +28,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/re
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity/sexual_activity_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep/sleep_session_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed/speed_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_cadence/steps_cadence_series_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/basal_body_temperature_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/body_temperature_record_mapper.dart';
@@ -71,7 +72,8 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         ExerciseSessionRecordDto,
         RespiratoryRateRecordDto,
         TotalEnergyBurnedRecordDto,
-        SpeedSeriesRecordDto;
+        SpeedSeriesRecordDto,
+        StepsCadenceSeriesRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// ## ⚠️ CRITICAL: Infinite Recursion Prevention
@@ -147,6 +149,8 @@ extension HealthRecordToDto on HealthRecord {
         return CervicalMucusRecordToDto(record).toDto();
       case final StepsRecord record:
         return StepsRecordToDto(record).toDto();
+      case final StepsCadenceSeriesRecord record:
+        return StepsCadenceSeriesRecordToDto(record).toDto();
       case final WeightRecord record:
         return WeightRecordToDto(record).toDto();
       case final WheelchairPushesRecord record:
@@ -458,6 +462,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return CervicalMucusRecordDtoToDomain(dto).toDomain();
       case final StepsRecordDto dto:
         return StepsRecordDtoToDomain(dto).toDomain();
+      case final StepsCadenceSeriesRecordDto dto:
+        return StepsCadenceSeriesRecordDtoToDomain(dto).toDomain();
       case final WeightRecordDto dto:
         return WeightRecordDtoToDomain(dto).toDomain();
       case final WheelchairPushesRecordDto dto:

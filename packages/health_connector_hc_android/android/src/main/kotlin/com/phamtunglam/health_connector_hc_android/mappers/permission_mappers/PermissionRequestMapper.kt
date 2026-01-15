@@ -32,6 +32,7 @@ import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
+import androidx.health.connect.client.records.StepsCadenceRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.records.Vo2MaxRecord
@@ -439,6 +440,18 @@ private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (hea
         }
     }
 
+    HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                StepsCadenceRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                StepsCadenceRecord::class,
+            )
+        }
+    }
+
     HealthDataTypeDto.EXERCISE_SESSION -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
@@ -578,6 +591,7 @@ private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
         "SPEED" -> HealthDataTypeDto.SPEED_SERIES
         "POWER" -> HealthDataTypeDto.POWER_SERIES
+        "STEPS_CADENCE" -> HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD
         "CYCLING_PEDALING_CADENCE" -> HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
         "EXERCISE" -> HealthDataTypeDto.EXERCISE_SESSION
         "MINDFULNESS" -> HealthDataTypeDto.MINDFULNESS_SESSION

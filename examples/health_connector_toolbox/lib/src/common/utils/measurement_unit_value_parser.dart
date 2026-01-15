@@ -23,6 +23,7 @@ abstract class MeasurementUnitValueParser {
       HeartRateDataType() ||
       CyclingPedalingCadenceDataType() ||
       CyclingPedalingCadenceSeriesDataType() ||
+      StepsCadenceSeriesDataType() ||
       RestingHeartRateDataType() => _parseFrequency(value),
 
       // Mass types (kilograms)

@@ -32,6 +32,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SexualActivityHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SleepSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SpeedSeriesHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsCadenceSeriesHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.TotalEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.Vo2MaxHandler
@@ -129,6 +130,10 @@ class HealthRecordHandlerRegistryTest {
         Arguments.of(
             HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD,
             CyclingPedalingCadenceHandler::class,
+        ),
+        Arguments.of(
+            HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD,
+            StepsCadenceSeriesHandler::class,
         ),
         Arguments.of(HealthDataTypeDto.SEXUAL_ACTIVITY, SexualActivityHandler::class),
         Arguments.of(HealthDataTypeDto.SLEEP_SESSION, SleepSessionHandler::class),
