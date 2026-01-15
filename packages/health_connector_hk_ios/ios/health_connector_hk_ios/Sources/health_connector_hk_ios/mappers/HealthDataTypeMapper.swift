@@ -247,6 +247,8 @@ extension HealthDataTypeDto {
             try HKCategoryType.make(from: .intermenstrualBleeding)
         case .ovulationTest:
             try HKCategoryType.make(from: .ovulationTestResult)
+        case .pregnancyTest:
+            try HKCategoryType.make(from: .pregnancyTestResult)
         case .menstrualFlow:
             try HKCategoryType.make(from: .menstrualFlow)
         case .bodyMassIndex:

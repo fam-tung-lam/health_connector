@@ -84,6 +84,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       MindfulnessSessionRecord _ => HealthDataType.mindfulnessSession,
       RestingHeartRateRecord _ => HealthDataType.restingHeartRate,
       OvulationTestRecord _ => HealthDataType.ovulationTest,
+      PregnancyTestRecord _ => HealthDataType.pregnancyTest,
       IntermenstrualBleedingRecord _ => HealthDataType.intermenstrualBleeding,
       MenstrualFlowInstantRecord _ => HealthDataType.menstrualFlowInstant,
       MenstrualFlowRecord _ => HealthDataType.menstrualFlow,

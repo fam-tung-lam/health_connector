@@ -52,7 +52,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
     ) throws -> T {
         guard let baseHandler = handlers[type] else {
             throw HealthConnectorError.unsupportedOperation(
-                message: "Unsupported data type: \(type.rawValue)",
+                message: "Unregistered handler for data type: \(type.rawValue)",
                 context: ["dataType": type.rawValue]
             )
         }
@@ -145,7 +145,6 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(BloodPressureHandler(healthStore: healthStore))
         register(SystolicBloodPressureHandler(healthStore: healthStore))
         register(DiastolicBloodPressureHandler(healthStore: healthStore))
-        // Distance activity handlers (iOS HealthKit only)
         register(CyclingDistanceHandler(healthStore: healthStore))
         register(CyclingPowerHandler(healthStore: healthStore))
         register(RunningPowerHandler(healthStore: healthStore))
@@ -158,11 +157,11 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(CrossCountrySkiingDistanceHandler(healthStore: healthStore))
         register(SkatingSportsDistanceHandler(healthStore: healthStore))
         register(SixMinuteWalkTestDistanceHandler(healthStore: healthStore))
-        // Speed activity handlers (iOS HealthKit only)
         register(WalkingSpeedHandler(healthStore: healthStore))
         register(RunningSpeedHandler(healthStore: healthStore))
         register(StairAscentSpeedHandler(healthStore: healthStore))
         register(StairDescentSpeedHandler(healthStore: healthStore))
+        register(PregnancyTestHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

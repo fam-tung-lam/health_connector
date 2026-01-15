@@ -414,6 +414,21 @@ enum OvulationTestResultDto {
   positive,
 }
 
+/// Pregnancy test result classification.
+///
+/// Maps to iOS HealthKit HKCategoryValuePregnancyTestResult enum.
+/// iOS only (iOS 15.0+).
+enum PregnancyTestResultDto {
+  /// Test result is positive (pregnancy detected).
+  positive,
+
+  /// Test result is negative (no pregnancy detected).
+  negative,
+
+  /// Test result is inconclusive.
+  inconclusive,
+}
+
 /// Measurement location for basal body temperature reading.
 enum BasalBodyTemperatureMeasurementLocationDto {
   /// Unknown location.
@@ -865,6 +880,9 @@ enum HealthDataTypeDto {
 
   /// Ovulation test data.
   ovulationTest,
+
+  /// Pregnancy test data (iOS only).
+  pregnancyTest,
 
   /// Intermenstrual bleeding data.
   intermenstrualBleeding,
@@ -1794,6 +1812,32 @@ class OvulationTestRecordDto extends HealthRecordDto {
 
   /// The ovulation test result.
   final OvulationTestResultDto result;
+}
+
+/// Represents a pregnancy test record for platform transfer.
+class PregnancyTestRecordDto extends HealthRecordDto {
+  PregnancyTestRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.result,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+
+  /// The pregnancy test result.
+  final PregnancyTestResultDto result;
 }
 
 /// Represents an intermenstrual bleeding record for platform transfer.

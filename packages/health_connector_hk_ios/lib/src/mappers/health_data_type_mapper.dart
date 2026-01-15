@@ -129,6 +129,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.restingHeartRate;
       case HealthDataTypeDto.ovulationTest:
         return HealthDataType.ovulationTest;
+      case HealthDataTypeDto.pregnancyTest:
+        return HealthDataType.pregnancyTest;
       case HealthDataTypeDto.intermenstrualBleeding:
         return HealthDataType.intermenstrualBleeding;
       case HealthDataTypeDto.menstrualFlow:
@@ -306,6 +308,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.restingHeartRate;
       case OvulationTestDataType _:
         return HealthDataTypeDto.ovulationTest;
+      case PregnancyTestDataType _:
+        return HealthDataTypeDto.pregnancyTest;
       case IntermenstrualBleedingDataType _:
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowDataType _:

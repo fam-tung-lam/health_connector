@@ -614,6 +614,9 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       OvulationTestDataType() => throw UnsupportedError(
         'Ovulation test does not support aggregation',
       ),
+      PregnancyTestDataType() => throw UnsupportedError(
+        'Pregnancy test does not support aggregation',
+      ),
       BoneMassDataType() => throw UnsupportedError(
         'Bone mass does not support aggregation',
       ),

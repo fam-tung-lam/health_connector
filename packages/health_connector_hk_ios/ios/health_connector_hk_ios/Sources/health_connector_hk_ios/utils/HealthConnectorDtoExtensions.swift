@@ -58,6 +58,8 @@ extension HealthRecordDto {
             record.id
         case let record as OvulationTestRecordDto:
             record.id
+        case let record as PregnancyTestRecordDto:
+            record.id
         case let record as IntermenstrualBleedingRecordDto:
             record.id
         case let record as MenstrualFlowRecordDto:
@@ -307,6 +309,8 @@ extension HealthRecordDto {
                 return .cyclingPedalingCadence
             case is OvulationTestRecordDto:
                 return .ovulationTest
+            case is PregnancyTestRecordDto:
+                return .pregnancyTest
             case is IntermenstrualBleedingRecordDto:
                 return .intermenstrualBleeding
             case is MenstrualFlowRecordDto:
@@ -470,6 +474,8 @@ extension HealthRecordDto {
         case let dto as CervicalMucusRecordDto:
             return dto.time
         case let dto as OvulationTestRecordDto:
+            return dto.time
+        case let dto as PregnancyTestRecordDto:
             return dto.time
         case let dto as IntermenstrualBleedingRecordDto:
             return dto.time
