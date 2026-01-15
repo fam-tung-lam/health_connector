@@ -23,6 +23,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DistanceActivityRecord,
         DistanceRecord,
         DietaryEnergyConsumedRecord,
+        ElevationGainedRecord,
         FloorsClimbedRecord,
         DietaryFolateRecord,
         HealthRecord,
@@ -443,6 +444,10 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$DistanceRecord is not supported on iOS HealthKit. '
           'Use $DistanceActivityRecord instead.',
+        );
+      case final ElevationGainedRecord _:
+        throw UnsupportedError(
+          '$ElevationGainedRecord is not supported on iOS HealthKit.',
         );
       case final SpeedActivityRecord record:
         return SpeedActivityRecordToDto(record).toDto();

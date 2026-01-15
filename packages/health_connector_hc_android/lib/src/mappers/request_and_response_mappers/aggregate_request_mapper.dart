@@ -48,6 +48,7 @@ extension AggregateRequestDtoMapper<
           case BodyTemperatureDataType _:
           case CervicalMucusDataType _:
           case DistanceDataType _:
+          case ElevationGainedDataType _:
           case CrossCountrySkiingDistanceDataType _:
           case CyclingDistanceDataType _:
           case CyclingPowerDataType _:

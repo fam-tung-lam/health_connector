@@ -37,6 +37,7 @@ part 'distance/skating_sports_distance_record.dart';
 part 'distance/swimming_distance_record.dart';
 part 'distance/walking_running_distance_record.dart';
 part 'distance/wheelchair_distance_record.dart';
+part 'elevation_gained/elevation_gained_record.dart';
 part 'energy_burned/active_energy_burned_record.dart';
 part 'energy_burned/basal_energy_burned_record.dart';
 part 'energy_burned/total_energy_burned_record.dart';

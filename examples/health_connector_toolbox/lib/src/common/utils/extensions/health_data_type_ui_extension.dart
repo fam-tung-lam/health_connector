@@ -36,6 +36,7 @@ extension HealthDataTypeUI on HealthDataType {
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurned,
       TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurned,
       FloorsClimbedDataType _ => AppTexts.floorsClimbed,
+      ElevationGainedDataType _ => AppTexts.elevationGained,
       WheelchairPushesDataType _ => AppTexts.wheelchairPushes,
       HydrationDataType _ => AppTexts.hydration,
       HeartRateDataType _ => AppTexts.heartRate,
@@ -142,6 +143,7 @@ extension HealthDataTypeUI on HealthDataType {
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurnedDescription,
       TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurnedDescription,
       FloorsClimbedDataType _ => AppTexts.floorsClimbedDescription,
+      ElevationGainedDataType _ => 'Accumulated elevation gain',
       WheelchairPushesDataType _ => AppTexts.wheelchairPushesDescription,
       HydrationDataType _ => AppTexts.hydrationDescription,
       HeartRateDataType _ => AppTexts.heartRateRecordDescription,
@@ -255,6 +257,7 @@ extension HealthDataTypeUI on HealthDataType {
       BasalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
       TotalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
       FloorsClimbedDataType _ => AppIcons.stairs,
+      ElevationGainedDataType _ => AppIcons.terrain,
       WheelchairPushesDataType _ => AppIcons.accessible,
       HydrationDataType _ => AppIcons.volume,
       HeartRateDataType _ => AppIcons.favorite,
@@ -355,6 +358,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       // Count Types
       const (StepsDataType) => AppTexts.stepCount,
       const (FloorsClimbedDataType) => AppTexts.floorsClimbed,
+      const (ElevationGainedDataType) => AppTexts.valueWithUnit(
+        AppTexts.elevationGained,
+        AppTexts.meter,
+      ),
       const (WheelchairPushesDataType) => AppTexts.wheelchairPushes,
       const (HeartRateDataType) => AppTexts.valueWithUnit(
         AppTexts.heartRate,
@@ -688,6 +695,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       // Distance types
       const (HeightDataType) ||
       const (DistanceDataType) ||
+      const (ElevationGainedDataType) ||
       const (CrossCountrySkiingDistanceDataType) ||
       const (CyclingDistanceDataType) ||
       const (DownhillSnowSportsDistanceDataType) ||

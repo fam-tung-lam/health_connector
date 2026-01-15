@@ -14,6 +14,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.CervicalMucusHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.CyclingPedalingCadenceHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.DistanceHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ElevationGainedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ExerciseSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.FloorsClimbedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.HeartRateHandler
@@ -266,6 +267,12 @@ internal class HealthRecordHandlerRegistry(
             )
             register(
                 HeartRateVariabilityRMSSDHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                ElevationGainedHandler(
                     dispatcher = dispatchers.io,
                     client = client,
                 ),

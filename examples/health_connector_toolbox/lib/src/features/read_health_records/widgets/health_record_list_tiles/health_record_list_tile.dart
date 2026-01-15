@@ -278,6 +278,14 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.distance,
           onDelete: onDelete,
         ),
+      final ElevationGainedRecord r =>
+        SimpleIntervalMeasurementListTile<ElevationGainedRecord>(
+          record: r,
+          icon: AppIcons.terrain,
+          titleBuilder: (r) => '${r.elevation.inMeters.toStringAsFixed(0)} m',
+          valueExtractor: (r) => r.elevation,
+          onDelete: onDelete,
+        ),
       final DistanceActivityRecord r => DistanceActivityTile(
         record: r,
         onDelete: onDelete,

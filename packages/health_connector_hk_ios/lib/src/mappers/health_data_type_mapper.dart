@@ -354,6 +354,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.mindfulnessSession;
       case HeartRateVariabilitySDNNDataType _:
         return HealthDataTypeDto.heartRateVariabilitySDNN;
+      case ElevationGainedDataType _:
+        throw UnsupportedError(
+          '$ElevationGainedDataType is not supported on iOS '
+          'HealthKit.',
+        );
       case DistanceDataType _:
         throw UnsupportedError(
           'General $DistanceDataType type is not supported on iOS '

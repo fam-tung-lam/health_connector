@@ -4,6 +4,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
 import 'package:meta/meta.dart';
 
 /// Converts [StepsCadenceSeriesRecord] to [StepsCadenceSeriesRecordDto].
+@sinceV3_1_0
 @internal
 extension StepsCadenceSeriesRecordToDto on StepsCadenceSeriesRecord {
   /// Converts [StepsCadenceSeriesRecord] to [StepsCadenceSeriesRecordDto].
@@ -28,6 +29,7 @@ extension StepsCadenceSeriesRecordToDto on StepsCadenceSeriesRecord {
 }
 
 /// Converts [StepsCadenceSeriesRecordDto] to [StepsCadenceSeriesRecord].
+@sinceV3_1_0
 @internal
 extension StepsCadenceSeriesRecordDtoToDomain on StepsCadenceSeriesRecordDto {
   /// Converts [StepsCadenceSeriesRecordDto] to [StepsCadenceSeriesRecord].

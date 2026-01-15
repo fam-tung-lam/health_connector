@@ -97,6 +97,13 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      ElevationGainedDataType() => _buildSum(
+        () => HealthDataType.elevationGained.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
 
       // Mass/Length types - avg/min/max
       WeightDataType() => _buildAvgMinMax(

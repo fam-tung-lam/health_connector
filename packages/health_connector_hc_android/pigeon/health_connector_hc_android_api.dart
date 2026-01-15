@@ -508,6 +508,9 @@ enum HealthDataTypeDto {
   /// Distance traveled data.
   distance,
 
+  /// Elevation gained data.
+  elevationGained,
+
   /// Floors climbed data.
   floorsClimbed,
 
@@ -1419,6 +1422,40 @@ class StepsCadenceSeriesRecordDto extends HealthRecordDto {
 
   /// List of cadence measurements.
   final List<StepsCadenceSampleDto?> samples;
+}
+
+/// Represents an elevation gained record for platform transfer (Android Only).
+class ElevationGainedRecordDto extends HealthRecordDto {
+  ElevationGainedRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.meters,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Elevation gained in meters.
+  final double meters;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// Start timezone offset in seconds. Null if unknown.
+  final int? startZoneOffsetSeconds;
+
+  /// End timezone offset in seconds. Null if unknown.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a single speed measurement within a [SpeedSeriesRecordDto].

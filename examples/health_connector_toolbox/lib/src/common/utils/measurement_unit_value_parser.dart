@@ -78,6 +78,7 @@ abstract class MeasurementUnitValueParser {
       HeightDataType() ||
       WaistCircumferenceDataType() ||
       DistanceDataType() ||
+      ElevationGainedDataType() ||
       CrossCountrySkiingDistanceDataType() ||
       CyclingDistanceDataType() ||
       DownhillSnowSportsDistanceDataType() ||

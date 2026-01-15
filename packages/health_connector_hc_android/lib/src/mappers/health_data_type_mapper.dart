@@ -13,6 +13,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.activeEnergyBurned;
       case HealthDataTypeDto.distance:
         return HealthDataType.distance;
+      case HealthDataTypeDto.elevationGained:
+        return HealthDataType.elevationGained;
       case HealthDataTypeDto.floorsClimbed:
         return HealthDataType.floorsClimbed;
       case HealthDataTypeDto.height:
@@ -96,6 +98,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.activeCaloriesBurned;
       case DistanceDataType _:
         return HealthDataTypeDto.distance;
+      case ElevationGainedDataType _:
+        return HealthDataTypeDto.elevationGained;
       case FloorsClimbedDataType _:
         return HealthDataTypeDto.floorsClimbed;
       case HeightDataType _:

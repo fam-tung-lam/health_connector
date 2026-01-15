@@ -12,6 +12,7 @@ import androidx.health.connect.client.records.BoneMassRecord
 import androidx.health.connect.client.records.CervicalMucusRecord
 import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.DistanceRecord
+import androidx.health.connect.client.records.ElevationGainedRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
@@ -49,6 +50,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BoneMassRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CervicalMucusRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ElevationGainedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -88,6 +90,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
     get() = when (this) {
         is ActiveEnergyBurnedRecordDto -> HealthDataTypeDto.ACTIVE_CALORIES_BURNED
         is DistanceRecordDto -> HealthDataTypeDto.DISTANCE
+        is ElevationGainedRecordDto -> HealthDataTypeDto.ELEVATION_GAINED
         is FloorsClimbedRecordDto -> HealthDataTypeDto.FLOORS_CLIMBED
         is StepsRecordDto -> HealthDataTypeDto.STEPS
         is HeightRecordDto -> HealthDataTypeDto.HEIGHT
@@ -137,6 +140,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
 internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is ActiveEnergyBurnedRecordDto -> toHealthConnect()
     is DistanceRecordDto -> toHealthConnect()
+    is ElevationGainedRecordDto -> toHealthConnect()
     is FloorsClimbedRecordDto -> toHealthConnect()
     is StepsRecordDto -> toHealthConnect()
     is HeightRecordDto -> toHealthConnect()
@@ -189,6 +193,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
 internal fun Record.toDto(): HealthRecordDto = when (this) {
     is ActiveCaloriesBurnedRecord -> toDto()
     is DistanceRecord -> toDto()
+    is ElevationGainedRecord -> toDto()
     is FloorsClimbedRecord -> toDto()
     is StepsRecord -> toDto()
     is HeightRecord -> toDto()
