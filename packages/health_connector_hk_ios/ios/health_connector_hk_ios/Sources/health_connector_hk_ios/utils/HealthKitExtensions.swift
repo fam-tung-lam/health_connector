@@ -145,6 +145,8 @@ extension HKSample {
                 return .cyclingDistance
             case HKQuantityTypeIdentifier.distanceSwimming.rawValue:
                 return .swimmingDistance
+            case HKQuantityTypeIdentifier.swimmingStrokeCount.rawValue:
+                return .swimmingStrokeCount
             case HKQuantityTypeIdentifier.distanceWheelchair.rawValue:
                 return .wheelchairDistance
             case HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue:

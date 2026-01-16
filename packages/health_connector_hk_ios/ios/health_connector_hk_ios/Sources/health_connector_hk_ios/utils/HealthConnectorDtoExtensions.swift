@@ -160,6 +160,8 @@ extension HealthRecordDto {
             record.id
         case let record as NutritionRecordDto:
             record.id
+        case let record as SwimmingStrokesRecordDto:
+            record.id
         default:
             nil
         }
@@ -339,9 +341,13 @@ extension HealthRecordDto {
                 return .heartRateVariabilitySDNN
             case is ContraceptiveRecordDto:
                 return .contraceptive
+            case is SwimmingStrokesRecordDto:
+                return .swimmingStrokeCount
             default:
                 throw HealthConnectorError.invalidArgument(
-                    message: "Unimplemented `HealthRecordDto.dataType` for health record DTO: \(type(of: self))")
+                    message:
+                    "Unimplemented `HealthRecordDto.dataType` for health record DTO: \(type(of: self))"
+                )
             }
         }
     }
@@ -509,9 +515,12 @@ extension HealthRecordDto {
             return dto.time
         case let dto as HeartRateVariabilitySDNNRecordDto:
             return dto.time
+        case let dto as SwimmingStrokesRecordDto:
+            return dto.endTime
         default:
             throw HealthConnectorError.invalidArgument(
-                message: "Unimplemented `HealthRecordDto.extractTimestamp` for health record DTO: \(type(of: self))"
+                message:
+                "Unimplemented `HealthRecordDto.extractTimestamp` for health record DTO: \(type(of: self))"
             )
         }
     }

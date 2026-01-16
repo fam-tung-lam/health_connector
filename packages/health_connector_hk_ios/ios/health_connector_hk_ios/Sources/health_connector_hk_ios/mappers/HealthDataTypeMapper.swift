@@ -156,6 +156,8 @@ extension HealthDataTypeDto {
             }
         case .swimmingDistance:
             try HKQuantityType.make(from: .distanceSwimming)
+        case .swimmingStrokeCount:
+            try HKQuantityType.make(from: .swimmingStrokeCount)
         case .wheelchairDistance:
             try HKQuantityType.make(from: .distanceWheelchair)
         case .walkingRunningDistance:

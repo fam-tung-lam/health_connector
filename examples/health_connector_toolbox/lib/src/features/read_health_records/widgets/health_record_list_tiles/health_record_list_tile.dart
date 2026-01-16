@@ -284,6 +284,14 @@ final class HealthRecordListTile extends StatelessWidget {
         valueExtractor: (r) => r.count,
         onDelete: onDelete,
       ),
+      final SwimmingStrokesRecord r =>
+        SimpleIntervalMeasurementListTile<SwimmingStrokesRecord>(
+          record: r,
+          icon: AppIcons.pool,
+          titleBuilder: (r) => '${r.count.value} strokes',
+          valueExtractor: (r) => r.count,
+          onDelete: onDelete,
+        ),
       final DistanceRecord r =>
         SimpleIntervalMeasurementListTile<DistanceRecord>(
           record: r,

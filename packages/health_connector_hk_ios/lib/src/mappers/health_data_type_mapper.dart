@@ -177,6 +177,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.walkingSpeed;
       case HealthDataTypeDto.runningSpeed:
         return HealthDataType.runningSpeed;
+      case HealthDataTypeDto.swimmingStrokeCount:
+        return HealthDataType.swimmingStrokes;
       case HealthDataTypeDto.stairAscentSpeed:
         return HealthDataType.stairAscentSpeed;
       case HealthDataTypeDto.stairDescentSpeed:
@@ -371,6 +373,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.sixMinuteWalkTestDistance;
       case WalkingRunningDistanceDataType _:
         return HealthDataTypeDto.walkingRunningDistance;
+      case SwimmingStrokesDataType _:
+        return HealthDataTypeDto.swimmingStrokeCount;
       // Speed activity types (iOS HealthKit only)
       case WalkingSpeedDataType _:
         return HealthDataTypeDto.walkingSpeed;

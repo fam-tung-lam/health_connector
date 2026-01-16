@@ -39,6 +39,7 @@ extension HealthDataTypeUI on HealthDataType {
       FloorsClimbedDataType _ => AppTexts.floorsClimbed,
       ElevationGainedDataType _ => AppTexts.elevationGained,
       WheelchairPushesDataType _ => AppTexts.wheelchairPushes,
+      SwimmingStrokesDataType _ => AppTexts.swimmingStrokes,
       HydrationDataType _ => AppTexts.hydration,
       HeartRateDataType _ => AppTexts.heartRate,
       HeartRateSeriesDataType _ => AppTexts.heartRate,
@@ -153,6 +154,7 @@ extension HealthDataTypeUI on HealthDataType {
       FloorsClimbedDataType _ => AppTexts.floorsClimbedDescription,
       ElevationGainedDataType _ => 'Accumulated elevation gain',
       WheelchairPushesDataType _ => AppTexts.wheelchairPushesDescription,
+      SwimmingStrokesDataType _ => 'Count of swimming strokes',
       HydrationDataType _ => AppTexts.hydrationDescription,
       HeartRateDataType _ => AppTexts.heartRateRecordDescription,
       HeartRateSeriesDataType _ => AppTexts.heartRateSeriesRecordDescription,
@@ -274,6 +276,7 @@ extension HealthDataTypeUI on HealthDataType {
       FloorsClimbedDataType _ => AppIcons.stairs,
       ElevationGainedDataType _ => AppIcons.terrain,
       WheelchairPushesDataType _ => AppIcons.accessible,
+      SwimmingStrokesDataType _ => AppIcons.pool,
       HydrationDataType _ => AppIcons.volume,
       HeartRateDataType _ => AppIcons.favorite,
       HeartRateSeriesDataType _ => AppIcons.favorite,
@@ -365,6 +368,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (StepsDataType) ||
       const (FloorsClimbedDataType) ||
       const (WheelchairPushesDataType) ||
+      const (SwimmingStrokesDataType) ||
       const (HeartRateDataType) ||
       const (RestingHeartRateDataType) => TextInputType.number,
 
@@ -385,6 +389,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.meter,
       ),
       const (WheelchairPushesDataType) => AppTexts.wheelchairPushes,
+      const (SwimmingStrokesDataType) => AppTexts.swimmingStrokes,
       const (HeartRateDataType) => AppTexts.valueWithUnit(
         AppTexts.heartRate,
         AppTexts.bpm,

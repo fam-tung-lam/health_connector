@@ -469,6 +469,10 @@ extension HealthRecordToDto on HealthRecord {
           '$MenstrualFlowRecord is not supported on Android Health Connect. '
           'Use $MenstrualFlowInstantRecord instead.',
         );
+      case final SwimmingStrokesRecord _:
+        throw UnsupportedError(
+          '$SwimmingStrokesRecord is not supported on Android Health Connect.',
+        );
     }
   }
 }

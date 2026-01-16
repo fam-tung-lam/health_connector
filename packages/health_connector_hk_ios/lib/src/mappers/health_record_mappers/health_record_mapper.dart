@@ -70,6 +70,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sexual
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep/sleep_stage_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/speed/speed_activity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/steps_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/swimming_strokes_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/basal_body_temperature_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/body_temperature_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mapper.dart';
@@ -346,6 +347,8 @@ extension HealthRecordToDto on HealthRecord {
         return PregnancyRecordToDto(record).toDto();
       case final ContraceptiveRecord record:
         return ContraceptiveRecordToDto(record).toDto();
+      case final SwimmingStrokesRecord record:
+        return SwimmingStrokesRecordToDto(record).toDto();
     }
   }
 }
@@ -512,6 +515,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return PregnancyRecordDtoToDomain(dto).toDomain();
       case final ContraceptiveRecordDto dto:
         return ContraceptiveRecordDtoToDomain(dto).toDomain();
+      case final SwimmingStrokesRecordDto dto:
+        return SwimmingStrokesRecordDtoToDomain(dto).toDomain();
     }
   }
 }

@@ -37,6 +37,7 @@ abstract final class AppIcons {
   static const IconData vo2Max = Icons.directions_run;
   static const IconData runCircle = Icons.run_circle;
   static const IconData terrain = Icons.terrain;
+  static const IconData pool = Icons.pool;
 
   // Permissions & Security
   static const IconData lockOutline = Icons.lock_outline;

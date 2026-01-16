@@ -300,6 +300,10 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$this is not supported on Android Health Connect. '
           'Use general $SpeedSeriesDataType instead.',
         );
+      case SwimmingStrokesDataType _:
+        throw UnsupportedError(
+          '$SwimmingStrokesDataType is not supported on Android Health Connect.',
+        );
       case BodyMassIndexDataType _:
         throw UnsupportedError(
           '$BodyMassIndexDataType is not supported on Android '

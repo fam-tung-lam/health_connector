@@ -115,6 +115,7 @@ abstract final class AppTexts {
       FloorsClimbedDataType() => floorsClimbed,
       ElevationGainedDataType() => elevationGained,
       WheelchairPushesDataType() => wheelchairPushes,
+      SwimmingStrokesDataType() => swimmingStrokes,
       HydrationDataType() => hydration,
       HeartRateDataType() || HeartRateSeriesDataType() => heartRate,
       CyclingPedalingCadenceDataType() ||
@@ -367,6 +368,7 @@ abstract final class AppTexts {
   static const String wheelchairPushes = 'Wheelchair Pushes';
   static const String pushes = 'pushes';
   static const String wheelchairPushesLabel = pushes;
+  static const String swimmingStrokes = 'Swimming Strokes';
   static const String height = 'Height';
   static const String bodyFatPercentage = 'Body Fat Percentage';
   static const String leanBodyMass = 'Lean Body Mass';

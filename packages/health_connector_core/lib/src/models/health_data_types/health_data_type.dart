@@ -121,6 +121,7 @@ part 'speed/stair_descent_speed_data_type.dart';
 part 'speed/walking_speed_data_type.dart';
 part 'steps_cadence/steps_cadence_series_data_type.dart';
 part 'steps_data_type.dart';
+part 'swimming_strokes_data_type.dart';
 part 'temperature/basal_body_temperature_data_type.dart';
 part 'temperature/body_temperature_data_type.dart';
 part 'vo2_max_data_type.dart';
@@ -244,6 +245,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_0_0
   @supportedOnAppleHealth
   static const swimmingDistance = SwimmingDistanceDataType();
+
+  /// Swimming strokes count data type.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const swimmingStrokes = SwimmingStrokesDataType();
 
   /// Wheelchair distance data type.
   @sinceV2_0_0
@@ -1072,6 +1078,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     steps,
     stepsCadenceSeries,
     swimmingDistance,
+    swimmingStrokes,
     systolicBloodPressure,
     totalEnergyBurned,
     vo2Max,

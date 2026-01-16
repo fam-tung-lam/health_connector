@@ -717,6 +717,9 @@ enum HealthDataTypeDto {
   /// Swimming distance.
   swimmingDistance,
 
+  /// Swimming stroke count data.
+  swimmingStrokeCount,
+
   /// Running power data (iOS 16+).
   runningPower,
 
@@ -1473,6 +1476,39 @@ class StepsRecordDto extends HealthRecordDto {
   });
 
   /// Number of steps taken during the interval (must be >= 0).
+  final double count;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+class SwimmingStrokesRecordDto extends HealthRecordDto {
+  SwimmingStrokesRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.count,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Number of strokes taken during the interval (must be >= 0).
   final double count;
 
   /// End time in milliseconds since epoch (UTC).

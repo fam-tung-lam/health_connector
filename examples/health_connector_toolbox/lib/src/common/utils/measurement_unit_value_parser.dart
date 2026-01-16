@@ -18,7 +18,8 @@ abstract class MeasurementUnitValueParser {
       StepsDataType() ||
       AlcoholicBeveragesDataType() ||
       FloorsClimbedDataType() ||
-      WheelchairPushesDataType() => _parseIntegerCount(value),
+      WheelchairPushesDataType() ||
+      SwimmingStrokesDataType() => _parseIntegerCount(value),
 
       // Frequency types
       HeartRateDataType() ||

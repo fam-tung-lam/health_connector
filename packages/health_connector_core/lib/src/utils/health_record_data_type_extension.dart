@@ -45,6 +45,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       CrossCountrySkiingDistanceRecord _ =>
         HealthDataType.crossCountrySkiingDistance,
       SkatingSportsDistanceRecord _ => HealthDataType.skatingSportsDistance,
+      SwimmingStrokesRecord _ => HealthDataType.swimmingStrokes,
       SixMinuteWalkTestDistanceRecord _ =>
         HealthDataType.sixMinuteWalkTestDistance,
       WalkingRunningDistanceRecord _ => HealthDataType.walkingRunningDistance,
