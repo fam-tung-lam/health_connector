@@ -199,6 +199,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         throw UnsupportedError(
           'Test result types are not valid as HealthDataType.',
         );
+      case HealthDataTypeDto.peripheralPerfusionIndex:
+        return HealthDataType.peripheralPerfusionIndex;
     }
   }
 }
@@ -464,6 +466,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$MenstrualFlowInstantDataType is not supported on iOS HealthKit. '
           'Use $MenstrualFlowDataType instead.',
         );
+      case PeripheralPerfusionIndexDataType _:
+        return HealthDataTypeDto.peripheralPerfusionIndex;
     }
   }
 }

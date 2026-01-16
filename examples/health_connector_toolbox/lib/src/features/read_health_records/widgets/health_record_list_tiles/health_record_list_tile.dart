@@ -275,6 +275,14 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.saturation,
           onDelete: onDelete,
         ),
+      final PeripheralPerfusionIndexRecord r =>
+        SimpleInstantMeasurementListTile<PeripheralPerfusionIndexRecord>(
+          record: r,
+          icon: AppIcons.percent,
+          titleBuilder: (r) => '${r.percentage.asWhole.toStringAsFixed(1)} %',
+          valueExtractor: (r) => r.percentage,
+          onDelete: onDelete,
+        ),
       final Vo2MaxRecord r => SimpleInstantMeasurementListTile<Vo2MaxRecord>(
         record: r,
         icon: AppIcons.favorite,

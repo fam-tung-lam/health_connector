@@ -32,6 +32,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/lean_body_mass_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/nutrient_health_record_write_forms.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/oxygen_saturation_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/peripheral_perfusion_index_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/respiratory_rate_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/resting_heart_rate_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/running_power_health_record_write_form.dart';
@@ -562,6 +563,11 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
+      PeripheralPerfusionIndexDataType _ =>
+        PeripheralPerfusionIndexRecordWriteForm(
+          healthPlatform: _notifier.healthPlatform,
+          onSubmit: _onSubmit,
+        ),
     };
   }
 }

@@ -706,130 +706,132 @@ public enum HealthDataTypeDto: Int {
   case sleepStageRecord = 31
   /// Sexual activity data.
   case sexualActivity = 32
+  /// Peripheral perfusion index data.
+  case peripheralPerfusionIndex = 33
   /// Walking speed data.
-  case walkingSpeed = 33
+  case walkingSpeed = 34
   /// Running speed data.
-  case runningSpeed = 34
+  case runningSpeed = 35
   /// Stair ascent speed data.
-  case stairAscentSpeed = 35
+  case stairAscentSpeed = 36
   /// Stair descent speed data.
-  case stairDescentSpeed = 36
+  case stairDescentSpeed = 37
   /// Energy nutrient data (calories consumed).
-  case dietaryEnergyConsumed = 37
+  case dietaryEnergyConsumed = 38
   /// Caffeine nutrient data.
-  case caffeine = 38
+  case caffeine = 39
   /// Protein nutrient data.
-  case protein = 39
+  case protein = 40
   /// Total carbohydrate nutrient data.
-  case totalCarbohydrate = 40
+  case totalCarbohydrate = 41
   /// Total fat nutrient data.
-  case totalFat = 41
+  case totalFat = 42
   /// Saturated fat nutrient data.
-  case saturatedFat = 42
+  case saturatedFat = 43
   /// Monounsaturated fat nutrient data.
-  case monounsaturatedFat = 43
+  case monounsaturatedFat = 44
   /// Polyunsaturated fat nutrient data.
-  case polyunsaturatedFat = 44
+  case polyunsaturatedFat = 45
   /// Cholesterol nutrient data.
-  case cholesterol = 45
+  case cholesterol = 46
   /// Dietary fiber nutrient data.
-  case dietaryFiber = 46
+  case dietaryFiber = 47
   /// Sugar nutrient data.
-  case sugar = 47
+  case sugar = 48
   /// Vitamin A nutrient data.
-  case vitaminA = 48
+  case vitaminA = 49
   /// Vitamin B6 nutrient data.
-  case vitaminB6 = 49
+  case vitaminB6 = 50
   /// Vitamin B12 nutrient data.
-  case vitaminB12 = 50
+  case vitaminB12 = 51
   /// Vitamin C nutrient data.
-  case vitaminC = 51
+  case vitaminC = 52
   /// Vitamin D nutrient data.
-  case vitaminD = 52
+  case vitaminD = 53
   /// Vitamin E nutrient data.
-  case vitaminE = 53
+  case vitaminE = 54
   /// Vitamin K nutrient data.
-  case vitaminK = 54
+  case vitaminK = 55
   /// Thiamin (Vitamin B1) nutrient data.
-  case thiamin = 55
+  case thiamin = 56
   /// Riboflavin (Vitamin B2) nutrient data.
-  case riboflavin = 56
+  case riboflavin = 57
   /// Niacin (Vitamin B3) nutrient data.
-  case niacin = 57
+  case niacin = 58
   /// Folate (Vitamin B9) nutrient data.
-  case folate = 58
+  case folate = 59
   /// Biotin (Vitamin B7) nutrient data.
-  case biotin = 59
+  case biotin = 60
   /// Pantothenic acid (Vitamin B5) nutrient data.
-  case pantothenicAcid = 60
+  case pantothenicAcid = 61
   /// Calcium nutrient data.
-  case calcium = 61
+  case calcium = 62
   /// Iron nutrient data.
-  case iron = 62
+  case iron = 63
   /// Magnesium nutrient data.
-  case magnesium = 63
+  case magnesium = 64
   /// Manganese nutrient data.
-  case manganese = 64
+  case manganese = 65
   /// Phosphorus nutrient data.
-  case phosphorus = 65
+  case phosphorus = 66
   /// Potassium nutrient data.
-  case potassium = 66
+  case potassium = 67
   /// Selenium nutrient data.
-  case selenium = 67
+  case selenium = 68
   /// Sodium nutrient data.
-  case sodium = 68
+  case sodium = 69
   /// Zinc nutrient data.
-  case zinc = 69
+  case zinc = 70
   /// Combined nutrition record (HKCorrelation.food).
-  case nutrition = 70
+  case nutrition = 71
   /// Resting heart rate data.
-  case restingHeartRate = 71
+  case restingHeartRate = 72
   /// Composite blood pressure (HKCorrelationType.bloodPressure).
-  case bloodPressure = 72
+  case bloodPressure = 73
   /// Systolic blood pressure (HKQuantityType.bloodPressureSystolic).
-  case systolicBloodPressure = 73
+  case systolicBloodPressure = 74
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
-  case diastolicBloodPressure = 74
+  case diastolicBloodPressure = 75
   /// Ovulation test data.
-  case ovulationTest = 75
+  case ovulationTest = 76
   /// Pregnancy test data (iOS only).
-  case pregnancyTest = 76
+  case pregnancyTest = 77
   /// Pregnancy data (iOS only).
-  case pregnancy = 77
+  case pregnancy = 78
   /// Contraceptive data (iOS only).
-  case contraceptive = 78
+  case contraceptive = 79
   /// Progesterone test data (iOS only).
-  case progesteroneTest = 79
+  case progesteroneTest = 80
   /// Lactation data (iOS only).
-  case lactation = 80
+  case lactation = 81
   /// Ovulation test result.
-  case ovulationTestResult = 81
+  case ovulationTestResult = 82
   /// Progesterone test result (iOS only).
-  case progesteroneTestResult = 82
+  case progesteroneTestResult = 83
   /// Sleep stage type.
-  case sleepStage = 83
+  case sleepStage = 84
   /// Intermenstrual bleeding data.
-  case intermenstrualBleeding = 84
+  case intermenstrualBleeding = 85
   /// Menstrual flow data (iOS HealthKit only).
-  case menstrualFlow = 85
+  case menstrualFlow = 86
   /// Oxygen saturation data.
-  case oxygenSaturation = 86
+  case oxygenSaturation = 87
   /// Respiratory rate data.
-  case respiratoryRate = 87
+  case respiratoryRate = 88
   /// VO2 max (maximal oxygen uptake) data.
-  case vo2Max = 88
+  case vo2Max = 89
   /// Blood glucose data.
-  case bloodGlucose = 89
+  case bloodGlucose = 90
   /// Exercise session data.
-  case exerciseSession = 90
+  case exerciseSession = 91
   /// Mindfulness session data.
-  case mindfulnessSession = 91
+  case mindfulnessSession = 92
   /// Body mass index data.
-  case bodyMassIndex = 92
+  case bodyMassIndex = 93
   /// Waist circumference data.
-  case waistCircumference = 93
+  case waistCircumference = 94
   /// Heart rate variability (SDNN) data.
-  case heartRateVariabilitySDNN = 94
+  case heartRateVariabilitySDNN = 95
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -5956,6 +5958,93 @@ public struct HealthConnectorLogDto: Hashable {
   }
 }
 
+/// Represents a peripheral perfusion index record.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct PeripheralPerfusionIndexRecordDto: HealthRecordDto {
+  /// The peripheral perfusion index value (0.0 - 1.0).
+  var percentage: Double
+  /// The time the sample was taken.
+  var time: Int64
+  /// Time zone offset in seconds.
+  ///
+  /// The offset is the difference between local time and UTC in seconds.
+  /// For example, valid values include -28800 (UTC-8), 18000 (UTC+5), etc.
+  var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata associated with the record.
+  var metadata: MetadataDto
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PeripheralPerfusionIndexRecordDto? {
+    let percentage = pigeonVar_list[0] as! Double
+    let time = pigeonVar_list[1] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[2])
+    let id: String? = nilOrValue(pigeonVar_list[3])
+    let metadata = pigeonVar_list[4] as! MetadataDto
+
+    return PeripheralPerfusionIndexRecordDto(
+      percentage: percentage,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      id: id,
+      metadata: metadata
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      percentage,
+      time,
+      zoneOffsetSeconds,
+      id,
+      metadata,
+    ]
+  }
+  public static func == (lhs: PeripheralPerfusionIndexRecordDto, rhs: PeripheralPerfusionIndexRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
+
+private struct PigeonInternalCodecOverflow {
+  var type: Int
+  var wrapped: Any? = nil
+
+  func toList() -> [Any?] {
+    return [
+      type,
+      wrapped,
+    ]
+  }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> Any? {
+    let type = pigeonVar_list[0] as! Int
+    let wrapped: Any? = pigeonVar_list[1]
+
+    let wrapper = PigeonInternalCodecOverflow(
+      type: type,
+      wrapped: wrapped
+    )
+
+    return wrapper.unwrap()
+  }
+
+  func unwrap() -> Any? {
+    if (wrapped == nil) {
+      return nil;
+    }
+        
+    switch type {
+      default: 
+        return nil
+    }
+  }
+}
+
 private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -6329,6 +6418,10 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
       return HealthConnectorExceptionDto.fromList(self.readValue() as! [Any?])
     case 253:
       return HealthConnectorLogDto.fromList(self.readValue() as! [Any?])
+    case 254:
+      return PeripheralPerfusionIndexRecordDto.fromList(self.readValue() as! [Any?])
+    case 255:
+      return PigeonInternalCodecOverflow.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
     }
@@ -6711,6 +6804,9 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
       super.writeValue(value.toList())
     } else if let value = value as? HealthConnectorLogDto {
       super.writeByte(253)
+      super.writeValue(value.toList())
+    } else if let value = value as? PeripheralPerfusionIndexRecordDto {
+      super.writeByte(254)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)

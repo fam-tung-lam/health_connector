@@ -130,6 +130,7 @@ abstract final class AppTexts {
       LactationDataType() => lactation,
       OvulationTestDataType() => ovulationTest,
       PregnancyDataType() => pregnancy,
+      PeripheralPerfusionIndexDataType() => peripheralPerfusionIndex,
       ContraceptiveDataType() => contraceptive,
       PregnancyTestDataType() => pregnancyTest,
       ProgesteroneTestDataType() => progesteroneTest,
@@ -441,6 +442,9 @@ abstract final class AppTexts {
   static const String pregnancyTest = 'Pregnancy Test';
   static const String pregnancy = 'Pregnancy';
   static const String pregnancyDescription = 'Record of pregnancy';
+  static const String peripheralPerfusionIndex = 'Peripheral Perfusion Index';
+  static const String peripheralPerfusionIndexDescription =
+      'Measurement of the blood flow to the peripheral tissues';
   static const String contraceptive = 'Contraceptive';
   static const String contraceptiveType = 'Contraceptive Type';
   static const String selectContraceptiveType = 'Select contraceptive type';

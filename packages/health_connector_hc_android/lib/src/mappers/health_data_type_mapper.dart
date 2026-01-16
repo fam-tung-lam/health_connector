@@ -185,6 +185,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowInstantDataType _:
         return HealthDataTypeDto.menstrualFlowInstant;
+      case PeripheralPerfusionIndexDataType _:
+        throw UnsupportedError(
+          '$PeripheralPerfusionIndexDataType is not supported on '
+          'Android Health Connect.',
+        );
       case OxygenSaturationDataType _:
         return HealthDataTypeDto.oxygenSaturation;
       case RespiratoryRateDataType _:

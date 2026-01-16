@@ -114,6 +114,7 @@ extension HealthDataTypeUI on HealthDataType {
       HeartRateVariabilitySDNNDataType _ => AppTexts.heartRateVariabilitySDNN,
       MenstrualFlowDataType _ => AppTexts.menstrualFlow,
       MenstrualFlowInstantDataType _ => AppTexts.menstrualFlow,
+      PeripheralPerfusionIndexDataType _ => AppTexts.peripheralPerfusionIndex,
       LactationDataType _ => 'Lactation',
     };
   }
@@ -240,6 +241,8 @@ extension HealthDataTypeUI on HealthDataType {
       MenstrualFlowDataType _ => 'Menstrual flow intensity over time (iOS)',
       MenstrualFlowInstantDataType _ =>
         'Menstrual flow intensity snapshot (Android)',
+      PeripheralPerfusionIndexDataType _ =>
+        AppTexts.peripheralPerfusionIndexDescription,
       LactationDataType _ => 'Record of lactation events',
     };
   }
@@ -353,6 +356,7 @@ extension HealthDataTypeUI on HealthDataType {
       MenstrualFlowInstantDataType _ => AppIcons.waterDrop,
       LactationDataType _ => AppIcons.childCare,
       PregnancyDataType _ => AppIcons.childCare,
+      PeripheralPerfusionIndexDataType _ => AppIcons.percent,
       ContraceptiveDataType _ => AppIcons.medication,
     };
   }
@@ -451,6 +455,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (BloodAlcoholContentDataType) => AppTexts.withUnit(
         AppTexts.bloodAlcoholContent,
+        AppTexts.percent,
+      ),
+      const (PeripheralPerfusionIndexDataType) => AppTexts.withUnit(
+        AppTexts.peripheralPerfusionIndex,
         AppTexts.percent,
       ),
 
@@ -726,6 +734,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       // Percentage types
       const (BodyFatPercentageDataType) ||
       const (BloodAlcoholContentDataType) ||
+      const (PeripheralPerfusionIndexDataType) ||
       const (OxygenSaturationDataType) => '%',
 
       const (BodyMassIndexDataType) => 'kg/m²',

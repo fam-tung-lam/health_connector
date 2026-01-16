@@ -798,6 +798,9 @@ enum HealthDataTypeDto {
   /// Sexual activity data.
   sexualActivity,
 
+  /// Peripheral perfusion index data.
+  peripheralPerfusionIndex,
+
   // SPEED TYPES (4)
   /// Walking speed data.
   walkingSpeed,
@@ -3712,4 +3715,33 @@ abstract class HealthConnectorHKIOSApi {
     List<HealthDataTypeDto> dataTypes,
     HealthDataSyncTokenDto? syncToken,
   );
+}
+
+/// Represents a peripheral perfusion index record.
+class PeripheralPerfusionIndexRecordDto extends HealthRecordDto {
+  PeripheralPerfusionIndexRecordDto({
+    required this.percentage,
+    required this.time,
+    required this.metadata,
+    this.zoneOffsetSeconds,
+    this.id,
+  });
+
+  /// The peripheral perfusion index value (0.0 - 1.0).
+  final double percentage;
+
+  /// The time the sample was taken.
+  final int time;
+
+  /// Time zone offset in seconds.
+  ///
+  /// The offset is the difference between local time and UTC in seconds.
+  /// For example, valid values include -28800 (UTC-8), 18000 (UTC+5), etc.
+  final int? zoneOffsetSeconds;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata associated with the record.
+  final MetadataDto metadata;
 }

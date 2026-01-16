@@ -107,6 +107,7 @@ part 'reproductive_health/contraceptive_data_type.dart';
 part 'reproductive_health/lactation_data_type.dart';
 part 'nutrition/nutrition_data_type.dart';
 part 'oxygen_saturation_data_type.dart';
+part 'peripheral_perfusion_index_data_type.dart';
 part 'power/cycling_power_data_type.dart';
 part 'power/power_series_data_type.dart';
 part 'respiratory_rate_data_type.dart';
@@ -655,6 +656,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// oxygen saturation measurements.
   @sinceV1_3_0
   static const oxygenSaturation = OxygenSaturationDataType();
+
+  /// Peripheral perfusion index data type.
+  ///
+  /// Represents the blood flow to the peripheral tissues.
+  /// Supports AVG, MIN, MAX aggregation.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const peripheralPerfusionIndex = PeripheralPerfusionIndexDataType();
 
   /// Power data type (Android Health Connect only).
   ///

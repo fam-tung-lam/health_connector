@@ -113,6 +113,7 @@ part 'nutrition/dietary_zinc_record.dart';
 part 'nutrition/meal_type.dart';
 part 'nutrition/nutrition_record.dart';
 part 'oxygen_saturation_record.dart';
+part 'peripheral_perfusion_index_record.dart';
 part 'power/cycling_power_record.dart';
 part 'power/power_series_record.dart';
 part 'power/running_power_record.dart';

@@ -292,6 +292,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .waistCircumference)
         case .heartRateVariabilitySDNN:
             try HKQuantityType.make(from: .heartRateVariabilitySDNN)
+        case .peripheralPerfusionIndex:
+            try HKQuantityType.make(from: .peripheralPerfusionIndex)
         case .exerciseSession:
             HKObjectType.workoutType()
         case .mindfulnessSession:

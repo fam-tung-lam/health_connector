@@ -764,6 +764,9 @@ enum HealthDataTypeDto {
   /// Sexual activity data.
   sexualActivity,
 
+  /// Peripheral perfusion index data.
+  peripheralPerfusionIndex,
+
   /// Walking speed data.
   walkingSpeed,
 
@@ -8074,6 +8077,106 @@ class HealthConnectorLogDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Represents a peripheral perfusion index record.
+class PeripheralPerfusionIndexRecordDto extends HealthRecordDto {
+  PeripheralPerfusionIndexRecordDto({
+    required this.percentage,
+    required this.time,
+    this.zoneOffsetSeconds,
+    this.id,
+    required this.metadata,
+  });
+
+  /// The peripheral perfusion index value (0.0 - 1.0).
+  double percentage;
+
+  /// The time the sample was taken.
+  int time;
+
+  /// Time zone offset in seconds.
+  ///
+  /// The offset is the difference between local time and UTC in seconds.
+  /// For example, valid values include -28800 (UTC-8), 18000 (UTC+5), etc.
+  int? zoneOffsetSeconds;
+
+  /// Platform-assigned unique identifier.
+  String? id;
+
+  /// Metadata associated with the record.
+  MetadataDto metadata;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      percentage,
+      time,
+      zoneOffsetSeconds,
+      id,
+      metadata,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static PeripheralPerfusionIndexRecordDto decode(Object result) {
+    result as List<Object?>;
+    return PeripheralPerfusionIndexRecordDto(
+      percentage: result[0]! as double,
+      time: result[1]! as int,
+      zoneOffsetSeconds: result[2] as int?,
+      id: result[3] as String?,
+      metadata: result[4]! as MetadataDto,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! PeripheralPerfusionIndexRecordDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
+// ignore: camel_case_types
+class _PigeonCodecOverflow {
+  _PigeonCodecOverflow({required this.type, required this.wrapped});
+
+  int type;
+  Object? wrapped;
+
+  Object encode() {
+    return <Object?>[type, wrapped];
+  }
+
+  static _PigeonCodecOverflow decode(Object result) {
+    result as List<Object?>;
+    return _PigeonCodecOverflow(
+      type: result[0]! as int,
+      wrapped: result[1],
+    );
+  }
+
+  Object? unwrap() {
+    if (wrapped == null) {
+      return null;
+    }
+
+    switch (type) {}
+    return null;
+  }
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -8456,6 +8559,9 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is HealthConnectorLogDto) {
       buffer.putUint8(253);
       writeValue(buffer, value.encode());
+    } else if (value is PeripheralPerfusionIndexRecordDto) {
+      buffer.putUint8(254);
+      writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -8752,6 +8858,13 @@ class _PigeonCodec extends StandardMessageCodec {
         return HealthConnectorExceptionDto.decode(readValue(buffer)!);
       case 253:
         return HealthConnectorLogDto.decode(readValue(buffer)!);
+      case 254:
+        return PeripheralPerfusionIndexRecordDto.decode(readValue(buffer)!);
+      case 255:
+        final _PigeonCodecOverflow wrapper = _PigeonCodecOverflow.decode(
+          readValue(buffer)!,
+        );
+        return wrapper.unwrap();
       default:
         return super.readValueOfType(type, buffer);
     }

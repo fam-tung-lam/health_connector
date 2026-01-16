@@ -167,6 +167,8 @@ extension HealthRecordDto {
             return try dto.toHealthKitQuantitySample()
         case let dto as SwimmingStrokesRecordDto:
             return try dto.toHealthKit()
+        case let dto as PeripheralPerfusionIndexRecordDto:
+            return try dto.toHealthKit()
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
@@ -455,6 +457,8 @@ extension HKQuantitySample {
             try toDietaryZincDto()
         case .swimmingStrokes:
             try toSwimmingStrokesRecordDto()
+        case .peripheralPerfusionIndex:
+            try toPeripheralPerfusionIndexRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported or unimplemented health data type for HKQuantitySample",

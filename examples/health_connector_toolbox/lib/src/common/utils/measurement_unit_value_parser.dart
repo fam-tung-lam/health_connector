@@ -72,6 +72,7 @@ abstract class MeasurementUnitValueParser {
       // Percentage types
       BodyFatPercentageDataType() ||
       BloodAlcoholContentDataType() ||
+      PeripheralPerfusionIndexDataType() ||
       OxygenSaturationDataType() => _parsePercentage(value),
 
       // Temperature

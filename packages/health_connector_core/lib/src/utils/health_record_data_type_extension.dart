@@ -146,6 +146,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       WaistCircumferenceRecord _ => HealthDataType.waistCircumference,
       HeartRateVariabilitySDNNRecord _ =>
         HealthDataType.heartRateVariabilitySDNN,
+      PeripheralPerfusionIndexRecord _ =>
+        HealthDataType.peripheralPerfusionIndex,
     };
   }
 }

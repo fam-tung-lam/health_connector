@@ -213,6 +213,11 @@ extension HealthRecordToDto on HealthRecord {
         return MenstrualFlowInstantRecordToDto(record).toDto();
       case final OxygenSaturationRecord record:
         return OxygenSaturationRecordToDto(record).toDto();
+      case PeripheralPerfusionIndexRecord():
+        throw UnsupportedError(
+          '$PeripheralPerfusionIndexRecord is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
       case final BloodPressureRecord record:
         return BloodPressureRecordToDto(record).toDto();
       case final RespiratoryRateRecord record:

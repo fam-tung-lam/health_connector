@@ -142,6 +142,7 @@ extension AggregateRequestDtoMapper<
           case MenstrualFlowDataType _:
           case ContraceptiveDataType _:
           case LactationDataType _:
+          case PeripheralPerfusionIndexDataType _:
           case PregnancyDataType _:
           case SwimmingStrokesDataType _:
             throw ArgumentError(
