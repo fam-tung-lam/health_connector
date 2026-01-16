@@ -989,6 +989,9 @@ enum HealthDataTypeDto {
   /// Waist circumference data.
   waistCircumference,
 
+  /// The forced vital capacity (FVC) data.
+  forcedVitalCapacity,
+
   /// Heart rate variability (SDNN) data.
   heartRateVariabilitySDNN,
 }
@@ -1052,6 +1055,32 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   ///
   /// Maps to HKMetadataKeyVO2MaxTestType.
   final Vo2MaxTestTypeDto? testType;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a forced vital capacity record for platform transfer.
+class ForcedVitalCapacityRecordDto extends HealthRecordDto {
+  ForcedVitalCapacityRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.liters,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The volume in liters.
+  final double liters;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;

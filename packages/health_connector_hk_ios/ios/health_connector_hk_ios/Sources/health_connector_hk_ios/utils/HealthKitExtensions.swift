@@ -165,6 +165,8 @@ extension HKSample {
                 return .heartRateVariabilitySDNN
             case HKQuantityTypeIdentifier.peripheralPerfusionIndex.rawValue:
                 return .peripheralPerfusionIndex
+            case HKQuantityTypeIdentifier.forcedVitalCapacity.rawValue:
+                return .forcedVitalCapacity
             // Category types
             case HKCategoryTypeIdentifier.sleepAnalysis.rawValue:
                 return .sleepStageRecord

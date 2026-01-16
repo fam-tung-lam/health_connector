@@ -49,6 +49,7 @@ part 'energy_burned/basal_energy_burned_data_type.dart';
 part 'energy_burned/total_energy_burned_data_type.dart';
 part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
+part 'forced_vital_capacity_data_type.dart';
 part 'health_data_type_category.dart';
 part 'heart_rate/heart_rate_data_type.dart';
 part 'heart_rate/heart_rate_series_data_type.dart';
@@ -472,6 +473,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// of approximately 3 meters (10 feet). Supports both reading existing
   /// floors climbed data and writing new measurements.
   static const floorsClimbed = FloorsClimbedDataType();
+
+  /// Forced vital capacity data type.
+  ///
+  /// Represents the user's forced vital capacity measurements.
+  /// Supports AVG, MIN, MAX aggregation.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const forcedVitalCapacity = ForcedVitalCapacityDataType();
 
   /// Elevation gained data type.
   ///
@@ -1061,6 +1070,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     exerciseSession,
     exerciseSession,
     floorsClimbed,
+    forcedVitalCapacity,
     heartRate,
     heartRateSeries,
     heartRateVariabilityRMSSD,

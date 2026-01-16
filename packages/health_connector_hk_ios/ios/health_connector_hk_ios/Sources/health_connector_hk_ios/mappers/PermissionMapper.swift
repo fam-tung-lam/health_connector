@@ -98,7 +98,8 @@ extension HealthDataPermissionDto {
              .bodyMassIndex,
              .waistCircumference,
              .heartRateVariabilitySDNN,
-             .peripheralPerfusionIndex:
+             .peripheralPerfusionIndex,
+             .forcedVitalCapacity:
             try [healthDataType.toHealthKit()]
         case .sexualActivity,
              .cervicalMucus,

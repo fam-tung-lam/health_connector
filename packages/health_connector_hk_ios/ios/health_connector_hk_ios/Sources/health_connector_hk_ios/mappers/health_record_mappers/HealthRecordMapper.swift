@@ -169,10 +169,12 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as PeripheralPerfusionIndexRecordDto:
             return try dto.toHealthKit()
+        case let dto as ForcedVitalCapacityRecordDto:
+            return try dto.toHealthKit()
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
-                "HealthRecordDto type '\(type(of: self))' does not have a HealthKit mapping implementation",
+                "`HealthRecordDto.toHealthKit()` is not implemented for data type: '\(type(of: self)).",
                 context: [
                     "dtoType": String(describing: type(of: self)),
                     "availableTypes": "See mapper files in health_record_mappers/",
@@ -459,6 +461,8 @@ extension HKQuantitySample {
             try toSwimmingStrokesRecordDto()
         case .peripheralPerfusionIndex:
             try toPeripheralPerfusionIndexRecordDto()
+        case .forcedVitalCapacity:
+            try toForcedVitalCapacityRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported or unimplemented health data type for HKQuantitySample",

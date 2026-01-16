@@ -338,6 +338,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$MenstrualFlowDataType is not supported on Android Health Connect. '
           'Use $MenstrualFlowInstantDataType instead.',
         );
+      case ForcedVitalCapacityDataType():
+        throw UnsupportedError(
+          '$ForcedVitalCapacityDataType is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
     }
   }
 }

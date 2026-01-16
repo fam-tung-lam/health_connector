@@ -148,6 +148,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
         HealthDataType.heartRateVariabilitySDNN,
       PeripheralPerfusionIndexRecord _ =>
         HealthDataType.peripheralPerfusionIndex,
+      ForcedVitalCapacityRecord _ => HealthDataType.forcedVitalCapacity,
     };
   }
 }

@@ -131,7 +131,8 @@ abstract class MeasurementUnitValueParser {
       HeartRateVariabilitySDNNDataType() => _parseTimeDuration(value),
 
       // Volume
-      HydrationDataType() => _parseVolume(value),
+      HydrationDataType() ||
+      ForcedVitalCapacityDataType() => _parseVolume(value),
 
       // Complex/composite types that cannot be parsed from a single string value
       BloodPressureDataType() => throw UnsupportedError(

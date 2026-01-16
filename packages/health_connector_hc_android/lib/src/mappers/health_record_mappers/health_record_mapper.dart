@@ -483,6 +483,11 @@ extension HealthRecordToDto on HealthRecord {
           '$BloodAlcoholContentRecord is not supported on Android Health '
           'Connect.',
         );
+      case ForcedVitalCapacityRecord():
+        throw UnsupportedError(
+          '$ForcedVitalCapacityRecord is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
     }
   }
 }

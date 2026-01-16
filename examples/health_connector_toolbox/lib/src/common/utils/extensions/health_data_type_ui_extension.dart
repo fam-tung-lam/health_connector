@@ -93,6 +93,7 @@ extension HealthDataTypeUI on HealthDataType {
       DietaryBiotinDataType _ => AppTexts.biotin,
       DietaryPantothenicAcidDataType _ => AppTexts.pantothenicAcid,
       RespiratoryRateDataType _ => AppTexts.respiratoryRate,
+      ForcedVitalCapacityDataType _ => AppTexts.forcedVitalCapacity,
       Vo2MaxDataType _ => AppTexts.vo2Max,
       BloodGlucoseDataType _ => AppTexts.bloodGlucose,
       SpeedSeriesDataType _ => AppTexts.speed,
@@ -210,6 +211,7 @@ extension HealthDataTypeUI on HealthDataType {
       DietaryBiotinDataType _ => AppTexts.biotinDescription,
       DietaryPantothenicAcidDataType _ => AppTexts.pantothenicAcidDescription,
       RespiratoryRateDataType _ => AppTexts.respiratoryRateDescription,
+      ForcedVitalCapacityDataType _ => AppTexts.forcedVitalCapacityDescription,
       Vo2MaxDataType _ => AppTexts.vo2MaxDescription,
       BloodGlucoseDataType _ => AppTexts.bloodGlucoseDescription,
       SpeedSeriesDataType _ => AppTexts.speedDescription,
@@ -329,6 +331,7 @@ extension HealthDataTypeUI on HealthDataType {
       DietaryBiotinDataType _ => AppIcons.fastfood,
       DietaryPantothenicAcidDataType _ => AppIcons.fastfood,
       RespiratoryRateDataType _ => AppIcons.air,
+      ForcedVitalCapacityDataType _ => AppIcons.air,
       Vo2MaxDataType _ => AppIcons.vo2Max,
       BloodGlucoseDataType _ => AppIcons.bloodGlucose,
       SpeedSeriesDataType _ => AppIcons.speed,
@@ -536,6 +539,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (RespiratoryRateDataType) => AppTexts.withUnit(
         AppTexts.respiratoryRate,
         AppTexts.breathsPerMinute,
+      ),
+      const (ForcedVitalCapacityDataType) => AppTexts.valueWithUnit(
+        AppTexts.forcedVitalCapacity,
+        AppTexts.liter,
       ),
       const (Vo2MaxDataType) => AppTexts.withUnit(
         AppTexts.vo2Max,
@@ -762,6 +769,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (DiastolicBloodPressureDataType) => AppTexts.millimetersOfMercury,
       const (BloodGlucoseDataType) => AppTexts.milligramsPerDeciliter,
       const (RespiratoryRateDataType) => AppTexts.breathsPerMinute,
+      const (ForcedVitalCapacityDataType) => AppTexts.liter,
       const (Vo2MaxDataType) => AppTexts.millilitersPerKilogramPerMinute,
       const (HeartRateVariabilityRMSSDDataType) ||
       const (HeartRateVariabilitySDNNDataType) => AppTexts.millisecond,

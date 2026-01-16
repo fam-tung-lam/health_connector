@@ -170,6 +170,7 @@ abstract final class AppTexts {
       NutritionDataType() => nutrition,
       RestingHeartRateDataType() => restingHeartRate,
       OxygenSaturationDataType() => oxygenSaturation,
+      ForcedVitalCapacityDataType() => forcedVitalCapacity,
       RespiratoryRateDataType() => respiratoryRate,
       Vo2MaxDataType() => vo2Max,
       BloodGlucoseDataType() => bloodGlucose,
@@ -400,6 +401,10 @@ abstract final class AppTexts {
   static const String lyingDown = 'Lying Down';
   static const String reclining = 'Reclining';
   static const String oxygenSaturation = 'Oxygen Saturation';
+  static const String forcedVitalCapacity = 'Forced Vital Capacity';
+  static const String forcedVitalCapacityDescription =
+      'The total volume of air that can be forcibly exhaled from the lungs '
+      'after the deepest breath possible.';
   static const String respiratoryRate = 'Respiratory Rate';
   static const String vo2Max = 'VO2 Max';
   static const String vo2MaxTestType = 'Test $type';

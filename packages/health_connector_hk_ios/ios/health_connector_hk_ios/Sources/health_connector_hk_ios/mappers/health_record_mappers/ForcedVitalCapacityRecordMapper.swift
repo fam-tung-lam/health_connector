@@ -1,13 +1,15 @@
 import Foundation
 import HealthKit
 
-extension PeripheralPerfusionIndexRecordDto {
+extension ForcedVitalCapacityRecordDto {
     /// Converts this DTO to a HealthKit sample.
     func toHealthKit() throws -> HKSample {
-        let type = try HKQuantityType.make(from: .peripheralPerfusionIndex)
+        let type = try HKQuantityType.make(from: .forcedVitalCapacity)
 
-        let unit = HKUnit.percent()
-        let quantity = HKQuantity(unit: unit, doubleValue: percentage)
+        // FVC is measured in liters
+        let unit = HKUnit.liter()
+        let quantity = HKQuantity(unit: unit, doubleValue: liters)
+
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -20,7 +22,7 @@ extension PeripheralPerfusionIndexRecordDto {
             type: type,
             quantity: quantity,
             start: date,
-            end: date, // Instant records have same start and end
+            end: date, // Instant records have same start and end time
             device: builder.healthDevice,
             metadata: builder.metadataDict
         )
@@ -28,17 +30,17 @@ extension PeripheralPerfusionIndexRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `PeripheralPerfusionIndexRecordDto`.
+    /// Converts this HealthKit sample to a `ForcedVitalCapacityRecordDto`.
     ///
-    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a peripheral perfusion index sample.
-    func toPeripheralPerfusionIndexRecordDto() throws -> PeripheralPerfusionIndexRecordDto {
-        guard quantityType.identifier == HKQuantityTypeIdentifier.peripheralPerfusionIndex.rawValue
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a FVC sample.
+    func toForcedVitalCapacityRecordDto() throws -> ForcedVitalCapacityRecordDto {
+        guard quantityType.identifier == HKQuantityTypeIdentifier.forcedVitalCapacity.rawValue
         else {
             throw HealthConnectorError.invalidArgument(
                 message:
-                "Expected peripheral perfusion index quantity type, got \(quantityType.identifier)",
+                "Expected forced vital capacity quantity type, got \(quantityType.identifier)",
                 context: [
-                    "expected": HKQuantityTypeIdentifier.peripheralPerfusionIndex.rawValue,
+                    "expected": HKQuantityTypeIdentifier.forcedVitalCapacity.rawValue,
                     "actual": quantityType.identifier,
                 ]
             )
@@ -54,12 +56,13 @@ extension HKQuantitySample {
         // Extract timezone offset from metadata
         let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
-        return try PeripheralPerfusionIndexRecordDto(
-            percentage: quantity.doubleValue(for: HKUnit.percent()),
-            time: startDate.millisecondsSince1970,
-            zoneOffsetSeconds: zoneOffset,
+        // FVC is measured in liters
+        return try ForcedVitalCapacityRecordDto(
             id: uuid.uuidString,
-            metadata: builder.toMetadataDto()
+            time: startDate.millisecondsSince1970,
+            metadata: builder.toMetadataDto(),
+            liters: quantity.doubleValue(for: HKUnit.liter()),
+            zoneOffsetSeconds: zoneOffset
         )
     }
 }

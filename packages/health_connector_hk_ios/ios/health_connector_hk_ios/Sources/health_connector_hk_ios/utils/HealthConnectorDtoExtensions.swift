@@ -164,6 +164,8 @@ extension HealthRecordDto {
             record.id
         case let record as SwimmingStrokesRecordDto:
             record.id
+        case let record as ForcedVitalCapacityRecordDto:
+            record.id
         default:
             nil
         }
@@ -347,6 +349,8 @@ extension HealthRecordDto {
                 return .contraceptive
             case is SwimmingStrokesRecordDto:
                 return .swimmingStrokes
+            case is ForcedVitalCapacityRecordDto:
+                return .forcedVitalCapacity
             default:
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -523,6 +527,8 @@ extension HealthRecordDto {
             return dto.time
         case let dto as SwimmingStrokesRecordDto:
             return dto.endTime
+        case let dto as ForcedVitalCapacityRecordDto:
+            return dto.time
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

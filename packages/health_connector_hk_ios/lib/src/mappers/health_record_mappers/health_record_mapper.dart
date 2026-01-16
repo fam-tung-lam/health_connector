@@ -13,6 +13,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/basal_energy_burned_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_vital_capacity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_variability_sdnn_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/resting_heart_rate_record_mapper.dart';
@@ -355,6 +356,8 @@ extension HealthRecordToDto on HealthRecord {
         return SwimmingStrokesRecordToDto(record).toDto();
       case final PeripheralPerfusionIndexRecord record:
         return PeripheralPerfusionIndexRecordToDto(record).toDto();
+      case final ForcedVitalCapacityRecord record:
+        return ForcedVitalCapacityRecordToDto(record).toDto();
     }
   }
 }
@@ -527,6 +530,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return SwimmingStrokesRecordDtoToDomain(dto).toDomain();
       case final PeripheralPerfusionIndexRecordDto dto:
         return PeripheralPerfusionIndexRecordDtoToDomain(dto).toDomain();
+      case final ForcedVitalCapacityRecordDto dto:
+        return ForcedVitalCapacityRecordDtoToDomain(dto).toDomain();
     }
   }
 }

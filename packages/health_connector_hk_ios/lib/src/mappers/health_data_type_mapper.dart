@@ -151,6 +151,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.lactation;
       case HealthDataTypeDto.vo2Max:
         return HealthDataType.vo2Max;
+      case HealthDataTypeDto.forcedVitalCapacity:
+        return HealthDataType.forcedVitalCapacity;
       case HealthDataTypeDto.cyclingDistance:
         return HealthDataType.cyclingDistance;
       case HealthDataTypeDto.cyclingPower:
@@ -352,6 +354,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.respiratoryRate;
       case Vo2MaxDataType _:
         return HealthDataTypeDto.vo2Max;
+      case ForcedVitalCapacityDataType _:
+        return HealthDataTypeDto.forcedVitalCapacity;
       case BloodGlucoseDataType _:
         return HealthDataTypeDto.bloodGlucose;
       // Distance activity types (iOS HealthKit only)
