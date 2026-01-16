@@ -1,4 +1,4 @@
-part of '../health_data_type.dart';
+part of 'health_data_type.dart';
 
 /// Steps cadence series data type (Android Health Connect only).
 ///

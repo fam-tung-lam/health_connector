@@ -7,6 +7,12 @@ void main() {
     'DietaryCholesterolDataType',
     () {
       const dataType = HealthDataType.dietaryCholesterol;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_cholesterol'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

@@ -7,6 +7,12 @@ void main() {
     'Vo2MaxDataType',
     () {
       const dataType = HealthDataType.vo2Max;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('vo2_max'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

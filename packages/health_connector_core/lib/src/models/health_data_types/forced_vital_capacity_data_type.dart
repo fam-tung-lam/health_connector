@@ -12,6 +12,9 @@ part of 'health_data_type.dart';
 final class ForcedVitalCapacityDataType
     extends HealthDataType<ForcedVitalCapacityRecord, Volume>
     implements
+        ReadableHealthDataType<ForcedVitalCapacityRecord>,
+        WriteableHealthDataType<ForcedVitalCapacityRecord>,
+        DeletableHealthDataType<ForcedVitalCapacityRecord>,
         AvgAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume>,
         MinAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume>,
         MaxAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume> {
@@ -36,14 +39,56 @@ final class ForcedVitalCapacityDataType
     AggregationMetric.max,
   ];
 
-  /// The read permission for this data type.
+  @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
-  /// The write permission for this data type.
+  @override
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  ReadRecordByIdRequest<ForcedVitalCapacityRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
+  }
+
+  @override
+  ReadRecordsInTimeRangeRequest<ForcedVitalCapacityRecord> readInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+    List<DataOrigin> dataOrigins = const [],
+    int pageSize = HealthConnectorConfigConstants.defaultPageSize,
+    String? pageToken,
+  }) {
+    return ReadRecordsInTimeRangeRequest(
+      dataType: this,
+      dataOrigins: dataOrigins,
+      startTime: startTime,
+      endTime: endTime,
+      pageSize: pageSize,
+      pageToken: pageToken,
+    );
+  }
+
+  @override
+  DeleteRecordsByIdsRequest<ForcedVitalCapacityRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<ForcedVitalCapacityRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 
   @override
   AggregateRequest<ForcedVitalCapacityRecord, Volume> aggregateAvg({

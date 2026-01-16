@@ -35,7 +35,7 @@ extension PeripheralPerfusionIndexRecordDtoToDomain
     on PeripheralPerfusionIndexRecordDto {
   PeripheralPerfusionIndexRecord toDomain() {
     return PeripheralPerfusionIndexRecord(
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       percentage: Percentage.fromDecimal(percentage),
       metadata: metadata.toDomain(),
       id: id?.toDomain() ?? HealthRecordId.none,

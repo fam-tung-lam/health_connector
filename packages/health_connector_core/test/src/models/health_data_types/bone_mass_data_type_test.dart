@@ -7,6 +7,12 @@ void main() {
     'BoneMassDataType',
     () {
       const dataType = HealthDataType.boneMass;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('bone_mass'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

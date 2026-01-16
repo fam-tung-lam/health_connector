@@ -7,6 +7,12 @@ void main() {
     'BasalBodyTemperatureDataType',
     () {
       const dataType = HealthDataType.basalBodyTemperature;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('basal_body_temperature'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

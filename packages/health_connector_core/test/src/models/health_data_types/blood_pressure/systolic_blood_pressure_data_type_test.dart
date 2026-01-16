@@ -7,6 +7,12 @@ void main() {
     'SystolicBloodPressureDataType',
     () {
       const dataType = HealthDataType.systolicBloodPressure;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('systolic_blood_pressure'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

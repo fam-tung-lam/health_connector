@@ -7,6 +7,12 @@ void main() {
     'SleepStageDataType',
     () {
       const dataType = HealthDataType.sleepStageRecord;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('sleep_stage'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

@@ -7,6 +7,12 @@ void main() {
     'ExerciseSessionDataType',
     () {
       const dataType = HealthDataType.exerciseSession;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('exercise_session'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

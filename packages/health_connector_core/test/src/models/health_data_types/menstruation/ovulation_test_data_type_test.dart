@@ -7,6 +7,12 @@ void main() {
     'OvulationTestDataType',
     () {
       const dataType = HealthDataType.ovulationTest;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('ovulation_test'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

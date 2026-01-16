@@ -7,6 +7,12 @@ void main() {
     'FloorsClimbedDataType',
     () {
       const dataType = HealthDataType.floorsClimbed;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('floors_climbed'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

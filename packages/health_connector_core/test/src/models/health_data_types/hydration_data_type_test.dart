@@ -7,6 +7,12 @@ void main() {
     'HydrationDataType',
     () {
       const dataType = HealthDataType.hydration;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('hydration'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

@@ -7,6 +7,12 @@ void main() {
     'DietaryMonounsaturatedFatDataType',
     () {
       const dataType = HealthDataType.dietaryMonounsaturatedFat;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_monounsaturated_fat'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

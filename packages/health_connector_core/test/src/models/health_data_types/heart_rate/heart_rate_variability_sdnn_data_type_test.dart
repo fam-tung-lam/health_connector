@@ -7,6 +7,12 @@ void main() {
     'HeartRateVariabilitySDNNDataType',
     () {
       const dataType = HealthDataType.heartRateVariabilitySDNN;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('heart_rate_variability_sdnn'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

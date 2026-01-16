@@ -7,6 +7,12 @@ void main() {
     'CervicalMucusDataType',
     () {
       const dataType = HealthDataType.cervicalMucus;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('cervical_mucus'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

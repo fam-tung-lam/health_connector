@@ -13,7 +13,8 @@ void main() {
         'ForcedVitalCapacityRecordToDto',
         () {
           test(
-            'converts ForcedVitalCapacityRecord to ForcedVitalCapacityRecordDto',
+            'converts ForcedVitalCapacityRecord to '
+            'ForcedVitalCapacityRecordDto',
             () {
               final record = ForcedVitalCapacityRecord(
                 id: HealthRecordId(FakeData.fakeId),
@@ -51,7 +52,8 @@ void main() {
         'ForcedVitalCapacityRecordDtoToDomain',
         () {
           test(
-            'converts ForcedVitalCapacityRecordDto to ForcedVitalCapacityRecord',
+            'converts ForcedVitalCapacityRecordDto to '
+            'ForcedVitalCapacityRecord',
             () {
               final dto = ForcedVitalCapacityRecordDto(
                 id: FakeData.fakeId,
@@ -79,7 +81,8 @@ void main() {
           );
 
           test(
-            'converts ForcedVitalCapacityRecordDto with null id to domain with none id',
+            'converts ForcedVitalCapacityRecordDto with null id to '
+            'domain with none id',
             () {
               final dto = ForcedVitalCapacityRecordDto(
                 time: FakeData.fakeStartTime.millisecondsSinceEpoch,

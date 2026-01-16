@@ -7,6 +7,12 @@ void main() {
     'DietaryTotalCarbohydrateDataType',
     () {
       const dataType = HealthDataType.dietaryTotalCarbohydrate;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_total_carbohydrate'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

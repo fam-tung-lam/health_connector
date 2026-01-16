@@ -1,4 +1,4 @@
-part of '../health_record.dart';
+part of 'health_record.dart';
 
 /// Represents a series of steps cadence samples.
 ///

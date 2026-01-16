@@ -1,4 +1,4 @@
-part of '../health_record.dart';
+part of 'health_record.dart';
 
 /// Captures the elevation gained by the user.
 ///
@@ -110,12 +110,25 @@ final class ElevationGainedRecord extends IntervalHealthRecord {
   bool operator ==(Object other) {
     return identical(this, other) ||
         other is ElevationGainedRecord &&
-            super == other &&
+            runtimeType == other.runtimeType &&
+            id == other.id &&
+            metadata == other.metadata &&
+            startTime == other.startTime &&
+            endTime == other.endTime &&
+            startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
+            endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
             elevation.inMeters == other.elevation.inMeters;
   }
 
   @override
-  int get hashCode => super.hashCode ^ elevation.hashCode;
+  int get hashCode =>
+      id.hashCode ^
+      metadata.hashCode ^
+      startTime.hashCode ^
+      endTime.hashCode ^
+      startZoneOffsetSeconds.hashCode ^
+      endZoneOffsetSeconds.hashCode ^
+      elevation.hashCode;
 
   @override
   String toString() {

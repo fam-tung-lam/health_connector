@@ -7,6 +7,12 @@ void main() {
     'IntermenstrualBleedingDataType',
     () {
       const dataType = HealthDataType.intermenstrualBleeding;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('intermenstrual_bleeding'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

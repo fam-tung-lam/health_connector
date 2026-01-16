@@ -7,6 +7,12 @@ void main() {
     'CyclingDistanceDataType',
     () {
       const dataType = HealthDataType.cyclingDistance;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('cycling_distance'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

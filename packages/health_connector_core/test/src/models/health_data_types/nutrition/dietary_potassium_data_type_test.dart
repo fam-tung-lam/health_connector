@@ -7,6 +7,12 @@ void main() {
     'DietaryPotassiumDataType',
     () {
       const dataType = HealthDataType.dietaryPotassium;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_potassium'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

@@ -7,6 +7,12 @@ void main() {
     'DietaryPantothenicAcidDataType',
     () {
       const dataType = HealthDataType.dietaryPantothenicAcid;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_pantothenic_acid'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

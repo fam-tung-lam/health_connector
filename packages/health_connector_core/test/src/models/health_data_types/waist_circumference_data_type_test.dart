@@ -7,6 +7,12 @@ void main() {
     'WaistCircumferenceDataType',
     () {
       const dataType = HealthDataType.waistCircumference;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('waist_circumference'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

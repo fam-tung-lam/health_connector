@@ -7,6 +7,12 @@ void main() {
     'HeightDataType',
     () {
       const dataType = HealthDataType.height;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('height'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

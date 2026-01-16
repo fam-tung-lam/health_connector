@@ -1,6 +1,8 @@
 package com.phamtunglam.health_connector_hc_android.unit_tests.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.StepsCadenceRecord
+import androidx.health.connect.client.records.metadata.DataOrigin
+import androidx.health.connect.client.records.metadata.Device
 import androidx.health.connect.client.records.metadata.Metadata
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
@@ -10,6 +12,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsCadenceSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsCadenceSeriesRecordDto
 import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.mockk
 import java.time.Instant
 import java.time.ZoneOffset
 import org.junit.jupiter.api.DisplayName
@@ -36,7 +40,21 @@ class StepsCadenceRecordMapperTest {
             endTime = Instant.ofEpochMilli(TEST_END_TIME),
             startZoneOffset = TEST_ZONE_OFFSET,
             endZoneOffset = TEST_ZONE_OFFSET,
-            metadata = Metadata.manualEntry(),
+            metadata = mockk {
+                every {
+                    dataOrigin
+                } returns DataOrigin(
+                    "com.example.app",
+                )
+                every {
+                    recordingMethod
+                } returns Metadata.RECORDING_METHOD_MANUAL_ENTRY
+                every { id } returns TEST_ID
+                every { device } returns null
+                every { lastModifiedTime } returns Instant.ofEpochMilli(TEST_END_TIME)
+                every { clientRecordId } returns null
+                every { clientRecordVersion } returns 0
+            },
             samples = listOf(
                 StepsCadenceRecord.Sample(
                     time = Instant.ofEpochMilli(TEST_START_TIME),
@@ -60,6 +78,8 @@ class StepsCadenceRecordMapperTest {
         result.samples?.get(1)?.stepsPerMinute shouldBe TEST_RATE_2
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
+        result.metadata.dataOrigin shouldBe "com.example.app"
+        result.metadata.recordingMethod shouldBe RecordingMethodDto.MANUAL_ENTRY
     }
 
     @Test
@@ -103,5 +123,7 @@ class StepsCadenceRecordMapperTest {
         result.startZoneOffset shouldBe TEST_ZONE_OFFSET
         result.endZoneOffset shouldBe TEST_ZONE_OFFSET
         result.metadata.id shouldBe TEST_ID
+        result.metadata.recordingMethod shouldBe Metadata.RECORDING_METHOD_MANUAL_ENTRY
+        result.metadata.device?.type shouldBe Device.TYPE_PHONE
     }
 }

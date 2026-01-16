@@ -7,6 +7,12 @@ void main() {
     'PowerSeriesDataType',
     () {
       const dataType = HealthDataType.powerSeries;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('power_series'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

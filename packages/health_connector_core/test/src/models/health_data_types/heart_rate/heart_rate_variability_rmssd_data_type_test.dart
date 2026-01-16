@@ -7,6 +7,12 @@ void main() {
     'HeartRateVariabilityRMSSDDataType',
     () {
       const dataType = HealthDataType.heartRateVariabilityRMSSD;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('heart_rate_variability_rmssd'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

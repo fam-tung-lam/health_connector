@@ -26,7 +26,7 @@ extension ElevationGainedRecordToDto on ElevationGainedRecord {
 extension ElevationGainedRecordDtoToDomain on ElevationGainedRecordDto {
   ElevationGainedRecord toDomain() {
     return ElevationGainedRecord.internal(
-      id: HealthRecordId(id!),
+      id: id == null ? HealthRecordId.none : HealthRecordId(id!),
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       metadata: metadata.toDomain(),

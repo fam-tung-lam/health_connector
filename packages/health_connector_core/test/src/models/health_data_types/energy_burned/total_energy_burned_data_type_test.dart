@@ -7,6 +7,12 @@ void main() {
     'TotalEnergyBurnedDataType',
     () {
       const dataType = HealthDataType.totalEnergyBurned;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('total_calories_burned'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

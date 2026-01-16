@@ -16,9 +16,6 @@ import 'package:health_connector_core/src/models/requests/delete_records_request
 import 'package:health_connector_core/src/models/requests/read_records_request.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
-part 'reproductive_health/pregnancy_data_type.dart';
-part 'menstruation/pregnancy_test_data_type.dart';
-
 part 'alcoholic_beverages_data_type.dart';
 part 'blood_alcohol_content_data_type.dart';
 part 'blood_glucose_data_type.dart';
@@ -43,7 +40,7 @@ part 'distance/skating_sports_distance_data_type.dart';
 part 'distance/swimming_distance_data_type.dart';
 part 'distance/walking_running_distance_data_type.dart';
 part 'distance/wheelchair_distance_data_type.dart';
-part 'elevation_gained/elevation_gained_data_type.dart';
+part 'elevation_gained_data_type.dart';
 part 'energy_burned/active_energy_burned_data_type.dart';
 part 'energy_burned/basal_energy_burned_data_type.dart';
 part 'energy_burned/total_energy_burned_data_type.dart';
@@ -64,8 +61,8 @@ part 'menstruation/intermenstrual_bleeding_data_type.dart';
 part 'menstruation/menstrual_flow_data_type.dart';
 part 'menstruation/menstrual_flow_instant_data_type.dart';
 part 'menstruation/ovulation_test_data_type.dart';
+part 'menstruation/pregnancy_test_data_type.dart';
 part 'menstruation/progesterone_test_data_type.dart';
-
 part 'mindfulness_session_data_type.dart';
 part 'nutrition/dietary_biotin_data_type.dart';
 part 'nutrition/dietary_caffeine_data_type.dart';
@@ -104,15 +101,16 @@ part 'nutrition/dietary_vitamin_data_type.dart';
 part 'nutrition/dietary_vitamin_e_data_type.dart';
 part 'nutrition/dietary_vitamin_k_data_type.dart';
 part 'nutrition/dietary_zinc_data_type.dart';
-part 'reproductive_health/contraceptive_data_type.dart';
-part 'reproductive_health/lactation_data_type.dart';
 part 'nutrition/nutrition_data_type.dart';
 part 'oxygen_saturation_data_type.dart';
 part 'peripheral_perfusion_index_data_type.dart';
 part 'power/cycling_power_data_type.dart';
 part 'power/power_series_data_type.dart';
+part 'menstruation/contraceptive_data_type.dart';
+part 'menstruation/lactation_data_type.dart';
+part 'menstruation/pregnancy_data_type.dart';
 part 'respiratory_rate_data_type.dart';
-part 'running_power/running_power_health_data_type.dart';
+part 'power/running_power_health_data_type.dart';
 part 'sexual_activity_data_type.dart';
 part 'sleep/sleep_session_data_type.dart';
 part 'sleep/sleep_stage_record_data_type.dart';
@@ -122,7 +120,7 @@ part 'speed/speed_series_data_type.dart';
 part 'speed/stair_ascent_speed_data_type.dart';
 part 'speed/stair_descent_speed_data_type.dart';
 part 'speed/walking_speed_data_type.dart';
-part 'steps_cadence/steps_cadence_series_data_type.dart';
+part 'steps_cadence_series_data_type.dart';
 part 'steps_data_type.dart';
 part 'swimming_strokes_data_type.dart';
 part 'temperature/basal_body_temperature_data_type.dart';
@@ -1065,9 +1063,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     diastolicBloodPressure,
     distance,
     downhillSnowSportsDistance,
-    downhillSnowSportsDistance,
     elevationGained,
-    exerciseSession,
     exerciseSession,
     floorsClimbed,
     forcedVitalCapacity,
@@ -1087,14 +1083,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     ovulationTest,
     oxygenSaturation,
     paddleSportsDistance,
+    peripheralPerfusionIndex,
     powerSeries,
-    pregnancyTest,
     pregnancy,
+    pregnancyTest,
     progesteroneTest,
     respiratoryRate,
     restingHeartRate,
-    runningPower,
     rowingDistance,
+    runningPower,
     runningSpeed,
     sexualActivity,
     sixMinuteWalkTestDistance,

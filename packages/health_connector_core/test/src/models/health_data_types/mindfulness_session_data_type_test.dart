@@ -7,6 +7,12 @@ void main() {
     'MindfulnessSessionDataType',
     () {
       const dataType = HealthDataType.mindfulnessSession;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('mindfulness_session'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

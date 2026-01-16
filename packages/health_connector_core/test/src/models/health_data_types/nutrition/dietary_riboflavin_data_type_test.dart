@@ -7,6 +7,12 @@ void main() {
     'DietaryRiboflavinDataType',
     () {
       const dataType = HealthDataType.dietaryRiboflavin;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_riboflavin'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

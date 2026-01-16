@@ -29,7 +29,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/re
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity/sexual_activity_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep/sleep_session_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed/speed_record_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_cadence/steps_cadence_series_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_cadence_series_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/basal_body_temperature_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/body_temperature_record_mapper.dart';

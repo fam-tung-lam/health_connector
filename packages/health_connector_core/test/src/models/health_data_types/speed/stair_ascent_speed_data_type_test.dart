@@ -7,6 +7,12 @@ void main() {
     'StairAscentSpeedDataType',
     () {
       const dataType = HealthDataType.stairAscentSpeed;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('stair_ascent_speed'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

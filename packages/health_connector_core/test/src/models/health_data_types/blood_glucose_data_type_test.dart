@@ -7,6 +7,12 @@ void main() {
     'BloodGlucoseDataType',
     () {
       const dataType = HealthDataType.bloodGlucose;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('blood_glucose'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

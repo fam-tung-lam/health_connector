@@ -7,6 +7,12 @@ void main() {
     'DietaryVitaminEDataType',
     () {
       const dataType = HealthDataType.dietaryVitaminE;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_vitamin_e'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

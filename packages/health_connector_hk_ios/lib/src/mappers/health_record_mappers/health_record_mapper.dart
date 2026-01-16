@@ -21,9 +21,12 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/hydration_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/lean_body_mass_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/cervical_mucus/cervical_mucus_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/contraceptive/contraceptive_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/intermenstrual_bleeding_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/lactation_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/menstrual_flow/menstrual_flow_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/ovulation_test_result/ovulation_test_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/pregnancy_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/pregnancy_test_result/pregnancy_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/progesterone_test_result/progesterone_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
@@ -65,9 +68,6 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/peripheral_perfusion_index_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/cycling_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/running_power_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/contraceptive_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/lactation_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/reproductive_health/pregnancy_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sexual_activity/sexual_activity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep/sleep_stage_record_mapper.dart';

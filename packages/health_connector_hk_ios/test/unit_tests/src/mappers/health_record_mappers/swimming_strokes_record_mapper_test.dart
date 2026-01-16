@@ -64,5 +64,27 @@ void main() {
       expect(mappedRecord.startZoneOffsetSeconds, 3600);
       expect(mappedRecord.endZoneOffsetSeconds, 3600);
     });
+
+    test(
+      'converts SwimmingStrokesRecordDto with null id to domain with none id',
+      () {
+        final dto = SwimmingStrokesRecordDto(
+          startTime: startTime.millisecondsSinceEpoch,
+          endTime: endTime.millisecondsSinceEpoch,
+          count: 500.0,
+          metadata: MetadataDto(
+            dataOrigin: 'com.example.app',
+            recordingMethod: RecordingMethodDto.manualEntry,
+            deviceType: DeviceTypeDto.unknown,
+          ),
+          startZoneOffsetSeconds: 3600,
+          endZoneOffsetSeconds: 3600,
+        );
+
+        final mappedRecord = dto.toDomain();
+
+        expect(mappedRecord.id, HealthRecordId.none);
+      },
+    );
   });
 }

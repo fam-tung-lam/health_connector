@@ -7,6 +7,12 @@ void main() {
     'RowingDistanceDataType',
     () {
       const dataType = HealthDataType.rowingDistance;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('rowing_distance'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

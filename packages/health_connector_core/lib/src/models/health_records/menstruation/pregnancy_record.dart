@@ -61,7 +61,7 @@ class PregnancyRecord extends IntervalHealthRecord {
   bool operator ==(Object other) {
     return identical(this, other) ||
         other is PregnancyRecord &&
-            super == other &&
+            runtimeType == other.runtimeType &&
             startTime == other.startTime &&
             endTime == other.endTime &&
             startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
@@ -72,7 +72,6 @@ class PregnancyRecord extends IntervalHealthRecord {
 
   @override
   int get hashCode =>
-      super.hashCode ^
       startTime.hashCode ^
       endTime.hashCode ^
       startZoneOffsetSeconds.hashCode ^

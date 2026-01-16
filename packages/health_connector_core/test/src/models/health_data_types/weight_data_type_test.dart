@@ -7,6 +7,12 @@ void main() {
     'WeightDataType',
     () {
       const dataType = HealthDataType.weight;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('weight'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

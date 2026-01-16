@@ -7,6 +7,12 @@ void main() {
     'OxygenSaturationDataType',
     () {
       const dataType = HealthDataType.oxygenSaturation;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('oxygen_saturation'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

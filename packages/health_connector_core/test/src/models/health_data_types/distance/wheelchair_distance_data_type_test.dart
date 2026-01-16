@@ -7,6 +7,12 @@ void main() {
     'WheelchairDistanceDataType',
     () {
       const dataType = HealthDataType.wheelchairDistance;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('wheelchair_distance'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

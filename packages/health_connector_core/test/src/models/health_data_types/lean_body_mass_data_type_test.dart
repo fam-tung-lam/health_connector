@@ -7,6 +7,12 @@ void main() {
     'LeanBodyMassDataType',
     () {
       const dataType = HealthDataType.leanBodyMass;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('lean_body_mass'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

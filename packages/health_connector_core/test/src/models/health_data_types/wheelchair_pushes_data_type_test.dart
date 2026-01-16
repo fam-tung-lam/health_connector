@@ -7,6 +7,12 @@ void main() {
     'WheelchairPushesDataType',
     () {
       const dataType = HealthDataType.wheelchairPushes;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('wheelchair_pushes'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

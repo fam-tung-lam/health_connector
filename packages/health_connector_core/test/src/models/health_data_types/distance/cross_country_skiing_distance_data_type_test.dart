@@ -7,6 +7,12 @@ void main() {
     'CrossCountrySkiingDistanceDataType',
     () {
       const dataType = HealthDataType.crossCountrySkiingDistance;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('cross_country_skiing_distance'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

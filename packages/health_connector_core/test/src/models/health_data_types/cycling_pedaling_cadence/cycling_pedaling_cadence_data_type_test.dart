@@ -7,6 +7,12 @@ void main() {
     'CyclingPedalingCadenceMeasurementRecordDataType',
     () {
       const dataType = HealthDataType.cyclingPedalingCadence;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('cycling_pedaling_cadence'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

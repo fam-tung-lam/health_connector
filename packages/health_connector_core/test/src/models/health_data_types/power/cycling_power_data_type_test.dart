@@ -7,6 +7,12 @@ void main() {
     'CyclingPowerDataType',
     () {
       const dataType = HealthDataType.cyclingPower;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('cycling_power'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

@@ -1,4 +1,4 @@
-part of '../health_data_type.dart';
+part of 'health_data_type.dart';
 
 /// Elevation gained data type.
 ///

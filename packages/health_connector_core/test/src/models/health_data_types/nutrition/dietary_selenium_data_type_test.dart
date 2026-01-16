@@ -7,6 +7,12 @@ void main() {
     'DietarySeleniumDataType',
     () {
       const dataType = HealthDataType.dietarySelenium;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_selenium'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

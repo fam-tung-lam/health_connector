@@ -7,6 +7,12 @@ void main() {
     'DietaryManganeseDataType',
     () {
       const dataType = HealthDataType.dietaryManganese;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('dietary_manganese'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

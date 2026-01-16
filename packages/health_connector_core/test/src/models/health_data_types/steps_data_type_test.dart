@@ -7,6 +7,12 @@ void main() {
     'StepsDataType',
     () {
       const dataType = HealthDataType.steps;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('steps'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

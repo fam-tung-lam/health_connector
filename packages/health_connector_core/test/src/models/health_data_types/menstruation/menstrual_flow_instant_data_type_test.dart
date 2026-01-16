@@ -7,6 +7,12 @@ void main() {
     'MenstrualFlowInstantDataType',
     () {
       const dataType = HealthDataType.menstrualFlowInstant;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('menstrual_flow_instant'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',

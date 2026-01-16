@@ -7,6 +7,12 @@ void main() {
     'BodyFatPercentageDataType',
     () {
       const dataType = HealthDataType.bodyFatPercentage;
+      test(
+        'has correct id',
+        () {
+          expect(dataType.id, equals('body_fat_percentage'));
+        },
+      );
 
       test(
         'type and capabilities are correctly defined',
