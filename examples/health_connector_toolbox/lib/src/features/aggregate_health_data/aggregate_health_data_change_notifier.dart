@@ -97,6 +97,13 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      AlcoholicBeveragesDataType() => _buildSum(
+        () => HealthDataType.alcoholicBeverages.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       ElevationGainedDataType() => _buildSum(
         () => HealthDataType.elevationGained.aggregateSum(
           startTime: startTime,

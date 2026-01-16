@@ -33,6 +33,7 @@ extension HealthDataTypeUI on HealthDataType {
       WheelchairDistanceDataType _ => AppTexts.wheelchairDistance,
       WalkingRunningDistanceDataType _ => AppTexts.walkingRunningDistance,
       ActiveEnergyBurnedDataType _ => AppTexts.activeEnergyBurned,
+      AlcoholicBeveragesDataType _ => AppTexts.alcoholicBeverages,
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurned,
       TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurned,
       FloorsClimbedDataType _ => AppTexts.floorsClimbed,
@@ -146,6 +147,7 @@ extension HealthDataTypeUI on HealthDataType {
       WheelchairDistanceDataType _ => AppTexts.distanceDescription,
       WalkingRunningDistanceDataType _ => AppTexts.distanceDescription,
       ActiveEnergyBurnedDataType _ => AppTexts.activeEnergyBurnedDescription,
+      AlcoholicBeveragesDataType _ => AppTexts.alcoholicBeveragesDescription,
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurnedDescription,
       TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurnedDescription,
       FloorsClimbedDataType _ => AppTexts.floorsClimbedDescription,
@@ -266,6 +268,7 @@ extension HealthDataTypeUI on HealthDataType {
       WheelchairDistanceDataType _ => AppIcons.straighten,
       WalkingRunningDistanceDataType _ => AppIcons.straighten,
       ActiveEnergyBurnedDataType _ => AppIcons.localFireDepartment,
+      AlcoholicBeveragesDataType _ => Icons.local_bar,
       BasalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
       TotalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
       FloorsClimbedDataType _ => AppIcons.stairs,
@@ -375,6 +378,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
     return switch (runtimeType) {
       // Count Types
       const (StepsDataType) => AppTexts.stepCount,
+      const (AlcoholicBeveragesDataType) => AppTexts.alcoholicBeverages,
       const (FloorsClimbedDataType) => AppTexts.floorsClimbed,
       const (ElevationGainedDataType) => AppTexts.valueWithUnit(
         AppTexts.elevationGained,

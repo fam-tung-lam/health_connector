@@ -16,6 +16,7 @@ abstract class MeasurementUnitValueParser {
     return switch (forDataType) {
       // Integer count types
       StepsDataType() ||
+      AlcoholicBeveragesDataType() ||
       FloorsClimbedDataType() ||
       WheelchairPushesDataType() => _parseIntegerCount(value),
 

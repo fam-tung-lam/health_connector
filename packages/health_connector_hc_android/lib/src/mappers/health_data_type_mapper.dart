@@ -96,6 +96,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
     switch (this) {
       case ActiveEnergyBurnedDataType _:
         return HealthDataTypeDto.activeCaloriesBurned;
+      case AlcoholicBeveragesDataType _:
+        throw UnsupportedError(
+          '$AlcoholicBeveragesDataType is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
       case DistanceDataType _:
         return HealthDataTypeDto.distance;
       case ElevationGainedDataType _:

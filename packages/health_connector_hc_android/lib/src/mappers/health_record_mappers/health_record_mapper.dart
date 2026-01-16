@@ -131,6 +131,11 @@ extension HealthRecordToDto on HealthRecord {
     switch (this) {
       case final ActiveEnergyBurnedRecord record:
         return ActiveEnergyBurnedRecordToDto(record).toDto();
+      case AlcoholicBeveragesRecord():
+        throw UnsupportedError(
+          'AlcoholicBeveragesRecord is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
       case final DistanceRecord record:
         return DistanceRecordToDto(record).toDto();
       case final ElevationGainedRecord record:

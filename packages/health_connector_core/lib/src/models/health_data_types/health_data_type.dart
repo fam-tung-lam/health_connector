@@ -19,6 +19,7 @@ import 'package:meta/meta.dart' show immutable, internal;
 part 'reproductive_health/pregnancy_data_type.dart';
 part 'menstruation/pregnancy_test_data_type.dart';
 
+part 'alcoholic_beverages_data_type.dart';
 part 'blood_glucose_data_type.dart';
 part 'blood_pressure/blood_pressure_data_type.dart';
 part 'blood_pressure/diastolic_blood_pressure_data_type.dart';
@@ -735,6 +736,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnHealthConnect
   static const totalEnergyBurned = TotalEnergyBurnedDataType();
 
+  /// Alcoholic beverages data type.
+  ///
+  /// Tracks the number of alcoholic beverages consumed. Supports reading,
+  /// writing, deletion, and sum aggregation.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const alcoholicBeverages = AlcoholicBeveragesDataType();
+
   /// Basal energy burned data type.
   ///
   /// Represents the energy burned by the body at rest (BMR).
@@ -970,6 +979,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Returns a list of all available health data types.
   static const values = <HealthDataType<HealthRecord, MeasurementUnit>>[
     activeEnergyBurned,
+    alcoholicBeverages,
     basalBodyTemperature,
     basalEnergyBurned,
     dietaryBiotin,

@@ -11,6 +11,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
     switch (this) {
       case HealthDataTypeDto.activeCaloriesBurned:
         return HealthDataType.activeEnergyBurned;
+      case HealthDataTypeDto.alcoholicBeverages:
+        return HealthDataType.alcoholicBeverages;
       case HealthDataTypeDto.basalEnergyBurned:
         return HealthDataType.basalEnergyBurned;
       case HealthDataTypeDto.distance:
@@ -205,6 +207,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
     switch (this) {
       case ActiveEnergyBurnedDataType _:
         return HealthDataTypeDto.activeCaloriesBurned;
+      case AlcoholicBeveragesDataType _:
+        return HealthDataTypeDto.alcoholicBeverages;
       case BasalEnergyBurnedDataType _:
         return HealthDataTypeDto.basalEnergyBurned;
       case FloorsClimbedDataType _:

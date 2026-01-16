@@ -1,96 +1,5 @@
-import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        ActiveEnergyBurnedRecord,
-        BasalEnergyBurnedRecord,
-        DietaryBiotinRecord,
-        BloodPressureRecord,
-        BodyFatPercentageRecord,
-        BodyMassIndexRecord,
-        BodyTemperatureRecord,
-        BasalBodyTemperatureRecord,
-        BoneMassRecord,
-        BodyWaterMassRecord,
-        CervicalMucusRecord,
-        DietaryCaffeineRecord,
-        DietaryCalciumRecord,
-        DietaryCholesterolRecord,
-        CyclingPedalingCadenceRecord,
-        CyclingPedalingCadenceSeriesRecord,
-        StepsCadenceSeriesRecord,
-        CyclingPowerRecord,
-        DietaryFiberRecord,
-        DiastolicBloodPressureRecord,
-        DistanceActivityRecord,
-        DistanceRecord,
-        DietaryEnergyConsumedRecord,
-        ElevationGainedRecord,
-        FloorsClimbedRecord,
-        DietaryFolateRecord,
-        HealthRecord,
-        HeartRateRecord,
-        HeartRateSeriesRecord,
-        HeartRateVariabilitySDNNRecord,
-        HeartRateVariabilityRMSSDRecord,
-        HeightRecord,
-        HydrationRecord,
-        DietaryIronRecord,
-        LeanBodyMassRecord,
-        DietaryMagnesiumRecord,
-        DietaryManganeseRecord,
-        DietaryMonounsaturatedFatRecord,
-        DietaryNiacinRecord,
-        NutritionRecord,
-        DietaryPantothenicAcidRecord,
-        DietaryPhosphorusRecord,
-        DietaryPolyunsaturatedFatRecord,
-        DietaryPotassiumRecord,
-        PowerSeriesRecord,
-        DietaryProteinRecord,
-        RestingHeartRateRecord,
-        DietaryRiboflavinRecord,
-        DietarySaturatedFatRecord,
-        DietarySeleniumRecord,
-        SexualActivityRecord,
-        SleepSessionRecord,
-        SleepStageRecord,
-        MindfulnessSessionRecord,
-        DietarySodiumRecord,
-        StepsRecord,
-        DietarySugarRecord,
-        SystolicBloodPressureRecord,
-        DietaryThiaminRecord,
-        DietaryTotalCarbohydrateRecord,
-        DietaryTotalFatRecord,
-        TotalEnergyBurnedRecord,
-        DietaryVitaminARecord,
-        DietaryVitaminB12Record,
-        DietaryVitaminB6Record,
-        DietaryVitaminCRecord,
-        DietaryVitaminDRecord,
-        DietaryVitaminERecord,
-        DietaryVitaminKRecord,
-        WeightRecord,
-        WaistCircumferenceRecord,
-        WheelchairPushesRecord,
-        DietaryZincRecord,
-        IntermenstrualBleedingRecord,
-        OvulationTestRecord,
-        PregnancyRecord,
-        ContraceptiveRecord,
-        PregnancyTestRecord,
-        ProgesteroneTestRecord,
-        OxygenSaturationRecord,
-        RespiratoryRateRecord,
-        RunningPowerRecord,
-        BloodGlucoseRecord,
-        Vo2MaxRecord,
-        SpeedActivityRecord,
-        SpeedSeriesRecord,
-        ExerciseSessionRecord,
-        MenstrualFlowRecord,
-        MenstrualFlowInstantRecord,
-        LactationRecord,
-        sinceV1_0_0;
+import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/alcoholic_beverages_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/diastolic_blood_pressure_record_mapper.dart';
@@ -114,7 +23,6 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstr
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/menstrual_flow/menstrual_flow_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/ovulation_test_result/ovulation_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/pregnancy_test_result/pregnancy_test_record_mapper.dart';
-
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/progesterone_test_result/progesterone_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_biotin_record_mapper.dart';
@@ -168,85 +76,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_ma
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/waist_circumference_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/weight_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/wheelchair_pushes_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show
-        ActiveEnergyBurnedRecordDto,
-        BasalEnergyBurnedRecordDto,
-        DietaryBiotinRecordDto,
-        BloodPressureRecordDto,
-        BodyFatPercentageRecordDto,
-        BodyMassIndexRecordDto,
-        BodyTemperatureRecordDto,
-        BasalBodyTemperatureRecordDto,
-        CervicalMucusRecordDto,
-        DietaryCaffeineRecordDto,
-        DietaryCalciumRecordDto,
-        DietaryCholesterolRecordDto,
-        CyclingPedalingCadenceRecordDto,
-        CyclingPowerRecordDto,
-        DiastolicBloodPressureRecordDto,
-        DietaryFiberRecordDto,
-        DistanceActivityRecordDto,
-        DietaryEnergyConsumedRecordDto,
-        FloorsClimbedRecordDto,
-        DietaryFolateRecordDto,
-        HealthRecordDto,
-        HeartRateRecordDto,
-        HeartRateVariabilitySDNNRecordDto,
-        HeightRecordDto,
-        HydrationRecordDto,
-        DietaryIronRecordDto,
-        LeanBodyMassRecordDto,
-        DietaryMagnesiumRecordDto,
-        DietaryManganeseRecordDto,
-        DietaryMonounsaturatedFatRecordDto,
-        DietaryNiacinRecordDto,
-        NutritionRecordDto,
-        DietaryPantothenicAcidRecordDto,
-        DietaryPhosphorusRecordDto,
-        DietaryPolyunsaturatedFatRecordDto,
-        DietaryPotassiumRecordDto,
-        DietaryProteinRecordDto,
-        RestingHeartRateRecordDto,
-        DietaryRiboflavinRecordDto,
-        DietarySaturatedFatRecordDto,
-        DietarySeleniumRecordDto,
-        SexualActivityRecordDto,
-        SleepStageRecordDto,
-        MindfulnessSessionRecordDto,
-        DietarySodiumRecordDto,
-        StepsRecordDto,
-        DietarySugarRecordDto,
-        SystolicBloodPressureRecordDto,
-        DietaryThiaminRecordDto,
-        DietaryTotalCarbohydrateRecordDto,
-        DietaryTotalFatRecordDto,
-        DietaryVitaminARecordDto,
-        DietaryVitaminB12RecordDto,
-        DietaryVitaminB6RecordDto,
-        DietaryVitaminCRecordDto,
-        DietaryVitaminDRecordDto,
-        DietaryVitaminERecordDto,
-        DietaryVitaminKRecordDto,
-        WeightRecordDto,
-        WaistCircumferenceRecordDto,
-        WheelchairPushesRecordDto,
-        DietaryZincRecordDto,
-        IntermenstrualBleedingRecordDto,
-        OvulationTestRecordDto,
-        PregnancyRecordDto,
-        ContraceptiveRecordDto,
-        PregnancyTestRecordDto,
-        ProgesteroneTestRecordDto,
-        OxygenSaturationRecordDto,
-        RespiratoryRateRecordDto,
-        BloodGlucoseRecordDto,
-        RunningPowerRecordDto,
-        Vo2MaxRecordDto,
-        SpeedActivityRecordDto,
-        MenstrualFlowRecordDto,
-        LactationRecordDto,
-        ExerciseSessionRecordDto;
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart' show internal;
 
 /// ## ⚠️ CRITICAL: Infinite Recursion Prevention
@@ -302,6 +132,8 @@ extension HealthRecordToDto on HealthRecord {
     switch (this) {
       case final ActiveEnergyBurnedRecord record:
         return ActiveEnergyBurnedRecordToDto(record).toDto();
+      case final AlcoholicBeveragesRecord record:
+        return AlcoholicBeveragesRecordToDto(record).toDto();
       case final BasalEnergyBurnedRecord record:
         return BasalEnergyBurnedRecordToDto(record).toDto();
       case final FloorsClimbedRecord record:
@@ -526,6 +358,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
     switch (this) {
       case final ActiveEnergyBurnedRecordDto dto:
         return ActiveEnergyBurnedRecordDtoToDomain(dto).toDomain();
+      case final AlcoholicBeveragesRecordDto dto:
+        return AlcoholicBeveragesRecordDtoToDomain(dto).toDomain();
       case final BasalEnergyBurnedRecordDto dto:
         return BasalEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final FloorsClimbedRecordDto dto:

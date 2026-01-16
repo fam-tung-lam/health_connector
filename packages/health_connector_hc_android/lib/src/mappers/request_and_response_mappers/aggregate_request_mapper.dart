@@ -43,6 +43,7 @@ extension AggregateRequestDtoMapper<
               endTime: endTime.millisecondsSinceEpoch,
             );
           case ActiveEnergyBurnedDataType _:
+          case AlcoholicBeveragesDataType _:
           case BloodPressureDataType _:
           case BodyFatPercentageDataType _:
           case BodyTemperatureDataType _:

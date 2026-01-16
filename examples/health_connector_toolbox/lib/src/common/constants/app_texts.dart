@@ -109,6 +109,7 @@ abstract final class AppTexts {
       WheelchairDistanceDataType() ||
       WalkingRunningDistanceDataType() => distance,
       ActiveEnergyBurnedDataType() => activeEnergyBurned,
+      AlcoholicBeveragesDataType() => alcoholicBeverages,
       BasalEnergyBurnedDataType() => basalEnergyBurned,
       TotalEnergyBurnedDataType() => totalEnergyBurned,
       FloorsClimbedDataType() => floorsClimbed,
@@ -331,6 +332,7 @@ abstract final class AppTexts {
 
   // Distance activity values
   static const String activeEnergyBurned = 'Active Energy Burned';
+  static const String alcoholicBeverages = 'Alcoholic Beverages';
   static const String basalEnergyBurned = 'Basal Energy Burned';
   static const String totalEnergyBurned = 'Total Energy Burned';
   static const String crossCountrySkiing = 'Cross Country Skiing';
@@ -930,6 +932,8 @@ abstract final class AppTexts {
   // Activity Metrics
   static const String activeEnergyBurnedDescription =
       'Energy burned through active movement';
+  static const String alcoholicBeveragesDescription =
+      'Number of alcoholic beverages consumed';
   static const String basalEnergyBurnedDescription =
       'Energy burned by the body at rest to maintain basic functions';
   static const String totalEnergyBurnedDescription =

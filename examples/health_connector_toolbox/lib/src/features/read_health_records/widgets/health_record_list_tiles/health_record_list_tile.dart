@@ -24,6 +24,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/sexual_activity_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/simple_instant_measurement_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/systolic_blood_pressure_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/alcoholic_beverages_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/contraceptive_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/distance_activity_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/exercise_session_list_tile.dart';
@@ -311,6 +312,10 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.count,
           onDelete: onDelete,
         ),
+      final AlcoholicBeveragesRecord r => AlcoholicBeveragesTile(
+        record: r,
+        onDelete: onDelete,
+      ),
       final ActiveEnergyBurnedRecord r =>
         SimpleIntervalMeasurementListTile<ActiveEnergyBurnedRecord>(
           record: r,

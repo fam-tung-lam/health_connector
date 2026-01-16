@@ -43,6 +43,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/walking_speed_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/weight_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/active_energy_burned_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/alcoholic_beverages_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/basal_energy_burned_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/contraceptive_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/cross_country_skiing_distance_health_record_write_form.dart';
@@ -410,6 +411,10 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         onSubmit: _onSubmit,
       ),
       ActiveEnergyBurnedDataType _ => ActiveEnergyBurnedWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      AlcoholicBeveragesDataType _ => AlcoholicBeveragesWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
