@@ -44,6 +44,7 @@ extension AggregateRequestDtoMapper<
             );
           case ActiveEnergyBurnedDataType _:
           case AlcoholicBeveragesDataType _:
+          case BloodAlcoholContentDataType _:
           case BloodPressureDataType _:
           case BodyFatPercentageDataType _:
           case BodyTemperatureDataType _:

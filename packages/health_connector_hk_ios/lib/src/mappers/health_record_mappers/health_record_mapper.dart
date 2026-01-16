@@ -1,5 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/alcoholic_beverages_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_alcohol_content_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/diastolic_blood_pressure_record_mapper.dart';
@@ -135,6 +136,8 @@ extension HealthRecordToDto on HealthRecord {
         return ActiveEnergyBurnedRecordToDto(record).toDto();
       case final AlcoholicBeveragesRecord record:
         return AlcoholicBeveragesRecordToDto(record).toDto();
+      case final BloodAlcoholContentRecord record:
+        return BloodAlcoholContentRecordToDto(record).toDto();
       case final BasalEnergyBurnedRecord record:
         return BasalEnergyBurnedRecordToDto(record).toDto();
       case final FloorsClimbedRecord record:
@@ -363,6 +366,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return ActiveEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final AlcoholicBeveragesRecordDto dto:
         return AlcoholicBeveragesRecordDtoToDomain(dto).toDomain();
+      case final BloodAlcoholContentRecordDto dto:
+        return BloodAlcoholContentRecordDtoToDomain(dto).toDomain();
       case final BasalEnergyBurnedRecordDto dto:
         return BasalEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final FloorsClimbedRecordDto dto:

@@ -34,6 +34,7 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingRunningDistanceDataType _ => AppTexts.walkingRunningDistance,
       ActiveEnergyBurnedDataType _ => AppTexts.activeEnergyBurned,
       AlcoholicBeveragesDataType _ => AppTexts.alcoholicBeverages,
+      BloodAlcoholContentDataType _ => AppTexts.bloodAlcoholContent,
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurned,
       TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurned,
       FloorsClimbedDataType _ => AppTexts.floorsClimbed,
@@ -149,6 +150,7 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingRunningDistanceDataType _ => AppTexts.distanceDescription,
       ActiveEnergyBurnedDataType _ => AppTexts.activeEnergyBurnedDescription,
       AlcoholicBeveragesDataType _ => AppTexts.alcoholicBeveragesDescription,
+      BloodAlcoholContentDataType _ => AppTexts.bloodAlcoholContentDescription,
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurnedDescription,
       TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurnedDescription,
       FloorsClimbedDataType _ => AppTexts.floorsClimbedDescription,
@@ -271,6 +273,7 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingRunningDistanceDataType _ => AppIcons.straighten,
       ActiveEnergyBurnedDataType _ => AppIcons.localFireDepartment,
       AlcoholicBeveragesDataType _ => Icons.local_bar,
+      BloodAlcoholContentDataType _ => Icons.bloodtype,
       BasalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
       TotalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
       FloorsClimbedDataType _ => AppIcons.stairs,
@@ -444,6 +447,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (OxygenSaturationDataType) => AppTexts.withUnit(
         AppTexts.oxygenSaturation,
+        AppTexts.percent,
+      ),
+      const (BloodAlcoholContentDataType) => AppTexts.withUnit(
+        AppTexts.bloodAlcoholContent,
         AppTexts.percent,
       ),
 
@@ -716,6 +723,9 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
 
       // Percentage types
       const (BodyFatPercentageDataType) ||
+      // Percentage types
+      const (BodyFatPercentageDataType) ||
+      const (BloodAlcoholContentDataType) ||
       const (OxygenSaturationDataType) => '%',
 
       const (BodyMassIndexDataType) => 'kg/m²',

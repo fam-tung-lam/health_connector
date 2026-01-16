@@ -19,8 +19,7 @@ final class AlcoholicBeveragesTile extends StatelessWidget {
     return IntervalHealthRecordTile<AlcoholicBeveragesRecord>(
       record: record,
       icon: Icons.local_bar,
-      title:
-          '${record.count.value.toInt()} beverage${record.count.value.toInt() == 1 ? '' : 's'}',
+      title: '${record.count.value.toInt()} beverage(s)',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.interval(
         startTime: r.startTime,
         endTime: r.endTime,

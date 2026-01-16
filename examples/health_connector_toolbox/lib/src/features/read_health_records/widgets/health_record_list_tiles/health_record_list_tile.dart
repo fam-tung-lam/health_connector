@@ -227,6 +227,14 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.percentage,
           onDelete: onDelete,
         ),
+      final BloodAlcoholContentRecord r =>
+        SimpleInstantMeasurementListTile<BloodAlcoholContentRecord>(
+          record: r,
+          icon: AppIcons.percent,
+          titleBuilder: (r) => '${r.percentage.asWhole.toStringAsFixed(3)} %',
+          valueExtractor: (r) => r.percentage,
+          onDelete: onDelete,
+        ),
       final LeanBodyMassRecord r =>
         SimpleInstantMeasurementListTile<LeanBodyMassRecord>(
           record: r,

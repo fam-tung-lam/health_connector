@@ -20,6 +20,7 @@ part 'reproductive_health/pregnancy_data_type.dart';
 part 'menstruation/pregnancy_test_data_type.dart';
 
 part 'alcoholic_beverages_data_type.dart';
+part 'blood_alcohol_content_data_type.dart';
 part 'blood_glucose_data_type.dart';
 part 'blood_pressure/blood_pressure_data_type.dart';
 part 'blood_pressure/diastolic_blood_pressure_data_type.dart';
@@ -750,6 +751,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const alcoholicBeverages = AlcoholicBeveragesDataType();
 
+  /// Blood alcohol content data type.
+  ///
+  /// Represents the concentration of alcohol in the blood.
+  /// Supports AVG, MIN, MAX aggregation.
+  @sinceV3_1_0
+  @supportedOnAppleHealth
+  static const bloodAlcoholContent = BloodAlcoholContentDataType();
+
   /// Basal energy burned data type.
   ///
   /// Represents the energy burned by the body at rest (BMR).
@@ -1024,6 +1033,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     bodyWaterMass,
     boneMass,
     bodyMassIndex,
+    bloodAlcoholContent,
     bloodGlucose,
     bloodPressure,
     bodyFatPercentage,

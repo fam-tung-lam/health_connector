@@ -69,7 +69,9 @@ abstract class MeasurementUnitValueParser {
       DietaryPantothenicAcidDataType() => _parseMassGrams(value),
 
       // Percentage types
+      // Percentage types
       BodyFatPercentageDataType() ||
+      BloodAlcoholContentDataType() ||
       OxygenSaturationDataType() => _parsePercentage(value),
 
       // Temperature

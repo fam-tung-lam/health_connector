@@ -101,6 +101,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$AlcoholicBeveragesDataType is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
+      case BloodAlcoholContentDataType _:
+        throw UnsupportedError(
+          '$BloodAlcoholContentDataType is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
       case DistanceDataType _:
         return HealthDataTypeDto.distance;
       case ElevationGainedDataType _:
@@ -302,7 +307,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         );
       case SwimmingStrokesDataType _:
         throw UnsupportedError(
-          '$SwimmingStrokesDataType is not supported on Android Health Connect.',
+          '$SwimmingStrokesDataType is not supported on Android '
+          'Health Connect.',
         );
       case BodyMassIndexDataType _:
         throw UnsupportedError(

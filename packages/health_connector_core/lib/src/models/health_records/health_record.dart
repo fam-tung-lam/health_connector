@@ -12,6 +12,7 @@ import 'package:health_connector_core/src/utils/validation_utils.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'alcoholic_beverages_record.dart';
+part 'blood_alcohol_content_record.dart';
 part 'blood_glucose/blood_glucose_record.dart';
 part 'blood_glucose/blood_glucose_relation_to_meal.dart';
 part 'blood_glucose/blood_glucose_specimen_source.dart';

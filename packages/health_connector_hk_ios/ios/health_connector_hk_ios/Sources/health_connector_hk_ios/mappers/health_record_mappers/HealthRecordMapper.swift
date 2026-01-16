@@ -13,6 +13,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as AlcoholicBeveragesRecordDto:
             return try dto.toHealthKit()
+        case let dto as BloodAlcoholContentRecordDto:
+            return try dto.toHealthKit()
         case let dto as BasalEnergyBurnedRecordDto:
             return try dto.toHealthKit()
         case let dto as BloodGlucoseRecordDto:
@@ -311,6 +313,8 @@ extension HKQuantitySample {
             try toActiveEnergyBurnedRecordDto()
         case .alcoholicBeverages:
             try toAlcoholicBeveragesRecordDto()
+        case .bloodAlcoholContent:
+            try toBloodAlcoholContentRecordDto()
         case .basalEnergyBurned:
             try toBasalEnergyBurnedRecordDto()
         case .bodyFatPercentage:
@@ -449,7 +453,7 @@ extension HKQuantitySample {
             try toDietarySodiumDto()
         case .zinc:
             try toDietaryZincDto()
-        case .swimmingStrokeCount:
+        case .swimmingStrokes:
             try toSwimmingStrokesRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(

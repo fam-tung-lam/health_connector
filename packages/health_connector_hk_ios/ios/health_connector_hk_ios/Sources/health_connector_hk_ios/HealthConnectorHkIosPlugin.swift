@@ -30,7 +30,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// - Parameters:
     ///   - config: Configuration settings for the Health Connector
     ///   - completion: Called with a `Result` indicating success or failure
-    public func initialize(
+    func initialize(
         config: HealthConnectorConfigDto,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
@@ -85,7 +85,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// Gets the current status of the HealthKit platform on the device.
     ///
     /// - Parameter completion: Called with a `Result` containing the platform status
-    public func getHealthPlatformStatus(
+    func getHealthPlatformStatus(
         completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void
     ) {
         let statusDto = HealthConnectorClient.getHealthPlatformStatus()
@@ -100,7 +100,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///
     /// - Throws: `HealthConnectorError.healthServiceUnavailable` if HealthKit is unavailable
     /// - Throws: `HealthConnectorError.unknownError` for unexpected errors
-    public func requestPermissions(
+    func requestPermissions(
         request: PermissionsRequestDto,
         completion: @escaping (Result<[HealthDataPermissionRequestResultDto], Error>) -> Void
     ) {
@@ -122,7 +122,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///   - completion: Called with a `Result` containing the permission status
     ///
     /// - Note: Read permissions always return `.unknown` due to HealthKit privacy restrictions
-    public func getPermissionStatus(
+    func getPermissionStatus(
         permission: HealthDataPermissionDto,
         completion: @escaping (Result<PermissionStatusDto, Error>) -> Void
     ) {
@@ -142,7 +142,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// - Parameters:
     ///   - request: Contains the data type and record ID to read
     ///   - completion: Called with a `Result` containing the health record or nil if not found
-    public func readRecord(
+    func readRecord(
         request: ReadRecordRequestDto,
         completion: @escaping (Result<HealthRecordDto?, Error>) -> Void
     ) {
@@ -162,7 +162,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// - Parameters:
     ///   - request: Contains data type, time range, page size, and optional page token
     ///   - completion: Called with a `Result` containing the read records response
-    public func readRecords(
+    func readRecords(
         request: ReadRecordsRequestDto,
         completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void
     ) {
@@ -183,7 +183,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// - Parameters:
     ///   - record: The health record to write.
     ///   - completion: Called with a `Result` containing the ID of the written record.
-    public func writeRecord(
+    func writeRecord(
         record: HealthRecordDto,
         completion: @escaping (Result<String, Error>) -> Void
     ) {
@@ -200,7 +200,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// - Parameters:
     ///   - records: The list of health records to write.
     ///   - completion: Called with a `Result` containing the IDs of the written records.
-    public func writeRecords(
+    func writeRecords(
         records: [HealthRecordDto],
         completion: @escaping (Result<[String], Error>) -> Void
     ) {
@@ -219,7 +219,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// - Parameters:
     ///   - request: Contains data type, aggregation metric, and time range
     ///   - completion: Called with a `Result` containing the aggregated measurement unit
-    public func aggregate(
+    func aggregate(
         request: AggregateRequestDto,
         completion: @escaping (Result<Double, Error>) -> Void
     ) {
@@ -274,7 +274,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///   - dataTypes: Health data types to synchronize
     ///   - syncToken: Token from previous sync, or nil for initial sync
     ///   - completion: Called with a `Result` containing the synchronization result
-    public func synchronize(
+    func synchronize(
         dataTypes: [HealthDataTypeDto],
         syncToken: HealthDataSyncTokenDto?,
         completion: @escaping (Result<HealthDataSyncResultDto, Error>) -> Void

@@ -168,6 +168,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(ContraceptiveHandler(healthStore: healthStore))
         register(AlcoholicBeveragesHandler(healthStore: healthStore))
         register(SwimmingStrokesHandler(healthStore: healthStore))
+        register(BloodAlcoholContentHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

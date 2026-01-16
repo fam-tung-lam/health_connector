@@ -110,6 +110,7 @@ abstract final class AppTexts {
       WalkingRunningDistanceDataType() => distance,
       ActiveEnergyBurnedDataType() => activeEnergyBurned,
       AlcoholicBeveragesDataType() => alcoholicBeverages,
+      BloodAlcoholContentDataType() => bloodAlcoholContent,
       BasalEnergyBurnedDataType() => basalEnergyBurned,
       TotalEnergyBurnedDataType() => totalEnergyBurned,
       FloorsClimbedDataType() => floorsClimbed,
@@ -317,6 +318,9 @@ abstract final class AppTexts {
       'Result of a home progesterone urine test';
   static const String stepCount = 'Step Count';
   static const String weight = 'Weight';
+  static const String bloodAlcoholContent = 'Blood Alcohol Content';
+  static const String bloodAlcoholContentDescription =
+      'Concentration of alcohol in the blood';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';

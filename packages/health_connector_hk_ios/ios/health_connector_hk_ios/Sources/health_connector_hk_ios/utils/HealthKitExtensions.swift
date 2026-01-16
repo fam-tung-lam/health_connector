@@ -45,6 +45,8 @@ extension HKSample {
                 return .basalBodyTemperature
             case HKQuantityTypeIdentifier.numberOfAlcoholicBeverages.rawValue:
                 return .alcoholicBeverages
+            case HKQuantityTypeIdentifier.bloodAlcoholContent.rawValue:
+                return .bloodAlcoholContent
             case HKQuantityTypeIdentifier.activeEnergyBurned.rawValue:
                 return .activeCaloriesBurned
             case HKQuantityTypeIdentifier.basalEnergyBurned.rawValue:
@@ -146,7 +148,7 @@ extension HKSample {
             case HKQuantityTypeIdentifier.distanceSwimming.rawValue:
                 return .swimmingDistance
             case HKQuantityTypeIdentifier.swimmingStrokeCount.rawValue:
-                return .swimmingStrokeCount
+                return .swimmingStrokes
             case HKQuantityTypeIdentifier.distanceWheelchair.rawValue:
                 return .wheelchairDistance
             case HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue:

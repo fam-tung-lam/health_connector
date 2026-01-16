@@ -19,6 +19,7 @@ extension HealthDataPermissionDto {
         // Quantity types
         case .activeCaloriesBurned,
              .alcoholicBeverages,
+             .bloodAlcoholContent,
              .basalEnergyBurned,
              .distance,
              .cyclingDistance,
@@ -27,7 +28,7 @@ extension HealthDataPermissionDto {
              .cyclingPedalingCadence,
              .cyclingPedalingCadence,
              .swimmingDistance,
-             .swimmingStrokeCount,
+             .swimmingStrokes,
              .wheelchairDistance,
              .wheelchairDistance,
              .walkingRunningDistance,

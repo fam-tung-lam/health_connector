@@ -473,6 +473,11 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$SwimmingStrokesRecord is not supported on Android Health Connect.',
         );
+      case BloodAlcoholContentRecord():
+        throw UnsupportedError(
+          '$BloodAlcoholContentRecord is not supported on Android Health '
+          'Connect.',
+        );
     }
   }
 }

@@ -403,6 +403,21 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Vital signs - avg/min/max
+      BloodAlcoholContentDataType() => _buildAvgMinMax(
+        () => HealthDataType.bloodAlcoholContent.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.bloodAlcoholContent.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.bloodAlcoholContent.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       OxygenSaturationDataType() => _buildAvgMinMax(
         () => HealthDataType.oxygenSaturation.aggregateAvg(
           startTime: startTime,

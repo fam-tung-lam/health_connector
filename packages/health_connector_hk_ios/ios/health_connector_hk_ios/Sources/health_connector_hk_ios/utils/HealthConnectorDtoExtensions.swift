@@ -12,6 +12,8 @@ extension HealthRecordDto {
             record.id
         case let record as AlcoholicBeveragesRecordDto:
             record.id
+        case let record as BloodAlcoholContentRecordDto:
+            record.id
         case let record as BasalEnergyBurnedRecordDto:
             record.id
         case let record as DistanceActivityRecordDto:
@@ -187,6 +189,8 @@ extension HealthRecordDto {
                 return .activeCaloriesBurned
             case is AlcoholicBeveragesRecordDto:
                 return .alcoholicBeverages
+            case is BloodAlcoholContentRecordDto:
+                return .bloodAlcoholContent
             case is BasalEnergyBurnedRecordDto:
                 return .basalEnergyBurned
             case let record as DistanceActivityRecordDto:
@@ -342,7 +346,7 @@ extension HealthRecordDto {
             case is ContraceptiveRecordDto:
                 return .contraceptive
             case is SwimmingStrokesRecordDto:
-                return .swimmingStrokeCount
+                return .swimmingStrokes
             default:
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -392,6 +396,8 @@ extension HealthRecordDto {
         case let dto as HeightRecordDto:
             return dto.time
         case let dto as BodyFatPercentageRecordDto:
+            return dto.time
+        case let dto as BloodAlcoholContentRecordDto:
             return dto.time
         case let dto as BodyTemperatureRecordDto:
             return dto.time

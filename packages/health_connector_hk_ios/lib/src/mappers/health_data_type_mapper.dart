@@ -13,6 +13,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.activeEnergyBurned;
       case HealthDataTypeDto.alcoholicBeverages:
         return HealthDataType.alcoholicBeverages;
+      case HealthDataTypeDto.bloodAlcoholContent:
+        return HealthDataType.bloodAlcoholContent;
       case HealthDataTypeDto.basalEnergyBurned:
         return HealthDataType.basalEnergyBurned;
       case HealthDataTypeDto.distance:
@@ -177,7 +179,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.walkingSpeed;
       case HealthDataTypeDto.runningSpeed:
         return HealthDataType.runningSpeed;
-      case HealthDataTypeDto.swimmingStrokeCount:
+      case HealthDataTypeDto.swimmingStrokes:
         return HealthDataType.swimmingStrokes;
       case HealthDataTypeDto.stairAscentSpeed:
         return HealthDataType.stairAscentSpeed;
@@ -211,6 +213,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.activeCaloriesBurned;
       case AlcoholicBeveragesDataType _:
         return HealthDataTypeDto.alcoholicBeverages;
+      case BloodAlcoholContentDataType _:
+        return HealthDataTypeDto.bloodAlcoholContent;
       case BasalEnergyBurnedDataType _:
         return HealthDataTypeDto.basalEnergyBurned;
       case FloorsClimbedDataType _:
@@ -374,7 +378,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case WalkingRunningDistanceDataType _:
         return HealthDataTypeDto.walkingRunningDistance;
       case SwimmingStrokesDataType _:
-        return HealthDataTypeDto.swimmingStrokeCount;
+        return HealthDataTypeDto.swimmingStrokes;
       // Speed activity types (iOS HealthKit only)
       case WalkingSpeedDataType _:
         return HealthDataTypeDto.walkingSpeed;

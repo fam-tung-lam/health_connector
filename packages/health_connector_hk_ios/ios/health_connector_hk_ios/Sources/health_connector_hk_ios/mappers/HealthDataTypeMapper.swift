@@ -32,6 +32,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .activeEnergyBurned)
         case .alcoholicBeverages:
             try HKQuantityType.make(from: .numberOfAlcoholicBeverages)
+        case .bloodAlcoholContent:
+            try HKQuantityType.make(from: .bloodAlcoholContent)
         case .basalEnergyBurned:
             try HKQuantityType.make(from: .basalEnergyBurned)
         case .floorsClimbed:
@@ -156,7 +158,7 @@ extension HealthDataTypeDto {
             }
         case .swimmingDistance:
             try HKQuantityType.make(from: .distanceSwimming)
-        case .swimmingStrokeCount:
+        case .swimmingStrokes:
             try HKQuantityType.make(from: .swimmingStrokeCount)
         case .wheelchairDistance:
             try HKQuantityType.make(from: .distanceWheelchair)

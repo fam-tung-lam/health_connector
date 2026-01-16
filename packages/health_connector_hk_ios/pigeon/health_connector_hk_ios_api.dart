@@ -705,6 +705,9 @@ enum HealthDataTypeDto {
   /// Alcoholic beverages data (iOS only).
   alcoholicBeverages,
 
+  /// Blood alcohol content data (iOS only).
+  bloodAlcoholContent,
+
   /// Distance traveled data (generic).
   distance,
 
@@ -718,7 +721,7 @@ enum HealthDataTypeDto {
   swimmingDistance,
 
   /// Swimming stroke count data.
-  swimmingStrokeCount,
+  swimmingStrokes,
 
   /// Running power data (iOS 16+).
   runningPower,
@@ -1724,6 +1727,23 @@ class HeightRecordDto extends HealthRecordDto {
 }
 
 /// DTO for body fat percentage health data.
+/// Represents a blood alcohol content record.
+class BloodAlcoholContentRecordDto extends HealthRecordDto {
+  BloodAlcoholContentRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.percentage,
+    this.zoneOffsetSeconds,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final double percentage;
+}
+
 class BodyFatPercentageRecordDto extends HealthRecordDto {
   BodyFatPercentageRecordDto({
     required this.id,
