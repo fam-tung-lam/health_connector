@@ -8,6 +8,7 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
+/// - **Android Health Connect**: Not supported
 /// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.numberOfAlcoholicBeverages`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/numberofalcoholicbeverages)
 ///
 /// ## Example
@@ -24,6 +25,7 @@ part of 'health_record.dart';
 /// ## See also
 ///
 /// - [AlcoholicBeveragesDataType]
+/// - [BloodAlcoholContentRecord]
 ///
 /// {@category Health Records}
 @sinceV3_1_0

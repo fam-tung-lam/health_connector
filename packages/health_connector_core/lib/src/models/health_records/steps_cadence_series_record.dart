@@ -44,6 +44,16 @@ part of 'health_record.dart';
 final class StepsCadenceSeriesRecord
     extends SeriesHealthRecord<StepsCadenceSample> {
   /// Creates a steps cadence series record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startTime]: The start of the time interval (inclusive).
+  /// - [endTime]: The end of the time interval (exclusive).
+  /// - [samples]: A list of [StepsCadenceSample] measurements.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
+  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
   StepsCadenceSeriesRecord({
     required super.metadata,
     required super.startTime,

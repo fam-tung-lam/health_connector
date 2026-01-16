@@ -1,12 +1,31 @@
 part of 'health_data_type.dart';
 
-/// [HealthDataType] for [PeripheralPerfusionIndexRecord].
+/// Peripheral perfusion index data type.
 ///
-/// ## Supported Aggregation
+/// Represents the peripheral perfusion index (PPI), which is a measure of the
+/// peripheral blood flow.
 ///
-/// - [AggregationMetric.avg]
-/// - [AggregationMetric.min]
-/// - [AggregationMetric.max]
+/// ## Measurement Unit
+///
+/// Values are measured as [Percentage].
+///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: Not supported
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.peripheralPerfusionIndex`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/peripheralperfusionindex)
+///
+/// ## Capabilities
+///
+/// - Readable: Query peripheral perfusion index records
+/// - Writeable: Write peripheral perfusion index records
+/// - Aggregatable: Avg, Min, Max
+/// - Deletable: Delete peripheral perfusion index records by IDs or time range
+///
+/// ## See also
+///
+/// - [PeripheralPerfusionIndexRecord]
+///
+/// {@category Health Records}
 @sinceV3_1_0
 @immutable
 final class PeripheralPerfusionIndexDataType
@@ -32,7 +51,7 @@ final class PeripheralPerfusionIndexDataType
   const PeripheralPerfusionIndexDataType();
 
   @override
-  String get id => 'peripheralPerfusionIndex';
+  String get id => 'peripheral_perfusion_index';
 
   @override
   HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;

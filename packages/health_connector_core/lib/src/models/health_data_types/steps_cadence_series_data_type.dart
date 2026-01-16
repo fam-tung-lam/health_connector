@@ -1,9 +1,30 @@
 part of 'health_data_type.dart';
 
-/// Steps cadence series data type (Android Health Connect only).
+/// Steps cadence series data type.
 ///
 /// Represents steps cadence measurements as a series of samples over a time
 /// interval.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Frequency] units.
+///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`StepsCadenceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsCadenceRecord)
+/// - **iOS HealthKit**: Not supported
+///
+/// ## Capabilities
+///
+/// - Readable: Query steps cadence series records
+/// - Writeable: Write steps cadence series records
+/// - Aggregatable: Avg, Min, Max
+///
+/// ## See also
+///
+/// - [StepsCadenceSeriesRecord]
+///
+/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnHealthConnect
 final class StepsCadenceSeriesDataType
@@ -14,7 +35,10 @@ final class StepsCadenceSeriesDataType
         AvgAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
         MinAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
         MaxAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency> {
-  /// Default constructor.
+  /// Creates a steps cadence series data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   const StepsCadenceSeriesDataType();
 
   @override

@@ -4,16 +4,25 @@ part of '../health_data_type.dart';
 ///
 /// Running power estimates the effort exerted while running, measured in Watts.
 ///
+/// ## Measurement Unit
+///
+/// Values are measured in [Power] units.
+///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported.
 /// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.runningPower`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runningpower)
 ///
 /// ## Capabilities
-/// - Read: Query historical records
-/// - Write: Create new records
-/// - Delete: Remove records created by your app
-/// - Aggregate: Avg, Min, Max
+///
+/// - Readable: Query running power records
+/// - Writeable: Write running power records
+/// - Aggregatable: Avg, Min, Max
+/// - Deletable: Delete running power records by IDs or time range
+///
+/// ## See also
+///
+/// - [RunningPowerRecord]
 ///
 /// {@category Health Records}
 @sinceV3_1_0
@@ -28,6 +37,7 @@ final class RunningPowerDataType
         AvgAggregatableHealthDataType<RunningPowerRecord, Power>,
         MinAggregatableHealthDataType<RunningPowerRecord, Power>,
         MaxAggregatableHealthDataType<RunningPowerRecord, Power> {
+  /// Creates a running power data type.
   const RunningPowerDataType._();
 
   @override

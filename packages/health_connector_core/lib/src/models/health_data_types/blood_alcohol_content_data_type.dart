@@ -18,7 +18,8 @@ part of 'health_data_type.dart';
 ///
 /// - Readable: Query BAC records
 /// - Writeable: Write BAC records
-/// - Aggregatable: Average, Min, Max BAC
+/// - Aggregatable: Avg, Min, Max
+/// - Deletable: Delete BAC records by IDs or time range
 ///
 /// ## See also
 ///
@@ -49,7 +50,7 @@ final class BloodAlcoholContentDataType
   ];
 
   @override
-  String get id => 'bloodAlcoholContent';
+  String get id => 'blood_alcohol_content';
 
   @override
   bool operator ==(Object other) =>

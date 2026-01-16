@@ -12,10 +12,10 @@ part of '../health_data_type.dart';
 ///
 /// ## Capabilities
 ///
-/// - Read: Query historical contraceptive records
-/// - Write: Create new contraceptive records
-/// - Delete: Remove contraceptive records created by your app
-/// - Aggregate: Not supported
+/// - Readable: Query historical contraceptive records
+/// - Writeable: Create new contraceptive records
+/// - Deletable: Remove contraceptive records created by your app
+/// - Aggregatable: Not supported
 ///
 /// ## Example
 ///

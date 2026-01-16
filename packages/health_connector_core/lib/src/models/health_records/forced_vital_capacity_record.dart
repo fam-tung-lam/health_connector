@@ -7,9 +7,22 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: Maps to
-///   `HKQuantityTypeIdentifier.forcedVitalCapacity`.
-/// - **Android (Health Connect)**: Not supported.
+/// - **Android Health Connect**: Not supported
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.forcedVitalCapacity`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/forcedvitalcapacity)
+///
+/// ## Example
+///
+/// ```dart
+/// final record = ForcedVitalCapacityRecord(
+///   time: DateTime.now(),
+///   volume: Volume.liters(3.5),
+///   metadata: Metadata.manuallyRecorded(),
+/// );
+/// ```
+///
+/// ## See also
+///
+/// - [ForcedVitalCapacityDataType]
 ///
 /// {@category Health Records}
 @sinceV3_1_0
@@ -17,6 +30,14 @@ part of 'health_record.dart';
 @immutable
 final class ForcedVitalCapacityRecord extends InstantHealthRecord {
   /// Creates a forced vital capacity record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [time]: The timestamp when the measurement was taken.
+  /// - [volume]: The volume of air exhaled.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   const ForcedVitalCapacityRecord({
     required super.time,
     required super.metadata,

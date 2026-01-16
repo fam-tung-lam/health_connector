@@ -31,6 +31,14 @@ final class RunningPowerRecord extends InstantHealthRecord {
 
   /// Creates a running power record.
   ///
+  /// ## Parameters
+  ///
+  /// - [time]: The timestamp when the measurement was taken.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [power]: The running power in Watts.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset.
+  ///
   /// ## Throws
   ///
   /// - [ArgumentError] if [power] is outside the valid range of

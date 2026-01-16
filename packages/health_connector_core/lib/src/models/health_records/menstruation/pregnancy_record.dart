@@ -1,12 +1,44 @@
 part of '../health_record.dart';
 
-/// {@template PregnancyRecord}
 /// A record capturing the pregnancy period.
-/// {@endtemplate}
+///
+/// [PregnancyRecord] tracks a pregnancy interval. This is an interval-based
+/// record, meaning it has both a start and end time.
+///
+/// ## Platform Mapping
+///
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.pregnancy`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/pregnancy)
+/// - **Android Health Connect**: Not supported.
+///
+/// ## Example
+///
+/// ```dart
+/// final record = PregnancyRecord(
+///   startTime: DateTime(2023, 1, 1),
+///   endTime: DateTime(2023, 9, 30),
+///   metadata: Metadata.manuallyRecorded(),
+/// );
+/// ```
+///
+/// ## See also
+///
+/// - [PregnancyDataType]
+///
+/// {@category Health Records}
+/// {@category Reproductive Health}
 @sinceV3_1_0
 @supportedOnAppleHealth
 class PregnancyRecord extends IntervalHealthRecord {
-  /// {@macro PregnancyRecord}
+  /// Creates a pregnancy record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startTime]: The start of the pregnancy term (inclusive).
+  /// - [endTime]: The end of the pregnancy term (exclusive).
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
+  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
   PregnancyRecord({
     required super.startTime,
     required super.endTime,

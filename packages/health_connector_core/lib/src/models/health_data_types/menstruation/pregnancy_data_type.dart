@@ -6,7 +6,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Not currently supported
+/// - **Android Health Connect**: Not supported
 /// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.pregnancy`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/pregnancy)
 ///
 /// ## Capabilities

@@ -25,6 +25,7 @@ part of 'health_record.dart';
 /// ## See also
 ///
 /// - [BloodAlcoholContentDataType]
+/// - [AlcoholicBeveragesRecord]
 ///
 /// {@category Health Records}
 @sinceV3_1_0

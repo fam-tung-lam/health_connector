@@ -7,6 +7,7 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
+/// - **Android Health Connect**: Not supported
 /// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.peripheralPerfusionIndex`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/peripheralPerfusionIndex)
 ///
 /// ## Example
@@ -29,15 +30,6 @@ part of 'health_record.dart';
 @sinceV3_1_0
 @immutable
 final class PeripheralPerfusionIndexRecord extends InstantHealthRecord {
-  /// Creates a peripheral perfusion index record.
-  ///
-  /// ## Parameters
-  ///
-  /// - [time]: The timestamp when the measurement was taken.
-  /// - [percentage]: The peripheral perfusion index as a percentage.
-  /// - [metadata]: Metadata about the origin and recording method.
-  /// - [id]: The unique identifier for this record.
-  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// The peripheral perfusion index value.
   final Percentage percentage;
 

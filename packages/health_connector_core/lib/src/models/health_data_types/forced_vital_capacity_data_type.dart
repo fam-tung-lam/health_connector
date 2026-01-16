@@ -3,9 +3,28 @@ part of 'health_data_type.dart';
 /// Forced vital capacity data type.
 ///
 /// Represents the user's forced vital capacity measurements.
-/// Supports AVG, MIN, MAX aggregation.
 ///
-/// **Platform:** iOS HealthKit only.
+/// ## Measurement Unit
+///
+/// Values are measured in [Volume] units.
+///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: Not supported
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.forcedVitalCapacity`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/forcedvitalcapacity)
+///
+/// ## Capabilities
+///
+/// - Readable: Query forced vital capacity records
+/// - Writeable: Write forced vital capacity records
+/// - Aggregatable: Avg, Min, Max
+/// - Deletable: Delete forced vital capacity records by IDs or time range
+///
+/// ## See also
+///
+/// - [ForcedVitalCapacityRecord]
+///
+/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +46,7 @@ final class ForcedVitalCapacityDataType
   ];
 
   @override
-  String get id => 'forcedVitalCapacity';
+  String get id => 'forced_vital_capacity';
 
   @override
   HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;

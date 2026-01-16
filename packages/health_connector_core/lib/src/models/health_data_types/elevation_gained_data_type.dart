@@ -13,6 +13,16 @@ part of 'health_data_type.dart';
 /// - **Android Health Connect**: [`ElevationGainedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ElevationGainedRecord)
 /// - **iOS HealthKit**: Not supported.
 ///
+/// ## Capabilities
+///
+/// - Readable: Query elevation gained records
+/// - Writeable: Write elevation gained records
+/// - Aggregatable: Sum total elevation gained
+///
+/// ## See also
+///
+/// - [ElevationGainedRecord]
+///
 /// {@category Health Records}
 @sinceV3_1_0
 @supportedOnHealthConnect

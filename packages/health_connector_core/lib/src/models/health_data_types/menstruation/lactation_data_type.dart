@@ -1,5 +1,24 @@
 part of '../health_data_type.dart';
 
+/// Lactation data type.
+///
+/// Tracks lactation events.
+///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: Not supported
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.lactation`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/lactation)
+///
+/// ## Capabilities
+///
+/// - Readable: Query lactation records
+/// - Writeable: Write lactation records
+/// - Deletable: Delete lactation records by IDs or time range
+///
+/// ## See also
+///
+/// - [LactationRecord]
+///
 /// {@category Reproductive Health}
 /// {@category Health Records}
 @sinceV3_1_0

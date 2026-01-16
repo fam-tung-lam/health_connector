@@ -7,7 +7,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Not currently supported
+/// - **Android Health Connect**: Not supported
 /// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.progesteroneTestResult`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/progesteronetestresult)
 ///
 /// ## Capabilities

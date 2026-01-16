@@ -10,6 +10,7 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
+/// - **Android Health Connect**: Not supported
 /// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.swimmingStrokeCount`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/swimmingStrokeCount)
 ///
 /// ## Capabilities
@@ -46,7 +47,7 @@ final class SwimmingStrokesDataType
   ];
 
   @override
-  String get id => 'swimmingStrokes';
+  String get id => 'swimming_strokes';
 
   @override
   bool operator ==(Object other) =>

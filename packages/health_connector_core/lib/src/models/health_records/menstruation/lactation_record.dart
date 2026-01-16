@@ -1,13 +1,45 @@
 part of '../health_record.dart';
 
+/// A record representing a lactation event.
+///
+/// [LactationRecord] tracks a lactation (breastfeeding) session. This is an
+/// interval-based record.
+///
+/// ## Platform Mapping
+///
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.lactation`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/lactation)
+/// - **Android Health Connect**: Not supported.
+///
+/// ## Example
+///
+/// ```dart
+/// final record = LactationRecord(
+///   startTime: DateTime.now().subtract(Duration(minutes: 20)),
+///   endTime: DateTime.now(),
+///   metadata: Metadata.manuallyRecorded(),
+/// );
+/// ```
+///
+/// ## See also
+///
+/// - [LactationDataType]
+///
 /// {@category Reproductive Health}
 /// {@category Health Records}
-/// A record representing a lactation event.
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable
 class LactationRecord extends IntervalHealthRecord {
-  /// {@macro health_record.new}
+  /// Creates a lactation record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startTime]: The start of the lactation session (inclusive).
+  /// - [endTime]: The end of the lactation session (exclusive).
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
+  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
   LactationRecord({
     required super.startTime,
     required super.endTime,
