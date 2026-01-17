@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.unit_tests.mappers.health_record_mappers
 
-import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.metadata.Metadata
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
@@ -16,7 +15,6 @@ import java.time.ZoneOffset
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 @DisplayName("MindfulnessSessionRecordMapper")
 class MindfulnessSessionRecordMapperTest {
 

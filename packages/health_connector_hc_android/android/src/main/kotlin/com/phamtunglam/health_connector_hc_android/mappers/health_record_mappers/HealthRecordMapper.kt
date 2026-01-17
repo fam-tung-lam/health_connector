@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
-import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
@@ -85,7 +84,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecord
  * This extension uses pattern matching on the sealed class to determine
  * the corresponding health data type for each record type.
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal val HealthRecordDto.dataType: HealthDataTypeDto
     get() = when (this) {
         is ActiveEnergyBurnedRecordDto -> HealthDataTypeDto.ACTIVE_CALORIES_BURNED
@@ -136,7 +134,6 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
  * This extension uses pattern matching on the sealed class to convert
  * each record type to its corresponding Health Connect record.
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is ActiveEnergyBurnedRecordDto -> toHealthConnect()
     is DistanceRecordDto -> toHealthConnect()
@@ -189,7 +186,6 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
  * @return The [HealthRecordDto] corresponding to the record type
  * @throws IllegalArgumentException if the record type is not supported
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun Record.toDto(): HealthRecordDto = when (this) {
     is ActiveCaloriesBurnedRecord -> toDto()
     is DistanceRecord -> toDto()

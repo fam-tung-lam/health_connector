@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.mappers
 
-import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
@@ -48,7 +47,6 @@ import kotlin.reflect.KClass
  * @receiver The [HealthDataTypeDto] to convert
  * @return The Health Connect record class [KClass] corresponding to the DTO
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> = when (this) {
     HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> ActiveCaloriesBurnedRecord::class
     HealthDataTypeDto.DISTANCE -> DistanceRecord::class

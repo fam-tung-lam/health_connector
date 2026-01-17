@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.unit_tests.mappers.permission_mappers
 
-import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
@@ -23,7 +22,6 @@ import org.junit.jupiter.params.provider.MethodSource
  * Tests verify proper bidirectional mapping between permission DTOs and Health Connect
  * permission strings, covering all health data types and platform features.
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 @DisplayName("PermissionRequestMapper")
 class PermissionRequestMapperTest {
 

@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.mappers.permission_mappers
 
-import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
@@ -79,7 +78,6 @@ fun String.toPermissionRequestResultDto(): PermissionRequestResultDto = if (isFe
 /**
  * Helper function to map data type and access type to Health Connect permission string.
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (healthDataType) {
     HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> {
         when (accessType) {

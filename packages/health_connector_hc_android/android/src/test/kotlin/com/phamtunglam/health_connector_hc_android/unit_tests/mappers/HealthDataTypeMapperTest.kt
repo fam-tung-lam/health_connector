@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.unit_tests.mappers
 
-import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
@@ -55,7 +54,6 @@ import org.junit.jupiter.params.provider.MethodSource
  * record classes. Uses parameterized tests to verify all 35 data types are correctly mapped.
  */
 @DisplayName("HealthDataTypeMappers")
-@ExperimentalMindfulnessSessionApi
 class HealthDataTypeMapperTest {
 
     @Nested
