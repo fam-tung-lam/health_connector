@@ -1,6 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.unit_tests.mappers
 
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.ActivityIntensityRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
@@ -94,6 +95,10 @@ class HealthDataTypeMapperTest {
             Arguments.of(HealthDataTypeDto.FLOORS_CLIMBED, FloorsClimbedRecord::class),
             Arguments.of(HealthDataTypeDto.EXERCISE_SESSION, ExerciseSessionRecord::class),
             Arguments.of(HealthDataTypeDto.WHEELCHAIR_PUSHES, WheelchairPushesRecord::class),
+            Arguments.of(
+                HealthDataTypeDto.ACTIVITY_INTENSITY,
+                ActivityIntensityRecord::class,
+            ),
 
             // Body Measurements
             Arguments.of(HealthDataTypeDto.WEIGHT, WeightRecord::class),

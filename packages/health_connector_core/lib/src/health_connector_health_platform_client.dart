@@ -8,7 +8,7 @@ import 'package:health_connector_core/src/models/health_data_types/health_data_t
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/permissions/permission.dart';
-import 'package:health_connector_core/src/models/requests/aggregate_request.dart';
+import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregate_request.dart';
 import 'package:health_connector_core/src/models/requests/delete_records_request.dart';
 import 'package:health_connector_core/src/models/requests/read_records_request.dart';
 import 'package:health_connector_core/src/models/responses/permission_request_result.dart';

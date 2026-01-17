@@ -38,7 +38,7 @@ export 'src/models/health_records/health_record.dart'
 export 'src/models/measurement_units/measurement_unit.dart';
 export 'src/models/metadata/metadata.dart';
 export 'src/models/permissions/permission.dart';
-export 'src/models/requests/aggregate_request.dart';
+export 'src/models/requests/aggregate_requests/aggregate_request.dart';
 export 'src/models/requests/aggregation_metric.dart';
 export 'src/models/requests/delete_records_request.dart';
 export 'src/models/requests/read_records_request.dart';

@@ -8,9 +8,8 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.metadata.DataOrigin
 import com.phamtunglam.health_connector_hc_android.HealthConnectorClient.Companion.getHealthPlatformStatus
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
-import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.AggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandlerRegistry
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
@@ -909,9 +908,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 )
 
             val responseDto = when (handler) {
-                is HealthConnectAggregatableHealthRecordHandler -> handler.aggregate(request)
-
-                is CustomAggregatableHealthRecordHandler -> handler.aggregate(request)
+                is AggregatableHealthRecordHandler -> handler.aggregate(request)
 
                 else -> throw HealthConnectorException.UnsupportedOperation(
                     message = "Type ${request.dataType} does not support aggregation",

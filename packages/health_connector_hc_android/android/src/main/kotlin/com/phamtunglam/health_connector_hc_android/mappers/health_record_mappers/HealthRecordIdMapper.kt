@@ -1,6 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveEnergyBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BasalBodyTemperatureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
@@ -53,6 +54,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecord
 internal val HealthRecordDto.id: String?
     get() = when (this) {
         is ActiveEnergyBurnedRecordDto -> id
+        is ActivityIntensityRecordDto -> id
         is TotalEnergyBurnedRecordDto -> id
         is DistanceRecordDto -> id
         is ElevationGainedRecordDto -> id

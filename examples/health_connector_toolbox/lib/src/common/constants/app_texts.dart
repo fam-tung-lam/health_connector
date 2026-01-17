@@ -190,6 +190,7 @@ abstract final class AppTexts {
       BodyMassIndexDataType() => bodyMassIndex,
       WaistCircumferenceDataType() => waistCircumference,
       HeartRateVariabilitySDNNDataType() => heartRateVariabilitySDNN,
+      ActivityIntensityDataType() => activityIntensity,
     };
   }
 
@@ -1197,6 +1198,14 @@ abstract final class AppTexts {
   static const String exerciseSwimBikeRun = 'Multisport';
   static const String exerciseWheelchairWalkPace = 'Wheelchair Walk Pace';
   static const String exerciseWheelchairRunPace = 'Wheelchair Run Pace';
+
+  // endregion
+
+  // region Activity Intensity
+  static const String activityIntensity = 'Activity Intensity';
+  static const String activityIntensityType = 'Activity Intensity Type';
+  static const String moderate = 'Moderate';
+  static const String vigorous = 'Vigorous';
 
   // endregion
 }

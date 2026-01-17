@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart' show PlatformException;
+import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         AggregateRequest,
@@ -1281,6 +1282,11 @@ extension _DoubleAggregationToDomain on double {
     // BloodGlucose
     if (dataType == HealthDataType.bloodGlucose) {
       return BloodGlucose.millimolesPerLiter(this) as U;
+    }
+
+    // BloodGlucose
+    if (dataType == HealthDataType.activityIntensity) {
+      return TimeDuration.milliseconds(this) as U;
     }
 
     // Fallback or explicit Number

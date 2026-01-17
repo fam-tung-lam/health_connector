@@ -1,5 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.utils
 
+import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureAggregateRequestDto
@@ -22,6 +23,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
  */
 internal val AggregateRequestDto.startTime: Long
     get() = when (this) {
+        is ActivityIntensityAggregateRequestDto -> startTime
         is CommonAggregateRequestDto -> startTime
         is BloodPressureAggregateRequestDto -> startTime
     }
@@ -33,6 +35,7 @@ internal val AggregateRequestDto.startTime: Long
  */
 internal val AggregateRequestDto.endTime: Long
     get() = when (this) {
+        is ActivityIntensityAggregateRequestDto -> endTime
         is CommonAggregateRequestDto -> endTime
         is BloodPressureAggregateRequestDto -> endTime
     }
@@ -44,6 +47,7 @@ internal val AggregateRequestDto.endTime: Long
  */
 internal val AggregateRequestDto.aggregationMetric: AggregationMetricDto
     get() = when (this) {
+        is ActivityIntensityAggregateRequestDto -> AggregationMetricDto.SUM
         is CommonAggregateRequestDto -> aggregationMetric
         is BloodPressureAggregateRequestDto -> aggregationMetric
     }
@@ -58,6 +62,7 @@ internal val AggregateRequestDto.aggregationMetric: AggregationMetricDto
  */
 internal val AggregateRequestDto.dataType: HealthDataTypeDto
     get() = when (this) {
+        is ActivityIntensityAggregateRequestDto -> HealthDataTypeDto.ACTIVITY_INTENSITY
         is CommonAggregateRequestDto -> dataType
         is BloodPressureAggregateRequestDto -> HealthDataTypeDto.BLOOD_PRESSURE
     }

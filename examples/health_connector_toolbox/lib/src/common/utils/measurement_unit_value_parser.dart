@@ -212,6 +212,10 @@ abstract class MeasurementUnitValueParser {
         '$ContraceptiveDataType is a record of contraceptive usage, '
         'cannot be parsed from a single string input.',
       ),
+      ActivityIntensityDataType() => throw UnsupportedError(
+        '$ActivityIntensityDataType is a record of intensity activity type, '
+        'cannot be parsed from a single string input.',
+      ),
     };
   }
 

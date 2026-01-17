@@ -518,6 +518,13 @@ class PermissionRequestMapperTest {
                 ),
             ),
             Arguments.of(
+                "android.permission.health.WRITE_SLEEP",
+                HealthDataPermissionRequestDto(
+                    healthDataType = HealthDataTypeDto.SLEEP_SESSION,
+                    accessType = PermissionAccessTypeDto.WRITE,
+                ),
+            ),
+            Arguments.of(
                 "android.permission.health.READ_MINDFULNESS",
                 HealthDataPermissionRequestDto(
                     healthDataType = HealthDataTypeDto.MINDFULNESS_SESSION,
@@ -586,6 +593,20 @@ class PermissionRequestMapperTest {
                 "android.permission.health.WRITE_CYCLING_PEDALING_CADENCE",
                 HealthDataPermissionRequestDto(
                     healthDataType = HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD,
+                    accessType = PermissionAccessTypeDto.WRITE,
+                ),
+            ),
+            Arguments.of(
+                "android.permission.health.READ_ACTIVITY_INTENSITY",
+                HealthDataPermissionRequestDto(
+                    healthDataType = HealthDataTypeDto.ACTIVITY_INTENSITY,
+                    accessType = PermissionAccessTypeDto.READ,
+                ),
+            ),
+            Arguments.of(
+                "android.permission.health.WRITE_ACTIVITY_INTENSITY",
+                HealthDataPermissionRequestDto(
+                    healthDataType = HealthDataTypeDto.ACTIVITY_INTENSITY,
                     accessType = PermissionAccessTypeDto.WRITE,
                 ),
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/activity_intensity_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/date_time_range_picker_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
@@ -11,6 +12,7 @@ import 'package:health_connector_toolbox/src/common/widgets/date_range_presets.d
 import 'package:health_connector_toolbox/src/common/widgets/health_data_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
 import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_range_picker_column.dart';
+import 'package:health_connector_toolbox/src/common/widgets/searchable_dropdown_menu_form_field.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/aggregate_health_data_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/widgets/aggregate_result_card.dart';
 import 'package:provider/provider.dart' show Provider, Selector;
@@ -37,6 +39,7 @@ class _AggregateDataPageState extends State<AggregateDataPage>
   HealthDataType<HealthRecord, MeasurementUnit>? _selectedDataType;
   AggregationMetric? _selectedMetric;
   HealthDataType<HealthRecord, Pressure>? _selectedBloodPressureSubtype;
+  ActivityIntensityType? _selectedActivityIntensityType;
 
   Future<void> _aggregate() async {
     if (!_formKey.currentState!.validate()) {
@@ -70,6 +73,7 @@ class _AggregateDataPageState extends State<AggregateDataPage>
         startTime: startDateTime!,
         endTime: endDateTime!,
         bloodPressureSubtype: _selectedBloodPressureSubtype,
+        activityIntensityType: _selectedActivityIntensityType,
       );
     });
   }
@@ -81,6 +85,7 @@ class _AggregateDataPageState extends State<AggregateDataPage>
     setState(() {
       _selectedDataType = value;
       _selectedBloodPressureSubtype = null;
+      _selectedActivityIntensityType = null;
 
       if (value is BloodPressureDataType) {
         _selectedMetric = null;
@@ -231,6 +236,31 @@ class _AggregateDataPageState extends State<AggregateDataPage>
                               ],
                               onChanged: _onBloodPressureSubtypeChanged,
                               validator: _validateBloodPressureType,
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                          if (_selectedDataType
+                              is ActivityIntensityDataType) ...[
+                            SearchableDropdownMenuFormField<
+                              ActivityIntensityType
+                            >(
+                              labelText: AppTexts.activityIntensityType,
+                              values: ActivityIntensityType.values,
+                              initialValue: _selectedActivityIntensityType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedActivityIntensityType = value;
+                                  final notifier =
+                                      Provider.of<AggregateDataChangeNotifier>(
+                                        context,
+                                        listen: false,
+                                      );
+                                  notifier.clearResults();
+                                });
+                              },
+                              displayNameBuilder: (type) => type.displayName,
+                              prefixIcon: AppIcons.speed,
+                              hint: AppTexts.pleaseSelect,
                             ),
                             const SizedBox(height: 12),
                           ],
