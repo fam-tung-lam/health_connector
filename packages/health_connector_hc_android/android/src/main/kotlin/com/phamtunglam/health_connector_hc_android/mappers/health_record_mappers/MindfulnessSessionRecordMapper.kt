@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
-import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
@@ -13,7 +12,6 @@ import java.time.ZoneOffset
 /**
  * Converts [MindfulnessSessionRecord] type to [MindfulnessSessionTypeDto].
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun Int.toMindfulnessSessionTypeDto(): MindfulnessSessionTypeDto = when (this) {
     MindfulnessSessionRecord.MINDFULNESS_SESSION_TYPE_MEDITATION ->
         MindfulnessSessionTypeDto.MEDITATION
@@ -31,7 +29,6 @@ internal fun Int.toMindfulnessSessionTypeDto(): MindfulnessSessionTypeDto = when
 /**
  * Converts [MindfulnessSessionTypeDto] to [MindfulnessSessionRecord] type.
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun MindfulnessSessionTypeDto.toHealthConnectMindfulnessSessionType(): Int = when (this) {
     MindfulnessSessionTypeDto.MEDITATION ->
         MindfulnessSessionRecord.MINDFULNESS_SESSION_TYPE_MEDITATION
@@ -54,7 +51,6 @@ internal fun MindfulnessSessionTypeDto.toHealthConnectMindfulnessSessionType(): 
 /**
  * Converts [MindfulnessSessionRecord] to DTO.
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun MindfulnessSessionRecord.toDto(): MindfulnessSessionRecordDto =
     MindfulnessSessionRecordDto(
         id = metadata.id,
@@ -71,7 +67,6 @@ internal fun MindfulnessSessionRecord.toDto(): MindfulnessSessionRecordDto =
 /**
  * Converts DTO to [MindfulnessSessionRecord].
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun MindfulnessSessionRecordDto.toHealthConnect(): MindfulnessSessionRecord =
     MindfulnessSessionRecord(
         startTime = java.time.Instant.ofEpochMilli(startTime),

@@ -1,7 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers
 
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
@@ -16,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 /**
  * Handler for Mindfulness Session records.
  */
-@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal class MindfulnessSessionHandler(
     override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     override val client: HealthConnectClient,
