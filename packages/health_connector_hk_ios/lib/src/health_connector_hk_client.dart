@@ -47,7 +47,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show HealthConnectorHKIOSApi, HealthPlatformStatusDto;
+    show HealthConnectorHKIOSApi, HealthDataTypeDto, HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable, visibleForTesting, internal;
 
@@ -610,7 +610,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       final responseDto = await _platformClient.aggregate(requestDto);
 
       final response =
-          _mapAggregationResult(responseDto, request.dataType) as U;
+          responseDto.toMeasurementUnit(request.dataType.toDto()) as U;
 
       HealthConnectorLogger.info(
         tag,
@@ -751,67 +751,108 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       );
     }
   }
+}
 
-  MeasurementUnit _mapAggregationResult(
-    double result,
-    HealthDataType dataType,
-  ) {
+extension on double {
+  MeasurementUnit toMeasurementUnit(HealthDataTypeDto dataType) {
     return switch (dataType) {
-      HealthDataType.steps => Number(result),
-      HealthDataType.activeEnergyBurned ||
-      HealthDataType.basalEnergyBurned ||
-      HealthDataType.dietaryEnergyConsumed ||
-      HealthDataType.totalEnergyBurned => Energy.kilocalories(result),
-      HealthDataType.distance ||
-      HealthDataType.walkingRunningDistance ||
-      HealthDataType.cyclingDistance ||
-      HealthDataType.wheelchairDistance ||
-      HealthDataType.height => Length.meters(result),
-      HealthDataType.weight ||
-      HealthDataType.leanBodyMass ||
-      HealthDataType.dietaryCalcium ||
-      HealthDataType.dietaryIron ||
-      HealthDataType.dietaryZinc ||
-      HealthDataType.dietaryPotassium ||
-      HealthDataType.dietarySodium ||
-      HealthDataType.dietaryMagnesium ||
-      HealthDataType.dietaryManganese ||
-      HealthDataType.dietarySelenium ||
-      HealthDataType.dietaryCaffeine ||
-      HealthDataType.dietaryVitaminA ||
-      HealthDataType.dietaryThiamin ||
-      HealthDataType.dietaryRiboflavin ||
-      HealthDataType.dietaryNiacin ||
-      HealthDataType.dietaryPantothenicAcid ||
-      HealthDataType.dietaryVitaminB6 ||
-      HealthDataType.dietaryBiotin ||
-      HealthDataType.dietaryVitaminB12 ||
-      HealthDataType.dietaryFolate ||
-      HealthDataType.dietaryVitaminC ||
-      HealthDataType.dietaryVitaminD ||
-      HealthDataType.dietaryVitaminE ||
-      HealthDataType.dietaryVitaminK ||
-      HealthDataType.dietarySugar ||
-      HealthDataType.dietaryFiber ||
-      HealthDataType.dietaryCholesterol ||
-      HealthDataType.dietaryTotalFat ||
-      HealthDataType.dietarySaturatedFat ||
-      HealthDataType.dietaryMonounsaturatedFat ||
-      HealthDataType.dietaryPolyunsaturatedFat ||
-      HealthDataType.dietaryProtein ||
-      HealthDataType.dietaryTotalCarbohydrate => Mass.grams(result),
-      HealthDataType.hydration => Volume.liters(result),
-      HealthDataType.bodyFatPercentage => Percentage.fromDecimal(result),
-      HealthDataType.heartRate ||
-      HealthDataType.restingHeartRate ||
-      HealthDataType.respiratoryRate => Frequency.perMinute(result),
-      HealthDataType.systolicBloodPressure ||
-      HealthDataType.diastolicBloodPressure => Pressure.millimetersOfMercury(
-        result,
-      ),
-      HealthDataType.bodyTemperature ||
-      HealthDataType.basalBodyTemperature => Temperature.celsius(result),
-      _ => Number(result),
+      HealthDataTypeDto.steps ||
+      HealthDataTypeDto.floorsClimbed ||
+      HealthDataTypeDto.swimmingStrokes ||
+      HealthDataTypeDto.wheelchairPushes => Number(this),
+      HealthDataTypeDto.activeCaloriesBurned ||
+      HealthDataTypeDto.basalEnergyBurned ||
+      HealthDataTypeDto.dietaryEnergyConsumed => Energy.kilocalories(this),
+      HealthDataTypeDto.distance ||
+      HealthDataTypeDto.walkingRunningDistance ||
+      HealthDataTypeDto.cyclingDistance ||
+      HealthDataTypeDto.wheelchairDistance ||
+      HealthDataTypeDto.height ||
+      HealthDataTypeDto.waistCircumference ||
+      HealthDataTypeDto.swimmingDistance ||
+      HealthDataTypeDto.downhillSnowSportsDistance ||
+      HealthDataTypeDto.rowingDistance ||
+      HealthDataTypeDto.paddleSportsDistance ||
+      HealthDataTypeDto.crossCountrySkiingDistance ||
+      HealthDataTypeDto.skatingSportsDistance ||
+      HealthDataTypeDto.sixMinuteWalkTestDistance => Length.meters(this),
+      HealthDataTypeDto.weight ||
+      HealthDataTypeDto.leanBodyMass ||
+      HealthDataTypeDto.calcium ||
+      HealthDataTypeDto.iron ||
+      HealthDataTypeDto.zinc ||
+      HealthDataTypeDto.potassium ||
+      HealthDataTypeDto.sodium ||
+      HealthDataTypeDto.magnesium ||
+      HealthDataTypeDto.manganese ||
+      HealthDataTypeDto.selenium ||
+      HealthDataTypeDto.caffeine ||
+      HealthDataTypeDto.vitaminA ||
+      HealthDataTypeDto.thiamin ||
+      HealthDataTypeDto.riboflavin ||
+      HealthDataTypeDto.niacin ||
+      HealthDataTypeDto.pantothenicAcid ||
+      HealthDataTypeDto.vitaminB6 ||
+      HealthDataTypeDto.biotin ||
+      HealthDataTypeDto.vitaminB12 ||
+      HealthDataTypeDto.folate ||
+      HealthDataTypeDto.vitaminC ||
+      HealthDataTypeDto.vitaminD ||
+      HealthDataTypeDto.vitaminE ||
+      HealthDataTypeDto.vitaminK ||
+      HealthDataTypeDto.sugar ||
+      HealthDataTypeDto.dietaryFiber ||
+      HealthDataTypeDto.cholesterol ||
+      HealthDataTypeDto.totalFat ||
+      HealthDataTypeDto.saturatedFat ||
+      HealthDataTypeDto.monounsaturatedFat ||
+      HealthDataTypeDto.polyunsaturatedFat ||
+      HealthDataTypeDto.protein ||
+      HealthDataTypeDto.totalCarbohydrate => Mass.grams(this),
+      HealthDataTypeDto.hydration => Volume.liters(this),
+      HealthDataTypeDto.bodyFatPercentage ||
+      HealthDataTypeDto.oxygenSaturation => Percentage.fromDecimal(this),
+      HealthDataTypeDto.heartRateMeasurementRecord ||
+      HealthDataTypeDto.restingHeartRate ||
+      HealthDataTypeDto.respiratoryRate ||
+      HealthDataTypeDto.cyclingPedalingCadence => Frequency.perMinute(this),
+      HealthDataTypeDto.systolicBloodPressure ||
+      HealthDataTypeDto.diastolicBloodPressure ||
+      HealthDataTypeDto.bloodPressure => Pressure.millimetersOfMercury(this),
+      HealthDataTypeDto.bodyTemperature ||
+      HealthDataTypeDto.basalBodyTemperature => Temperature.celsius(this),
+      HealthDataTypeDto.alcoholicBeverages ||
+      HealthDataTypeDto.bloodAlcoholContent ||
+      HealthDataTypeDto.cyclingPower ||
+      HealthDataTypeDto.runningPower ||
+      HealthDataTypeDto.cervicalMucus ||
+      HealthDataTypeDto.sleepStageRecord ||
+      HealthDataTypeDto.sexualActivity ||
+      HealthDataTypeDto.peripheralPerfusionIndex ||
+      HealthDataTypeDto.walkingSpeed ||
+      HealthDataTypeDto.runningSpeed ||
+      HealthDataTypeDto.stairAscentSpeed ||
+      HealthDataTypeDto.stairDescentSpeed ||
+      HealthDataTypeDto.phosphorus ||
+      HealthDataTypeDto.nutrition ||
+      HealthDataTypeDto.ovulationTest ||
+      HealthDataTypeDto.pregnancyTest ||
+      HealthDataTypeDto.pregnancy ||
+      HealthDataTypeDto.contraceptive ||
+      HealthDataTypeDto.progesteroneTest ||
+      HealthDataTypeDto.lactation ||
+      HealthDataTypeDto.ovulationTestResult ||
+      HealthDataTypeDto.progesteroneTestResult ||
+      HealthDataTypeDto.sleepStage ||
+      HealthDataTypeDto.intermenstrualBleeding ||
+      HealthDataTypeDto.menstrualFlow ||
+      HealthDataTypeDto.vo2Max ||
+      HealthDataTypeDto.bloodGlucose ||
+      HealthDataTypeDto.exerciseSession ||
+      HealthDataTypeDto.mindfulnessSession ||
+      HealthDataTypeDto.bodyMassIndex ||
+      HealthDataTypeDto.forcedVitalCapacity ||
+      HealthDataTypeDto.heartRateVariabilitySDNN => Number(this),
     };
   }
 }

@@ -29,9 +29,6 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         Percentage,
         Frequency,
         Number,
-        SystolicBloodPressureDataType,
-        DiastolicBloodPressureDataType,
-        HealthConnectorErrorCode,
         Permission,
         PermissionRequestResult,
         internalUse,
@@ -52,14 +49,16 @@ import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_mapper.dart';
-
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permission_status_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permissions_list_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/permission_request_result_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show HealthConnectorHCAndroidApi, HealthPlatformStatusDto;
+    show
+        HealthConnectorHCAndroidApi,
+        HealthDataTypeDto,
+        HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable, visibleForTesting, internal;
 
@@ -913,9 +912,11 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
 
       final aggregatedValueDto = await _platformClient.aggregate(requestDto);
 
-      final aggregatedValue = aggregatedValueDto.toMeasurementUnit<U>(
-        request.dataType,
-      );
+      final aggregatedValue =
+          aggregatedValueDto.toMeasurementUnit(
+                request.dataType.toDto(),
+              )
+              as U;
 
       HealthConnectorLogger.info(
         tag,
@@ -1192,112 +1193,87 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
 }
 
 extension _DoubleAggregationToDomain on double {
-  U toMeasurementUnit<U extends MeasurementUnit>(
-    HealthDataType dataType,
+  MeasurementUnit toMeasurementUnit(
+    HealthDataTypeDto dataType,
   ) {
-    // Energy (Kcal)
-    if (dataType == HealthDataType.activeEnergyBurned ||
-        dataType == HealthDataType.totalEnergyBurned ||
-        dataType == HealthDataType.dietaryEnergyConsumed ||
-        dataType == HealthDataType.basalEnergyBurned) {
-      return Energy.kilocalories(this) as U;
-    }
+    switch (dataType) {
+      // Energy (Kcal)
+      case HealthDataTypeDto.activeCaloriesBurned:
+      case HealthDataTypeDto.totalCaloriesBurned:
+        return Energy.kilocalories(this);
 
-    // Length (Meters)
-    if (dataType == HealthDataType.distance ||
-        dataType == HealthDataType.height ||
-        dataType == HealthDataType.cyclingDistance ||
-        dataType == HealthDataType.walkingRunningDistance) {
-      return Length.meters(this) as U;
-    }
+      // Length (Meters)
+      case HealthDataTypeDto.distance:
+      case HealthDataTypeDto.height:
+      case HealthDataTypeDto.elevationGained:
+        return Length.meters(this);
 
-    // Mass (Kg)
-    // Note: Nutrition uses grams, but here we cover body mass types.
-    if (dataType == HealthDataType.weight ||
-        dataType == HealthDataType.leanBodyMass ||
-        dataType == HealthDataType.boneMass ||
-        dataType == HealthDataType.bodyWaterMass) {
-      return Mass.kilograms(this) as U;
-    }
+      // Mass (Kg)
+      case HealthDataTypeDto.weight:
+      case HealthDataTypeDto.leanBodyMass:
+      case HealthDataTypeDto.boneMass:
+      case HealthDataTypeDto.bodyWaterMass:
+        return Mass.kilograms(this);
 
-    // Mass (g) - Nutrition & Minerals
-    // Checking all dietary types is verbose, checking class or using static set
-    // would be better.
-    // For now we check the generic NutritionDataType and specific ones
-    // if possible.
-    // health_connector_hc_client.dart has `_nutrientDataTypes`.
-    // We can access it since this extension is in the same file (top level).
-    if (dataType == HealthDataType.nutrition ||
-        HealthConnectorHCClient._nutrientDataTypes.contains(dataType)) {
-      return Mass.grams(this) as U;
-    }
+      // Mass (g) - Nutrition
+      // Note: Nutrition uses grams, but here we cover body mass types.
+      case HealthDataTypeDto.nutrition:
+        return Mass.grams(this);
 
-    // Volume (Liters)
-    if (dataType == HealthDataType.hydration) {
-      return Volume.liters(this) as U;
-    }
+      // Volume (Liters)
+      case HealthDataTypeDto.hydration:
+        return Volume.liters(this);
 
-    // Power (Watts)
-    if (dataType == HealthDataType.powerSeries ||
-        dataType == HealthDataType.cyclingPower) {
-      return Power.watts(this) as U;
-    }
+      // Power (Watts)
+      case HealthDataTypeDto.powerSeries:
+        return Power.watts(this);
 
-    // Pressure (mmHg)
-    // These specific types are used in Aggregation Request
-    if (dataType is SystolicBloodPressureDataType ||
-        dataType is DiastolicBloodPressureDataType) {
-      return Pressure.millimetersOfMercury(this) as U;
-    }
+      // Pressure (mmHg)
+      case HealthDataTypeDto.bloodPressure:
+        return Pressure.millimetersOfMercury(this);
 
-    // Frequency (BPM / Per Minute)
-    if (dataType == HealthDataType.heartRateSeries ||
-        dataType == HealthDataType.restingHeartRate ||
-        dataType == HealthDataType.respiratoryRate) {
-      return Frequency.perMinute(this) as U;
-    }
+      // Frequency (BPM / Per Minute)
+      case HealthDataTypeDto.heartRateSeriesRecord:
+      case HealthDataTypeDto.restingHeartRate:
+      case HealthDataTypeDto.respiratoryRate:
+        return Frequency.perMinute(this);
 
-    // Steps / Floors / WheelchairPushes / Vo2Max (mL/min/kg is basically a number here) -> Number
-    if (dataType == HealthDataType.steps ||
-        dataType == HealthDataType.floorsClimbed ||
-        dataType == HealthDataType.wheelchairPushes ||
-        dataType == HealthDataType.cyclingPedalingCadenceSeries ||
-        dataType == HealthDataType.vo2Max) {
-      return Number(this) as U;
-    }
+      // Speed (m/s)
+      case HealthDataTypeDto.speedSeries:
+        return Velocity.metersPerSecond(this);
 
-    // Speed (m/s)
-    if (dataType == HealthDataType.speedSeries ||
-        dataType == HealthDataType.walkingSpeed ||
-        dataType == HealthDataType.runningSpeed) {
-      return Velocity.metersPerSecond(this) as U;
-    }
+      // Percentage
+      case HealthDataTypeDto.bodyFatPercentage:
+      case HealthDataTypeDto.oxygenSaturation:
+        return Percentage.fromWhole(this);
 
-    // Percentage
-    if (dataType == HealthDataType.bodyFatPercentage ||
-        dataType == HealthDataType.oxygenSaturation) {
-      return Percentage.fromWhole(this) as U;
-    }
+      // BloodGlucose
+      case HealthDataTypeDto.bloodGlucose:
+        return BloodGlucose.millimolesPerLiter(this);
 
-    // BloodGlucose
-    if (dataType == HealthDataType.bloodGlucose) {
-      return BloodGlucose.millimolesPerLiter(this) as U;
-    }
+      // TimeDuration
+      case HealthDataTypeDto.activityIntensity:
+      case HealthDataTypeDto.exerciseSession:
+      case HealthDataTypeDto.sleepSession:
+      case HealthDataTypeDto.mindfulnessSession:
+        return TimeDuration.milliseconds(this);
 
-    // BloodGlucose
-    if (dataType == HealthDataType.activityIntensity) {
-      return TimeDuration.milliseconds(this) as U;
-    }
-
-    // Fallback or explicit Number
-    // If U is Number, this works.
-    try {
-      return Number(this) as U;
-    } on Object catch (_) {
-      throw HealthConnectorException.fromCode(
-        HealthConnectorErrorCode.unknownError,
-        'Unsupported aggregation data type: $dataType',
-      );
+      // Number
+      case HealthDataTypeDto.steps:
+      case HealthDataTypeDto.floorsClimbed:
+      case HealthDataTypeDto.wheelchairPushes:
+      case HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord:
+      case HealthDataTypeDto.stepsCadenceSeriesRecord:
+      case HealthDataTypeDto.vo2Max:
+      case HealthDataTypeDto.bodyTemperature:
+      case HealthDataTypeDto.basalBodyTemperature:
+      case HealthDataTypeDto.cervicalMucus:
+      case HealthDataTypeDto.sexualActivity:
+      case HealthDataTypeDto.ovulationTest:
+      case HealthDataTypeDto.intermenstrualBleeding:
+      case HealthDataTypeDto.menstrualFlowInstant:
+      case HealthDataTypeDto.heartRateVariabilityRMSSD:
+        return Number(this);
     }
   }
 }
