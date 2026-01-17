@@ -10,12 +10,13 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/metadata/metadata.dart';
 import 'package:health_connector_core/src/models/permissions/permission.dart';
-import 'package:health_connector_core/src/models/requests/aggregate_request.dart';
+import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregate_request.dart';
 import 'package:health_connector_core/src/models/requests/aggregation_metric.dart';
 import 'package:health_connector_core/src/models/requests/delete_records_request.dart';
 import 'package:health_connector_core/src/models/requests/read_records_request.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
+part 'activity_intensity_data_type.dart';
 part 'alcoholic_beverages_data_type.dart';
 part 'blood_alcohol_content_data_type.dart';
 part 'blood_glucose_data_type.dart';
@@ -456,6 +457,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// and movement, excluding basal metabolic rate. Supports both reading
   /// existing active energy data and writing new measurements.
   static const activeEnergyBurned = ActiveEnergyBurnedDataType();
+
+  /// Activity intensity data type (Android Health Connect only).
+  ///
+  /// Tracks periods of moderate and vigorous physical activity.
+  /// Supports reading, writing, custom sum aggregation, and deletion.
+  @sinceV3_1_0
+  @supportedOnHealthConnect
+  static const activityIntensity = ActivityIntensityDataType();
 
   /// Exercise session data type.
   ///
@@ -1010,6 +1019,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Returns a list of all available health data types.
   static const values = <HealthDataType<HealthRecord, MeasurementUnit>>[
     activeEnergyBurned,
+    activityIntensity,
     alcoholicBeverages,
     basalBodyTemperature,
     basalEnergyBurned,

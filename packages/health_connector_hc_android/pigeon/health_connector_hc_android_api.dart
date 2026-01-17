@@ -376,6 +376,17 @@ enum BloodGlucoseSpecimenSourceDto {
   wholeBlood,
 }
 
+/// Activity intensity type classification.
+///
+/// Maps to Android Health Connect ActivityIntensityRecord intensity types.
+enum ActivityIntensityTypeDto {
+  /// Moderate intensity activity.
+  moderate,
+
+  /// Vigorous intensity activity.
+  vigorous,
+}
+
 /// Exercise type classification for exercise sessions.
 ///
 /// Maps to Android Health Connect ExerciseSessionRecord exercise types
@@ -504,6 +515,9 @@ sealed class HealthRecordDto {}
 enum HealthDataTypeDto {
   /// Active energy burned data.
   activeCaloriesBurned,
+
+  /// Activity intensity data.
+  activityIntensity,
 
   /// Distance traveled data.
   distance,
@@ -1678,6 +1692,50 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
   final String? notes;
 }
 
+/// Represents an activity intensity record for platform transfer.
+///
+/// Maps to Android Health Connect ActivityIntensityRecord.
+class ActivityIntensityRecordDto extends HealthRecordDto {
+  ActivityIntensityRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.activityIntensityType,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+    this.title,
+    this.notes,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+
+  /// The intensity type of the activity.
+  final ActivityIntensityTypeDto activityIntensityType;
+
+  /// Optional title for the activity period.
+  final String? title;
+
+  /// Optional notes about the activity period.
+  final String? notes;
+}
+
 /// Represents a mindfulness session record for platform transfer.
 ///
 /// Note: iOS HealthKit only supports generic mindfulness category. The session
@@ -2283,6 +2341,34 @@ class BloodPressureAggregateRequestDto extends AggregateRequestDto {
 
   /// The type of blood pressure to aggregate.
   final BloodPressureDataTypeDto bloodPressureDataType;
+
+  /// End of time range in milliseconds since epoch (UTC), exclusive.
+  final int endTime;
+
+  /// Start of time range in milliseconds since epoch (UTC), inclusive.
+  final int startTime;
+}
+
+/// Request to perform aggregation on activity intensity health record.
+class ActivityIntensityAggregateRequestDto extends AggregateRequestDto {
+  ActivityIntensityAggregateRequestDto({
+    required this.startTime,
+    required this.endTime,
+    this.dataType = HealthDataTypeDto.activityIntensity,
+    this.intensityType,
+  });
+
+  /// The type of health data to aggregate.
+  ///
+  /// Must be always [HealthDataTypeDto.activityIntensity].
+  final HealthDataTypeDto dataType;
+
+  /// The intensity type to aggregate (nullable).
+  ///
+  /// - `null`: DURATION_TOTAL (total minutes in any activity)
+  /// - `moderate`: MODERATE_DURATION_TOTAL
+  /// - `vigorous`: VIGOROUS_DURATION_TOTAL
+  final ActivityIntensityTypeDto? intensityType;
 
   /// End of time range in milliseconds since epoch (UTC), exclusive.
   final int endTime;

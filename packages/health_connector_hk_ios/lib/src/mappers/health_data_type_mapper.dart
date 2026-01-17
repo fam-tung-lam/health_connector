@@ -472,6 +472,10 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         );
       case PeripheralPerfusionIndexDataType _:
         return HealthDataTypeDto.peripheralPerfusionIndex;
+      case ActivityIntensityDataType _:
+        throw UnsupportedError(
+          '$ActivityIntensityDataType is not supported on iOS HealthKit.',
+        );
     }
   }
 }

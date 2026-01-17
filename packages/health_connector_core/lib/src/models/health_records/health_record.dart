@@ -11,6 +11,8 @@ import 'package:health_connector_core/src/utils/health_record_data_type_extensio
 import 'package:health_connector_core/src/utils/validation_utils.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
+part 'activity_intensity/activity_intensity_record.dart';
+part 'activity_intensity/activity_intensity_type.dart';
 part 'alcoholic_beverages_record.dart';
 part 'blood_alcohol_content_record.dart';
 part 'blood_glucose/blood_glucose_record.dart';

@@ -1,8 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/activity_intensity/activity_intensity_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/aggregation_metric_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
+        ActivityIntensityAggregateRequestDto,
         AggregateRequestDto,
         CommonAggregateRequestDto,
         BloodPressureAggregateRequestDto,
@@ -146,10 +148,17 @@ extension AggregateRequestDtoMapper<
           case PregnancyDataType _:
           case SwimmingStrokesDataType _:
           case ForcedVitalCapacityDataType _:
+          case ActivityIntensityDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );
         }
+      case final ActivityIntensityAggregateRequest request:
+        return ActivityIntensityAggregateRequestDto(
+          intensityType: request.intensityType?.toDto(),
+          startTime: startTime.millisecondsSinceEpoch,
+          endTime: endTime.millisecondsSinceEpoch,
+        );
     }
   }
 }

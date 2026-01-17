@@ -4,7 +4,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
     show HealthRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show MeasurementUnit;
-import 'package:health_connector_core/src/models/requests/aggregate_request.dart'
+import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregate_request.dart'
     show AggregateRequest;
 
 /// Interface that adds sum aggregation capability to a health data type.

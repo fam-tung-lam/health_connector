@@ -116,7 +116,8 @@ extension HealthDataTypeUI on HealthDataType {
       MenstrualFlowDataType _ => AppTexts.menstrualFlow,
       MenstrualFlowInstantDataType _ => AppTexts.menstrualFlow,
       PeripheralPerfusionIndexDataType _ => AppTexts.peripheralPerfusionIndex,
-      LactationDataType _ => 'Lactation',
+      LactationDataType _ => AppTexts.lactation,
+      ActivityIntensityDataType _ => AppTexts.activityIntensity,
     };
   }
 
@@ -246,6 +247,8 @@ extension HealthDataTypeUI on HealthDataType {
       PeripheralPerfusionIndexDataType _ =>
         AppTexts.peripheralPerfusionIndexDescription,
       LactationDataType _ => 'Record of lactation events',
+      ActivityIntensityDataType _ =>
+        'Minutes spent in moderate or vigorous activity (Android only)',
     };
   }
 
@@ -361,6 +364,7 @@ extension HealthDataTypeUI on HealthDataType {
       PregnancyDataType _ => AppIcons.childCare,
       PeripheralPerfusionIndexDataType _ => AppIcons.percent,
       ContraceptiveDataType _ => AppIcons.medication,
+      ActivityIntensityDataType _ => AppIcons.fitnessCenter,
     };
   }
 }

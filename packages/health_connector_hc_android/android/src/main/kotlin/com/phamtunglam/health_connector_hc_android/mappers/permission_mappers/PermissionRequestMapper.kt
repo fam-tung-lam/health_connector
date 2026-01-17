@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.permission_mappers
 
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.ActivityIntensityRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
@@ -522,6 +523,18 @@ private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (hea
             )
         }
     }
+
+    HealthDataTypeDto.ACTIVITY_INTENSITY -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                ActivityIntensityRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                ActivityIntensityRecord::class,
+            )
+        }
+    }
 }
 
 /**
@@ -610,6 +623,7 @@ private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
         "BONE_MASS" -> HealthDataTypeDto.BONE_MASS
         "BODY_WATER_MASS" -> HealthDataTypeDto.BODY_WATER_MASS
         "HEART_RATE_VARIABILITY" -> HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
+        "ACTIVITY_INTENSITY" -> HealthDataTypeDto.ACTIVITY_INTENSITY
         else -> throw IllegalArgumentException(
             "Invalid/unsupported/unimplemented Health Connect data type: $dataTypeStr.",
         )

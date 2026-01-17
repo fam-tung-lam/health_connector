@@ -1,6 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.ActivityIntensityRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
@@ -39,6 +40,7 @@ import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveEnergyBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BasalBodyTemperatureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
@@ -122,6 +124,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is BloodPressureRecordDto -> HealthDataTypeDto.BLOOD_PRESSURE
         is BloodGlucoseRecordDto -> HealthDataTypeDto.BLOOD_GLUCOSE
         is ExerciseSessionRecordDto -> HealthDataTypeDto.EXERCISE_SESSION
+        is ActivityIntensityRecordDto -> HealthDataTypeDto.ACTIVITY_INTENSITY
         is BoneMassRecordDto -> HealthDataTypeDto.BONE_MASS
         is BodyWaterMassRecordDto -> HealthDataTypeDto.BODY_WATER_MASS
         is HeartRateVariabilityRMSSDRecordDto ->
@@ -169,6 +172,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is BloodPressureRecordDto -> toHealthConnect()
     is BloodGlucoseRecordDto -> toHealthConnect()
     is ExerciseSessionRecordDto -> toHealthConnect()
+    is ActivityIntensityRecordDto -> toHealthConnect()
     is BoneMassRecordDto -> toHealthConnect()
     is BodyWaterMassRecordDto -> toHealthConnect()
     is HeartRateVariabilityRMSSDRecordDto -> toHealthConnect()
@@ -218,6 +222,7 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is BloodPressureRecord -> toDto()
     is BloodGlucoseRecord -> toDto()
     is ExerciseSessionRecord -> toDto()
+    is ActivityIntensityRecord -> toDto()
     is OvulationTestRecord -> toDto()
     is IntermenstrualBleedingRecord -> toDto()
     is MenstruationFlowRecord -> toDto()

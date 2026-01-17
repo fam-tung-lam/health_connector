@@ -4,6 +4,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.DispatcherProvider
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveEnergyBurnedHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActivityIntensityHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BasalBodyTemperatureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodGlucoseHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodPressureHandler
@@ -273,6 +274,12 @@ internal class HealthRecordHandlerRegistry(
             )
             register(
                 ElevationGainedHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                ActivityIntensityHandler(
                     dispatcher = dispatchers.io,
                     client = client,
                 ),

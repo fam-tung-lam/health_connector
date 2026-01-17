@@ -1,4 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/activity_intensity/activity_intensity_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_pressure/blood_pressure_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_fat_percentage_record_mapper.dart';
@@ -39,6 +40,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/wh
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
         ActiveEnergyBurnedRecordDto,
+        ActivityIntensityRecordDto,
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
         BodyTemperatureRecordDto,
@@ -131,11 +133,8 @@ extension HealthRecordToDto on HealthRecord {
     switch (this) {
       case final ActiveEnergyBurnedRecord record:
         return ActiveEnergyBurnedRecordToDto(record).toDto();
-      case AlcoholicBeveragesRecord():
-        throw UnsupportedError(
-          'AlcoholicBeveragesRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
-        );
+      case final ActivityIntensityRecord record:
+        return ActivityIntensityRecordToDto(record).toDto();
       case final DistanceRecord record:
         return DistanceRecordToDto(record).toDto();
       case final ElevationGainedRecord record:
@@ -182,6 +181,44 @@ extension HealthRecordToDto on HealthRecord {
         return RestingHeartRateRecordToDto(record).toDto();
       case final OvulationTestRecord record:
         return OvulationTestRecordToDto(record).toDto();
+      case final IntermenstrualBleedingRecord record:
+        return IntermenstrualBleedingRecordToDto(record).toDto();
+      case final MenstrualFlowInstantRecord record:
+        return MenstrualFlowInstantRecordToDto(record).toDto();
+      case final OxygenSaturationRecord record:
+        return OxygenSaturationRecordToDto(record).toDto();
+      case final BloodPressureRecord record:
+        return BloodPressureRecordToDto(record).toDto();
+      case final RespiratoryRateRecord record:
+        return RespiratoryRateRecordToDto(record).toDto();
+      case final Vo2MaxRecord record:
+        return Vo2MaxRecordToDto(record).toDto();
+      case final BloodGlucoseRecord record:
+        return BloodGlucoseRecordToDto(record).toDto();
+      case final TotalEnergyBurnedRecord record:
+        return TotalEnergyBurnedRecordToDto(record).toDto();
+      case final BoneMassRecord record:
+        return BoneMassRecordToDto(record).toDto();
+      case final BodyWaterMassRecord record:
+        return BodyWaterMassRecordToDto(record).toDto();
+      case final HeartRateVariabilityRMSSDRecord record:
+        return HeartRateVariabilityRMSSDRecordToDto(record).toDto();
+      case AlcoholicBeveragesRecord():
+        throw UnsupportedError(
+          'AlcoholicBeveragesRecord is not supported on Android Health '
+          'Connect.',
+        );
+      case final BasalEnergyBurnedRecord _:
+        throw UnsupportedError(
+          '$BasalEnergyBurnedRecord is not supported on Android '
+          'Health Connect. Use $TotalEnergyBurnedRecord and '
+          '$ActiveEnergyBurnedRecord instead',
+        );
+      case PeripheralPerfusionIndexRecord():
+        throw UnsupportedError(
+          '$PeripheralPerfusionIndexRecord is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
       case PregnancyTestRecord():
         throw UnsupportedError(
           'PregnancyTestRecord is not supported on Android Health Connect. '
@@ -206,39 +243,6 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           'PregnancyRecord is not supported on Android Health Connect. '
           'This data type is iOS-only (requires iOS 15.0+).',
-        );
-      case final IntermenstrualBleedingRecord record:
-        return IntermenstrualBleedingRecordToDto(record).toDto();
-      case final MenstrualFlowInstantRecord record:
-        return MenstrualFlowInstantRecordToDto(record).toDto();
-      case final OxygenSaturationRecord record:
-        return OxygenSaturationRecordToDto(record).toDto();
-      case PeripheralPerfusionIndexRecord():
-        throw UnsupportedError(
-          '$PeripheralPerfusionIndexRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
-        );
-      case final BloodPressureRecord record:
-        return BloodPressureRecordToDto(record).toDto();
-      case final RespiratoryRateRecord record:
-        return RespiratoryRateRecordToDto(record).toDto();
-      case final Vo2MaxRecord record:
-        return Vo2MaxRecordToDto(record).toDto();
-      case final BloodGlucoseRecord record:
-        return BloodGlucoseRecordToDto(record).toDto();
-      case final TotalEnergyBurnedRecord record:
-        return TotalEnergyBurnedRecordToDto(record).toDto();
-      case final BoneMassRecord record:
-        return BoneMassRecordToDto(record).toDto();
-      case final BodyWaterMassRecord record:
-        return BodyWaterMassRecordToDto(record).toDto();
-      case final HeartRateVariabilityRMSSDRecord record:
-        return HeartRateVariabilityRMSSDRecordToDto(record).toDto();
-      case final BasalEnergyBurnedRecord _:
-        throw UnsupportedError(
-          '$BasalEnergyBurnedRecord is not supported on Android '
-          'Health Connect. Use $TotalEnergyBurnedRecord and '
-          '$ActiveEnergyBurnedRecord instead',
         );
       case final DietaryEnergyConsumedRecord _:
         throw UnsupportedError(
@@ -500,6 +504,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
     switch (this) {
       case final ActiveEnergyBurnedRecordDto dto:
         return ActiveEnergyBurnedRecordDtoToDomain(dto).toDomain();
+      case final ActivityIntensityRecordDto dto:
+        return ActivityIntensityRecordDtoToDomain(dto).toDomain();
       case final DistanceRecordDto dto:
         return DistanceRecordDtoToDomain(dto).toDomain();
       case final ElevationGainedRecordDto dto:

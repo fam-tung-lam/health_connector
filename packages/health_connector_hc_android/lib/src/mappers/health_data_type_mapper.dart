@@ -11,6 +11,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
     switch (this) {
       case HealthDataTypeDto.activeCaloriesBurned:
         return HealthDataType.activeEnergyBurned;
+      case HealthDataTypeDto.activityIntensity:
+        return HealthDataType.activityIntensity;
       case HealthDataTypeDto.distance:
         return HealthDataType.distance;
       case HealthDataTypeDto.elevationGained:
@@ -96,6 +98,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
     switch (this) {
       case ActiveEnergyBurnedDataType _:
         return HealthDataTypeDto.activeCaloriesBurned;
+      case ActivityIntensityDataType _:
+        return HealthDataTypeDto.activityIntensity;
       case AlcoholicBeveragesDataType _:
         throw UnsupportedError(
           '$AlcoholicBeveragesDataType is not supported on Android Health '

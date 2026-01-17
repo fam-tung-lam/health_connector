@@ -358,6 +358,10 @@ extension HealthRecordToDto on HealthRecord {
         return PeripheralPerfusionIndexRecordToDto(record).toDto();
       case final ForcedVitalCapacityRecord record:
         return ForcedVitalCapacityRecordToDto(record).toDto();
+      case final ActivityIntensityRecord _:
+        throw UnsupportedError(
+          '$ActivityIntensityRecord is not supported on iOS HealthKit.',
+        );
     }
   }
 }

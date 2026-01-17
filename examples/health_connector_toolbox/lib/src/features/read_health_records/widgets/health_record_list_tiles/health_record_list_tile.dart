@@ -603,6 +603,15 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.energy,
           onDelete: onDelete,
         ),
+      final ActivityIntensityRecord r =>
+        SimpleIntervalMeasurementListTile<ActivityIntensityRecord>(
+          record: r,
+          icon: AppIcons.fitnessCenter,
+          titleBuilder: (r) =>
+              '${r.activityIntensityType.name.toUpperCase()} intensity',
+          valueExtractor: (_) => Number.zero, // Display only, no value
+          onDelete: onDelete,
+        ),
     };
 
     // Wrap tile with consistent spacing

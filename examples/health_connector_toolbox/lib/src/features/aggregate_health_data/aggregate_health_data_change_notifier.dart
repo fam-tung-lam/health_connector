@@ -27,6 +27,7 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
     required DateTime startTime,
     required DateTime endTime,
     HealthDataType<HealthRecord, Pressure>? bloodPressureSubtype,
+    ActivityIntensityType? activityIntensityType,
   }) async {
     notify(() {
       _isLoading = true;
@@ -40,6 +41,7 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         startTime: startTime,
         endTime: endTime,
         bloodPressureSubtype: bloodPressureSubtype,
+        activityIntensityType: activityIntensityType,
       );
       final response = await _healthConnector.aggregate(request);
       notify(() {
@@ -73,6 +75,7 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
     required DateTime startTime,
     required DateTime endTime,
     HealthDataType<HealthRecord, Pressure>? bloodPressureSubtype,
+    ActivityIntensityType? activityIntensityType,
   }) {
     return switch (dataType) {
       // Count types - sum only
@@ -698,6 +701,14 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       ),
       ContraceptiveDataType() => throw UnsupportedError(
         'Contraceptive does not support aggregation',
+      ),
+      ActivityIntensityDataType() => _buildSum(
+        () => HealthDataType.activityIntensity.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+          intensityType: activityIntensityType,
+        ),
+        metric,
       ),
     };
   }
