@@ -1,7 +1,7 @@
+import 'package:health_connector_core/src/annotations/internal_use.dart';
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
-import 'package:meta/meta.dart' show internal;
 
 /// Extension on [HealthRecord] that provides a getter for the associated
 /// [HealthDataType].
@@ -25,7 +25,7 @@ import 'package:meta/meta.dart' show internal;
 /// ```
 ///
 /// @nodoc
-@internal
+@internalUse
 extension HealthRecordDataTypeExtension on HealthRecord {
   /// Returns the [HealthDataType] associated with this [HealthRecord].
   ///

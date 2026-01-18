@@ -421,7 +421,8 @@ final class HealthConnectorImpl implements HealthConnector {
         name: 'record.id',
         message: 'Record ID must be HealthRecordId.none for new records. ',
       );
-      _validateRecordSupport(record);
+      _validatePlatformSupport(record);
+      _validateRecordToWrite(record);
 
       final recordId = await _client.writeRecord(record);
 
@@ -486,7 +487,10 @@ final class HealthConnectorImpl implements HealthConnector {
     }
 
     try {
-      records.forEach(_validateRecordSupport);
+      records.forEach((record) {
+        _validatePlatformSupport(record);
+        _validateRecordToWrite(record);
+      });
       require(
         condition: records.every((record) => record.id == HealthRecordId.none),
         value: records,
@@ -657,7 +661,8 @@ final class HealthConnectorImpl implements HealthConnector {
           'updateRecord API is not supported on iOS HealthKit SDK',
         );
       }
-      _validateRecordSupport(record);
+      _validatePlatformSupport(record);
+      _validateRecordToWrite(record);
       require(
         condition: record.id != HealthRecordId.none,
         value: record.id,
@@ -722,7 +727,10 @@ final class HealthConnectorImpl implements HealthConnector {
           'updateRecord API is not supported on iOS HealthKit SDK',
         );
       }
-      records.forEach(_validateRecordSupport);
+      records.forEach((record) {
+        _validatePlatformSupport(record);
+        _validateRecordToWrite(record);
+      });
       require(
         condition: records.every((record) => record.id != HealthRecordId.none),
         value: records,
@@ -823,20 +831,31 @@ final class HealthConnectorImpl implements HealthConnector {
     }
   }
 
-  void _validateRecordSupport(HealthRecord record) {
+  void _validatePlatformSupport(HealthRecord record) {
+    // Validate platform support
     require(
       condition: record.supportedHealthPlatforms.contains(healthPlatform),
       value: record,
       name: 'record',
-      message: '${record.runtimeType} is not supported on $healthPlatform.',
+      message: '${record.dataType} is not supported on $healthPlatform.',
     );
 
     if (record is ExerciseSessionRecord) {
+      // Validate exercise type support
       if (!record.exerciseType.isSupportedOnPlatform(healthPlatform)) {
         throw UnsupportedError(
           '${record.exerciseType} is not supported on $healthPlatform.',
         );
       }
     }
+  }
+
+  void _validateRecordToWrite(HealthRecord record) {
+    require(
+      condition: record.dataType is WriteableHealthDataType,
+      value: record,
+      name: 'record',
+      message: '${record.dataType} is not writable.',
+    );
   }
 }
