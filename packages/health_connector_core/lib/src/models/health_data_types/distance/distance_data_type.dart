@@ -35,7 +35,7 @@ final class DistanceDataType extends HealthDataType<DistanceRecord, Length>
         ReadableByIdHealthDataType<DistanceRecord>,
         ReadableInTimeRangeHealthDataType<DistanceRecord>,
         WriteableHealthDataType<DistanceRecord>,
-        SumAggregatableHealthDataType<DistanceRecord, Length> {
+        SumAggregatableHealthDataType<Length> {
   /// Creates a distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -94,7 +94,7 @@ final class DistanceDataType extends HealthDataType<DistanceRecord, Length>
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DistanceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

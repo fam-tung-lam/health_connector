@@ -34,7 +34,7 @@ final class WheelchairPushesDataType
         ReadableByIdHealthDataType<WheelchairPushesRecord>,
         ReadableInTimeRangeHealthDataType<WheelchairPushesRecord>,
         WriteableHealthDataType<WheelchairPushesRecord>,
-        SumAggregatableHealthDataType<WheelchairPushesRecord, Number>,
+        SumAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<WheelchairPushesRecord>,
         DeletableInTimeRangeHealthDataType<WheelchairPushesRecord> {
   /// Creates a wheelchair pushes data type.
@@ -93,7 +93,7 @@ final class WheelchairPushesDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<WheelchairPushesRecord, Number> aggregateSum({
+  AggregateRequest<Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

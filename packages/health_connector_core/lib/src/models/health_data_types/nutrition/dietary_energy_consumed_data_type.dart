@@ -35,7 +35,7 @@ final class DietaryEnergyConsumedDataType
         ReadableByIdHealthDataType<DietaryEnergyConsumedRecord>,
         ReadableInTimeRangeHealthDataType<DietaryEnergyConsumedRecord>,
         WriteableHealthDataType<DietaryEnergyConsumedRecord>,
-        SumAggregatableHealthDataType<DietaryEnergyConsumedRecord, Energy>,
+        SumAggregatableHealthDataType<Energy>,
         DeletableByIdsHealthDataType<DietaryEnergyConsumedRecord>,
         DeletableInTimeRangeHealthDataType<DietaryEnergyConsumedRecord> {
   /// Creates a energy data type.
@@ -94,7 +94,7 @@ final class DietaryEnergyConsumedDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryEnergyConsumedRecord, Energy> aggregateSum({
+  AggregateRequest<Energy> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

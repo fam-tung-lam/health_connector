@@ -35,7 +35,7 @@ final class DietaryVitaminKDataType
         ReadableByIdHealthDataType<DietaryVitaminKRecord>,
         ReadableInTimeRangeHealthDataType<DietaryVitaminKRecord>,
         WriteableHealthDataType<DietaryVitaminKRecord>,
-        SumAggregatableHealthDataType<DietaryVitaminKRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryVitaminKRecord>,
         DeletableInTimeRangeHealthDataType<DietaryVitaminKRecord> {
   /// Creates a vitamin k data type.
@@ -83,7 +83,7 @@ final class DietaryVitaminKDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryVitaminKRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

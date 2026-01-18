@@ -12,7 +12,7 @@ part of 'aggregate_request.dart';
 @internalUse
 @immutable
 final class ActivityIntensityAggregateRequest
-    extends AggregateRequest<ActivityIntensityRecord, TimeDuration> {
+    extends AggregateRequest<TimeDuration> {
   /// Creates an activity intensity aggregation request.
   ///
   /// The [intensityType] parameter determines which aggregation metric to use:
@@ -37,8 +37,6 @@ final class ActivityIntensityAggregateRequest
     required super.endTime,
     this.intensityType,
   }) : super(aggregationMetric: AggregationMetric.sum) {
-    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
-
     require(
       condition: dataType == HealthDataType.activityIntensity,
       value: dataType,

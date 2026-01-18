@@ -14,11 +14,8 @@ import 'package:meta/meta.dart' show internal;
 /// Converts [AggregateRequest] to [AggregateRequestDto].
 @sinceV1_0_0
 @internal
-extension AggregateRequestDtoMapper<
-  R extends HealthRecord,
-  U extends MeasurementUnit
->
-    on AggregateRequest<R, U> {
+extension AggregateRequestDtoMapper<U extends MeasurementUnit>
+    on AggregateRequest<U> {
   AggregateRequestDto toDto() {
     switch (this) {
       case CommonAggregateRequest _:

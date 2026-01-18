@@ -35,7 +35,7 @@ final class DietaryProteinDataType
         ReadableByIdHealthDataType<DietaryProteinRecord>,
         ReadableInTimeRangeHealthDataType<DietaryProteinRecord>,
         WriteableHealthDataType<DietaryProteinRecord>,
-        SumAggregatableHealthDataType<DietaryProteinRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryProteinRecord>,
         DeletableInTimeRangeHealthDataType<DietaryProteinRecord> {
   /// Creates a protein data type.
@@ -91,7 +91,7 @@ final class DietaryProteinDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryProteinRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

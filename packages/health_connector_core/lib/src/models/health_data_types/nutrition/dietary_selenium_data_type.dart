@@ -35,7 +35,7 @@ final class DietarySeleniumDataType
         ReadableByIdHealthDataType<DietarySeleniumRecord>,
         ReadableInTimeRangeHealthDataType<DietarySeleniumRecord>,
         WriteableHealthDataType<DietarySeleniumRecord>,
-        SumAggregatableHealthDataType<DietarySeleniumRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietarySeleniumRecord>,
         DeletableInTimeRangeHealthDataType<DietarySeleniumRecord> {
   /// Creates a selenium data type.
@@ -83,7 +83,7 @@ final class DietarySeleniumDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietarySeleniumRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

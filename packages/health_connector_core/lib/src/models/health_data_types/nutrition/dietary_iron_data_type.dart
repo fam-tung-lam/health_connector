@@ -35,7 +35,7 @@ final class DietaryIronDataType
         ReadableByIdHealthDataType<DietaryIronRecord>,
         ReadableInTimeRangeHealthDataType<DietaryIronRecord>,
         WriteableHealthDataType<DietaryIronRecord>,
-        SumAggregatableHealthDataType<DietaryIronRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryIronRecord>,
         DeletableInTimeRangeHealthDataType<DietaryIronRecord> {
   /// Creates a iron data type.
@@ -83,7 +83,7 @@ final class DietaryIronDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryIronRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

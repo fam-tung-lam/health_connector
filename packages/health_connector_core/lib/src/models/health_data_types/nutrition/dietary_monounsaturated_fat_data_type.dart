@@ -35,7 +35,7 @@ final class DietaryMonounsaturatedFatDataType
         ReadableByIdHealthDataType<DietaryMonounsaturatedFatRecord>,
         ReadableInTimeRangeHealthDataType<DietaryMonounsaturatedFatRecord>,
         WriteableHealthDataType<DietaryMonounsaturatedFatRecord>,
-        SumAggregatableHealthDataType<DietaryMonounsaturatedFatRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryMonounsaturatedFatRecord>,
         DeletableInTimeRangeHealthDataType<DietaryMonounsaturatedFatRecord> {
   /// Creates a monounsaturated fat data type.
@@ -95,7 +95,7 @@ final class DietaryMonounsaturatedFatDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryMonounsaturatedFatRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

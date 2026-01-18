@@ -36,7 +36,7 @@ final class FloorsClimbedDataType
         ReadableByIdHealthDataType<FloorsClimbedRecord>,
         ReadableInTimeRangeHealthDataType<FloorsClimbedRecord>,
         WriteableHealthDataType<FloorsClimbedRecord>,
-        SumAggregatableHealthDataType<FloorsClimbedRecord, Number>,
+        SumAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<FloorsClimbedRecord>,
         DeletableInTimeRangeHealthDataType<FloorsClimbedRecord> {
   /// Creates a floors climbed data type.
@@ -101,7 +101,7 @@ final class FloorsClimbedDataType
   }
 
   @override
-  AggregateRequest<FloorsClimbedRecord, Number> aggregateSum({
+  AggregateRequest<Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

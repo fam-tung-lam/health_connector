@@ -35,7 +35,7 @@ final class DietarySaturatedFatDataType
         ReadableByIdHealthDataType<DietarySaturatedFatRecord>,
         ReadableInTimeRangeHealthDataType<DietarySaturatedFatRecord>,
         WriteableHealthDataType<DietarySaturatedFatRecord>,
-        SumAggregatableHealthDataType<DietarySaturatedFatRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietarySaturatedFatRecord>,
         DeletableInTimeRangeHealthDataType<DietarySaturatedFatRecord> {
   /// Creates a saturated fat data type.
@@ -93,7 +93,7 @@ final class DietarySaturatedFatDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietarySaturatedFatRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

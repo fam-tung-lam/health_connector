@@ -32,9 +32,9 @@ final class HeartRateSeriesDataType
         ReadableByIdHealthDataType<HeartRateSeriesRecord>,
         ReadableInTimeRangeHealthDataType<HeartRateSeriesRecord>,
         WriteableHealthDataType<HeartRateSeriesRecord>,
-        AvgAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
-        MinAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
-        MaxAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
+        AvgAggregatableHealthDataType<Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<HeartRateSeriesRecord>,
         DeletableInTimeRangeHealthDataType<HeartRateSeriesRecord> {
   /// Creates a heart rate series data type.
@@ -97,7 +97,7 @@ final class HeartRateSeriesDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<HeartRateSeriesRecord, Number> aggregateAvg({
+  AggregateRequest<Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -110,7 +110,7 @@ final class HeartRateSeriesDataType
   }
 
   @override
-  AggregateRequest<HeartRateSeriesRecord, Number> aggregateMin({
+  AggregateRequest<Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -123,7 +123,7 @@ final class HeartRateSeriesDataType
   }
 
   @override
-  AggregateRequest<HeartRateSeriesRecord, Number> aggregateMax({
+  AggregateRequest<Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

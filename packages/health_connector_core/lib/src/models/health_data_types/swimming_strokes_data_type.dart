@@ -33,7 +33,7 @@ final class SwimmingStrokesDataType
         ReadableByIdHealthDataType<SwimmingStrokesRecord>,
         ReadableInTimeRangeHealthDataType<SwimmingStrokesRecord>,
         WriteableHealthDataType<SwimmingStrokesRecord>,
-        SumAggregatableHealthDataType<SwimmingStrokesRecord, Number>,
+        SumAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<SwimmingStrokesRecord>,
         DeletableInTimeRangeHealthDataType<SwimmingStrokesRecord> {
   /// Creates a swimming strokes data type.
@@ -94,7 +94,7 @@ final class SwimmingStrokesDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<SwimmingStrokesRecord, Number> aggregateSum({
+  AggregateRequest<Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

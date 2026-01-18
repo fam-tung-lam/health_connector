@@ -36,9 +36,9 @@ final class RunningPowerDataType
         WriteableHealthDataType<RunningPowerRecord>,
         DeletableByIdsHealthDataType<RunningPowerRecord>,
         DeletableInTimeRangeHealthDataType<RunningPowerRecord>,
-        AvgAggregatableHealthDataType<RunningPowerRecord, Power>,
-        MinAggregatableHealthDataType<RunningPowerRecord, Power>,
-        MaxAggregatableHealthDataType<RunningPowerRecord, Power> {
+        AvgAggregatableHealthDataType<Power>,
+        MinAggregatableHealthDataType<Power>,
+        MaxAggregatableHealthDataType<Power> {
   /// Creates a running power data type.
   const RunningPowerDataType._();
 
@@ -115,7 +115,7 @@ final class RunningPowerDataType
   }
 
   @override
-  AggregateRequest<RunningPowerRecord, Power> aggregateAvg({
+  AggregateRequest<Power> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -128,7 +128,7 @@ final class RunningPowerDataType
   }
 
   @override
-  AggregateRequest<RunningPowerRecord, Power> aggregateMin({
+  AggregateRequest<Power> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -141,7 +141,7 @@ final class RunningPowerDataType
   }
 
   @override
-  AggregateRequest<RunningPowerRecord, Power> aggregateMax({
+  AggregateRequest<Power> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

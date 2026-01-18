@@ -34,10 +34,10 @@ part of 'health_data_type.dart';
 final class BodyMassIndexDataType
     extends HealthDataType<BodyMassIndexRecord, Number>
     implements
-        MinAggregatableHealthDataType<BodyMassIndexRecord, Number>,
-        MaxAggregatableHealthDataType<BodyMassIndexRecord, Number>,
-        AvgAggregatableHealthDataType<BodyMassIndexRecord, Number>,
-        SumAggregatableHealthDataType<BodyMassIndexRecord, Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
+        AvgAggregatableHealthDataType<Number>,
+        SumAggregatableHealthDataType<Number>,
         ReadableByIdHealthDataType<BodyMassIndexRecord>,
         ReadableInTimeRangeHealthDataType<BodyMassIndexRecord>,
         WriteableHealthDataType<BodyMassIndexRecord>,
@@ -67,7 +67,7 @@ final class BodyMassIndexDataType
   ];
 
   @override
-  AggregateRequest<BodyMassIndexRecord, Number> aggregateMin({
+  AggregateRequest<Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -80,7 +80,7 @@ final class BodyMassIndexDataType
   }
 
   @override
-  AggregateRequest<BodyMassIndexRecord, Number> aggregateMax({
+  AggregateRequest<Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -93,7 +93,7 @@ final class BodyMassIndexDataType
   }
 
   @override
-  AggregateRequest<BodyMassIndexRecord, Number> aggregateAvg({
+  AggregateRequest<Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -106,7 +106,7 @@ final class BodyMassIndexDataType
   }
 
   @override
-  AggregateRequest<BodyMassIndexRecord, Number> aggregateSum({
+  AggregateRequest<Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

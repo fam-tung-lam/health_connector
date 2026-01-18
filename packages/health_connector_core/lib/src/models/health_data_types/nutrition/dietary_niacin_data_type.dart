@@ -35,7 +35,7 @@ final class DietaryNiacinDataType
         ReadableByIdHealthDataType<DietaryNiacinRecord>,
         ReadableInTimeRangeHealthDataType<DietaryNiacinRecord>,
         WriteableHealthDataType<DietaryNiacinRecord>,
-        SumAggregatableHealthDataType<DietaryNiacinRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryNiacinRecord>,
         DeletableInTimeRangeHealthDataType<DietaryNiacinRecord> {
   /// Creates a niacin (vitamin b3) data type.
@@ -83,7 +83,7 @@ final class DietaryNiacinDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryNiacinRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

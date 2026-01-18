@@ -36,9 +36,9 @@ final class BloodGlucoseDataType
         ReadableByIdHealthDataType<BloodGlucoseRecord>,
         ReadableInTimeRangeHealthDataType<BloodGlucoseRecord>,
         WriteableHealthDataType<BloodGlucoseRecord>,
-        AvgAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
-        MinAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
-        MaxAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
+        AvgAggregatableHealthDataType<BloodGlucose>,
+        MinAggregatableHealthDataType<BloodGlucose>,
+        MaxAggregatableHealthDataType<BloodGlucose>,
         DeletableByIdsHealthDataType<BloodGlucoseRecord>,
         DeletableInTimeRangeHealthDataType<BloodGlucoseRecord> {
   /// Creates a blood glucose data type.
@@ -96,7 +96,7 @@ final class BloodGlucoseDataType
   ];
 
   @override
-  AggregateRequest<BloodGlucoseRecord, BloodGlucose> aggregateAvg({
+  AggregateRequest<BloodGlucose> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -109,7 +109,7 @@ final class BloodGlucoseDataType
   }
 
   @override
-  AggregateRequest<BloodGlucoseRecord, BloodGlucose> aggregateMax({
+  AggregateRequest<BloodGlucose> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -122,7 +122,7 @@ final class BloodGlucoseDataType
   }
 
   @override
-  AggregateRequest<BloodGlucoseRecord, BloodGlucose> aggregateMin({
+  AggregateRequest<BloodGlucose> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {

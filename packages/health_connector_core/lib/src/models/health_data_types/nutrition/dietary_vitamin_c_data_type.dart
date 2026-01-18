@@ -35,7 +35,7 @@ final class DietaryVitaminCDataType
         ReadableByIdHealthDataType<DietaryVitaminCRecord>,
         ReadableInTimeRangeHealthDataType<DietaryVitaminCRecord>,
         WriteableHealthDataType<DietaryVitaminCRecord>,
-        SumAggregatableHealthDataType<DietaryVitaminCRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryVitaminCRecord>,
         DeletableInTimeRangeHealthDataType<DietaryVitaminCRecord> {
   /// Creates a vitamin c (ascorbic acid) data type.
@@ -83,7 +83,7 @@ final class DietaryVitaminCDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryVitaminCRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

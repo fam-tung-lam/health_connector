@@ -33,7 +33,7 @@ final class ElevationGainedDataType
         ReadableByIdHealthDataType<ElevationGainedRecord>,
         ReadableInTimeRangeHealthDataType<ElevationGainedRecord>,
         WriteableHealthDataType<ElevationGainedRecord>,
-        SumAggregatableHealthDataType<ElevationGainedRecord, Length> {
+        SumAggregatableHealthDataType<Length> {
   /// Creates an elevation gained data type.
   @internal
   const ElevationGainedDataType();
@@ -89,7 +89,7 @@ final class ElevationGainedDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<ElevationGainedRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

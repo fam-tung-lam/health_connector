@@ -41,9 +41,9 @@ final class SystolicBloodPressureDataType
         ReadableByIdHealthDataType<SystolicBloodPressureRecord>,
         ReadableInTimeRangeHealthDataType<SystolicBloodPressureRecord>,
         WriteableHealthDataType<SystolicBloodPressureRecord>,
-        AvgAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
-        MinAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
-        MaxAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
+        AvgAggregatableHealthDataType<Pressure>,
+        MinAggregatableHealthDataType<Pressure>,
+        MaxAggregatableHealthDataType<Pressure>,
         DeletableByIdsHealthDataType<SystolicBloodPressureRecord>,
         DeletableInTimeRangeHealthDataType<SystolicBloodPressureRecord> {
   /// Creates a systolic blood pressure data type.
@@ -109,7 +109,7 @@ final class SystolicBloodPressureDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<SystolicBloodPressureRecord, Pressure> aggregateAvg({
+  AggregateRequest<Pressure> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -122,7 +122,7 @@ final class SystolicBloodPressureDataType
   }
 
   @override
-  AggregateRequest<SystolicBloodPressureRecord, Pressure> aggregateMin({
+  AggregateRequest<Pressure> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -135,7 +135,7 @@ final class SystolicBloodPressureDataType
   }
 
   @override
-  AggregateRequest<SystolicBloodPressureRecord, Pressure> aggregateMax({
+  AggregateRequest<Pressure> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -93,7 +93,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
 /// Converts [HealthDataType] to [HealthDataTypeDto].
 @sinceV1_0_0
 @internal
-extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
+extension HealthDataTypeToDto on HealthDataType {
   HealthDataTypeDto toDto() {
     switch (this) {
       case ActiveEnergyBurnedDataType _:

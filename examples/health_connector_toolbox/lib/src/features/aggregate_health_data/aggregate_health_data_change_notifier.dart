@@ -69,7 +69,7 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
   /// Builds an aggregation request for the specified parameters.
   ///
   /// Throws [UnsupportedError] if the metric is not supported for the type.
-  static AggregateRequest _buildRequest({
+  static AggregateRequest<MeasurementUnit> _buildRequest({
     required HealthDataType dataType,
     required AggregationMetric metric,
     required DateTime startTime,
@@ -715,8 +715,8 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
 
   // Helper methods using callbacks to avoid generic type issues
 
-  static AggregateRequest _buildSum(
-    AggregateRequest Function() sumFn,
+  static AggregateRequest<MeasurementUnit> _buildSum(
+    AggregateRequest<MeasurementUnit> Function() sumFn,
     AggregationMetric metric,
   ) {
     if (metric != AggregationMetric.sum) {
@@ -725,8 +725,8 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
     return sumFn();
   }
 
-  static AggregateRequest _buildAvg(
-    AggregateRequest Function() avgFn,
+  static AggregateRequest<MeasurementUnit> _buildAvg(
+    AggregateRequest<MeasurementUnit> Function() avgFn,
     AggregationMetric metric,
   ) {
     if (metric != AggregationMetric.avg) {
@@ -735,10 +735,10 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
     return avgFn();
   }
 
-  static AggregateRequest _buildAvgMinMax(
-    AggregateRequest Function() avgFn,
-    AggregateRequest Function() minFn,
-    AggregateRequest Function() maxFn,
+  static AggregateRequest<MeasurementUnit> _buildAvgMinMax(
+    AggregateRequest<MeasurementUnit> Function() avgFn,
+    AggregateRequest<MeasurementUnit> Function() minFn,
+    AggregateRequest<MeasurementUnit> Function() maxFn,
     AggregationMetric metric,
   ) {
     return switch (metric) {
@@ -751,7 +751,7 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
     };
   }
 
-  static AggregateRequest _buildDistanceSum(
+  static AggregateRequest<MeasurementUnit> _buildDistanceSum(
     HealthDataType<HealthRecord, Length> dataType,
     AggregationMetric metric,
     DateTime startTime,
@@ -819,7 +819,7 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
     };
   }
 
-  static AggregateRequest _buildNutrientSum(
+  static AggregateRequest<MeasurementUnit> _buildNutrientSum(
     HealthDataType<HealthRecord, Mass> dataType,
     AggregationMetric metric,
     DateTime startTime,

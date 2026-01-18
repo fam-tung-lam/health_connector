@@ -35,7 +35,7 @@ void main() {
         ),
       );
       registerFallbackValue(
-        CommonAggregateRequest<StepsRecord, Number>(
+        CommonAggregateRequest<Number>(
           dataType: HealthDataType.steps,
           startTime: FakeData.fakeStartTime,
           endTime: FakeData.fakeEndTime,
@@ -85,7 +85,7 @@ void main() {
         ),
       );
       registerFallbackValue(
-        CommonAggregateRequest<TotalEnergyBurnedRecord, Energy>(
+        CommonAggregateRequest<Energy>(
           dataType: HealthDataType.totalEnergyBurned,
           startTime: FakeData.fakeStartTime,
           endTime: FakeData.fakeEndTime,
@@ -851,7 +851,7 @@ void main() {
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
-              final request = CommonAggregateRequest<StepsRecord, Number>(
+              final request = CommonAggregateRequest<Number>(
                 dataType: HealthDataType.steps,
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -861,7 +861,7 @@ void main() {
 
               when(
                 () => mockClient.aggregate(
-                  any<CommonAggregateRequest<StepsRecord, Number>>(),
+                  any<CommonAggregateRequest<Number>>(),
                 ),
               ).thenAnswer((_) async => expectedValue);
 
@@ -885,7 +885,7 @@ void main() {
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
-              final request = CommonAggregateRequest<StepsRecord, Number>(
+              final request = CommonAggregateRequest<Number>(
                 dataType: HealthDataType.steps,
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -894,7 +894,7 @@ void main() {
 
               when(
                 () => mockClient.aggregate(
-                  any<CommonAggregateRequest<StepsRecord, Number>>(),
+                  any<CommonAggregateRequest<Number>>(),
                 ),
               ).thenThrow(
                 const UnknownException('Fake exception'),
@@ -920,13 +920,12 @@ void main() {
                 healthPlatformClient: mockClient,
               );
               // TotalEnergyBurnedDataType is HC-only and supports aggregation
-              final request =
-                  CommonAggregateRequest<TotalEnergyBurnedRecord, Energy>(
-                    dataType: HealthDataType.totalEnergyBurned,
-                    startTime: FakeData.fakeStartTime,
-                    endTime: FakeData.fakeEndTime,
-                    aggregationMetric: AggregationMetric.sum,
-                  );
+              final request = CommonAggregateRequest<Energy>(
+                dataType: HealthDataType.totalEnergyBurned,
+                startTime: FakeData.fakeStartTime,
+                endTime: FakeData.fakeEndTime,
+                aggregationMetric: AggregationMetric.sum,
+              );
 
               // WHEN & THEN
               await expectLater(
@@ -941,9 +940,7 @@ void main() {
               );
               verifyNever(
                 () => mockClient.aggregate(
-                  any<
-                    CommonAggregateRequest<TotalEnergyBurnedRecord, Energy>
-                  >(),
+                  any<CommonAggregateRequest<Energy>>(),
                 ),
               );
             },

@@ -72,7 +72,7 @@ final class WheelchairDistanceDataType
   }
 
   @override
-  AggregateRequest<WheelchairDistanceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

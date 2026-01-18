@@ -21,9 +21,9 @@ final class PowerSeriesDataType extends HealthDataType<PowerSeriesRecord, Power>
         WriteableHealthDataType<PowerSeriesRecord>,
         DeletableByIdsHealthDataType<PowerSeriesRecord>,
         DeletableInTimeRangeHealthDataType<PowerSeriesRecord>,
-        AvgAggregatableHealthDataType<PowerSeriesRecord, Power>,
-        MinAggregatableHealthDataType<PowerSeriesRecord, Power>,
-        MaxAggregatableHealthDataType<PowerSeriesRecord, Power> {
+        AvgAggregatableHealthDataType<Power>,
+        MinAggregatableHealthDataType<Power>,
+        MaxAggregatableHealthDataType<Power> {
   /// Creates a power series data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -90,7 +90,7 @@ final class PowerSeriesDataType extends HealthDataType<PowerSeriesRecord, Power>
   }
 
   @override
-  AggregateRequest<PowerSeriesRecord, Power> aggregateAvg({
+  AggregateRequest<Power> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -103,7 +103,7 @@ final class PowerSeriesDataType extends HealthDataType<PowerSeriesRecord, Power>
   }
 
   @override
-  AggregateRequest<PowerSeriesRecord, Power> aggregateMin({
+  AggregateRequest<Power> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -116,7 +116,7 @@ final class PowerSeriesDataType extends HealthDataType<PowerSeriesRecord, Power>
   }
 
   @override
-  AggregateRequest<PowerSeriesRecord, Power> aggregateMax({
+  AggregateRequest<Power> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

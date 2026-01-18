@@ -27,9 +27,9 @@ final class RespiratoryRateDataType
         ReadableByIdHealthDataType<RespiratoryRateRecord>,
         ReadableInTimeRangeHealthDataType<RespiratoryRateRecord>,
         WriteableHealthDataType<RespiratoryRateRecord>,
-        AvgAggregatableHealthDataType<RespiratoryRateRecord, Number>,
-        MinAggregatableHealthDataType<RespiratoryRateRecord, Number>,
-        MaxAggregatableHealthDataType<RespiratoryRateRecord, Number>,
+        AvgAggregatableHealthDataType<Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<RespiratoryRateRecord>,
         DeletableInTimeRangeHealthDataType<RespiratoryRateRecord> {
   /// Creates a respiratory rate data type.
@@ -87,7 +87,7 @@ final class RespiratoryRateDataType
   }
 
   @override
-  AggregateRequest<RespiratoryRateRecord, Number> aggregateAvg({
+  AggregateRequest<Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -100,7 +100,7 @@ final class RespiratoryRateDataType
   }
 
   @override
-  AggregateRequest<RespiratoryRateRecord, Number> aggregateMin({
+  AggregateRequest<Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -113,7 +113,7 @@ final class RespiratoryRateDataType
   }
 
   @override
-  AggregateRequest<RespiratoryRateRecord, Number> aggregateMax({
+  AggregateRequest<Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

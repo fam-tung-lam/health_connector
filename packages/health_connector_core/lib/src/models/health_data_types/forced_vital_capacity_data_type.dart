@@ -37,9 +37,9 @@ final class ForcedVitalCapacityDataType
         WriteableHealthDataType<ForcedVitalCapacityRecord>,
         DeletableByIdsHealthDataType<ForcedVitalCapacityRecord>,
         DeletableInTimeRangeHealthDataType<ForcedVitalCapacityRecord>,
-        AvgAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume>,
-        MinAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume>,
-        MaxAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume> {
+        AvgAggregatableHealthDataType<Volume>,
+        MinAggregatableHealthDataType<Volume>,
+        MaxAggregatableHealthDataType<Volume> {
   /// Creates a forced vital capacity data type.
   const ForcedVitalCapacityDataType();
 
@@ -113,7 +113,7 @@ final class ForcedVitalCapacityDataType
   }
 
   @override
-  AggregateRequest<ForcedVitalCapacityRecord, Volume> aggregateAvg({
+  AggregateRequest<Volume> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -126,7 +126,7 @@ final class ForcedVitalCapacityDataType
   }
 
   @override
-  AggregateRequest<ForcedVitalCapacityRecord, Volume> aggregateMin({
+  AggregateRequest<Volume> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -139,7 +139,7 @@ final class ForcedVitalCapacityDataType
   }
 
   @override
-  AggregateRequest<ForcedVitalCapacityRecord, Volume> aggregateMax({
+  AggregateRequest<Volume> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

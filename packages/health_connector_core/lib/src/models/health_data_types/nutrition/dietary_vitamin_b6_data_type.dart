@@ -35,7 +35,7 @@ final class DietaryVitaminB6DataType
         ReadableByIdHealthDataType<DietaryVitaminB6Record>,
         ReadableInTimeRangeHealthDataType<DietaryVitaminB6Record>,
         WriteableHealthDataType<DietaryVitaminB6Record>,
-        SumAggregatableHealthDataType<DietaryVitaminB6Record, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryVitaminB6Record>,
         DeletableInTimeRangeHealthDataType<DietaryVitaminB6Record> {
   /// Creates a vitamin b6 (pyridoxine) data type.
@@ -83,7 +83,7 @@ final class DietaryVitaminB6DataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryVitaminB6Record, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

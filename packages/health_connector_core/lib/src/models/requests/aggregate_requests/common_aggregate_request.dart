@@ -9,11 +9,8 @@ part of 'aggregate_request.dart';
 @sinceV1_2_0
 @internalUse
 @immutable
-final class CommonAggregateRequest<
-  R extends HealthRecord,
-  U extends MeasurementUnit
->
-    extends AggregateRequest<R, U> {
+final class CommonAggregateRequest<U extends MeasurementUnit>
+    extends AggregateRequest<U> {
   /// Creates a request to aggregate health records.
   ///
   /// ## Parameters
@@ -32,19 +29,7 @@ final class CommonAggregateRequest<
     required super.aggregationMetric,
     required super.startTime,
     required super.endTime,
-  }) : super() {
-    require(
-      condition: dataType.supportedAggregationMetrics.contains(
-        aggregationMetric,
-      ),
-      value: aggregationMetric,
-      name: 'aggregationMetric',
-      message:
-          '$dataType does not support aggregation with '
-          'metric ${aggregationMetric.name}',
-    );
-    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
-  }
+  });
 
   @override
   String toString() {

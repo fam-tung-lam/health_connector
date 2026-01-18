@@ -36,7 +36,7 @@ final class MindfulnessSessionDataType
         ReadableByIdHealthDataType<MindfulnessSessionRecord>,
         ReadableInTimeRangeHealthDataType<MindfulnessSessionRecord>,
         WriteableHealthDataType<MindfulnessSessionRecord>,
-        SumAggregatableHealthDataType<MindfulnessSessionRecord, TimeDuration>,
+        SumAggregatableHealthDataType<TimeDuration>,
         DeletableByIdsHealthDataType<MindfulnessSessionRecord>,
         DeletableInTimeRangeHealthDataType<MindfulnessSessionRecord> {
   /// Creates a mindfulness session data type.
@@ -95,7 +95,7 @@ final class MindfulnessSessionDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<MindfulnessSessionRecord, TimeDuration> aggregateSum({
+  AggregateRequest<TimeDuration> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

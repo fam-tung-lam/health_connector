@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show AggregateRequest, HealthRecord, MeasurementUnit, sinceV1_0_0;
+    show AggregateRequest, MeasurementUnit, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/aggregation_metric_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -9,11 +9,8 @@ import 'package:meta/meta.dart' show internal;
 /// Converts [AggregateRequest] to [AggregateRequestDto].
 @sinceV1_0_0
 @internal
-extension AggregateRequestDtoMapper<
-  R extends HealthRecord,
-  U extends MeasurementUnit
->
-    on AggregateRequest<R, U> {
+extension AggregateRequestDtoMapper<U extends MeasurementUnit>
+    on AggregateRequest<U> {
   AggregateRequestDto toDto() {
     return AggregateRequestDto(
       dataType: dataType.toDto(),

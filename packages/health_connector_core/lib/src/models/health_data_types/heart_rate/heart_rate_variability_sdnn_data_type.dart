@@ -36,10 +36,10 @@ part of '../health_data_type.dart';
 final class HeartRateVariabilitySDNNDataType
     extends HealthDataType<HeartRateVariabilitySDNNRecord, Number>
     implements
-        MinAggregatableHealthDataType<HeartRateVariabilitySDNNRecord, Number>,
-        MaxAggregatableHealthDataType<HeartRateVariabilitySDNNRecord, Number>,
-        AvgAggregatableHealthDataType<HeartRateVariabilitySDNNRecord, Number>,
-        SumAggregatableHealthDataType<HeartRateVariabilitySDNNRecord, Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
+        AvgAggregatableHealthDataType<Number>,
+        SumAggregatableHealthDataType<Number>,
         ReadableHealthDataType<HeartRateVariabilitySDNNRecord>,
         ReadableByIdHealthDataType<HeartRateVariabilitySDNNRecord>,
         ReadableInTimeRangeHealthDataType<HeartRateVariabilitySDNNRecord>,
@@ -70,7 +70,7 @@ final class HeartRateVariabilitySDNNDataType
   ];
 
   @override
-  AggregateRequest<HeartRateVariabilitySDNNRecord, Number> aggregateMin({
+  AggregateRequest<Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -83,7 +83,7 @@ final class HeartRateVariabilitySDNNDataType
   }
 
   @override
-  AggregateRequest<HeartRateVariabilitySDNNRecord, Number> aggregateMax({
+  AggregateRequest<Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -96,7 +96,7 @@ final class HeartRateVariabilitySDNNDataType
   }
 
   @override
-  AggregateRequest<HeartRateVariabilitySDNNRecord, Number> aggregateAvg({
+  AggregateRequest<Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -109,7 +109,7 @@ final class HeartRateVariabilitySDNNDataType
   }
 
   @override
-  AggregateRequest<HeartRateVariabilitySDNNRecord, Number> aggregateSum({
+  AggregateRequest<Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

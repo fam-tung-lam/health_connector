@@ -36,7 +36,7 @@ final class SleepSessionDataType
         ReadableByIdHealthDataType<SleepSessionRecord>,
         ReadableInTimeRangeHealthDataType<SleepSessionRecord>,
         WriteableHealthDataType<SleepSessionRecord>,
-        SumAggregatableHealthDataType<SleepSessionRecord, TimeDuration>,
+        SumAggregatableHealthDataType<TimeDuration>,
         DeletableByIdsHealthDataType<SleepSessionRecord>,
         DeletableInTimeRangeHealthDataType<SleepSessionRecord> {
   /// Creates a sleep session data type.
@@ -97,7 +97,7 @@ final class SleepSessionDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<SleepSessionRecord, TimeDuration> aggregateSum({
+  AggregateRequest<TimeDuration> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -32,7 +32,7 @@ final class BasalEnergyBurnedDataType
         WriteableHealthDataType<BasalEnergyBurnedRecord>,
         DeletableByIdsHealthDataType<BasalEnergyBurnedRecord>,
         DeletableInTimeRangeHealthDataType<BasalEnergyBurnedRecord>,
-        SumAggregatableHealthDataType<BasalEnergyBurnedRecord, Energy> {
+        SumAggregatableHealthDataType<Energy> {
   /// Creates a basal energy burned data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -93,7 +93,7 @@ final class BasalEnergyBurnedDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<BasalEnergyBurnedRecord, Energy> aggregateSum({
+  AggregateRequest<Energy> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

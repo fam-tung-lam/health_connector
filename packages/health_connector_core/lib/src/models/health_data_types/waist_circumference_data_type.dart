@@ -34,10 +34,10 @@ part of 'health_data_type.dart';
 final class WaistCircumferenceDataType
     extends HealthDataType<WaistCircumferenceRecord, Length>
     implements
-        MinAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
-        MaxAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
-        AvgAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
-        SumAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
+        MinAggregatableHealthDataType<Length>,
+        MaxAggregatableHealthDataType<Length>,
+        AvgAggregatableHealthDataType<Length>,
+        SumAggregatableHealthDataType<Length>,
         ReadableByIdHealthDataType<WaistCircumferenceRecord>,
         ReadableInTimeRangeHealthDataType<WaistCircumferenceRecord>,
         WriteableHealthDataType<WaistCircumferenceRecord>,
@@ -67,7 +67,7 @@ final class WaistCircumferenceDataType
   ];
 
   @override
-  AggregateRequest<WaistCircumferenceRecord, Length> aggregateMin({
+  AggregateRequest<Length> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -80,7 +80,7 @@ final class WaistCircumferenceDataType
   }
 
   @override
-  AggregateRequest<WaistCircumferenceRecord, Length> aggregateMax({
+  AggregateRequest<Length> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -93,7 +93,7 @@ final class WaistCircumferenceDataType
   }
 
   @override
-  AggregateRequest<WaistCircumferenceRecord, Length> aggregateAvg({
+  AggregateRequest<Length> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -106,7 +106,7 @@ final class WaistCircumferenceDataType
   }
 
   @override
-  AggregateRequest<WaistCircumferenceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

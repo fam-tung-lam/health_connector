@@ -35,7 +35,7 @@ final class DietaryFiberNutrientDataType
         ReadableByIdHealthDataType<DietaryFiberRecord>,
         ReadableInTimeRangeHealthDataType<DietaryFiberRecord>,
         WriteableHealthDataType<DietaryFiberRecord>,
-        SumAggregatableHealthDataType<DietaryFiberRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryFiberRecord>,
         DeletableInTimeRangeHealthDataType<DietaryFiberRecord> {
   /// Creates a dietary fiber data type.
@@ -93,7 +93,7 @@ final class DietaryFiberNutrientDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryFiberRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

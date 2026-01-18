@@ -33,9 +33,9 @@ final class WeightDataType extends HealthDataType<WeightRecord, Mass>
         ReadableByIdHealthDataType<WeightRecord>,
         ReadableInTimeRangeHealthDataType<WeightRecord>,
         WriteableHealthDataType<WeightRecord>,
-        AvgAggregatableHealthDataType<WeightRecord, Mass>,
-        MinAggregatableHealthDataType<WeightRecord, Mass>,
-        MaxAggregatableHealthDataType<WeightRecord, Mass>,
+        AvgAggregatableHealthDataType<Mass>,
+        MinAggregatableHealthDataType<Mass>,
+        MaxAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<WeightRecord>,
         DeletableInTimeRangeHealthDataType<WeightRecord> {
   /// Creates a weight data type.
@@ -96,7 +96,7 @@ final class WeightDataType extends HealthDataType<WeightRecord, Mass>
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<WeightRecord, Mass> aggregateAvg({
+  AggregateRequest<Mass> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -109,7 +109,7 @@ final class WeightDataType extends HealthDataType<WeightRecord, Mass>
   }
 
   @override
-  AggregateRequest<WeightRecord, Mass> aggregateMin({
+  AggregateRequest<Mass> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -122,7 +122,7 @@ final class WeightDataType extends HealthDataType<WeightRecord, Mass>
   }
 
   @override
-  AggregateRequest<WeightRecord, Mass> aggregateMax({
+  AggregateRequest<Mass> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

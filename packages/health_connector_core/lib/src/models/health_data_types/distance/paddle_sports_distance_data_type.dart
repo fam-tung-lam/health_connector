@@ -74,7 +74,7 @@ final class PaddleSportsDistanceDataType
   }
 
   @override
-  AggregateRequest<PaddleSportsDistanceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

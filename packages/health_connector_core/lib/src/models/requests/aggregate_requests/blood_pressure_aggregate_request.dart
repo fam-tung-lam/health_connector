@@ -11,8 +11,7 @@ part of 'aggregate_request.dart';
 @supportedOnHealthConnect
 @internalUse
 @immutable
-final class BloodPressureAggregateRequest
-    extends AggregateRequest<HealthRecord, Pressure> {
+final class BloodPressureAggregateRequest extends AggregateRequest<Pressure> {
   static const _bloodPressureDataTypes = [
     HealthDataType.diastolicBloodPressure,
     HealthDataType.systolicBloodPressure,
@@ -38,19 +37,7 @@ final class BloodPressureAggregateRequest
     required super.aggregationMetric,
     required super.startTime,
     required super.endTime,
-  }) : super() {
-    require(
-      condition: dataType.supportedAggregationMetrics.contains(
-        aggregationMetric,
-      ),
-      value: aggregationMetric,
-      name: 'aggregationMetric',
-      message:
-          '$dataType does not support aggregation with '
-          'metric ${aggregationMetric.name}',
-    );
-    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
-
+  }) {
     require(
       condition: _bloodPressureDataTypes.contains(dataType),
       value: dataType,

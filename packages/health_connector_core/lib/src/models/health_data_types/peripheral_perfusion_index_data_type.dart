@@ -37,18 +37,9 @@ final class PeripheralPerfusionIndexDataType
         WriteableHealthDataType<PeripheralPerfusionIndexRecord>,
         DeletableByIdsHealthDataType<PeripheralPerfusionIndexRecord>,
         DeletableInTimeRangeHealthDataType<PeripheralPerfusionIndexRecord>,
-        AvgAggregatableHealthDataType<
-          PeripheralPerfusionIndexRecord,
-          Percentage
-        >,
-        MinAggregatableHealthDataType<
-          PeripheralPerfusionIndexRecord,
-          Percentage
-        >,
-        MaxAggregatableHealthDataType<
-          PeripheralPerfusionIndexRecord,
-          Percentage
-        > {
+        AvgAggregatableHealthDataType<Percentage>,
+        MinAggregatableHealthDataType<Percentage>,
+        MaxAggregatableHealthDataType<Percentage> {
   /// Creates a [PeripheralPerfusionIndexDataType] instance.
   @internal
   const PeripheralPerfusionIndexDataType();
@@ -107,7 +98,7 @@ final class PeripheralPerfusionIndexDataType
   }
 
   @override
-  AggregateRequest<PeripheralPerfusionIndexRecord, Percentage> aggregateAvg({
+  AggregateRequest<Percentage> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -120,7 +111,7 @@ final class PeripheralPerfusionIndexDataType
   }
 
   @override
-  AggregateRequest<PeripheralPerfusionIndexRecord, Percentage> aggregateMin({
+  AggregateRequest<Percentage> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -133,7 +124,7 @@ final class PeripheralPerfusionIndexDataType
   }
 
   @override
-  AggregateRequest<PeripheralPerfusionIndexRecord, Percentage> aggregateMax({
+  AggregateRequest<Percentage> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

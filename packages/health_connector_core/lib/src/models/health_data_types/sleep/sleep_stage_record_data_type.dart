@@ -37,7 +37,7 @@ final class SleepStageDataType
         ReadableByIdHealthDataType<SleepStageRecord>,
         ReadableInTimeRangeHealthDataType<SleepStageRecord>,
         WriteableHealthDataType<SleepStageRecord>,
-        SumAggregatableHealthDataType<SleepStageRecord, TimeDuration>,
+        SumAggregatableHealthDataType<TimeDuration>,
         DeletableByIdsHealthDataType<SleepStageRecord>,
         DeletableInTimeRangeHealthDataType<SleepStageRecord> {
   /// Creates a sleep stage data type.
@@ -116,7 +116,7 @@ final class SleepStageDataType
   /// - Total Sleep Time:
   ///   - 30 min + 2.5 hrs + 2.75 hrs + 1.5 hrs = 7.25 hours (26,100 seconds)
   @override
-  AggregateRequest<SleepStageRecord, TimeDuration> aggregateSum({
+  AggregateRequest<TimeDuration> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

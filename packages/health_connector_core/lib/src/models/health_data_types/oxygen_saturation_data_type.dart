@@ -28,9 +28,9 @@ final class OxygenSaturationDataType
         ReadableByIdHealthDataType<OxygenSaturationRecord>,
         ReadableInTimeRangeHealthDataType<OxygenSaturationRecord>,
         WriteableHealthDataType<OxygenSaturationRecord>,
-        AvgAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
-        MinAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
-        MaxAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
+        AvgAggregatableHealthDataType<Percentage>,
+        MinAggregatableHealthDataType<Percentage>,
+        MaxAggregatableHealthDataType<Percentage>,
         DeletableByIdsHealthDataType<OxygenSaturationRecord>,
         DeletableInTimeRangeHealthDataType<OxygenSaturationRecord> {
   /// Creates an oxygen saturation data type.
@@ -88,7 +88,7 @@ final class OxygenSaturationDataType
   }
 
   @override
-  AggregateRequest<OxygenSaturationRecord, Percentage> aggregateAvg({
+  AggregateRequest<Percentage> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -101,7 +101,7 @@ final class OxygenSaturationDataType
   }
 
   @override
-  AggregateRequest<OxygenSaturationRecord, Percentage> aggregateMin({
+  AggregateRequest<Percentage> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -114,7 +114,7 @@ final class OxygenSaturationDataType
   }
 
   @override
-  AggregateRequest<OxygenSaturationRecord, Percentage> aggregateMax({
+  AggregateRequest<Percentage> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

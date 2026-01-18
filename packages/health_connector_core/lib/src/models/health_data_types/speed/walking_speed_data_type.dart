@@ -70,7 +70,7 @@ final class WalkingSpeedDataType
   }
 
   @override
-  AggregateRequest<WalkingSpeedRecord, Velocity> aggregateAvg({
+  AggregateRequest<Velocity> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

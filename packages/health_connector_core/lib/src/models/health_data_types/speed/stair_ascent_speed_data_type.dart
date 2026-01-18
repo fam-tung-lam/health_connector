@@ -76,7 +76,7 @@ final class StairAscentSpeedDataType
   }
 
   @override
-  AggregateRequest<StairAscentSpeedRecord, Velocity> aggregateAvg({
+  AggregateRequest<Velocity> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

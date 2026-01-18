@@ -41,9 +41,9 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
         ReadableByIdHealthDataType<HeartRateRecord>,
         ReadableInTimeRangeHealthDataType<HeartRateRecord>,
         WriteableHealthDataType<HeartRateRecord>,
-        AvgAggregatableHealthDataType<HeartRateRecord, Number>,
-        MinAggregatableHealthDataType<HeartRateRecord, Number>,
-        MaxAggregatableHealthDataType<HeartRateRecord, Number>,
+        AvgAggregatableHealthDataType<Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<HeartRateRecord>,
         DeletableInTimeRangeHealthDataType<HeartRateRecord> {
   /// Creates a heart rate measurement data type.
@@ -108,7 +108,7 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<HeartRateRecord, Number> aggregateAvg({
+  AggregateRequest<Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -121,7 +121,7 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
   }
 
   @override
-  AggregateRequest<HeartRateRecord, Number> aggregateMin({
+  AggregateRequest<Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -134,7 +134,7 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
   }
 
   @override
-  AggregateRequest<HeartRateRecord, Number> aggregateMax({
+  AggregateRequest<Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

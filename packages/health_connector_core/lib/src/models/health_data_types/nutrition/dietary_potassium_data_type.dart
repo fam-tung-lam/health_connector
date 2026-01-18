@@ -35,7 +35,7 @@ final class DietaryPotassiumDataType
         ReadableByIdHealthDataType<DietaryPotassiumRecord>,
         ReadableInTimeRangeHealthDataType<DietaryPotassiumRecord>,
         WriteableHealthDataType<DietaryPotassiumRecord>,
-        SumAggregatableHealthDataType<DietaryPotassiumRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryPotassiumRecord>,
         DeletableInTimeRangeHealthDataType<DietaryPotassiumRecord> {
   /// Creates a potassium data type.
@@ -83,7 +83,7 @@ final class DietaryPotassiumDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryPotassiumRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

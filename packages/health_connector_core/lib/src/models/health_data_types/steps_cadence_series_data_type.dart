@@ -33,9 +33,9 @@ final class StepsCadenceSeriesDataType
         ReadableByIdHealthDataType<StepsCadenceSeriesRecord>,
         ReadableInTimeRangeHealthDataType<StepsCadenceSeriesRecord>,
         WriteableHealthDataType<StepsCadenceSeriesRecord>,
-        AvgAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
-        MinAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
-        MaxAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
+        AvgAggregatableHealthDataType<Frequency>,
+        MinAggregatableHealthDataType<Frequency>,
+        MaxAggregatableHealthDataType<Frequency>,
         DeletableByIdsHealthDataType<StepsCadenceSeriesRecord>,
         DeletableInTimeRangeHealthDataType<StepsCadenceSeriesRecord> {
   /// Creates a steps cadence series data type.
@@ -92,7 +92,7 @@ final class StepsCadenceSeriesDataType
   }
 
   @override
-  AggregateRequest<StepsCadenceSeriesRecord, Frequency> aggregateAvg({
+  AggregateRequest<Frequency> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -105,7 +105,7 @@ final class StepsCadenceSeriesDataType
   }
 
   @override
-  AggregateRequest<StepsCadenceSeriesRecord, Frequency> aggregateMin({
+  AggregateRequest<Frequency> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -118,7 +118,7 @@ final class StepsCadenceSeriesDataType
   }
 
   @override
-  AggregateRequest<StepsCadenceSeriesRecord, Frequency> aggregateMax({
+  AggregateRequest<Frequency> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

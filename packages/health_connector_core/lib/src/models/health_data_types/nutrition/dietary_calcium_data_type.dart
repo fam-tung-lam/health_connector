@@ -35,7 +35,7 @@ final class DietaryCalciumDataType
         ReadableByIdHealthDataType<DietaryCalciumRecord>,
         ReadableInTimeRangeHealthDataType<DietaryCalciumRecord>,
         WriteableHealthDataType<DietaryCalciumRecord>,
-        SumAggregatableHealthDataType<DietaryCalciumRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryCalciumRecord>,
         DeletableInTimeRangeHealthDataType<DietaryCalciumRecord> {
   /// Creates a calcium data type.
@@ -83,7 +83,7 @@ final class DietaryCalciumDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryCalciumRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

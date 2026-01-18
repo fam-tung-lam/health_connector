@@ -35,7 +35,7 @@ final class DietaryPantothenicAcidDataType
         ReadableByIdHealthDataType<DietaryPantothenicAcidRecord>,
         ReadableInTimeRangeHealthDataType<DietaryPantothenicAcidRecord>,
         WriteableHealthDataType<DietaryPantothenicAcidRecord>,
-        SumAggregatableHealthDataType<DietaryPantothenicAcidRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryPantothenicAcidRecord>,
         DeletableInTimeRangeHealthDataType<DietaryPantothenicAcidRecord> {
   /// Creates a pantothenic acid (vitamin b5) data type.
@@ -85,7 +85,7 @@ final class DietaryPantothenicAcidDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryPantothenicAcidRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -35,7 +35,7 @@ final class DietaryVitaminB12DataType
         ReadableByIdHealthDataType<DietaryVitaminB12Record>,
         ReadableInTimeRangeHealthDataType<DietaryVitaminB12Record>,
         WriteableHealthDataType<DietaryVitaminB12Record>,
-        SumAggregatableHealthDataType<DietaryVitaminB12Record, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryVitaminB12Record>,
         DeletableInTimeRangeHealthDataType<DietaryVitaminB12Record> {
   /// Creates a vitamin b12 (cobalamin) data type.
@@ -85,7 +85,7 @@ final class DietaryVitaminB12DataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryVitaminB12Record, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

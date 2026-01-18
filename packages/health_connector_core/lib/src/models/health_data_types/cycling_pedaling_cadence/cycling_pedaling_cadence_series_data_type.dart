@@ -35,18 +35,9 @@ final class CyclingPedalingCadenceSeriesDataType
         ReadableByIdHealthDataType<CyclingPedalingCadenceSeriesRecord>,
         ReadableInTimeRangeHealthDataType<CyclingPedalingCadenceSeriesRecord>,
         WriteableHealthDataType<CyclingPedalingCadenceSeriesRecord>,
-        AvgAggregatableHealthDataType<
-          CyclingPedalingCadenceSeriesRecord,
-          Number
-        >,
-        MinAggregatableHealthDataType<
-          CyclingPedalingCadenceSeriesRecord,
-          Number
-        >,
-        MaxAggregatableHealthDataType<
-          CyclingPedalingCadenceSeriesRecord,
-          Number
-        >,
+        AvgAggregatableHealthDataType<Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<CyclingPedalingCadenceSeriesRecord>,
         DeletableInTimeRangeHealthDataType<CyclingPedalingCadenceSeriesRecord> {
   /// Creates a cycling pedaling cadence series data type.
@@ -113,7 +104,7 @@ final class CyclingPedalingCadenceSeriesDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<CyclingPedalingCadenceSeriesRecord, Number> aggregateAvg({
+  AggregateRequest<Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -126,7 +117,7 @@ final class CyclingPedalingCadenceSeriesDataType
   }
 
   @override
-  AggregateRequest<CyclingPedalingCadenceSeriesRecord, Number> aggregateMin({
+  AggregateRequest<Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -139,7 +130,7 @@ final class CyclingPedalingCadenceSeriesDataType
   }
 
   @override
-  AggregateRequest<CyclingPedalingCadenceSeriesRecord, Number> aggregateMax({
+  AggregateRequest<Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

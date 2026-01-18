@@ -35,7 +35,7 @@ final class DietaryMagnesiumDataType
         ReadableByIdHealthDataType<DietaryMagnesiumRecord>,
         ReadableInTimeRangeHealthDataType<DietaryMagnesiumRecord>,
         WriteableHealthDataType<DietaryMagnesiumRecord>,
-        SumAggregatableHealthDataType<DietaryMagnesiumRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryMagnesiumRecord>,
         DeletableInTimeRangeHealthDataType<DietaryMagnesiumRecord> {
   /// Creates a magnesium data type.
@@ -83,7 +83,7 @@ final class DietaryMagnesiumDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryMagnesiumRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

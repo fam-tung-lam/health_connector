@@ -8,7 +8,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
     show HealthDataType;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
-    show ActivityIntensityRecord, ActivityIntensityType, HealthRecord;
+    show ActivityIntensityType, HealthRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show MeasurementUnit, Pressure, TimeDuration;
 import 'package:health_connector_core/src/models/requests/aggregation_metric.dart'
@@ -23,16 +23,15 @@ part 'activity_intensity_aggregate_request.dart';
 part 'blood_pressure_aggregate_request.dart';
 part 'common_aggregate_request.dart';
 
-/// Request to perform an aggregation query on health records.
+/// Base request class to perform an aggregation query on health records.
 ///
-/// @nodoc
+/// {@category Core API}
 @sinceV1_0_0
 @internalUse
 @immutable
-sealed class AggregateRequest<R extends HealthRecord, U extends MeasurementUnit>
-    extends Request {
+sealed class AggregateRequest<U extends MeasurementUnit> extends Request {
   /// The type of health data to aggregate.
-  final HealthDataType<R, U> dataType;
+  final HealthDataType<HealthRecord, U> dataType;
 
   /// The type of aggregation to perform.
   ///
@@ -57,12 +56,24 @@ sealed class AggregateRequest<R extends HealthRecord, U extends MeasurementUnit>
   /// - [aggregationMetric]: The type of aggregation to perform
   /// - [startTime]: Inclusive start of the time range
   /// - [endTime]: Exclusive end of the time range
-  const AggregateRequest({
+  AggregateRequest({
     required this.dataType,
     required this.aggregationMetric,
     required this.startTime,
     required this.endTime,
-  });
+  }) {
+    require(
+      condition: dataType.supportedAggregationMetrics.contains(
+        aggregationMetric,
+      ),
+      value: aggregationMetric,
+      name: 'aggregationMetric',
+      message:
+          '$dataType does not support aggregation with '
+          'metric $aggregationMetric',
+    );
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   @override
   bool operator ==(Object other) =>

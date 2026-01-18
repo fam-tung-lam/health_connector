@@ -35,7 +35,7 @@ final class DietaryCholesterolDataType
         ReadableByIdHealthDataType<DietaryCholesterolRecord>,
         ReadableInTimeRangeHealthDataType<DietaryCholesterolRecord>,
         WriteableHealthDataType<DietaryCholesterolRecord>,
-        SumAggregatableHealthDataType<DietaryCholesterolRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryCholesterolRecord>,
         DeletableInTimeRangeHealthDataType<DietaryCholesterolRecord> {
   /// Creates a cholesterol data type.
@@ -93,7 +93,7 @@ final class DietaryCholesterolDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryCholesterolRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

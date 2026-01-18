@@ -35,7 +35,7 @@ final class DietaryZincDataType
         ReadableByIdHealthDataType<DietaryZincRecord>,
         ReadableInTimeRangeHealthDataType<DietaryZincRecord>,
         WriteableHealthDataType<DietaryZincRecord>,
-        SumAggregatableHealthDataType<DietaryZincRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryZincRecord>,
         DeletableInTimeRangeHealthDataType<DietaryZincRecord> {
   /// Creates a zinc data type.
@@ -83,7 +83,7 @@ final class DietaryZincDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryZincRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

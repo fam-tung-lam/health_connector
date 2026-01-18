@@ -35,7 +35,7 @@ final class DietaryFolateDataType
         ReadableByIdHealthDataType<DietaryFolateRecord>,
         ReadableInTimeRangeHealthDataType<DietaryFolateRecord>,
         WriteableHealthDataType<DietaryFolateRecord>,
-        SumAggregatableHealthDataType<DietaryFolateRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryFolateRecord>,
         DeletableInTimeRangeHealthDataType<DietaryFolateRecord> {
   /// Creates a folate (vitamin b9) data type.
@@ -83,7 +83,7 @@ final class DietaryFolateDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryFolateRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

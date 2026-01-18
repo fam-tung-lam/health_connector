@@ -35,7 +35,7 @@ final class DietaryRiboflavinDataType
         ReadableByIdHealthDataType<DietaryRiboflavinRecord>,
         ReadableInTimeRangeHealthDataType<DietaryRiboflavinRecord>,
         WriteableHealthDataType<DietaryRiboflavinRecord>,
-        SumAggregatableHealthDataType<DietaryRiboflavinRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryRiboflavinRecord>,
         DeletableInTimeRangeHealthDataType<DietaryRiboflavinRecord> {
   /// Creates a riboflavin (vitamin b2) data type.
@@ -85,7 +85,7 @@ final class DietaryRiboflavinDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryRiboflavinRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -82,7 +82,7 @@ final class CrossCountrySkiingDistanceDataType
   }
 
   @override
-  AggregateRequest<CrossCountrySkiingDistanceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

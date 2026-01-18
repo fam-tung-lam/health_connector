@@ -78,7 +78,7 @@ final class RowingDistanceDataType
   }
 
   @override
-  AggregateRequest<RowingDistanceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

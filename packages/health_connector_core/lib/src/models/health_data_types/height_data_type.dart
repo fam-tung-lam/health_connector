@@ -35,9 +35,9 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
         ReadableByIdHealthDataType<HeightRecord>,
         ReadableInTimeRangeHealthDataType<HeightRecord>,
         WriteableHealthDataType<HeightRecord>,
-        AvgAggregatableHealthDataType<HeightRecord, Length>,
-        MinAggregatableHealthDataType<HeightRecord, Length>,
-        MaxAggregatableHealthDataType<HeightRecord, Length>,
+        AvgAggregatableHealthDataType<Length>,
+        MinAggregatableHealthDataType<Length>,
+        MaxAggregatableHealthDataType<Length>,
         DeletableByIdsHealthDataType<HeightRecord>,
         DeletableInTimeRangeHealthDataType<HeightRecord> {
   /// Creates a height data type.
@@ -98,7 +98,7 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<HeightRecord, Length> aggregateAvg({
+  AggregateRequest<Length> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -111,7 +111,7 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
   }
 
   @override
-  AggregateRequest<HeightRecord, Length> aggregateMin({
+  AggregateRequest<Length> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -124,7 +124,7 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
   }
 
   @override
-  AggregateRequest<HeightRecord, Length> aggregateMax({
+  AggregateRequest<Length> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

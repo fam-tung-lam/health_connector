@@ -29,9 +29,9 @@ final class SpeedSeriesDataType
         WriteableHealthDataType<SpeedSeriesRecord>,
         DeletableByIdsHealthDataType<SpeedSeriesRecord>,
         DeletableInTimeRangeHealthDataType<SpeedSeriesRecord>,
-        AvgAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,
-        MinAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,
-        MaxAggregatableHealthDataType<SpeedSeriesRecord, Velocity> {
+        AvgAggregatableHealthDataType<Velocity>,
+        MinAggregatableHealthDataType<Velocity>,
+        MaxAggregatableHealthDataType<Velocity> {
   /// Creates a speed series data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -98,7 +98,7 @@ final class SpeedSeriesDataType
   }
 
   @override
-  AggregateRequest<SpeedSeriesRecord, Velocity> aggregateAvg({
+  AggregateRequest<Velocity> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -111,7 +111,7 @@ final class SpeedSeriesDataType
   }
 
   @override
-  AggregateRequest<SpeedSeriesRecord, Velocity> aggregateMin({
+  AggregateRequest<Velocity> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -124,7 +124,7 @@ final class SpeedSeriesDataType
   }
 
   @override
-  AggregateRequest<SpeedSeriesRecord, Velocity> aggregateMax({
+  AggregateRequest<Velocity> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

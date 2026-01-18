@@ -74,7 +74,7 @@ final class WalkingRunningDistanceDataType
   }
 
   @override
-  AggregateRequest<WalkingRunningDistanceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -34,7 +34,7 @@ final class DietarySugarDataType
         ReadableByIdHealthDataType<DietarySugarRecord>,
         ReadableInTimeRangeHealthDataType<DietarySugarRecord>,
         WriteableHealthDataType<DietarySugarRecord>,
-        SumAggregatableHealthDataType<DietarySugarRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietarySugarRecord>,
         DeletableInTimeRangeHealthDataType<DietarySugarRecord> {
   /// Creates a sugar data type.
@@ -90,7 +90,7 @@ final class DietarySugarDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietarySugarRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

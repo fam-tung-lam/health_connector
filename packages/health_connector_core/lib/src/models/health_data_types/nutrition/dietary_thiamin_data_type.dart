@@ -35,7 +35,7 @@ final class DietaryThiaminDataType
         ReadableByIdHealthDataType<DietaryThiaminRecord>,
         ReadableInTimeRangeHealthDataType<DietaryThiaminRecord>,
         WriteableHealthDataType<DietaryThiaminRecord>,
-        SumAggregatableHealthDataType<DietaryThiaminRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryThiaminRecord>,
         DeletableInTimeRangeHealthDataType<DietaryThiaminRecord> {
   /// Creates a thiamin (vitamin b1) data type.
@@ -83,7 +83,7 @@ final class DietaryThiaminDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryThiaminRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

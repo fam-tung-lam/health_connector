@@ -67,7 +67,7 @@ final class HydrationDataType extends HealthDataType<HydrationRecord, Volume>
         ReadableByIdHealthDataType<HydrationRecord>,
         ReadableInTimeRangeHealthDataType<HydrationRecord>,
         WriteableHealthDataType<HydrationRecord>,
-        SumAggregatableHealthDataType<HydrationRecord, Volume>,
+        SumAggregatableHealthDataType<Volume>,
         DeletableByIdsHealthDataType<HydrationRecord>,
         DeletableInTimeRangeHealthDataType<HydrationRecord> {
   /// Creates a hydration data type.
@@ -126,7 +126,7 @@ final class HydrationDataType extends HealthDataType<HydrationRecord, Volume>
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<HydrationRecord, Volume> aggregateSum({
+  AggregateRequest<Volume> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

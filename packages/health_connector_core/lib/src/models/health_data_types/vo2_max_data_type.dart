@@ -36,9 +36,9 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
         ReadableByIdHealthDataType<Vo2MaxRecord>,
         ReadableInTimeRangeHealthDataType<Vo2MaxRecord>,
         WriteableHealthDataType<Vo2MaxRecord>,
-        AvgAggregatableHealthDataType<Vo2MaxRecord, Number>,
-        MinAggregatableHealthDataType<Vo2MaxRecord, Number>,
-        MaxAggregatableHealthDataType<Vo2MaxRecord, Number>,
+        AvgAggregatableHealthDataType<Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<Vo2MaxRecord>,
         DeletableInTimeRangeHealthDataType<Vo2MaxRecord> {
   /// Creates a VO₂ max data type.
@@ -99,7 +99,7 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<Vo2MaxRecord, Number> aggregateAvg({
+  AggregateRequest<Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -112,7 +112,7 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
   }
 
   @override
-  AggregateRequest<Vo2MaxRecord, Number> aggregateMin({
+  AggregateRequest<Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -125,7 +125,7 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
   }
 
   @override
-  AggregateRequest<Vo2MaxRecord, Number> aggregateMax({
+  AggregateRequest<Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

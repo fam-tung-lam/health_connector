@@ -34,7 +34,7 @@ final class ExerciseSessionDataType
         ReadableByIdHealthDataType<ExerciseSessionRecord>,
         ReadableInTimeRangeHealthDataType<ExerciseSessionRecord>,
         WriteableHealthDataType<ExerciseSessionRecord>,
-        SumAggregatableHealthDataType<ExerciseSessionRecord, TimeDuration>,
+        SumAggregatableHealthDataType<TimeDuration>,
         DeletableByIdsHealthDataType<ExerciseSessionRecord>,
         DeletableInTimeRangeHealthDataType<ExerciseSessionRecord> {
   /// Creates an exercise session data type.
@@ -93,7 +93,7 @@ final class ExerciseSessionDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<ExerciseSessionRecord, TimeDuration> aggregateSum({
+  AggregateRequest<TimeDuration> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

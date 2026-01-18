@@ -787,7 +787,7 @@ void main() {
 
                   final now = DateTime.now();
                   final result = await client.aggregate(
-                    CommonAggregateRequest<StepsRecord, Number>(
+                    CommonAggregateRequest<Number>(
                       dataType: HealthDataType.steps,
                       startTime: now.subtract(const Duration(days: 1)),
                       endTime: now,
@@ -809,7 +809,7 @@ void main() {
                   final now = DateTime.now();
                   expect(
                     () => client.aggregate(
-                      CommonAggregateRequest<StepsRecord, Number>(
+                      CommonAggregateRequest<Number>(
                         dataType: HealthDataType.steps,
                         startTime: now.subtract(const Duration(days: 1)),
                         endTime: now,

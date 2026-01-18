@@ -72,7 +72,7 @@ final class CyclingDistanceDataType
   }
 
   @override
-  AggregateRequest<CyclingDistanceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

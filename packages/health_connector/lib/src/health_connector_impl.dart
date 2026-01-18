@@ -535,8 +535,8 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
-  Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
-    AggregateRequest<R, U> request,
+  Future<U> aggregate<U extends MeasurementUnit>(
+    AggregateRequest<U> request,
   ) async {
     final context = {
       'data_type': request.dataType.runtimeType.toString(),

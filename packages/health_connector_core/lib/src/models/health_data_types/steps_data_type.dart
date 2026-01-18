@@ -34,7 +34,7 @@ final class StepsDataType extends HealthDataType<StepsRecord, Number>
         ReadableByIdHealthDataType<StepsRecord>,
         ReadableInTimeRangeHealthDataType<StepsRecord>,
         WriteableHealthDataType<StepsRecord>,
-        SumAggregatableHealthDataType<StepsRecord, Number>,
+        SumAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<StepsRecord>,
         DeletableInTimeRangeHealthDataType<StepsRecord> {
   /// Creates a steps data type.
@@ -93,7 +93,7 @@ final class StepsDataType extends HealthDataType<StepsRecord, Number>
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<StepsRecord, Number> aggregateSum({
+  AggregateRequest<Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

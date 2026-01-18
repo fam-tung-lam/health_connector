@@ -795,9 +795,7 @@ abstract interface class HealthConnector {
   ///
   /// print('Total steps: ${response.value}'); // response is Number
   /// ```
-  Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
-    AggregateRequest<R, U> request,
-  );
+  Future<U> aggregate<U extends MeasurementUnit>(AggregateRequest<U> request);
 
   /// Deletes health records based on the provided request.
   ///

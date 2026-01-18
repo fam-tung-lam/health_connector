@@ -34,9 +34,9 @@ final class CyclingPowerDataType
         WriteableHealthDataType<CyclingPowerRecord>,
         DeletableByIdsHealthDataType<CyclingPowerRecord>,
         DeletableInTimeRangeHealthDataType<CyclingPowerRecord>,
-        AvgAggregatableHealthDataType<CyclingPowerRecord, Power>,
-        MinAggregatableHealthDataType<CyclingPowerRecord, Power>,
-        MaxAggregatableHealthDataType<CyclingPowerRecord, Power> {
+        AvgAggregatableHealthDataType<Power>,
+        MinAggregatableHealthDataType<Power>,
+        MaxAggregatableHealthDataType<Power> {
   /// Creates a cycling power data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -103,7 +103,7 @@ final class CyclingPowerDataType
   }
 
   @override
-  AggregateRequest<CyclingPowerRecord, Power> aggregateAvg({
+  AggregateRequest<Power> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -116,7 +116,7 @@ final class CyclingPowerDataType
   }
 
   @override
-  AggregateRequest<CyclingPowerRecord, Power> aggregateMin({
+  AggregateRequest<Power> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -129,7 +129,7 @@ final class CyclingPowerDataType
   }
 
   @override
-  AggregateRequest<CyclingPowerRecord, Power> aggregateMax({
+  AggregateRequest<Power> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

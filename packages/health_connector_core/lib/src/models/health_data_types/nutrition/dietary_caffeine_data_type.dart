@@ -35,7 +35,7 @@ final class DietaryCaffeineDataType
         ReadableByIdHealthDataType<DietaryCaffeineRecord>,
         ReadableInTimeRangeHealthDataType<DietaryCaffeineRecord>,
         WriteableHealthDataType<DietaryCaffeineRecord>,
-        SumAggregatableHealthDataType<DietaryCaffeineRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryCaffeineRecord>,
         DeletableInTimeRangeHealthDataType<DietaryCaffeineRecord> {
   /// Creates a caffeine data type.
@@ -91,7 +91,7 @@ final class DietaryCaffeineDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryCaffeineRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -34,9 +34,9 @@ final class BloodAlcoholContentDataType
         ReadableByIdHealthDataType<BloodAlcoholContentRecord>,
         ReadableInTimeRangeHealthDataType<BloodAlcoholContentRecord>,
         WriteableHealthDataType<BloodAlcoholContentRecord>,
-        AvgAggregatableHealthDataType<BloodAlcoholContentRecord, Percentage>,
-        MinAggregatableHealthDataType<BloodAlcoholContentRecord, Percentage>,
-        MaxAggregatableHealthDataType<BloodAlcoholContentRecord, Percentage>,
+        AvgAggregatableHealthDataType<Percentage>,
+        MinAggregatableHealthDataType<Percentage>,
+        MaxAggregatableHealthDataType<Percentage>,
         DeletableByIdsHealthDataType<BloodAlcoholContentRecord>,
         DeletableInTimeRangeHealthDataType<BloodAlcoholContentRecord> {
   /// Creates a blood alcohol content data type.
@@ -99,7 +99,7 @@ final class BloodAlcoholContentDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<BloodAlcoholContentRecord, Percentage> aggregateAvg({
+  AggregateRequest<Percentage> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -112,7 +112,7 @@ final class BloodAlcoholContentDataType
   }
 
   @override
-  AggregateRequest<BloodAlcoholContentRecord, Percentage> aggregateMin({
+  AggregateRequest<Percentage> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -125,7 +125,7 @@ final class BloodAlcoholContentDataType
   }
 
   @override
-  AggregateRequest<BloodAlcoholContentRecord, Percentage> aggregateMax({
+  AggregateRequest<Percentage> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

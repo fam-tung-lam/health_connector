@@ -35,7 +35,7 @@ final class AlcoholicBeveragesDataType
         ReadableByIdHealthDataType<AlcoholicBeveragesRecord>,
         ReadableInTimeRangeHealthDataType<AlcoholicBeveragesRecord>,
         WriteableHealthDataType<AlcoholicBeveragesRecord>,
-        SumAggregatableHealthDataType<AlcoholicBeveragesRecord, Number>,
+        SumAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<AlcoholicBeveragesRecord>,
         DeletableInTimeRangeHealthDataType<AlcoholicBeveragesRecord> {
   /// Creates an alcoholic beverages data type.
@@ -96,7 +96,7 @@ final class AlcoholicBeveragesDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<AlcoholicBeveragesRecord, Number> aggregateSum({
+  AggregateRequest<Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

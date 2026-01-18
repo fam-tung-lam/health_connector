@@ -217,9 +217,7 @@ abstract interface class HealthConnectorPlatformClient {
   ///   - The aggregation metric is not supported by the data type
   ///   - Required permissions are not granted
   ///   - The time range is invalid
-  Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
-    AggregateRequest<R, U> request,
-  );
+  Future<U> aggregate<U extends MeasurementUnit>(AggregateRequest<U> request);
 
   /// Deletes health records based on the provided request.
   ///

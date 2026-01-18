@@ -35,7 +35,7 @@ final class DietarySodiumDataType
         ReadableByIdHealthDataType<DietarySodiumRecord>,
         ReadableInTimeRangeHealthDataType<DietarySodiumRecord>,
         WriteableHealthDataType<DietarySodiumRecord>,
-        SumAggregatableHealthDataType<DietarySodiumRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietarySodiumRecord>,
         DeletableInTimeRangeHealthDataType<DietarySodiumRecord> {
   /// Creates a sodium data type.
@@ -83,7 +83,7 @@ final class DietarySodiumDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietarySodiumRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

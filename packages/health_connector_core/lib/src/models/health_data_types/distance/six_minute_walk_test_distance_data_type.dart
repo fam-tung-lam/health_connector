@@ -86,7 +86,7 @@ final class SixMinuteWalkTestDistanceDataType
   }
 
   @override
-  AggregateRequest<SixMinuteWalkTestDistanceRecord, Length> aggregateSum({
+  AggregateRequest<Length> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -35,7 +35,7 @@ final class DietaryBiotinDataType
         ReadableByIdHealthDataType<DietaryBiotinRecord>,
         ReadableInTimeRangeHealthDataType<DietaryBiotinRecord>,
         WriteableHealthDataType<DietaryBiotinRecord>,
-        SumAggregatableHealthDataType<DietaryBiotinRecord, Mass>,
+        SumAggregatableHealthDataType<Mass>,
         DeletableByIdsHealthDataType<DietaryBiotinRecord>,
         DeletableInTimeRangeHealthDataType<DietaryBiotinRecord> {
   /// Creates a biotin (vitamin b7) data type.
@@ -83,7 +83,7 @@ final class DietaryBiotinDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryBiotinRecord, Mass> aggregateSum({
+  AggregateRequest<Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

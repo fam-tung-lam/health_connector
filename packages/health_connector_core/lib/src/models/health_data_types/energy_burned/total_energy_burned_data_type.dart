@@ -37,7 +37,7 @@ final class TotalEnergyBurnedDataType
         WriteableHealthDataType<TotalEnergyBurnedRecord>,
         DeletableByIdsHealthDataType<TotalEnergyBurnedRecord>,
         DeletableInTimeRangeHealthDataType<TotalEnergyBurnedRecord>,
-        SumAggregatableHealthDataType<TotalEnergyBurnedRecord, Energy> {
+        SumAggregatableHealthDataType<Energy> {
   /// Creates a total energy burned data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -98,7 +98,7 @@ final class TotalEnergyBurnedDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<TotalEnergyBurnedRecord, Energy> aggregateSum({
+  AggregateRequest<Energy> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {
