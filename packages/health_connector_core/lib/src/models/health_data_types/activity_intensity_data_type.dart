@@ -59,7 +59,8 @@ part of 'health_data_type.dart';
 final class ActivityIntensityDataType
     extends HealthDataType<ActivityIntensityRecord, TimeDuration>
     implements
-        ReadableHealthDataType<ActivityIntensityRecord>,
+        ReadableByIdHealthDataType<ActivityIntensityRecord>,
+        ReadableInTimeRangeHealthDataType<ActivityIntensityRecord>,
         WriteableHealthDataType<ActivityIntensityRecord>,
         DeletableHealthDataType<ActivityIntensityRecord> {
   /// Creates an activity intensity data type.

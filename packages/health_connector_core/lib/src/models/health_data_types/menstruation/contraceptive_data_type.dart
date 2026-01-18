@@ -69,7 +69,8 @@ part of '../health_data_type.dart';
 class ContraceptiveDataType
     extends HealthDataType<ContraceptiveRecord, MeasurementUnit>
     implements
-        ReadableHealthDataType<ContraceptiveRecord>,
+        ReadableByIdHealthDataType<ContraceptiveRecord>,
+        ReadableInTimeRangeHealthDataType<ContraceptiveRecord>,
         WriteableHealthDataType<ContraceptiveRecord>,
         DeletableHealthDataType<ContraceptiveRecord> {
   /// {@macro health_data_type.const}

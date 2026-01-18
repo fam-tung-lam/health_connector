@@ -58,7 +58,8 @@ part of '../health_data_type.dart';
 final class IntermenstrualBleedingDataType
     extends HealthDataType<IntermenstrualBleedingRecord, TimeDuration>
     implements
-        ReadableHealthDataType<IntermenstrualBleedingRecord>,
+        ReadableByIdHealthDataType<IntermenstrualBleedingRecord>,
+        ReadableInTimeRangeHealthDataType<IntermenstrualBleedingRecord>,
         WriteableHealthDataType<IntermenstrualBleedingRecord>,
         DeletableHealthDataType<IntermenstrualBleedingRecord> {
   /// Creates an intermenstrual bleeding data type.

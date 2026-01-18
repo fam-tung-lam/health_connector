@@ -33,7 +33,8 @@ part of '../health_data_type.dart';
 final class BasalBodyTemperatureDataType
     extends HealthDataType<BasalBodyTemperatureRecord, Temperature>
     implements
-        ReadableHealthDataType<BasalBodyTemperatureRecord>,
+        ReadableByIdHealthDataType<BasalBodyTemperatureRecord>,
+        ReadableInTimeRangeHealthDataType<BasalBodyTemperatureRecord>,
         WriteableHealthDataType<BasalBodyTemperatureRecord>,
         DeletableHealthDataType<BasalBodyTemperatureRecord> {
   /// Creates a basal body temperature data type.

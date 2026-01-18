@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryVitaminKDataType
     extends DietaryVitaminDataType<DietaryVitaminKRecord>
     implements
-        ReadableHealthDataType<DietaryVitaminKRecord>,
+        ReadableByIdHealthDataType<DietaryVitaminKRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryVitaminKRecord>,
         WriteableHealthDataType<DietaryVitaminKRecord>,
         SumAggregatableHealthDataType<DietaryVitaminKRecord, Mass>,
         DeletableHealthDataType<DietaryVitaminKRecord> {

@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietarySeleniumDataType
     extends MineralNutrientDataType<DietarySeleniumRecord>
     implements
-        ReadableHealthDataType<DietarySeleniumRecord>,
+        ReadableByIdHealthDataType<DietarySeleniumRecord>,
+        ReadableInTimeRangeHealthDataType<DietarySeleniumRecord>,
         WriteableHealthDataType<DietarySeleniumRecord>,
         SumAggregatableHealthDataType<DietarySeleniumRecord, Mass>,
         DeletableHealthDataType<DietarySeleniumRecord> {

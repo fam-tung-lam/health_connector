@@ -18,7 +18,8 @@ void main() {
         'type and capabilities are correctly defined',
         () {
           expect(dataType, isA<PregnancyDataType>());
-          expect(dataType, isA<ReadableHealthDataType>());
+          expect(dataType, isA<ReadableByIdHealthDataType>());
+          expect(dataType, isA<ReadableInTimeRangeHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
           expect(dataType, isA<DeletableHealthDataType>());
         },

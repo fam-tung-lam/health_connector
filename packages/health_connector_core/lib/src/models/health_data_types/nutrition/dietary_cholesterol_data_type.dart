@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryCholesterolDataType
     extends MacronutrientDataType<DietaryCholesterolRecord>
     implements
-        ReadableHealthDataType<DietaryCholesterolRecord>,
+        ReadableByIdHealthDataType<DietaryCholesterolRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryCholesterolRecord>,
         WriteableHealthDataType<DietaryCholesterolRecord>,
         SumAggregatableHealthDataType<DietaryCholesterolRecord, Mass>,
         DeletableHealthDataType<DietaryCholesterolRecord> {

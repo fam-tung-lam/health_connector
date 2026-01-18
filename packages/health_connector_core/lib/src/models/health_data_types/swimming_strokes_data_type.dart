@@ -30,7 +30,8 @@ part of 'health_data_type.dart';
 final class SwimmingStrokesDataType
     extends HealthDataType<SwimmingStrokesRecord, Number>
     implements
-        ReadableHealthDataType<SwimmingStrokesRecord>,
+        ReadableByIdHealthDataType<SwimmingStrokesRecord>,
+        ReadableInTimeRangeHealthDataType<SwimmingStrokesRecord>,
         WriteableHealthDataType<SwimmingStrokesRecord>,
         SumAggregatableHealthDataType<SwimmingStrokesRecord, Number>,
         DeletableHealthDataType<SwimmingStrokesRecord> {

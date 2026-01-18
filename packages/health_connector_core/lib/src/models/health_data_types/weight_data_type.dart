@@ -30,7 +30,8 @@ part of 'health_data_type.dart';
 @immutable
 final class WeightDataType extends HealthDataType<WeightRecord, Mass>
     implements
-        ReadableHealthDataType<WeightRecord>,
+        ReadableByIdHealthDataType<WeightRecord>,
+        ReadableInTimeRangeHealthDataType<WeightRecord>,
         WriteableHealthDataType<WeightRecord>,
         AvgAggregatableHealthDataType<WeightRecord, Mass>,
         MinAggregatableHealthDataType<WeightRecord, Mass>,

@@ -38,7 +38,8 @@ final class WaistCircumferenceDataType
         MaxAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
         AvgAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
         SumAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
-        ReadableHealthDataType<WaistCircumferenceRecord>,
+        ReadableByIdHealthDataType<WaistCircumferenceRecord>,
+        ReadableInTimeRangeHealthDataType<WaistCircumferenceRecord>,
         WriteableHealthDataType<WaistCircumferenceRecord>,
         DeletableHealthDataType<WaistCircumferenceRecord> {
   /// Creates a waist circumference data type.

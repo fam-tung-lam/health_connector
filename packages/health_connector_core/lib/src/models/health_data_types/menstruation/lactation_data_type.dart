@@ -26,7 +26,8 @@ part of '../health_data_type.dart';
 @immutable
 class LactationDataType extends HealthDataType<LactationRecord, MeasurementUnit>
     implements
-        ReadableHealthDataType<LactationRecord>,
+        ReadableByIdHealthDataType<LactationRecord>,
+        ReadableInTimeRangeHealthDataType<LactationRecord>,
         WriteableHealthDataType<LactationRecord>,
         DeletableHealthDataType<LactationRecord> {
   /// {@macro health_data_type.const}

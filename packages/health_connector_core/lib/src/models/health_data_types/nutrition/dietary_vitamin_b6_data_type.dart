@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryVitaminB6DataType
     extends DietaryVitaminDataType<DietaryVitaminB6Record>
     implements
-        ReadableHealthDataType<DietaryVitaminB6Record>,
+        ReadableByIdHealthDataType<DietaryVitaminB6Record>,
+        ReadableInTimeRangeHealthDataType<DietaryVitaminB6Record>,
         WriteableHealthDataType<DietaryVitaminB6Record>,
         SumAggregatableHealthDataType<DietaryVitaminB6Record, Mass>,
         DeletableHealthDataType<DietaryVitaminB6Record> {

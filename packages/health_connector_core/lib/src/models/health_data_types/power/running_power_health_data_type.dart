@@ -31,7 +31,8 @@ part of '../health_data_type.dart';
 final class RunningPowerDataType
     extends HealthDataType<RunningPowerRecord, Power>
     implements
-        ReadableHealthDataType<RunningPowerRecord>,
+        ReadableByIdHealthDataType<RunningPowerRecord>,
+        ReadableInTimeRangeHealthDataType<RunningPowerRecord>,
         WriteableHealthDataType<RunningPowerRecord>,
         DeletableHealthDataType<RunningPowerRecord>,
         AvgAggregatableHealthDataType<RunningPowerRecord, Power>,

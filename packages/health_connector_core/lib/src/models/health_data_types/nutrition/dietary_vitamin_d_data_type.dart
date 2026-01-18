@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryVitaminDDataType
     extends DietaryVitaminDataType<DietaryVitaminDRecord>
     implements
-        ReadableHealthDataType<DietaryVitaminDRecord>,
+        ReadableByIdHealthDataType<DietaryVitaminDRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryVitaminDRecord>,
         WriteableHealthDataType<DietaryVitaminDRecord>,
         SumAggregatableHealthDataType<DietaryVitaminDRecord, Mass>,
         DeletableHealthDataType<DietaryVitaminDRecord> {

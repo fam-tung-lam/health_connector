@@ -24,7 +24,8 @@ part of 'health_data_type.dart';
 final class RespiratoryRateDataType
     extends HealthDataType<RespiratoryRateRecord, Number>
     implements
-        ReadableHealthDataType<RespiratoryRateRecord>,
+        ReadableByIdHealthDataType<RespiratoryRateRecord>,
+        ReadableInTimeRangeHealthDataType<RespiratoryRateRecord>,
         WriteableHealthDataType<RespiratoryRateRecord>,
         AvgAggregatableHealthDataType<RespiratoryRateRecord, Number>,
         MinAggregatableHealthDataType<RespiratoryRateRecord, Number>,

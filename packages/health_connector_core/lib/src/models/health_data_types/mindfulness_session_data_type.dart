@@ -33,6 +33,8 @@ final class MindfulnessSessionDataType
     extends HealthDataType<MindfulnessSessionRecord, TimeDuration>
     implements
         ReadableHealthDataType<MindfulnessSessionRecord>,
+        ReadableByIdHealthDataType<MindfulnessSessionRecord>,
+        ReadableInTimeRangeHealthDataType<MindfulnessSessionRecord>,
         WriteableHealthDataType<MindfulnessSessionRecord>,
         SumAggregatableHealthDataType<MindfulnessSessionRecord, TimeDuration>,
         DeletableHealthDataType<MindfulnessSessionRecord> {

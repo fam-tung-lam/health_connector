@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryPotassiumDataType
     extends MineralNutrientDataType<DietaryPotassiumRecord>
     implements
-        ReadableHealthDataType<DietaryPotassiumRecord>,
+        ReadableByIdHealthDataType<DietaryPotassiumRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryPotassiumRecord>,
         WriteableHealthDataType<DietaryPotassiumRecord>,
         SumAggregatableHealthDataType<DietaryPotassiumRecord, Mass>,
         DeletableHealthDataType<DietaryPotassiumRecord> {

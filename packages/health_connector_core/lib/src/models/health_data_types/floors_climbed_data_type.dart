@@ -33,6 +33,8 @@ final class FloorsClimbedDataType
     extends HealthDataType<FloorsClimbedRecord, Number>
     implements
         ReadableHealthDataType<FloorsClimbedRecord>,
+        ReadableByIdHealthDataType<FloorsClimbedRecord>,
+        ReadableInTimeRangeHealthDataType<FloorsClimbedRecord>,
         WriteableHealthDataType<FloorsClimbedRecord>,
         SumAggregatableHealthDataType<FloorsClimbedRecord, Number>,
         DeletableHealthDataType<FloorsClimbedRecord> {

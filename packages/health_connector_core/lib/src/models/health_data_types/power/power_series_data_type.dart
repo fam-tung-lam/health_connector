@@ -16,7 +16,8 @@ part of '../health_data_type.dart';
 @immutable
 final class PowerSeriesDataType extends HealthDataType<PowerSeriesRecord, Power>
     implements
-        ReadableHealthDataType<PowerSeriesRecord>,
+        ReadableByIdHealthDataType<PowerSeriesRecord>,
+        ReadableInTimeRangeHealthDataType<PowerSeriesRecord>,
         WriteableHealthDataType<PowerSeriesRecord>,
         DeletableHealthDataType,
         AvgAggregatableHealthDataType<PowerSeriesRecord, Power>,

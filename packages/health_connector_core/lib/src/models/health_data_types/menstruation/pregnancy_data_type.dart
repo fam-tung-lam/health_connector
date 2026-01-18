@@ -49,7 +49,8 @@ part of '../health_data_type.dart';
 final class PregnancyDataType
     extends HealthDataType<PregnancyRecord, TimeDuration>
     implements
-        ReadableHealthDataType<PregnancyRecord>,
+        ReadableByIdHealthDataType<PregnancyRecord>,
+        ReadableInTimeRangeHealthDataType<PregnancyRecord>,
         WriteableHealthDataType<PregnancyRecord>,
         DeletableHealthDataType<PregnancyRecord> {
   /// Creates a pregnancy data type.

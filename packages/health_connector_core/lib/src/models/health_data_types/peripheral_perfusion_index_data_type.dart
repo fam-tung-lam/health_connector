@@ -32,6 +32,8 @@ final class PeripheralPerfusionIndexDataType
     extends HealthDataType<PeripheralPerfusionIndexRecord, Percentage>
     implements
         ReadableHealthDataType<PeripheralPerfusionIndexRecord>,
+        ReadableByIdHealthDataType<PeripheralPerfusionIndexRecord>,
+        ReadableInTimeRangeHealthDataType<PeripheralPerfusionIndexRecord>,
         WriteableHealthDataType<PeripheralPerfusionIndexRecord>,
         DeletableHealthDataType<PeripheralPerfusionIndexRecord>,
         AvgAggregatableHealthDataType<

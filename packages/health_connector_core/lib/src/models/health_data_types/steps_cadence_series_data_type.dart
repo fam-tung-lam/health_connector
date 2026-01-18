@@ -30,7 +30,8 @@ part of 'health_data_type.dart';
 final class StepsCadenceSeriesDataType
     extends HealthDataType<StepsCadenceSeriesRecord, Frequency>
     implements
-        ReadableHealthDataType<StepsCadenceSeriesRecord>,
+        ReadableByIdHealthDataType<StepsCadenceSeriesRecord>,
+        ReadableInTimeRangeHealthDataType<StepsCadenceSeriesRecord>,
         WriteableHealthDataType<StepsCadenceSeriesRecord>,
         AvgAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
         MinAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,

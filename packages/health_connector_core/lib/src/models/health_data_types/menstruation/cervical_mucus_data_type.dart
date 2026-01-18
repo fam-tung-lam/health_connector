@@ -57,7 +57,8 @@ part of '../health_data_type.dart';
 final class CervicalMucusDataType
     extends HealthDataType<CervicalMucusRecord, MeasurementUnit>
     implements
-        ReadableHealthDataType<CervicalMucusRecord>,
+        ReadableByIdHealthDataType<CervicalMucusRecord>,
+        ReadableInTimeRangeHealthDataType<CervicalMucusRecord>,
         WriteableHealthDataType<CervicalMucusRecord>,
         DeletableHealthDataType<CervicalMucusRecord> {
   /// Creates a cervical mucus data type.

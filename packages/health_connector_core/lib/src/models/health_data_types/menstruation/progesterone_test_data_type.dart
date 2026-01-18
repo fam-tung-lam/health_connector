@@ -51,7 +51,8 @@ part of '../health_data_type.dart';
 final class ProgesteroneTestDataType
     extends HealthDataType<ProgesteroneTestRecord, TimeDuration>
     implements
-        ReadableHealthDataType<ProgesteroneTestRecord>,
+        ReadableByIdHealthDataType<ProgesteroneTestRecord>,
+        ReadableInTimeRangeHealthDataType<ProgesteroneTestRecord>,
         WriteableHealthDataType<ProgesteroneTestRecord>,
         DeletableHealthDataType<ProgesteroneTestRecord> {
   /// Creates a progesterone test data type.

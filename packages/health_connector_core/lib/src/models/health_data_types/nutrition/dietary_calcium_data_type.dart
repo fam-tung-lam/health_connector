@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryCalciumDataType
     extends MineralNutrientDataType<DietaryCalciumRecord>
     implements
-        ReadableHealthDataType<DietaryCalciumRecord>,
+        ReadableByIdHealthDataType<DietaryCalciumRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryCalciumRecord>,
         WriteableHealthDataType<DietaryCalciumRecord>,
         SumAggregatableHealthDataType<DietaryCalciumRecord, Mass>,
         DeletableHealthDataType<DietaryCalciumRecord> {

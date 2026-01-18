@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryEnergyConsumedDataType
     extends NutrientDataType<DietaryEnergyConsumedRecord, Energy>
     implements
-        ReadableHealthDataType<DietaryEnergyConsumedRecord>,
+        ReadableByIdHealthDataType<DietaryEnergyConsumedRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryEnergyConsumedRecord>,
         WriteableHealthDataType<DietaryEnergyConsumedRecord>,
         SumAggregatableHealthDataType<DietaryEnergyConsumedRecord, Energy>,
         DeletableHealthDataType<DietaryEnergyConsumedRecord> {

@@ -32,7 +32,8 @@ part of 'health_data_type.dart';
 final class BodyFatPercentageDataType
     extends HealthDataType<BodyFatPercentageRecord, Percentage>
     implements
-        ReadableHealthDataType<BodyFatPercentageRecord>,
+        ReadableByIdHealthDataType<BodyFatPercentageRecord>,
+        ReadableInTimeRangeHealthDataType<BodyFatPercentageRecord>,
         WriteableHealthDataType<BodyFatPercentageRecord>,
         DeletableHealthDataType<BodyFatPercentageRecord> {
   /// Creates a body fat percentage data type.

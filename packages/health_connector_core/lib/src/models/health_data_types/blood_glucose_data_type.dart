@@ -33,7 +33,8 @@ part of 'health_data_type.dart';
 final class BloodGlucoseDataType
     extends HealthDataType<BloodGlucoseRecord, BloodGlucose>
     implements
-        ReadableHealthDataType<BloodGlucoseRecord>,
+        ReadableByIdHealthDataType<BloodGlucoseRecord>,
+        ReadableInTimeRangeHealthDataType<BloodGlucoseRecord>,
         WriteableHealthDataType<BloodGlucoseRecord>,
         AvgAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
         MinAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,

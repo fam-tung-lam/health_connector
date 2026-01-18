@@ -31,7 +31,8 @@ part of 'health_data_type.dart';
 final class BodyWaterMassDataType
     extends HealthDataType<BodyWaterMassRecord, Mass>
     implements
-        ReadableHealthDataType<BodyWaterMassRecord>,
+        ReadableByIdHealthDataType<BodyWaterMassRecord>,
+        ReadableInTimeRangeHealthDataType<BodyWaterMassRecord>,
         WriteableHealthDataType<BodyWaterMassRecord>,
         DeletableHealthDataType<BodyWaterMassRecord> {
   /// Creates a body water mass data type.

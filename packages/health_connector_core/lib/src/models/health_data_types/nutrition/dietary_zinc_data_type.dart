@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryZincDataType
     extends MineralNutrientDataType<DietaryZincRecord>
     implements
-        ReadableHealthDataType<DietaryZincRecord>,
+        ReadableByIdHealthDataType<DietaryZincRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryZincRecord>,
         WriteableHealthDataType<DietaryZincRecord>,
         SumAggregatableHealthDataType<DietaryZincRecord, Mass>,
         DeletableHealthDataType<DietaryZincRecord> {

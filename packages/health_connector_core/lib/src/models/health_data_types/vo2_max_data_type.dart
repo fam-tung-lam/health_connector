@@ -33,7 +33,8 @@ part of 'health_data_type.dart';
 @immutable
 final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
     implements
-        ReadableHealthDataType<Vo2MaxRecord>,
+        ReadableByIdHealthDataType<Vo2MaxRecord>,
+        ReadableInTimeRangeHealthDataType<Vo2MaxRecord>,
         WriteableHealthDataType<Vo2MaxRecord>,
         AvgAggregatableHealthDataType<Vo2MaxRecord, Number>,
         MinAggregatableHealthDataType<Vo2MaxRecord, Number>,

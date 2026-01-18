@@ -26,7 +26,10 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class WheelchairDistanceDataType
-    extends DistanceActivityDataType<WheelchairDistanceRecord> {
+    extends DistanceActivityDataType<WheelchairDistanceRecord>
+    implements
+        ReadableByIdHealthDataType<WheelchairDistanceRecord>,
+        ReadableInTimeRangeHealthDataType<WheelchairDistanceRecord> {
   /// Creates a wheelchair distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data

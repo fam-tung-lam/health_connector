@@ -42,6 +42,8 @@ final class CyclingPedalingCadenceDataType
     extends HealthDataType<CyclingPedalingCadenceRecord, Number>
     implements
         ReadableHealthDataType<CyclingPedalingCadenceRecord>,
+        ReadableByIdHealthDataType<CyclingPedalingCadenceRecord>,
+        ReadableInTimeRangeHealthDataType<CyclingPedalingCadenceRecord>,
         WriteableHealthDataType<CyclingPedalingCadenceRecord>,
         AvgAggregatableHealthDataType<CyclingPedalingCadenceRecord, Number>,
         MinAggregatableHealthDataType<CyclingPedalingCadenceRecord, Number>,

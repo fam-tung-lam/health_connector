@@ -24,7 +24,8 @@ part of '../health_data_type.dart';
 final class SpeedSeriesDataType
     extends HealthDataType<SpeedSeriesRecord, Velocity>
     implements
-        ReadableHealthDataType<SpeedSeriesRecord>,
+        ReadableByIdHealthDataType<SpeedSeriesRecord>,
+        ReadableInTimeRangeHealthDataType<SpeedSeriesRecord>,
         WriteableHealthDataType<SpeedSeriesRecord>,
         DeletableHealthDataType,
         AvgAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,

@@ -31,7 +31,8 @@ part of 'health_data_type.dart';
 final class BloodAlcoholContentDataType
     extends HealthDataType<BloodAlcoholContentRecord, Percentage>
     implements
-        ReadableHealthDataType<BloodAlcoholContentRecord>,
+        ReadableByIdHealthDataType<BloodAlcoholContentRecord>,
+        ReadableInTimeRangeHealthDataType<BloodAlcoholContentRecord>,
         WriteableHealthDataType<BloodAlcoholContentRecord>,
         AvgAggregatableHealthDataType<BloodAlcoholContentRecord, Percentage>,
         MinAggregatableHealthDataType<BloodAlcoholContentRecord, Percentage>,

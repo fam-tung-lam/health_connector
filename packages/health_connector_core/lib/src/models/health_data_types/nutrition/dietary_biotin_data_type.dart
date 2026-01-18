@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryBiotinDataType
     extends DietaryVitaminDataType<DietaryBiotinRecord>
     implements
-        ReadableHealthDataType<DietaryBiotinRecord>,
+        ReadableByIdHealthDataType<DietaryBiotinRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryBiotinRecord>,
         WriteableHealthDataType<DietaryBiotinRecord>,
         SumAggregatableHealthDataType<DietaryBiotinRecord, Mass>,
         DeletableHealthDataType<DietaryBiotinRecord> {

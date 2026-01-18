@@ -30,7 +30,8 @@ part of 'health_data_type.dart';
 final class ElevationGainedDataType
     extends HealthDataType<ElevationGainedRecord, Length>
     implements
-        ReadableHealthDataType<ElevationGainedRecord>,
+        ReadableByIdHealthDataType<ElevationGainedRecord>,
+        ReadableInTimeRangeHealthDataType<ElevationGainedRecord>,
         WriteableHealthDataType<ElevationGainedRecord>,
         SumAggregatableHealthDataType<ElevationGainedRecord, Length> {
   /// Creates an elevation gained data type.

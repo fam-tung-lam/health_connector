@@ -32,6 +32,8 @@ final class LeanBodyMassDataType
     extends HealthDataType<LeanBodyMassRecord, Mass>
     implements
         ReadableHealthDataType<LeanBodyMassRecord>,
+        ReadableByIdHealthDataType<LeanBodyMassRecord>,
+        ReadableInTimeRangeHealthDataType<LeanBodyMassRecord>,
         WriteableHealthDataType<LeanBodyMassRecord>,
         DeletableHealthDataType<LeanBodyMassRecord> {
   /// Creates a lean body mass data type.

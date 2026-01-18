@@ -31,7 +31,8 @@ part of '../health_data_type.dart';
 final class BodyTemperatureDataType
     extends HealthDataType<BodyTemperatureRecord, Temperature>
     implements
-        ReadableHealthDataType<BodyTemperatureRecord>,
+        ReadableByIdHealthDataType<BodyTemperatureRecord>,
+        ReadableInTimeRangeHealthDataType<BodyTemperatureRecord>,
         WriteableHealthDataType<BodyTemperatureRecord>,
         DeletableHealthDataType<BodyTemperatureRecord> {
   /// Creates a body temperature data type.

@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryManganeseDataType
     extends MineralNutrientDataType<DietaryManganeseRecord>
     implements
-        ReadableHealthDataType<DietaryManganeseRecord>,
+        ReadableByIdHealthDataType<DietaryManganeseRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryManganeseRecord>,
         WriteableHealthDataType<DietaryManganeseRecord>,
         SumAggregatableHealthDataType<DietaryManganeseRecord, Mass>,
         DeletableHealthDataType<DietaryManganeseRecord> {

@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryPolyunsaturatedFatDataType
     extends MacronutrientDataType<DietaryPolyunsaturatedFatRecord>
     implements
-        ReadableHealthDataType<DietaryPolyunsaturatedFatRecord>,
+        ReadableByIdHealthDataType<DietaryPolyunsaturatedFatRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryPolyunsaturatedFatRecord>,
         WriteableHealthDataType<DietaryPolyunsaturatedFatRecord>,
         SumAggregatableHealthDataType<DietaryPolyunsaturatedFatRecord, Mass>,
         DeletableHealthDataType<DietaryPolyunsaturatedFatRecord> {

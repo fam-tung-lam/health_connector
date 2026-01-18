@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietarySodiumDataType
     extends MineralNutrientDataType<DietarySodiumRecord>
     implements
-        ReadableHealthDataType<DietarySodiumRecord>,
+        ReadableByIdHealthDataType<DietarySodiumRecord>,
+        ReadableInTimeRangeHealthDataType<DietarySodiumRecord>,
         WriteableHealthDataType<DietarySodiumRecord>,
         SumAggregatableHealthDataType<DietarySodiumRecord, Mass>,
         DeletableHealthDataType<DietarySodiumRecord> {

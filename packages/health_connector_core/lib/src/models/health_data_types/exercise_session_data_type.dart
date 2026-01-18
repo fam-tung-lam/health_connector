@@ -31,7 +31,8 @@ part of 'health_data_type.dart';
 final class ExerciseSessionDataType
     extends HealthDataType<ExerciseSessionRecord, TimeDuration>
     implements
-        ReadableHealthDataType<ExerciseSessionRecord>,
+        ReadableByIdHealthDataType<ExerciseSessionRecord>,
+        ReadableInTimeRangeHealthDataType<ExerciseSessionRecord>,
         WriteableHealthDataType<ExerciseSessionRecord>,
         SumAggregatableHealthDataType<ExerciseSessionRecord, TimeDuration>,
         DeletableHealthDataType<ExerciseSessionRecord> {

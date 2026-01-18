@@ -31,7 +31,8 @@ part of 'health_data_type.dart';
 final class WheelchairPushesDataType
     extends HealthDataType<WheelchairPushesRecord, Number>
     implements
-        ReadableHealthDataType<WheelchairPushesRecord>,
+        ReadableByIdHealthDataType<WheelchairPushesRecord>,
+        ReadableInTimeRangeHealthDataType<WheelchairPushesRecord>,
         WriteableHealthDataType<WheelchairPushesRecord>,
         SumAggregatableHealthDataType<WheelchairPushesRecord, Number>,
         DeletableHealthDataType<WheelchairPushesRecord> {

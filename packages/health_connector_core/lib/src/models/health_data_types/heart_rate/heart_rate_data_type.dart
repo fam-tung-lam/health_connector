@@ -38,6 +38,8 @@ part of '../health_data_type.dart';
 final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
     implements
         ReadableHealthDataType<HeartRateRecord>,
+        ReadableByIdHealthDataType<HeartRateRecord>,
+        ReadableInTimeRangeHealthDataType<HeartRateRecord>,
         WriteableHealthDataType<HeartRateRecord>,
         AvgAggregatableHealthDataType<HeartRateRecord, Number>,
         MinAggregatableHealthDataType<HeartRateRecord, Number>,

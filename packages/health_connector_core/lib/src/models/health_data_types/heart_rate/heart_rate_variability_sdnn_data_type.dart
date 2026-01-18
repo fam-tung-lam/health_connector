@@ -41,6 +41,8 @@ final class HeartRateVariabilitySDNNDataType
         AvgAggregatableHealthDataType<HeartRateVariabilitySDNNRecord, Number>,
         SumAggregatableHealthDataType<HeartRateVariabilitySDNNRecord, Number>,
         ReadableHealthDataType<HeartRateVariabilitySDNNRecord>,
+        ReadableByIdHealthDataType<HeartRateVariabilitySDNNRecord>,
+        ReadableInTimeRangeHealthDataType<HeartRateVariabilitySDNNRecord>,
         WriteableHealthDataType<HeartRateVariabilitySDNNRecord>,
         DeletableHealthDataType<HeartRateVariabilitySDNNRecord> {
   /// Creates a heart rate variability (SDNN) data type.

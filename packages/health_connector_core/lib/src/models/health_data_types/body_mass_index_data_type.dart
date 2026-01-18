@@ -38,7 +38,8 @@ final class BodyMassIndexDataType
         MaxAggregatableHealthDataType<BodyMassIndexRecord, Number>,
         AvgAggregatableHealthDataType<BodyMassIndexRecord, Number>,
         SumAggregatableHealthDataType<BodyMassIndexRecord, Number>,
-        ReadableHealthDataType<BodyMassIndexRecord>,
+        ReadableByIdHealthDataType<BodyMassIndexRecord>,
+        ReadableInTimeRangeHealthDataType<BodyMassIndexRecord>,
         WriteableHealthDataType<BodyMassIndexRecord>,
         DeletableHealthDataType<BodyMassIndexRecord> {
   /// Creates a body mass index data type.

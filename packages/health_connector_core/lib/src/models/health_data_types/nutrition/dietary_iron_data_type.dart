@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryIronDataType
     extends MineralNutrientDataType<DietaryIronRecord>
     implements
-        ReadableHealthDataType<DietaryIronRecord>,
+        ReadableByIdHealthDataType<DietaryIronRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryIronRecord>,
         WriteableHealthDataType<DietaryIronRecord>,
         SumAggregatableHealthDataType<DietaryIronRecord, Mass>,
         DeletableHealthDataType<DietaryIronRecord> {

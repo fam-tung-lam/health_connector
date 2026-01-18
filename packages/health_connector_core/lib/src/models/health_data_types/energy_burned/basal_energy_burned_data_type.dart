@@ -27,7 +27,8 @@ part of '../health_data_type.dart';
 final class BasalEnergyBurnedDataType
     extends HealthDataType<BasalEnergyBurnedRecord, Energy>
     implements
-        ReadableHealthDataType<BasalEnergyBurnedRecord>,
+        ReadableByIdHealthDataType<BasalEnergyBurnedRecord>,
+        ReadableInTimeRangeHealthDataType<BasalEnergyBurnedRecord>,
         WriteableHealthDataType<BasalEnergyBurnedRecord>,
         DeletableHealthDataType<BasalEnergyBurnedRecord>,
         SumAggregatableHealthDataType<BasalEnergyBurnedRecord, Energy> {

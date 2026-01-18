@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryFolateDataType
     extends DietaryVitaminDataType<DietaryFolateRecord>
     implements
-        ReadableHealthDataType<DietaryFolateRecord>,
+        ReadableByIdHealthDataType<DietaryFolateRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryFolateRecord>,
         WriteableHealthDataType<DietaryFolateRecord>,
         SumAggregatableHealthDataType<DietaryFolateRecord, Mass>,
         DeletableHealthDataType<DietaryFolateRecord> {

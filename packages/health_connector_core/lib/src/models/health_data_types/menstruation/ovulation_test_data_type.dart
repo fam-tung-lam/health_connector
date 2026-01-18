@@ -57,7 +57,8 @@ part of '../health_data_type.dart';
 final class OvulationTestDataType
     extends HealthDataType<OvulationTestRecord, TimeDuration>
     implements
-        ReadableHealthDataType<OvulationTestRecord>,
+        ReadableByIdHealthDataType<OvulationTestRecord>,
+        ReadableInTimeRangeHealthDataType<OvulationTestRecord>,
         WriteableHealthDataType<OvulationTestRecord>,
         DeletableHealthDataType<OvulationTestRecord> {
   /// Creates an ovulation test data type.

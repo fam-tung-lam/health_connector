@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryNiacinDataType
     extends DietaryVitaminDataType<DietaryNiacinRecord>
     implements
-        ReadableHealthDataType<DietaryNiacinRecord>,
+        ReadableByIdHealthDataType<DietaryNiacinRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryNiacinRecord>,
         WriteableHealthDataType<DietaryNiacinRecord>,
         SumAggregatableHealthDataType<DietaryNiacinRecord, Mass>,
         DeletableHealthDataType<DietaryNiacinRecord> {

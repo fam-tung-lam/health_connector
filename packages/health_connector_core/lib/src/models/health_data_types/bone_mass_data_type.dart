@@ -30,7 +30,8 @@ part of 'health_data_type.dart';
 @immutable
 final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
     implements
-        ReadableHealthDataType<BoneMassRecord>,
+        ReadableByIdHealthDataType<BoneMassRecord>,
+        ReadableInTimeRangeHealthDataType<BoneMassRecord>,
         WriteableHealthDataType<BoneMassRecord>,
         DeletableHealthDataType<BoneMassRecord> {
   /// Creates a bone mass data type.

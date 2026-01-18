@@ -33,7 +33,10 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class SixMinuteWalkTestDistanceDataType
-    extends DistanceActivityDataType<SixMinuteWalkTestDistanceRecord> {
+    extends DistanceActivityDataType<SixMinuteWalkTestDistanceRecord>
+    implements
+        ReadableByIdHealthDataType<SixMinuteWalkTestDistanceRecord>,
+        ReadableInTimeRangeHealthDataType<SixMinuteWalkTestDistanceRecord> {
   /// Creates a six-minute walk test distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -22,6 +22,8 @@ void main() {
             isA<CyclingPedalingCadenceSeriesDataType>(),
           );
           expect(dataType, isA<ReadableHealthDataType>());
+          expect(dataType, isA<ReadableByIdHealthDataType>());
+          expect(dataType, isA<ReadableInTimeRangeHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
           expect(dataType, isA<DeletableHealthDataType>());
           expect(dataType, isA<AvgAggregatableHealthDataType>());

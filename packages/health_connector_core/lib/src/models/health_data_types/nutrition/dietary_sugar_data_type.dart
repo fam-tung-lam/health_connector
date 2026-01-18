@@ -31,7 +31,8 @@ part of '../health_data_type.dart';
 final class DietarySugarDataType
     extends MacronutrientDataType<DietarySugarRecord>
     implements
-        ReadableHealthDataType<DietarySugarRecord>,
+        ReadableByIdHealthDataType<DietarySugarRecord>,
+        ReadableInTimeRangeHealthDataType<DietarySugarRecord>,
         WriteableHealthDataType<DietarySugarRecord>,
         SumAggregatableHealthDataType<DietarySugarRecord, Mass>,
         DeletableHealthDataType<DietarySugarRecord> {

@@ -59,7 +59,8 @@ part of 'health_data_type.dart';
 final class SexualActivityDataType
     extends HealthDataType<SexualActivityRecord, TimeDuration>
     implements
-        ReadableHealthDataType<SexualActivityRecord>,
+        ReadableByIdHealthDataType<SexualActivityRecord>,
+        ReadableInTimeRangeHealthDataType<SexualActivityRecord>,
         WriteableHealthDataType<SexualActivityRecord>,
         DeletableHealthDataType<SexualActivityRecord> {
   /// Creates a sexual activity data type.

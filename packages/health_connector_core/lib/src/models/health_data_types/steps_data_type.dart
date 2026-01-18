@@ -31,7 +31,8 @@ part of 'health_data_type.dart';
 @immutable
 final class StepsDataType extends HealthDataType<StepsRecord, Number>
     implements
-        ReadableHealthDataType<StepsRecord>,
+        ReadableByIdHealthDataType<StepsRecord>,
+        ReadableInTimeRangeHealthDataType<StepsRecord>,
         WriteableHealthDataType<StepsRecord>,
         SumAggregatableHealthDataType<StepsRecord, Number>,
         DeletableHealthDataType<StepsRecord> {

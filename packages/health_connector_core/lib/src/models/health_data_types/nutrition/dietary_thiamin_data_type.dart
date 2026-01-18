@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryThiaminDataType
     extends DietaryVitaminDataType<DietaryThiaminRecord>
     implements
-        ReadableHealthDataType<DietaryThiaminRecord>,
+        ReadableByIdHealthDataType<DietaryThiaminRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryThiaminRecord>,
         WriteableHealthDataType<DietaryThiaminRecord>,
         SumAggregatableHealthDataType<DietaryThiaminRecord, Mass>,
         DeletableHealthDataType<DietaryThiaminRecord> {

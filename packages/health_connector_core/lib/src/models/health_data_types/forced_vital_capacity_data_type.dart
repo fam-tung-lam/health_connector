@@ -32,6 +32,8 @@ final class ForcedVitalCapacityDataType
     extends HealthDataType<ForcedVitalCapacityRecord, Volume>
     implements
         ReadableHealthDataType<ForcedVitalCapacityRecord>,
+        ReadableByIdHealthDataType<ForcedVitalCapacityRecord>,
+        ReadableInTimeRangeHealthDataType<ForcedVitalCapacityRecord>,
         WriteableHealthDataType<ForcedVitalCapacityRecord>,
         DeletableHealthDataType<ForcedVitalCapacityRecord>,
         AvgAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume>,

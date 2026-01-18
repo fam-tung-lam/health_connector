@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryPhosphorusDataType
     extends MineralNutrientDataType<DietaryPhosphorusRecord>
     implements
-        ReadableHealthDataType<DietaryPhosphorusRecord>,
+        ReadableByIdHealthDataType<DietaryPhosphorusRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryPhosphorusRecord>,
         WriteableHealthDataType<DietaryPhosphorusRecord>,
         SumAggregatableHealthDataType<DietaryPhosphorusRecord, Mass>,
         DeletableHealthDataType<DietaryPhosphorusRecord> {

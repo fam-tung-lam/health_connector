@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryMagnesiumDataType
     extends MineralNutrientDataType<DietaryMagnesiumRecord>
     implements
-        ReadableHealthDataType<DietaryMagnesiumRecord>,
+        ReadableByIdHealthDataType<DietaryMagnesiumRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryMagnesiumRecord>,
         WriteableHealthDataType<DietaryMagnesiumRecord>,
         SumAggregatableHealthDataType<DietaryMagnesiumRecord, Mass>,
         DeletableHealthDataType<DietaryMagnesiumRecord> {

@@ -19,7 +19,8 @@ part of '../health_data_type.dart';
 sealed class SpeedActivityDataType<R extends SpeedActivityRecord>
     extends HealthDataType<R, Velocity>
     implements
-        ReadableHealthDataType<R>,
+        ReadableByIdHealthDataType<R>,
+        ReadableInTimeRangeHealthDataType<R>,
         WriteableHealthDataType<R>,
         DeletableHealthDataType,
         AvgAggregatableHealthDataType<R, Velocity> {

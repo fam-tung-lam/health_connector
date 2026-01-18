@@ -38,6 +38,8 @@ final class SystolicBloodPressureDataType
     extends HealthDataType<SystolicBloodPressureRecord, Pressure>
     implements
         ReadableHealthDataType<SystolicBloodPressureRecord>,
+        ReadableByIdHealthDataType<SystolicBloodPressureRecord>,
+        ReadableInTimeRangeHealthDataType<SystolicBloodPressureRecord>,
         WriteableHealthDataType<SystolicBloodPressureRecord>,
         AvgAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
         MinAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,

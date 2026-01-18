@@ -32,6 +32,8 @@ part of 'health_data_type.dart';
 final class HeightDataType extends HealthDataType<HeightRecord, Length>
     implements
         ReadableHealthDataType<HeightRecord>,
+        ReadableByIdHealthDataType<HeightRecord>,
+        ReadableInTimeRangeHealthDataType<HeightRecord>,
         WriteableHealthDataType<HeightRecord>,
         AvgAggregatableHealthDataType<HeightRecord, Length>,
         MinAggregatableHealthDataType<HeightRecord, Length>,

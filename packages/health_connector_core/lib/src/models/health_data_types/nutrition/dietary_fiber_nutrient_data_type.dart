@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryFiberNutrientDataType
     extends MacronutrientDataType<DietaryFiberRecord>
     implements
-        ReadableHealthDataType<DietaryFiberRecord>,
+        ReadableByIdHealthDataType<DietaryFiberRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryFiberRecord>,
         WriteableHealthDataType<DietaryFiberRecord>,
         SumAggregatableHealthDataType<DietaryFiberRecord, Mass>,
         DeletableHealthDataType<DietaryFiberRecord> {

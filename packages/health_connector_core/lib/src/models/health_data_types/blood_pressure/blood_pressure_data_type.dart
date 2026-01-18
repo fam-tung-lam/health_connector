@@ -39,6 +39,8 @@ final class BloodPressureDataType
     extends HealthDataType<BloodPressureRecord, Pressure>
     implements
         ReadableHealthDataType<BloodPressureRecord>,
+        ReadableByIdHealthDataType<BloodPressureRecord>,
+        ReadableInTimeRangeHealthDataType<BloodPressureRecord>,
         WriteableHealthDataType<BloodPressureRecord>,
         DeletableHealthDataType<BloodPressureRecord> {
   /// Creates a blood pressure data type.

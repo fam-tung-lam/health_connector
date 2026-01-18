@@ -28,7 +28,8 @@ part of '../health_data_type.dart';
 final class NutritionDataType
     extends HealthDataType<NutritionRecord, MeasurementUnit>
     implements
-        ReadableHealthDataType<NutritionRecord>,
+        ReadableByIdHealthDataType<NutritionRecord>,
+        ReadableInTimeRangeHealthDataType<NutritionRecord>,
         WriteableHealthDataType<NutritionRecord> {
   /// Creates a nutrition data type.
   ///

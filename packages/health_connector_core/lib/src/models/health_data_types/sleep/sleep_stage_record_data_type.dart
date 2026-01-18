@@ -34,7 +34,8 @@ part of '../health_data_type.dart';
 final class SleepStageDataType
     extends HealthDataType<SleepStageRecord, TimeDuration>
     implements
-        ReadableHealthDataType<SleepStageRecord>,
+        ReadableByIdHealthDataType<SleepStageRecord>,
+        ReadableInTimeRangeHealthDataType<SleepStageRecord>,
         WriteableHealthDataType<SleepStageRecord>,
         SumAggregatableHealthDataType<SleepStageRecord, TimeDuration>,
         DeletableHealthDataType<SleepStageRecord> {

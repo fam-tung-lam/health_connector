@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryRiboflavinDataType
     extends DietaryVitaminDataType<DietaryRiboflavinRecord>
     implements
-        ReadableHealthDataType<DietaryRiboflavinRecord>,
+        ReadableByIdHealthDataType<DietaryRiboflavinRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryRiboflavinRecord>,
         WriteableHealthDataType<DietaryRiboflavinRecord>,
         SumAggregatableHealthDataType<DietaryRiboflavinRecord, Mass>,
         DeletableHealthDataType<DietaryRiboflavinRecord> {

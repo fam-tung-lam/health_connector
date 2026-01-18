@@ -32,7 +32,8 @@ part of 'health_data_type.dart';
 final class AlcoholicBeveragesDataType
     extends HealthDataType<AlcoholicBeveragesRecord, Number>
     implements
-        ReadableHealthDataType<AlcoholicBeveragesRecord>,
+        ReadableByIdHealthDataType<AlcoholicBeveragesRecord>,
+        ReadableInTimeRangeHealthDataType<AlcoholicBeveragesRecord>,
         WriteableHealthDataType<AlcoholicBeveragesRecord>,
         SumAggregatableHealthDataType<AlcoholicBeveragesRecord, Number>,
         DeletableHealthDataType<AlcoholicBeveragesRecord> {

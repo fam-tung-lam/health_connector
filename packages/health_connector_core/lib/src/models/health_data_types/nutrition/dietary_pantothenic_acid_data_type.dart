@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryPantothenicAcidDataType
     extends DietaryVitaminDataType<DietaryPantothenicAcidRecord>
     implements
-        ReadableHealthDataType<DietaryPantothenicAcidRecord>,
+        ReadableByIdHealthDataType<DietaryPantothenicAcidRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryPantothenicAcidRecord>,
         WriteableHealthDataType<DietaryPantothenicAcidRecord>,
         SumAggregatableHealthDataType<DietaryPantothenicAcidRecord, Mass>,
         DeletableHealthDataType<DietaryPantothenicAcidRecord> {

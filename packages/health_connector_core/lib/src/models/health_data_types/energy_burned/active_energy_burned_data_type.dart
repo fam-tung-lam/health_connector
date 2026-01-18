@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class ActiveEnergyBurnedDataType
     extends HealthDataType<ActiveEnergyBurnedRecord, Energy>
     implements
-        ReadableHealthDataType<ActiveEnergyBurnedRecord>,
+        ReadableByIdHealthDataType<ActiveEnergyBurnedRecord>,
+        ReadableInTimeRangeHealthDataType<ActiveEnergyBurnedRecord>,
         WriteableHealthDataType<ActiveEnergyBurnedRecord>,
         SumAggregatableHealthDataType<ActiveEnergyBurnedRecord, Energy>,
         DeletableHealthDataType<ActiveEnergyBurnedRecord> {

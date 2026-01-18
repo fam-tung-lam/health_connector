@@ -60,7 +60,8 @@ part of '../health_data_type.dart';
 final class MenstrualFlowInstantDataType
     extends HealthDataType<MenstrualFlowInstantRecord, TimeDuration>
     implements
-        ReadableHealthDataType<MenstrualFlowInstantRecord>,
+        ReadableByIdHealthDataType<MenstrualFlowInstantRecord>,
+        ReadableInTimeRangeHealthDataType<MenstrualFlowInstantRecord>,
         WriteableHealthDataType<MenstrualFlowInstantRecord>,
         DeletableHealthDataType<MenstrualFlowInstantRecord> {
   /// Creates a menstrual flow instant data type.

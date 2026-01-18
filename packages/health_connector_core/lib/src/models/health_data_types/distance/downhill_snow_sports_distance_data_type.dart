@@ -32,7 +32,10 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class DownhillSnowSportsDistanceDataType
-    extends DistanceActivityDataType<DownhillSnowSportsDistanceRecord> {
+    extends DistanceActivityDataType<DownhillSnowSportsDistanceRecord>
+    implements
+        ReadableByIdHealthDataType<DownhillSnowSportsDistanceRecord>,
+        ReadableInTimeRangeHealthDataType<DownhillSnowSportsDistanceRecord> {
   /// Creates a downhill snow sports distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data

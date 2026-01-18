@@ -14,6 +14,7 @@ void main() {
             HealthDataTypeCategory.activity,
             <HealthDataType>[
               HealthDataType.activeEnergyBurned,
+              HealthDataType.activityIntensity,
               HealthDataType.basalEnergyBurned,
               HealthDataType.crossCountrySkiingDistance,
               HealthDataType.cyclingPedalingCadence,

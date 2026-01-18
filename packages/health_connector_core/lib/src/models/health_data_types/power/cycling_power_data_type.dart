@@ -29,7 +29,8 @@ part of '../health_data_type.dart';
 final class CyclingPowerDataType
     extends HealthDataType<CyclingPowerRecord, Power>
     implements
-        ReadableHealthDataType<CyclingPowerRecord>,
+        ReadableByIdHealthDataType<CyclingPowerRecord>,
+        ReadableInTimeRangeHealthDataType<CyclingPowerRecord>,
         WriteableHealthDataType<CyclingPowerRecord>,
         DeletableHealthDataType,
         AvgAggregatableHealthDataType<CyclingPowerRecord, Power>,

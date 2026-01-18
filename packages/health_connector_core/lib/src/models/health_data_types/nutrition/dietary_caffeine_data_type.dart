@@ -32,7 +32,8 @@ part of '../health_data_type.dart';
 final class DietaryCaffeineDataType
     extends NutrientDataType<DietaryCaffeineRecord, Mass>
     implements
-        ReadableHealthDataType<DietaryCaffeineRecord>,
+        ReadableByIdHealthDataType<DietaryCaffeineRecord>,
+        ReadableInTimeRangeHealthDataType<DietaryCaffeineRecord>,
         WriteableHealthDataType<DietaryCaffeineRecord>,
         SumAggregatableHealthDataType<DietaryCaffeineRecord, Mass>,
         DeletableHealthDataType<DietaryCaffeineRecord> {
