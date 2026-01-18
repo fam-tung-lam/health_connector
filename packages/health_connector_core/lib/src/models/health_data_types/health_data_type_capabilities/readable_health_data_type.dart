@@ -8,7 +8,7 @@ import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show DataOrigin;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission;
-import 'package:health_connector_core/src/models/requests/read_records_request.dart'
+import 'package:health_connector_core/src/models/requests/read_requests/read_records_request.dart'
     show ReadRecordsInTimeRangeRequest, ReadRecordByIdRequest;
 
 /// Interface that adds read permission capability to a health data type.

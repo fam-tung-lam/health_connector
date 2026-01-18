@@ -39,10 +39,10 @@ export 'src/models/measurement_units/measurement_unit.dart';
 export 'src/models/metadata/metadata.dart';
 export 'src/models/permissions/permission.dart';
 export 'src/models/requests/aggregate_requests/aggregate_request.dart';
-export 'src/models/requests/aggregation_metric.dart';
+export 'src/models/requests/aggregate_requests/aggregation_metric.dart';
 export 'src/models/requests/delete_records_request.dart';
-export 'src/models/requests/read_records_request.dart';
-export 'src/models/requests/sort_descriptor.dart';
+export 'src/models/requests/read_requests/read_records_request.dart';
+export 'src/models/requests/read_requests/sort_descriptor.dart';
 export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'
     hide ReadRecordsResponse;

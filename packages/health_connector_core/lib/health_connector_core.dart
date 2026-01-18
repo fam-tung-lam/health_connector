@@ -63,7 +63,9 @@ export 'src/models/permissions/permission.dart'
         HealthDataPermission,
         HealthDataPermissionAccessType,
         PermissionStatus;
-export 'src/models/requests/aggregation_metric.dart' show AggregationMetric;
-export 'src/models/requests/sort_descriptor.dart' show SortDescriptor;
+export 'src/models/requests/aggregate_requests/aggregation_metric.dart'
+    show AggregationMetric;
+export 'src/models/requests/read_requests/sort_descriptor.dart'
+    show SortDescriptor;
 export 'src/models/responses/permission_request_result.dart'
     show PermissionRequestResult;

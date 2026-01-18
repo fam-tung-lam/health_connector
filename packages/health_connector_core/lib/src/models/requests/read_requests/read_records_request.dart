@@ -11,10 +11,10 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
     show MeasurementUnit;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show DataOrigin;
+import 'package:health_connector_core/src/models/requests/read_requests/sort_descriptor.dart'
+    show SortDescriptor;
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
-import 'package:health_connector_core/src/models/requests/sort_descriptor.dart'
-    show SortDescriptor;
 import 'package:health_connector_core/src/models/responses/read_records_response.dart'
     show ReadRecordsInTimeRangeResponse;
 import 'package:health_connector_core/src/utils/validation_utils.dart'

@@ -11,7 +11,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
     show ActivityIntensityType, HealthRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show MeasurementUnit, Pressure, TimeDuration;
-import 'package:health_connector_core/src/models/requests/aggregation_metric.dart'
+import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregation_metric.dart'
     show AggregationMetric;
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;

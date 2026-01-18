@@ -3,7 +3,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV2_0_0, internalUse;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord;
-import 'package:health_connector_core/src/models/requests/read_records_request.dart'
+import 'package:health_connector_core/src/models/requests/read_requests/read_records_request.dart'
     show ReadRecordsInTimeRangeRequest;
 import 'package:health_connector_core/src/models/responses/response.dart';
 import 'package:meta/meta.dart';

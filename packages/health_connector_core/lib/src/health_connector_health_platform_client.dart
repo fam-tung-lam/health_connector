@@ -10,7 +10,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
 import 'package:health_connector_core/src/models/permissions/permission.dart';
 import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregate_request.dart';
 import 'package:health_connector_core/src/models/requests/delete_records_request.dart';
-import 'package:health_connector_core/src/models/requests/read_records_request.dart';
+import 'package:health_connector_core/src/models/requests/read_requests/read_records_request.dart';
 import 'package:health_connector_core/src/models/responses/permission_request_result.dart';
 import 'package:health_connector_core/src/models/responses/read_records_response.dart';
 
