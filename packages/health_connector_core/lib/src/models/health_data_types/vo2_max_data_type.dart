@@ -144,7 +144,7 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
   HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
 
   @override
-  DeleteRecordsByIdsRequest<Vo2MaxRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -154,7 +154,7 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<Vo2MaxRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -97,7 +97,7 @@ final class LeanBodyMassDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
 
   @override
-  DeleteRecordsByIdsRequest<LeanBodyMassRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -107,7 +107,7 @@ final class LeanBodyMassDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<LeanBodyMassRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

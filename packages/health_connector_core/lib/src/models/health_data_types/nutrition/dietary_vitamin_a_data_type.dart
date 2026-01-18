@@ -102,7 +102,7 @@ final class DietaryVitaminADataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
 
   @override
-  DeleteRecordsByIdsRequest<DietaryVitaminARecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -112,7 +112,7 @@ final class DietaryVitaminADataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<DietaryVitaminARecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

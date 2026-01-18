@@ -134,7 +134,7 @@ final class StepsCadenceSeriesDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
-  DeleteRecordsByIdsRequest<StepsCadenceSeriesRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -144,7 +144,7 @@ final class StepsCadenceSeriesDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<StepsCadenceSeriesRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

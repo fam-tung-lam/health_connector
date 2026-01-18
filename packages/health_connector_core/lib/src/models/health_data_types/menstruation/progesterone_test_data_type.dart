@@ -119,7 +119,7 @@ final class ProgesteroneTestDataType
       HealthDataTypeCategory.reproductiveHealth;
 
   @override
-  DeleteRecordsByIdsRequest<ProgesteroneTestRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -129,7 +129,7 @@ final class ProgesteroneTestDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<ProgesteroneTestRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

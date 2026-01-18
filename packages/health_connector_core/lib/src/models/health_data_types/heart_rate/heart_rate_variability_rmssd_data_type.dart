@@ -93,7 +93,7 @@ final class HeartRateVariabilityRMSSDDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
 
   @override
-  DeleteRecordsByIdsRequest<HeartRateVariabilityRMSSDRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -103,8 +103,7 @@ final class HeartRateVariabilityRMSSDDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<HeartRateVariabilityRMSSDRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

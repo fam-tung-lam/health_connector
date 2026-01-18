@@ -93,21 +93,21 @@ final class RunningPowerDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
-  DeleteRecordsByIdsRequest<RunningPowerRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
-    return DeleteRecordsByIdsRequest<RunningPowerRecord>(
+    return DeleteRecordsByIdsRequest(
       dataType: this,
       recordIds: recordIds,
     );
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<RunningPowerRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return DeleteRecordsInTimeRangeRequest<RunningPowerRecord>(
+    return DeleteRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

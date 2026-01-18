@@ -102,7 +102,7 @@ final class DietaryMagnesiumDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
 
   @override
-  DeleteRecordsByIdsRequest<DietaryMagnesiumRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -112,7 +112,7 @@ final class DietaryMagnesiumDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<DietaryMagnesiumRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

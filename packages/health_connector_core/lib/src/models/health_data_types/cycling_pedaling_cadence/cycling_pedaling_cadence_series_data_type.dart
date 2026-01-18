@@ -158,7 +158,7 @@ final class CyclingPedalingCadenceSeriesDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 
   @override
-  DeleteRecordsByIdsRequest<CyclingPedalingCadenceSeriesRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -168,8 +168,7 @@ final class CyclingPedalingCadenceSeriesDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<CyclingPedalingCadenceSeriesRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

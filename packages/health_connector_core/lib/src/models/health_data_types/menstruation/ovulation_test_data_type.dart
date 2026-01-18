@@ -123,7 +123,7 @@ final class OvulationTestDataType
       HealthDataTypeCategory.reproductiveHealth;
 
   @override
-  DeleteRecordsByIdsRequest<OvulationTestRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -133,7 +133,7 @@ final class OvulationTestDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<OvulationTestRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

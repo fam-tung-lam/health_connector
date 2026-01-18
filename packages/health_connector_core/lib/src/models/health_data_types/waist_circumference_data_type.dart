@@ -154,14 +154,14 @@ final class WaistCircumferenceDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<WaistCircumferenceRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<WaistCircumferenceRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

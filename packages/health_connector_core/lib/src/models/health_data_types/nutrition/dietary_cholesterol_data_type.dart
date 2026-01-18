@@ -112,7 +112,7 @@ final class DietaryCholesterolDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
 
   @override
-  DeleteRecordsByIdsRequest<DietaryCholesterolRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -122,7 +122,7 @@ final class DietaryCholesterolDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<DietaryCholesterolRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

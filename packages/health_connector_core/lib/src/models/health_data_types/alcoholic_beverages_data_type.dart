@@ -109,7 +109,7 @@ final class AlcoholicBeveragesDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<AlcoholicBeveragesRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -119,7 +119,7 @@ final class AlcoholicBeveragesDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<AlcoholicBeveragesRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

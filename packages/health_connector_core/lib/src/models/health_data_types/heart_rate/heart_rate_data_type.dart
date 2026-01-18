@@ -153,7 +153,7 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
   HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
 
   @override
-  DeleteRecordsByIdsRequest<HeartRateRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -163,7 +163,7 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<HeartRateRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

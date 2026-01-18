@@ -109,7 +109,7 @@ final class PregnancyDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
-  DeleteRecordsByIdsRequest<PregnancyRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -119,7 +119,7 @@ final class PregnancyDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<PregnancyRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

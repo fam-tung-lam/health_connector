@@ -43,14 +43,14 @@ void main() {
         ),
       );
       registerFallbackValue(
-        DeleteRecordsInTimeRangeRequest<StepsRecord>(
+        DeleteRecordsInTimeRangeRequest(
           dataType: HealthDataType.steps,
           startTime: FakeData.fakeStartTime,
           endTime: FakeData.fakeEndTime,
         ),
       );
       registerFallbackValue(
-        DeleteRecordsByIdsRequest<StepsRecord>(
+        DeleteRecordsByIdsRequest(
           dataType: HealthDataType.steps,
           recordIds: [HealthRecordId(FakeData.fakeId)],
         ),
@@ -78,7 +78,7 @@ void main() {
         ),
       );
       registerFallbackValue(
-        DeleteRecordsInTimeRangeRequest<BoneMassRecord>(
+        DeleteRecordsInTimeRangeRequest(
           dataType: HealthDataType.boneMass,
           startTime: FakeData.fakeStartTime,
           endTime: FakeData.fakeEndTime,
@@ -965,7 +965,7 @@ void main() {
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
-              final request = DeleteRecordsInTimeRangeRequest<StepsRecord>(
+              final request = DeleteRecordsInTimeRangeRequest(
                 dataType: HealthDataType.steps,
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -973,7 +973,7 @@ void main() {
 
               when(
                 () => mockClient.deleteRecords(
-                  any<DeleteRecordsInTimeRangeRequest<StepsRecord>>(),
+                  any<DeleteRecordsInTimeRangeRequest>(),
                 ),
               ).thenAnswer((_) async {});
 
@@ -996,7 +996,7 @@ void main() {
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
-              final request = DeleteRecordsByIdsRequest<StepsRecord>(
+              final request = DeleteRecordsByIdsRequest(
                 dataType: HealthDataType.steps,
                 recordIds: const [],
               );
@@ -1007,7 +1007,7 @@ void main() {
               // THEN
               verifyNever(
                 () => mockClient.deleteRecords(
-                  any<DeleteRecordsByIdsRequest<StepsRecord>>(),
+                  any<DeleteRecordsByIdsRequest>(),
                 ),
               );
             },
@@ -1024,7 +1024,7 @@ void main() {
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
-              final request = DeleteRecordsByIdsRequest<StepsRecord>(
+              final request = DeleteRecordsByIdsRequest(
                 dataType: HealthDataType.steps,
                 recordIds: [
                   HealthRecordId('id-1'),
@@ -1034,7 +1034,7 @@ void main() {
 
               when(
                 () => mockClient.deleteRecords(
-                  any<DeleteRecordsByIdsRequest<StepsRecord>>(),
+                  any<DeleteRecordsByIdsRequest>(),
                 ),
               ).thenAnswer((_) async {});
 
@@ -1057,7 +1057,7 @@ void main() {
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
-              final request = DeleteRecordsInTimeRangeRequest<StepsRecord>(
+              final request = DeleteRecordsInTimeRangeRequest(
                 dataType: HealthDataType.steps,
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -1065,7 +1065,7 @@ void main() {
 
               when(
                 () => mockClient.deleteRecords(
-                  any<DeleteRecordsInTimeRangeRequest<StepsRecord>>(),
+                  any<DeleteRecordsInTimeRangeRequest>(),
                 ),
               ).thenThrow(
                 const UnknownException('Fake exception'),
@@ -1090,7 +1090,7 @@ void main() {
                 healthPlatform: HealthPlatform.appleHealth,
                 healthPlatformClient: mockClient,
               );
-              final request = DeleteRecordsInTimeRangeRequest<BoneMassRecord>(
+              final request = DeleteRecordsInTimeRangeRequest(
                 dataType: HealthDataType.boneMass,
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -1109,7 +1109,7 @@ void main() {
               );
               verifyNever(
                 () => mockClient.deleteRecords(
-                  any<DeleteRecordsInTimeRangeRequest<BoneMassRecord>>(),
+                  any<DeleteRecordsInTimeRangeRequest>(),
                 ),
               );
             },

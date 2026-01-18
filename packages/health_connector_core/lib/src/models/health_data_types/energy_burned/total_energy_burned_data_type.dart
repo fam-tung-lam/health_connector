@@ -117,7 +117,7 @@ final class TotalEnergyBurnedDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 
   @override
-  DeleteRecordsByIdsRequest<TotalEnergyBurnedRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -127,7 +127,7 @@ final class TotalEnergyBurnedDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<TotalEnergyBurnedRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

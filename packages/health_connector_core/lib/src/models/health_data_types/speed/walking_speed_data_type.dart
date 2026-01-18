@@ -83,14 +83,14 @@ final class WalkingSpeedDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<WalkingSpeedRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<WalkingSpeedRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -112,7 +112,7 @@ final class ExerciseSessionDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 
   @override
-  DeleteRecordsByIdsRequest<ExerciseSessionRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -122,7 +122,7 @@ final class ExerciseSessionDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<ExerciseSessionRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

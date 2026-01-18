@@ -142,14 +142,14 @@ final class CyclingPowerDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<CyclingPowerRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<CyclingPowerRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

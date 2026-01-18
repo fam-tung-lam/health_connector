@@ -89,7 +89,7 @@ final class BodyWaterMassDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
 
   @override
-  DeleteRecordsByIdsRequest<BodyWaterMassRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -99,7 +99,7 @@ final class BodyWaterMassDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<BodyWaterMassRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

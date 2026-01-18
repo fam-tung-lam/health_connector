@@ -87,15 +87,14 @@ final class PaddleSportsDistanceDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<PaddleSportsDistanceRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<PaddleSportsDistanceRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

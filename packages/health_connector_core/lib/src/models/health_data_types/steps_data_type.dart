@@ -106,7 +106,7 @@ final class StepsDataType extends HealthDataType<StepsRecord, Number>
   }
 
   @override
-  DeleteRecordsByIdsRequest<StepsRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -116,7 +116,7 @@ final class StepsDataType extends HealthDataType<StepsRecord, Number>
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<StepsRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

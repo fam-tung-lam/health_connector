@@ -145,7 +145,7 @@ final class HydrationDataType extends HealthDataType<HydrationRecord, Volume>
   HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
 
   @override
-  DeleteRecordsByIdsRequest<HydrationRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -155,7 +155,7 @@ final class HydrationDataType extends HealthDataType<HydrationRecord, Volume>
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<HydrationRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

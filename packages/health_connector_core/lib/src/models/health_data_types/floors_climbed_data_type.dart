@@ -114,7 +114,7 @@ final class FloorsClimbedDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<FloorsClimbedRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -124,7 +124,7 @@ final class FloorsClimbedDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<FloorsClimbedRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

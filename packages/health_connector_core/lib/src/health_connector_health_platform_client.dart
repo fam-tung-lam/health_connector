@@ -246,9 +246,7 @@ abstract interface class HealthConnectorPlatformClient {
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   if an unexpected error occurs
   @sinceV2_0_0
-  Future<void> deleteRecords<R extends HealthRecord>(
-    DeleteRecordsRequest<R> request,
-  );
+  Future<void> deleteRecords(DeleteRecordsRequest request);
 
   /// Synchronizes health data from the health platform using incremental
   /// change tracking.

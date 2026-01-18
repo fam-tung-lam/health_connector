@@ -169,9 +169,7 @@ final class ActivityIntensityDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<ActivityIntensityRecord> deleteByIds(
-    List<HealthRecordId> recordIds,
-  ) {
+  DeleteRecordsByIdsRequest deleteByIds(List<HealthRecordId> recordIds) {
     return DeleteRecordsByIdsRequest(
       dataType: this,
       recordIds: recordIds,
@@ -179,7 +177,7 @@ final class ActivityIntensityDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<ActivityIntensityRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

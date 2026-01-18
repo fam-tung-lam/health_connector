@@ -135,7 +135,7 @@ final class RespiratoryRateDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
 
   @override
-  DeleteRecordsByIdsRequest<RespiratoryRateRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -145,7 +145,7 @@ final class RespiratoryRateDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<RespiratoryRateRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

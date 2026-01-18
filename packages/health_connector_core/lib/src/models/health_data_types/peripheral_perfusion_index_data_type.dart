@@ -146,15 +146,14 @@ final class PeripheralPerfusionIndexDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<PeripheralPerfusionIndexRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<PeripheralPerfusionIndexRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

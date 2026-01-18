@@ -154,7 +154,7 @@ final class DiastolicBloodPressureDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
 
   @override
-  DeleteRecordsByIdsRequest<DiastolicBloodPressureRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -164,8 +164,7 @@ final class DiastolicBloodPressureDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<DiastolicBloodPressureRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

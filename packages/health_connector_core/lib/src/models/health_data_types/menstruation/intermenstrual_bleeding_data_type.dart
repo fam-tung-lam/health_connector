@@ -127,7 +127,7 @@ final class IntermenstrualBleedingDataType
       HealthDataTypeCategory.reproductiveHealth;
 
   @override
-  DeleteRecordsByIdsRequest<IntermenstrualBleedingRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -137,8 +137,7 @@ final class IntermenstrualBleedingDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<IntermenstrualBleedingRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

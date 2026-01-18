@@ -107,7 +107,7 @@ final class SwimmingStrokesDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<SwimmingStrokesRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -117,7 +117,7 @@ final class SwimmingStrokesDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<SwimmingStrokesRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

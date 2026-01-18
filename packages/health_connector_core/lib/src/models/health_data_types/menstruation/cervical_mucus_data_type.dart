@@ -123,7 +123,7 @@ final class CervicalMucusDataType
       HealthDataTypeCategory.reproductiveHealth;
 
   @override
-  DeleteRecordsByIdsRequest<CervicalMucusRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -133,7 +133,7 @@ final class CervicalMucusDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<CervicalMucusRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

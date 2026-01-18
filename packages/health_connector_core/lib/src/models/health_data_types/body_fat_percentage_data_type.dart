@@ -97,7 +97,7 @@ final class BodyFatPercentageDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
 
   @override
-  DeleteRecordsByIdsRequest<BodyFatPercentageRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -107,7 +107,7 @@ final class BodyFatPercentageDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<BodyFatPercentageRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

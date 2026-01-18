@@ -125,7 +125,7 @@ class ContraceptiveDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<ContraceptiveRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -135,7 +135,7 @@ class ContraceptiveDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<ContraceptiveRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

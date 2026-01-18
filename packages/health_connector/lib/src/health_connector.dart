@@ -861,9 +861,7 @@ abstract interface class HealthConnector {
   /// await connector.deleteRecords(request);
   /// ```
   @sinceV2_0_0
-  Future<void> deleteRecords<R extends HealthRecord>(
-    DeleteRecordsRequest<R> request,
-  );
+  Future<void> deleteRecords(DeleteRecordsRequest request);
 
   /// Updates an existing health record.
   ///

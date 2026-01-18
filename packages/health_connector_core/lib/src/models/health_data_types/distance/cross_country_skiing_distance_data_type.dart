@@ -95,15 +95,14 @@ final class CrossCountrySkiingDistanceDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<CrossCountrySkiingDistanceRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<CrossCountrySkiingDistanceRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

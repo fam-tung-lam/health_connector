@@ -143,7 +143,7 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
   HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
 
   @override
-  DeleteRecordsByIdsRequest<HeightRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -153,7 +153,7 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<HeightRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

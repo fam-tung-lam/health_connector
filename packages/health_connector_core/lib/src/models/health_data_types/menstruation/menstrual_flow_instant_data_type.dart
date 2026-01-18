@@ -130,7 +130,7 @@ final class MenstrualFlowInstantDataType
       HealthDataTypeCategory.reproductiveHealth;
 
   @override
-  DeleteRecordsByIdsRequest<MenstrualFlowInstantRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -140,8 +140,7 @@ final class MenstrualFlowInstantDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<MenstrualFlowInstantRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

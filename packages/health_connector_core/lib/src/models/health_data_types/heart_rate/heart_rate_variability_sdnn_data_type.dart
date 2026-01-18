@@ -160,15 +160,14 @@ final class HeartRateVariabilitySDNNDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<HeartRateVariabilitySDNNRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<HeartRateVariabilitySDNNRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

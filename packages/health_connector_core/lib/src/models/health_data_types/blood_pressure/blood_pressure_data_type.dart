@@ -150,7 +150,7 @@ final class BloodPressureDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<BloodPressureRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -160,7 +160,7 @@ final class BloodPressureDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<BloodPressureRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

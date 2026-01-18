@@ -104,7 +104,7 @@ final class DietaryPantothenicAcidDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
 
   @override
-  DeleteRecordsByIdsRequest<DietaryPantothenicAcidRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -114,8 +114,7 @@ final class DietaryPantothenicAcidDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<DietaryPantothenicAcidRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

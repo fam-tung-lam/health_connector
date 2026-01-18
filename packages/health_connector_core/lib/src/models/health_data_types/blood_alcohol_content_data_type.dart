@@ -138,7 +138,7 @@ final class BloodAlcoholContentDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<BloodAlcoholContentRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -148,7 +148,7 @@ final class BloodAlcoholContentDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<BloodAlcoholContentRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

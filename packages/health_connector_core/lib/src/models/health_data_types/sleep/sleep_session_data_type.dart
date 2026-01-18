@@ -116,7 +116,7 @@ final class SleepSessionDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.sleep;
 
   @override
-  DeleteRecordsByIdsRequest<SleepSessionRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -126,7 +126,7 @@ final class SleepSessionDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<SleepSessionRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

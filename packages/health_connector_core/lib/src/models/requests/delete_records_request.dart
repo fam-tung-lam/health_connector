@@ -7,27 +7,6 @@ import 'package:meta/meta.dart';
 
 /// Base sealed class for all delete records requests.
 ///
-/// @nodoc
-@sinceV2_0_0
-@internalUse
-@immutable
-sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
-  /// Creates a base delete records request.
-  ///
-  /// ## Parameters
-  ///
-  /// - [dataType]: The type of health data to delete.
-  const DeleteRecordsRequest({required this.dataType});
-
-  /// The type of health data to delete.
-  final HealthDataType<R, MeasurementUnit> dataType;
-}
-
-/// Request to delete specific health records by their IDs.
-///
-/// This request type allows precise deletion of individual records when
-/// you have their unique identifiers.
-///
 /// ## Data Ownership Restriction
 ///
 /// Apps can only delete health records that they created.
@@ -38,8 +17,28 @@ sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
 @sinceV2_0_0
 @internalUse
 @immutable
-final class DeleteRecordsByIdsRequest<R extends HealthRecord>
-    extends DeleteRecordsRequest<R> {
+sealed class DeleteRecordsRequest extends Request {
+  /// Creates a base delete records request.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataType]: The type of health data to delete.
+  const DeleteRecordsRequest({required this.dataType});
+
+  /// The type of health data to delete.
+  final HealthDataType dataType;
+}
+
+/// Request to delete specific health records by their IDs.
+///
+/// This request type allows precise deletion of individual records when
+/// you have their unique identifiers.
+///
+/// {@category Core API}
+@sinceV3_2_0
+@internalUse
+@immutable
+final class DeleteRecordsByIdsRequest extends DeleteRecordsRequest {
   /// Creates a request to delete specific health records by their IDs.
   ///
   /// ## Parameters
@@ -51,7 +50,7 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
   ///
   /// - [ArgumentError] if any record ID is [HealthRecordId.none]
   factory DeleteRecordsByIdsRequest({
-    required HealthDataType<R, MeasurementUnit> dataType,
+    required HealthDataType dataType,
     required List<HealthRecordId> recordIds,
   }) {
     require(
@@ -83,7 +82,7 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DeleteRecordsByIdsRequest<R> &&
+      other is DeleteRecordsByIdsRequest &&
           runtimeType == other.runtimeType &&
           dataType == other.dataType &&
           const ListEquality<HealthRecordId>().equals(
@@ -116,11 +115,10 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
 /// users, or system-generated will fail with [AuthorizationException].
 ///
 /// {@category Core API}
-@sinceV2_0_0
+@sinceV3_2_0
 @internalUse
 @immutable
-final class DeleteRecordsInTimeRangeRequest<R extends HealthRecord>
-    extends DeleteRecordsRequest<R> {
+final class DeleteRecordsInTimeRangeRequest extends DeleteRecordsRequest {
   /// Creates a request to delete records within a time range.
   ///
   /// ## Parameters
@@ -133,7 +131,7 @@ final class DeleteRecordsInTimeRangeRequest<R extends HealthRecord>
   ///
   /// - [ArgumentError] if [endTime] is before [startTime]
   factory DeleteRecordsInTimeRangeRequest({
-    required HealthDataType<R, MeasurementUnit> dataType,
+    required HealthDataType dataType,
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -165,7 +163,7 @@ final class DeleteRecordsInTimeRangeRequest<R extends HealthRecord>
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DeleteRecordsInTimeRangeRequest<R> &&
+      other is DeleteRecordsInTimeRangeRequest &&
           runtimeType == other.runtimeType &&
           dataType == other.dataType &&
           startTime == other.startTime &&

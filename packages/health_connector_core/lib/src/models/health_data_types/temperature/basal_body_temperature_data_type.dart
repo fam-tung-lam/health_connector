@@ -101,7 +101,7 @@ final class BasalBodyTemperatureDataType
       HealthDataTypeCategory.reproductiveHealth;
 
   @override
-  DeleteRecordsByIdsRequest<BasalBodyTemperatureRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -111,8 +111,7 @@ final class BasalBodyTemperatureDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<BasalBodyTemperatureRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

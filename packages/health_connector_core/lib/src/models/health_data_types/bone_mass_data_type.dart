@@ -88,7 +88,7 @@ final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
   HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
 
   @override
-  DeleteRecordsByIdsRequest<BoneMassRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -98,7 +98,7 @@ final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<BoneMassRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -112,7 +112,7 @@ final class WheelchairPushesDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 
   @override
-  DeleteRecordsByIdsRequest<WheelchairPushesRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -122,7 +122,7 @@ final class WheelchairPushesDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<WheelchairPushesRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

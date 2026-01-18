@@ -135,7 +135,7 @@ final class BloodGlucoseDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<BloodGlucoseRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -145,7 +145,7 @@ final class BloodGlucoseDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<BloodGlucoseRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -114,7 +114,7 @@ final class DietaryTotalCarbohydrateDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
 
   @override
-  DeleteRecordsByIdsRequest<DietaryTotalCarbohydrateRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -124,8 +124,7 @@ final class DietaryTotalCarbohydrateDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<DietaryTotalCarbohydrateRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

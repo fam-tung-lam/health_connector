@@ -585,15 +585,11 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
-  Future<void> deleteRecords<R extends HealthRecord>(
-    DeleteRecordsRequest<R> request,
-  ) async {
+  Future<void> deleteRecords(DeleteRecordsRequest request) async {
     final context = {
       'data_type': request.dataType.runtimeType.toString(),
       if (request is DeleteRecordsInTimeRangeRequest)
-        'query_span_days': (request as DeleteRecordsInTimeRangeRequest)
-            .startTime
-            .difference((request as DeleteRecordsInTimeRangeRequest).endTime)
+        'query_span_days': request.startTime.difference(request.endTime)
       else
         'id_to_delete_count':
             (request as DeleteRecordsByIdsRequest).recordIds.length,
@@ -613,9 +609,9 @@ final class HealthConnectorImpl implements HealthConnector {
       }
 
       switch (request) {
-        case DeleteRecordsInTimeRangeRequest<R> _:
+        case DeleteRecordsInTimeRangeRequest _:
           break;
-        case final DeleteRecordsByIdsRequest<R> request:
+        case final DeleteRecordsByIdsRequest request:
           if (request.recordIds.isEmpty) {
             return;
           }

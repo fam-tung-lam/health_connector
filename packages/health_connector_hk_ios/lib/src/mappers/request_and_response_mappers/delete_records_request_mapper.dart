@@ -3,7 +3,6 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DeleteRecordsRequest,
         DeleteRecordsByIdsRequest,
         DeleteRecordsInTimeRangeRequest,
-        HealthRecord,
         sinceV2_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
@@ -17,8 +16,7 @@ import 'package:meta/meta.dart' show internal;
 /// Converts [DeleteRecordsRequest] to the appropriate delete request DTO.
 @sinceV2_0_0
 @internal
-extension DeleteRecordsRequestDtoMapper<R extends HealthRecord>
-    on DeleteRecordsRequest<R> {
+extension DeleteRecordsRequestDtoMapper on DeleteRecordsRequest {
   DeleteRecordsRequestDto toDto() {
     return switch (this) {
       DeleteRecordsByIdsRequest(:final dataType, :final recordIds) =>

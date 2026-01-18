@@ -114,7 +114,7 @@ final class MindfulnessSessionDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.mentalHealth;
 
   @override
-  DeleteRecordsByIdsRequest<MindfulnessSessionRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -124,7 +124,7 @@ final class MindfulnessSessionDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<MindfulnessSessionRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

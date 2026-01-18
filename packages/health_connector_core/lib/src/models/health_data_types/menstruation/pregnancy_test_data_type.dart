@@ -127,7 +127,7 @@ final class PregnancyTestDataType
       HealthDataTypeCategory.reproductiveHealth;
 
   @override
-  DeleteRecordsByIdsRequest<PregnancyTestRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -137,7 +137,7 @@ final class PregnancyTestDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<PregnancyTestRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

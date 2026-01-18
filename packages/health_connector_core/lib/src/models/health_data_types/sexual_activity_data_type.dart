@@ -125,7 +125,7 @@ final class SexualActivityDataType
       HealthDataTypeCategory.reproductiveHealth;
 
   @override
-  DeleteRecordsByIdsRequest<SexualActivityRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -135,7 +135,7 @@ final class SexualActivityDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<SexualActivityRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

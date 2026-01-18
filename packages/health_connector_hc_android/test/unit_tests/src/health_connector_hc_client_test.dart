@@ -836,7 +836,7 @@ void main() {
                   final now = DateTime.now();
                   await expectLater(
                     client.deleteRecords(
-                      DeleteRecordsInTimeRangeRequest<StepsRecord>(
+                      DeleteRecordsInTimeRangeRequest(
                         dataType: HealthDataType.steps,
                         startTime: now.subtract(const Duration(days: 1)),
                         endTime: now,
@@ -858,7 +858,7 @@ void main() {
                   final now = DateTime.now();
                   expect(
                     () => client.deleteRecords(
-                      DeleteRecordsInTimeRangeRequest<StepsRecord>(
+                      DeleteRecordsInTimeRangeRequest(
                         dataType: HealthDataType.steps,
                         startTime: now.subtract(const Duration(days: 1)),
                         endTime: now,

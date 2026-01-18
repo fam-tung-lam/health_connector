@@ -99,15 +99,14 @@ final class SixMinuteWalkTestDistanceDataType
   }
 
   @override
-  DeleteRecordsByIdsRequest<SixMinuteWalkTestDistanceRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<SixMinuteWalkTestDistanceRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

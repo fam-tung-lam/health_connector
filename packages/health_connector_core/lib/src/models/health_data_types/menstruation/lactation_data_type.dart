@@ -82,7 +82,7 @@ class LactationDataType extends HealthDataType<LactationRecord, MeasurementUnit>
   }
 
   @override
-  DeleteRecordsByIdsRequest<LactationRecord> deleteByIds(
+  DeleteRecordsByIdsRequest deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -92,7 +92,7 @@ class LactationDataType extends HealthDataType<LactationRecord, MeasurementUnit>
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<LactationRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {
