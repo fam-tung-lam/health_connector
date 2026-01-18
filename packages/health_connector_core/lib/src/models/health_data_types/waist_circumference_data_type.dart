@@ -41,7 +41,8 @@ final class WaistCircumferenceDataType
         ReadableByIdHealthDataType<WaistCircumferenceRecord>,
         ReadableInTimeRangeHealthDataType<WaistCircumferenceRecord>,
         WriteableHealthDataType<WaistCircumferenceRecord>,
-        DeletableHealthDataType<WaistCircumferenceRecord> {
+        DeletableByIdsHealthDataType<WaistCircumferenceRecord>,
+        DeletableInTimeRangeHealthDataType<WaistCircumferenceRecord> {
   /// Creates a waist circumference data type.
   ///
   /// This is a constant constructor used internally. To reference this data

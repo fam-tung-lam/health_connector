@@ -36,7 +36,8 @@ final class DietarySeleniumDataType
         ReadableInTimeRangeHealthDataType<DietarySeleniumRecord>,
         WriteableHealthDataType<DietarySeleniumRecord>,
         SumAggregatableHealthDataType<DietarySeleniumRecord, Mass>,
-        DeletableHealthDataType<DietarySeleniumRecord> {
+        DeletableByIdsHealthDataType<DietarySeleniumRecord>,
+        DeletableInTimeRangeHealthDataType<DietarySeleniumRecord> {
   /// Creates a selenium data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -62,7 +62,8 @@ final class ActivityIntensityDataType
         ReadableByIdHealthDataType<ActivityIntensityRecord>,
         ReadableInTimeRangeHealthDataType<ActivityIntensityRecord>,
         WriteableHealthDataType<ActivityIntensityRecord>,
-        DeletableHealthDataType<ActivityIntensityRecord> {
+        DeletableByIdsHealthDataType<ActivityIntensityRecord>,
+        DeletableInTimeRangeHealthDataType<ActivityIntensityRecord> {
   /// Creates an activity intensity data type.
   ///
   /// This is a constant constructor used internally. To reference this data

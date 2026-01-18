@@ -36,7 +36,8 @@ final class DietaryVitaminCDataType
         ReadableInTimeRangeHealthDataType<DietaryVitaminCRecord>,
         WriteableHealthDataType<DietaryVitaminCRecord>,
         SumAggregatableHealthDataType<DietaryVitaminCRecord, Mass>,
-        DeletableHealthDataType<DietaryVitaminCRecord> {
+        DeletableByIdsHealthDataType<DietaryVitaminCRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryVitaminCRecord> {
   /// Creates a vitamin c (ascorbic acid) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -32,7 +32,20 @@ import 'package:health_connector_core/src/models/requests/delete_records_request
 /// ```
 @sinceV2_0_0
 @internalUse
-abstract interface class DeletableHealthDataType<R extends HealthRecord> {
+/// Interface for health data types that support deletion.
+///
+/// This serves as a common base type for more specific deletion capabilities.
+/// Most capabilities will implement [DeletableByIdsHealthDataType] and
+/// [DeletableInTimeRangeHealthDataType].
+@sinceV2_0_0
+@internalUse
+abstract interface class DeletableHealthDataType<R extends HealthRecord> {}
+
+/// Interface for health data types that support deleting records by ID.
+@sinceV2_0_0
+@internalUse
+abstract interface class DeletableByIdsHealthDataType<R extends HealthRecord>
+    implements DeletableHealthDataType<R> {
   /// Creates a request to delete specific records by their IDs.
   ///
   /// Use this when you want to delete precise records and have their IDs
@@ -51,7 +64,16 @@ abstract interface class DeletableHealthDataType<R extends HealthRecord> {
   /// - [ArgumentError] if [recordIds] is empty
   /// - [ArgumentError] if any record ID is [HealthRecordId.none]
   DeleteRecordsByIdsRequest<R> deleteByIds(List<HealthRecordId> recordIds);
+}
 
+/// Interface for health data types that support deleting records in a time
+/// range.
+@sinceV2_0_0
+@internalUse
+abstract interface class DeletableInTimeRangeHealthDataType<
+  R extends HealthRecord
+>
+    implements DeletableHealthDataType<R> {
   /// Creates a request to delete all records within a time range.
   ///
   /// Use this for bulk deletion of records within a specific time period.

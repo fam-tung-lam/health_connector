@@ -72,7 +72,8 @@ class ContraceptiveDataType
         ReadableByIdHealthDataType<ContraceptiveRecord>,
         ReadableInTimeRangeHealthDataType<ContraceptiveRecord>,
         WriteableHealthDataType<ContraceptiveRecord>,
-        DeletableHealthDataType<ContraceptiveRecord> {
+        DeletableByIdsHealthDataType<ContraceptiveRecord>,
+        DeletableInTimeRangeHealthDataType<ContraceptiveRecord> {
   /// {@macro health_data_type.const}
   const ContraceptiveDataType() : super();
 

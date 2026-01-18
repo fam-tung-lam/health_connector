@@ -47,7 +47,8 @@ final class CyclingPedalingCadenceSeriesDataType
           CyclingPedalingCadenceSeriesRecord,
           Number
         >,
-        DeletableHealthDataType<CyclingPedalingCadenceSeriesRecord> {
+        DeletableByIdsHealthDataType<CyclingPedalingCadenceSeriesRecord>,
+        DeletableInTimeRangeHealthDataType<CyclingPedalingCadenceSeriesRecord> {
   /// Creates a cycling pedaling cadence series data type.
   ///
   /// This is a constant constructor used internally. To reference this data

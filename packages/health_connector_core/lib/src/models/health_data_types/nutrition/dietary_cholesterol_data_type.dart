@@ -36,7 +36,8 @@ final class DietaryCholesterolDataType
         ReadableInTimeRangeHealthDataType<DietaryCholesterolRecord>,
         WriteableHealthDataType<DietaryCholesterolRecord>,
         SumAggregatableHealthDataType<DietaryCholesterolRecord, Mass>,
-        DeletableHealthDataType<DietaryCholesterolRecord> {
+        DeletableByIdsHealthDataType<DietaryCholesterolRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryCholesterolRecord> {
   /// Creates a cholesterol data type.
   ///
   /// This is a constant constructor used internally. To reference this data

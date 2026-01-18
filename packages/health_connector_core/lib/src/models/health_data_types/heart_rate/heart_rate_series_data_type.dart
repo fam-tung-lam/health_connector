@@ -35,7 +35,8 @@ final class HeartRateSeriesDataType
         AvgAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
         MinAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
         MaxAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
-        DeletableHealthDataType<HeartRateSeriesRecord> {
+        DeletableByIdsHealthDataType<HeartRateSeriesRecord>,
+        DeletableInTimeRangeHealthDataType<HeartRateSeriesRecord> {
   /// Creates a heart rate series data type.
   ///
   /// This is a constant constructor used internally. To reference this data

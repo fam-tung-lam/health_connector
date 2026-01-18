@@ -36,7 +36,8 @@ final class DietaryPhosphorusDataType
         ReadableInTimeRangeHealthDataType<DietaryPhosphorusRecord>,
         WriteableHealthDataType<DietaryPhosphorusRecord>,
         SumAggregatableHealthDataType<DietaryPhosphorusRecord, Mass>,
-        DeletableHealthDataType<DietaryPhosphorusRecord> {
+        DeletableByIdsHealthDataType<DietaryPhosphorusRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryPhosphorusRecord> {
   /// Creates a phosphorus data type.
   ///
   /// This is a constant constructor used internally. To reference this data

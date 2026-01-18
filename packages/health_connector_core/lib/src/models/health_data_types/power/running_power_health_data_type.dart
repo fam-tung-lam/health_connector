@@ -34,7 +34,8 @@ final class RunningPowerDataType
         ReadableByIdHealthDataType<RunningPowerRecord>,
         ReadableInTimeRangeHealthDataType<RunningPowerRecord>,
         WriteableHealthDataType<RunningPowerRecord>,
-        DeletableHealthDataType<RunningPowerRecord>,
+        DeletableByIdsHealthDataType<RunningPowerRecord>,
+        DeletableInTimeRangeHealthDataType<RunningPowerRecord>,
         AvgAggregatableHealthDataType<RunningPowerRecord, Power>,
         MinAggregatableHealthDataType<RunningPowerRecord, Power>,
         MaxAggregatableHealthDataType<RunningPowerRecord, Power> {

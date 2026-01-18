@@ -36,7 +36,8 @@ final class DietaryCalciumDataType
         ReadableInTimeRangeHealthDataType<DietaryCalciumRecord>,
         WriteableHealthDataType<DietaryCalciumRecord>,
         SumAggregatableHealthDataType<DietaryCalciumRecord, Mass>,
-        DeletableHealthDataType<DietaryCalciumRecord> {
+        DeletableByIdsHealthDataType<DietaryCalciumRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryCalciumRecord> {
   /// Creates a calcium data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -32,7 +32,8 @@ final class CyclingPowerDataType
         ReadableByIdHealthDataType<CyclingPowerRecord>,
         ReadableInTimeRangeHealthDataType<CyclingPowerRecord>,
         WriteableHealthDataType<CyclingPowerRecord>,
-        DeletableHealthDataType,
+        DeletableByIdsHealthDataType<CyclingPowerRecord>,
+        DeletableInTimeRangeHealthDataType<CyclingPowerRecord>,
         AvgAggregatableHealthDataType<CyclingPowerRecord, Power>,
         MinAggregatableHealthDataType<CyclingPowerRecord, Power>,
         MaxAggregatableHealthDataType<CyclingPowerRecord, Power> {

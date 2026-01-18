@@ -37,7 +37,8 @@ final class MindfulnessSessionDataType
         ReadableInTimeRangeHealthDataType<MindfulnessSessionRecord>,
         WriteableHealthDataType<MindfulnessSessionRecord>,
         SumAggregatableHealthDataType<MindfulnessSessionRecord, TimeDuration>,
-        DeletableHealthDataType<MindfulnessSessionRecord> {
+        DeletableByIdsHealthDataType<MindfulnessSessionRecord>,
+        DeletableInTimeRangeHealthDataType<MindfulnessSessionRecord> {
   /// Creates a mindfulness session data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -35,7 +35,8 @@ sealed class DistanceActivityDataType<R extends DistanceActivityRecord>
         ReadableByIdHealthDataType<R>,
         ReadableInTimeRangeHealthDataType<R>,
         WriteableHealthDataType<R>,
-        DeletableHealthDataType,
+        DeletableByIdsHealthDataType<R>,
+        DeletableInTimeRangeHealthDataType<R>,
         SumAggregatableHealthDataType<R, Length> {
   @internal
   const DistanceActivityDataType();

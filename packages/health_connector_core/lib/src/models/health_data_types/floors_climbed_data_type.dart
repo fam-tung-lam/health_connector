@@ -37,7 +37,8 @@ final class FloorsClimbedDataType
         ReadableInTimeRangeHealthDataType<FloorsClimbedRecord>,
         WriteableHealthDataType<FloorsClimbedRecord>,
         SumAggregatableHealthDataType<FloorsClimbedRecord, Number>,
-        DeletableHealthDataType<FloorsClimbedRecord> {
+        DeletableByIdsHealthDataType<FloorsClimbedRecord>,
+        DeletableInTimeRangeHealthDataType<FloorsClimbedRecord> {
   /// Creates a floors climbed data type.
   ///
   /// This is a constant constructor used internally. To reference this data

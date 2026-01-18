@@ -44,7 +44,8 @@ final class HeartRateVariabilitySDNNDataType
         ReadableByIdHealthDataType<HeartRateVariabilitySDNNRecord>,
         ReadableInTimeRangeHealthDataType<HeartRateVariabilitySDNNRecord>,
         WriteableHealthDataType<HeartRateVariabilitySDNNRecord>,
-        DeletableHealthDataType<HeartRateVariabilitySDNNRecord> {
+        DeletableByIdsHealthDataType<HeartRateVariabilitySDNNRecord>,
+        DeletableInTimeRangeHealthDataType<HeartRateVariabilitySDNNRecord> {
   /// Creates a heart rate variability (SDNN) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

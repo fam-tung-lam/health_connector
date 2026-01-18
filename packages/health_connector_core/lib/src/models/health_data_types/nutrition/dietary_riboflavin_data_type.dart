@@ -36,7 +36,8 @@ final class DietaryRiboflavinDataType
         ReadableInTimeRangeHealthDataType<DietaryRiboflavinRecord>,
         WriteableHealthDataType<DietaryRiboflavinRecord>,
         SumAggregatableHealthDataType<DietaryRiboflavinRecord, Mass>,
-        DeletableHealthDataType<DietaryRiboflavinRecord> {
+        DeletableByIdsHealthDataType<DietaryRiboflavinRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryRiboflavinRecord> {
   /// Creates a riboflavin (vitamin b2) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

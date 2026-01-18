@@ -19,7 +19,8 @@ final class PowerSeriesDataType extends HealthDataType<PowerSeriesRecord, Power>
         ReadableByIdHealthDataType<PowerSeriesRecord>,
         ReadableInTimeRangeHealthDataType<PowerSeriesRecord>,
         WriteableHealthDataType<PowerSeriesRecord>,
-        DeletableHealthDataType,
+        DeletableByIdsHealthDataType<PowerSeriesRecord>,
+        DeletableInTimeRangeHealthDataType<PowerSeriesRecord>,
         AvgAggregatableHealthDataType<PowerSeriesRecord, Power>,
         MinAggregatableHealthDataType<PowerSeriesRecord, Power>,
         MaxAggregatableHealthDataType<PowerSeriesRecord, Power> {

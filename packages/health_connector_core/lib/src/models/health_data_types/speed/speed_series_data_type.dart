@@ -27,7 +27,8 @@ final class SpeedSeriesDataType
         ReadableByIdHealthDataType<SpeedSeriesRecord>,
         ReadableInTimeRangeHealthDataType<SpeedSeriesRecord>,
         WriteableHealthDataType<SpeedSeriesRecord>,
-        DeletableHealthDataType,
+        DeletableByIdsHealthDataType<SpeedSeriesRecord>,
+        DeletableInTimeRangeHealthDataType<SpeedSeriesRecord>,
         AvgAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,
         MinAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,
         MaxAggregatableHealthDataType<SpeedSeriesRecord, Velocity> {

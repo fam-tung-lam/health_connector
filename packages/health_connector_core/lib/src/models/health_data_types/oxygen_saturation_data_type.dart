@@ -31,7 +31,8 @@ final class OxygenSaturationDataType
         AvgAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
         MinAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
         MaxAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
-        DeletableHealthDataType<OxygenSaturationRecord> {
+        DeletableByIdsHealthDataType<OxygenSaturationRecord>,
+        DeletableInTimeRangeHealthDataType<OxygenSaturationRecord> {
   /// Creates an oxygen saturation data type.
   ///
   /// This is a constant constructor used internally. To reference this data

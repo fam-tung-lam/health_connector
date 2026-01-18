@@ -36,7 +36,8 @@ final class DietaryVitaminDDataType
         ReadableInTimeRangeHealthDataType<DietaryVitaminDRecord>,
         WriteableHealthDataType<DietaryVitaminDRecord>,
         SumAggregatableHealthDataType<DietaryVitaminDRecord, Mass>,
-        DeletableHealthDataType<DietaryVitaminDRecord> {
+        DeletableByIdsHealthDataType<DietaryVitaminDRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryVitaminDRecord> {
   /// Creates a vitamin d data type.
   ///
   /// This is a constant constructor used internally. To reference this data

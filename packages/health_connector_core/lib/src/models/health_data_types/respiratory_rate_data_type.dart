@@ -30,7 +30,8 @@ final class RespiratoryRateDataType
         AvgAggregatableHealthDataType<RespiratoryRateRecord, Number>,
         MinAggregatableHealthDataType<RespiratoryRateRecord, Number>,
         MaxAggregatableHealthDataType<RespiratoryRateRecord, Number>,
-        DeletableHealthDataType<RespiratoryRateRecord> {
+        DeletableByIdsHealthDataType<RespiratoryRateRecord>,
+        DeletableInTimeRangeHealthDataType<RespiratoryRateRecord> {
   /// Creates a respiratory rate data type.
   ///
   /// This is a constant constructor used internally. To reference this data

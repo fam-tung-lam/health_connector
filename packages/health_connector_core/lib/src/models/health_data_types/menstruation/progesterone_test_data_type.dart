@@ -54,7 +54,8 @@ final class ProgesteroneTestDataType
         ReadableByIdHealthDataType<ProgesteroneTestRecord>,
         ReadableInTimeRangeHealthDataType<ProgesteroneTestRecord>,
         WriteableHealthDataType<ProgesteroneTestRecord>,
-        DeletableHealthDataType<ProgesteroneTestRecord> {
+        DeletableByIdsHealthDataType<ProgesteroneTestRecord>,
+        DeletableInTimeRangeHealthDataType<ProgesteroneTestRecord> {
   /// Creates a progesterone test data type.
   ///
   /// This is a constant constructor used internally. To reference this data

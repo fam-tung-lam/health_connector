@@ -35,7 +35,9 @@ final class StepsCadenceSeriesDataType
         WriteableHealthDataType<StepsCadenceSeriesRecord>,
         AvgAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
         MinAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
-        MaxAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency> {
+        MaxAggregatableHealthDataType<StepsCadenceSeriesRecord, Frequency>,
+        DeletableByIdsHealthDataType<StepsCadenceSeriesRecord>,
+        DeletableInTimeRangeHealthDataType<StepsCadenceSeriesRecord> {
   /// Creates a steps cadence series data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -130,4 +132,26 @@ final class StepsCadenceSeriesDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<StepsCadenceSeriesRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<StepsCadenceSeriesRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

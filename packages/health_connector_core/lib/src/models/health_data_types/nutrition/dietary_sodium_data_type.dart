@@ -36,7 +36,8 @@ final class DietarySodiumDataType
         ReadableInTimeRangeHealthDataType<DietarySodiumRecord>,
         WriteableHealthDataType<DietarySodiumRecord>,
         SumAggregatableHealthDataType<DietarySodiumRecord, Mass>,
-        DeletableHealthDataType<DietarySodiumRecord> {
+        DeletableByIdsHealthDataType<DietarySodiumRecord>,
+        DeletableInTimeRangeHealthDataType<DietarySodiumRecord> {
   /// Creates a sodium data type.
   ///
   /// This is a constant constructor used internally. To reference this data

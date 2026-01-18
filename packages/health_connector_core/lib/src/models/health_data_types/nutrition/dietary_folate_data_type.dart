@@ -36,7 +36,8 @@ final class DietaryFolateDataType
         ReadableInTimeRangeHealthDataType<DietaryFolateRecord>,
         WriteableHealthDataType<DietaryFolateRecord>,
         SumAggregatableHealthDataType<DietaryFolateRecord, Mass>,
-        DeletableHealthDataType<DietaryFolateRecord> {
+        DeletableByIdsHealthDataType<DietaryFolateRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryFolateRecord> {
   /// Creates a folate (vitamin b9) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

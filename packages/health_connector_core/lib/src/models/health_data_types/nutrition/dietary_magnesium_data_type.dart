@@ -36,7 +36,8 @@ final class DietaryMagnesiumDataType
         ReadableInTimeRangeHealthDataType<DietaryMagnesiumRecord>,
         WriteableHealthDataType<DietaryMagnesiumRecord>,
         SumAggregatableHealthDataType<DietaryMagnesiumRecord, Mass>,
-        DeletableHealthDataType<DietaryMagnesiumRecord> {
+        DeletableByIdsHealthDataType<DietaryMagnesiumRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryMagnesiumRecord> {
   /// Creates a magnesium data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -35,7 +35,8 @@ final class PeripheralPerfusionIndexDataType
         ReadableByIdHealthDataType<PeripheralPerfusionIndexRecord>,
         ReadableInTimeRangeHealthDataType<PeripheralPerfusionIndexRecord>,
         WriteableHealthDataType<PeripheralPerfusionIndexRecord>,
-        DeletableHealthDataType<PeripheralPerfusionIndexRecord>,
+        DeletableByIdsHealthDataType<PeripheralPerfusionIndexRecord>,
+        DeletableInTimeRangeHealthDataType<PeripheralPerfusionIndexRecord>,
         AvgAggregatableHealthDataType<
           PeripheralPerfusionIndexRecord,
           Percentage

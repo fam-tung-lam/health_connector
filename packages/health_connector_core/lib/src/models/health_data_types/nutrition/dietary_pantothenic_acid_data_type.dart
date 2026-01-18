@@ -36,7 +36,8 @@ final class DietaryPantothenicAcidDataType
         ReadableInTimeRangeHealthDataType<DietaryPantothenicAcidRecord>,
         WriteableHealthDataType<DietaryPantothenicAcidRecord>,
         SumAggregatableHealthDataType<DietaryPantothenicAcidRecord, Mass>,
-        DeletableHealthDataType<DietaryPantothenicAcidRecord> {
+        DeletableByIdsHealthDataType<DietaryPantothenicAcidRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryPantothenicAcidRecord> {
   /// Creates a pantothenic acid (vitamin b5) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

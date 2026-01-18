@@ -36,7 +36,8 @@ final class DietaryBiotinDataType
         ReadableInTimeRangeHealthDataType<DietaryBiotinRecord>,
         WriteableHealthDataType<DietaryBiotinRecord>,
         SumAggregatableHealthDataType<DietaryBiotinRecord, Mass>,
-        DeletableHealthDataType<DietaryBiotinRecord> {
+        DeletableByIdsHealthDataType<DietaryBiotinRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryBiotinRecord> {
   /// Creates a biotin (vitamin b7) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

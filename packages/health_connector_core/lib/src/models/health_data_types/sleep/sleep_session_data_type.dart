@@ -37,7 +37,8 @@ final class SleepSessionDataType
         ReadableInTimeRangeHealthDataType<SleepSessionRecord>,
         WriteableHealthDataType<SleepSessionRecord>,
         SumAggregatableHealthDataType<SleepSessionRecord, TimeDuration>,
-        DeletableHealthDataType<SleepSessionRecord> {
+        DeletableByIdsHealthDataType<SleepSessionRecord>,
+        DeletableInTimeRangeHealthDataType<SleepSessionRecord> {
   /// Creates a sleep session data type.
   ///
   /// This is a constant constructor used internally. To reference this data

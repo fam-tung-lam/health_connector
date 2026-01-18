@@ -35,7 +35,8 @@ final class ExerciseSessionDataType
         ReadableInTimeRangeHealthDataType<ExerciseSessionRecord>,
         WriteableHealthDataType<ExerciseSessionRecord>,
         SumAggregatableHealthDataType<ExerciseSessionRecord, TimeDuration>,
-        DeletableHealthDataType<ExerciseSessionRecord> {
+        DeletableByIdsHealthDataType<ExerciseSessionRecord>,
+        DeletableInTimeRangeHealthDataType<ExerciseSessionRecord> {
   /// Creates an exercise session data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -36,7 +36,8 @@ final class DietaryEnergyConsumedDataType
         ReadableInTimeRangeHealthDataType<DietaryEnergyConsumedRecord>,
         WriteableHealthDataType<DietaryEnergyConsumedRecord>,
         SumAggregatableHealthDataType<DietaryEnergyConsumedRecord, Energy>,
-        DeletableHealthDataType<DietaryEnergyConsumedRecord> {
+        DeletableByIdsHealthDataType<DietaryEnergyConsumedRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryEnergyConsumedRecord> {
   /// Creates a energy data type.
   ///
   /// This is a constant constructor used internally. To reference this data

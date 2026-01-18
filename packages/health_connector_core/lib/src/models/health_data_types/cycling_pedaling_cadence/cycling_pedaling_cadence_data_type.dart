@@ -48,7 +48,8 @@ final class CyclingPedalingCadenceDataType
         AvgAggregatableHealthDataType<CyclingPedalingCadenceRecord, Number>,
         MinAggregatableHealthDataType<CyclingPedalingCadenceRecord, Number>,
         MaxAggregatableHealthDataType<CyclingPedalingCadenceRecord, Number>,
-        DeletableHealthDataType<CyclingPedalingCadenceRecord> {
+        DeletableByIdsHealthDataType<CyclingPedalingCadenceRecord>,
+        DeletableInTimeRangeHealthDataType<CyclingPedalingCadenceRecord> {
   /// Creates a cycling pedaling cadence measurement data type.
   ///
   /// This is a constant constructor used internally. To reference this data

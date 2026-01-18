@@ -36,7 +36,8 @@ final class DietaryPolyunsaturatedFatDataType
         ReadableInTimeRangeHealthDataType<DietaryPolyunsaturatedFatRecord>,
         WriteableHealthDataType<DietaryPolyunsaturatedFatRecord>,
         SumAggregatableHealthDataType<DietaryPolyunsaturatedFatRecord, Mass>,
-        DeletableHealthDataType<DietaryPolyunsaturatedFatRecord> {
+        DeletableByIdsHealthDataType<DietaryPolyunsaturatedFatRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryPolyunsaturatedFatRecord> {
   /// Creates a polyunsaturated fat data type.
   ///
   /// This is a constant constructor used internally. To reference this data

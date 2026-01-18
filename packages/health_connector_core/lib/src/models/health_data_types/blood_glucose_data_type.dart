@@ -39,7 +39,8 @@ final class BloodGlucoseDataType
         AvgAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
         MinAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
         MaxAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
-        DeletableHealthDataType<BloodGlucoseRecord> {
+        DeletableByIdsHealthDataType<BloodGlucoseRecord>,
+        DeletableInTimeRangeHealthDataType<BloodGlucoseRecord> {
   /// Creates a blood glucose data type.
   ///
   /// This is a constant constructor used internally. To reference this data

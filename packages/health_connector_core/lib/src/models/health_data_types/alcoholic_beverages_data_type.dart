@@ -36,7 +36,8 @@ final class AlcoholicBeveragesDataType
         ReadableInTimeRangeHealthDataType<AlcoholicBeveragesRecord>,
         WriteableHealthDataType<AlcoholicBeveragesRecord>,
         SumAggregatableHealthDataType<AlcoholicBeveragesRecord, Number>,
-        DeletableHealthDataType<AlcoholicBeveragesRecord> {
+        DeletableByIdsHealthDataType<AlcoholicBeveragesRecord>,
+        DeletableInTimeRangeHealthDataType<AlcoholicBeveragesRecord> {
   /// Creates an alcoholic beverages data type.
   ///
   /// This is a constant constructor used internally. To reference this data

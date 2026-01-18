@@ -36,7 +36,8 @@ final class ActiveEnergyBurnedDataType
         ReadableInTimeRangeHealthDataType<ActiveEnergyBurnedRecord>,
         WriteableHealthDataType<ActiveEnergyBurnedRecord>,
         SumAggregatableHealthDataType<ActiveEnergyBurnedRecord, Energy>,
-        DeletableHealthDataType<ActiveEnergyBurnedRecord> {
+        DeletableByIdsHealthDataType<ActiveEnergyBurnedRecord>,
+        DeletableInTimeRangeHealthDataType<ActiveEnergyBurnedRecord> {
   /// Creates an active energy burned data type.
   ///
   /// This is a constant constructor used internally. To reference this data

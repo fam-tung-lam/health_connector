@@ -36,7 +36,8 @@ final class DietaryFiberNutrientDataType
         ReadableInTimeRangeHealthDataType<DietaryFiberRecord>,
         WriteableHealthDataType<DietaryFiberRecord>,
         SumAggregatableHealthDataType<DietaryFiberRecord, Mass>,
-        DeletableHealthDataType<DietaryFiberRecord> {
+        DeletableByIdsHealthDataType<DietaryFiberRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryFiberRecord> {
   /// Creates a dietary fiber data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -20,7 +20,8 @@ void main() {
           expect(dataType, isA<Vo2MaxDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
-          expect(dataType, isA<DeletableHealthDataType>());
+          expect(dataType, isA<DeletableByIdsHealthDataType>());
+          expect(dataType, isA<DeletableInTimeRangeHealthDataType>());
           expect(dataType, isA<AvgAggregatableHealthDataType>());
           expect(dataType, isA<MinAggregatableHealthDataType>());
           expect(dataType, isA<MaxAggregatableHealthDataType>());

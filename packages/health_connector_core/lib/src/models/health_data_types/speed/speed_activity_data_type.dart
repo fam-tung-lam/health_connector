@@ -22,7 +22,8 @@ sealed class SpeedActivityDataType<R extends SpeedActivityRecord>
         ReadableByIdHealthDataType<R>,
         ReadableInTimeRangeHealthDataType<R>,
         WriteableHealthDataType<R>,
-        DeletableHealthDataType,
+        DeletableByIdsHealthDataType<R>,
+        DeletableInTimeRangeHealthDataType<R>,
         AvgAggregatableHealthDataType<R, Velocity> {
   @internal
   const SpeedActivityDataType();

@@ -35,7 +35,8 @@ final class DietarySugarDataType
         ReadableInTimeRangeHealthDataType<DietarySugarRecord>,
         WriteableHealthDataType<DietarySugarRecord>,
         SumAggregatableHealthDataType<DietarySugarRecord, Mass>,
-        DeletableHealthDataType<DietarySugarRecord> {
+        DeletableByIdsHealthDataType<DietarySugarRecord>,
+        DeletableInTimeRangeHealthDataType<DietarySugarRecord> {
   /// Creates a sugar data type.
   ///
   /// This is a constant constructor used internally. To reference this data

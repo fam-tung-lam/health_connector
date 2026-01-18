@@ -36,7 +36,8 @@ final class DietaryCaffeineDataType
         ReadableInTimeRangeHealthDataType<DietaryCaffeineRecord>,
         WriteableHealthDataType<DietaryCaffeineRecord>,
         SumAggregatableHealthDataType<DietaryCaffeineRecord, Mass>,
-        DeletableHealthDataType<DietaryCaffeineRecord> {
+        DeletableByIdsHealthDataType<DietaryCaffeineRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryCaffeineRecord> {
   /// Creates a caffeine data type.
   ///
   /// This is a constant constructor used internally. To reference this data

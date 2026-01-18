@@ -60,7 +60,8 @@ final class OvulationTestDataType
         ReadableByIdHealthDataType<OvulationTestRecord>,
         ReadableInTimeRangeHealthDataType<OvulationTestRecord>,
         WriteableHealthDataType<OvulationTestRecord>,
-        DeletableHealthDataType<OvulationTestRecord> {
+        DeletableByIdsHealthDataType<OvulationTestRecord>,
+        DeletableInTimeRangeHealthDataType<OvulationTestRecord> {
   /// Creates an ovulation test data type.
   ///
   /// This is a constant constructor used internally. To reference this data

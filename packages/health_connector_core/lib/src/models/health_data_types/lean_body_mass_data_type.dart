@@ -35,7 +35,8 @@ final class LeanBodyMassDataType
         ReadableByIdHealthDataType<LeanBodyMassRecord>,
         ReadableInTimeRangeHealthDataType<LeanBodyMassRecord>,
         WriteableHealthDataType<LeanBodyMassRecord>,
-        DeletableHealthDataType<LeanBodyMassRecord> {
+        DeletableByIdsHealthDataType<LeanBodyMassRecord>,
+        DeletableInTimeRangeHealthDataType<LeanBodyMassRecord> {
   /// Creates a lean body mass data type.
   ///
   /// This is a constant constructor used internally. To reference this data

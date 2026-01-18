@@ -21,7 +21,8 @@ void main() {
           expect(dataType, isA<ReadableByIdHealthDataType>());
           expect(dataType, isA<ReadableInTimeRangeHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
-          expect(dataType, isA<DeletableHealthDataType>());
+          expect(dataType, isA<DeletableByIdsHealthDataType>());
+          expect(dataType, isA<DeletableInTimeRangeHealthDataType>());
         },
       );
 

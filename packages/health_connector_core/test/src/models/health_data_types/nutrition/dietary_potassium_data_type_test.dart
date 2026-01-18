@@ -20,7 +20,8 @@ void main() {
           expect(dataType, isA<DietaryPotassiumDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
-          expect(dataType, isA<DeletableHealthDataType>());
+          expect(dataType, isA<DeletableByIdsHealthDataType>());
+          expect(dataType, isA<DeletableInTimeRangeHealthDataType>());
           expect(dataType, isA<SumAggregatableHealthDataType>());
         },
       );

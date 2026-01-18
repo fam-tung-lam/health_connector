@@ -35,7 +35,8 @@ final class StepsDataType extends HealthDataType<StepsRecord, Number>
         ReadableInTimeRangeHealthDataType<StepsRecord>,
         WriteableHealthDataType<StepsRecord>,
         SumAggregatableHealthDataType<StepsRecord, Number>,
-        DeletableHealthDataType<StepsRecord> {
+        DeletableByIdsHealthDataType<StepsRecord>,
+        DeletableInTimeRangeHealthDataType<StepsRecord> {
   /// Creates a steps data type.
   ///
   /// This is a constant constructor used internally. To reference this data

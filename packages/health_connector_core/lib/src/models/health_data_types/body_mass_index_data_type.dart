@@ -41,7 +41,8 @@ final class BodyMassIndexDataType
         ReadableByIdHealthDataType<BodyMassIndexRecord>,
         ReadableInTimeRangeHealthDataType<BodyMassIndexRecord>,
         WriteableHealthDataType<BodyMassIndexRecord>,
-        DeletableHealthDataType<BodyMassIndexRecord> {
+        DeletableByIdsHealthDataType<BodyMassIndexRecord>,
+        DeletableInTimeRangeHealthDataType<BodyMassIndexRecord> {
   /// Creates a body mass index data type.
   ///
   /// This is a constant constructor used internally. To reference this data

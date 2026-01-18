@@ -37,7 +37,8 @@ final class BloodAlcoholContentDataType
         AvgAggregatableHealthDataType<BloodAlcoholContentRecord, Percentage>,
         MinAggregatableHealthDataType<BloodAlcoholContentRecord, Percentage>,
         MaxAggregatableHealthDataType<BloodAlcoholContentRecord, Percentage>,
-        DeletableHealthDataType<BloodAlcoholContentRecord> {
+        DeletableByIdsHealthDataType<BloodAlcoholContentRecord>,
+        DeletableInTimeRangeHealthDataType<BloodAlcoholContentRecord> {
   /// Creates a blood alcohol content data type.
   ///
   /// This is a constant constructor used internally. To reference this data

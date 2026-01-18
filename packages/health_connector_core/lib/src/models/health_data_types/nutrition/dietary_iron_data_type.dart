@@ -36,7 +36,8 @@ final class DietaryIronDataType
         ReadableInTimeRangeHealthDataType<DietaryIronRecord>,
         WriteableHealthDataType<DietaryIronRecord>,
         SumAggregatableHealthDataType<DietaryIronRecord, Mass>,
-        DeletableHealthDataType<DietaryIronRecord> {
+        DeletableByIdsHealthDataType<DietaryIronRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryIronRecord> {
   /// Creates a iron data type.
   ///
   /// This is a constant constructor used internally. To reference this data

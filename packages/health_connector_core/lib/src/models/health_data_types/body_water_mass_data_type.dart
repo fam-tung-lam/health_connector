@@ -34,7 +34,8 @@ final class BodyWaterMassDataType
         ReadableByIdHealthDataType<BodyWaterMassRecord>,
         ReadableInTimeRangeHealthDataType<BodyWaterMassRecord>,
         WriteableHealthDataType<BodyWaterMassRecord>,
-        DeletableHealthDataType<BodyWaterMassRecord> {
+        DeletableByIdsHealthDataType<BodyWaterMassRecord>,
+        DeletableInTimeRangeHealthDataType<BodyWaterMassRecord> {
   /// Creates a body water mass data type.
   ///
   /// This is a constant constructor used internally. To reference this data

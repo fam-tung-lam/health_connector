@@ -35,7 +35,8 @@ final class BodyFatPercentageDataType
         ReadableByIdHealthDataType<BodyFatPercentageRecord>,
         ReadableInTimeRangeHealthDataType<BodyFatPercentageRecord>,
         WriteableHealthDataType<BodyFatPercentageRecord>,
-        DeletableHealthDataType<BodyFatPercentageRecord> {
+        DeletableByIdsHealthDataType<BodyFatPercentageRecord>,
+        DeletableInTimeRangeHealthDataType<BodyFatPercentageRecord> {
   /// Creates a body fat percentage data type.
   ///
   /// This is a constant constructor used internally. To reference this data

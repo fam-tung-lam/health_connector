@@ -33,7 +33,8 @@ final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
         ReadableByIdHealthDataType<BoneMassRecord>,
         ReadableInTimeRangeHealthDataType<BoneMassRecord>,
         WriteableHealthDataType<BoneMassRecord>,
-        DeletableHealthDataType<BoneMassRecord> {
+        DeletableByIdsHealthDataType<BoneMassRecord>,
+        DeletableInTimeRangeHealthDataType<BoneMassRecord> {
   /// Creates a bone mass data type.
   ///
   /// This is a constant constructor used internally. To reference this data

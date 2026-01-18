@@ -36,7 +36,8 @@ final class WeightDataType extends HealthDataType<WeightRecord, Mass>
         AvgAggregatableHealthDataType<WeightRecord, Mass>,
         MinAggregatableHealthDataType<WeightRecord, Mass>,
         MaxAggregatableHealthDataType<WeightRecord, Mass>,
-        DeletableHealthDataType<WeightRecord> {
+        DeletableByIdsHealthDataType<WeightRecord>,
+        DeletableInTimeRangeHealthDataType<WeightRecord> {
   /// Creates a weight data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -36,7 +36,8 @@ final class DietaryThiaminDataType
         ReadableInTimeRangeHealthDataType<DietaryThiaminRecord>,
         WriteableHealthDataType<DietaryThiaminRecord>,
         SumAggregatableHealthDataType<DietaryThiaminRecord, Mass>,
-        DeletableHealthDataType<DietaryThiaminRecord> {
+        DeletableByIdsHealthDataType<DietaryThiaminRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryThiaminRecord> {
   /// Creates a thiamin (vitamin b1) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

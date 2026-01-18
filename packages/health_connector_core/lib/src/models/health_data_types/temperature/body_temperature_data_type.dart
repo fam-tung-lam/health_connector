@@ -34,7 +34,8 @@ final class BodyTemperatureDataType
         ReadableByIdHealthDataType<BodyTemperatureRecord>,
         ReadableInTimeRangeHealthDataType<BodyTemperatureRecord>,
         WriteableHealthDataType<BodyTemperatureRecord>,
-        DeletableHealthDataType<BodyTemperatureRecord> {
+        DeletableByIdsHealthDataType<BodyTemperatureRecord>,
+        DeletableInTimeRangeHealthDataType<BodyTemperatureRecord> {
   /// Creates a body temperature data type.
   ///
   /// This is a constant constructor used internally. To reference this data

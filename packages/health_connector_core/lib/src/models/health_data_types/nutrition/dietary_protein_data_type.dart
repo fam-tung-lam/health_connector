@@ -36,7 +36,8 @@ final class DietaryProteinDataType
         ReadableInTimeRangeHealthDataType<DietaryProteinRecord>,
         WriteableHealthDataType<DietaryProteinRecord>,
         SumAggregatableHealthDataType<DietaryProteinRecord, Mass>,
-        DeletableHealthDataType<DietaryProteinRecord> {
+        DeletableByIdsHealthDataType<DietaryProteinRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryProteinRecord> {
   /// Creates a protein data type.
   ///
   /// This is a constant constructor used internally. To reference this data

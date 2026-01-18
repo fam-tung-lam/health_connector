@@ -35,7 +35,8 @@ final class HeartRateVariabilityRMSSDDataType
         ReadableByIdHealthDataType<HeartRateVariabilityRMSSDRecord>,
         ReadableInTimeRangeHealthDataType<HeartRateVariabilityRMSSDRecord>,
         WriteableHealthDataType<HeartRateVariabilityRMSSDRecord>,
-        DeletableHealthDataType<HeartRateVariabilityRMSSDRecord> {
+        DeletableByIdsHealthDataType<HeartRateVariabilityRMSSDRecord>,
+        DeletableInTimeRangeHealthDataType<HeartRateVariabilityRMSSDRecord> {
   /// Creates a heart rate variability (RMSSD) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

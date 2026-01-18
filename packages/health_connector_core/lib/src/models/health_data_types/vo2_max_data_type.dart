@@ -39,7 +39,8 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
         AvgAggregatableHealthDataType<Vo2MaxRecord, Number>,
         MinAggregatableHealthDataType<Vo2MaxRecord, Number>,
         MaxAggregatableHealthDataType<Vo2MaxRecord, Number>,
-        DeletableHealthDataType<Vo2MaxRecord> {
+        DeletableByIdsHealthDataType<Vo2MaxRecord>,
+        DeletableInTimeRangeHealthDataType<Vo2MaxRecord> {
   /// Creates a VO₂ max data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -35,7 +35,8 @@ final class TotalEnergyBurnedDataType
         ReadableByIdHealthDataType<TotalEnergyBurnedRecord>,
         ReadableInTimeRangeHealthDataType<TotalEnergyBurnedRecord>,
         WriteableHealthDataType<TotalEnergyBurnedRecord>,
-        DeletableHealthDataType<TotalEnergyBurnedRecord>,
+        DeletableByIdsHealthDataType<TotalEnergyBurnedRecord>,
+        DeletableInTimeRangeHealthDataType<TotalEnergyBurnedRecord>,
         SumAggregatableHealthDataType<TotalEnergyBurnedRecord, Energy> {
   /// Creates a total energy burned data type.
   ///

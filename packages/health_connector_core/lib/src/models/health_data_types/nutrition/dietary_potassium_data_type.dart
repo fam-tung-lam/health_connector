@@ -36,7 +36,8 @@ final class DietaryPotassiumDataType
         ReadableInTimeRangeHealthDataType<DietaryPotassiumRecord>,
         WriteableHealthDataType<DietaryPotassiumRecord>,
         SumAggregatableHealthDataType<DietaryPotassiumRecord, Mass>,
-        DeletableHealthDataType<DietaryPotassiumRecord> {
+        DeletableByIdsHealthDataType<DietaryPotassiumRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryPotassiumRecord> {
   /// Creates a potassium data type.
   ///
   /// This is a constant constructor used internally. To reference this data

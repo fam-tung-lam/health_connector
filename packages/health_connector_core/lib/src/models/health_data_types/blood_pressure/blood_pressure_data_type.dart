@@ -42,7 +42,8 @@ final class BloodPressureDataType
         ReadableByIdHealthDataType<BloodPressureRecord>,
         ReadableInTimeRangeHealthDataType<BloodPressureRecord>,
         WriteableHealthDataType<BloodPressureRecord>,
-        DeletableHealthDataType<BloodPressureRecord> {
+        DeletableByIdsHealthDataType<BloodPressureRecord>,
+        DeletableInTimeRangeHealthDataType<BloodPressureRecord> {
   /// Creates a blood pressure data type.
   ///
   /// This is a constant constructor used internally. To reference this data

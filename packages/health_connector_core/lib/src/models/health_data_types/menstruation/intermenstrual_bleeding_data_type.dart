@@ -61,7 +61,8 @@ final class IntermenstrualBleedingDataType
         ReadableByIdHealthDataType<IntermenstrualBleedingRecord>,
         ReadableInTimeRangeHealthDataType<IntermenstrualBleedingRecord>,
         WriteableHealthDataType<IntermenstrualBleedingRecord>,
-        DeletableHealthDataType<IntermenstrualBleedingRecord> {
+        DeletableByIdsHealthDataType<IntermenstrualBleedingRecord>,
+        DeletableInTimeRangeHealthDataType<IntermenstrualBleedingRecord> {
   /// Creates an intermenstrual bleeding data type.
   ///
   /// This is a constant constructor used internally. To reference this data

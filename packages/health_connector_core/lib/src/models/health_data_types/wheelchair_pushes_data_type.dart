@@ -35,7 +35,8 @@ final class WheelchairPushesDataType
         ReadableInTimeRangeHealthDataType<WheelchairPushesRecord>,
         WriteableHealthDataType<WheelchairPushesRecord>,
         SumAggregatableHealthDataType<WheelchairPushesRecord, Number>,
-        DeletableHealthDataType<WheelchairPushesRecord> {
+        DeletableByIdsHealthDataType<WheelchairPushesRecord>,
+        DeletableInTimeRangeHealthDataType<WheelchairPushesRecord> {
   /// Creates a wheelchair pushes data type.
   ///
   /// This is a constant constructor used internally. To reference this data

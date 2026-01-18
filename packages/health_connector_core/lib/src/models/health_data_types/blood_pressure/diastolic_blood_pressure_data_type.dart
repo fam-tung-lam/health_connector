@@ -44,7 +44,8 @@ final class DiastolicBloodPressureDataType
         AvgAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
         MinAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
         MaxAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
-        DeletableHealthDataType<DiastolicBloodPressureRecord> {
+        DeletableByIdsHealthDataType<DiastolicBloodPressureRecord>,
+        DeletableInTimeRangeHealthDataType<DiastolicBloodPressureRecord> {
   /// Creates a diastolic blood pressure data type.
   ///
   /// This is a constant constructor used internally. To reference this data

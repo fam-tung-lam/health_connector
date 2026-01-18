@@ -29,7 +29,8 @@ class LactationDataType extends HealthDataType<LactationRecord, MeasurementUnit>
         ReadableByIdHealthDataType<LactationRecord>,
         ReadableInTimeRangeHealthDataType<LactationRecord>,
         WriteableHealthDataType<LactationRecord>,
-        DeletableHealthDataType<LactationRecord> {
+        DeletableByIdsHealthDataType<LactationRecord>,
+        DeletableInTimeRangeHealthDataType<LactationRecord> {
   /// {@macro health_data_type.const}
   const LactationDataType() : super();
 

@@ -38,7 +38,8 @@ final class SleepStageDataType
         ReadableInTimeRangeHealthDataType<SleepStageRecord>,
         WriteableHealthDataType<SleepStageRecord>,
         SumAggregatableHealthDataType<SleepStageRecord, TimeDuration>,
-        DeletableHealthDataType<SleepStageRecord> {
+        DeletableByIdsHealthDataType<SleepStageRecord>,
+        DeletableInTimeRangeHealthDataType<SleepStageRecord> {
   /// Creates a sleep stage data type.
   ///
   /// This is a constant constructor used internally. To reference this data

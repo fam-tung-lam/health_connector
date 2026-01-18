@@ -30,7 +30,8 @@ final class BasalEnergyBurnedDataType
         ReadableByIdHealthDataType<BasalEnergyBurnedRecord>,
         ReadableInTimeRangeHealthDataType<BasalEnergyBurnedRecord>,
         WriteableHealthDataType<BasalEnergyBurnedRecord>,
-        DeletableHealthDataType<BasalEnergyBurnedRecord>,
+        DeletableByIdsHealthDataType<BasalEnergyBurnedRecord>,
+        DeletableInTimeRangeHealthDataType<BasalEnergyBurnedRecord>,
         SumAggregatableHealthDataType<BasalEnergyBurnedRecord, Energy> {
   /// Creates a basal energy burned data type.
   ///

@@ -44,7 +44,8 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
         AvgAggregatableHealthDataType<HeartRateRecord, Number>,
         MinAggregatableHealthDataType<HeartRateRecord, Number>,
         MaxAggregatableHealthDataType<HeartRateRecord, Number>,
-        DeletableHealthDataType<HeartRateRecord> {
+        DeletableByIdsHealthDataType<HeartRateRecord>,
+        DeletableInTimeRangeHealthDataType<HeartRateRecord> {
   /// Creates a heart rate measurement data type.
   ///
   /// This is a constant constructor used internally. To reference this data

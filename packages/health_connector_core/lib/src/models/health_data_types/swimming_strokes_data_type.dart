@@ -34,7 +34,8 @@ final class SwimmingStrokesDataType
         ReadableInTimeRangeHealthDataType<SwimmingStrokesRecord>,
         WriteableHealthDataType<SwimmingStrokesRecord>,
         SumAggregatableHealthDataType<SwimmingStrokesRecord, Number>,
-        DeletableHealthDataType<SwimmingStrokesRecord> {
+        DeletableByIdsHealthDataType<SwimmingStrokesRecord>,
+        DeletableInTimeRangeHealthDataType<SwimmingStrokesRecord> {
   /// Creates a swimming strokes data type.
   ///
   /// This is a constant constructor used internally. To reference this data

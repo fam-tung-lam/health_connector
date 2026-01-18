@@ -63,7 +63,8 @@ final class MenstrualFlowInstantDataType
         ReadableByIdHealthDataType<MenstrualFlowInstantRecord>,
         ReadableInTimeRangeHealthDataType<MenstrualFlowInstantRecord>,
         WriteableHealthDataType<MenstrualFlowInstantRecord>,
-        DeletableHealthDataType<MenstrualFlowInstantRecord> {
+        DeletableByIdsHealthDataType<MenstrualFlowInstantRecord>,
+        DeletableInTimeRangeHealthDataType<MenstrualFlowInstantRecord> {
   /// Creates a menstrual flow instant data type.
   ///
   /// This is a constant constructor used internally. To reference this data

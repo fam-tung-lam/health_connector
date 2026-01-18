@@ -62,7 +62,8 @@ final class PregnancyTestDataType
         ReadableByIdHealthDataType<PregnancyTestRecord>,
         ReadableInTimeRangeHealthDataType<PregnancyTestRecord>,
         WriteableHealthDataType<PregnancyTestRecord>,
-        DeletableHealthDataType<PregnancyTestRecord> {
+        DeletableByIdsHealthDataType<PregnancyTestRecord>,
+        DeletableInTimeRangeHealthDataType<PregnancyTestRecord> {
   /// Creates a pregnancy test data type.
   ///
   /// This is a constant constructor used internally. To reference this data

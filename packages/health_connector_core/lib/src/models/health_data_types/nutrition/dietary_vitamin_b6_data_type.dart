@@ -36,7 +36,8 @@ final class DietaryVitaminB6DataType
         ReadableInTimeRangeHealthDataType<DietaryVitaminB6Record>,
         WriteableHealthDataType<DietaryVitaminB6Record>,
         SumAggregatableHealthDataType<DietaryVitaminB6Record, Mass>,
-        DeletableHealthDataType<DietaryVitaminB6Record> {
+        DeletableByIdsHealthDataType<DietaryVitaminB6Record>,
+        DeletableInTimeRangeHealthDataType<DietaryVitaminB6Record> {
   /// Creates a vitamin b6 (pyridoxine) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

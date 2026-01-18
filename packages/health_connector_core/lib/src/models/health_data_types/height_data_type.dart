@@ -38,7 +38,8 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
         AvgAggregatableHealthDataType<HeightRecord, Length>,
         MinAggregatableHealthDataType<HeightRecord, Length>,
         MaxAggregatableHealthDataType<HeightRecord, Length>,
-        DeletableHealthDataType<HeightRecord> {
+        DeletableByIdsHealthDataType<HeightRecord>,
+        DeletableInTimeRangeHealthDataType<HeightRecord> {
   /// Creates a height data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -36,7 +36,8 @@ final class DietaryManganeseDataType
         ReadableInTimeRangeHealthDataType<DietaryManganeseRecord>,
         WriteableHealthDataType<DietaryManganeseRecord>,
         SumAggregatableHealthDataType<DietaryManganeseRecord, Mass>,
-        DeletableHealthDataType<DietaryManganeseRecord> {
+        DeletableByIdsHealthDataType<DietaryManganeseRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryManganeseRecord> {
   /// Creates a manganese data type.
   ///
   /// This is a constant constructor used internally. To reference this data

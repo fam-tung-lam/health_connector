@@ -68,7 +68,8 @@ final class HydrationDataType extends HealthDataType<HydrationRecord, Volume>
         ReadableInTimeRangeHealthDataType<HydrationRecord>,
         WriteableHealthDataType<HydrationRecord>,
         SumAggregatableHealthDataType<HydrationRecord, Volume>,
-        DeletableHealthDataType<HydrationRecord> {
+        DeletableByIdsHealthDataType<HydrationRecord>,
+        DeletableInTimeRangeHealthDataType<HydrationRecord> {
   /// Creates a hydration data type.
   ///
   /// This is a constant constructor used internally. To reference this data

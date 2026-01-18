@@ -62,7 +62,8 @@ final class SexualActivityDataType
         ReadableByIdHealthDataType<SexualActivityRecord>,
         ReadableInTimeRangeHealthDataType<SexualActivityRecord>,
         WriteableHealthDataType<SexualActivityRecord>,
-        DeletableHealthDataType<SexualActivityRecord> {
+        DeletableByIdsHealthDataType<SexualActivityRecord>,
+        DeletableInTimeRangeHealthDataType<SexualActivityRecord> {
   /// Creates a sexual activity data type.
   ///
   /// This is a constant constructor used internally. To reference this data

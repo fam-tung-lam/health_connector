@@ -36,7 +36,8 @@ final class DietaryTotalCarbohydrateDataType
         ReadableInTimeRangeHealthDataType<DietaryTotalCarbohydrateRecord>,
         WriteableHealthDataType<DietaryTotalCarbohydrateRecord>,
         SumAggregatableHealthDataType<DietaryTotalCarbohydrateRecord, Mass>,
-        DeletableHealthDataType<DietaryTotalCarbohydrateRecord> {
+        DeletableByIdsHealthDataType<DietaryTotalCarbohydrateRecord>,
+        DeletableInTimeRangeHealthDataType<DietaryTotalCarbohydrateRecord> {
   /// Creates a total carbohydrate data type.
   ///
   /// This is a constant constructor used internally. To reference this data

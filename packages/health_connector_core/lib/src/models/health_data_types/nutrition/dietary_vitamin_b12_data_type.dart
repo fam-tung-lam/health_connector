@@ -36,7 +36,8 @@ final class DietaryVitaminB12DataType
         ReadableInTimeRangeHealthDataType<DietaryVitaminB12Record>,
         WriteableHealthDataType<DietaryVitaminB12Record>,
         SumAggregatableHealthDataType<DietaryVitaminB12Record, Mass>,
-        DeletableHealthDataType<DietaryVitaminB12Record> {
+        DeletableByIdsHealthDataType<DietaryVitaminB12Record>,
+        DeletableInTimeRangeHealthDataType<DietaryVitaminB12Record> {
   /// Creates a vitamin b12 (cobalamin) data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -35,7 +35,8 @@ final class ForcedVitalCapacityDataType
         ReadableByIdHealthDataType<ForcedVitalCapacityRecord>,
         ReadableInTimeRangeHealthDataType<ForcedVitalCapacityRecord>,
         WriteableHealthDataType<ForcedVitalCapacityRecord>,
-        DeletableHealthDataType<ForcedVitalCapacityRecord>,
+        DeletableByIdsHealthDataType<ForcedVitalCapacityRecord>,
+        DeletableInTimeRangeHealthDataType<ForcedVitalCapacityRecord>,
         AvgAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume>,
         MinAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume>,
         MaxAggregatableHealthDataType<ForcedVitalCapacityRecord, Volume> {
