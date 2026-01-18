@@ -18,6 +18,8 @@ extension HealthRecordDto {
             record.id
         case let record as AppleStandTimeRecordDto:
             record.id
+        case let record as AppleWalkingSteadinessRecordDto:
+            record.id
         case let record as BloodAlcoholContentRecordDto:
             record.id
         case let record as BasalEnergyBurnedRecordDto:
@@ -201,6 +203,8 @@ extension HealthRecordDto {
                 return .appleMoveTime
             case is AppleStandTimeRecordDto:
                 return .appleStandTime
+            case is AppleWalkingSteadinessRecordDto:
+                return .appleWalkingSteadiness
             case is AlcoholicBeveragesRecordDto:
                 return .alcoholicBeverages
             case is BloodAlcoholContentRecordDto:
@@ -391,6 +395,8 @@ extension HealthRecordDto {
         case let dto as AppleMoveTimeRecordDto:
             return dto.endTime
         case let dto as AppleStandTimeRecordDto:
+            return dto.endTime
+        case let dto as AppleWalkingSteadinessRecordDto:
             return dto.endTime
         case let dto as ActiveEnergyBurnedRecordDto:
             return dto.endTime

@@ -22,6 +22,7 @@ extension HealthDataPermissionDto {
              .appleExerciseTime,
              .appleMoveTime,
              .appleStandTime,
+             .appleWalkingSteadiness,
              .bloodAlcoholContent,
              .basalEnergyBurned,
              .distance,

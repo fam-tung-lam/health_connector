@@ -136,6 +136,21 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      AppleWalkingSteadinessDataType() => _buildAvgMinMax(
+        () => HealthDataType.appleWalkingSteadiness.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.appleWalkingSteadiness.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.appleWalkingSteadiness.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
 
       SwimmingStrokesDataType() => _buildSum(
         () => HealthDataType.swimmingStrokes.aggregateSum(

@@ -71,6 +71,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       AppleExerciseTimeRecord _ => HealthDataType.appleExerciseTime,
       AppleStandTimeRecord _ => HealthDataType.appleStandTime,
       AppleMoveTimeRecord _ => HealthDataType.appleMoveTime,
+      AppleWalkingSteadinessRecord _ => HealthDataType.appleWalkingSteadiness,
       BloodAlcoholContentRecord _ => HealthDataType.bloodAlcoholContent,
       ExerciseSessionRecord _ => HealthDataType.exerciseSession,
       FloorsClimbedRecord _ => HealthDataType.floorsClimbed,

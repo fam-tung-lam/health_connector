@@ -38,6 +38,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .appleMoveTime)
         case .appleStandTime:
             try HKQuantityType.make(from: .appleStandTime)
+        case .appleWalkingSteadiness:
+            try HKQuantityType.make(from: .appleWalkingSteadiness)
         case .bloodAlcoholContent:
             try HKQuantityType.make(from: .bloodAlcoholContent)
         case .basalEnergyBurned:

@@ -194,6 +194,7 @@ abstract final class AppTexts {
       AppleExerciseTimeDataType() => appleExerciseTime,
       AppleMoveTimeDataType() => appleMoveTime,
       AppleStandTimeDataType() => appleStandTime,
+      AppleWalkingSteadinessDataType() => 'Walking Steadiness',
     };
   }
 

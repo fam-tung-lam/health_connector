@@ -223,6 +223,11 @@ extension HealthRecordToDto on HealthRecord {
           '$AppleStandTimeRecord is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
+      case AppleWalkingSteadinessRecord():
+        throw UnsupportedError(
+          '$AppleWalkingSteadinessRecord is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
       case final BasalEnergyBurnedRecord _:
         throw UnsupportedError(
           '$BasalEnergyBurnedRecord is not supported on Android '

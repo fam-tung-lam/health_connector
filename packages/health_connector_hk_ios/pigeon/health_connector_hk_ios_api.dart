@@ -714,6 +714,9 @@ enum HealthDataTypeDto {
   /// Apple Stand Time data (iOS only).
   appleStandTime,
 
+  /// Apple Walking Steadiness data (iOS only).
+  appleWalkingSteadiness,
+
   /// Blood alcohol content data (iOS only).
   bloodAlcoholContent,
 
@@ -1453,6 +1456,40 @@ class AppleStandTimeRecordDto extends HealthRecordDto {
 
   /// The duration of standing in seconds.
   final double seconds;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents an Apple Walking Steadiness record for platform transfer.
+class AppleWalkingSteadinessRecordDto extends HealthRecordDto {
+  AppleWalkingSteadinessRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.percentage,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// The walking steadiness percentage (stored as decimal 0.0-1.0).
+  final double percentage;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;

@@ -3,6 +3,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/alcoho
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_exercise_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_move_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_stand_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_walking_steadiness_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_alcohol_content_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_record_mapper.dart';
@@ -371,6 +372,8 @@ extension HealthRecordToDto on HealthRecord {
         return AppleMoveTimeRecordToDto(record).toDto();
       case final AppleStandTimeRecord record:
         return AppleStandTimeRecordToDto(record).toDto();
+      case final AppleWalkingSteadinessRecord record:
+        return AppleWalkingSteadinessRecordToDto(record).toDto();
     }
   }
 }
@@ -551,6 +554,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return AppleMoveTimeRecordDtoToDomain(dto).toDomain();
       case final AppleStandTimeRecordDto dto:
         return AppleStandTimeRecordDtoToDomain(dto).toDomain();
+      case final AppleWalkingSteadinessRecordDto dto:
+        return AppleWalkingSteadinessRecordDtoToDomain(dto).toDomain();
     }
   }
 }

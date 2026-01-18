@@ -134,6 +134,7 @@ abstract class MeasurementUnitValueParser {
       AppleExerciseTimeDataType() ||
       AppleMoveTimeDataType() ||
       AppleStandTimeDataType() => _parseTimeDurationMinutes(value),
+      AppleWalkingSteadinessDataType() => _parsePercentage(value),
 
       // Volume
       HydrationDataType() ||

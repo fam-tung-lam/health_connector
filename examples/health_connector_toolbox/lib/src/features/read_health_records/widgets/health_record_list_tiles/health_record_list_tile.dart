@@ -164,6 +164,14 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.standTime,
           onDelete: onDelete,
         ),
+      final AppleWalkingSteadinessRecord r =>
+        SimpleIntervalMeasurementListTile<AppleWalkingSteadinessRecord>(
+          record: r,
+          icon: AppIcons.directionsWalk,
+          titleBuilder: (r) => '${r.percentage.asWhole.toStringAsFixed(1)} %',
+          valueExtractor: (r) => r.percentage,
+          onDelete: onDelete,
+        ),
 
       // Sleep records
       final SleepSessionRecord r => SleepSessionTile(

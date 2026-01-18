@@ -811,6 +811,9 @@ extension on double {
       HealthDataTypeDto.totalCarbohydrate => Mass.grams(this),
       HealthDataTypeDto.hydration => Volume.liters(this),
       HealthDataTypeDto.bodyFatPercentage ||
+      HealthDataTypeDto.bloodAlcoholContent ||
+      HealthDataTypeDto.peripheralPerfusionIndex ||
+      HealthDataTypeDto.appleWalkingSteadiness ||
       HealthDataTypeDto.oxygenSaturation => Percentage.fromDecimal(this),
       HealthDataTypeDto.heartRateMeasurementRecord ||
       HealthDataTypeDto.restingHeartRate ||

@@ -21,6 +21,7 @@ part 'alcoholic_beverages_data_type.dart';
 part 'apple_exercise_time_data_type.dart';
 part 'apple_move_time_data_type.dart';
 part 'apple_stand_time_data_type.dart';
+part 'apple_walking_steadiness_data_type.dart';
 part 'blood_alcohol_content_data_type.dart';
 part 'blood_glucose_data_type.dart';
 part 'blood_pressure/blood_pressure_data_type.dart';
@@ -491,6 +492,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV3_2_0
   @supportedOnAppleHealth
   static const appleStandTime = AppleStandTimeDataType();
+
+  /// Apple Walking Steadiness data type.
+  ///
+  /// Represents the user's walking steadiness as a percentage, measuring the
+  /// stability and regularity of a person's gait.
+  @sinceV3_2_0
+  @supportedOnAppleHealth
+  static const appleWalkingSteadiness = AppleWalkingSteadinessDataType();
 
   /// Exercise session data type.
   ///
@@ -1050,6 +1059,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     appleExerciseTime,
     appleMoveTime,
     appleStandTime,
+    appleWalkingSteadiness,
     basalBodyTemperature,
     basalEnergyBurned,
     dietaryBiotin,

@@ -121,6 +121,7 @@ extension HealthDataTypeUI on HealthDataType {
       AppleExerciseTimeDataType _ => AppTexts.appleExerciseTime,
       AppleMoveTimeDataType _ => AppTexts.appleMoveTime,
       AppleStandTimeDataType _ => AppTexts.appleStandTime,
+      AppleWalkingSteadinessDataType _ => 'Walking Steadiness',
     };
   }
 
@@ -255,6 +256,8 @@ extension HealthDataTypeUI on HealthDataType {
       AppleExerciseTimeDataType _ => AppTexts.appleExerciseTimeDescription,
       AppleMoveTimeDataType _ => AppTexts.appleMoveTimeDescription,
       AppleStandTimeDataType _ => AppTexts.appleStandTimeDescription,
+      AppleWalkingSteadinessDataType _ =>
+        'Measure of walking stability and gait regularity (iOS only)',
     };
   }
 
@@ -374,6 +377,7 @@ extension HealthDataTypeUI on HealthDataType {
       AppleExerciseTimeDataType _ => AppIcons.time,
       AppleMoveTimeDataType _ => AppIcons.time,
       AppleStandTimeDataType _ => AppIcons.time,
+      AppleWalkingSteadinessDataType _ => AppIcons.directionsWalk,
     };
   }
 }

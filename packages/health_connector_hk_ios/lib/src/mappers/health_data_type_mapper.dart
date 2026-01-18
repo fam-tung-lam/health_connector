@@ -209,6 +209,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.appleMoveTime;
       case HealthDataTypeDto.appleStandTime:
         return HealthDataType.appleStandTime;
+      case HealthDataTypeDto.appleWalkingSteadiness:
+        return HealthDataType.appleWalkingSteadiness;
     }
   }
 }
@@ -488,6 +490,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.appleMoveTime;
       case AppleStandTimeDataType _:
         return HealthDataTypeDto.appleStandTime;
+      case AppleWalkingSteadinessDataType _:
+        return HealthDataTypeDto.appleWalkingSteadiness;
     }
   }
 }
