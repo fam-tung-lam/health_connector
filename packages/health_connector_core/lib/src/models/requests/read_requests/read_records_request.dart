@@ -5,6 +5,8 @@ import 'package:health_connector_core/src/config/health_connector_config_constan
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
     show HealthDataType;
+import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart'
+    show ReadableHealthDataType;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord, HealthRecordId;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
@@ -33,7 +35,14 @@ sealed class ReadRecordsRequest<R extends HealthRecord> extends Request {
   /// ## Parameters
   ///
   /// - [dataType]: The type of health data to read.
-  const ReadRecordsRequest({required this.dataType});
+  ReadRecordsRequest({required this.dataType}) {
+    require(
+      condition: dataType is ReadableHealthDataType,
+      value: dataType,
+      name: 'dataType',
+      message: '$dataType is not a readable.',
+    );
+  }
 
   /// The type of health data to read.
   final HealthDataType<R, MeasurementUnit> dataType;
@@ -49,6 +58,9 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
     extends ReadRecordsRequest {
   /// Creates a request to read a health record by its ID.
   ///
+  /// This ID should come from a previous write or reading operation. IDs are
+  /// platform-assigned and should not be manually created.
+  ///
   /// ## Parameters
   ///
   /// - [dataType]: The type of health data to read.
@@ -57,9 +69,9 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
   /// ## Throws
   ///
   /// - [ArgumentError] if [id] is [HealthRecordId.none]
-  factory ReadRecordByIdRequest({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required HealthRecordId id,
+  ReadRecordByIdRequest({
+    required super.dataType,
+    required this.id,
   }) {
     require(
       condition: id != HealthRecordId.none,
@@ -67,20 +79,9 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
       name: 'id',
       message: 'Record ID cannot be HealthRecordId.none',
     );
-
-    return ReadRecordByIdRequest._(dataType: dataType, id: id);
   }
 
-  const ReadRecordByIdRequest._({
-    required super.dataType,
-    required this.id,
-  });
-
   /// The unique identifier of the record to read.
-  ///
-  /// **⚠️ WARNING**: This ID should come from a previous write or reading
-  /// operation. IDs are platform-assigned and should not be manually
-  /// created.
   final HealthRecordId id;
 
   @override
@@ -125,14 +126,14 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
   /// - [ArgumentError] if [endTime] before [startTime]
   /// - [ArgumentError] if [pageSize] is not between 1 and
   ///   [HealthConnectorConfigConstants.maxPageSize]
-  factory ReadRecordsInTimeRangeRequest({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required DateTime startTime,
-    required DateTime endTime,
-    int pageSize = HealthConnectorConfigConstants.defaultPageSize,
-    String? pageToken,
-    List<DataOrigin> dataOrigins = const [],
-    @sinceV3_0_0 SortDescriptor sortDescriptor = SortDescriptor.timeDescending,
+  ReadRecordsInTimeRangeRequest({
+    required super.dataType,
+    required this.startTime,
+    required this.endTime,
+    this.pageSize = HealthConnectorConfigConstants.defaultPageSize,
+    this.pageToken,
+    this.dataOrigins = const [],
+    @sinceV3_0_0 this.sortDescriptor = SortDescriptor.timeDescending,
   }) {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
@@ -146,27 +147,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
           '${HealthConnectorConfigConstants.maxPageSize}. '
           'Got pageSize=$pageSize',
     );
-
-    return ReadRecordsInTimeRangeRequest._(
-      dataType: dataType,
-      startTime: startTime,
-      endTime: endTime,
-      pageSize: pageSize,
-      pageToken: pageToken,
-      dataOrigins: dataOrigins,
-      sortDescriptor: sortDescriptor,
-    );
   }
-
-  const ReadRecordsInTimeRangeRequest._({
-    required super.dataType,
-    required this.startTime,
-    required this.endTime,
-    required this.pageSize,
-    this.pageToken,
-    this.dataOrigins = const [],
-    this.sortDescriptor = SortDescriptor.timeAscending,
-  });
 
   /// List of data origins to filter by.
   ///
@@ -230,7 +211,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
     String? pageToken,
     SortDescriptor? sortDescriptor,
   }) {
-    return ReadRecordsInTimeRangeRequest._(
+    return ReadRecordsInTimeRangeRequest(
       dataType: dataType,
       startTime: startTime,
       endTime: endTime,
