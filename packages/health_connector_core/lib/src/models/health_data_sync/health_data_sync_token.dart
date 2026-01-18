@@ -94,7 +94,10 @@ final class HealthDataSyncToken {
           createdAt == other.createdAt;
 
   @override
-  int get hashCode => Object.hash(token, Object.hashAll(dataTypes), createdAt);
+  int get hashCode =>
+      token.hashCode ^
+      const ListEquality<HealthDataType>().hash(dataTypes) ^
+      createdAt.hashCode;
 
   /// The JSON key for the [token] field.
   static const _tokenKey = 'token';

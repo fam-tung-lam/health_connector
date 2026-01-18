@@ -187,7 +187,7 @@ final class CyclingPedalingCadenceSeriesRecord
       endTime.hashCode ^
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
-      Object.hashAll(samples);
+      const ListEquality<CyclingPedalingCadenceSample>().hash(samples);
 }
 
 /// Represents a single cycling pedaling cadence sample at a specific

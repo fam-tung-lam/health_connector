@@ -70,12 +70,11 @@ final class HealthDataSyncResult extends Response {
           nextSyncToken == other.nextSyncToken;
 
   @override
-  int get hashCode => Object.hash(
-    Object.hashAll(upsertedRecords),
-    Object.hashAll(deletedRecordIds),
-    hasMore,
-    nextSyncToken,
-  );
+  int get hashCode =>
+      const ListEquality<HealthRecord>().hash(upsertedRecords) ^
+      const ListEquality<HealthRecordId>().hash(deletedRecordIds) ^
+      hasMore.hashCode ^
+      nextSyncToken.hashCode;
 
   @override
   String toString() {

@@ -52,7 +52,8 @@ final class DeleteRecordsByIdsRequest extends DeleteRecordsRequest {
           );
 
   @override
-  int get hashCode => dataType.hashCode ^ recordIds.hashCode;
+  int get hashCode =>
+      dataType.hashCode ^ const ListEquality<HealthRecordId>().hash(recordIds);
 
   @override
   String toString() {

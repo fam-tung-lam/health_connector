@@ -187,7 +187,7 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
       endTime.hashCode ^
       (startZoneOffsetSeconds?.hashCode ?? 0) ^
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
-      Object.hashAll(samples) ^
+      const ListEquality<PowerSample>().hash(samples) ^
       metadata.hashCode;
 }
 

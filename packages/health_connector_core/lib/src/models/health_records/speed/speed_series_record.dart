@@ -191,7 +191,7 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
       endTime.hashCode ^
       (startZoneOffsetSeconds?.hashCode ?? 0) ^
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
-      Object.hashAll(samples) ^
+      const ListEquality<SpeedSample>().hash(samples) ^
       metadata.hashCode;
 }
 

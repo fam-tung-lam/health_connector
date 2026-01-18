@@ -184,7 +184,7 @@ final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
       endTime.hashCode ^
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
-      Object.hashAll(samples);
+      const ListEquality<HeartRateSample>().hash(samples);
 }
 
 /// Represents a single heart rate measurement at a specific point in time.

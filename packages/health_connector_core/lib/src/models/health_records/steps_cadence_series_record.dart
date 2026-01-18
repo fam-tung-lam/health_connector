@@ -190,7 +190,7 @@ final class StepsCadenceSeriesRecord
       endTime.hashCode ^
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
-      Object.hashAll(samples);
+      const ListEquality<StepsCadenceSample>().hash(samples);
 }
 
 /// Represents a single steps cadence sample at a specific point in time.

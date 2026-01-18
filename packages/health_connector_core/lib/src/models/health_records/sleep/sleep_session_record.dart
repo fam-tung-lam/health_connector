@@ -229,7 +229,7 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
       endZoneOffsetSeconds.hashCode ^
       title.hashCode ^
       notes.hashCode ^
-      Object.hashAll(samples);
+      const ListEquality<SleepStageSample>().hash(samples);
 }
 
 /// Represents a single sleep stage period with time range.

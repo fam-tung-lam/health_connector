@@ -84,7 +84,9 @@ final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
           nextPageRequest == other.nextPageRequest;
 
   @override
-  int get hashCode => Object.hash(Object.hashAll(records), nextPageRequest);
+  int get hashCode =>
+      const ListEquality<HealthRecord>().hash(records) ^
+      nextPageRequest.hashCode;
 
   @override
   String toString() =>
