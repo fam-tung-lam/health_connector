@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/src/annotations/annotations.dart';
+import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/deletable_health_data_type.dart';
 import 'package:health_connector_core/src/models/requests/request.dart';
 import 'package:health_connector_core/src/utils/validation_utils.dart';
 import 'package:meta/meta.dart';
@@ -23,7 +24,14 @@ sealed class DeleteRecordsRequest extends Request {
   /// ## Parameters
   ///
   /// - [dataType]: The type of health data to delete.
-  const DeleteRecordsRequest({required this.dataType});
+  DeleteRecordsRequest({required this.dataType}) {
+    require(
+      condition: dataType is DeletableHealthDataType,
+      value: dataType,
+      name: 'dataType',
+      message: '$dataType is not deletable.',
+    );
+  }
 
   /// The type of health data to delete.
   final HealthDataType dataType;
@@ -49,9 +57,9 @@ final class DeleteRecordsByIdsRequest extends DeleteRecordsRequest {
   /// ## Throws
   ///
   /// - [ArgumentError] if any record ID is [HealthRecordId.none]
-  factory DeleteRecordsByIdsRequest({
-    required HealthDataType dataType,
-    required List<HealthRecordId> recordIds,
+  DeleteRecordsByIdsRequest({
+    required super.dataType,
+    required this.recordIds,
   }) {
     require(
       condition: recordIds.every((id) => id != HealthRecordId.none),
@@ -61,17 +69,7 @@ final class DeleteRecordsByIdsRequest extends DeleteRecordsRequest {
           'Record ID to delete cannot be HealthRecordId.none. '
           'Found invalid ID in `recordIds` list.',
     );
-
-    return DeleteRecordsByIdsRequest._(
-      dataType: dataType,
-      recordIds: List.unmodifiable(recordIds),
-    );
   }
-
-  const DeleteRecordsByIdsRequest._({
-    required super.dataType,
-    required this.recordIds,
-  });
 
   /// List of unique record identifiers to delete.
   ///
@@ -130,25 +128,13 @@ final class DeleteRecordsInTimeRangeRequest extends DeleteRecordsRequest {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is before [startTime]
-  factory DeleteRecordsInTimeRangeRequest({
-    required HealthDataType dataType,
-    required DateTime startTime,
-    required DateTime endTime,
-  }) {
-    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
-
-    return DeleteRecordsInTimeRangeRequest._(
-      dataType: dataType,
-      startTime: startTime,
-      endTime: endTime,
-    );
-  }
-
-  const DeleteRecordsInTimeRangeRequest._({
+  DeleteRecordsInTimeRangeRequest({
     required super.dataType,
     required this.startTime,
     required this.endTime,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Inclusive start of the time range.
   ///

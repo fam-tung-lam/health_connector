@@ -2,6 +2,8 @@ import 'package:health_connector_core/src/annotations/internal_use.dart';
 import 'package:health_connector_core/src/annotations/since.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord, HealthRecordId;
+import 'package:health_connector_core/src/models/permissions/permission.dart'
+    show HealthDataPermission;
 import 'package:health_connector_core/src/models/requests/delete_records_request.dart'
     show DeleteRecordsByIdsRequest, DeleteRecordsInTimeRangeRequest;
 
@@ -15,31 +17,14 @@ import 'package:health_connector_core/src/models/requests/delete_records_request
 /// Apps can only delete health records that they created.
 /// Both deletion methods will fail if attempting to delete records from
 /// other sources.
-///
-/// ## Example
-///
-/// ```dart
-/// // Delete specific records by ID
-/// final request1 = HealthDataType.steps.deleteByIds([id1, id2]);
-/// await connector.deleteRecords(request1);
-///
-/// // Delete records in a time range
-/// final request2 = HealthDataType.steps.deleteInTimeRange(
-///   startTime: DateTime.now().subtract(Duration(days: 7)),
-///   endTime: DateTime.now(),
-/// );
-/// await connector.deleteRecords(request2);
-/// ```
 @sinceV2_0_0
 @internalUse
-/// Interface for health data types that support deletion.
-///
-/// This serves as a common base type for more specific deletion capabilities.
-/// Most capabilities will implement [DeletableByIdsHealthDataType] and
-/// [DeletableInTimeRangeHealthDataType].
-@sinceV2_0_0
-@internalUse
-abstract interface class DeletableHealthDataType<R extends HealthRecord> {}
+abstract interface class DeletableHealthDataType<R extends HealthRecord> {
+  /// The write permission for this health data type.
+  ///
+  /// Deletion operation require a write permission.
+  HealthDataPermission get writePermission;
+}
 
 /// Interface for health data types that support deleting records by ID.
 @sinceV2_0_0
