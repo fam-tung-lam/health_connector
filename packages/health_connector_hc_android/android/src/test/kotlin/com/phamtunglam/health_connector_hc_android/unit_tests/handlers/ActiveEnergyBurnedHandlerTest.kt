@@ -15,11 +15,11 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveEnergyBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
-import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
+import com.phamtunglam.health_connector_hc_android.pigeon.StandardAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.utils.MainDispatcherExtension
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -417,7 +417,7 @@ class ActiveEnergyBurnedHandlerTest {
             )
             fakeHealthConnectClient.overrides.aggregate = stub(result)
 
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 dataType = HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
                 aggregationMetric = AggregationMetricDto.SUM,
                 startTime = startTime.toEpochMilli(),
@@ -438,7 +438,7 @@ class ActiveEnergyBurnedHandlerTest {
             val startTime = FIXED_NOW
             val endTime = startTime.minusSeconds(3600) // end before start
 
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 dataType = HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
                 aggregationMetric = AggregationMetricDto.SUM,
                 startTime = startTime.toEpochMilli(),
@@ -470,7 +470,7 @@ class ActiveEnergyBurnedHandlerTest {
             fakeHealthConnectClient.overrides.aggregate = stub(result)
 
             // ActiveCaloriesBurnedHandler only supports SUM
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 dataType = HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
                 aggregationMetric = AggregationMetricDto.AVG, // AVG is not supported
                 startTime = startTime.toEpochMilli(),
@@ -499,7 +499,7 @@ class ActiveEnergyBurnedHandlerTest {
             )
             fakeHealthConnectClient.overrides.aggregate = stub(result)
 
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 dataType = HealthDataTypeDto.HYDRATION,
                 aggregationMetric = AggregationMetricDto.SUM,
                 startTime = startTime.toEpochMilli(),

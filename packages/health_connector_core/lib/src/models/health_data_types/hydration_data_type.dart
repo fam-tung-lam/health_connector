@@ -130,7 +130,7 @@ final class HydrationDataType extends HealthDataType<HydrationRecord, Volume>
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,

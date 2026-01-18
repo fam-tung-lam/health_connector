@@ -6,7 +6,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
     show
         ActivityIntensityAggregateRequestDto,
         AggregateRequestDto,
-        CommonAggregateRequestDto,
+        StandardAggregateRequestDto,
         BloodPressureAggregateRequestDto,
         BloodPressureDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -18,8 +18,8 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
     on AggregateRequest<U> {
   AggregateRequestDto toDto() {
     switch (this) {
-      case CommonAggregateRequest _:
-        return CommonAggregateRequestDto(
+      case StandardAggregateRequest _:
+        return StandardAggregateRequestDto(
           dataType: dataType.toDto(),
           aggregationMetric: aggregationMetric.toDto(),
           startTime: startTime.millisecondsSinceEpoch,

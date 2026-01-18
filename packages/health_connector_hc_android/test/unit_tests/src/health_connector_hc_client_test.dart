@@ -52,7 +52,7 @@ void main() {
         ),
       );
       registerFallbackValue(
-        CommonAggregateRequestDto(
+        StandardAggregateRequestDto(
           dataType: HealthDataTypeDto.steps,
           startTime: 0,
           endTime: 1000,
@@ -787,7 +787,7 @@ void main() {
 
                   final now = DateTime.now();
                   final result = await client.aggregate(
-                    CommonAggregateRequest<Number>(
+                    StandardAggregateRequest<Number>(
                       dataType: HealthDataType.steps,
                       startTime: now.subtract(const Duration(days: 1)),
                       endTime: now,
@@ -809,7 +809,7 @@ void main() {
                   final now = DateTime.now();
                   expect(
                     () => client.aggregate(
-                      CommonAggregateRequest<Number>(
+                      StandardAggregateRequest<Number>(
                         dataType: HealthDataType.steps,
                         startTime: now.subtract(const Duration(days: 1)),
                         endTime: now,

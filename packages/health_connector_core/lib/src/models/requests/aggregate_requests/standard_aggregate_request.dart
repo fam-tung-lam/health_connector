@@ -1,6 +1,6 @@
 part of 'aggregate_request.dart';
 
-/// Common aggregate request for standard health data types.
+/// Standard aggregate request for standard health data types.
 ///
 /// This is the default implementation for most health data types that don't
 /// require specialized aggregation handling.
@@ -9,7 +9,7 @@ part of 'aggregate_request.dart';
 @sinceV1_2_0
 @internalUse
 @immutable
-final class CommonAggregateRequest<U extends MeasurementUnit>
+final class StandardAggregateRequest<U extends MeasurementUnit>
     extends AggregateRequest<U> {
   /// Creates a request to aggregate health records.
   ///
@@ -24,7 +24,7 @@ final class CommonAggregateRequest<U extends MeasurementUnit>
   ///
   /// - [ArgumentError] if [endTime] before [startTime]
   /// - [ArgumentError] if [dataType] does not support [aggregationMetric]
-  CommonAggregateRequest({
+  StandardAggregateRequest({
     required super.dataType,
     required super.aggregationMetric,
     required super.startTime,

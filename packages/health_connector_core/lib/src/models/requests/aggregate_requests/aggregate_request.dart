@@ -21,7 +21,7 @@ import 'package:meta/meta.dart';
 
 part 'activity_intensity_aggregate_request.dart';
 part 'blood_pressure_aggregate_request.dart';
-part 'common_aggregate_request.dart';
+part 'standard_aggregate_request.dart';
 
 /// Base request class to perform an aggregation query on health records.
 ///

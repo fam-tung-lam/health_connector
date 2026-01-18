@@ -3692,7 +3692,7 @@ sealed class AggregateRequestDto
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class CommonAggregateRequestDto (
+data class StandardAggregateRequestDto (
   /** The type of aggregation to perform. */
   val aggregationMetric: AggregationMetricDto,
   /** The type of health data to aggregate. */
@@ -3704,12 +3704,12 @@ data class CommonAggregateRequestDto (
 ) : AggregateRequestDto()
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): CommonAggregateRequestDto {
+    fun fromList(pigeonVar_list: List<Any?>): StandardAggregateRequestDto {
       val aggregationMetric = pigeonVar_list[0] as AggregationMetricDto
       val dataType = pigeonVar_list[1] as HealthDataTypeDto
       val endTime = pigeonVar_list[2] as Long
       val startTime = pigeonVar_list[3] as Long
-      return CommonAggregateRequestDto(aggregationMetric, dataType, endTime, startTime)
+      return StandardAggregateRequestDto(aggregationMetric, dataType, endTime, startTime)
     }
   }
   fun toList(): List<Any?> {
@@ -3721,7 +3721,7 @@ data class CommonAggregateRequestDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is CommonAggregateRequestDto) {
+    if (other !is StandardAggregateRequestDto) {
       return false
     }
     if (this === other) {
@@ -4568,7 +4568,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       211.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CommonAggregateRequestDto.fromList(it)
+          StandardAggregateRequestDto.fromList(it)
         }
       }
       212.toByte() -> {
@@ -4949,7 +4949,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(210)
         writeValue(stream, value.toList())
       }
-      is CommonAggregateRequestDto -> {
+      is StandardAggregateRequestDto -> {
         stream.write(211)
         writeValue(stream, value.toList())
       }

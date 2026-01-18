@@ -4,8 +4,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityAggre
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureAggregateRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.StandardAggregateRequestDto
 
 /**
  * Extension properties to get common fields from an [AggregateRequestDto].
@@ -24,7 +24,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 internal val AggregateRequestDto.startTime: Long
     get() = when (this) {
         is ActivityIntensityAggregateRequestDto -> startTime
-        is CommonAggregateRequestDto -> startTime
+        is StandardAggregateRequestDto -> startTime
         is BloodPressureAggregateRequestDto -> startTime
     }
 
@@ -36,7 +36,7 @@ internal val AggregateRequestDto.startTime: Long
 internal val AggregateRequestDto.endTime: Long
     get() = when (this) {
         is ActivityIntensityAggregateRequestDto -> endTime
-        is CommonAggregateRequestDto -> endTime
+        is StandardAggregateRequestDto -> endTime
         is BloodPressureAggregateRequestDto -> endTime
     }
 
@@ -48,14 +48,14 @@ internal val AggregateRequestDto.endTime: Long
 internal val AggregateRequestDto.aggregationMetric: AggregationMetricDto
     get() = when (this) {
         is ActivityIntensityAggregateRequestDto -> AggregationMetricDto.SUM
-        is CommonAggregateRequestDto -> aggregationMetric
+        is StandardAggregateRequestDto -> aggregationMetric
         is BloodPressureAggregateRequestDto -> aggregationMetric
     }
 
 /**
  * Gets the health data type from an [AggregateRequestDto].
  *
- * For [CommonAggregateRequestDto], returns the actual data type.
+ * For [StandardAggregateRequestDto], returns the actual data type.
  * For [BloodPressureAggregateRequestDto], returns [HealthDataTypeDto.BLOOD_PRESSURE].
  *
  * @return The health data type to aggregate.
@@ -63,6 +63,6 @@ internal val AggregateRequestDto.aggregationMetric: AggregationMetricDto
 internal val AggregateRequestDto.dataType: HealthDataTypeDto
     get() = when (this) {
         is ActivityIntensityAggregateRequestDto -> HealthDataTypeDto.ACTIVITY_INTENSITY
-        is CommonAggregateRequestDto -> dataType
+        is StandardAggregateRequestDto -> dataType
         is BloodPressureAggregateRequestDto -> HealthDataTypeDto.BLOOD_PRESSURE
     }

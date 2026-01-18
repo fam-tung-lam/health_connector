@@ -2301,8 +2301,8 @@ enum SortOrderDto {
 sealed class AggregateRequestDto {}
 
 /// Request to perform aggregation on common health records.
-class CommonAggregateRequestDto extends AggregateRequestDto {
-  CommonAggregateRequestDto({
+class StandardAggregateRequestDto extends AggregateRequestDto {
+  StandardAggregateRequestDto({
     required this.dataType,
     required this.aggregationMetric,
     required this.startTime,

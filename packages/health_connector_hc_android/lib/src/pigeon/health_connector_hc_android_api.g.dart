@@ -4665,8 +4665,8 @@ class PermissionRequestsDto {
 sealed class AggregateRequestDto {}
 
 /// Request to perform aggregation on common health records.
-class CommonAggregateRequestDto extends AggregateRequestDto {
-  CommonAggregateRequestDto({
+class StandardAggregateRequestDto extends AggregateRequestDto {
+  StandardAggregateRequestDto({
     required this.aggregationMetric,
     required this.dataType,
     required this.endTime,
@@ -4698,9 +4698,9 @@ class CommonAggregateRequestDto extends AggregateRequestDto {
     return _toList();
   }
 
-  static CommonAggregateRequestDto decode(Object result) {
+  static StandardAggregateRequestDto decode(Object result) {
     result as List<Object?>;
-    return CommonAggregateRequestDto(
+    return StandardAggregateRequestDto(
       aggregationMetric: result[0]! as AggregationMetricDto,
       dataType: result[1]! as HealthDataTypeDto,
       endTime: result[2]! as int,
@@ -4711,7 +4711,7 @@ class CommonAggregateRequestDto extends AggregateRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CommonAggregateRequestDto ||
+    if (other is! StandardAggregateRequestDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5538,7 +5538,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PermissionRequestsDto) {
       buffer.putUint8(210);
       writeValue(buffer, value.encode());
-    } else if (value is CommonAggregateRequestDto) {
+    } else if (value is StandardAggregateRequestDto) {
       buffer.putUint8(211);
       writeValue(buffer, value.encode());
     } else if (value is BloodPressureAggregateRequestDto) {
@@ -5784,7 +5784,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 210:
         return PermissionRequestsDto.decode(readValue(buffer)!);
       case 211:
-        return CommonAggregateRequestDto.decode(readValue(buffer)!);
+        return StandardAggregateRequestDto.decode(readValue(buffer)!);
       case 212:
         return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
       case 213:

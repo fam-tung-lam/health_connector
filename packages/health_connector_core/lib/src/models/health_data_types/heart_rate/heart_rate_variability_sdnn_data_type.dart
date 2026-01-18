@@ -74,7 +74,7 @@ final class HeartRateVariabilitySDNNDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -87,7 +87,7 @@ final class HeartRateVariabilitySDNNDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -100,7 +100,7 @@ final class HeartRateVariabilitySDNNDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -113,7 +113,7 @@ final class HeartRateVariabilitySDNNDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

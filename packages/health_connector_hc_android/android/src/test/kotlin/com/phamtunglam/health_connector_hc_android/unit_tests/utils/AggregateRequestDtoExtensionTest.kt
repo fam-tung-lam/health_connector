@@ -4,8 +4,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.StandardAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance
  * Unit tests for AggregateRequestDto Extensions.
  *
  * Tests verify proper extraction of common fields from [AggregateRequestDto] sealed class
- * and its subclasses ([CommonAggregateRequestDto] and [BloodPressureAggregateRequestDto]).
+ * and its subclasses ([StandardAggregateRequestDto] and [BloodPressureAggregateRequestDto]).
  * These extensions work around a Pigeon limitation where sealed classes cannot have fields.
  */
 @DisplayName("AggregateRequestDtoExtensions")
@@ -28,22 +28,22 @@ class AggregateRequestDtoExtensionTest {
         const val TEST_END_TIME = 1609545600000L // 2021-01-02 00:00:00 UTC
     }
 
-    // region CommonAggregateRequestDto Tests
+    // region StandardAggregateRequestDto Tests
 
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    @DisplayName("CommonAggregateRequestDto")
+    @DisplayName("StandardAggregateRequestDto")
     inner class CommonAggregateRequestDtoTests {
 
         @Test
         @DisplayName(
-            "GIVEN CommonAggregateRequestDto with all fields → " +
+            "GIVEN StandardAggregateRequestDto with all fields → " +
                 "WHEN all extensions accessed → " +
                 "THEN returns all correct values",
         )
         fun whenCommonRequest_thenAllExtensionsWork() {
             // Given
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 startTime = TEST_START_TIME,
                 endTime = TEST_END_TIME,
                 aggregationMetric = AggregationMetricDto.AVG,

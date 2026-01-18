@@ -13,11 +13,11 @@ import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorExc
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsCadenceSeriesHandler
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
-import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
+import com.phamtunglam.health_connector_hc_android.pigeon.StandardAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsCadenceSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsCadenceSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.utils.MainDispatcherExtension
@@ -220,7 +220,7 @@ class StepsCadenceSeriesHandlerTest {
             )
             fakeHealthConnectClient.overrides.aggregate = stub(result)
 
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 dataType = HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD,
                 aggregationMetric = AggregationMetricDto.AVG,
                 startTime = startTime.toEpochMilli(),
@@ -252,7 +252,7 @@ class StepsCadenceSeriesHandlerTest {
             )
             fakeHealthConnectClient.overrides.aggregate = stub(result)
 
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 dataType = HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD,
                 aggregationMetric = AggregationMetricDto.MIN,
                 startTime = startTime.toEpochMilli(),
@@ -284,7 +284,7 @@ class StepsCadenceSeriesHandlerTest {
             )
             fakeHealthConnectClient.overrides.aggregate = stub(result)
 
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 dataType = HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD,
                 aggregationMetric = AggregationMetricDto.MAX,
                 startTime = startTime.toEpochMilli(),
@@ -313,7 +313,7 @@ class StepsCadenceSeriesHandlerTest {
             fakeHealthConnectClient.overrides.aggregate = stub(result)
 
             // SUM is not supported for Steps Cadence
-            val request = CommonAggregateRequestDto(
+            val request = StandardAggregateRequestDto(
                 dataType = HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD,
                 aggregationMetric = AggregationMetricDto.SUM,
                 startTime = startTime.toEpochMilli(),

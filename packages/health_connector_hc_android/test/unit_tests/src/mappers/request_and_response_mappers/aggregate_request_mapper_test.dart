@@ -14,7 +14,7 @@ void main() {
         'AggregateRequestDtoMapper',
         () {
           test(
-            'maps CommonAggregateRequest to CommonAggregateRequestDto',
+            'maps CommonAggregateRequest to StandardAggregateRequestDto',
             () {
               final request = HealthDataType.steps.aggregateSum(
                 startTime: startTime,
@@ -23,8 +23,8 @@ void main() {
 
               final dto = request.toDto();
 
-              expect(dto, isA<CommonAggregateRequestDto>());
-              final commonDto = dto as CommonAggregateRequestDto;
+              expect(dto, isA<StandardAggregateRequestDto>());
+              final commonDto = dto as StandardAggregateRequestDto;
               expect(commonDto.dataType, HealthDataTypeDto.steps);
               expect(commonDto.aggregationMetric, AggregationMetricDto.sum);
               expect(

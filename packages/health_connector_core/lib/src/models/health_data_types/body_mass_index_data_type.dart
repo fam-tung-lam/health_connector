@@ -71,7 +71,7 @@ final class BodyMassIndexDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -84,7 +84,7 @@ final class BodyMassIndexDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -97,7 +97,7 @@ final class BodyMassIndexDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -110,7 +110,7 @@ final class BodyMassIndexDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return CommonAggregateRequest(
+    return StandardAggregateRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
