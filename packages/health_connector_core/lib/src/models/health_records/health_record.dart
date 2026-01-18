@@ -16,6 +16,7 @@ part 'activity_intensity/activity_intensity_type.dart';
 part 'alcoholic_beverages_record.dart';
 part 'apple_exercise_time_record.dart';
 part 'apple_move_time_record.dart';
+part 'apple_stand_time_record.dart';
 part 'blood_alcohol_content_record.dart';
 part 'blood_glucose/blood_glucose_record.dart';
 part 'blood_glucose/blood_glucose_relation_to_meal.dart';

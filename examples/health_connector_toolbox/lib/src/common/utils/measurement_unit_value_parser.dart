@@ -131,7 +131,9 @@ abstract class MeasurementUnitValueParser {
       HeartRateVariabilitySDNNDataType() => _parseTimeDuration(value),
 
       // Time duration (Minutes)
-      AppleExerciseTimeDataType() => _parseTimeDurationMinutes(value),
+      AppleExerciseTimeDataType() ||
+      AppleMoveTimeDataType() ||
+      AppleStandTimeDataType() => _parseTimeDurationMinutes(value),
 
       // Volume
       HydrationDataType() ||
@@ -219,7 +221,6 @@ abstract class MeasurementUnitValueParser {
         '$ActivityIntensityDataType is a record of intensity activity type, '
         'cannot be parsed from a single string input.',
       ),
-      AppleMoveTimeDataType() => _parseTimeDurationMinutes(value),
     };
   }
 

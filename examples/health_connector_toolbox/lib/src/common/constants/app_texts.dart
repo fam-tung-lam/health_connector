@@ -193,6 +193,7 @@ abstract final class AppTexts {
       ActivityIntensityDataType() => activityIntensity,
       AppleExerciseTimeDataType() => appleExerciseTime,
       AppleMoveTimeDataType() => appleMoveTime,
+      AppleStandTimeDataType() => appleStandTime,
     };
   }
 
@@ -332,6 +333,9 @@ abstract final class AppTexts {
   static const String appleMoveTime = 'Apple Move Time';
   static const String appleMoveTimeDescription =
       'Amount of time spent moving actively';
+  static const String appleStandTime = 'Apple Stand Time';
+  static const String appleStandTimeDescription =
+      'Amount of time spent standing';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';

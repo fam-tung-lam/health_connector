@@ -21,6 +21,7 @@ extension HealthDataPermissionDto {
              .alcoholicBeverages,
              .appleExerciseTime,
              .appleMoveTime,
+             .appleStandTime,
              .bloodAlcoholContent,
              .basalEnergyBurned,
              .distance,

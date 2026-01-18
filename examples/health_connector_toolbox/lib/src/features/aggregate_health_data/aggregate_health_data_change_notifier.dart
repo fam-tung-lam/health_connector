@@ -129,6 +129,14 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         metric,
       ),
 
+      AppleStandTimeDataType() => _buildSum(
+        () => HealthDataType.appleStandTime.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+
       SwimmingStrokesDataType() => _buildSum(
         () => HealthDataType.swimmingStrokes.aggregateSum(
           startTime: startTime,

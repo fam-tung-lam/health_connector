@@ -20,6 +20,7 @@ part 'activity_intensity_data_type.dart';
 part 'alcoholic_beverages_data_type.dart';
 part 'apple_exercise_time_data_type.dart';
 part 'apple_move_time_data_type.dart';
+part 'apple_stand_time_data_type.dart';
 part 'blood_alcohol_content_data_type.dart';
 part 'blood_glucose_data_type.dart';
 part 'blood_pressure/blood_pressure_data_type.dart';
@@ -482,6 +483,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV3_2_0
   @supportedOnAppleHealth
   static const appleMoveTime = AppleMoveTimeDataType();
+
+  /// Apple Stand Time data type.
+  ///
+  /// Represents the amount of time the user has stood still for at least
+  /// one minute in an hour.
+  @sinceV3_2_0
+  @supportedOnAppleHealth
+  static const appleStandTime = AppleStandTimeDataType();
 
   /// Exercise session data type.
   ///
@@ -1040,6 +1049,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     alcoholicBeverages,
     appleExerciseTime,
     appleMoveTime,
+    appleStandTime,
     basalBodyTemperature,
     basalEnergyBurned,
     dietaryBiotin,

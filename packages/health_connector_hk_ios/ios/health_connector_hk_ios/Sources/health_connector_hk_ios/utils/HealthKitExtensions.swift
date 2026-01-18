@@ -171,6 +171,8 @@ extension HKSample {
                 return .appleExerciseTime
             case HKQuantityTypeIdentifier.appleMoveTime.rawValue:
                 return .appleMoveTime
+            case HKQuantityTypeIdentifier.appleStandTime.rawValue:
+                return .appleStandTime
             // Category types
             case HKCategoryTypeIdentifier.sleepAnalysis.rawValue:
                 return .sleepStageRecord

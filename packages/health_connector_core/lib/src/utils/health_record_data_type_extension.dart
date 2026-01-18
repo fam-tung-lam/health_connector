@@ -69,6 +69,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       ActivityIntensityRecord _ => HealthDataType.activityIntensity,
       AlcoholicBeveragesRecord _ => HealthDataType.alcoholicBeverages,
       AppleExerciseTimeRecord _ => HealthDataType.appleExerciseTime,
+      AppleStandTimeRecord _ => HealthDataType.appleStandTime,
       AppleMoveTimeRecord _ => HealthDataType.appleMoveTime,
       BloodAlcoholContentRecord _ => HealthDataType.bloodAlcoholContent,
       ExerciseSessionRecord _ => HealthDataType.exerciseSession,

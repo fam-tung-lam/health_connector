@@ -758,7 +758,8 @@ extension on double {
       HealthDataTypeDto.swimmingStrokes ||
       HealthDataTypeDto.wheelchairPushes => Number(this),
       HealthDataTypeDto.appleExerciseTime ||
-      HealthDataTypeDto.appleMoveTime => TimeDuration.seconds(this),
+      HealthDataTypeDto.appleMoveTime ||
+      HealthDataTypeDto.appleStandTime => TimeDuration.seconds(this),
       HealthDataTypeDto.activeCaloriesBurned ||
       HealthDataTypeDto.basalEnergyBurned ||
       HealthDataTypeDto.dietaryEnergyConsumed => Energy.kilocalories(this),

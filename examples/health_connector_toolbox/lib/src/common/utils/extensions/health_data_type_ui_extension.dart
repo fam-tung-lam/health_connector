@@ -120,6 +120,7 @@ extension HealthDataTypeUI on HealthDataType {
       ActivityIntensityDataType _ => AppTexts.activityIntensity,
       AppleExerciseTimeDataType _ => AppTexts.appleExerciseTime,
       AppleMoveTimeDataType _ => AppTexts.appleMoveTime,
+      AppleStandTimeDataType _ => AppTexts.appleStandTime,
     };
   }
 
@@ -253,6 +254,7 @@ extension HealthDataTypeUI on HealthDataType {
         'Minutes spent in moderate or vigorous activity (Android only)',
       AppleExerciseTimeDataType _ => AppTexts.appleExerciseTimeDescription,
       AppleMoveTimeDataType _ => AppTexts.appleMoveTimeDescription,
+      AppleStandTimeDataType _ => AppTexts.appleStandTimeDescription,
     };
   }
 
@@ -371,6 +373,7 @@ extension HealthDataTypeUI on HealthDataType {
       ActivityIntensityDataType _ => AppIcons.fitnessCenter,
       AppleExerciseTimeDataType _ => AppIcons.time,
       AppleMoveTimeDataType _ => AppIcons.time,
+      AppleStandTimeDataType _ => AppIcons.time,
     };
   }
 }
