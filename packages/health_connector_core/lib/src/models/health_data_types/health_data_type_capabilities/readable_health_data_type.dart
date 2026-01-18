@@ -11,7 +11,7 @@ import 'package:health_connector_core/src/models/permissions/permission.dart'
 import 'package:health_connector_core/src/models/requests/read_requests/read_records_request.dart'
     show ReadRecordsInTimeRangeRequest, ReadRecordByIdRequest;
 
-/// Interface that adds read permission capability to a health data type.
+/// Interface that adds read capability to a health data type.
 @sinceV1_0_0
 @internalUse
 abstract interface class ReadableHealthDataType<R extends HealthRecord> {

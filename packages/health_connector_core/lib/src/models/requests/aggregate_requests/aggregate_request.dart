@@ -7,6 +7,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         supportedOnHealthConnect;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
     show HealthDataType;
+import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/aggregateable_health_data_type.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show ActivityIntensityType, HealthRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
@@ -62,6 +63,12 @@ sealed class AggregateRequest<U extends MeasurementUnit> extends Request {
     required this.startTime,
     required this.endTime,
   }) {
+    require(
+      condition: dataType is AggregatableHealthDataType,
+      value: dataType,
+      name: 'dataType',
+      message: '$dataType is not aggregatable.',
+    );
     require(
       condition: dataType.supportedAggregationMetrics.contains(
         aggregationMetric,

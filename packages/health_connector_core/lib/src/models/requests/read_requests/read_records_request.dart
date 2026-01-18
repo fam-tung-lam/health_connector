@@ -40,7 +40,7 @@ sealed class ReadRecordsRequest<R extends HealthRecord> extends Request {
       condition: dataType is ReadableHealthDataType,
       value: dataType,
       name: 'dataType',
-      message: '$dataType is not a readable.',
+      message: '$dataType is not readable.',
     );
   }
 
