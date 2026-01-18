@@ -192,6 +192,7 @@ abstract final class AppTexts {
       HeartRateVariabilitySDNNDataType() => heartRateVariabilitySDNN,
       ActivityIntensityDataType() => activityIntensity,
       AppleExerciseTimeDataType() => appleExerciseTime,
+      AppleMoveTimeDataType() => appleMoveTime,
     };
   }
 
@@ -328,6 +329,9 @@ abstract final class AppTexts {
   static const String appleExerciseTime = 'Apple Exercise Time';
   static const String appleExerciseTimeDescription =
       'Amount of time spent exercising';
+  static const String appleMoveTime = 'Apple Move Time';
+  static const String appleMoveTimeDescription =
+      'Amount of time spent moving actively';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';

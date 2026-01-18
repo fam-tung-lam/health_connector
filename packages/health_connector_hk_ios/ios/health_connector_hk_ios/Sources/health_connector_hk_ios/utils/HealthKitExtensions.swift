@@ -167,6 +167,10 @@ extension HKSample {
                 return .peripheralPerfusionIndex
             case HKQuantityTypeIdentifier.forcedVitalCapacity.rawValue:
                 return .forcedVitalCapacity
+            case HKQuantityTypeIdentifier.appleExerciseTime.rawValue:
+                return .appleExerciseTime
+            case HKQuantityTypeIdentifier.appleMoveTime.rawValue:
+                return .appleMoveTime
             // Category types
             case HKCategoryTypeIdentifier.sleepAnalysis.rawValue:
                 return .sleepStageRecord

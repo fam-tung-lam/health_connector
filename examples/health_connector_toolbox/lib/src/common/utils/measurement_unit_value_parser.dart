@@ -219,6 +219,7 @@ abstract class MeasurementUnitValueParser {
         '$ActivityIntensityDataType is a record of intensity activity type, '
         'cannot be parsed from a single string input.',
       ),
+      AppleMoveTimeDataType() => _parseTimeDurationMinutes(value),
     };
   }
 

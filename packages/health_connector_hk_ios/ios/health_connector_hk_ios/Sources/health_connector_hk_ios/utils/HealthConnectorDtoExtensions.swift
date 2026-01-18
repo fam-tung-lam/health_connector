@@ -12,6 +12,10 @@ extension HealthRecordDto {
             record.id
         case let record as AlcoholicBeveragesRecordDto:
             record.id
+        case let record as AppleExerciseTimeRecordDto:
+            record.id
+        case let record as AppleMoveTimeRecordDto:
+            record.id
         case let record as BloodAlcoholContentRecordDto:
             record.id
         case let record as BasalEnergyBurnedRecordDto:
@@ -189,6 +193,10 @@ extension HealthRecordDto {
                 return .basalBodyTemperature
             case is ActiveEnergyBurnedRecordDto:
                 return .activeCaloriesBurned
+            case is AppleExerciseTimeRecordDto:
+                return .appleExerciseTime
+            case is AppleMoveTimeRecordDto:
+                return .appleMoveTime
             case is AlcoholicBeveragesRecordDto:
                 return .alcoholicBeverages
             case is BloodAlcoholContentRecordDto:
@@ -373,6 +381,10 @@ extension HealthRecordDto {
         switch self {
         // Interval-based DTOs with endTime
         case let dto as StepsRecordDto:
+            return dto.endTime
+        case let dto as AppleExerciseTimeRecordDto:
+            return dto.endTime
+        case let dto as AppleMoveTimeRecordDto:
             return dto.endTime
         case let dto as ActiveEnergyBurnedRecordDto:
             return dto.endTime

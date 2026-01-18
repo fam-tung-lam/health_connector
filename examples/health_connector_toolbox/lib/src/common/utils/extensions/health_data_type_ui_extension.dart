@@ -119,6 +119,7 @@ extension HealthDataTypeUI on HealthDataType {
       LactationDataType _ => AppTexts.lactation,
       ActivityIntensityDataType _ => AppTexts.activityIntensity,
       AppleExerciseTimeDataType _ => AppTexts.appleExerciseTime,
+      AppleMoveTimeDataType _ => AppTexts.appleMoveTime,
     };
   }
 
@@ -251,6 +252,7 @@ extension HealthDataTypeUI on HealthDataType {
       ActivityIntensityDataType _ =>
         'Minutes spent in moderate or vigorous activity (Android only)',
       AppleExerciseTimeDataType _ => AppTexts.appleExerciseTimeDescription,
+      AppleMoveTimeDataType _ => AppTexts.appleMoveTimeDescription,
     };
   }
 
@@ -368,6 +370,7 @@ extension HealthDataTypeUI on HealthDataType {
       ContraceptiveDataType _ => AppIcons.medication,
       ActivityIntensityDataType _ => AppIcons.fitnessCenter,
       AppleExerciseTimeDataType _ => AppIcons.time,
+      AppleMoveTimeDataType _ => AppIcons.time,
     };
   }
 }
@@ -730,6 +733,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.duration,
         AppTexts.minutes,
       ),
+      const (AppleMoveTimeDataType) => AppTexts.valueWithUnit(
+        AppTexts.duration,
+        AppTexts.minutes,
+      ),
 
       _ => throw ArgumentError(
         'No field label for $runtimeType. '
@@ -806,7 +813,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (DietarySugarDataType) => AppTexts.gram,
 
       // Time
-      const (AppleExerciseTimeDataType) => AppTexts.minutes,
+      const (AppleExerciseTimeDataType) ||
+      const (AppleMoveTimeDataType) => AppTexts.minutes,
 
       // Nutrients - milligrams
       const (DietaryCaffeineDataType) ||

@@ -20,6 +20,7 @@ extension HealthDataPermissionDto {
         case .activeCaloriesBurned,
              .alcoholicBeverages,
              .appleExerciseTime,
+             .appleMoveTime,
              .bloodAlcoholContent,
              .basalEnergyBurned,
              .distance,

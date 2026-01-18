@@ -15,6 +15,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as AppleExerciseTimeRecordDto:
             return try dto.toHealthKit()
+        case let dto as AppleMoveTimeRecordDto:
+            return try dto.toHealthKit()
         case let dto as BloodAlcoholContentRecordDto:
             return try dto.toHealthKit()
         case let dto as BasalEnergyBurnedRecordDto:
@@ -321,6 +323,8 @@ extension HKQuantitySample {
             try toAlcoholicBeveragesRecordDto()
         case .appleExerciseTime:
             try toAppleExerciseTimeRecordDto()
+        case .appleMoveTime:
+            try toAppleMoveTimeRecordDto()
         case .bloodAlcoholContent:
             try toBloodAlcoholContentRecordDto()
         case .basalEnergyBurned:

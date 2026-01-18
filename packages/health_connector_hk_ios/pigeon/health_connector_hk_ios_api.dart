@@ -708,6 +708,9 @@ enum HealthDataTypeDto {
   /// Apple Exercise Time data (iOS only).
   appleExerciseTime,
 
+  /// Apple Move Time data (iOS only).
+  appleMoveTime,
+
   /// Blood alcohol content data (iOS only).
   bloodAlcoholContent,
 
@@ -1376,6 +1379,41 @@ class AppleExerciseTimeRecordDto extends HealthRecordDto {
   });
 
   /// The duration of exercise in seconds.
+  final double seconds;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents an Apple Move Time record for platform transfer (iOS HealthKit
+/// only).
+class AppleMoveTimeRecordDto extends HealthRecordDto {
+  AppleMoveTimeRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.seconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// The duration of movement in seconds.
   final double seconds;
 
   /// End time in milliseconds since epoch (UTC).

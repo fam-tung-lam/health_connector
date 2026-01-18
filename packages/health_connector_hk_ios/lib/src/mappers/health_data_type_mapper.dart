@@ -205,6 +205,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.peripheralPerfusionIndex;
       case HealthDataTypeDto.appleExerciseTime:
         return HealthDataType.appleExerciseTime;
+      case HealthDataTypeDto.appleMoveTime:
+        return HealthDataType.appleMoveTime;
     }
   }
 }
@@ -480,6 +482,8 @@ extension HealthDataTypeToDto on HealthDataType {
         );
       case AppleExerciseTimeDataType _:
         return HealthDataTypeDto.appleExerciseTime;
+      case AppleMoveTimeDataType _:
+        return HealthDataTypeDto.appleMoveTime;
     }
   }
 }

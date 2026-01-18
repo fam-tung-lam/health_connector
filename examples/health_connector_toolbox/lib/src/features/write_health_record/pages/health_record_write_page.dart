@@ -581,6 +581,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       AppleExerciseTimeDataType _ => throw UnsupportedError(
         'Apple Exercise Time is read-only',
       ),
+      AppleMoveTimeDataType _ => throw UnsupportedError(
+        'Apple Move Time is read-only',
+      ),
     };
   }
 }
