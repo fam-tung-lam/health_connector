@@ -12,7 +12,7 @@ import 'package:health_connector_core/src/models/metadata/metadata.dart';
 import 'package:health_connector_core/src/models/permissions/permission.dart';
 import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregate_request.dart';
 import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregation_metric.dart';
-import 'package:health_connector_core/src/models/requests/delete_records_request.dart';
+import 'package:health_connector_core/src/models/requests/delete_requests/delete_records_request.dart';
 import 'package:health_connector_core/src/models/requests/read_requests/read_records_request.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 

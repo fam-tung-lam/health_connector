@@ -4,7 +4,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
     show HealthRecord, HealthRecordId;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission;
-import 'package:health_connector_core/src/models/requests/delete_records_request.dart'
+import 'package:health_connector_core/src/models/requests/delete_requests/delete_records_request.dart'
     show DeleteRecordsByIdsRequest, DeleteRecordsInTimeRangeRequest;
 
 /// Interface that adds deletion capability to a health data type.

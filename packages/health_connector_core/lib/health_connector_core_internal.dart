@@ -40,7 +40,7 @@ export 'src/models/metadata/metadata.dart';
 export 'src/models/permissions/permission.dart';
 export 'src/models/requests/aggregate_requests/aggregate_request.dart';
 export 'src/models/requests/aggregate_requests/aggregation_metric.dart';
-export 'src/models/requests/delete_records_request.dart';
+export 'src/models/requests/delete_requests/delete_records_request.dart';
 export 'src/models/requests/read_requests/read_records_request.dart';
 export 'src/models/requests/read_requests/sort_descriptor.dart';
 export 'src/models/responses/permission_request_result.dart';
