@@ -138,6 +138,15 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.volume,
           onDelete: onDelete,
         ),
+      final AppleExerciseTimeRecord r =>
+        SimpleIntervalMeasurementListTile<AppleExerciseTimeRecord>(
+          record: r,
+          icon: AppIcons.time,
+          titleBuilder: (r) =>
+              '${r.exerciseTime.inMinutes.toStringAsFixed(0)} min',
+          valueExtractor: (r) => r.exerciseTime,
+          onDelete: onDelete,
+        ),
 
       // Sleep records
       final SleepSessionRecord r => SleepSessionTile(

@@ -203,6 +203,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         );
       case HealthDataTypeDto.peripheralPerfusionIndex:
         return HealthDataType.peripheralPerfusionIndex;
+      case HealthDataTypeDto.appleExerciseTime:
+        return HealthDataType.appleExerciseTime;
     }
   }
 }
@@ -476,6 +478,8 @@ extension HealthDataTypeToDto on HealthDataType {
         throw UnsupportedError(
           '$ActivityIntensityDataType is not supported on iOS HealthKit.',
         );
+      case AppleExerciseTimeDataType _:
+        return HealthDataTypeDto.appleExerciseTime;
     }
   }
 }

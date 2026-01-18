@@ -105,6 +105,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$AlcoholicBeveragesDataType is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
+      case AppleExerciseTimeDataType _:
+        throw UnsupportedError(
+          '$AppleExerciseTimeDataType is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
       case BloodAlcoholContentDataType _:
         throw UnsupportedError(
           '$BloodAlcoholContentDataType is not supported on Android Health '

@@ -22,6 +22,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         Percentage,
         Pressure,
         Temperature,
+        TimeDuration,
         Volume,
         Permission,
         PermissionRequestResult,
@@ -756,6 +757,7 @@ extension on double {
       HealthDataTypeDto.floorsClimbed ||
       HealthDataTypeDto.swimmingStrokes ||
       HealthDataTypeDto.wheelchairPushes => Number(this),
+      HealthDataTypeDto.appleExerciseTime => TimeDuration.seconds(this),
       HealthDataTypeDto.activeCaloriesBurned ||
       HealthDataTypeDto.basalEnergyBurned ||
       HealthDataTypeDto.dietaryEnergyConsumed => Energy.kilocalories(this),

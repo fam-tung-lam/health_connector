@@ -19,6 +19,7 @@ extension HealthDataPermissionDto {
         // Quantity types
         case .activeCaloriesBurned,
              .alcoholicBeverages,
+             .appleExerciseTime,
              .bloodAlcoholContent,
              .basalEnergyBurned,
              .distance,

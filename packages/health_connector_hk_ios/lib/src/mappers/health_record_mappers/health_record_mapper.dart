@@ -1,5 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/alcoholic_beverages_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_exercise_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_alcohol_content_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_record_mapper.dart';
@@ -362,6 +363,8 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$ActivityIntensityRecord is not supported on iOS HealthKit.',
         );
+      case final AppleExerciseTimeRecord record:
+        return AppleExerciseTimeRecordToDto(record).toDto();
     }
   }
 }
@@ -536,6 +539,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return PeripheralPerfusionIndexRecordDtoToDomain(dto).toDomain();
       case final ForcedVitalCapacityRecordDto dto:
         return ForcedVitalCapacityRecordDtoToDomain(dto).toDomain();
+      case final AppleExerciseTimeRecordDto dto:
+        return AppleExerciseTimeRecordDtoToDomain(dto).toDomain();
     }
   }
 }

@@ -191,6 +191,7 @@ abstract final class AppTexts {
       WaistCircumferenceDataType() => waistCircumference,
       HeartRateVariabilitySDNNDataType() => heartRateVariabilitySDNN,
       ActivityIntensityDataType() => activityIntensity,
+      AppleExerciseTimeDataType() => appleExerciseTime,
     };
   }
 
@@ -324,6 +325,9 @@ abstract final class AppTexts {
   static const String bloodAlcoholContent = 'Blood Alcohol Content';
   static const String bloodAlcoholContentDescription =
       'Concentration of alcohol in the blood';
+  static const String appleExerciseTime = 'Apple Exercise Time';
+  static const String appleExerciseTimeDescription =
+      'Amount of time spent exercising';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';

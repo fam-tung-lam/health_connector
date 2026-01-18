@@ -73,7 +73,8 @@ abstract interface class MinAggregatableHealthDataType<
 @internalUse
 abstract interface class SumAggregatableHealthDataType<
   U extends MeasurementUnit
-> {
+>
+    implements AggregatableHealthDataType<U> {
   /// Creates a request to sum values over a time range.
   ///
   /// Returns the total sum of all values for this data type within the

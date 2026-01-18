@@ -130,6 +130,9 @@ abstract class MeasurementUnitValueParser {
       HeartRateVariabilityRMSSDDataType() ||
       HeartRateVariabilitySDNNDataType() => _parseTimeDuration(value),
 
+      // Time duration (Minutes)
+      AppleExerciseTimeDataType() => _parseTimeDurationMinutes(value),
+
       // Volume
       HydrationDataType() ||
       ForcedVitalCapacityDataType() => _parseVolume(value),
@@ -403,5 +406,17 @@ abstract class MeasurementUnitValueParser {
       throw const FormatException('Duration must be positive');
     }
     return TimeDuration.milliseconds(millis);
+  }
+
+  /// Parse time duration value in minutes.
+  static TimeDuration _parseTimeDurationMinutes(String value) {
+    final minutes = double.tryParse(value);
+    if (minutes == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (minutes <= 0) {
+      throw const FormatException('Duration must be positive');
+    }
+    return TimeDuration.minutes(minutes);
   }
 }

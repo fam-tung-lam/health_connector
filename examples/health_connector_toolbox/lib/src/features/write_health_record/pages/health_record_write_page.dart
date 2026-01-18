@@ -578,6 +578,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
+      AppleExerciseTimeDataType _ => throw UnsupportedError(
+        'Apple Exercise Time is read-only',
+      ),
     };
   }
 }

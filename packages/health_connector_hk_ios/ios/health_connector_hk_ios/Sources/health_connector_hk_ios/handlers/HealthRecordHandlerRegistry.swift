@@ -167,6 +167,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(PregnancyHandler(healthStore: healthStore))
         register(ContraceptiveHandler(healthStore: healthStore))
         register(AlcoholicBeveragesHandler(healthStore: healthStore))
+        register(AppleExerciseTimeHandler(healthStore: healthStore))
         register(SwimmingStrokesHandler(healthStore: healthStore))
         register(BloodAlcoholContentHandler(healthStore: healthStore))
         register(PeripheralPerfusionIndexHandler(healthStore: healthStore))

@@ -37,12 +37,12 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition:
-      pageSize > 0 &&
+          pageSize > 0 &&
           pageSize <= HealthConnectorConfigConstants.maxPageSize,
       value: pageSize,
       name: 'pageSize',
       message:
-      'pageSize must be between 1 and '
+          'pageSize must be between 1 and '
           '${HealthConnectorConfigConstants.maxPageSize}. '
           'Got pageSize=$pageSize',
     );
@@ -124,18 +124,18 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is ReadRecordsInTimeRangeRequest<R> &&
-              runtimeType == other.runtimeType &&
-              dataType == other.dataType &&
-              startTime == other.startTime &&
-              endTime == other.endTime &&
-              pageSize == other.pageSize &&
-              pageToken == other.pageToken &&
-              sortDescriptor == other.sortDescriptor &&
-              const ListEquality<DataOrigin>().equals(
-                dataOrigins,
-                other.dataOrigins,
-              );
+      other is ReadRecordsInTimeRangeRequest<R> &&
+          runtimeType == other.runtimeType &&
+          dataType == other.dataType &&
+          startTime == other.startTime &&
+          endTime == other.endTime &&
+          pageSize == other.pageSize &&
+          pageToken == other.pageToken &&
+          sortDescriptor == other.sortDescriptor &&
+          const ListEquality<DataOrigin>().equals(
+            dataOrigins,
+            other.dataOrigins,
+          );
 
   @override
   int get hashCode =>
