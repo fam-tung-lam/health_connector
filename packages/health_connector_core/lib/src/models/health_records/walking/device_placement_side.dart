@@ -1,4 +1,4 @@
-import 'package:health_connector_core/src/annotations/annotations.dart';
+part of '../health_record.dart';
 
 /// Defines the placement side of a device used for health measurements.
 ///

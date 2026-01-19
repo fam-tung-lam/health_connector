@@ -1,4 +1,4 @@
-part of 'health_record.dart';
+part of '../health_record.dart';
 
 /// Represents a Walking Double Support Percentage measurement over a
 /// time interval.

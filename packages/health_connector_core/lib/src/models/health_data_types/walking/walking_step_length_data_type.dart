@@ -1,70 +1,67 @@
-part of 'health_data_type.dart';
+part of '../health_data_type.dart';
 
-/// Walking Asymmetry Percentage data type.
+/// Walking Step Length data type.
 ///
-/// Tracks the percentage of steps where one footstrike is moving at a
-/// different speed than the other. This metric helps assess gait symmetry
-/// and can indicate potential mobility issues or injury recovery progress.
+/// Tracks the distance between the point of initial contact of one foot
+/// and the point of initial contact of the opposite foot.
 ///
-/// > **Note**: This data type is read-only. Walking Asymmetry Percentage is
-/// > calculated by Apple's internal algorithms and cannot be written or
-/// > deleted by third-party apps.
+/// > **Note**: This data type is read-only. Walking Step Length is often
+/// > calculated by Apple's internal algorithms and is typically read-only
+/// > for third-party apps.
 ///
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.walkingAsymmetryPercentage`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingasymmetrypercentage)
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.walkingStepLength`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingsteplength)
 ///
 /// ## Example
 ///
 /// ```dart
 /// // Request read permission
 /// final permissions = [
-///   HealthDataType.walkingAsymmetryPercentage.readPermission,
+///   HealthDataType.walkingStepLength.readPermission,
 /// ];
 /// await connector.requestPermissions(permissions);
 ///
 /// // Read records
-/// final request =
-///     HealthDataType.walkingAsymmetryPercentage.readInTimeRange(
+/// final request = HealthDataType.walkingStepLength.readInTimeRange(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final response = await connector.readRecords(request);
 ///
 /// for (final record in response.records) {
-///   print('Walking asymmetry: ${record.percentage.asWhole}%');
+///   print('Step length: ${record.length.inMeters} meters');
 ///   print('Device side: ${record.devicePlacementSide}');
 /// }
 ///
-/// // Aggregate average walking asymmetry
-/// final aggRequest =
-///     HealthDataType.walkingAsymmetryPercentage.aggregateAvg(
+/// // Aggregate average walking step length
+/// final aggRequest = HealthDataType.walkingStepLength.aggregateAvg(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final aggResponse = await connector.aggregate(aggRequest);
-/// print('Average asymmetry: ${aggResponse.value?.asWhole}%');
+/// print('Average step length: ${aggResponse.value?.inMeters} meters');
 /// ```
 ///
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable
-final class WalkingAsymmetryPercentageDataType
-    extends HealthDataType<WalkingAsymmetryPercentageRecord, Percentage>
+final class WalkingStepLengthDataType
+    extends HealthDataType<WalkingStepLengthRecord, Length>
     implements
-        ReadableByIdHealthDataType<WalkingAsymmetryPercentageRecord>,
-        ReadableInTimeRangeHealthDataType<WalkingAsymmetryPercentageRecord>,
-        MinAggregatableHealthDataType<Percentage>,
-        MaxAggregatableHealthDataType<Percentage>,
-        AvgAggregatableHealthDataType<Percentage> {
-  /// Creates a Walking Asymmetry Percentage data type.
+        ReadableByIdHealthDataType<WalkingStepLengthRecord>,
+        ReadableInTimeRangeHealthDataType<WalkingStepLengthRecord>,
+        MinAggregatableHealthDataType<Length>,
+        MaxAggregatableHealthDataType<Length>,
+        AvgAggregatableHealthDataType<Length> {
+  /// Creates a Walking Step Length data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const WalkingAsymmetryPercentageDataType();
+  const WalkingStepLengthDataType();
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
@@ -72,13 +69,12 @@ final class WalkingAsymmetryPercentageDataType
   ];
 
   @override
-  String get id => 'walking_asymmetry_percentage';
+  String get id => 'walking_step_length';
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WalkingAsymmetryPercentageDataType &&
-          runtimeType == other.runtimeType;
+      other is WalkingStepLengthDataType && runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;
@@ -87,15 +83,14 @@ final class WalkingAsymmetryPercentageDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<WalkingAsymmetryPercentageRecord> readById(
+  ReadRecordByIdRequest<WalkingStepLengthRecord> readById(
     HealthRecordId id,
   ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<WalkingAsymmetryPercentageRecord>
-  readInTimeRange({
+  ReadRecordsInTimeRangeRequest<WalkingStepLengthRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
@@ -126,7 +121,7 @@ final class WalkingAsymmetryPercentageDataType
   ];
 
   @override
-  AggregateRequest<Percentage> aggregateMin({
+  AggregateRequest<Length> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -139,7 +134,7 @@ final class WalkingAsymmetryPercentageDataType
   }
 
   @override
-  AggregateRequest<Percentage> aggregateMax({
+  AggregateRequest<Length> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -152,7 +147,7 @@ final class WalkingAsymmetryPercentageDataType
   }
 
   @override
-  AggregateRequest<Percentage> aggregateAvg({
+  AggregateRequest<Length> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

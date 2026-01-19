@@ -1,69 +1,68 @@
-part of 'health_data_type.dart';
+part of '../health_data_type.dart';
 
-/// Walking Double Support Percentage data type.
+/// Apple Walking Steadiness data type.
 ///
-/// Tracks the percentage of steps where both feet are on the ground.
-/// A lower value generally indicates better balance and stability.
+/// Tracks the user's walking steadiness as a percentage, which measures the
+/// stability and regularity of a person's gait. This metric helps assess
+/// balance and fall risk, with higher percentages indicating more stable
+/// walking patterns.
 ///
-/// > **Note**: This data type is read-only. Walking Double Support Percentage
-/// > is calculated by Apple's internal algorithms and cannot be written or
+/// > **Note**: This data type is read-only. Apple Walking Steadiness is
+/// > calculated by Apple's internal algorithms and cannot be written or
 /// > deleted by third-party apps.
 ///
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.walkingDoubleSupportPercentage`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingdoublesupportpercentage)
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.appleWalkingSteadiness`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applewalkingsteadiness)
 ///
 /// ## Example
 ///
 /// ```dart
 /// // Request read permission
 /// final permissions = [
-///   HealthDataType.walkingDoubleSupportPercentage.readPermission,
+///   HealthDataType.appleWalkingSteadiness.readPermission,
 /// ];
 /// await connector.requestPermissions(permissions);
 ///
 /// // Read records
-/// final request =
-///     HealthDataType.walkingDoubleSupportPercentage.readInTimeRange(
+/// final request = HealthDataType.appleWalkingSteadiness.readInTimeRange(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final response = await connector.readRecords(request);
 ///
 /// for (final record in response.records) {
-///   print('Double support: ${record.percentage.asWhole}%');
-///   print('Device side: ${record.devicePlacementSide}');
+///   print('Walking steadiness: ${record.percentage.asWhole}%');
 /// }
 ///
-/// // Aggregate average walking double support percentage
-/// final aggRequest =
-///     HealthDataType.walkingDoubleSupportPercentage.aggregateAvg(
+/// // Aggregate average walking steadiness
+/// final aggRequest = HealthDataType.appleWalkingSteadiness.aggregateAvg(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final aggResponse = await connector.aggregate(aggRequest);
-/// print('Average double support: ${aggResponse.value?.asWhole}%');
+/// print('Average walking steadiness: ${aggResponse.value?.asWhole}%');
 /// ```
 ///
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable
-final class WalkingDoubleSupportPercentageDataType
-    extends HealthDataType<WalkingDoubleSupportPercentageRecord, Percentage>
+final class AppleWalkingSteadinessDataType
+    extends HealthDataType<AppleWalkingSteadinessRecord, Percentage>
     implements
-        ReadableByIdHealthDataType<WalkingDoubleSupportPercentageRecord>,
-        ReadableInTimeRangeHealthDataType<WalkingDoubleSupportPercentageRecord>,
+        ReadableByIdHealthDataType<AppleWalkingSteadinessRecord>,
+        ReadableInTimeRangeHealthDataType<AppleWalkingSteadinessRecord>,
         MinAggregatableHealthDataType<Percentage>,
         MaxAggregatableHealthDataType<Percentage>,
         AvgAggregatableHealthDataType<Percentage> {
-  /// Creates a Walking Double Support Percentage data type.
+  /// Creates an Apple Walking Steadiness data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const WalkingDoubleSupportPercentageDataType();
+  const AppleWalkingSteadinessDataType();
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
@@ -71,12 +70,12 @@ final class WalkingDoubleSupportPercentageDataType
   ];
 
   @override
-  String get id => 'walking_double_support_percentage';
+  String get id => 'apple_walking_steadiness';
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WalkingDoubleSupportPercentageDataType &&
+      other is AppleWalkingSteadinessDataType &&
           runtimeType == other.runtimeType;
 
   @override
@@ -86,15 +85,14 @@ final class WalkingDoubleSupportPercentageDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<WalkingDoubleSupportPercentageRecord> readById(
+  ReadRecordByIdRequest<AppleWalkingSteadinessRecord> readById(
     HealthRecordId id,
   ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<WalkingDoubleSupportPercentageRecord>
-  readInTimeRange({
+  ReadRecordsInTimeRangeRequest<AppleWalkingSteadinessRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],

@@ -1,96 +1,98 @@
-part of 'health_record.dart';
+part of '../health_record.dart';
 
-/// Represents a Walking Step Length measurement over a time interval.
+/// Represents a Walking Asymmetry Percentage measurement over a time interval.
 ///
-/// Tracks the distance between the point of initial contact of one foot
-/// and the point of initial contact of the opposite foot.
+/// Tracks the percentage of steps where one footstrike is moving at a
+/// different speed than the other. This metric helps assess gait symmetry
+/// and can indicate potential mobility issues or injury recovery progress.
 ///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.walkingStepLength`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingsteplength)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.walkingAsymmetryPercentage`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingasymmetrypercentage)
 ///
 /// ## Example
 ///
 /// ```dart
-/// // Read Walking Step Length records
-/// final request = HealthDataType.walkingStepLength.readInTimeRange(
+/// // Read Walking Asymmetry Percentage records
+/// final request =
+///     HealthDataType.walkingAsymmetryPercentage.readInTimeRange(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final response = await connector.readRecords(request);
 ///
 /// for (final record in response.records) {
-///   print('Step length: ${record.length.inMeters} meters');
+///   print('Walking asymmetry: ${record.percentage.asWhole}%');
 ///   print('Device side: ${record.devicePlacementSide}');
 /// }
 /// ```
 ///
 /// ## See also
 ///
-/// - [WalkingStepLengthDataType]
+/// - [WalkingAsymmetryPercentageDataType]
 /// - [DevicePlacementSide]
 ///
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable
-final class WalkingStepLengthRecord extends IntervalHealthRecord {
-  /// Internal factory for creating [WalkingStepLengthRecord] instances
-  /// without validation.
+final class WalkingAsymmetryPercentageRecord extends IntervalHealthRecord {
+  /// Internal factory for creating [WalkingAsymmetryPercentageRecord]
+  /// instances without validation.
   ///
-  /// Creates a [WalkingStepLengthRecord] by directly mapping platform data
-  /// to fields, bypassing the normal validation and business rules applied
-  /// by the public constructor.
+  /// Creates a [WalkingAsymmetryPercentageRecord] by directly mapping
+  /// platform data to fields, bypassing the normal validation and business
+  /// rules applied by the public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WalkingStepLengthRecord] constructor, which enforces validation and
-  /// business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [WalkingAsymmetryPercentageRecord] constructor, which enforces
+  /// validation and business rules. This factory is restricted to the SDK
+  /// developers and contributors.
   @internalUse
-  factory WalkingStepLengthRecord.internal({
+  factory WalkingAsymmetryPercentageRecord.internal({
     required HealthRecordId id,
     required DateTime startTime,
     required DateTime endTime,
     required Metadata metadata,
-    required Length length,
+    required Percentage percentage,
     required DevicePlacementSide devicePlacementSide,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
   }) {
-    return WalkingStepLengthRecord._(
+    return WalkingAsymmetryPercentageRecord._(
       id: id,
       startTime: startTime,
       endTime: endTime,
       metadata: metadata,
-      length: length,
+      percentage: percentage,
       devicePlacementSide: devicePlacementSide,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
     );
   }
 
-  WalkingStepLengthRecord._({
+  WalkingAsymmetryPercentageRecord._({
     required super.id,
     required super.startTime,
     required super.endTime,
     required super.metadata,
-    required this.length,
+    required this.percentage,
     required this.devicePlacementSide,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
 
-  /// The walking step length.
-  final Length length;
+  /// The walking asymmetry percentage.
+  final Percentage percentage;
 
-  /// The placement side of the device used to measure walking step length.
+  /// The placement side of the device used to measure walking asymmetry.
   final DevicePlacementSide devicePlacementSide;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WalkingStepLengthRecord &&
+      other is WalkingAsymmetryPercentageRecord &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           metadata == other.metadata &&
@@ -98,7 +100,7 @@ final class WalkingStepLengthRecord extends IntervalHealthRecord {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          length == other.length &&
+          percentage == other.percentage &&
           devicePlacementSide == other.devicePlacementSide;
 
   @override
@@ -109,6 +111,6 @@ final class WalkingStepLengthRecord extends IntervalHealthRecord {
       endTime.hashCode ^
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
-      length.hashCode ^
+      percentage.hashCode ^
       devicePlacementSide.hashCode;
 }

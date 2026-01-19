@@ -1,4 +1,4 @@
-part of 'health_record.dart';
+part of '../health_record.dart';
 
 /// Represents an Apple Walking Steadiness measurement over a time interval.
 ///

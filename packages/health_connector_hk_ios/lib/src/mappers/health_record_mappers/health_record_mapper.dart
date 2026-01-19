@@ -3,7 +3,6 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/alcoho
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_exercise_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_move_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_stand_time_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_walking_steadiness_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_alcohol_content_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_record_mapper.dart';
@@ -83,9 +82,10 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temper
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/sleeping_wrist_temperature_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/waist_circumference_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking_asymmetry_percentage_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking_double_support_percentage_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking_step_length_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/apple_walking_steadiness_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_asymmetry_percentage_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_double_support_percentage_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_step_length_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/weight_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/wheelchair_pushes_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';

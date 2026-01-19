@@ -1,68 +1,70 @@
-part of 'health_data_type.dart';
+part of '../health_data_type.dart';
 
-/// Apple Walking Steadiness data type.
+/// Walking Asymmetry Percentage data type.
 ///
-/// Tracks the user's walking steadiness as a percentage, which measures the
-/// stability and regularity of a person's gait. This metric helps assess
-/// balance and fall risk, with higher percentages indicating more stable
-/// walking patterns.
+/// Tracks the percentage of steps where one footstrike is moving at a
+/// different speed than the other. This metric helps assess gait symmetry
+/// and can indicate potential mobility issues or injury recovery progress.
 ///
-/// > **Note**: This data type is read-only. Apple Walking Steadiness is
+/// > **Note**: This data type is read-only. Walking Asymmetry Percentage is
 /// > calculated by Apple's internal algorithms and cannot be written or
 /// > deleted by third-party apps.
 ///
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.appleWalkingSteadiness`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applewalkingsteadiness)
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.walkingAsymmetryPercentage`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingasymmetrypercentage)
 ///
 /// ## Example
 ///
 /// ```dart
 /// // Request read permission
 /// final permissions = [
-///   HealthDataType.appleWalkingSteadiness.readPermission,
+///   HealthDataType.walkingAsymmetryPercentage.readPermission,
 /// ];
 /// await connector.requestPermissions(permissions);
 ///
 /// // Read records
-/// final request = HealthDataType.appleWalkingSteadiness.readInTimeRange(
+/// final request =
+///     HealthDataType.walkingAsymmetryPercentage.readInTimeRange(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final response = await connector.readRecords(request);
 ///
 /// for (final record in response.records) {
-///   print('Walking steadiness: ${record.percentage.asWhole}%');
+///   print('Walking asymmetry: ${record.percentage.asWhole}%');
+///   print('Device side: ${record.devicePlacementSide}');
 /// }
 ///
-/// // Aggregate average walking steadiness
-/// final aggRequest = HealthDataType.appleWalkingSteadiness.aggregateAvg(
+/// // Aggregate average walking asymmetry
+/// final aggRequest =
+///     HealthDataType.walkingAsymmetryPercentage.aggregateAvg(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final aggResponse = await connector.aggregate(aggRequest);
-/// print('Average walking steadiness: ${aggResponse.value?.asWhole}%');
+/// print('Average asymmetry: ${aggResponse.value?.asWhole}%');
 /// ```
 ///
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable
-final class AppleWalkingSteadinessDataType
-    extends HealthDataType<AppleWalkingSteadinessRecord, Percentage>
+final class WalkingAsymmetryPercentageDataType
+    extends HealthDataType<WalkingAsymmetryPercentageRecord, Percentage>
     implements
-        ReadableByIdHealthDataType<AppleWalkingSteadinessRecord>,
-        ReadableInTimeRangeHealthDataType<AppleWalkingSteadinessRecord>,
+        ReadableByIdHealthDataType<WalkingAsymmetryPercentageRecord>,
+        ReadableInTimeRangeHealthDataType<WalkingAsymmetryPercentageRecord>,
         MinAggregatableHealthDataType<Percentage>,
         MaxAggregatableHealthDataType<Percentage>,
         AvgAggregatableHealthDataType<Percentage> {
-  /// Creates an Apple Walking Steadiness data type.
+  /// Creates a Walking Asymmetry Percentage data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const AppleWalkingSteadinessDataType();
+  const WalkingAsymmetryPercentageDataType();
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
@@ -70,12 +72,12 @@ final class AppleWalkingSteadinessDataType
   ];
 
   @override
-  String get id => 'apple_walking_steadiness';
+  String get id => 'walking_asymmetry_percentage';
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppleWalkingSteadinessDataType &&
+      other is WalkingAsymmetryPercentageDataType &&
           runtimeType == other.runtimeType;
 
   @override
@@ -85,14 +87,15 @@ final class AppleWalkingSteadinessDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<AppleWalkingSteadinessRecord> readById(
+  ReadRecordByIdRequest<WalkingAsymmetryPercentageRecord> readById(
     HealthRecordId id,
   ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<AppleWalkingSteadinessRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<WalkingAsymmetryPercentageRecord>
+  readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
