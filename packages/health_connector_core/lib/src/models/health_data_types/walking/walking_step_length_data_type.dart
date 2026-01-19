@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks the distance between the point of initial contact of one foot
 /// and the point of initial contact of the opposite foot.
 ///
-/// > **Note**: This data type is read-only. Walking Step Length is often
-/// > calculated by Apple's internal algorithms and is typically read-only
-/// > for third-party apps.
-///
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
@@ -17,11 +13,22 @@ part of '../health_data_type.dart';
 /// ## Example
 ///
 /// ```dart
-/// // Request read permission
+/// // Request read and write permissions
 /// final permissions = [
 ///   HealthDataType.walkingStepLength.readPermission,
+///   HealthDataType.walkingStepLength.writePermission,
 /// ];
 /// await connector.requestPermissions(permissions);
+///
+/// // Write a record
+/// final record = WalkingStepLengthRecord(
+///   startTime: DateTime.now().subtract(Duration(minutes: 5)),
+///   endTime: DateTime.now(),
+///   length: Length.meters(0.75),
+///   devicePlacementSide: DevicePlacementSide.left,
+///   metadata: Metadata.manualEntry(),
+/// );
+/// await connector.writeRecords([record]);
 ///
 /// // Read records
 /// final request = HealthDataType.walkingStepLength.readInTimeRange(
@@ -42,6 +49,12 @@ part of '../health_data_type.dart';
 /// );
 /// final aggResponse = await connector.aggregate(aggRequest);
 /// print('Average step length: ${aggResponse.value?.inMeters} meters');
+///
+/// // Delete records
+/// final deleteRequest = HealthDataType.walkingStepLength.deleteByIds(
+///   [record.id],
+/// );
+/// await connector.deleteRecords(deleteRequest);
 /// ```
 ///
 /// {@category Health Records}
@@ -53,9 +66,12 @@ final class WalkingStepLengthDataType
     implements
         ReadableByIdHealthDataType<WalkingStepLengthRecord>,
         ReadableInTimeRangeHealthDataType<WalkingStepLengthRecord>,
+        WriteableHealthDataType<WalkingStepLengthRecord>,
         MinAggregatableHealthDataType<Length>,
         MaxAggregatableHealthDataType<Length>,
-        AvgAggregatableHealthDataType<Length> {
+        AvgAggregatableHealthDataType<Length>,
+        DeletableByIdsHealthDataType<WalkingStepLengthRecord>,
+        DeletableInTimeRangeHealthDataType<WalkingStepLengthRecord> {
   /// Creates a Walking Step Length data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -83,6 +99,9 @@ final class WalkingStepLengthDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
+
+  @override
   ReadRecordByIdRequest<WalkingStepLengthRecord> readById(
     HealthRecordId id,
   ) {
@@ -108,7 +127,29 @@ final class WalkingStepLengthDataType
   }
 
   @override
-  List<Permission> get permissions => [readPermission];
+  DeleteRecordsByIdsRequest deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  List<Permission> get permissions => [readPermission, writePermission];
 
   @override
   HealthDataTypeCategory get category => HealthDataTypeCategory.mobility;

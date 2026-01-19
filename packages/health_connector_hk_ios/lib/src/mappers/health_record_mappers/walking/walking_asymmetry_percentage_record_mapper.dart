@@ -5,25 +5,6 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart';
 
-/// Extension to map [WalkingAsymmetryPercentageRecord] to
-/// [WalkingAsymmetryPercentageRecordDto].
-@internal
-extension WalkingAsymmetryPercentageRecordToDto
-    on WalkingAsymmetryPercentageRecord {
-  WalkingAsymmetryPercentageRecordDto toDto() {
-    return WalkingAsymmetryPercentageRecordDto(
-      id: id.value,
-      startTime: startTime.millisecondsSinceEpoch,
-      endTime: endTime.millisecondsSinceEpoch,
-      metadata: metadata.toDto(),
-      percentage: percentage.asDecimal,
-      devicePlacementSide: devicePlacementSide.toDto(),
-      startZoneOffsetSeconds: startZoneOffsetSeconds,
-      endZoneOffsetSeconds: endZoneOffsetSeconds,
-    );
-  }
-}
-
 /// Extension to map Pigeon [WalkingAsymmetryPercentageRecordDto] to
 /// [WalkingAsymmetryPercentageRecord].
 @internal

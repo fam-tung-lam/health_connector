@@ -4,31 +4,30 @@ import 'package:test/test.dart';
 
 void main() {
   group(
-    'WalkingStepLengthDataType',
+    'WalkingAsymmetryPercentageDataType',
     () {
-      const dataType = HealthDataType.walkingStepLength;
+      const dataType = HealthDataType.walkingAsymmetryPercentage;
       test(
         'has correct id',
         () {
-          expect(dataType.id, equals('walking_step_length'));
+          expect(dataType.id, equals('walking_asymmetry_percentage'));
         },
       );
 
       test(
         'type and capabilities are correctly defined',
         () {
-          expect(dataType, isA<WalkingStepLengthDataType>());
+          expect(dataType, isA<WalkingAsymmetryPercentageDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<ReadableByIdHealthDataType>());
           expect(dataType, isA<ReadableInTimeRangeHealthDataType>());
-          // It is now writable and deletable
-          expect(dataType, isA<WriteableHealthDataType>());
-          expect(dataType, isA<DeletableByIdsHealthDataType>());
-          expect(dataType, isA<DeletableInTimeRangeHealthDataType>());
-          // It is aggregatable
           expect(dataType, isA<AvgAggregatableHealthDataType>());
           expect(dataType, isA<MinAggregatableHealthDataType>());
           expect(dataType, isA<MaxAggregatableHealthDataType>());
+
+          // It is not writable and deletable
+          expect(dataType, isNot(isA<WriteableHealthDataType>()));
+          expect(dataType, isNot(isA<DeletableHealthDataType>()));
         },
       );
 
@@ -49,7 +48,7 @@ void main() {
       test(
         'permissions are correctly defined',
         () {
-          expect(dataType.permissions, hasLength(2));
+          expect(dataType.permissions, hasLength(1));
           expect(
             dataType.permissions,
             contains(
@@ -61,10 +60,12 @@ void main() {
           );
           expect(
             dataType.permissions,
-            contains(
-              const HealthDataPermission(
-                dataType: dataType,
-                accessType: HealthDataPermissionAccessType.write,
+            isNot(
+              contains(
+                const HealthDataPermission(
+                  dataType: dataType,
+                  accessType: HealthDataPermissionAccessType.write,
+                ),
               ),
             ),
           );

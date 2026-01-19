@@ -57,6 +57,7 @@ abstract final class AppIcons {
   static const IconData category = Icons.category;
   static const IconData list = Icons.list;
   static const IconData devices = Icons.devices;
+  static const IconData deviceHub = Icons.device_hub;
   static const IconData sort = Icons.sort;
 
   // Recording Method

@@ -4,6 +4,8 @@ import HealthKit
 /// Handler for Walking Step Length data (interval quantity type)
 final class WalkingStepLengthHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    DeletableHealthRecordHandler,
     AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = WalkingStepLengthRecordDto

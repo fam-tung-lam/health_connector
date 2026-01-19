@@ -305,8 +305,6 @@ extension HealthRecordToDto on HealthRecord {
         return PeripheralPerfusionIndexRecordToDto(record).toDto();
       case final ForcedVitalCapacityRecord record:
         return ForcedVitalCapacityRecordToDto(record).toDto();
-      case final WalkingAsymmetryPercentageRecord record:
-        return WalkingAsymmetryPercentageRecordToDto(record).toDto();
       case final WalkingDoubleSupportPercentageRecord record:
         return WalkingDoubleSupportPercentageRecordToDto(record).toDto();
       case final WalkingStepLengthRecord record:
@@ -392,6 +390,10 @@ extension HealthRecordToDto on HealthRecord {
       case final SleepingWristTemperatureRecord _:
         throw UnsupportedError(
           '$SleepingWristTemperatureRecord is read-only data type.',
+        );
+      case final WalkingAsymmetryPercentageRecord _:
+        throw UnsupportedError(
+          '$WalkingAsymmetryPercentageRecord is read-only data type.',
         );
     }
   }

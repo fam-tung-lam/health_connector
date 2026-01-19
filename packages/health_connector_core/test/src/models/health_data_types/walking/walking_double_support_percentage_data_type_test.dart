@@ -4,20 +4,20 @@ import 'package:test/test.dart';
 
 void main() {
   group(
-    'WalkingStepLengthDataType',
+    'WalkingDoubleSupportPercentageDataType',
     () {
-      const dataType = HealthDataType.walkingStepLength;
+      const dataType = HealthDataType.walkingDoubleSupportPercentage;
       test(
         'has correct id',
         () {
-          expect(dataType.id, equals('walking_step_length'));
+          expect(dataType.id, equals('walking_double_support_percentage'));
         },
       );
 
       test(
         'type and capabilities are correctly defined',
         () {
-          expect(dataType, isA<WalkingStepLengthDataType>());
+          expect(dataType, isA<WalkingDoubleSupportPercentageDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<ReadableByIdHealthDataType>());
           expect(dataType, isA<ReadableInTimeRangeHealthDataType>());

@@ -295,6 +295,7 @@ abstract final class AppTexts {
   static const String duration = 'Duration';
   static const String durationHHMM = '$duration (HH:MM)';
   static const String deviceLabel = 'Device';
+  static const String devicePlacementSide = 'Device Placement Side';
   static const String recording = 'Recording';
   static const String recordingMethod = 'Recording Method';
   static const String search = 'Search...';

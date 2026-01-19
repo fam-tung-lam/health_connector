@@ -4,6 +4,8 @@ import HealthKit
 /// Handler for Walking Double Support Percentage data (interval quantity type)
 final class WalkingDoubleSupportPercentageHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    DeletableHealthRecordHandler,
     AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = WalkingDoubleSupportPercentageRecordDto

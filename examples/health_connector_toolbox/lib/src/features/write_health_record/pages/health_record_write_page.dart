@@ -71,6 +71,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/swimming_distance_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/swimming_strokes_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/total_energy_burned_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/walking_double_support_percentage_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/walking_running_distance_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/walking_step_length_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/wheelchair_distance_health_record_write_form.dart';
@@ -579,6 +580,17 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
+      WalkingDoubleSupportPercentageDataType _ =>
+        WalkingDoubleSupportPercentageWriteForm(
+          healthPlatform: _notifier.healthPlatform,
+          onSubmit: _onSubmit,
+        ),
+      WalkingStepLengthDataType _ => WalkingStepLengthWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+
+      // Read-only data types
       ExerciseTimeDataType _ => throw UnsupportedError(
         'Apple Exercise Time is read-only',
       ),
@@ -596,13 +608,6 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       ),
       WalkingAsymmetryPercentageDataType _ => throw UnsupportedError(
         'Walking Asymmetry Percentage is read-only',
-      ),
-      WalkingDoubleSupportPercentageDataType _ => throw UnsupportedError(
-        'Walking Double Support Percentage is read-only',
-      ),
-      WalkingStepLengthDataType _ => WalkingStepLengthWriteForm(
-        healthPlatform: _notifier.healthPlatform,
-        onSubmit: _onSubmit,
       ),
     };
   }

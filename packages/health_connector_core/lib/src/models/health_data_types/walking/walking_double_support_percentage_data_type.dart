@@ -5,9 +5,10 @@ part of '../health_data_type.dart';
 /// Tracks the percentage of steps where both feet are on the ground.
 /// A lower value generally indicates better balance and stability.
 ///
-/// > **Note**: This data type is read-only. Walking Double Support Percentage
-/// > is calculated by Apple's internal algorithms and cannot be written or
-/// > deleted by third-party apps.
+/// > **Note**: While this data type supports write operations, Walking
+/// > Double Support Percentage is often calculated by Apple's internal
+/// > algorithms. Third-party apps can write data, but it may not appear in
+/// > all Apple Health contexts.
 ///
 /// ## Platform Mapping
 ///
@@ -17,11 +18,22 @@ part of '../health_data_type.dart';
 /// ## Example
 ///
 /// ```dart
-/// // Request read permission
+/// // Request read and write permissions
 /// final permissions = [
 ///   HealthDataType.walkingDoubleSupportPercentage.readPermission,
+///   HealthDataType.walkingDoubleSupportPercentage.writePermission,
 /// ];
 /// await connector.requestPermissions(permissions);
+///
+/// // Write a record
+/// final record = WalkingDoubleSupportPercentageRecord(
+///   startTime: DateTime.now().subtract(Duration(minutes: 5)),
+///   endTime: DateTime.now(),
+///   percentage: Percentage.fromWhole(28.5),
+///   devicePlacementSide: DevicePlacementSide.left,
+///   metadata: Metadata.manualEntry(),
+/// );
+/// await connector.writeRecords([record]);
 ///
 /// // Read records
 /// final request =
@@ -44,6 +56,13 @@ part of '../health_data_type.dart';
 /// );
 /// final aggResponse = await connector.aggregate(aggRequest);
 /// print('Average double support: ${aggResponse.value?.asWhole}%');
+///
+/// // Delete records
+/// final deleteRequest =
+///     HealthDataType.walkingDoubleSupportPercentage.deleteByIds(
+///   [record.id],
+/// );
+/// await connector.deleteRecords(deleteRequest);
 /// ```
 ///
 /// {@category Health Records}
@@ -55,9 +74,14 @@ final class WalkingDoubleSupportPercentageDataType
     implements
         ReadableByIdHealthDataType<WalkingDoubleSupportPercentageRecord>,
         ReadableInTimeRangeHealthDataType<WalkingDoubleSupportPercentageRecord>,
+        WriteableHealthDataType<WalkingDoubleSupportPercentageRecord>,
         MinAggregatableHealthDataType<Percentage>,
         MaxAggregatableHealthDataType<Percentage>,
-        AvgAggregatableHealthDataType<Percentage> {
+        AvgAggregatableHealthDataType<Percentage>,
+        DeletableByIdsHealthDataType<WalkingDoubleSupportPercentageRecord>,
+        DeletableInTimeRangeHealthDataType<
+          WalkingDoubleSupportPercentageRecord
+        > {
   /// Creates a Walking Double Support Percentage data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -86,6 +110,9 @@ final class WalkingDoubleSupportPercentageDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
+
+  @override
   ReadRecordByIdRequest<WalkingDoubleSupportPercentageRecord> readById(
     HealthRecordId id,
   ) {
@@ -112,7 +139,29 @@ final class WalkingDoubleSupportPercentageDataType
   }
 
   @override
-  List<Permission> get permissions => [readPermission];
+  DeleteRecordsByIdsRequest deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  List<Permission> get permissions => [readPermission, writePermission];
 
   @override
   HealthDataTypeCategory get category => HealthDataTypeCategory.mobility;

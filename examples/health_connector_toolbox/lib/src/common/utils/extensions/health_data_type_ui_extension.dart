@@ -769,6 +769,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.walkingDoubleSupportPercentage,
         AppTexts.percent,
       ),
+      const (WalkingStepLengthDataType) => AppTexts.withUnit(
+        AppTexts.walkingStepLength,
+        AppTexts.meter,
+      ),
 
       _ => throw ArgumentError(
         'No field label for $runtimeType. '
@@ -812,7 +816,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (SwimmingDistanceDataType) ||
       const (WheelchairDistanceDataType) ||
       const (WaistCircumferenceDataType) ||
-      const (WalkingRunningDistanceDataType) => AppTexts.meter,
+      const (WalkingRunningDistanceDataType) ||
+      const (WalkingStepLengthDataType) => AppTexts.meter,
 
       // Vital Signs
       const (BodyTemperatureDataType) => AppTexts.celsius,

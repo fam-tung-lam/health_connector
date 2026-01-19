@@ -14,6 +14,16 @@ part of '../health_record.dart';
 /// ## Example
 ///
 /// ```dart
+/// // Write a Walking Double Support Percentage record
+/// final record = WalkingDoubleSupportPercentageRecord(
+///   startTime: DateTime.now().subtract(Duration(minutes: 5)),
+///   endTime: DateTime.now(),
+///   percentage: Percentage.fromWhole(28.5),
+///   devicePlacementSide: DevicePlacementSide.left,
+///   metadata: Metadata.manualEntry(),
+/// );
+/// await connector.writeRecords([record]);
+///
 /// // Read Walking Double Support Percentage records
 /// final request =
 ///     HealthDataType.walkingDoubleSupportPercentage.readInTimeRange(
@@ -38,6 +48,66 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class WalkingDoubleSupportPercentageRecord extends IntervalHealthRecord {
+  /// Minimum valid walking double support percentage (0%).
+  ///
+  /// No double support phase. Very rare in normal gait; typically indicates
+  /// running or very fast walking.
+  static const Percentage minPercentage = Percentage.zero;
+
+  /// Maximum valid walking double support percentage (100%).
+  ///
+  /// Continuous double support. Normal range is 20-40% for healthy adults;
+  /// values >50% may indicate balance issues.
+  static const Percentage maxPercentage = Percentage.full;
+
+  /// Creates a walking double support percentage record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [id]: The unique identifier for this record.
+  /// - [startTime]: The start of the time interval (inclusive).
+  /// - [endTime]: The end of the time interval (exclusive).
+  /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
+  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [percentage]: The walking double support percentage measurement.
+  /// - [devicePlacementSide]: The placement side of the device used for
+  ///   measurement.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if [percentage] is outside the valid range of
+  ///   [minPercentage]-[maxPercentage]%.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minPercentage]%)**: No double support phase. Very rare in
+  ///   normal gait; typically indicates running or very fast walking.
+  /// - **Maximum ([maxPercentage]%)**: Continuous double support. Normal range
+  ///   is 20-40% for healthy adults; values >50% may indicate balance issues.
+  WalkingDoubleSupportPercentageRecord({
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.percentage,
+    required this.devicePlacementSide,
+    super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  }) {
+    require(
+      condition: percentage >= minPercentage && percentage <= maxPercentage,
+      value: percentage,
+      name: 'percentage',
+      message:
+          'Walking double support percentage must be between '
+          '${minPercentage.asWhole.toStringAsFixed(0)}-'
+          '${maxPercentage.asWhole.toStringAsFixed(0)}%. '
+          'Got ${percentage.asWhole.toStringAsFixed(1)}%.',
+    );
+  }
+
   /// Internal factory for creating [WalkingDoubleSupportPercentageRecord]
   /// instances without validation.
   ///

@@ -2,36 +2,36 @@ import 'package:health_connector_core/health_connector_core.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('WalkingStepLengthRecord', () {
+  group('WalkingDoubleSupportPercentageRecord', () {
     final startTime = DateTime(2026, 1, 11, 10);
     final endTime = DateTime(2026, 1, 11, 10, 5);
     final metadata = Metadata.manualEntry();
-    const validLength = Length.meters(0.75);
+    const validPercentage = Percentage.fromWhole(28.5);
 
     test('equality works correctly', () {
-      final record1 = WalkingStepLengthRecord.internal(
+      final record1 = WalkingDoubleSupportPercentageRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
-        length: validLength,
+        percentage: validPercentage,
         metadata: metadata,
         devicePlacementSide: DevicePlacementSide.unknown,
       );
 
-      final record2 = WalkingStepLengthRecord.internal(
+      final record2 = WalkingDoubleSupportPercentageRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
-        length: validLength,
+        percentage: validPercentage,
         metadata: metadata,
         devicePlacementSide: DevicePlacementSide.unknown,
       );
 
-      final record3 = WalkingStepLengthRecord.internal(
+      final record3 = WalkingDoubleSupportPercentageRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
-        length: const Length.meters(0.80),
+        percentage: const Percentage.fromWhole(30.0),
         metadata: metadata,
         devicePlacementSide: DevicePlacementSide.unknown,
       );
@@ -41,25 +41,25 @@ void main() {
       expect(record1.hashCode == record2.hashCode, isTrue);
     });
 
-    test('creates record with valid length', () {
-      final record = WalkingStepLengthRecord(
+    test('creates record with valid percentage', () {
+      final record = WalkingDoubleSupportPercentageRecord(
         startTime: startTime,
         endTime: endTime,
-        length: validLength,
+        percentage: validPercentage,
         metadata: metadata,
         devicePlacementSide: DevicePlacementSide.left,
       );
 
-      expect(record.length, equals(validLength));
+      expect(record.percentage, equals(validPercentage));
       expect(record.devicePlacementSide, equals(DevicePlacementSide.left));
     });
 
-    test('throws when length is below minimum', () {
+    test('throws when percentage is below minimum', () {
       expect(
-        () => WalkingStepLengthRecord(
+        () => WalkingDoubleSupportPercentageRecord(
           startTime: startTime,
           endTime: endTime,
-          length: const Length.centimeters(15.0), // Below 20cm minimum
+          percentage: const Percentage.fromWhole(-1.0), // Below 0% minimum
           metadata: metadata,
           devicePlacementSide: DevicePlacementSide.left,
         ),
@@ -67,12 +67,12 @@ void main() {
       );
     });
 
-    test('throws when length is above maximum', () {
+    test('throws when percentage is above maximum', () {
       expect(
-        () => WalkingStepLengthRecord(
+        () => WalkingDoubleSupportPercentageRecord(
           startTime: startTime,
           endTime: endTime,
-          length: const Length.meters(2.5), // Above 2.0m maximum
+          percentage: const Percentage.fromWhole(101.0), // Above 100% maximum
           metadata: metadata,
           devicePlacementSide: DevicePlacementSide.left,
         ),
@@ -80,28 +80,34 @@ void main() {
       );
     });
 
-    test('accepts minimum valid length', () {
-      final record = WalkingStepLengthRecord(
+    test('accepts minimum valid percentage', () {
+      final record = WalkingDoubleSupportPercentageRecord(
         startTime: startTime,
         endTime: endTime,
-        length: WalkingStepLengthRecord.minStepLength,
+        percentage: WalkingDoubleSupportPercentageRecord.minPercentage,
         metadata: metadata,
         devicePlacementSide: DevicePlacementSide.left,
       );
 
-      expect(record.length, equals(WalkingStepLengthRecord.minStepLength));
+      expect(
+        record.percentage,
+        equals(WalkingDoubleSupportPercentageRecord.minPercentage),
+      );
     });
 
-    test('accepts maximum valid length', () {
-      final record = WalkingStepLengthRecord(
+    test('accepts maximum valid percentage', () {
+      final record = WalkingDoubleSupportPercentageRecord(
         startTime: startTime,
         endTime: endTime,
-        length: WalkingStepLengthRecord.maxStepLength,
+        percentage: WalkingDoubleSupportPercentageRecord.maxPercentage,
         metadata: metadata,
         devicePlacementSide: DevicePlacementSide.left,
       );
 
-      expect(record.length, equals(WalkingStepLengthRecord.maxStepLength));
+      expect(
+        record.percentage,
+        equals(WalkingDoubleSupportPercentageRecord.maxPercentage),
+      );
     });
   });
 }
