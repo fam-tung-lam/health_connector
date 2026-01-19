@@ -49,6 +49,7 @@ extension HealthDataPermissionDto {
              .bodyFatPercentage,
              .bodyTemperature,
              .basalBodyTemperature,
+             .sleepingWristTemperature,
              .steps,
              .weight,
              .wheelchairPushes,

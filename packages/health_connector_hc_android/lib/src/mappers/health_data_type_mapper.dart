@@ -148,6 +148,11 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.bodyTemperature;
       case BasalBodyTemperatureDataType _:
         return HealthDataTypeDto.basalBodyTemperature;
+      case SleepingWristTemperatureDataType _:
+        throw UnsupportedError(
+          '$SleepingWristTemperatureDataType is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
       case CervicalMucusDataType _:
         return HealthDataTypeDto.cervicalMucus;
       case StepsDataType _:

@@ -93,6 +93,7 @@ abstract final class AppTexts {
       LeanBodyMassDataType() => leanBodyMass,
       BodyTemperatureDataType() => bodyTemperature,
       BasalBodyTemperatureDataType() => basalBodyTemperature,
+      SleepingWristTemperatureDataType() => 'Sleeping Wrist Temperature',
       CervicalMucusDataType() => cervicalMucus,
       BloodPressureDataType() => bloodPressure,
       SystolicBloodPressureDataType() => systolic,

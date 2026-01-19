@@ -130,6 +130,7 @@ part 'steps_data_type.dart';
 part 'swimming_strokes_data_type.dart';
 part 'temperature/basal_body_temperature_data_type.dart';
 part 'temperature/body_temperature_data_type.dart';
+part 'temperature/sleeping_wrist_temperature_data_type.dart';
 part 'vo2_max_data_type.dart';
 part 'waist_circumference_data_type.dart';
 part 'walking_asymmetry_percentage_data_type.dart';
@@ -385,6 +386,17 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents the user's body temperature measurements. Supports both reading
   /// existing body temperature data and writing new measurements.
   static const bodyTemperature = BodyTemperatureDataType();
+
+  /// Sleeping wrist temperature data type.
+  ///
+  /// Represents the temperature measured at the wrist during sleep.
+  /// Supports AVG, MIN, MAX aggregation.
+  ///
+  /// > **Note**: This is a read-only data type. It cannot be written or
+  /// > deleted by third-party apps.
+  @sinceV3_2_0
+  @supportedOnAppleHealth
+  static const sleepingWristTemperature = SleepingWristTemperatureDataType();
 
   /// Basal body temperature data type.
   ///
@@ -1186,6 +1198,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     sexualActivity,
     sixMinuteWalkTestDistance,
     skatingSportsDistance,
+    sleepingWristTemperature,
     sleepSession,
     sleepStageRecord,
     speedSeries,

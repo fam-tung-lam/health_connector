@@ -64,6 +64,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       BloodGlucoseRecord _ => HealthDataType.bloodGlucose,
       BodyFatPercentageRecord _ => HealthDataType.bodyFatPercentage,
       BodyTemperatureRecord _ => HealthDataType.bodyTemperature,
+      SleepingWristTemperatureRecord _ =>
+        HealthDataType.sleepingWristTemperature,
       CervicalMucusRecord _ => HealthDataType.cervicalMucus,
       ActiveEnergyBurnedRecord _ => HealthDataType.activeEnergyBurned,
       ActivityIntensityRecord _ => HealthDataType.activityIntensity,

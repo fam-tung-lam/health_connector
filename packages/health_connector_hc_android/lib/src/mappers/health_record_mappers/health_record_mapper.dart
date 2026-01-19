@@ -153,6 +153,11 @@ extension HealthRecordToDto on HealthRecord {
         return BodyTemperatureRecordToDto(record).toDto();
       case final BasalBodyTemperatureRecord record:
         return BasalBodyTemperatureRecordToDto(record).toDto();
+      case SleepingWristTemperatureRecord():
+        throw UnsupportedError(
+          '$SleepingWristTemperatureRecord is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
       case final CervicalMucusRecord record:
         return CervicalMucusRecordToDto(record).toDto();
       case final StepsRecord record:
@@ -513,9 +518,13 @@ extension HealthRecordToDto on HealthRecord {
           'Connect. This data type is iOS-only.',
         );
       case WalkingDoubleSupportPercentageRecord():
+        throw UnsupportedError(
+          '$WalkingDoubleSupportPercentageRecord is not supported on Android '
+          'Health Connect. These data types are iOS-only.',
+        );
       case WalkingStepLengthRecord():
         throw UnsupportedError(
-          '$WalkingDoubleSupportPercentageRecord and $WalkingStepLengthRecord are not supported on Android '
+          '$WalkingStepLengthRecord is not supported on Android '
           'Health Connect. These data types are iOS-only.',
         );
       case WalkingAsymmetryPercentageRecord():

@@ -1030,6 +1030,9 @@ enum HealthDataTypeDto {
 
   /// Heart rate variability (SDNN) data.
   heartRateVariabilitySDNN,
+
+  /// Sleeping wrist temperature data.
+  sleepingWristTemperature,
 }
 
 /// Sealed class for all health record DTOs.
@@ -2147,7 +2150,42 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
-/// Represents a cervical mucus observation record for platform transfer.
+/// Sleeping wrist temperature record DTO for platform transfer.
+///
+/// Maps to HKQuantityTypeIdentifier.appleSleepingWristTemperature.
+class SleepingWristTemperatureRecordDto extends HealthRecordDto {
+  SleepingWristTemperatureRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.temperatureCelsius,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Temperature in Celsius.
+  final double temperatureCelsius;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
 ///
 /// Maps to iOS HealthKit HKCategoryTypeIdentifier.cervicalMucusQuality.
 ///

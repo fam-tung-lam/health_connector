@@ -26,6 +26,15 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .bodyTemperature)
         case .basalBodyTemperature:
             try HKQuantityType.make(from: .basalBodyTemperature)
+        case .sleepingWristTemperature:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .appleSleepingWristTemperature)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Sleeping wrist temperature is only supported on iOS 16.0 and later",
+                    context: ["dataType": "sleepingWristTemperature", "minimumIOSVersion": "16.0"]
+                )
+            }
         case .steps:
             try HKQuantityType.make(from: .stepCount)
         case .activeCaloriesBurned:

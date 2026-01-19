@@ -77,7 +77,8 @@ abstract class MeasurementUnitValueParser {
 
       // Temperature
       BodyTemperatureDataType() ||
-      BasalBodyTemperatureDataType() => _parseTemperature(value),
+      BasalBodyTemperatureDataType() ||
+      SleepingWristTemperatureDataType() => _parseTemperature(value),
 
       // Distance/Length
       HeightDataType() ||

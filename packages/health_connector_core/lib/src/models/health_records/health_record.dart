@@ -147,6 +147,7 @@ part 'steps_record.dart';
 part 'swimming_strokes_record.dart';
 part 'temperature/basal_body_temperature_record.dart';
 part 'temperature/body_temperature_record.dart';
+part 'temperature/sleeping_wrist_temperature_record.dart';
 part 'vo2_max_record.dart';
 part 'waist_circumference_record.dart';
 part 'walking_asymmetry_percentage_record.dart';

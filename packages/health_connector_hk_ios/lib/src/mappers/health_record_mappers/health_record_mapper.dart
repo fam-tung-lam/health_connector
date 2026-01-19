@@ -80,6 +80,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/steps_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/swimming_strokes_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/basal_body_temperature_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/body_temperature_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/sleeping_wrist_temperature_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/waist_circumference_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking_asymmetry_percentage_record_mapper.dart';
@@ -165,6 +166,8 @@ extension HealthRecordToDto on HealthRecord {
         return BodyTemperatureRecordToDto(record).toDto();
       case final BasalBodyTemperatureRecord record:
         return BasalBodyTemperatureRecordToDto(record).toDto();
+      case final SleepingWristTemperatureRecord record:
+        return SleepingWristTemperatureRecordToDto(record).toDto();
       case final CervicalMucusRecord record:
         return CervicalMucusRecordToDto(record).toDto();
       case final HydrationRecord record:
@@ -417,6 +420,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return BodyTemperatureRecordDtoToDomain(dto).toDomain();
       case final BasalBodyTemperatureRecordDto dto:
         return BasalBodyTemperatureRecordDtoToDomain(dto).toDomain();
+      case final SleepingWristTemperatureRecordDto dto:
+        return SleepingWristTemperatureRecordDtoToDomain(dto).toDomain();
       case final CervicalMucusRecordDto dto:
         return CervicalMucusRecordDtoToDomain(dto).toDomain();
       case final HydrationRecordDto dto:

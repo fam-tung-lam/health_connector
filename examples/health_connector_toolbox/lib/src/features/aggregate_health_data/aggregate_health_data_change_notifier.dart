@@ -728,6 +728,21 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       BasalBodyTemperatureDataType() => throw UnsupportedError(
         'Basal body temperature does not support aggregation',
       ),
+      SleepingWristTemperatureDataType() => _buildAvgMinMax(
+        () => HealthDataType.sleepingWristTemperature.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.sleepingWristTemperature.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.sleepingWristTemperature.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       BodyTemperatureDataType() => throw UnsupportedError(
         'Body temperature does not support aggregation',
       ),

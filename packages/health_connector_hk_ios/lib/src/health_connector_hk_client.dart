@@ -826,7 +826,8 @@ extension on double {
       HealthDataTypeDto.diastolicBloodPressure ||
       HealthDataTypeDto.bloodPressure => Pressure.millimetersOfMercury(this),
       HealthDataTypeDto.bodyTemperature ||
-      HealthDataTypeDto.basalBodyTemperature => Temperature.celsius(this),
+      HealthDataTypeDto.basalBodyTemperature ||
+      HealthDataTypeDto.sleepingWristTemperature => Temperature.celsius(this),
       HealthDataTypeDto.alcoholicBeverages ||
       HealthDataTypeDto.bloodAlcoholContent ||
       HealthDataTypeDto.cyclingPower ||

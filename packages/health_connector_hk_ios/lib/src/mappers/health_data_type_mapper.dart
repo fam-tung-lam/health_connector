@@ -198,9 +198,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
       case HealthDataTypeDto.contraceptive:
         return HealthDataType.contraceptive;
       case HealthDataTypeDto.sleepStage:
-        throw UnsupportedError(
-          'Test result types are not valid as HealthDataType.',
-        );
+        return HealthDataType.sleepStageRecord;
       case HealthDataTypeDto.peripheralPerfusionIndex:
         return HealthDataType.peripheralPerfusionIndex;
       case HealthDataTypeDto.appleExerciseTime:
@@ -217,6 +215,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.walkingDoubleSupportPercentage;
       case HealthDataTypeDto.walkingStepLength:
         return HealthDataType.walkingStepLength;
+      case HealthDataTypeDto.sleepingWristTemperature:
+        return HealthDataType.sleepingWristTemperature;
     }
   }
 }
@@ -251,6 +251,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.bodyMassIndex;
       case BasalBodyTemperatureDataType _:
         return HealthDataTypeDto.basalBodyTemperature;
+      case SleepingWristTemperatureDataType _:
+        return HealthDataTypeDto.sleepingWristTemperature;
       case CervicalMucusDataType _:
         return HealthDataTypeDto.cervicalMucus;
       case StepsDataType _:

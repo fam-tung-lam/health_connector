@@ -267,6 +267,15 @@ final class HealthRecordListTile extends StatelessWidget {
         record: r,
         onDelete: onDelete,
       ),
+      final SleepingWristTemperatureRecord r =>
+        SimpleIntervalMeasurementListTile<SleepingWristTemperatureRecord>(
+          record: r,
+          icon: AppIcons.temperature,
+          titleBuilder: (r) =>
+              '${r.temperature.inCelsius.toStringAsFixed(1)} °C',
+          valueExtractor: (r) => r.temperature,
+          onDelete: onDelete,
+        ),
       final HeightRecord r => SimpleInstantMeasurementListTile<HeightRecord>(
         record: r,
         icon: AppIcons.height,
