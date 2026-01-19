@@ -33,6 +33,7 @@ part of '../health_record.dart';
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
+@readOnly
 @immutable
 final class WalkingSteadinessRecord extends IntervalHealthRecord {
   /// Internal factory for creating [WalkingSteadinessRecord] instances

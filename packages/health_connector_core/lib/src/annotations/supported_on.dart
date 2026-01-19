@@ -28,6 +28,7 @@ import 'package:meta/meta.dart' show immutable;
 /// ```
 @sinceV1_0_0
 @memberAndTypeTargets
+@internalUse
 @immutable
 final class _SupportedOn {
   /// Creates an annotation that restricts API usage to the specified platforms.
@@ -43,11 +44,13 @@ final class _SupportedOn {
 }
 
 /// Convenience annotation for APIs supported only on Android Health Connect.
+@internalUse
 const supportedOnHealthConnect = _SupportedOn([
   HealthPlatform.healthConnect,
 ]);
 
 /// Convenience annotation for APIs supported only on iOS HealthKit.
+@internalUse
 const supportedOnAppleHealth = _SupportedOn([
   HealthPlatform.appleHealth,
 ]);

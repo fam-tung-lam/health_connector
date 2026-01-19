@@ -36,6 +36,7 @@ part of '../health_record.dart';
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
+@readOnly
 @immutable
 final class WalkingAsymmetryPercentageRecord extends IntervalHealthRecord {
   /// Internal factory for creating [WalkingAsymmetryPercentageRecord]

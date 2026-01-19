@@ -47,6 +47,7 @@ part of '../health_data_type.dart';
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
+@readOnly
 @immutable
 final class MoveTimeDataType
     extends HealthDataType<MoveTimeRecord, TimeDuration>

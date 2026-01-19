@@ -465,6 +465,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// > deleted by third-party apps.
   @sinceV3_2_0
   @supportedOnAppleHealth
+  @readOnly
   static const walkingAsymmetryPercentage =
       WalkingAsymmetryPercentageDataType();
 
@@ -529,6 +530,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// the user's daily exercise goals. Activity evaluated as exercise by Apple.
   @sinceV3_2_0
   @supportedOnAppleHealth
+  @readOnly
   static const exerciseTime = ExerciseTimeDataType();
 
   /// Apple Move Time data type.
@@ -536,6 +538,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents the amount of time the user has been moving.
   @sinceV3_2_0
   @supportedOnAppleHealth
+  @readOnly
   static const moveTime = MoveTimeDataType();
 
   /// Apple Stand Time data type.
@@ -544,6 +547,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// one minute in an hour.
   @sinceV3_2_0
   @supportedOnAppleHealth
+  @readOnly
   static const standTime = StandTimeDataType();
 
   /// Apple Walking Steadiness data type.
@@ -552,6 +556,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// stability and regularity of a person's gait.
   @sinceV3_2_0
   @supportedOnAppleHealth
+  @readOnly
   static const walkingSteadiness = WalkingSteadinessDataType();
 
   /// Exercise session data type.
