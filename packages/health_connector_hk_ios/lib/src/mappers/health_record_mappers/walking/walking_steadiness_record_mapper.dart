@@ -12,8 +12,8 @@ extension WalkingSteadinessRecordDtoToDomain on WalkingSteadinessRecordDto {
     return WalkingSteadinessRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       percentage: Percentage.fromDecimal(percentage),
-      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
-      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       metadata: metadata.toDomain(),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,

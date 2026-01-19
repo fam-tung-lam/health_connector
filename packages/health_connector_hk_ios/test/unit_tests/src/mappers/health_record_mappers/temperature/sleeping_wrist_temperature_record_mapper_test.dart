@@ -1,20 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/time/move_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/sleeping_wrist_temperature_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
 import '../../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'MoveTimeRecordMapper',
+    'SleepingWristTemperatureRecordMapper',
     () {
       group(
-        'MoveTimeRecordDtoToDomain',
+        'SleepingWristTemperatureRecordDtoToDomain',
         () {
           test(
-            'converts MoveTimeRecordDto to MoveTimeRecord',
+            'converts SleepingWristTemperatureRecordDto to '
+            'SleepingWristTemperatureRecord',
             () {
-              final dto = MoveTimeRecordDto(
+              final dto = SleepingWristTemperatureRecordDto(
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
@@ -26,7 +27,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                seconds: 1800, // 30 minutes
+                temperatureCelsius: 37.0,
               );
 
               final record = dto.toDomain();
@@ -34,7 +35,7 @@ void main() {
               expect(record.id.value, FakeData.fakeId);
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
-              expect(record.moveTime.inMinutes, 30);
+              expect(record.temperature.inCelsius, 37.0);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

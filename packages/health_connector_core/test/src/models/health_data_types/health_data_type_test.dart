@@ -169,6 +169,7 @@ void main() {
               HealthDataType.peripheralPerfusionIndex,
               HealthDataType.respiratoryRate,
               HealthDataType.restingHeartRate,
+              HealthDataType.sleepingWristTemperature,
               HealthDataType.systolicBloodPressure,
               HealthDataType.vo2Max,
             ],
