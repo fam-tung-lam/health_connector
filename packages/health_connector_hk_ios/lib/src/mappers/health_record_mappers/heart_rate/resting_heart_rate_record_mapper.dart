@@ -5,6 +5,7 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show RestingHeartRateRecordDto;
 import 'package:meta/meta.dart' show internal;
+
 @internal
 extension RestingHeartRateRecordToDto on RestingHeartRateRecord {
   RestingHeartRateRecordDto toDto() {
@@ -17,6 +18,7 @@ extension RestingHeartRateRecordToDto on RestingHeartRateRecord {
     );
   }
 }
+
 @internal
 extension RestingHeartRateRecordDtoToDomain on RestingHeartRateRecordDto {
   RestingHeartRateRecord toDomain() {

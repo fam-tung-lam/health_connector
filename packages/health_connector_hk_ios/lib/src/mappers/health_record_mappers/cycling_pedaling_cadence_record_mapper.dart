@@ -5,6 +5,7 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show CyclingPedalingCadenceRecordDto;
 import 'package:meta/meta.dart' show internal;
+
 @internal
 extension CyclingPedalingCadenceRecordToDto on CyclingPedalingCadenceRecord {
   CyclingPedalingCadenceRecordDto toDto() {
@@ -17,6 +18,7 @@ extension CyclingPedalingCadenceRecordToDto on CyclingPedalingCadenceRecord {
     );
   }
 }
+
 @internal
 extension CyclingPedalingCadenceRecordDtoToDomain
     on CyclingPedalingCadenceRecordDto {

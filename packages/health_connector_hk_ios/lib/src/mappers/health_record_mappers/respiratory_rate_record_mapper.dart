@@ -5,6 +5,7 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show RespiratoryRateRecordDto;
 import 'package:meta/meta.dart' show internal;
+
 @internal
 extension RespiratoryRateRecordToDto on RespiratoryRateRecord {
   RespiratoryRateRecordDto toDto() {
@@ -17,6 +18,7 @@ extension RespiratoryRateRecordToDto on RespiratoryRateRecord {
     );
   }
 }
+
 @internal
 extension RespiratoryRateRecordDtoToDomain on RespiratoryRateRecordDto {
   RespiratoryRateRecord toDomain() {

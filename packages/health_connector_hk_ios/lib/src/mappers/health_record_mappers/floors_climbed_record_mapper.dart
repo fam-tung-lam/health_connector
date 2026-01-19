@@ -5,6 +5,7 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show FloorsClimbedRecordDto;
 import 'package:meta/meta.dart' show internal;
+
 @internal
 extension FloorsClimbedRecordToDto on FloorsClimbedRecord {
   FloorsClimbedRecordDto toDto() {
@@ -19,6 +20,7 @@ extension FloorsClimbedRecordToDto on FloorsClimbedRecord {
     );
   }
 }
+
 @internal
 extension FloorsClimbedRecordDtoToDomain on FloorsClimbedRecordDto {
   FloorsClimbedRecord toDomain() {

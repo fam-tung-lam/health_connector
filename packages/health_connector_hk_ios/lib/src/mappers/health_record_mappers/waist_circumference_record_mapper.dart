@@ -5,6 +5,7 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show WaistCircumferenceRecordDto;
 import 'package:meta/meta.dart' show internal;
+
 @internal
 extension WaistCircumferenceRecordToDto on WaistCircumferenceRecord {
   WaistCircumferenceRecordDto toDto() {
@@ -17,6 +18,7 @@ extension WaistCircumferenceRecordToDto on WaistCircumferenceRecord {
     );
   }
 }
+
 @internal
 extension WaistCircumferenceRecordDtoToDomain on WaistCircumferenceRecordDto {
   WaistCircumferenceRecord toDomain() {

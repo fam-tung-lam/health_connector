@@ -8,7 +8,8 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthDataSyncResult] to [HealthDataSyncResultDto] for
-/// DTO transfer.;
+/// DTO transfer.
+@internal
 extension HealthDataSyncResultFromDomainToDto on HealthDataSyncResult {
   HealthDataSyncResultDto toDto() {
     return HealthDataSyncResultDto(

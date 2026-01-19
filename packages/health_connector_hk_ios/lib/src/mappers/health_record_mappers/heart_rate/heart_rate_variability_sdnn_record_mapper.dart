@@ -1,13 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        HeartRateVariabilitySDNNRecord,
-        HealthRecordId,
-        TimeDuration;
+    show HeartRateVariabilitySDNNRecord, HealthRecordId, TimeDuration;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HeartRateVariabilitySDNNRecordDto;
 import 'package:meta/meta.dart' show internal;
+
 @internal
 extension HeartRateVariabilitySDNNRecordToDto
     on HeartRateVariabilitySDNNRecord {
@@ -21,6 +19,7 @@ extension HeartRateVariabilitySDNNRecordToDto
     );
   }
 }
+
 @internal
 extension HeartRateVariabilitySDNNRecordDtoToDomain
     on HeartRateVariabilitySDNNRecordDto {

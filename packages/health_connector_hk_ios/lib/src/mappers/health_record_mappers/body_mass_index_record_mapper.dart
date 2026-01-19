@@ -5,6 +5,7 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show BodyMassIndexRecordDto;
 import 'package:meta/meta.dart' show internal;
+
 @internal
 extension BodyMassIndexRecordToDto on BodyMassIndexRecord {
   BodyMassIndexRecordDto toDto() {
@@ -17,6 +18,7 @@ extension BodyMassIndexRecordToDto on BodyMassIndexRecord {
     );
   }
 }
+
 @internal
 extension BodyMassIndexRecordDtoToDomain on BodyMassIndexRecordDto {
   BodyMassIndexRecord toDomain() {

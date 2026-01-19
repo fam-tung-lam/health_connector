@@ -72,6 +72,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/swimming_strokes_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/total_energy_burned_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/walking_running_distance_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/walking_step_length_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/wheelchair_distance_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/wheelchair_pushes_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/series_health_record_write_forms/cycling_pedaling_cadence_series_health_record_write_form.dart';
@@ -599,8 +600,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       WalkingDoubleSupportPercentageDataType _ => throw UnsupportedError(
         'Walking Double Support Percentage is read-only',
       ),
-      WalkingStepLengthDataType _ => throw UnsupportedError(
-        'Walking Step Length is read-only',
+      WalkingStepLengthDataType _ => WalkingStepLengthWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
       ),
     };
   }
