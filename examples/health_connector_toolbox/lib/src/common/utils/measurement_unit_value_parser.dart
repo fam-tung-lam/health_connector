@@ -93,7 +93,8 @@ abstract class MeasurementUnitValueParser {
       SkatingSportsDistanceDataType() ||
       SwimmingDistanceDataType() ||
       WheelchairDistanceDataType() ||
-      WalkingRunningDistanceDataType() => _parseLength(value),
+      WalkingRunningDistanceDataType() ||
+      WalkingStepLengthDataType() => _parseLength(value),
 
       // Blood Glucose
       BloodGlucoseDataType() => _parseBloodGlucose(value),

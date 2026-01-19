@@ -198,6 +198,7 @@ abstract final class AppTexts {
       WalkingAsymmetryPercentageDataType() => walkingAsymmetryPercentage,
       WalkingDoubleSupportPercentageDataType() =>
         walkingDoubleSupportPercentage,
+      WalkingStepLengthDataType() => walkingStepLength,
     };
   }
 
@@ -348,6 +349,10 @@ abstract final class AppTexts {
       'Walking Double Support'; // or Walking Double Support Percentage
   static const String walkingDoubleSupportPercentageDescription =
       'Percentage of time during walking when both feet are on the ground.';
+  static const String walkingStepLength = 'Walking Step Length';
+  static const String walkingStepLengthDescription =
+      'Distance between the heel of one foot and the heel of the other foot '
+      'while walking.';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';

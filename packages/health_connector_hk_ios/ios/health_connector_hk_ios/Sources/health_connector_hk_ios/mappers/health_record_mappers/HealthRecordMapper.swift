@@ -105,6 +105,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as WalkingDoubleSupportPercentageRecordDto:
             return try dto.toHealthKit()
+        case let dto as WalkingStepLengthRecordDto:
+            return try dto.toHealthKit()
         case let dto as LactationRecordDto:
             return try dto.toHealthKit()
         case let dto as BodyMassIndexRecordDto:
@@ -415,6 +417,8 @@ extension HKQuantitySample {
             try toWalkingAsymmetryPercentageRecordDto()
         case .walkingDoubleSupportPercentage:
             try toWalkingDoubleSupportPercentageRecordDto()
+        case .walkingStepLength:
+            try toWalkingStepLengthRecordDto()
         case .forcedVitalCapacity:
             try toForcedVitalCapacityRecordDto()
         case .dietaryEnergyConsumed:
@@ -487,8 +491,6 @@ extension HKQuantitySample {
             try toSwimmingStrokesRecordDto()
         case .peripheralPerfusionIndex:
             try toPeripheralPerfusionIndexRecordDto()
-        case .forcedVitalCapacity:
-            try toForcedVitalCapacityRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported or unimplemented health data type for HKQuantitySample",

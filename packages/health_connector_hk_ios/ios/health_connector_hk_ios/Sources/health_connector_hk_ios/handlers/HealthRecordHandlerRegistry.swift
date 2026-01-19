@@ -173,6 +173,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(AppleWalkingSteadinessHandler(healthStore: healthStore))
         register(WalkingAsymmetryPercentageHandler(healthStore: healthStore))
         register(WalkingDoubleSupportPercentageHandler(healthStore: healthStore))
+        register(WalkingStepLengthHandler(healthStore: healthStore))
         register(SwimmingStrokesHandler(healthStore: healthStore))
         register(BloodAlcoholContentHandler(healthStore: healthStore))
         register(PeripheralPerfusionIndexHandler(healthStore: healthStore))

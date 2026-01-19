@@ -176,6 +176,8 @@ extension HealthRecordDto {
             record.id
         case let record as WalkingDoubleSupportPercentageRecordDto:
             record.id
+        case let record as WalkingStepLengthRecordDto:
+            record.id
         default:
             nil
         }
@@ -371,6 +373,8 @@ extension HealthRecordDto {
                 return .forcedVitalCapacity
             case is WalkingDoubleSupportPercentageRecordDto:
                 return .walkingDoubleSupportPercentage
+            case is WalkingStepLengthRecordDto:
+                return .walkingStepLength
             default:
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -558,6 +562,8 @@ extension HealthRecordDto {
         case let dto as ForcedVitalCapacityRecordDto:
             return dto.time
         case let dto as WalkingDoubleSupportPercentageRecordDto:
+            return dto.endTime
+        case let dto as WalkingStepLengthRecordDto:
             return dto.endTime
         default:
             throw HealthConnectorError.invalidArgument(

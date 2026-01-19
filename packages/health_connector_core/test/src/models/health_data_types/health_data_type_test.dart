@@ -15,6 +15,9 @@ void main() {
             <HealthDataType>[
               HealthDataType.activeEnergyBurned,
               HealthDataType.activityIntensity,
+              HealthDataType.appleExerciseTime,
+              HealthDataType.appleMoveTime,
+              HealthDataType.appleStandTime,
               HealthDataType.basalEnergyBurned,
               HealthDataType.crossCountrySkiingDistance,
               HealthDataType.cyclingPedalingCadence,
@@ -69,11 +72,15 @@ void main() {
             HealthDataType.mobilityTypes.toList(),
             HealthDataTypeCategory.mobility,
             <HealthDataType>[
+              HealthDataType.appleWalkingSteadiness,
               HealthDataType.runningSpeed,
               HealthDataType.sixMinuteWalkTestDistance,
               HealthDataType.stairAscentSpeed,
               HealthDataType.stairDescentSpeed,
+              HealthDataType.walkingAsymmetryPercentage,
+              HealthDataType.walkingDoubleSupportPercentage,
               HealthDataType.walkingSpeed,
+              HealthDataType.walkingStepLength,
             ],
           ],
           [
@@ -341,6 +348,7 @@ void main() {
         [HealthDataType.dietaryFolate, 'dietary_folate'],
         [HealthDataType.dietaryBiotin, 'dietary_biotin'],
         [HealthDataType.dietaryPantothenicAcid, 'dietary_pantothenic_acid'],
+        [HealthDataType.walkingStepLength, 'walking_step_length'],
       ],
       (HealthDataType type, String expectedKey) {
         expect(type.id, equals(expectedKey));

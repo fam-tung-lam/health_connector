@@ -732,8 +732,11 @@ enum HealthDataTypeDto {
   /// Apple Walking Steadiness data (iOS only).
   appleWalkingSteadiness,
 
-  /// Walking Double Support Percentage data (iOS only).
+  /// Walking Double Support Percentage data type (iOS only).
   walkingDoubleSupportPercentage,
+
+  /// Walking Step Length data type (iOS only).
+  walkingStepLength,
 
   /// Blood alcohol content data (iOS only).
   bloodAlcoholContent,
@@ -1584,6 +1587,45 @@ class WalkingDoubleSupportPercentageRecordDto extends HealthRecordDto {
 
   /// The walking double support percentage (stored as decimal 0.0-1.0).
   final double percentage;
+
+  /// The placement side of the device used for measurement.
+  final DevicePlacementSideDto devicePlacementSide;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a walking step length record for platform transfer
+/// (iOS HealthKit).
+class WalkingStepLengthRecordDto extends HealthRecordDto {
+  WalkingStepLengthRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.meters,
+    required this.devicePlacementSide,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// The walking step length (stored as decimal).
+  final double meters;
 
   /// The placement side of the device used for measurement.
   final DevicePlacementSideDto devicePlacementSide;

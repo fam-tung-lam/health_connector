@@ -151,6 +151,11 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case ForcedVitalCapacityDataType _:
           case WalkingAsymmetryPercentageDataType _:
           case WalkingDoubleSupportPercentageDataType _:
+          case WalkingStepLengthDataType _:
+            throw UnsupportedError(
+              '$WalkingDoubleSupportPercentageDataType, $WalkingAsymmetryPercentageDataType and $WalkingStepLengthDataType are not supported on Android '
+              'Health Connect. These data types are iOS-only.',
+            );
           case ActivityIntensityDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',

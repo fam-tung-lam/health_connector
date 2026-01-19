@@ -184,6 +184,14 @@ final class HealthRecordListTile extends StatelessWidget {
           record: r,
           onDelete: onDelete,
         ),
+      final WalkingStepLengthRecord r =>
+        SimpleIntervalMeasurementListTile<WalkingStepLengthRecord>(
+          record: r,
+          icon: AppIcons.directionsWalk,
+          titleBuilder: (r) => '${r.length.inMeters.toStringAsFixed(2)} m',
+          valueExtractor: (r) => r.length,
+          onDelete: onDelete,
+        ),
 
       // Sleep records
       final SleepSessionRecord r => SleepSessionTile(

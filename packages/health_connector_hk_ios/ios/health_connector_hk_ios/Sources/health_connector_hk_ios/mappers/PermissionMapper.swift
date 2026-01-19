@@ -103,6 +103,7 @@ extension HealthDataPermissionDto {
              .waistCircumference,
              .walkingAsymmetryPercentage,
              .walkingDoubleSupportPercentage,
+             .walkingStepLength,
              .heartRateVariabilitySDNN,
              .peripheralPerfusionIndex,
              .forcedVitalCapacity:

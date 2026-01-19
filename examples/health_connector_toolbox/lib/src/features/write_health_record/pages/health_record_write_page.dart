@@ -596,6 +596,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       WalkingDoubleSupportPercentageDataType _ => throw UnsupportedError(
         'Walking Double Support Percentage is read-only',
       ),
+      WalkingStepLengthDataType _ => throw UnsupportedError(
+        'Walking Step Length is read-only',
+      ),
     };
   }
 }

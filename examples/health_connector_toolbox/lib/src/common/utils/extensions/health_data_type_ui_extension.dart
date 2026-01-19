@@ -126,6 +126,7 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.walkingAsymmetryPercentage,
       WalkingDoubleSupportPercentageDataType _ =>
         AppTexts.walkingDoubleSupportPercentage,
+      WalkingStepLengthDataType _ => AppTexts.walkingStepLength,
     };
   }
 
@@ -266,6 +267,7 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.walkingAsymmetryPercentageDescription,
       WalkingDoubleSupportPercentageDataType _ =>
         AppTexts.walkingDoubleSupportPercentageDescription,
+      WalkingStepLengthDataType _ => AppTexts.walkingStepLengthDescription,
     };
   }
 
@@ -388,6 +390,7 @@ extension HealthDataTypeUI on HealthDataType {
       AppleWalkingSteadinessDataType _ => AppIcons.directionsWalk,
       WalkingAsymmetryPercentageDataType _ => AppIcons.directionsWalk,
       WalkingDoubleSupportPercentageDataType _ => AppIcons.directionsWalk,
+      WalkingStepLengthDataType _ => AppIcons.directionsWalk,
     };
   }
 }

@@ -775,7 +775,8 @@ extension on double {
       HealthDataTypeDto.paddleSportsDistance ||
       HealthDataTypeDto.crossCountrySkiingDistance ||
       HealthDataTypeDto.skatingSportsDistance ||
-      HealthDataTypeDto.sixMinuteWalkTestDistance => Length.meters(this),
+      HealthDataTypeDto.sixMinuteWalkTestDistance ||
+      HealthDataTypeDto.walkingStepLength => Length.meters(this),
       HealthDataTypeDto.weight ||
       HealthDataTypeDto.leanBodyMass ||
       HealthDataTypeDto.calcium ||

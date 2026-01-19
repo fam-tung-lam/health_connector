@@ -302,6 +302,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .walkingAsymmetryPercentage)
         case .walkingDoubleSupportPercentage:
             try HKQuantityType.make(from: .walkingDoubleSupportPercentage)
+        case .walkingStepLength:
+            try HKQuantityType.make(from: .walkingStepLength)
         case .heartRateVariabilitySDNN:
             try HKQuantityType.make(from: .heartRateVariabilitySDNN)
         case .peripheralPerfusionIndex:

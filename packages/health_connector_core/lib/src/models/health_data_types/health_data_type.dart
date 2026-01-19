@@ -134,6 +134,7 @@ part 'vo2_max_data_type.dart';
 part 'waist_circumference_data_type.dart';
 part 'walking_asymmetry_percentage_data_type.dart';
 part 'walking_double_support_percentage_data_type.dart';
+part 'walking_step_length_data_type.dart';
 part 'weight_data_type.dart';
 part 'wheelchair_pushes_data_type.dart';
 
@@ -467,6 +468,18 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const walkingDoubleSupportPercentage =
       WalkingDoubleSupportPercentageDataType();
+
+  /// Walking step length data type.
+  ///
+  /// Represents the distance between the point of initial contact of one foot
+  /// and the point of initial contact of the opposite foot.
+  /// Supports reading and aggregation (MIN, MAX, AVG).
+  ///
+  /// > **Note**: This is a read-only data type. It cannot be written or
+  /// > deleted by third-party apps.
+  @sinceV3_2_0
+  @supportedOnAppleHealth
+  static const walkingStepLength = WalkingStepLengthDataType();
 
   /// Cervical mucus data type.
   ///
@@ -1186,10 +1199,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     totalEnergyBurned,
     vo2Max,
     waistCircumference,
-    walkingDoubleSupportPercentage,
     walkingAsymmetryPercentage,
+    walkingDoubleSupportPercentage,
     walkingRunningDistance,
     walkingSpeed,
+    walkingStepLength,
     weight,
     wheelchairDistance,
     wheelchairPushes,

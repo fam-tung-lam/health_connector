@@ -215,6 +215,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.walkingAsymmetryPercentage;
       case HealthDataTypeDto.walkingDoubleSupportPercentage:
         return HealthDataType.walkingDoubleSupportPercentage;
+      case HealthDataTypeDto.walkingStepLength:
+        return HealthDataType.walkingStepLength;
     }
   }
 }
@@ -500,6 +502,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.walkingAsymmetryPercentage;
       case WalkingDoubleSupportPercentageDataType _:
         return HealthDataTypeDto.walkingDoubleSupportPercentage;
+      case WalkingStepLengthDataType _:
+        return HealthDataTypeDto.walkingStepLength;
     }
   }
 }

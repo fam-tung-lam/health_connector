@@ -158,6 +158,11 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateSeriesDataType _:
         return HealthDataTypeDto.heartRateSeriesRecord;
+      case ForcedVitalCapacityDataType _:
+        throw UnsupportedError(
+          '$ForcedVitalCapacityDataType is not supported on Android '
+          'Health Connect.',
+        );
       case CyclingPedalingCadenceSeriesDataType _:
         return HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord;
       case StepsCadenceSeriesDataType _:
@@ -362,20 +367,14 @@ extension HealthDataTypeToDto on HealthDataType {
           '$MenstrualFlowDataType is not supported on Android Health Connect. '
           'Use $MenstrualFlowInstantDataType instead.',
         );
-      case ForcedVitalCapacityDataType():
-        throw UnsupportedError(
-          '$ForcedVitalCapacityDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
-        );
       case WalkingAsymmetryPercentageDataType _:
-        throw UnsupportedError(
-          '$WalkingAsymmetryPercentageDataType is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
-        );
       case WalkingDoubleSupportPercentageDataType _:
+      case WalkingStepLengthDataType _:
         throw UnsupportedError(
-          '$WalkingDoubleSupportPercentageDataType is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          '$WalkingAsymmetryPercentageDataType, '
+          '$WalkingDoubleSupportPercentageDataType and '
+          '$WalkingStepLengthDataType are not supported on Android '
+          'Health Connect. These data types are iOS-only.',
         );
     }
   }
