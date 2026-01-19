@@ -2,11 +2,11 @@ import Foundation
 import HealthKit
 
 /// Handler for Apple Walking Steadiness data (interval quantity type)
-final class AppleWalkingSteadinessHandler: @unchecked Sendable,
+final class WalkingSteadinessHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     AggregatableQuantityHealthRecordHandler
 {
-    typealias RecordDto = AppleWalkingSteadinessRecordDto
+    typealias RecordDto = WalkingSteadinessRecordDto
     typealias SampleType = HKQuantitySample
     let healthStore: HKHealthStore
 
@@ -14,7 +14,7 @@ final class AppleWalkingSteadinessHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static let dataType: HealthDataTypeDto = .appleWalkingSteadiness
+    static let dataType: HealthDataTypeDto = .walkingSteadiness
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 

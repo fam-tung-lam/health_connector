@@ -4,20 +4,20 @@ import 'package:test/test.dart';
 
 void main() {
   group(
-    'AppleMoveTimeDataType',
+    'ExerciseTimeDataType',
     () {
-      const dataType = HealthDataType.appleMoveTime;
+      const dataType = HealthDataType.exerciseTime;
       test(
         'has correct id',
         () {
-          expect(dataType.id, equals('apple_move_time'));
+          expect(dataType.id, equals('apple_exercise_time'));
         },
       );
 
       test(
         'type and capabilities are correctly defined',
         () {
-          expect(dataType, isA<AppleMoveTimeDataType>());
+          expect(dataType, isA<ExerciseTimeDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<ReadableByIdHealthDataType>());
           expect(dataType, isA<ReadableInTimeRangeHealthDataType>());

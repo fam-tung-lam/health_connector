@@ -3,11 +3,11 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [AppleMoveTimeRecord] to [AppleMoveTimeRecordDto].
+/// Converts [MoveTimeRecord] to [MoveTimeRecordDto].
 @internal
-extension AppleMoveTimeRecordToDto on AppleMoveTimeRecord {
-  AppleMoveTimeRecordDto toDto() {
-    return AppleMoveTimeRecordDto(
+extension MoveTimeRecordToDto on MoveTimeRecord {
+  MoveTimeRecordDto toDto() {
+    return MoveTimeRecordDto(
       id: id.value,
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
@@ -19,11 +19,11 @@ extension AppleMoveTimeRecordToDto on AppleMoveTimeRecord {
   }
 }
 
-/// Converts [AppleMoveTimeRecordDto] to [AppleMoveTimeRecord].
+/// Converts [MoveTimeRecordDto] to [MoveTimeRecord].
 @internal
-extension AppleMoveTimeRecordDtoToDomain on AppleMoveTimeRecordDto {
-  AppleMoveTimeRecord toDomain() {
-    return AppleMoveTimeRecord.internal(
+extension MoveTimeRecordDtoToDomain on MoveTimeRecordDto {
+  MoveTimeRecord toDomain() {
+    return MoveTimeRecord.internal(
       id: HealthRecordId(id ?? ''),
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

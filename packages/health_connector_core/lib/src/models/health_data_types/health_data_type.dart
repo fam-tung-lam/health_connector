@@ -18,10 +18,10 @@ import 'package:meta/meta.dart' show immutable, internal;
 
 part 'activity_intensity_data_type.dart';
 part 'alcoholic_beverages_data_type.dart';
-part 'apple_exercise_time_data_type.dart';
-part 'apple_move_time_data_type.dart';
-part 'apple_stand_time_data_type.dart';
-part 'walking/apple_walking_steadiness_data_type.dart';
+part 'exercise_time_data_type.dart';
+part 'move_time_data_type.dart';
+part 'stand_time_data_type.dart';
+part 'walking/walking_steadiness_data_type.dart';
 part 'blood_alcohol_content_data_type.dart';
 part 'blood_glucose_data_type.dart';
 part 'blood_pressure/blood_pressure_data_type.dart';
@@ -529,14 +529,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// the user's daily exercise goals. Activity evaluated as exercise by Apple.
   @sinceV3_2_0
   @supportedOnAppleHealth
-  static const appleExerciseTime = AppleExerciseTimeDataType();
+  static const exerciseTime = ExerciseTimeDataType();
 
   /// Apple Move Time data type.
   ///
   /// Represents the amount of time the user has been moving.
   @sinceV3_2_0
   @supportedOnAppleHealth
-  static const appleMoveTime = AppleMoveTimeDataType();
+  static const moveTime = MoveTimeDataType();
 
   /// Apple Stand Time data type.
   ///
@@ -544,7 +544,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// one minute in an hour.
   @sinceV3_2_0
   @supportedOnAppleHealth
-  static const appleStandTime = AppleStandTimeDataType();
+  static const standTime = StandTimeDataType();
 
   /// Apple Walking Steadiness data type.
   ///
@@ -552,7 +552,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// stability and regularity of a person's gait.
   @sinceV3_2_0
   @supportedOnAppleHealth
-  static const appleWalkingSteadiness = AppleWalkingSteadinessDataType();
+  static const walkingSteadiness = WalkingSteadinessDataType();
 
   /// Exercise session data type.
   ///
@@ -1109,10 +1109,10 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     activeEnergyBurned,
     activityIntensity,
     alcoholicBeverages,
-    appleExerciseTime,
-    appleMoveTime,
-    appleStandTime,
-    appleWalkingSteadiness,
+    exerciseTime,
+    moveTime,
+    standTime,
+    walkingSteadiness,
     basalBodyTemperature,
     basalEnergyBurned,
     dietaryBiotin,

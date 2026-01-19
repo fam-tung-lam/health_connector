@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-extension AppleWalkingSteadinessRecordDto {
+extension WalkingSteadinessRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
@@ -31,10 +31,10 @@ extension AppleWalkingSteadinessRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `AppleWalkingSteadinessRecordDto`.
+    /// Converts this HealthKit sample to a `WalkingSteadinessRecordDto`.
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an apple walking steadiness sample.
-    func toAppleWalkingSteadinessRecordDto() throws -> AppleWalkingSteadinessRecordDto {
+    func toWalkingSteadinessRecordDto() throws -> WalkingSteadinessRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.appleWalkingSteadiness.rawValue
         else {
             throw HealthConnectorError.invalidArgument(
@@ -61,7 +61,7 @@ extension HKQuantitySample {
         let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
-        return try AppleWalkingSteadinessRecordDto(
+        return try WalkingSteadinessRecordDto(
             percentage: percentage,
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,

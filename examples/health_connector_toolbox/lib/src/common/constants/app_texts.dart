@@ -192,10 +192,10 @@ abstract final class AppTexts {
       WaistCircumferenceDataType() => waistCircumference,
       HeartRateVariabilitySDNNDataType() => heartRateVariabilitySDNN,
       ActivityIntensityDataType() => activityIntensity,
-      AppleExerciseTimeDataType() => appleExerciseTime,
-      AppleMoveTimeDataType() => appleMoveTime,
-      AppleStandTimeDataType() => appleStandTime,
-      AppleWalkingSteadinessDataType() => 'Walking Steadiness',
+      ExerciseTimeDataType() => exerciseTime,
+      MoveTimeDataType() => moveTime,
+      StandTimeDataType() => standTime,
+      WalkingSteadinessDataType() => 'Walking Steadiness',
       WalkingAsymmetryPercentageDataType() => walkingAsymmetryPercentage,
       WalkingDoubleSupportPercentageDataType() =>
         walkingDoubleSupportPercentage,
@@ -333,15 +333,14 @@ abstract final class AppTexts {
   static const String bloodAlcoholContent = 'Blood Alcohol Content';
   static const String bloodAlcoholContentDescription =
       'Concentration of alcohol in the blood';
-  static const String appleExerciseTime = 'Apple Exercise Time';
-  static const String appleExerciseTimeDescription =
+  static const String exerciseTime = 'Apple Exercise Time';
+  static const String exerciseTimeDescription =
       'Amount of time spent exercising';
-  static const String appleMoveTime = 'Apple Move Time';
-  static const String appleMoveTimeDescription =
+  static const String moveTime = 'Apple Move Time';
+  static const String moveTimeDescription =
       'Amount of time spent moving actively';
-  static const String appleStandTime = 'Apple Stand Time';
-  static const String appleStandTimeDescription =
-      'Amount of time spent standing';
+  static const String standTime = 'Apple Stand Time';
+  static const String standTimeDescription = 'Amount of time spent standing';
   static const String walkingAsymmetryPercentage = 'Walking Asymmetry';
   static const String walkingAsymmetryPercentageDescription =
       'Percentage of time the weight alternates between left and right feet '

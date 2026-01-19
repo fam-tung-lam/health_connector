@@ -201,14 +201,14 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.sleepStageRecord;
       case HealthDataTypeDto.peripheralPerfusionIndex:
         return HealthDataType.peripheralPerfusionIndex;
-      case HealthDataTypeDto.appleExerciseTime:
-        return HealthDataType.appleExerciseTime;
-      case HealthDataTypeDto.appleMoveTime:
-        return HealthDataType.appleMoveTime;
-      case HealthDataTypeDto.appleStandTime:
-        return HealthDataType.appleStandTime;
-      case HealthDataTypeDto.appleWalkingSteadiness:
-        return HealthDataType.appleWalkingSteadiness;
+      case HealthDataTypeDto.exerciseTime:
+        return HealthDataType.exerciseTime;
+      case HealthDataTypeDto.moveTime:
+        return HealthDataType.moveTime;
+      case HealthDataTypeDto.standTime:
+        return HealthDataType.standTime;
+      case HealthDataTypeDto.walkingSteadiness:
+        return HealthDataType.walkingSteadiness;
       case HealthDataTypeDto.walkingAsymmetryPercentage:
         return HealthDataType.walkingAsymmetryPercentage;
       case HealthDataTypeDto.walkingDoubleSupportPercentage:
@@ -492,14 +492,14 @@ extension HealthDataTypeToDto on HealthDataType {
         throw UnsupportedError(
           '$ActivityIntensityDataType is not supported on iOS HealthKit.',
         );
-      case AppleExerciseTimeDataType _:
-        return HealthDataTypeDto.appleExerciseTime;
-      case AppleMoveTimeDataType _:
-        return HealthDataTypeDto.appleMoveTime;
-      case AppleStandTimeDataType _:
-        return HealthDataTypeDto.appleStandTime;
-      case AppleWalkingSteadinessDataType _:
-        return HealthDataTypeDto.appleWalkingSteadiness;
+      case ExerciseTimeDataType _:
+        return HealthDataTypeDto.exerciseTime;
+      case MoveTimeDataType _:
+        return HealthDataTypeDto.moveTime;
+      case StandTimeDataType _:
+        return HealthDataTypeDto.standTime;
+      case WalkingSteadinessDataType _:
+        return HealthDataTypeDto.walkingSteadiness;
       case WalkingAsymmetryPercentageDataType _:
         return HealthDataTypeDto.walkingAsymmetryPercentage;
       case WalkingDoubleSupportPercentageDataType _:

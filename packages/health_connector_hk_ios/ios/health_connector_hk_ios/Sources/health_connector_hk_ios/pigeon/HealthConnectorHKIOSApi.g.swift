@@ -657,13 +657,13 @@ public enum HealthDataTypeDto: Int {
   /// Alcoholic beverages data (iOS only).
   case alcoholicBeverages = 1
   /// Apple Exercise Time data (iOS only).
-  case appleExerciseTime = 2
+  case exerciseTime = 2
   /// Apple Move Time data (iOS only).
-  case appleMoveTime = 3
+  case moveTime = 3
   /// Apple Stand Time data (iOS only).
-  case appleStandTime = 4
+  case standTime = 4
   /// Apple Walking Steadiness data (iOS only).
-  case appleWalkingSteadiness = 5
+  case walkingSteadiness = 5
   /// Walking Double Support Percentage data type (iOS only).
   case walkingDoubleSupportPercentage = 6
   /// Walking Step Length data type (iOS only).
@@ -1698,7 +1698,7 @@ public struct AlcoholicBeveragesRecordDto: HealthRecordDto {
 /// HealthKit only).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-public struct AppleExerciseTimeRecordDto: HealthRecordDto {
+public struct ExerciseTimeRecordDto: HealthRecordDto {
   /// The duration of exercise in seconds.
   var seconds: Double
   /// End time in milliseconds since epoch (UTC).
@@ -1716,7 +1716,7 @@ public struct AppleExerciseTimeRecordDto: HealthRecordDto {
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> AppleExerciseTimeRecordDto? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> ExerciseTimeRecordDto? {
     let seconds = pigeonVar_list[0] as! Double
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
@@ -1725,7 +1725,7 @@ public struct AppleExerciseTimeRecordDto: HealthRecordDto {
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
-    return AppleExerciseTimeRecordDto(
+    return ExerciseTimeRecordDto(
       seconds: seconds,
       endTime: endTime,
       id: id,
@@ -1746,7 +1746,7 @@ public struct AppleExerciseTimeRecordDto: HealthRecordDto {
       endZoneOffsetSeconds,
     ]
   }
-  public static func == (lhs: AppleExerciseTimeRecordDto, rhs: AppleExerciseTimeRecordDto) -> Bool {
+  public static func == (lhs: ExerciseTimeRecordDto, rhs: ExerciseTimeRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -1757,7 +1757,7 @@ public struct AppleExerciseTimeRecordDto: HealthRecordDto {
 /// only).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-public struct AppleMoveTimeRecordDto: HealthRecordDto {
+public struct MoveTimeRecordDto: HealthRecordDto {
   /// The duration of movement in seconds.
   var seconds: Double
   /// End time in milliseconds since epoch (UTC).
@@ -1775,7 +1775,7 @@ public struct AppleMoveTimeRecordDto: HealthRecordDto {
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> AppleMoveTimeRecordDto? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> MoveTimeRecordDto? {
     let seconds = pigeonVar_list[0] as! Double
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
@@ -1784,7 +1784,7 @@ public struct AppleMoveTimeRecordDto: HealthRecordDto {
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
-    return AppleMoveTimeRecordDto(
+    return MoveTimeRecordDto(
       seconds: seconds,
       endTime: endTime,
       id: id,
@@ -1805,7 +1805,7 @@ public struct AppleMoveTimeRecordDto: HealthRecordDto {
       endZoneOffsetSeconds,
     ]
   }
-  public static func == (lhs: AppleMoveTimeRecordDto, rhs: AppleMoveTimeRecordDto) -> Bool {
+  public static func == (lhs: MoveTimeRecordDto, rhs: MoveTimeRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -1816,7 +1816,7 @@ public struct AppleMoveTimeRecordDto: HealthRecordDto {
 /// only).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-public struct AppleStandTimeRecordDto: HealthRecordDto {
+public struct StandTimeRecordDto: HealthRecordDto {
   /// The duration of standing in seconds.
   var seconds: Double
   /// End time in milliseconds since epoch (UTC).
@@ -1834,7 +1834,7 @@ public struct AppleStandTimeRecordDto: HealthRecordDto {
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> AppleStandTimeRecordDto? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> StandTimeRecordDto? {
     let seconds = pigeonVar_list[0] as! Double
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
@@ -1843,7 +1843,7 @@ public struct AppleStandTimeRecordDto: HealthRecordDto {
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
-    return AppleStandTimeRecordDto(
+    return StandTimeRecordDto(
       seconds: seconds,
       endTime: endTime,
       id: id,
@@ -1864,7 +1864,7 @@ public struct AppleStandTimeRecordDto: HealthRecordDto {
       endZoneOffsetSeconds,
     ]
   }
-  public static func == (lhs: AppleStandTimeRecordDto, rhs: AppleStandTimeRecordDto) -> Bool {
+  public static func == (lhs: StandTimeRecordDto, rhs: StandTimeRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -1874,7 +1874,7 @@ public struct AppleStandTimeRecordDto: HealthRecordDto {
 /// Represents an Apple Walking Steadiness record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-public struct AppleWalkingSteadinessRecordDto: HealthRecordDto {
+public struct WalkingSteadinessRecordDto: HealthRecordDto {
   /// The walking steadiness percentage (stored as decimal 0.0-1.0).
   var percentage: Double
   /// End time in milliseconds since epoch (UTC).
@@ -1892,7 +1892,7 @@ public struct AppleWalkingSteadinessRecordDto: HealthRecordDto {
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> AppleWalkingSteadinessRecordDto? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> WalkingSteadinessRecordDto? {
     let percentage = pigeonVar_list[0] as! Double
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
@@ -1901,7 +1901,7 @@ public struct AppleWalkingSteadinessRecordDto: HealthRecordDto {
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
-    return AppleWalkingSteadinessRecordDto(
+    return WalkingSteadinessRecordDto(
       percentage: percentage,
       endTime: endTime,
       id: id,
@@ -1922,7 +1922,7 @@ public struct AppleWalkingSteadinessRecordDto: HealthRecordDto {
       endZoneOffsetSeconds,
     ]
   }
-  public static func == (lhs: AppleWalkingSteadinessRecordDto, rhs: AppleWalkingSteadinessRecordDto) -> Bool {
+  public static func == (lhs: WalkingSteadinessRecordDto, rhs: WalkingSteadinessRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -6843,13 +6843,13 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 172:
       return AlcoholicBeveragesRecordDto.fromList(self.readValue() as! [Any?])
     case 173:
-      return AppleExerciseTimeRecordDto.fromList(self.readValue() as! [Any?])
+      return ExerciseTimeRecordDto.fromList(self.readValue() as! [Any?])
     case 174:
-      return AppleMoveTimeRecordDto.fromList(self.readValue() as! [Any?])
+      return MoveTimeRecordDto.fromList(self.readValue() as! [Any?])
     case 175:
-      return AppleStandTimeRecordDto.fromList(self.readValue() as! [Any?])
+      return StandTimeRecordDto.fromList(self.readValue() as! [Any?])
     case 176:
-      return AppleWalkingSteadinessRecordDto.fromList(self.readValue() as! [Any?])
+      return WalkingSteadinessRecordDto.fromList(self.readValue() as! [Any?])
     case 177:
       return WalkingAsymmetryPercentageRecordDto.fromList(self.readValue() as! [Any?])
     case 178:
@@ -7148,16 +7148,16 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? AlcoholicBeveragesRecordDto {
       super.writeByte(172)
       super.writeValue(value.toList())
-    } else if let value = value as? AppleExerciseTimeRecordDto {
+    } else if let value = value as? ExerciseTimeRecordDto {
       super.writeByte(173)
       super.writeValue(value.toList())
-    } else if let value = value as? AppleMoveTimeRecordDto {
+    } else if let value = value as? MoveTimeRecordDto {
       super.writeByte(174)
       super.writeValue(value.toList())
-    } else if let value = value as? AppleStandTimeRecordDto {
+    } else if let value = value as? StandTimeRecordDto {
       super.writeByte(175)
       super.writeValue(value.toList())
-    } else if let value = value as? AppleWalkingSteadinessRecordDto {
+    } else if let value = value as? WalkingSteadinessRecordDto {
       super.writeByte(176)
       super.writeValue(value.toList())
     } else if let value = value as? WalkingAsymmetryPercentageRecordDto {

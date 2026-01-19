@@ -133,10 +133,10 @@ abstract class MeasurementUnitValueParser {
       HeartRateVariabilitySDNNDataType() => _parseTimeDuration(value),
 
       // Time duration (Minutes)
-      AppleExerciseTimeDataType() ||
-      AppleMoveTimeDataType() ||
-      AppleStandTimeDataType() => _parseTimeDurationMinutes(value),
-      AppleWalkingSteadinessDataType() ||
+      ExerciseTimeDataType() ||
+      MoveTimeDataType() ||
+      StandTimeDataType() => _parseTimeDurationMinutes(value),
+      WalkingSteadinessDataType() ||
       WalkingAsymmetryPercentageDataType() ||
       WalkingDoubleSupportPercentageDataType() => _parsePercentage(value),
 

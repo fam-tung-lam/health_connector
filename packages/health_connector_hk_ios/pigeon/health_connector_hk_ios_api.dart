@@ -721,16 +721,16 @@ enum HealthDataTypeDto {
   alcoholicBeverages,
 
   /// Apple Exercise Time data (iOS only).
-  appleExerciseTime,
+  exerciseTime,
 
   /// Apple Move Time data (iOS only).
-  appleMoveTime,
+  moveTime,
 
   /// Apple Stand Time data (iOS only).
-  appleStandTime,
+  standTime,
 
   /// Apple Walking Steadiness data (iOS only).
-  appleWalkingSteadiness,
+  walkingSteadiness,
 
   /// Walking Double Support Percentage data type (iOS only).
   walkingDoubleSupportPercentage,
@@ -1400,8 +1400,8 @@ class AlcoholicBeveragesRecordDto extends HealthRecordDto {
 
 /// Represents an Apple Exercise Time record for platform transfer (iOS
 /// HealthKit only).
-class AppleExerciseTimeRecordDto extends HealthRecordDto {
-  AppleExerciseTimeRecordDto({
+class ExerciseTimeRecordDto extends HealthRecordDto {
+  ExerciseTimeRecordDto({
     required this.id,
     required this.startTime,
     required this.endTime,
@@ -1435,8 +1435,8 @@ class AppleExerciseTimeRecordDto extends HealthRecordDto {
 
 /// Represents an Apple Move Time record for platform transfer (iOS HealthKit
 /// only).
-class AppleMoveTimeRecordDto extends HealthRecordDto {
-  AppleMoveTimeRecordDto({
+class MoveTimeRecordDto extends HealthRecordDto {
+  MoveTimeRecordDto({
     required this.id,
     required this.startTime,
     required this.endTime,
@@ -1470,8 +1470,8 @@ class AppleMoveTimeRecordDto extends HealthRecordDto {
 
 /// Represents an Apple Stand Time record for platform transfer (iOS HealthKit
 /// only).
-class AppleStandTimeRecordDto extends HealthRecordDto {
-  AppleStandTimeRecordDto({
+class StandTimeRecordDto extends HealthRecordDto {
+  StandTimeRecordDto({
     required this.id,
     required this.startTime,
     required this.endTime,
@@ -1504,8 +1504,8 @@ class AppleStandTimeRecordDto extends HealthRecordDto {
 }
 
 /// Represents an Apple Walking Steadiness record for platform transfer.
-class AppleWalkingSteadinessRecordDto extends HealthRecordDto {
-  AppleWalkingSteadinessRecordDto({
+class WalkingSteadinessRecordDto extends HealthRecordDto {
+  WalkingSteadinessRecordDto({
     required this.id,
     required this.startTime,
     required this.endTime,

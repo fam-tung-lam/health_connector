@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-extension AppleStandTimeRecordDto {
+extension StandTimeRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
@@ -31,10 +31,10 @@ extension AppleStandTimeRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `AppleStandTimeRecordDto`.
+    /// Converts this HealthKit sample to a `StandTimeRecordDto`.
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an apple stand time sample.
-    func toAppleStandTimeRecordDto() throws -> AppleStandTimeRecordDto {
+    func toStandTimeRecordDto() throws -> StandTimeRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.appleStandTime.rawValue else {
             throw HealthConnectorError.invalidArgument(
                 message:
@@ -60,7 +60,7 @@ extension HKQuantitySample {
         let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
-        return try AppleStandTimeRecordDto(
+        return try StandTimeRecordDto(
             seconds: seconds,
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,

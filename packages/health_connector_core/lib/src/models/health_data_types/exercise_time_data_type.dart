@@ -1,65 +1,66 @@
 part of 'health_data_type.dart';
 
-/// Apple Move Time data type.
+/// Apple Exercise Time data type.
 ///
-/// Tracks the amount of time the user has performed activity that contributes
-/// towards the user's daily Move goals in Apple Health. This is an iOS-specific
-/// metric calculated by Apple's algorithms based on active calories burned.
+/// Tracks the amount of time spent exercising that contributes towards the
+/// user's daily exercise goals in Apple Health. This is an iOS-specific metric
+/// calculated by Apple's algorithms based on heart rate, movement, and activity
+/// intensity.
 ///
-/// > **Note**: This data type is read-only. Apple Move Time is calculated
+/// > **Note**: This data type is read-only. Apple Exercise Time is calculated
 /// > by internal Apple's algorithms and cannot be written or deleted by
 /// > third-party apps.
 ///
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.appleMoveTime`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applemovetime)
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.appleExerciseTime`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/appleexercisetime)
 ///
 /// ## Example
 ///
 /// ```dart
 /// // Request read permission
 /// final permissions = [
-///   HealthDataType.appleMoveTime.readPermission,
+///   HealthDataType.exerciseTime.readPermission,
 /// ];
 /// await connector.requestPermissions(permissions);
 ///
 /// // Read records
-/// final request = HealthDataType.appleMoveTime.readInTimeRange(
+/// final request = HealthDataType.exerciseTime.readInTimeRange(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final response = await connector.readRecords(request);
 ///
 /// for (final record in response.records) {
-///   print('Move time: ${record.moveTime.inMinutes} minutes');
+///   print('Exercise time: ${record.exerciseTime.inMinutes} minutes');
 /// }
 ///
-/// // Aggregate total move time
-/// final aggRequest = HealthDataType.appleMoveTime.aggregateSum(
+/// // Aggregate total exercise time
+/// final aggRequest = HealthDataType.exerciseTime.aggregateSum(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final aggResponse = await connector.aggregate(aggRequest);
-/// print('Total move time: ${aggResponse.value?.inMinutes} minutes');
+/// print('Total exercise: ${aggResponse.value?.inMinutes} minutes');
 /// ```
 ///
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable
-final class AppleMoveTimeDataType
-    extends HealthDataType<AppleMoveTimeRecord, TimeDuration>
+final class ExerciseTimeDataType
+    extends HealthDataType<ExerciseTimeRecord, TimeDuration>
     implements
-        ReadableByIdHealthDataType<AppleMoveTimeRecord>,
-        ReadableInTimeRangeHealthDataType<AppleMoveTimeRecord>,
+        ReadableByIdHealthDataType<ExerciseTimeRecord>,
+        ReadableInTimeRangeHealthDataType<ExerciseTimeRecord>,
         SumAggregatableHealthDataType<TimeDuration> {
-  /// Creates an Apple Move Time data type.
+  /// Creates an Apple Exercise Time data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const AppleMoveTimeDataType();
+  const ExerciseTimeDataType();
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
@@ -67,12 +68,12 @@ final class AppleMoveTimeDataType
   ];
 
   @override
-  String get id => 'apple_move_time';
+  String get id => 'apple_exercise_time';
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppleMoveTimeDataType && runtimeType == other.runtimeType;
+      other is ExerciseTimeDataType && runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;
@@ -81,12 +82,12 @@ final class AppleMoveTimeDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<AppleMoveTimeRecord> readById(HealthRecordId id) {
+  ReadRecordByIdRequest<ExerciseTimeRecord> readById(HealthRecordId id) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<AppleMoveTimeRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<ExerciseTimeRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],

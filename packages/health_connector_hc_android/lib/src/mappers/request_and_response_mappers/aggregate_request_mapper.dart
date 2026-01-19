@@ -43,10 +43,10 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
             );
           case ActiveEnergyBurnedDataType _:
           case AlcoholicBeveragesDataType _:
-          case AppleExerciseTimeDataType _:
-          case AppleMoveTimeDataType _:
-          case AppleStandTimeDataType _:
-          case AppleWalkingSteadinessDataType _:
+          case ExerciseTimeDataType _:
+          case MoveTimeDataType _:
+          case StandTimeDataType _:
+          case WalkingSteadinessDataType _:
           case BloodAlcoholContentDataType _:
           case BloodPressureDataType _:
           case BodyFatPercentageDataType _:

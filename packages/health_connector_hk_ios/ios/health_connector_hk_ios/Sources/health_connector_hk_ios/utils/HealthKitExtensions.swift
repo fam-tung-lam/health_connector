@@ -168,13 +168,13 @@ extension HKSample {
             case HKQuantityTypeIdentifier.forcedVitalCapacity.rawValue:
                 return .forcedVitalCapacity
             case HKQuantityTypeIdentifier.appleExerciseTime.rawValue:
-                return .appleExerciseTime
+                return .exerciseTime
             case HKQuantityTypeIdentifier.appleMoveTime.rawValue:
-                return .appleMoveTime
+                return .moveTime
             case HKQuantityTypeIdentifier.appleStandTime.rawValue:
-                return .appleStandTime
+                return .standTime
             case HKQuantityTypeIdentifier.appleWalkingSteadiness.rawValue:
-                return .appleWalkingSteadiness
+                return .walkingSteadiness
             case HKQuantityTypeIdentifier.walkingAsymmetryPercentage.rawValue:
                 return .walkingAsymmetryPercentage
             case HKQuantityTypeIdentifier.walkingDoubleSupportPercentage.rawValue:

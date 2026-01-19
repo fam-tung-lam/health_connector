@@ -578,16 +578,16 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      AppleExerciseTimeDataType _ => throw UnsupportedError(
+      ExerciseTimeDataType _ => throw UnsupportedError(
         'Apple Exercise Time is read-only',
       ),
-      AppleMoveTimeDataType _ => throw UnsupportedError(
+      MoveTimeDataType _ => throw UnsupportedError(
         'Apple Move Time is read-only',
       ),
-      AppleStandTimeDataType _ => throw UnsupportedError(
+      StandTimeDataType _ => throw UnsupportedError(
         'Apple Stand Time is read-only',
       ),
-      AppleWalkingSteadinessDataType _ => throw UnsupportedError(
+      WalkingSteadinessDataType _ => throw UnsupportedError(
         'Apple Walking Steadiness is read-only',
       ),
       SleepingWristTemperatureDataType _ => throw UnsupportedError(

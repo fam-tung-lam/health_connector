@@ -213,24 +213,24 @@ extension HealthRecordToDto on HealthRecord {
           'AlcoholicBeveragesRecord is not supported on Android Health '
           'Connect.',
         );
-      case AppleExerciseTimeRecord():
+      case ExerciseTimeRecord():
         throw UnsupportedError(
-          '$AppleExerciseTimeRecord is not supported on Android Health '
+          '$ExerciseTimeRecord is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
-      case AppleMoveTimeRecord():
+      case MoveTimeRecord():
         throw UnsupportedError(
-          '$AppleMoveTimeRecord is not supported on Android Health '
+          '$MoveTimeRecord is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
-      case AppleStandTimeRecord():
+      case StandTimeRecord():
         throw UnsupportedError(
-          '$AppleStandTimeRecord is not supported on Android Health '
+          '$StandTimeRecord is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
-      case AppleWalkingSteadinessRecord():
+      case WalkingSteadinessRecord():
         throw UnsupportedError(
-          '$AppleWalkingSteadinessRecord is not supported on Android Health '
+          '$WalkingSteadinessRecord is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
       case final BasalEnergyBurnedRecord _:

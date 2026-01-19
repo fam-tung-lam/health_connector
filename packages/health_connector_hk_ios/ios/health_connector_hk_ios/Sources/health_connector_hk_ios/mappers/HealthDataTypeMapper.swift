@@ -41,13 +41,13 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .activeEnergyBurned)
         case .alcoholicBeverages:
             try HKQuantityType.make(from: .numberOfAlcoholicBeverages)
-        case .appleExerciseTime:
+        case .exerciseTime:
             try HKQuantityType.make(from: .appleExerciseTime)
-        case .appleMoveTime:
+        case .moveTime:
             try HKQuantityType.make(from: .appleMoveTime)
-        case .appleStandTime:
+        case .standTime:
             try HKQuantityType.make(from: .appleStandTime)
-        case .appleWalkingSteadiness:
+        case .walkingSteadiness:
             try HKQuantityType.make(from: .appleWalkingSteadiness)
         case .bloodAlcoholContent:
             try HKQuantityType.make(from: .bloodAlcoholContent)

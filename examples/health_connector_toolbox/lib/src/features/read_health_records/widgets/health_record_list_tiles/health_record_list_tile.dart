@@ -140,8 +140,8 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.volume,
           onDelete: onDelete,
         ),
-      final AppleExerciseTimeRecord r =>
-        SimpleIntervalMeasurementListTile<AppleExerciseTimeRecord>(
+      final ExerciseTimeRecord r =>
+        SimpleIntervalMeasurementListTile<ExerciseTimeRecord>(
           record: r,
           icon: AppIcons.time,
           titleBuilder: (r) =>
@@ -149,16 +149,16 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.exerciseTime,
           onDelete: onDelete,
         ),
-      final AppleMoveTimeRecord r =>
-        SimpleIntervalMeasurementListTile<AppleMoveTimeRecord>(
+      final MoveTimeRecord r =>
+        SimpleIntervalMeasurementListTile<MoveTimeRecord>(
           record: r,
           icon: AppIcons.time,
           titleBuilder: (r) => '${r.moveTime.inMinutes.toStringAsFixed(0)} min',
           valueExtractor: (r) => r.moveTime,
           onDelete: onDelete,
         ),
-      final AppleStandTimeRecord r =>
-        SimpleIntervalMeasurementListTile<AppleStandTimeRecord>(
+      final StandTimeRecord r =>
+        SimpleIntervalMeasurementListTile<StandTimeRecord>(
           record: r,
           icon: AppIcons.time,
           titleBuilder: (r) =>
@@ -166,8 +166,8 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.standTime,
           onDelete: onDelete,
         ),
-      final AppleWalkingSteadinessRecord r =>
-        SimpleIntervalMeasurementListTile<AppleWalkingSteadinessRecord>(
+      final WalkingSteadinessRecord r =>
+        SimpleIntervalMeasurementListTile<WalkingSteadinessRecord>(
           record: r,
           icon: AppIcons.directionsWalk,
           titleBuilder: (r) => '${r.percentage.asWhole.toStringAsFixed(1)} %',

@@ -12,13 +12,13 @@ extension HealthRecordDto {
             record.id
         case let record as AlcoholicBeveragesRecordDto:
             record.id
-        case let record as AppleExerciseTimeRecordDto:
+        case let record as ExerciseTimeRecordDto:
             record.id
-        case let record as AppleMoveTimeRecordDto:
+        case let record as MoveTimeRecordDto:
             record.id
-        case let record as AppleStandTimeRecordDto:
+        case let record as StandTimeRecordDto:
             record.id
-        case let record as AppleWalkingSteadinessRecordDto:
+        case let record as WalkingSteadinessRecordDto:
             record.id
         case let record as BloodAlcoholContentRecordDto:
             record.id
@@ -201,14 +201,14 @@ extension HealthRecordDto {
                 return .basalBodyTemperature
             case is ActiveEnergyBurnedRecordDto:
                 return .activeCaloriesBurned
-            case is AppleExerciseTimeRecordDto:
-                return .appleExerciseTime
-            case is AppleMoveTimeRecordDto:
-                return .appleMoveTime
-            case is AppleStandTimeRecordDto:
-                return .appleStandTime
-            case is AppleWalkingSteadinessRecordDto:
-                return .appleWalkingSteadiness
+            case is ExerciseTimeRecordDto:
+                return .exerciseTime
+            case is MoveTimeRecordDto:
+                return .moveTime
+            case is StandTimeRecordDto:
+                return .standTime
+            case is WalkingSteadinessRecordDto:
+                return .walkingSteadiness
             case is AlcoholicBeveragesRecordDto:
                 return .alcoholicBeverages
             case is BloodAlcoholContentRecordDto:
@@ -398,13 +398,13 @@ extension HealthRecordDto {
         // Interval-based DTOs with endTime
         case let dto as StepsRecordDto:
             return dto.endTime
-        case let dto as AppleExerciseTimeRecordDto:
+        case let dto as ExerciseTimeRecordDto:
             return dto.endTime
-        case let dto as AppleMoveTimeRecordDto:
+        case let dto as MoveTimeRecordDto:
             return dto.endTime
-        case let dto as AppleStandTimeRecordDto:
+        case let dto as StandTimeRecordDto:
             return dto.endTime
-        case let dto as AppleWalkingSteadinessRecordDto:
+        case let dto as WalkingSteadinessRecordDto:
             return dto.endTime
         case let dto as ActiveEnergyBurnedRecordDto:
             return dto.endTime

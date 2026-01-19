@@ -15,9 +15,9 @@ void main() {
             <HealthDataType>[
               HealthDataType.activeEnergyBurned,
               HealthDataType.activityIntensity,
-              HealthDataType.appleExerciseTime,
-              HealthDataType.appleMoveTime,
-              HealthDataType.appleStandTime,
+              HealthDataType.exerciseTime,
+              HealthDataType.moveTime,
+              HealthDataType.standTime,
               HealthDataType.basalEnergyBurned,
               HealthDataType.crossCountrySkiingDistance,
               HealthDataType.cyclingPedalingCadence,
@@ -72,7 +72,7 @@ void main() {
             HealthDataType.mobilityTypes.toList(),
             HealthDataTypeCategory.mobility,
             <HealthDataType>[
-              HealthDataType.appleWalkingSteadiness,
+              HealthDataType.walkingSteadiness,
               HealthDataType.runningSpeed,
               HealthDataType.sixMinuteWalkTestDistance,
               HealthDataType.stairAscentSpeed,

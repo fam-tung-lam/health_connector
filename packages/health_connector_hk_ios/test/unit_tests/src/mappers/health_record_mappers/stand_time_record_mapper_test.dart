@@ -1,21 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_move_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/stand_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
 import '../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'AppleMoveTimeRecordMapper',
+    'StandTimeRecordMapper',
     () {
       group(
-        'AppleMoveTimeRecordToDto',
+        'StandTimeRecordToDto',
         () {
           test(
-            'converts AppleMoveTimeRecord to AppleMoveTimeRecordDto',
+            'converts StandTimeRecord to StandTimeRecordDto',
             () {
-              final record = AppleMoveTimeRecord.internal(
+              final record = StandTimeRecord.internal(
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -29,7 +29,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                moveTime: const TimeDuration.minutes(30),
+                standTime: const TimeDuration.minutes(45),
               );
 
               final dto = record.toDto();
@@ -48,7 +48,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.seconds, 30 * 60); // 30 minutes in seconds
+              expect(dto.seconds, 45 * 60); // 45 minutes in seconds
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -56,12 +56,12 @@ void main() {
       );
 
       group(
-        'AppleMoveTimeRecordDtoToDomain',
+        'StandTimeRecordDtoToDomain',
         () {
           test(
-            'converts AppleMoveTimeRecordDto to AppleMoveTimeRecord',
+            'converts StandTimeRecordDto to StandTimeRecord',
             () {
-              final dto = AppleMoveTimeRecordDto(
+              final dto = StandTimeRecordDto(
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
@@ -73,7 +73,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                seconds: 1800, // 30 minutes
+                seconds: 2700, // 45 minutes
               );
 
               final record = dto.toDomain();
@@ -81,7 +81,7 @@ void main() {
               expect(record.id.value, FakeData.fakeId);
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
-              expect(record.moveTime.inMinutes, 30);
+              expect(record.standTime.inMinutes, 45);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

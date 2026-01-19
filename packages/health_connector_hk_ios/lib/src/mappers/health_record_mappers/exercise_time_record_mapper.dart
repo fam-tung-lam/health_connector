@@ -3,34 +3,34 @@ import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_ma
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [AppleStandTimeRecord] to [AppleStandTimeRecordDto].
+/// Converts [ExerciseTimeRecord] to [ExerciseTimeRecordDto].
 @internal
-extension AppleStandTimeRecordToDto on AppleStandTimeRecord {
-  AppleStandTimeRecordDto toDto() {
-    return AppleStandTimeRecordDto(
+extension ExerciseTimeRecordToDto on ExerciseTimeRecord {
+  ExerciseTimeRecordDto toDto() {
+    return ExerciseTimeRecordDto(
       id: id.value,
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
-      seconds: standTime.inSeconds,
+      seconds: exerciseTime.inSeconds,
       metadata: metadata.toDto(),
     );
   }
 }
 
-/// Converts [AppleStandTimeRecordDto] to [AppleStandTimeRecord].
+/// Converts [ExerciseTimeRecordDto] to [ExerciseTimeRecord].
 @internal
-extension AppleStandTimeRecordDtoToDomain on AppleStandTimeRecordDto {
-  AppleStandTimeRecord toDomain() {
-    return AppleStandTimeRecord.internal(
+extension ExerciseTimeRecordDtoToDomain on ExerciseTimeRecordDto {
+  ExerciseTimeRecord toDomain() {
+    return ExerciseTimeRecord.internal(
       id: HealthRecordId(id ?? ''),
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      standTime: TimeDuration.seconds(seconds),
+      exerciseTime: TimeDuration.seconds(seconds),
     );
   }
 }

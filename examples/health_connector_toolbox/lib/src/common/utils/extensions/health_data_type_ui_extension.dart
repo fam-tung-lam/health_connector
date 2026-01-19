@@ -119,10 +119,10 @@ extension HealthDataTypeUI on HealthDataType {
       PeripheralPerfusionIndexDataType _ => AppTexts.peripheralPerfusionIndex,
       LactationDataType _ => AppTexts.lactation,
       ActivityIntensityDataType _ => AppTexts.activityIntensity,
-      AppleExerciseTimeDataType _ => AppTexts.appleExerciseTime,
-      AppleMoveTimeDataType _ => AppTexts.appleMoveTime,
-      AppleStandTimeDataType _ => AppTexts.appleStandTime,
-      AppleWalkingSteadinessDataType _ => 'Walking Steadiness',
+      ExerciseTimeDataType _ => AppTexts.exerciseTime,
+      MoveTimeDataType _ => AppTexts.moveTime,
+      StandTimeDataType _ => AppTexts.standTime,
+      WalkingSteadinessDataType _ => 'Walking Steadiness',
       WalkingAsymmetryPercentageDataType _ =>
         AppTexts.walkingAsymmetryPercentage,
       WalkingDoubleSupportPercentageDataType _ =>
@@ -261,10 +261,10 @@ extension HealthDataTypeUI on HealthDataType {
       LactationDataType _ => 'Record of lactation events',
       ActivityIntensityDataType _ =>
         'Minutes spent in moderate or vigorous activity (Android only)',
-      AppleExerciseTimeDataType _ => AppTexts.appleExerciseTimeDescription,
-      AppleMoveTimeDataType _ => AppTexts.appleMoveTimeDescription,
-      AppleStandTimeDataType _ => AppTexts.appleStandTimeDescription,
-      AppleWalkingSteadinessDataType _ =>
+      ExerciseTimeDataType _ => AppTexts.exerciseTimeDescription,
+      MoveTimeDataType _ => AppTexts.moveTimeDescription,
+      StandTimeDataType _ => AppTexts.standTimeDescription,
+      WalkingSteadinessDataType _ =>
         'Measure of walking stability and gait regularity (iOS only)',
       WalkingAsymmetryPercentageDataType _ =>
         AppTexts.walkingAsymmetryPercentageDescription,
@@ -388,10 +388,10 @@ extension HealthDataTypeUI on HealthDataType {
       PeripheralPerfusionIndexDataType _ => AppIcons.percent,
       ContraceptiveDataType _ => AppIcons.medication,
       ActivityIntensityDataType _ => AppIcons.fitnessCenter,
-      AppleExerciseTimeDataType _ => AppIcons.time,
-      AppleMoveTimeDataType _ => AppIcons.time,
-      AppleStandTimeDataType _ => AppIcons.time,
-      AppleWalkingSteadinessDataType _ => AppIcons.directionsWalk,
+      ExerciseTimeDataType _ => AppIcons.time,
+      MoveTimeDataType _ => AppIcons.time,
+      StandTimeDataType _ => AppIcons.time,
+      WalkingSteadinessDataType _ => AppIcons.directionsWalk,
       WalkingAsymmetryPercentageDataType _ => AppIcons.directionsWalk,
       WalkingDoubleSupportPercentageDataType _ => AppIcons.directionsWalk,
       WalkingStepLengthDataType _ => AppIcons.directionsWalk,
@@ -753,11 +753,11 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (SexualActivityDataType) => AppTexts.sexualActivity,
       const (CervicalMucusDataType) => AppTexts.cervicalMucus,
       const (CyclingPedalingCadenceDataType) => AppTexts.cyclingPedalingCadence,
-      const (AppleExerciseTimeDataType) => AppTexts.valueWithUnit(
+      const (ExerciseTimeDataType) => AppTexts.valueWithUnit(
         AppTexts.duration,
         AppTexts.minutes,
       ),
-      const (AppleMoveTimeDataType) => AppTexts.valueWithUnit(
+      const (MoveTimeDataType) => AppTexts.valueWithUnit(
         AppTexts.duration,
         AppTexts.minutes,
       ),
@@ -847,8 +847,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (DietarySugarDataType) => AppTexts.gram,
 
       // Time
-      const (AppleExerciseTimeDataType) ||
-      const (AppleMoveTimeDataType) => AppTexts.minutes,
+      const (ExerciseTimeDataType) ||
+      const (MoveTimeDataType) => AppTexts.minutes,
 
       // Nutrients - milligrams
       const (DietaryCaffeineDataType) ||

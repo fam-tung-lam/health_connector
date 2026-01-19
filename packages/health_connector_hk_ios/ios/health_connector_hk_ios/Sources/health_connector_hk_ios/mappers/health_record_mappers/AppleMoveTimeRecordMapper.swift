@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-extension AppleMoveTimeRecordDto {
+extension MoveTimeRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
@@ -31,10 +31,10 @@ extension AppleMoveTimeRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `AppleMoveTimeRecordDto`.
+    /// Converts this HealthKit sample to a `MoveTimeRecordDto`.
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an apple move time sample.
-    func toAppleMoveTimeRecordDto() throws -> AppleMoveTimeRecordDto {
+    func toMoveTimeRecordDto() throws -> MoveTimeRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.appleMoveTime.rawValue else {
             throw HealthConnectorError.invalidArgument(
                 message:
@@ -60,7 +60,7 @@ extension HKQuantitySample {
         let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
-        return try AppleMoveTimeRecordDto(
+        return try MoveTimeRecordDto(
             seconds: seconds,
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,

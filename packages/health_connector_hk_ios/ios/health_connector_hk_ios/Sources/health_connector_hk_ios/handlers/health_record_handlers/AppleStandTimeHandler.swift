@@ -2,11 +2,11 @@ import Foundation
 import HealthKit
 
 /// Handler for Apple Stand Time data (interval quantity type)
-final class AppleStandTimeHandler: @unchecked Sendable,
+final class StandTimeHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     AggregatableQuantityHealthRecordHandler
 {
-    typealias RecordDto = AppleStandTimeRecordDto
+    typealias RecordDto = StandTimeRecordDto
     typealias SampleType = HKQuantitySample
     let healthStore: HKHealthStore
 
@@ -14,7 +14,7 @@ final class AppleStandTimeHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static let dataType: HealthDataTypeDto = .appleStandTime
+    static let dataType: HealthDataTypeDto = .standTime
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 

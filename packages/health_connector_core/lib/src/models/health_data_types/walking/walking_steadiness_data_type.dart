@@ -21,12 +21,12 @@ part of '../health_data_type.dart';
 /// ```dart
 /// // Request read permission
 /// final permissions = [
-///   HealthDataType.appleWalkingSteadiness.readPermission,
+///   HealthDataType.walkingSteadiness.readPermission,
 /// ];
 /// await connector.requestPermissions(permissions);
 ///
 /// // Read records
-/// final request = HealthDataType.appleWalkingSteadiness.readInTimeRange(
+/// final request = HealthDataType.walkingSteadiness.readInTimeRange(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
@@ -37,7 +37,7 @@ part of '../health_data_type.dart';
 /// }
 ///
 /// // Aggregate average walking steadiness
-/// final aggRequest = HealthDataType.appleWalkingSteadiness.aggregateAvg(
+/// final aggRequest = HealthDataType.walkingSteadiness.aggregateAvg(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
@@ -49,11 +49,11 @@ part of '../health_data_type.dart';
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable
-final class AppleWalkingSteadinessDataType
-    extends HealthDataType<AppleWalkingSteadinessRecord, Percentage>
+final class WalkingSteadinessDataType
+    extends HealthDataType<WalkingSteadinessRecord, Percentage>
     implements
-        ReadableByIdHealthDataType<AppleWalkingSteadinessRecord>,
-        ReadableInTimeRangeHealthDataType<AppleWalkingSteadinessRecord>,
+        ReadableByIdHealthDataType<WalkingSteadinessRecord>,
+        ReadableInTimeRangeHealthDataType<WalkingSteadinessRecord>,
         MinAggregatableHealthDataType<Percentage>,
         MaxAggregatableHealthDataType<Percentage>,
         AvgAggregatableHealthDataType<Percentage> {
@@ -62,7 +62,7 @@ final class AppleWalkingSteadinessDataType
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const AppleWalkingSteadinessDataType();
+  const WalkingSteadinessDataType();
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
@@ -75,8 +75,7 @@ final class AppleWalkingSteadinessDataType
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppleWalkingSteadinessDataType &&
-          runtimeType == other.runtimeType;
+      other is WalkingSteadinessDataType && runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;
@@ -85,14 +84,14 @@ final class AppleWalkingSteadinessDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<AppleWalkingSteadinessRecord> readById(
+  ReadRecordByIdRequest<WalkingSteadinessRecord> readById(
     HealthRecordId id,
   ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<AppleWalkingSteadinessRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<WalkingSteadinessRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],

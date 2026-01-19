@@ -687,16 +687,16 @@ enum HealthDataTypeDto {
   alcoholicBeverages,
 
   /// Apple Exercise Time data (iOS only).
-  appleExerciseTime,
+  exerciseTime,
 
   /// Apple Move Time data (iOS only).
-  appleMoveTime,
+  moveTime,
 
   /// Apple Stand Time data (iOS only).
-  appleStandTime,
+  standTime,
 
   /// Apple Walking Steadiness data (iOS only).
-  appleWalkingSteadiness,
+  walkingSteadiness,
 
   /// Walking Double Support Percentage data type (iOS only).
   walkingDoubleSupportPercentage,
@@ -2118,8 +2118,8 @@ class AlcoholicBeveragesRecordDto extends HealthRecordDto {
 
 /// Represents an Apple Exercise Time record for platform transfer (iOS
 /// HealthKit only).
-class AppleExerciseTimeRecordDto extends HealthRecordDto {
-  AppleExerciseTimeRecordDto({
+class ExerciseTimeRecordDto extends HealthRecordDto {
+  ExerciseTimeRecordDto({
     required this.seconds,
     required this.endTime,
     this.id,
@@ -2166,9 +2166,9 @@ class AppleExerciseTimeRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static AppleExerciseTimeRecordDto decode(Object result) {
+  static ExerciseTimeRecordDto decode(Object result) {
     result as List<Object?>;
-    return AppleExerciseTimeRecordDto(
+    return ExerciseTimeRecordDto(
       seconds: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
@@ -2182,8 +2182,7 @@ class AppleExerciseTimeRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! AppleExerciseTimeRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ExerciseTimeRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2199,8 +2198,8 @@ class AppleExerciseTimeRecordDto extends HealthRecordDto {
 
 /// Represents an Apple Move Time record for platform transfer (iOS HealthKit
 /// only).
-class AppleMoveTimeRecordDto extends HealthRecordDto {
-  AppleMoveTimeRecordDto({
+class MoveTimeRecordDto extends HealthRecordDto {
+  MoveTimeRecordDto({
     required this.seconds,
     required this.endTime,
     this.id,
@@ -2247,9 +2246,9 @@ class AppleMoveTimeRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static AppleMoveTimeRecordDto decode(Object result) {
+  static MoveTimeRecordDto decode(Object result) {
     result as List<Object?>;
-    return AppleMoveTimeRecordDto(
+    return MoveTimeRecordDto(
       seconds: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
@@ -2263,7 +2262,7 @@ class AppleMoveTimeRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! AppleMoveTimeRecordDto || other.runtimeType != runtimeType) {
+    if (other is! MoveTimeRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2279,8 +2278,8 @@ class AppleMoveTimeRecordDto extends HealthRecordDto {
 
 /// Represents an Apple Stand Time record for platform transfer (iOS HealthKit
 /// only).
-class AppleStandTimeRecordDto extends HealthRecordDto {
-  AppleStandTimeRecordDto({
+class StandTimeRecordDto extends HealthRecordDto {
+  StandTimeRecordDto({
     required this.seconds,
     required this.endTime,
     this.id,
@@ -2327,9 +2326,9 @@ class AppleStandTimeRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static AppleStandTimeRecordDto decode(Object result) {
+  static StandTimeRecordDto decode(Object result) {
     result as List<Object?>;
-    return AppleStandTimeRecordDto(
+    return StandTimeRecordDto(
       seconds: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
@@ -2343,7 +2342,7 @@ class AppleStandTimeRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! AppleStandTimeRecordDto || other.runtimeType != runtimeType) {
+    if (other is! StandTimeRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2358,8 +2357,8 @@ class AppleStandTimeRecordDto extends HealthRecordDto {
 }
 
 /// Represents an Apple Walking Steadiness record for platform transfer.
-class AppleWalkingSteadinessRecordDto extends HealthRecordDto {
-  AppleWalkingSteadinessRecordDto({
+class WalkingSteadinessRecordDto extends HealthRecordDto {
+  WalkingSteadinessRecordDto({
     required this.percentage,
     required this.endTime,
     this.id,
@@ -2406,9 +2405,9 @@ class AppleWalkingSteadinessRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static AppleWalkingSteadinessRecordDto decode(Object result) {
+  static WalkingSteadinessRecordDto decode(Object result) {
     result as List<Object?>;
-    return AppleWalkingSteadinessRecordDto(
+    return WalkingSteadinessRecordDto(
       percentage: result[0]! as double,
       endTime: result[1]! as int,
       id: result[2] as String?,
@@ -2422,7 +2421,7 @@ class AppleWalkingSteadinessRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! AppleWalkingSteadinessRecordDto ||
+    if (other is! WalkingSteadinessRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -9108,16 +9107,16 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is AlcoholicBeveragesRecordDto) {
       buffer.putUint8(172);
       writeValue(buffer, value.encode());
-    } else if (value is AppleExerciseTimeRecordDto) {
+    } else if (value is ExerciseTimeRecordDto) {
       buffer.putUint8(173);
       writeValue(buffer, value.encode());
-    } else if (value is AppleMoveTimeRecordDto) {
+    } else if (value is MoveTimeRecordDto) {
       buffer.putUint8(174);
       writeValue(buffer, value.encode());
-    } else if (value is AppleStandTimeRecordDto) {
+    } else if (value is StandTimeRecordDto) {
       buffer.putUint8(175);
       writeValue(buffer, value.encode());
-    } else if (value is AppleWalkingSteadinessRecordDto) {
+    } else if (value is WalkingSteadinessRecordDto) {
       buffer.putUint8(176);
       writeValue(buffer, value.encode());
     } else if (value is WalkingAsymmetryPercentageRecordDto) {
@@ -9560,13 +9559,13 @@ class _PigeonCodec extends StandardMessageCodec {
       case 172:
         return AlcoholicBeveragesRecordDto.decode(readValue(buffer)!);
       case 173:
-        return AppleExerciseTimeRecordDto.decode(readValue(buffer)!);
+        return ExerciseTimeRecordDto.decode(readValue(buffer)!);
       case 174:
-        return AppleMoveTimeRecordDto.decode(readValue(buffer)!);
+        return MoveTimeRecordDto.decode(readValue(buffer)!);
       case 175:
-        return AppleStandTimeRecordDto.decode(readValue(buffer)!);
+        return StandTimeRecordDto.decode(readValue(buffer)!);
       case 176:
-        return AppleWalkingSteadinessRecordDto.decode(readValue(buffer)!);
+        return WalkingSteadinessRecordDto.decode(readValue(buffer)!);
       case 177:
         return WalkingAsymmetryPercentageRecordDto.decode(readValue(buffer)!);
       case 178:

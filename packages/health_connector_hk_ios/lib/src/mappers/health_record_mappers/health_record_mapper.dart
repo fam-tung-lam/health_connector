@@ -1,8 +1,8 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/alcoholic_beverages_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_exercise_time_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_move_time_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_stand_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/move_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/stand_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_alcohol_content_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_record_mapper.dart';
@@ -82,7 +82,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temper
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/sleeping_wrist_temperature_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/waist_circumference_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/apple_walking_steadiness_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_steadiness_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_asymmetry_percentage_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_double_support_percentage_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_step_length_record_mapper.dart';
@@ -372,14 +372,14 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$ActivityIntensityRecord is not supported on iOS HealthKit.',
         );
-      case final AppleExerciseTimeRecord record:
-        return AppleExerciseTimeRecordToDto(record).toDto();
-      case final AppleMoveTimeRecord record:
-        return AppleMoveTimeRecordToDto(record).toDto();
-      case final AppleStandTimeRecord record:
-        return AppleStandTimeRecordToDto(record).toDto();
-      case final AppleWalkingSteadinessRecord record:
-        return AppleWalkingSteadinessRecordToDto(record).toDto();
+      case final ExerciseTimeRecord record:
+        return ExerciseTimeRecordToDto(record).toDto();
+      case final MoveTimeRecord record:
+        return MoveTimeRecordToDto(record).toDto();
+      case final StandTimeRecord record:
+        return StandTimeRecordToDto(record).toDto();
+      case final WalkingSteadinessRecord record:
+        return WalkingSteadinessRecordToDto(record).toDto();
       case final WalkingAsymmetryPercentageRecord record:
         return WalkingAsymmetryPercentageRecordToDto(record).toDto();
       case final WalkingDoubleSupportPercentageRecord record:
@@ -562,14 +562,14 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return PeripheralPerfusionIndexRecordDtoToDomain(dto).toDomain();
       case final ForcedVitalCapacityRecordDto dto:
         return ForcedVitalCapacityRecordDtoToDomain(dto).toDomain();
-      case final AppleExerciseTimeRecordDto dto:
-        return AppleExerciseTimeRecordDtoToDomain(dto).toDomain();
-      case final AppleMoveTimeRecordDto dto:
-        return AppleMoveTimeRecordDtoToDomain(dto).toDomain();
-      case final AppleStandTimeRecordDto dto:
-        return AppleStandTimeRecordDtoToDomain(dto).toDomain();
-      case final AppleWalkingSteadinessRecordDto dto:
-        return AppleWalkingSteadinessRecordDtoToDomain(dto).toDomain();
+      case final ExerciseTimeRecordDto dto:
+        return ExerciseTimeRecordDtoToDomain(dto).toDomain();
+      case final MoveTimeRecordDto dto:
+        return MoveTimeRecordDtoToDomain(dto).toDomain();
+      case final StandTimeRecordDto dto:
+        return StandTimeRecordDtoToDomain(dto).toDomain();
+      case final WalkingSteadinessRecordDto dto:
+        return WalkingSteadinessRecordDtoToDomain(dto).toDomain();
       case final WalkingAsymmetryPercentageRecordDto dto:
         return WalkingAsymmetryPercentageRecordDtoToDomain(dto).toDomain();
       case final WalkingDoubleSupportPercentageRecordDto dto:

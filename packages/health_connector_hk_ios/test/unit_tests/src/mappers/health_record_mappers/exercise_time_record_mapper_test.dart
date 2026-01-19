@@ -1,21 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/apple_stand_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
 import '../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'AppleStandTimeRecordMapper',
+    'ExerciseTimeRecordMapper',
     () {
       group(
-        'AppleStandTimeRecordToDto',
+        'ExerciseTimeRecordToDto',
         () {
           test(
-            'converts AppleStandTimeRecord to AppleStandTimeRecordDto',
+            'converts ExerciseTimeRecord to ExerciseTimeRecordDto',
             () {
-              final record = AppleStandTimeRecord.internal(
+              final record = ExerciseTimeRecord.internal(
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -29,7 +29,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                standTime: const TimeDuration.minutes(45),
+                exerciseTime: const TimeDuration.minutes(30),
               );
 
               final dto = record.toDto();
@@ -48,7 +48,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.seconds, 45 * 60); // 45 minutes in seconds
+              expect(dto.seconds, 30 * 60); // 30 minutes in seconds
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -56,12 +56,12 @@ void main() {
       );
 
       group(
-        'AppleStandTimeRecordDtoToDomain',
+        'ExerciseTimeRecordDtoToDomain',
         () {
           test(
-            'converts AppleStandTimeRecordDto to AppleStandTimeRecord',
+            'converts ExerciseTimeRecordDto to ExerciseTimeRecord',
             () {
-              final dto = AppleStandTimeRecordDto(
+              final dto = ExerciseTimeRecordDto(
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
@@ -73,7 +73,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                seconds: 2700, // 45 minutes
+                seconds: 1800, // 30 minutes
               );
 
               final record = dto.toDomain();
@@ -81,7 +81,7 @@ void main() {
               expect(record.id.value, FakeData.fakeId);
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
-              expect(record.standTime.inMinutes, 45);
+              expect(record.exerciseTime.inMinutes, 30);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

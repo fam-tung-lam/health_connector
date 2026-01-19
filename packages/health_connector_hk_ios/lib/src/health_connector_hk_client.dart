@@ -757,9 +757,9 @@ extension on double {
       HealthDataTypeDto.floorsClimbed ||
       HealthDataTypeDto.swimmingStrokes ||
       HealthDataTypeDto.wheelchairPushes => Number(this),
-      HealthDataTypeDto.appleExerciseTime ||
-      HealthDataTypeDto.appleMoveTime ||
-      HealthDataTypeDto.appleStandTime => TimeDuration.seconds(this),
+      HealthDataTypeDto.exerciseTime ||
+      HealthDataTypeDto.moveTime ||
+      HealthDataTypeDto.standTime => TimeDuration.seconds(this),
       HealthDataTypeDto.activeCaloriesBurned ||
       HealthDataTypeDto.basalEnergyBurned ||
       HealthDataTypeDto.dietaryEnergyConsumed => Energy.kilocalories(this),
@@ -814,7 +814,7 @@ extension on double {
       HealthDataTypeDto.bodyFatPercentage ||
       HealthDataTypeDto.bloodAlcoholContent ||
       HealthDataTypeDto.peripheralPerfusionIndex ||
-      HealthDataTypeDto.appleWalkingSteadiness ||
+      HealthDataTypeDto.walkingSteadiness ||
       HealthDataTypeDto.walkingAsymmetryPercentage ||
       HealthDataTypeDto.walkingDoubleSupportPercentage ||
       HealthDataTypeDto.oxygenSaturation => Percentage.fromDecimal(this),

@@ -2,7 +2,7 @@ import 'package:health_connector_core/health_connector_core.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('AppleExerciseTimeRecord', () {
+  group('ExerciseTimeRecord', () {
     final now = DateTime(2026, 1, 11);
     final startTime = now.subtract(const Duration(minutes: 30));
     final endTime = now;
@@ -10,7 +10,7 @@ void main() {
     const validDuration = TimeDuration.minutes(30);
 
     test('equality works correctly', () {
-      final record1 = AppleExerciseTimeRecord.internal(
+      final record1 = ExerciseTimeRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
@@ -18,7 +18,7 @@ void main() {
         metadata: metadata,
       );
 
-      final record2 = AppleExerciseTimeRecord.internal(
+      final record2 = ExerciseTimeRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
@@ -26,7 +26,7 @@ void main() {
         metadata: metadata,
       );
 
-      final record3 = AppleExerciseTimeRecord.internal(
+      final record3 = ExerciseTimeRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,

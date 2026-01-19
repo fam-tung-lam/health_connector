@@ -2,35 +2,35 @@ import 'package:health_connector_core/health_connector_core.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('AppleMoveTimeRecord', () {
-    final now = DateTime(2026, 1, 11);
-    final startTime = now.subtract(const Duration(minutes: 30));
+  group('StandTimeRecord', () {
+    final now = DateTime(2026, 1, 18);
+    final startTime = now.subtract(const Duration(hours: 1));
     final endTime = now;
     final metadata = Metadata.manualEntry();
-    const validDuration = TimeDuration.minutes(30);
+    const validDuration = TimeDuration.minutes(45);
 
     test('equality works correctly', () {
-      final record1 = AppleMoveTimeRecord.internal(
+      final record1 = StandTimeRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
-        moveTime: validDuration,
+        standTime: validDuration,
         metadata: metadata,
       );
 
-      final record2 = AppleMoveTimeRecord.internal(
+      final record2 = StandTimeRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
-        moveTime: validDuration,
+        standTime: validDuration,
         metadata: metadata,
       );
 
-      final record3 = AppleMoveTimeRecord.internal(
+      final record3 = StandTimeRecord.internal(
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
-        moveTime: const TimeDuration.minutes(15),
+        standTime: const TimeDuration.minutes(30),
         metadata: metadata,
       );
 

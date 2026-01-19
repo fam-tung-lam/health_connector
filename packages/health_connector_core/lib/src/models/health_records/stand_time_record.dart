@@ -1,88 +1,87 @@
 part of 'health_record.dart';
 
-/// Represents an Apple Exercise Time measurement over a time interval.
+/// Represents an Apple Stand Time measurement over a time interval.
 ///
-/// Tracks the amount of time spent exercising that contributes towards the
-/// user's daily exercise goals in Apple Health.
+/// Tracks the amount of time spent standing.
 ///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.appleExerciseTime`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/appleexercisetime)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.appleStandTime`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applestandtime)
 ///
 /// ## Example
 ///
 /// ```dart
-/// // Read Apple Exercise Time records
-/// final request = HealthDataType.appleExerciseTime.readInTimeRange(
+/// // Read Apple Stand Time records
+/// final request = HealthDataType.standTime.readInTimeRange(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final response = await connector.readRecords(request);
 ///
 /// for (final record in response.records) {
-///   print('Exercise time: ${record.exerciseTime.inMinutes} minutes');
+///   print('Stand time: ${record.standTime.inMinutes} minutes');
 /// }
 /// ```
 ///
 /// ## See also
 ///
-/// - [AppleExerciseTimeDataType]
+/// - [StandTimeDataType]
 ///
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable
-final class AppleExerciseTimeRecord extends IntervalHealthRecord {
-  /// Internal factory for creating [AppleExerciseTimeRecord] instances without
+final class StandTimeRecord extends IntervalHealthRecord {
+  /// Internal factory for creating [StandTimeRecord] instances without
   /// validation.
   ///
-  /// Creates an [AppleExerciseTimeRecord] by directly mapping platform data to
+  /// Creates an [StandTimeRecord] by directly mapping platform data to
   /// fields, bypassing the normal validation and business rules applied by the
   /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [AppleExerciseTimeRecord] constructor, which enforces validation and
+  /// [StandTimeRecord] constructor, which enforces validation and
   /// business rules. This factory is restricted to the SDK developers and
   /// contributors.
   @internalUse
-  factory AppleExerciseTimeRecord.internal({
+  factory StandTimeRecord.internal({
     required HealthRecordId id,
     required DateTime startTime,
     required DateTime endTime,
     required Metadata metadata,
-    required TimeDuration exerciseTime,
+    required TimeDuration standTime,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
   }) {
-    return AppleExerciseTimeRecord._(
+    return StandTimeRecord._(
       id: id,
       startTime: startTime,
       endTime: endTime,
       metadata: metadata,
-      exerciseTime: exerciseTime,
+      standTime: standTime,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
     );
   }
 
-  AppleExerciseTimeRecord._({
+  StandTimeRecord._({
     required super.id,
     required super.startTime,
     required super.endTime,
     required super.metadata,
-    required this.exerciseTime,
+    required this.standTime,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
 
-  /// The duration of exercise time.
-  final TimeDuration exerciseTime;
+  /// The duration of stand time.
+  final TimeDuration standTime;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppleExerciseTimeRecord &&
+      other is StandTimeRecord &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           metadata == other.metadata &&
@@ -90,7 +89,7 @@ final class AppleExerciseTimeRecord extends IntervalHealthRecord {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          exerciseTime == other.exerciseTime;
+          standTime == other.standTime;
 
   @override
   int get hashCode =>
@@ -100,5 +99,5 @@ final class AppleExerciseTimeRecord extends IntervalHealthRecord {
       endTime.hashCode ^
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
-      exerciseTime.hashCode;
+      standTime.hashCode;
 }

@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-extension AppleExerciseTimeRecordDto {
+extension ExerciseTimeRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
@@ -31,10 +31,10 @@ extension AppleExerciseTimeRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `AppleExerciseTimeRecordDto`.
+    /// Converts this HealthKit sample to a `ExerciseTimeRecordDto`.
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an apple exercise time sample.
-    func toAppleExerciseTimeRecordDto() throws -> AppleExerciseTimeRecordDto {
+    func toExerciseTimeRecordDto() throws -> ExerciseTimeRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.appleExerciseTime.rawValue else {
             throw HealthConnectorError.invalidArgument(
                 message:
@@ -60,7 +60,7 @@ extension HKQuantitySample {
         let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
-        return try AppleExerciseTimeRecordDto(
+        return try ExerciseTimeRecordDto(
             seconds: seconds,
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,

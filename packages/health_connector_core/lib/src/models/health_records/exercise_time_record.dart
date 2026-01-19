@@ -1,89 +1,88 @@
-part of '../health_record.dart';
+part of 'health_record.dart';
 
-/// Represents an Apple Walking Steadiness measurement over a time interval.
+/// Represents an Apple Exercise Time measurement over a time interval.
 ///
-/// Tracks the user's walking steadiness as a percentage, which measures the
-/// stability and regularity of a person's gait. Apple Walking Steadiness is
-/// calculated by Apple's internal algorithms based on walking pattern data.
+/// Tracks the amount of time spent exercising that contributes towards the
+/// user's daily exercise goals in Apple Health.
 ///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.appleWalkingSteadiness`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applewalkingsteadiness)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.appleExerciseTime`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/appleexercisetime)
 ///
 /// ## Example
 ///
 /// ```dart
-/// // Read Apple Walking Steadiness records
-/// final request = HealthDataType.appleWalkingSteadiness.readInTimeRange(
+/// // Read Apple Exercise Time records
+/// final request = HealthDataType.exerciseTime.readInTimeRange(
 ///   startTime: DateTime.now().subtract(Duration(days: 7)),
 ///   endTime: DateTime.now(),
 /// );
 /// final response = await connector.readRecords(request);
 ///
 /// for (final record in response.records) {
-///   print('Walking steadiness: ${record.percentage.asWhole}%');
+///   print('Exercise time: ${record.exerciseTime.inMinutes} minutes');
 /// }
 /// ```
 ///
 /// ## See also
 ///
-/// - [AppleWalkingSteadinessDataType]
+/// - [ExerciseTimeDataType]
 ///
 /// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable
-final class AppleWalkingSteadinessRecord extends IntervalHealthRecord {
-  /// Internal factory for creating [AppleWalkingSteadinessRecord] instances
-  /// without validation.
+final class ExerciseTimeRecord extends IntervalHealthRecord {
+  /// Internal factory for creating [ExerciseTimeRecord] instances without
+  /// validation.
   ///
-  /// Creates an [AppleWalkingSteadinessRecord] by directly mapping platform
-  /// data to fields, bypassing the normal validation and business rules
-  /// applied by the public constructor.
+  /// Creates an [ExerciseTimeRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [AppleWalkingSteadinessRecord] constructor, which enforces validation
-  /// and business rules. This factory is restricted to the SDK developers
-  /// and contributors.
+  /// [ExerciseTimeRecord] constructor, which enforces validation and
+  /// business rules. This factory is restricted to the SDK developers and
+  /// contributors.
   @internalUse
-  factory AppleWalkingSteadinessRecord.internal({
+  factory ExerciseTimeRecord.internal({
     required HealthRecordId id,
     required DateTime startTime,
     required DateTime endTime,
     required Metadata metadata,
-    required Percentage percentage,
+    required TimeDuration exerciseTime,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
   }) {
-    return AppleWalkingSteadinessRecord._(
+    return ExerciseTimeRecord._(
       id: id,
       startTime: startTime,
       endTime: endTime,
       metadata: metadata,
-      percentage: percentage,
+      exerciseTime: exerciseTime,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
     );
   }
 
-  AppleWalkingSteadinessRecord._({
+  ExerciseTimeRecord._({
     required super.id,
     required super.startTime,
     required super.endTime,
     required super.metadata,
-    required this.percentage,
+    required this.exerciseTime,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
 
-  /// The walking steadiness percentage.
-  final Percentage percentage;
+  /// The duration of exercise time.
+  final TimeDuration exerciseTime;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppleWalkingSteadinessRecord &&
+      other is ExerciseTimeRecord &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           metadata == other.metadata &&
@@ -91,7 +90,7 @@ final class AppleWalkingSteadinessRecord extends IntervalHealthRecord {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          percentage == other.percentage;
+          exerciseTime == other.exerciseTime;
 
   @override
   int get hashCode =>
@@ -101,5 +100,5 @@ final class AppleWalkingSteadinessRecord extends IntervalHealthRecord {
       endTime.hashCode ^
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
-      percentage.hashCode;
+      exerciseTime.hashCode;
 }
