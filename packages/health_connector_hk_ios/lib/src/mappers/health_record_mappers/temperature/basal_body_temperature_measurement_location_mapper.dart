@@ -1,12 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BasalBodyTemperatureMeasurementLocation, sinceV2_2_0;
+    show BasalBodyTemperatureMeasurementLocation;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show BasalBodyTemperatureMeasurementLocationDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BasalBodyTemperatureMeasurementLocation] to
 /// [BasalBodyTemperatureMeasurementLocationDto].
-@sinceV2_2_0
 @internal
 extension BasalBodyTemperatureMeasurementLocationToDto
     on BasalBodyTemperatureMeasurementLocation {
@@ -40,7 +39,6 @@ extension BasalBodyTemperatureMeasurementLocationToDto
 
 /// Converts [BasalBodyTemperatureMeasurementLocationDto] to
 /// [BasalBodyTemperatureMeasurementLocation].
-@sinceV2_2_0
 @internal
 extension BasalBodyTemperatureMeasurementLocationDtoToDomain
     on BasalBodyTemperatureMeasurementLocationDto {

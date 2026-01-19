@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BodyFatPercentageRecord, HealthRecordId, Percentage, sinceV1_0_0;
+    show BodyFatPercentageRecord, HealthRecordId, Percentage;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -7,7 +7,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BodyFatPercentageRecord] to [BodyFatPercentageRecordDto].
-@sinceV1_0_0
 @internal
 extension BodyFatPercentageRecordToDto on BodyFatPercentageRecord {
   BodyFatPercentageRecordDto toDto() {
@@ -22,7 +21,6 @@ extension BodyFatPercentageRecordToDto on BodyFatPercentageRecord {
 }
 
 /// Converts [BodyFatPercentageRecordDto] to [BodyFatPercentageRecord].
-@sinceV1_0_0
 @internal
 extension BodyFatPercentageRecordDtoToDomain on BodyFatPercentageRecordDto {
   BodyFatPercentageRecord toDomain() {

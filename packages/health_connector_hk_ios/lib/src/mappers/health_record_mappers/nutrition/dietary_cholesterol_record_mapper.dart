@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show DietaryCholesterolRecord, HealthRecordId, Mass, MealType, sinceV1_1_0;
+    show DietaryCholesterolRecord, HealthRecordId, Mass, MealType;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -8,7 +8,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [DietaryCholesterolRecord] to [DietaryCholesterolRecordDto].
-@sinceV1_1_0
 @internal
 extension DietaryCholesterolRecordToDto on DietaryCholesterolRecord {
   DietaryCholesterolRecordDto toDto() {
@@ -25,7 +24,6 @@ extension DietaryCholesterolRecordToDto on DietaryCholesterolRecord {
 }
 
 /// Converts [DietaryCholesterolRecordDto] to [DietaryCholesterolRecord].
-@sinceV1_1_0
 @internal
 extension DietaryCholesterolRecordDtoToDomain on DietaryCholesterolRecordDto {
   DietaryCholesterolRecord toDomain() {

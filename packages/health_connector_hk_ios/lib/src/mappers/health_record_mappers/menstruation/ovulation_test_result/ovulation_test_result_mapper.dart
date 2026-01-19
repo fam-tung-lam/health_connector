@@ -4,7 +4,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [OvulationTestResult] to [OvulationTestResultDto].
-@sinceV2_2_0
 @internal
 extension OvulationTestResultToDto on OvulationTestResult {
   OvulationTestResultDto toDto() {
@@ -22,7 +21,6 @@ extension OvulationTestResultToDto on OvulationTestResult {
 }
 
 /// Converts [OvulationTestResultDto] to [OvulationTestResult].
-@sinceV2_2_0
 @internal
 extension OvulationTestResultDtoToDomain on OvulationTestResultDto {
   OvulationTestResult toDomain() {

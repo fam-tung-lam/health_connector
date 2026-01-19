@@ -6,7 +6,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Extension to convert [PregnancyTestRecord] to [PregnancyTestRecordDto].
-@sinceV3_1_0
 @internal
 extension PregnancyTestRecordToDto on PregnancyTestRecord {
   /// Converts [PregnancyTestRecord] to [PregnancyTestRecordDto].
@@ -22,7 +21,6 @@ extension PregnancyTestRecordToDto on PregnancyTestRecord {
 }
 
 /// Extension to convert [PregnancyTestRecordDto] to [PregnancyTestRecord].
-@sinceV3_1_0
 @internal
 extension PregnancyTestRecordDtoToDomain on PregnancyTestRecordDto {
   /// Converts [PregnancyTestRecordDto] to [PregnancyTestRecord].

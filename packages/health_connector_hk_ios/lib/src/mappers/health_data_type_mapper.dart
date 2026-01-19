@@ -4,7 +4,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthDataTypeDto] to [HealthDataType].
-@sinceV1_0_0
 @internal
 extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
   HealthDataType<HealthRecord, MeasurementUnit> toDomain() {
@@ -222,7 +221,6 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
 }
 
 /// Converts [HealthDataType] to [HealthDataTypeDto].
-@sinceV1_0_0
 @internal
 extension HealthDataTypeToDto on HealthDataType {
   HealthDataTypeDto toDto() {

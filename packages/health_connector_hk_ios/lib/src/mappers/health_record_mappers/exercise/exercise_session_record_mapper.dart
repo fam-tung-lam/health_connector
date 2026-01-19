@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show ExerciseSessionRecord, HealthRecordId, sinceV2_0_0;
+    show ExerciseSessionRecord, HealthRecordId;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -8,7 +8,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ExerciseSessionRecord] to [ExerciseSessionRecordDto].
-@sinceV2_0_0
 @internal
 extension ExerciseSessionRecordToDto on ExerciseSessionRecord {
   ExerciseSessionRecordDto toDto() {
@@ -27,7 +26,6 @@ extension ExerciseSessionRecordToDto on ExerciseSessionRecord {
 }
 
 /// Converts [ExerciseSessionRecordDto] to [ExerciseSessionRecord].
-@sinceV2_0_0
 @internal
 extension ExerciseSessionRecordDtoToDomain on ExerciseSessionRecordDto {
   ExerciseSessionRecord toDomain() {

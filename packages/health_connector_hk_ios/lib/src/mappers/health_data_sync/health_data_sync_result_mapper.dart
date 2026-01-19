@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthDataSyncResult, sinceV3_0_0;
+    show HealthDataSyncResult;
 import 'package:health_connector_hk_ios/src/mappers/health_data_sync/health_data_sync_token_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
@@ -8,9 +8,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthDataSyncResult] to [HealthDataSyncResultDto] for
-/// DTO transfer.
-@sinceV3_0_0
-@internal
+/// DTO transfer.;
 extension HealthDataSyncResultFromDomainToDto on HealthDataSyncResult {
   HealthDataSyncResultDto toDto() {
     return HealthDataSyncResultDto(
@@ -23,7 +21,6 @@ extension HealthDataSyncResultFromDomainToDto on HealthDataSyncResult {
 }
 
 /// Converts [HealthDataSyncResultDto] to [HealthDataSyncResult].
-@sinceV3_0_0
 @internal
 extension HealthDataSyncResultFromDtoToDomain on HealthDataSyncResultDto {
   HealthDataSyncResult toDomain() {

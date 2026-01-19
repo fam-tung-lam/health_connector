@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show Energy, HealthRecordId, Mass, MealType, NutritionRecord, sinceV1_1_0;
+    show Energy, HealthRecordId, Mass, MealType, NutritionRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -8,7 +8,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [NutritionRecord] to [NutritionRecordDto].
-@sinceV1_1_0
 @internal
 extension NutritionRecordToDto on NutritionRecord {
   NutritionRecordDto toDto() {
@@ -64,7 +63,6 @@ extension NutritionRecordToDto on NutritionRecord {
 }
 
 /// Converts [NutritionRecordDto] to [NutritionRecord].
-@sinceV1_1_0
 @internal
 extension NutritionRecordDtoToDomain on NutritionRecordDto {
   NutritionRecord toDomain() {

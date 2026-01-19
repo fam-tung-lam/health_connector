@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show DateTimeToDto, HealthRecordId, HydrationRecord, Volume, sinceV1_0_0;
+    show DateTimeToDto, HealthRecordId, HydrationRecord, Volume;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -7,7 +7,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HydrationRecord] to [HydrationRecordDto].
-@sinceV1_0_0
 @internal
 extension HydrationRecordToDto on HydrationRecord {
   HydrationRecordDto toDto() {
@@ -28,7 +27,6 @@ extension HydrationRecordToDto on HydrationRecord {
 }
 
 /// Converts [HydrationRecordDto] to [HydrationRecord].
-@sinceV1_0_0
 @internal
 extension HydrationRecordDtoToDomain on HydrationRecordDto {
   HydrationRecord toDomain() {

@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BloodPressureRecord, HealthRecordId, Pressure, sinceV1_2_0;
+    show BloodPressureRecord, HealthRecordId, Pressure;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_body_position_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_measurement_location_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
@@ -9,7 +9,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BloodPressureRecord] to [BloodPressureRecordDto].
-@sinceV1_2_0
 @internal
 extension BloodPressureRecordToDto on BloodPressureRecord {
   BloodPressureRecordDto toDto() {
@@ -27,7 +26,6 @@ extension BloodPressureRecordToDto on BloodPressureRecord {
 }
 
 /// Converts [BloodPressureRecordDto] to [BloodPressureRecord].
-@sinceV1_2_0
 @internal
 extension BloodPressureRecordDtoToDomain on BloodPressureRecordDto {
   BloodPressureRecord toDomain() {

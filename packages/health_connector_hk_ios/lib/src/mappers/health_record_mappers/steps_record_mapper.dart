@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show Number, StepsRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
+    show Number, StepsRecord, HealthRecordId, DateTimeToDto;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -7,7 +7,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [StepsRecord] to [StepsRecordDto].
-@sinceV1_0_0
 @internal
 extension StepsRecordToDto on StepsRecord {
   StepsRecordDto toDto() {
@@ -28,7 +27,6 @@ extension StepsRecordToDto on StepsRecord {
 }
 
 /// Converts [StepsRecordDto] to [StepsRecord].
-@sinceV1_0_0
 @internal
 extension StepsRecordDtoToDomain on StepsRecordDto {
   StepsRecord toDomain() {

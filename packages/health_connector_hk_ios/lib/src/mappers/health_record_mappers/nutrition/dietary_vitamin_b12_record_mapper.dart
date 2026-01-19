@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show DietaryVitaminB12Record, HealthRecordId, Mass, MealType, sinceV1_1_0;
+    show DietaryVitaminB12Record, HealthRecordId, Mass, MealType;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -8,7 +8,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [DietaryVitaminB12Record] to [DietaryVitaminB12RecordDto].
-@sinceV1_1_0
 @internal
 extension DietaryVitaminB12RecordToDto on DietaryVitaminB12Record {
   DietaryVitaminB12RecordDto toDto() {
@@ -25,7 +24,6 @@ extension DietaryVitaminB12RecordToDto on DietaryVitaminB12Record {
 }
 
 /// Converts [DietaryVitaminB12RecordDto] to [DietaryVitaminB12Record].
-@sinceV1_1_0
 @internal
 extension DietaryVitaminB12RecordDtoToDomain on DietaryVitaminB12RecordDto {
   DietaryVitaminB12Record toDomain() {

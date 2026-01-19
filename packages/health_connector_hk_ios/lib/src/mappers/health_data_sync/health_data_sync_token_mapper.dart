@@ -1,12 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthDataSyncToken, sinceV3_0_0;
+    show HealthDataSyncToken;
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HealthDataSyncTokenDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthDataSyncToken] to [HealthDataSyncTokenDto] for DTO transfer.
-@sinceV3_0_0
 @internal
 extension HealthDataSyncTokenFromDomainToDto on HealthDataSyncToken {
   HealthDataSyncTokenDto toDto() {
@@ -19,7 +18,6 @@ extension HealthDataSyncTokenFromDomainToDto on HealthDataSyncToken {
 }
 
 /// Converts [HealthDataSyncTokenDto] to [HealthDataSyncToken].
-@sinceV3_0_0
 @internal
 extension HealthDataSyncTokenFromDtoToDomain on HealthDataSyncTokenDto {
   HealthDataSyncToken toDomain() {

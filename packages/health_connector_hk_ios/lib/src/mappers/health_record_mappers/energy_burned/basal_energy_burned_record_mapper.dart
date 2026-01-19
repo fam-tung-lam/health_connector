@@ -3,8 +3,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BasalEnergyBurnedRecord,
         DateTimeToDto,
         Energy,
-        HealthRecordId,
-        sinceV2_2_0;
+        HealthRecordId;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -12,7 +11,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BasalEnergyBurnedRecord] to [BasalEnergyBurnedRecordDto].
-@sinceV2_2_0
 @internal
 extension BasalEnergyBurnedRecordToDto on BasalEnergyBurnedRecord {
   BasalEnergyBurnedRecordDto toDto() {
@@ -33,7 +31,6 @@ extension BasalEnergyBurnedRecordToDto on BasalEnergyBurnedRecord {
 }
 
 /// Converts [BasalEnergyBurnedRecordDto] to [BasalEnergyBurnedRecord].
-@sinceV2_2_0
 @internal
 extension BasalEnergyBurnedRecordDtoToDomain on BasalEnergyBurnedRecordDto {
   BasalEnergyBurnedRecord toDomain() {

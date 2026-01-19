@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BloodGlucoseSpecimenSource, sinceV1_4_0;
+    show BloodGlucoseSpecimenSource;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show BloodGlucoseSpecimenSourceDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BloodGlucoseSpecimenSource] to [BloodGlucoseSpecimenSourceDto].
-@sinceV1_4_0
 @internal
 extension BloodGlucoseSpecimenSourceToDto on BloodGlucoseSpecimenSource {
   /// Converts [BloodGlucoseSpecimenSource] to [BloodGlucoseSpecimenSourceDto].
@@ -27,7 +26,6 @@ extension BloodGlucoseSpecimenSourceToDto on BloodGlucoseSpecimenSource {
 }
 
 /// Converts [BloodGlucoseSpecimenSourceDto] to [BloodGlucoseSpecimenSource].
-@sinceV1_4_0
 @internal
 extension BloodGlucoseSpecimenSourceDtoToDomain
     on BloodGlucoseSpecimenSourceDto {

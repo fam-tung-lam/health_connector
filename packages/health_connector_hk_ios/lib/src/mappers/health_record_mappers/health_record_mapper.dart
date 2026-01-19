@@ -137,7 +137,6 @@ import 'package:meta/meta.dart' show internal;
 /// The same approach must be applied to [HealthRecordDtoToDomain].
 
 /// Converts [HealthRecord] to [HealthRecordDto].
-@sinceV1_0_0
 @internal
 extension HealthRecordToDto on HealthRecord {
   HealthRecordDto toDto() {
@@ -166,8 +165,6 @@ extension HealthRecordToDto on HealthRecord {
         return BodyTemperatureRecordToDto(record).toDto();
       case final BasalBodyTemperatureRecord record:
         return BasalBodyTemperatureRecordToDto(record).toDto();
-      case final SleepingWristTemperatureRecord record:
-        return SleepingWristTemperatureRecordToDto(record).toDto();
       case final CervicalMucusRecord record:
         return CervicalMucusRecordToDto(record).toDto();
       case final HydrationRecord record:
@@ -294,6 +291,28 @@ extension HealthRecordToDto on HealthRecord {
         return ExerciseSessionRecordToDto(
           this as ExerciseSessionRecord,
         ).toDto();
+      case final SpeedActivityRecord record:
+        return SpeedActivityRecordToDto(record).toDto();
+      case final LactationRecord record:
+        return LactationRecordToDto(record).toDto();
+      case final PregnancyRecord record:
+        return PregnancyRecordToDto(record).toDto();
+      case final ContraceptiveRecord record:
+        return ContraceptiveRecordToDto(record).toDto();
+      case final SwimmingStrokesRecord record:
+        return SwimmingStrokesRecordToDto(record).toDto();
+      case final PeripheralPerfusionIndexRecord record:
+        return PeripheralPerfusionIndexRecordToDto(record).toDto();
+      case final ForcedVitalCapacityRecord record:
+        return ForcedVitalCapacityRecordToDto(record).toDto();
+      case final WalkingAsymmetryPercentageRecord record:
+        return WalkingAsymmetryPercentageRecordToDto(record).toDto();
+      case final WalkingDoubleSupportPercentageRecord record:
+        return WalkingDoubleSupportPercentageRecordToDto(record).toDto();
+      case final WalkingStepLengthRecord record:
+        return WalkingStepLengthRecordToDto(record).toDto();
+
+      // Not supported data types
       case final HeartRateSeriesRecord _:
         throw UnsupportedError(
           '$HeartRateSeriesRecord is not supported on iOS HealthKit. '
@@ -322,8 +341,6 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$ElevationGainedRecord is not supported on iOS HealthKit.',
         );
-      case final SpeedActivityRecord record:
-        return SpeedActivityRecordToDto(record).toDto();
       case SpeedSeriesRecord():
         throw UnsupportedError(
           '$SpeedSeriesRecord is not supported on iOS HealthKit. '
@@ -356,42 +373,31 @@ extension HealthRecordToDto on HealthRecord {
           '$MenstrualFlowInstantRecord is not supported on iOS HealthKit. '
           'Use $MenstrualFlowRecord instead.',
         );
-      case final LactationRecord record:
-        return LactationRecordToDto(record).toDto();
-      case final PregnancyRecord record:
-        return PregnancyRecordToDto(record).toDto();
-      case final ContraceptiveRecord record:
-        return ContraceptiveRecordToDto(record).toDto();
-      case final SwimmingStrokesRecord record:
-        return SwimmingStrokesRecordToDto(record).toDto();
-      case final PeripheralPerfusionIndexRecord record:
-        return PeripheralPerfusionIndexRecordToDto(record).toDto();
-      case final ForcedVitalCapacityRecord record:
-        return ForcedVitalCapacityRecordToDto(record).toDto();
+
+      // Read-only data types
       case final ActivityIntensityRecord _:
         throw UnsupportedError(
           '$ActivityIntensityRecord is not supported on iOS HealthKit.',
         );
-      case final ExerciseTimeRecord record:
-        return ExerciseTimeRecordToDto(record).toDto();
-      case final MoveTimeRecord record:
-        return MoveTimeRecordToDto(record).toDto();
-      case final StandTimeRecord record:
-        return StandTimeRecordToDto(record).toDto();
-      case final WalkingSteadinessRecord record:
-        return WalkingSteadinessRecordToDto(record).toDto();
-      case final WalkingAsymmetryPercentageRecord record:
-        return WalkingAsymmetryPercentageRecordToDto(record).toDto();
-      case final WalkingDoubleSupportPercentageRecord record:
-        return WalkingDoubleSupportPercentageRecordToDto(record).toDto();
-      case final WalkingStepLengthRecord record:
-        return WalkingStepLengthRecordToDto(record).toDto();
+      case final ExerciseTimeRecord _:
+        throw UnsupportedError('$ExerciseTimeRecord is read-only data type.');
+      case final MoveTimeRecord _:
+        throw UnsupportedError('$MoveTimeRecord is read-only data type.');
+      case final StandTimeRecord _:
+        throw UnsupportedError('$StandTimeRecord is read-only data type.');
+      case final WalkingSteadinessRecord _:
+        throw UnsupportedError(
+          '$WalkingSteadinessRecord is read-only data type.',
+        );
+      case final SleepingWristTemperatureRecord _:
+        throw UnsupportedError(
+          '$SleepingWristTemperatureRecord is read-only data type.',
+        );
     }
   }
 }
 
 /// Converts [HealthRecordDto] to [HealthRecord].
-@sinceV1_0_0
 @internal
 extension HealthRecordDtoToDomain on HealthRecordDto {
   HealthRecord toDomain() {

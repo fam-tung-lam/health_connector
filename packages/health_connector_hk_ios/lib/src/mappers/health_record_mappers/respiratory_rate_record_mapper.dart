@@ -1,12 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show Frequency, HealthRecordId, RespiratoryRateRecord, sinceV1_0_0;
+    show Frequency, HealthRecordId, RespiratoryRateRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show RespiratoryRateRecordDto;
 import 'package:meta/meta.dart' show internal;
-
-@sinceV1_0_0
 @internal
 extension RespiratoryRateRecordToDto on RespiratoryRateRecord {
   RespiratoryRateRecordDto toDto() {
@@ -19,8 +17,6 @@ extension RespiratoryRateRecordToDto on RespiratoryRateRecord {
     );
   }
 }
-
-@sinceV1_0_0
 @internal
 extension RespiratoryRateRecordDtoToDomain on RespiratoryRateRecordDto {
   RespiratoryRateRecord toDomain() {

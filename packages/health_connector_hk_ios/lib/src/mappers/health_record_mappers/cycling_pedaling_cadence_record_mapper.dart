@@ -1,12 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show CyclingPedalingCadenceRecord, Frequency, HealthRecordId, sinceV2_0_0;
+    show CyclingPedalingCadenceRecord, Frequency, HealthRecordId;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show CyclingPedalingCadenceRecordDto;
 import 'package:meta/meta.dart' show internal;
-
-@sinceV2_0_0
 @internal
 extension CyclingPedalingCadenceRecordToDto on CyclingPedalingCadenceRecord {
   CyclingPedalingCadenceRecordDto toDto() {
@@ -19,8 +17,6 @@ extension CyclingPedalingCadenceRecordToDto on CyclingPedalingCadenceRecord {
     );
   }
 }
-
-@sinceV2_0_0
 @internal
 extension CyclingPedalingCadenceRecordDtoToDomain
     on CyclingPedalingCadenceRecordDto {

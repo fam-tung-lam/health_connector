@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BloodAlcoholContentRecord, HealthRecordId, Percentage, sinceV3_1_0;
+    show BloodAlcoholContentRecord, HealthRecordId, Percentage;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -7,7 +7,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BloodAlcoholContentRecord] to [BloodAlcoholContentRecordDto].
-@sinceV3_1_0
 @internal
 extension BloodAlcoholContentRecordToDto on BloodAlcoholContentRecord {
   BloodAlcoholContentRecordDto toDto() {
@@ -22,7 +21,6 @@ extension BloodAlcoholContentRecordToDto on BloodAlcoholContentRecord {
 }
 
 /// Converts [BloodAlcoholContentRecordDto] to [BloodAlcoholContentRecord].
-@sinceV3_1_0
 @internal
 extension BloodAlcoholContentRecordDtoToDomain on BloodAlcoholContentRecordDto {
   BloodAlcoholContentRecord toDomain() {

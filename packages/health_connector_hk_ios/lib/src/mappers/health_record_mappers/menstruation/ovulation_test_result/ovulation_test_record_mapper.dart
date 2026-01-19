@@ -6,7 +6,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Extension to convert [OvulationTestRecord] to [OvulationTestRecordDto].
-@sinceV2_2_0
 @internal
 extension OvulationTestRecordToDto on OvulationTestRecord {
   /// Converts [OvulationTestRecord] to [OvulationTestRecordDto].
@@ -22,7 +21,6 @@ extension OvulationTestRecordToDto on OvulationTestRecord {
 }
 
 /// Extension to convert [OvulationTestRecordDto] to [OvulationTestRecord].
-@sinceV2_2_0
 @internal
 extension OvulationTestRecordDtoToDomain on OvulationTestRecordDto {
   /// Converts [OvulationTestRecordDto] to [OvulationTestRecord].

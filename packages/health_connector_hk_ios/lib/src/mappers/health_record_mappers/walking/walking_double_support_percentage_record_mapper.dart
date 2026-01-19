@@ -1,13 +1,15 @@
 import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_hk_ios/src/mappers/device_placement_side_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+import 'package:meta/meta.dart';
 
-/// Extension to map [WalkingDoubleSupportPercentageRecord] to Pigeon DTO.
+/// Extension to map [WalkingDoubleSupportPercentageRecord] to
+/// [WalkingDoubleSupportPercentageRecordDto].
+@internal
 extension WalkingDoubleSupportPercentageRecordToDto
     on WalkingDoubleSupportPercentageRecord {
-  /// Converts this [WalkingDoubleSupportPercentageRecord] to a
-  /// [WalkingDoubleSupportPercentageRecordDto].
   WalkingDoubleSupportPercentageRecordDto toDto() {
     return WalkingDoubleSupportPercentageRecordDto(
       id: id.value,
@@ -22,14 +24,14 @@ extension WalkingDoubleSupportPercentageRecordToDto
   }
 }
 
-/// Extension to map Pigeon [WalkingDoubleSupportPercentageRecordDto] to domain.
+/// Extension to map Pigeon [WalkingDoubleSupportPercentageRecordDto] to
+/// [WalkingDoubleSupportPercentageRecord].
+@internal
 extension WalkingDoubleSupportPercentageRecordDtoToDomain
     on WalkingDoubleSupportPercentageRecordDto {
-  /// Converts this [WalkingDoubleSupportPercentageRecordDto] to a
-  /// [WalkingDoubleSupportPercentageRecord].
   WalkingDoubleSupportPercentageRecord toDomain() {
     return WalkingDoubleSupportPercentageRecord.internal(
-      id: HealthRecordId(id!),
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       metadata: metadata.toDomain(),

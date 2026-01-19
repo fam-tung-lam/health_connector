@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, RunningSpeedRecord, Velocity, sinceV2_0_0;
+    show HealthRecordId, RunningSpeedRecord, Velocity;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -7,7 +7,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [RunningSpeedRecord] to [SpeedActivityRecordDto].
-@sinceV2_0_0
 @internal
 extension RunningSpeedRecordToDto on RunningSpeedRecord {
   /// Converts this running speed record to a DTO for platform transfer.
@@ -24,7 +23,6 @@ extension RunningSpeedRecordToDto on RunningSpeedRecord {
 }
 
 /// Converts [SpeedActivityRecordDto] to [RunningSpeedRecord].
-@sinceV2_0_0
 @internal
 extension RunningSpeedRecordDtoToDomain on SpeedActivityRecordDto {
   /// Converts this DTO to a running speed record.

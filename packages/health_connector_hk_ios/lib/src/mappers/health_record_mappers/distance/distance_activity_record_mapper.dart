@@ -10,8 +10,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SkatingSportsDistanceRecord,
         SwimmingDistanceRecord,
         WheelchairDistanceRecord,
-        WalkingRunningDistanceRecord,
-        sinceV2_0_0;
+        WalkingRunningDistanceRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance/cross_country_skiing_distance_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance/cycling_distance_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance/downhill_snow_sports_distance_record_mapper.dart';
@@ -27,7 +26,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [DistanceActivityRecord] subclasses to [DistanceActivityRecordDto].
-@sinceV2_0_0
 @internal
 extension DistanceActivityRecordToDto on DistanceActivityRecord {
   DistanceActivityRecordDto toDto() {
@@ -61,7 +59,6 @@ extension DistanceActivityRecordToDto on DistanceActivityRecord {
 }
 
 /// Converts [DistanceActivityRecordDto] to correct [DistanceActivityRecord].
-@sinceV2_0_0
 @internal
 extension DistanceActivityRecordDtoToDomain on DistanceActivityRecordDto {
   DistanceActivityRecord toDomain() {

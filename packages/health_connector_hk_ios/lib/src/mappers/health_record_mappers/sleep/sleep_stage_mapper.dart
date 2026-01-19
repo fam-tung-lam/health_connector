@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show SleepStage, sinceV1_0_0;
+    show SleepStage;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show SleepStageDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [SleepStage] to [SleepStageDto].
-@sinceV1_0_0
 @internal
 extension SleepStageDomainToDto on SleepStage {
   SleepStageDto toDto() {
@@ -23,7 +22,6 @@ extension SleepStageDomainToDto on SleepStage {
 }
 
 /// Converts [SleepStageDto] to [SleepStage].
-@sinceV1_0_0
 @internal
 extension SleepStageDtoToDomain on SleepStageDto {
   SleepStage toDomain() {

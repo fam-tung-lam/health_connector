@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, StairAscentSpeedRecord, sinceV2_0_0, Velocity;
+    show HealthRecordId, StairAscentSpeedRecord, Velocity;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -7,7 +7,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [StairAscentSpeedRecord] to [SpeedActivityRecordDto].
-@sinceV2_0_0
 @internal
 extension StairAscentSpeedRecordToDto on StairAscentSpeedRecord {
   /// Converts this stair ascent speed record to a DTO for platform transfer.
@@ -24,7 +23,6 @@ extension StairAscentSpeedRecordToDto on StairAscentSpeedRecord {
 }
 
 /// Converts [SpeedActivityRecordDto] to [StairAscentSpeedRecord].
-@sinceV2_0_0
 @internal
 extension StairAscentSpeedRecordDtoToDomain on SpeedActivityRecordDto {
   /// Converts this DTO to a stair ascent speed record.

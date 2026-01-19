@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show AggregationMetric, sinceV1_0_0;
+    show AggregationMetric;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show AggregationMetricDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [AggregationMetric] to [AggregationMetricDto].
-@sinceV1_0_0
 @internal
 extension AggregationMetricDtoMapper on AggregationMetric {
   AggregationMetricDto toDto() {
@@ -23,7 +22,6 @@ extension AggregationMetricDtoMapper on AggregationMetric {
 }
 
 /// Converts [AggregationMetricDto] to [AggregationMetric].
-@sinceV1_0_0
 @internal
 extension AggregationMetricDtoToDomain on AggregationMetricDto {
   AggregationMetric toDomain() {

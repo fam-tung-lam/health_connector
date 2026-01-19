@@ -6,7 +6,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Extension to convert [CervicalMucusRecord] to [CervicalMucusRecordDto].
-@sinceV2_1_0
 @internal
 extension CervicalMucusRecordToDto on CervicalMucusRecord {
   /// Converts this [CervicalMucusRecord] to [CervicalMucusRecordDto].
@@ -23,7 +22,6 @@ extension CervicalMucusRecordToDto on CervicalMucusRecord {
 }
 
 /// Extension to convert [CervicalMucusRecordDto] to [CervicalMucusRecord].
-@sinceV2_1_0
 @internal
 extension CervicalMucusRecordDtoToDomain on CervicalMucusRecordDto {
   /// Converts this [CervicalMucusRecordDto] to [CervicalMucusRecord].

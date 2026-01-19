@@ -3,7 +3,6 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         Number,
         AlcoholicBeveragesRecord,
         HealthRecordId,
-        sinceV3_1_0,
         DateTimeToDto;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -12,7 +11,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [AlcoholicBeveragesRecord] to [AlcoholicBeveragesRecordDto].
-@sinceV3_1_0
 @internal
 extension AlcoholicBeveragesRecordToDto on AlcoholicBeveragesRecord {
   AlcoholicBeveragesRecordDto toDto() {
@@ -33,7 +31,6 @@ extension AlcoholicBeveragesRecordToDto on AlcoholicBeveragesRecord {
 }
 
 /// Converts [AlcoholicBeveragesRecordDto] to [AlcoholicBeveragesRecord].
-@sinceV3_1_0
 @internal
 extension AlcoholicBeveragesRecordDtoToDomain on AlcoholicBeveragesRecordDto {
   AlcoholicBeveragesRecord toDomain() {

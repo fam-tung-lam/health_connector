@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show MealType, sinceV1_1_0;
+    show MealType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show MealTypeDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [MealType] to [MealTypeDto].
-@sinceV1_1_0
 @internal
 extension MealTypeToDtoExtension on MealType {
   MealTypeDto toDto() {
@@ -20,7 +19,6 @@ extension MealTypeToDtoExtension on MealType {
 }
 
 /// Converts [MealTypeDto] to [MealType].
-@sinceV1_1_0
 @internal
 extension MealTypeDtoToDomainExtension on MealTypeDto {
   MealType toDomain() {

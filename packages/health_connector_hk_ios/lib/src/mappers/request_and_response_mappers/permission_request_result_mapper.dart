@@ -2,8 +2,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         HealthDataPermission,
         HealthDataPermissionAccessType,
-        PermissionRequestResult,
-        sinceV1_0_0;
+        PermissionRequestResult;
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_status_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -12,7 +11,6 @@ import 'package:meta/meta.dart' show internal;
 
 /// Converts [List<HealthDataPermissionRequestResultDto>] to
 /// [List<PermissionRequestResult>].
-@sinceV1_0_0
 @internal
 extension PermissionRequestResultDtoListToDomain
     on List<HealthDataPermissionRequestResultDto> {

@@ -2,8 +2,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         HealthRecordId,
         Percentage,
-        PeripheralPerfusionIndexRecord,
-        sinceV3_1_0;
+        PeripheralPerfusionIndexRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -12,7 +11,6 @@ import 'package:meta/meta.dart' show internal;
 
 /// Converts [PeripheralPerfusionIndexRecord] to
 /// [PeripheralPerfusionIndexRecordDto].
-@sinceV3_1_0
 @internal
 extension PeripheralPerfusionIndexRecordToDto
     on PeripheralPerfusionIndexRecord {
@@ -29,7 +27,6 @@ extension PeripheralPerfusionIndexRecordToDto
 
 /// Converts [PeripheralPerfusionIndexRecordDto] to
 /// [PeripheralPerfusionIndexRecord].
-@sinceV3_1_0
 @internal
 extension PeripheralPerfusionIndexRecordDtoToDomain
     on PeripheralPerfusionIndexRecordDto {

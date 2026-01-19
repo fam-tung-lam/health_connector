@@ -7,7 +7,6 @@ import 'package:meta/meta.dart' show internal;
 ///
 /// **iOS HealthKit Limitation**: All sensation values require custom metadata
 /// handling in the Swift mapper.
-@sinceV2_1_0
 @internal
 extension CervicalMucusSensationToDto on CervicalMucusSensation {
   /// Converts this [CervicalMucusSensation] to
@@ -28,7 +27,6 @@ extension CervicalMucusSensationToDto on CervicalMucusSensation {
 
 /// Extension to convert [CervicalMucusSensationDto] to
 /// [CervicalMucusSensation].
-@sinceV2_1_0
 @internal
 extension CervicalMucusSensationDtoToDomain on CervicalMucusSensationDto {
   /// Converts this [CervicalMucusSensationDto] to

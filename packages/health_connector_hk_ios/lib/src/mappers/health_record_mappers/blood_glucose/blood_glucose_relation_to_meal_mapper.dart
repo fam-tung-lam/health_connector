@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BloodGlucoseRelationToMeal, sinceV1_4_0;
+    show BloodGlucoseRelationToMeal;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show BloodGlucoseRelationToMealDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BloodGlucoseRelationToMeal] to [BloodGlucoseRelationToMealDto].
-@sinceV1_4_0
 @internal
 extension BloodGlucoseRelationToMealToDto on BloodGlucoseRelationToMeal {
   /// Converts [BloodGlucoseRelationToMeal] to [BloodGlucoseRelationToMealDto].
@@ -26,7 +25,6 @@ extension BloodGlucoseRelationToMealToDto on BloodGlucoseRelationToMeal {
 }
 
 /// Converts [BloodGlucoseRelationToMealDto] to [BloodGlucoseRelationToMeal].
-@sinceV1_4_0
 @internal
 extension BloodGlucoseRelationToMealDtoToDomain
     on BloodGlucoseRelationToMealDto {

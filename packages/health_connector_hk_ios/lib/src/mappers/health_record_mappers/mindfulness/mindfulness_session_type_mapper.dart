@@ -3,7 +3,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Extension for converting [MindfulnessSessionType] to DTO.
-@sinceV2_1_0
 @internal
 extension MindfulnessSessionTypeToDtoExtension on MindfulnessSessionType {
   /// Converts to [MindfulnessSessionTypeDto].
@@ -20,7 +19,6 @@ extension MindfulnessSessionTypeToDtoExtension on MindfulnessSessionType {
 }
 
 /// Extension for converting DTO to [MindfulnessSessionType].
-@sinceV2_1_0
 @internal
 extension MindfulnessSessionTypeDtoToDomainExtension
     on MindfulnessSessionTypeDto {

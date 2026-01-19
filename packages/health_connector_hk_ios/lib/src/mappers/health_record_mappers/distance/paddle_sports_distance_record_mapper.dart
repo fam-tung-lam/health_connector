@@ -3,8 +3,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DateTimeToDto,
         HealthRecordId,
         Length,
-        PaddleSportsDistanceRecord,
-        sinceV2_0_0;
+        PaddleSportsDistanceRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -12,7 +11,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [PaddleSportsDistanceRecord] to [DistanceActivityRecordDto].
-@sinceV2_0_0
 @internal
 extension PaddleSportsDistanceRecordToDto on PaddleSportsDistanceRecord {
   DistanceActivityRecordDto toDto() {
@@ -34,7 +32,6 @@ extension PaddleSportsDistanceRecordToDto on PaddleSportsDistanceRecord {
 }
 
 /// Converts [DistanceActivityRecordDto] to [PaddleSportsDistanceRecord].
-@sinceV2_0_0
 @internal
 extension PaddleSportsDistanceRecordDtoToDomain on DistanceActivityRecordDto {
   PaddleSportsDistanceRecord toDomain() {

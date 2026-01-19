@@ -3,8 +3,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DateTimeToDto,
         HealthRecordId,
         Length,
-        WalkingRunningDistanceRecord,
-        sinceV2_0_0;
+        WalkingRunningDistanceRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -12,7 +11,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [WalkingRunningDistanceRecord] to [DistanceActivityRecordDto].
-@sinceV2_0_0
 @internal
 extension WalkingRunningDistanceRecordToDto on WalkingRunningDistanceRecord {
   DistanceActivityRecordDto toDto() {
@@ -34,7 +32,6 @@ extension WalkingRunningDistanceRecordToDto on WalkingRunningDistanceRecord {
 }
 
 /// Converts [DistanceActivityRecordDto] to [WalkingRunningDistanceRecord].
-@sinceV2_0_0
 @internal
 extension WalkingRunningDistanceRecordDtoToDomain on DistanceActivityRecordDto {
   WalkingRunningDistanceRecord toDomain() {

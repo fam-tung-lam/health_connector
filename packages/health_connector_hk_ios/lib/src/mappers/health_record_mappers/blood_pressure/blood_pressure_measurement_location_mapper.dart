@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BloodPressureMeasurementLocation, sinceV1_2_0;
+    show BloodPressureMeasurementLocation;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show MeasurementLocationDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BloodPressureMeasurementLocation] to [MeasurementLocationDto].
-@sinceV1_2_0
 @internal
 extension BloodPressureMeasurementLocationToDto
     on BloodPressureMeasurementLocation {
@@ -26,7 +25,6 @@ extension BloodPressureMeasurementLocationToDto
 }
 
 /// Converts [MeasurementLocationDto] to [BloodPressureMeasurementLocation].
-@sinceV1_2_0
 @internal
 extension MeasurementLocationDtoToDomain on MeasurementLocationDto {
   BloodPressureMeasurementLocation toDomain() {

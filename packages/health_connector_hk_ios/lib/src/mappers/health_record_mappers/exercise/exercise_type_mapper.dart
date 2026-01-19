@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show ExerciseType, sinceV2_0_0;
+    show ExerciseType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show ExerciseTypeDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ExerciseType] to [ExerciseTypeDto].
-@sinceV2_0_0
 @internal
 extension ExerciseTypeToDto on ExerciseType {
   ExerciseTypeDto toDto() {
@@ -139,7 +138,6 @@ extension ExerciseTypeToDto on ExerciseType {
 }
 
 /// Converts [ExerciseTypeDto] to [ExerciseType].
-@sinceV2_0_0
 @internal
 extension ExerciseTypeDtoToDomain on ExerciseTypeDto {
   ExerciseType toDomain() {

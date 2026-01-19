@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, LeanBodyMassRecord, Mass, sinceV1_0_0;
+    show HealthRecordId, LeanBodyMassRecord, Mass;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -7,7 +7,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [LeanBodyMassRecord] to [LeanBodyMassRecordDto].
-@sinceV1_0_0
 @internal
 extension LeanBodyMassRecordToDto on LeanBodyMassRecord {
   LeanBodyMassRecordDto toDto() {
@@ -22,7 +21,6 @@ extension LeanBodyMassRecordToDto on LeanBodyMassRecord {
 }
 
 /// Converts [LeanBodyMassRecordDto] to [LeanBodyMassRecord].
-@sinceV1_0_0
 @internal
 extension LeanBodyMassRecordDtoToDomain on LeanBodyMassRecordDto {
   LeanBodyMassRecord toDomain() {

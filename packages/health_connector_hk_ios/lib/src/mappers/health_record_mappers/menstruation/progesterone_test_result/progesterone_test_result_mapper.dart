@@ -4,7 +4,6 @@ import 'package:meta/meta.dart' show internal;
 
 /// Extension to convert [ProgesteroneTestResult] to
 /// [ProgesteroneTestResultDto].
-@sinceV3_1_0
 @internal
 extension ProgesteroneTestResultToDto on ProgesteroneTestResult {
   /// Converts [ProgesteroneTestResult] to [ProgesteroneTestResultDto].
@@ -22,7 +21,6 @@ extension ProgesteroneTestResultToDto on ProgesteroneTestResult {
 
 /// Extension to convert [ProgesteroneTestResultDto] to
 /// [ProgesteroneTestResult].
-@sinceV3_1_0
 @internal
 extension ProgesteroneTestResultDtoToDomain on ProgesteroneTestResultDto {
   /// Converts [ProgesteroneTestResultDto] to [ProgesteroneTestResult].

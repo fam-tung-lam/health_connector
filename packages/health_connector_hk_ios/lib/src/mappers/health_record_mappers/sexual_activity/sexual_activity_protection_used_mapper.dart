@@ -1,12 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show SexualActivityProtectionUsed, sinceV2_1_0;
+    show SexualActivityProtectionUsed;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show SexualActivityProtectionUsedDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [SexualActivityProtectionUsed] to
 /// [SexualActivityProtectionUsedDto].
-@sinceV2_1_0
 @internal
 extension SexualActivityProtectionUsedToDto on SexualActivityProtectionUsed {
   SexualActivityProtectionUsedDto toDto() {
@@ -23,7 +22,6 @@ extension SexualActivityProtectionUsedToDto on SexualActivityProtectionUsed {
 
 /// Converts [SexualActivityProtectionUsedDto] to
 /// [SexualActivityProtectionUsed].
-@sinceV2_1_0
 @internal
 extension SexualActivityProtectionUsedDtoToDomain
     on SexualActivityProtectionUsedDto {

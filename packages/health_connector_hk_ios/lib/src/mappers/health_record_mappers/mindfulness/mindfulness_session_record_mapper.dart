@@ -5,7 +5,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Extension for converting [MindfulnessSessionRecord] to DTO.
-@sinceV2_1_0
 @internal
 extension MindfulnessSessionRecordToDtoExtension on MindfulnessSessionRecord {
   /// Converts to [MindfulnessSessionRecordDto].
@@ -29,7 +28,6 @@ extension MindfulnessSessionRecordToDtoExtension on MindfulnessSessionRecord {
 }
 
 /// Extension for converting DTO to [MindfulnessSessionRecord].
-@sinceV2_1_0
 @internal
 extension MindfulnessSessionRecordDtoToDomainExtension
     on MindfulnessSessionRecordDto {

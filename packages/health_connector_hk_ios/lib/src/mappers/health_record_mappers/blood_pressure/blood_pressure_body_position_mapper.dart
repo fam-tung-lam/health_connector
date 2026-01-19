@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show BloodPressureBodyPosition, sinceV1_2_0;
+    show BloodPressureBodyPosition;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show BodyPositionDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BloodPressureBodyPosition] to [BodyPositionDto].
-@sinceV1_2_0
 @internal
 extension BloodPressureBodyPositionToDto on BloodPressureBodyPosition {
   BodyPositionDto toDto() {
@@ -25,7 +24,6 @@ extension BloodPressureBodyPositionToDto on BloodPressureBodyPosition {
 }
 
 /// Converts [BodyPositionDto] to [BloodPressureBodyPosition].
-@sinceV1_2_0
 @internal
 extension BodyPositionDtoToDomain on BodyPositionDto {
   BloodPressureBodyPosition toDomain() {

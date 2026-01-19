@@ -1,14 +1,12 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show WeightRecord, HealthRecordId, sinceV1_0_0, Mass;
+    show WeightRecord, HealthRecordId, Mass;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show WeightRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [WeightRecord] to [WeightRecordDto].
-@sinceV1_0_0
 @internal
 extension WeightRecordToDto on WeightRecord {
   WeightRecordDto toDto() {
@@ -23,7 +21,6 @@ extension WeightRecordToDto on WeightRecord {
 }
 
 /// Converts [WeightRecordDto] to [WeightRecord].
-@sinceV1_0_0
 @internal
 extension WeightRecordDtoToDomain on WeightRecordDto {
   WeightRecord toDomain() {

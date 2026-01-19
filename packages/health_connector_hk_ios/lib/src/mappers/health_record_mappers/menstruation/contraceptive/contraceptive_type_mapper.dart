@@ -4,7 +4,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ContraceptiveType] to [ContraceptiveTypeDto].
-@sinceV3_1_0
 @internal
 extension ContraceptiveTypeToDto on ContraceptiveType {
   ContraceptiveTypeDto toDto() {
@@ -28,7 +27,6 @@ extension ContraceptiveTypeToDto on ContraceptiveType {
 }
 
 /// Converts [ContraceptiveTypeDto] to [ContraceptiveType].
-@sinceV3_1_0
 @internal
 extension ContraceptiveTypeDtoToDomain on ContraceptiveTypeDto {
   ContraceptiveType toDomain() {

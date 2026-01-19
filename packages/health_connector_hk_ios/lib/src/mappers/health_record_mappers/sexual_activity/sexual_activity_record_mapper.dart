@@ -5,7 +5,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Extension to convert [SexualActivityRecord] to [SexualActivityRecordDto].
-@sinceV2_1_0
 @internal
 extension SexualActivityRecordToDto on SexualActivityRecord {
   /// Converts [SexualActivityRecord] to [SexualActivityRecordDto].
@@ -21,7 +20,6 @@ extension SexualActivityRecordToDto on SexualActivityRecord {
 }
 
 /// Extension to convert [SexualActivityRecordDto] to [SexualActivityRecord].
-@sinceV2_1_0
 @internal
 extension SexualActivityRecordDtoToDomain on SexualActivityRecordDto {
   /// Converts [SexualActivityRecordDto] to [SexualActivityRecord].

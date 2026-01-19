@@ -1,10 +1,8 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show MenstrualFlow, sinceV1_0_0;
+    show MenstrualFlow;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show MenstrualFlowDto;
 import 'package:meta/meta.dart' show internal;
-
-@sinceV1_0_0
 @internal
 extension MenstrualFlowToDto on MenstrualFlow {
   MenstrualFlowDto toDto() {
@@ -20,8 +18,6 @@ extension MenstrualFlowToDto on MenstrualFlow {
     }
   }
 }
-
-@sinceV1_0_0
 @internal
 extension MenstrualFlowDtoToDomain on MenstrualFlowDto {
   MenstrualFlow toDomain() {

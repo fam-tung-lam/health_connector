@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/time/exercise_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
@@ -9,52 +8,6 @@ void main() {
   group(
     'ExerciseTimeRecordMapper',
     () {
-      group(
-        'ExerciseTimeRecordToDto',
-        () {
-          test(
-            'converts ExerciseTimeRecord to ExerciseTimeRecordDto',
-            () {
-              final record = ExerciseTimeRecord.internal(
-                id: HealthRecordId(FakeData.fakeId),
-                startTime: FakeData.fakeStartTime,
-                endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds:
-                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
-                endZoneOffsetSeconds:
-                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
-                metadata: Metadata.internal(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  recordingMethod: RecordingMethod.activelyRecorded,
-                  clientRecordVersion: 1,
-                  device: const Device(type: DeviceType.phone),
-                ),
-                exerciseTime: const TimeDuration.minutes(30),
-              );
-
-              final dto = record.toDto();
-
-              expect(dto.id, FakeData.fakeId);
-              expect(
-                dto.startTime,
-                FakeData.fakeStartTime.millisecondsSinceEpoch,
-              );
-              expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
-              expect(
-                dto.startZoneOffsetSeconds,
-                FakeData.fakeStartTime.timeZoneOffset.inSeconds,
-              );
-              expect(
-                dto.endZoneOffsetSeconds,
-                FakeData.fakeEndTime.timeZoneOffset.inSeconds,
-              );
-              expect(dto.seconds, 30 * 60); // 30 minutes in seconds
-              expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-            },
-          );
-        },
-      );
-
       group(
         'ExerciseTimeRecordDtoToDomain',
         () {

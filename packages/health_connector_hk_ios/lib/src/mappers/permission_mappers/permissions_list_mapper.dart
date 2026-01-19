@@ -7,7 +7,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [List<Permission>] to [PermissionsRequestDto].
-@sinceV1_0_0
 @internal
 extension PermissionsListToDto on List<HealthDataPermission> {
   /// All individual data types that make up a NutritionRecord.

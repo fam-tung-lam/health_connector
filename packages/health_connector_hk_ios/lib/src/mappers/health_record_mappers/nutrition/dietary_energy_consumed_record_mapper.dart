@@ -3,8 +3,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DietaryEnergyConsumedRecord,
         Energy,
         HealthRecordId,
-        MealType,
-        sinceV1_1_0;
+        MealType;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -13,7 +12,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [DietaryEnergyConsumedRecord] to [DietaryEnergyConsumedRecordDto].
-@sinceV1_1_0
 @internal
 extension DietaryEnergyConsumedRecordToDto on DietaryEnergyConsumedRecord {
   DietaryEnergyConsumedRecordDto toDto() {
@@ -30,7 +28,6 @@ extension DietaryEnergyConsumedRecordToDto on DietaryEnergyConsumedRecord {
 }
 
 /// Converts [DietaryEnergyConsumedRecordDto] to [DietaryEnergyConsumedRecord].
-@sinceV1_1_0
 @internal
 extension DietaryEnergyConsumedRecordDtoToDomain
     on DietaryEnergyConsumedRecordDto {

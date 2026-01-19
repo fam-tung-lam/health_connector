@@ -1,13 +1,15 @@
 import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_hk_ios/src/mappers/device_placement_side_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+import 'package:meta/meta.dart';
 
-/// Extension to map [WalkingAsymmetryPercentageRecord] to Pigeon DTO.
+/// Extension to map [WalkingAsymmetryPercentageRecord] to
+/// [WalkingAsymmetryPercentageRecordDto].
+@internal
 extension WalkingAsymmetryPercentageRecordToDto
     on WalkingAsymmetryPercentageRecord {
-  /// Converts this [WalkingAsymmetryPercentageRecord] to a
-  /// [WalkingAsymmetryPercentageRecordDto].
   WalkingAsymmetryPercentageRecordDto toDto() {
     return WalkingAsymmetryPercentageRecordDto(
       id: id.value,
@@ -22,14 +24,14 @@ extension WalkingAsymmetryPercentageRecordToDto
   }
 }
 
-/// Extension to map Pigeon [WalkingAsymmetryPercentageRecordDto] to domain.
+/// Extension to map Pigeon [WalkingAsymmetryPercentageRecordDto] to
+/// [WalkingAsymmetryPercentageRecord].
+@internal
 extension WalkingAsymmetryPercentageRecordDtoToDomain
     on WalkingAsymmetryPercentageRecordDto {
-  /// Converts this [WalkingAsymmetryPercentageRecordDto] to a
-  /// [WalkingAsymmetryPercentageRecord].
   WalkingAsymmetryPercentageRecord toDomain() {
     return WalkingAsymmetryPercentageRecord.internal(
-      id: HealthRecordId(id!),
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       metadata: metadata.toDomain(),

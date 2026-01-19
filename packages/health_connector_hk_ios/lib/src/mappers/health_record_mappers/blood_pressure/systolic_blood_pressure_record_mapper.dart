@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, Pressure, SystolicBloodPressureRecord, sinceV1_2_0;
+    show HealthRecordId, Pressure, SystolicBloodPressureRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_body_position_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/blood_pressure_measurement_location_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
@@ -9,7 +9,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [SystolicBloodPressureRecord] to [SystolicBloodPressureRecordDto].
-@sinceV1_2_0
 @internal
 extension SystolicBloodPressureRecordToDto on SystolicBloodPressureRecord {
   SystolicBloodPressureRecordDto toDto() {
@@ -26,7 +25,6 @@ extension SystolicBloodPressureRecordToDto on SystolicBloodPressureRecord {
 }
 
 /// Converts [SystolicBloodPressureRecordDto] to [SystolicBloodPressureRecord].
-@sinceV1_2_0
 @internal
 extension SystolicBloodPressureRecordDtoToDomain
     on SystolicBloodPressureRecordDto {

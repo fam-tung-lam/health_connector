@@ -1,5 +1,6 @@
 import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_hk_ios/src/mappers/device_placement_side_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart';
@@ -27,7 +28,7 @@ extension WalkingStepLengthRecordToDto on WalkingStepLengthRecord {
 extension WalkingStepLengthRecordDtoToDomain on WalkingStepLengthRecordDto {
   WalkingStepLengthRecord toDomain() {
     return WalkingStepLengthRecord.internal(
-      id: HealthRecordId(id!),
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       metadata: metadata.toDomain(),

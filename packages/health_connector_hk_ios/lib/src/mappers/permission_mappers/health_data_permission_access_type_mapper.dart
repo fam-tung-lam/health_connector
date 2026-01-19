@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthDataPermissionAccessType, sinceV1_0_0;
+    show HealthDataPermissionAccessType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show PermissionAccessTypeDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthDataPermissionAccessType] to [PermissionAccessTypeDto].
-@sinceV1_0_0
 @internal
 extension HealthDataPermissionAccessTypeToDto
     on HealthDataPermissionAccessType {

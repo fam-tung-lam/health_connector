@@ -6,7 +6,6 @@ import 'package:meta/meta.dart' show internal;
 
 /// Extension to convert [IntermenstrualBleedingRecord] to
 /// [IntermenstrualBleedingRecordDto].
-@sinceV2_2_0
 @internal
 extension IntermenstrualBleedingRecordToDto on IntermenstrualBleedingRecord {
   /// Converts [IntermenstrualBleedingRecord] to
@@ -23,7 +22,6 @@ extension IntermenstrualBleedingRecordToDto on IntermenstrualBleedingRecord {
 
 /// Extension to convert [IntermenstrualBleedingRecordDto] to
 /// [IntermenstrualBleedingRecord].
-@sinceV2_2_0
 @internal
 extension IntermenstrualBleedingRecordDtoToDomain
     on IntermenstrualBleedingRecordDto {

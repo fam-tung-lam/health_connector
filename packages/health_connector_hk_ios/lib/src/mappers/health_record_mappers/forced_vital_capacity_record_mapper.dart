@@ -5,7 +5,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ForcedVitalCapacityRecordDto] to [ForcedVitalCapacityRecord].
-@sinceV3_1_0
 @internal
 extension ForcedVitalCapacityRecordDtoToDomain on ForcedVitalCapacityRecordDto {
   ForcedVitalCapacityRecord toDomain() {
@@ -20,7 +19,6 @@ extension ForcedVitalCapacityRecordDtoToDomain on ForcedVitalCapacityRecordDto {
 }
 
 /// Converts [ForcedVitalCapacityRecord] to [ForcedVitalCapacityRecordDto].
-@sinceV3_1_0
 @internal
 extension ForcedVitalCapacityRecordToDto on ForcedVitalCapacityRecord {
   ForcedVitalCapacityRecordDto toDto() {

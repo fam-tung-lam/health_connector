@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show DietaryVitaminKRecord, HealthRecordId, Mass, MealType, sinceV1_1_0;
+    show DietaryVitaminKRecord, HealthRecordId, Mass, MealType;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -8,7 +8,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [DietaryVitaminKRecord] to [DietaryVitaminKRecordDto].
-@sinceV1_1_0
 @internal
 extension DietaryVitaminKRecordToDto on DietaryVitaminKRecord {
   DietaryVitaminKRecordDto toDto() {
@@ -25,7 +24,6 @@ extension DietaryVitaminKRecordToDto on DietaryVitaminKRecord {
 }
 
 /// Converts [DietaryVitaminKRecordDto] to [DietaryVitaminKRecord].
-@sinceV1_1_0
 @internal
 extension DietaryVitaminKRecordDtoToDomain on DietaryVitaminKRecordDto {
   DietaryVitaminKRecord toDomain() {

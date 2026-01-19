@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show DeviceType, sinceV1_0_0;
+    show DeviceType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show DeviceTypeDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [DeviceType] to [DeviceTypeDto].
-@sinceV1_0_0
 @internal
 extension DeviceTypeDtoMapper on DeviceType {
   DeviceTypeDto toDto() {
@@ -33,7 +32,6 @@ extension DeviceTypeDtoMapper on DeviceType {
 }
 
 /// Converts [DeviceTypeDto] to [DeviceType].
-@sinceV1_0_0
 @internal
 extension DeviceTypeDtoToDomain on DeviceTypeDto {
   DeviceType toDomain() {

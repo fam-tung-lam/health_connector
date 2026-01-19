@@ -1,11 +1,10 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show RecordingMethod, sinceV2_1_0;
+    show RecordingMethod;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show RecordingMethodDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [RecordingMethod] to [RecordingMethodDto].
-@sinceV2_1_0
 @internal
 extension RecordingMethodDtoMapper on RecordingMethod {
   RecordingMethodDto toDto() {
@@ -23,7 +22,6 @@ extension RecordingMethodDtoMapper on RecordingMethod {
 }
 
 /// Converts [RecordingMethodDto] to [RecordingMethod].
-@sinceV2_1_0
 @internal
 extension RecordingMethodDtoToDomain on RecordingMethodDto {
   RecordingMethod toDomain() {

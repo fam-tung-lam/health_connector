@@ -1,13 +1,11 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, MenstrualFlowRecord, sinceV1_0_0;
+    show HealthRecordId, MenstrualFlowRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/menstrual_flow/menstrual_flow_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show MenstrualFlowRecordDto;
 import 'package:meta/meta.dart' show internal;
-
-@sinceV1_0_0
 @internal
 extension MenstrualFlowRecordToDto on MenstrualFlowRecord {
   MenstrualFlowRecordDto toDto() {
@@ -23,8 +21,6 @@ extension MenstrualFlowRecordToDto on MenstrualFlowRecord {
     );
   }
 }
-
-@sinceV1_0_0
 @internal
 extension MenstrualFlowRecordDtoToDomain on MenstrualFlowRecordDto {
   MenstrualFlowRecord toDomain() {

@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show DietaryThiaminRecord, HealthRecordId, Mass, MealType, sinceV1_1_0;
+    show DietaryThiaminRecord, HealthRecordId, Mass, MealType;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -8,7 +8,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [DietaryThiaminRecord] to [DietaryThiaminRecordDto].
-@sinceV1_1_0
 @internal
 extension DietaryThiaminRecordToDto on DietaryThiaminRecord {
   DietaryThiaminRecordDto toDto() {
@@ -25,7 +24,6 @@ extension DietaryThiaminRecordToDto on DietaryThiaminRecord {
 }
 
 /// Converts [DietaryThiaminRecordDto] to [DietaryThiaminRecord].
-@sinceV1_1_0
 @internal
 extension DietaryThiaminRecordDtoToDomain on DietaryThiaminRecordDto {
   DietaryThiaminRecord toDomain() {

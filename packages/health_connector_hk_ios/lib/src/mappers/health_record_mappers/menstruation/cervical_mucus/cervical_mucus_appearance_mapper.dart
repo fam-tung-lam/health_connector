@@ -7,7 +7,6 @@ import 'package:meta/meta.dart' show internal;
 ///
 /// **iOS HealthKit Limitation**: Values `unusual` and `unknown` are included
 /// in the DTO but require custom metadata handling in the Swift mapper.
-@sinceV2_1_0
 @internal
 extension CervicalMucusAppearanceToDto on CervicalMucusAppearance {
   /// Converts this [CervicalMucusAppearance] to
@@ -34,7 +33,6 @@ extension CervicalMucusAppearanceToDto on CervicalMucusAppearance {
 
 /// Extension to convert [CervicalMucusAppearanceDto] to
 /// [CervicalMucusAppearance].
-@sinceV2_1_0
 @internal
 extension CervicalMucusAppearanceDtoToDomain on CervicalMucusAppearanceDto {
   /// Converts this [CervicalMucusAppearanceDto] to
