@@ -49,13 +49,12 @@ extension DeviceTypeDto: StringSerializable {
 
 /// Custom metadata key for storing device type.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// While HealthKit's `HKDevice` includes some device information (name, manufacturer, model, etc.),
 /// it doesn't have a standardized device type classification. We store the device type in custom
 /// metadata to maintain full fidelity with the cross-platform data model and enable device-type-based
 /// filtering and analysis.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_device_type`
 enum DeviceTypeKey: StringEnumMetadataKey {
     typealias Value = DeviceTypeDto
 

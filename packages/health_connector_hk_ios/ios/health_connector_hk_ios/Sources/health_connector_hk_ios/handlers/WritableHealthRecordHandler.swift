@@ -44,7 +44,7 @@ extension WritableHealthRecordHandler {
                 context: context
             )
 
-            let sample = try dto.toHealthKit()
+            let sample = try dto.toHKSample()
             try await self.healthStore.save(sample)
             let recordId = sample.uuid.uuidString
 

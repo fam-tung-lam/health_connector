@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - DTO to HealthKit
 
+/// Extension for mapping `BloodGlucoseRecordDto` → `HKQuantitySample`.
 extension BloodGlucoseRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     ///
@@ -10,10 +11,11 @@ extension BloodGlucoseRecordDto {
     /// - All DTO enum values are stored as strings in custom metadata keys
     /// - Native HealthKit keys are also populated when applicable for compatibility
     /// - String storage ensures consistency across all mappers and better debugging
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bloodGlucose)
 
-        let unit = HKUnit.moleUnit(with: .milli, molarMass: HKUnitMolarMassBloodGlucose).unitDivided(by: .liter())
+        let unit = HKUnit.moleUnit(with: .milli, molarMass: HKUnitMolarMassBloodGlucose)
+            .unitDivided(by: .liter())
         let quantity = HKQuantity(unit: unit, doubleValue: millimolesPerLiter)
         let date = Date(millisecondsSince1970: time)
 
@@ -60,6 +62,7 @@ extension BloodGlucoseRecordDto {
 
 // MARK: - HealthKit to DTO
 
+/// Extension for mapping `HKQuantitySample` → `BloodGlucoseRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BloodGlucoseRecordDto`.
     ///
@@ -118,10 +121,11 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            millimolesPerLiter: quantity.doubleValue(for: HKUnit.moleUnit(
-                with: .milli,
-                molarMass: HKUnitMolarMassBloodGlucose
-            ).unitDivided(by: .liter())),
+            millimolesPerLiter: quantity.doubleValue(
+                for: HKUnit.moleUnit(
+                    with: .milli,
+                    molarMass: HKUnitMolarMassBloodGlucose
+                ).unitDivided(by: .liter())),
             mealType: meal,
             relationToMeal: relation,
             specimenSource: source,

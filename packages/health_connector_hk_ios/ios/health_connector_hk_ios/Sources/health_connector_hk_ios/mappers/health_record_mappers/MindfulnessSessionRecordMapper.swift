@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - MindfulnessSessionRecord Mapper
 
+/// Extension for mapping `MindfulnessSessionRecordDto` → `HKCategorySample`.
 extension MindfulnessSessionRecordDto {
     /// Converts the DTO to an HKCategorySample for writing to HealthKit.
     ///
@@ -16,7 +17,7 @@ extension MindfulnessSessionRecordDto {
     ///
     /// Session notes are stored using `MindfulnessSessionNotesKey` since HealthKit
     /// has no standard key for this purpose.
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         let categoryType = HKObjectType.categoryType(forIdentifier: .mindfulSession)!
 
         let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000)
@@ -46,6 +47,7 @@ extension MindfulnessSessionRecordDto {
     }
 }
 
+/// Extension for mapping `HKCategorySample` → `MindfulnessSessionRecordDto`.
 extension HKCategorySample {
     /// Converts an HKCategorySample to MindfulnessSessionRecordDto.
     ///
@@ -54,9 +56,6 @@ extension HKCategorySample {
     /// The session type is retrieved from custom metadata using `MindfulnessSessionTypeKey`.
     /// If metadata is missing or invalid, defaults to `.unknown`.
     func toMindfulnessSessionDto() throws -> MindfulnessSessionRecordDto {
-        let startTimeMs = Int64(startDate.timeIntervalSince1970 * 1000)
-        let endTimeMs = Int64(endDate.timeIntervalSince1970 * 1000)
-
         // Create builder from HK metadata with source and device
         var builder = MetadataBuilder(
             fromHKMetadata: metadata ?? [:],
@@ -75,8 +74,8 @@ extension HKCategorySample {
 
         return try MindfulnessSessionRecordDto(
             id: uuid.uuidString,
-            startTime: startTimeMs,
-            endTime: endTimeMs,
+            startTime: startDate.millisecondsSince1970,
+            endTime: endDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
             sessionType: sessionType,
             title: title,

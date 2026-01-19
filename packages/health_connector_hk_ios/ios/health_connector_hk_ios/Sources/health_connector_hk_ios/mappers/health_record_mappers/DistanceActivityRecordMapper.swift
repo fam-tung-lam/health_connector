@@ -1,12 +1,12 @@
 import Foundation
 import HealthKit
 
-/// Extension to convert DistanceActivityRecordDto to HealthKit sample
+/// Extension for mapping `DistanceActivityRecordDto` → `HKQuantitySample`.
 extension DistanceActivityRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     ///
     /// - Returns: HKQuantitySample with the appropriate distance quantity type
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let quantityTypeIdentifier = try activityType.toHealthKitIdentifier()
         let type = try HKQuantityType.make(from: quantityTypeIdentifier)
 
@@ -33,7 +33,7 @@ extension DistanceActivityRecordDto {
     }
 }
 
-/// Extension to convert DistanceActivityTypeDto to HKQuantityTypeIdentifier
+/// Extension for mapping `DistanceActivityTypeDto` → `HKQuantityTypeIdentifier`.
 extension DistanceActivityTypeDto {
     /// Maps to the corresponding HKQuantityTypeIdentifier.
     ///
@@ -133,7 +133,7 @@ extension DistanceActivityTypeDto {
     }
 }
 
-/// Extension to convert HKQuantitySample to DistanceActivityRecordDto
+/// Extension for mapping `HKQuantitySample` → `DistanceActivityRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `DistanceActivityRecordDto`.
     ///

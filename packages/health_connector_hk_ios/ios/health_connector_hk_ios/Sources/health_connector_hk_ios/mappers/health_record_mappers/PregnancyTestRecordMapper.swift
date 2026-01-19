@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - HKCategorySample to DTO
 
+/// Extension for mapping `HKCategorySample` → `PregnancyTestRecordDto`.
 extension HKCategorySample {
     /// Converts a HealthKit pregnancy test category sample to `PregnancyTestRecordDto`.
     func toPregnancyTestRecordDto() throws -> PregnancyTestRecordDto {
@@ -28,7 +29,7 @@ extension HKCategorySample {
         return try PregnancyTestRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             zoneOffsetSeconds: zoneOffset,
             result: hkResult.toPregnancyTestResultDto()
         )
@@ -37,9 +38,10 @@ extension HKCategorySample {
 
 // MARK: - DTO to HealthKit
 
+/// Extension for mapping `PregnancyTestRecordDto` → `HKCategorySample`.
 extension PregnancyTestRecordDto {
     /// Converts a `PregnancyTestRecordDto` to a HealthKit category sample.
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         guard
             let categoryType = HKObjectType.categoryType(
                 forIdentifier: .pregnancyTestResult

@@ -1,11 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `AlcoholicBeveragesRecordDto` → `HKQuantitySample`.
 extension AlcoholicBeveragesRecordDto {
-    /// Converts this DTO to a HealthKit sample.
+    /// Converts this `AlcoholicBeveragesRecordDto` to its corresponding `HKQuantitySample`.
     ///
-    /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKSample {
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .numberOfAlcoholicBeverages)
 
         let quantity = HKQuantity(unit: .count(), doubleValue: count)
@@ -30,14 +32,18 @@ extension AlcoholicBeveragesRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `AlcoholicBeveragesRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to an `AlcoholicBeveragesRecordDto`.
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an alcoholic beverages sample.
     func toAlcoholicBeveragesRecordDto() throws -> AlcoholicBeveragesRecordDto {
-        guard quantityType.identifier == HKQuantityTypeIdentifier.numberOfAlcoholicBeverages.rawValue else {
+        guard
+            quantityType.identifier == HKQuantityTypeIdentifier.numberOfAlcoholicBeverages.rawValue
+        else {
             throw HealthConnectorError.invalidArgument(
-                message: "Expected alcoholic beverages quantity type, got \(quantityType.identifier)",
+                message:
+                "Expected alcoholic beverages quantity type, got \(quantityType.identifier)",
                 context: [
                     "expected": HKQuantityTypeIdentifier.numberOfAlcoholicBeverages.rawValue,
                     "actual": quantityType.identifier,

@@ -68,12 +68,11 @@ extension MeasurementLocationDto: StringSerializable {
 
 /// Custom metadata key for storing blood pressure body position.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit has no native support for body position during blood pressure measurement.
 /// This information is important for clinical accuracy as body position can significantly
 /// affect blood pressure readings.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_body_position`
 enum BodyPositionKey: StringEnumMetadataKey {
     typealias Value = BodyPositionDto
 
@@ -83,12 +82,11 @@ enum BodyPositionKey: StringEnumMetadataKey {
 
 /// Custom metadata key for storing blood pressure measurement location.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit has no native support for measurement location (e.g., left wrist, right upper arm).
 /// This information is important for clinical accuracy and consistency in blood pressure
 /// monitoring.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_measurement_location`
 enum MeasurementLocationKey: StringEnumMetadataKey {
     typealias Value = MeasurementLocationDto
 

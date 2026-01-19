@@ -1,6 +1,7 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HKCategorySample` → `SexualActivityRecordDto`.
 extension HKCategorySample {
     /// Converts a HealthKit sexual activity category sample to a `SexualActivityRecordDto`.
     func toSexualActivityRecordDto() throws -> SexualActivityRecordDto {
@@ -22,16 +23,17 @@ extension HKCategorySample {
         return try SexualActivityRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             zoneOffsetSeconds: zoneOffset,
             protectionUsed: protectionUsed
         )
     }
 }
 
+/// Extension for mapping `SexualActivityRecordDto` → `HKCategorySample`.
 extension SexualActivityRecordDto {
     /// Converts a `SexualActivityRecordDto` to a HealthKit category sample.
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         guard
             let categoryType = HKObjectType.categoryType(
                 forIdentifier: .sexualActivity

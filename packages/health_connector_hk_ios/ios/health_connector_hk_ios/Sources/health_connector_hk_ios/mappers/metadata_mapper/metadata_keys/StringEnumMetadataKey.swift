@@ -10,6 +10,7 @@ protocol StringSerializable {
     func toMetadataString() -> String
 
     /// Creates an instance from a metadata string.
+    ///
     /// - Parameter string: The string value from metadata
     /// - Returns: The deserialized value, or `nil` if the string is invalid
     static func fromMetadataString(_ string: String) -> Self?

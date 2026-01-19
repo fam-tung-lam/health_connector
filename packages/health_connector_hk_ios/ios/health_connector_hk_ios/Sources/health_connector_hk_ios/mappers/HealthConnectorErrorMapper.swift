@@ -1,8 +1,9 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HealthConnectorError` → `HealthConnectorErrorDto`.
 extension HealthConnectorError {
-    /// Converts the error into a serializable data transfer object.
+    /// Converts this `HealthConnectorError` into a serializable `HealthConnectorErrorDto`.
     ///
     /// This method aggregates comprehensive debugging information including:
     /// - User-provided context dictionary
@@ -14,7 +15,7 @@ extension HealthConnectorError {
     /// This enriched information significantly improves debugging capabilities on the Dart side.
     ///
     /// - Returns: A `HealthConnectorErrorDto` containing the error code, message, and enriched details.
-    func toDto() -> HealthConnectorErrorDto {
+    func toErrorDto() -> HealthConnectorErrorDto {
         // Use [String: String] for Sendable compatibility
         var details: [String: String] = [:]
 

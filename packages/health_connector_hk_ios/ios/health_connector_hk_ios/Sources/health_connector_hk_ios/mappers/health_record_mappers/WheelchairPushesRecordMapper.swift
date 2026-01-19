@@ -1,11 +1,12 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `WheelchairPushesRecordDto` → `HKQuantitySample`.
 extension WheelchairPushesRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .pushCount)
 
         let quantity = HKQuantity(unit: .count(), doubleValue: pushes)
@@ -30,6 +31,7 @@ extension WheelchairPushesRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `WheelchairPushesRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WheelchairPushesRecordDto`.
     ///

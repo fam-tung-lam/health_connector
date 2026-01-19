@@ -1,11 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `ActiveEnergyBurnedRecordDto` → `HKQuantitySample`.
 extension ActiveEnergyBurnedRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    /// Converts this `ActiveEnergyBurnedRecordDto` to its corresponding `HKQuantitySample`.
     ///
-    /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .activeEnergyBurned)
 
         let unit = HKUnit.kilocalorie()
@@ -31,6 +33,7 @@ extension ActiveEnergyBurnedRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `ActiveEnergyBurnedRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to an `ActiveEnergyBurnedRecordDto`.
     ///
@@ -38,7 +41,8 @@ extension HKQuantitySample {
     func toActiveEnergyBurnedRecordDto() throws -> ActiveEnergyBurnedRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.activeEnergyBurned.rawValue else {
             throw HealthConnectorError.invalidArgument(
-                message: "Expected active energy burned quantity type, got \(quantityType.identifier)",
+                message:
+                "Expected active energy burned quantity type, got \(quantityType.identifier)",
                 context: [
                     "expected": HKQuantityTypeIdentifier.activeEnergyBurned.rawValue,
                     "actual": quantityType.identifier,

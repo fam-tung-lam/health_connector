@@ -1,12 +1,13 @@
 import Foundation
 import HealthKit
 
-/// Extension to convert `HealthDataTypeDto` to HealthKit types.
+/// Extension for mapping `HealthDataTypeDto` → `HKSampleType`.
 extension HealthDataTypeDto {
-    /// Converts this DTO to a HealthKit `HKSampleType`.
+    /// Converts this `HealthDataTypeDto` to its corresponding `HKSampleType`.
     ///
-    /// - Throws: HealthConnectorError if type creation fails
-    func toHealthKit() throws -> HKSampleType {
+    /// - Returns: The corresponding `HKSampleType`
+    /// - Throws: `HealthConnectorError` if type creation fails
+    func toHKSampleType() throws -> HKSampleType {
         switch self {
         case .sleepStageRecord, .sleepStage:
             try HKCategoryType.make(from: .sleepAnalysis)
@@ -273,32 +274,11 @@ extension HealthDataTypeDto {
         case .pregnancyTest:
             try HKCategoryType.make(from: .pregnancyTestResult)
         case .lactation:
-            if #available(iOS 14.3, *) {
-                try HKCategoryType.make(from: .lactation)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Lactation is only supported on iOS 14.3 and later",
-                    context: ["dataType": "lactation", "minimumIOSVersion": "14.3"]
-                )
-            }
+            try HKCategoryType.make(from: .lactation)
         case .pregnancy:
-            if #available(iOS 14.3, *) {
-                try HKCategoryType.make(from: .pregnancy)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Pregnancy is only supported on iOS 14.3 and later",
-                    context: ["dataType": "pregnancy", "minimumIOSVersion": "14.3"]
-                )
-            }
+            try HKCategoryType.make(from: .pregnancy)
         case .contraceptive:
-            if #available(iOS 14.3, *) {
-                try HKCategoryType.make(from: .contraceptive)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Contraceptive is only supported on iOS 14.3 and later",
-                    context: ["dataType": "contraceptive", "minimumIOSVersion": "14.3"]
-                )
-            }
+            try HKCategoryType.make(from: .contraceptive)
         case .progesteroneTest, .progesteroneTestResult:
             try HKCategoryType.make(from: .progesteroneTestResult)
         case .menstrualFlow:

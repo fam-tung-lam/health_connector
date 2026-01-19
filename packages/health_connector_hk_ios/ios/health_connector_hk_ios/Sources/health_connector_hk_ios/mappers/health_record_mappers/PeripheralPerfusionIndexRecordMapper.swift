@@ -1,9 +1,10 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `PeripheralPerfusionIndexRecordDto` → `HKQuantitySample`.
 extension PeripheralPerfusionIndexRecordDto {
     /// Converts this DTO to a HealthKit sample.
-    func toHealthKit() throws -> HKSample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .peripheralPerfusionIndex)
 
         let unit = HKUnit.percent()
@@ -27,6 +28,7 @@ extension PeripheralPerfusionIndexRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `PeripheralPerfusionIndexRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `PeripheralPerfusionIndexRecordDto`.
     ///

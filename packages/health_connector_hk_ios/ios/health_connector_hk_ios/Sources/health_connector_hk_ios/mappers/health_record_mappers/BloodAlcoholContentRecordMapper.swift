@@ -1,9 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `BloodAlcoholContentRecordDto` → `HKQuantitySample`.
 extension BloodAlcoholContentRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this `BloodAlcoholContentRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bloodAlcoholContent)
 
         let unit = HKUnit.percent()
@@ -27,6 +31,7 @@ extension BloodAlcoholContentRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `BloodAlcoholContentRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BloodAlcoholContentRecordDto`.
     ///

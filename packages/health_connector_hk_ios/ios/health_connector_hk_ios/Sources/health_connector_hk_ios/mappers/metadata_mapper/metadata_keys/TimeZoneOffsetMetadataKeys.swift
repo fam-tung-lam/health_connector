@@ -5,13 +5,12 @@ import HealthKit
 
 /// Custom metadata key for storing start timezone offset in seconds from GMT.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit only supports a single timezone per sample via `HKMetadataKeyTimeZone`.
 /// We use this custom key to explicitly store the start timezone offset, which is useful
 /// for precise timezone tracking and handling daylight saving time transitions.
 /// This is especially important when start and end timezones differ (e.g., travel).
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_start_time_zone_offset`
 enum StartTimeZoneOffsetKey: CustomMetadataKey {
     typealias Value = Int64
 
@@ -48,13 +47,12 @@ enum StartTimeZoneOffsetKey: CustomMetadataKey {
 
 /// Custom metadata key for storing end timezone offset in seconds from GMT.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit only supports a single timezone per sample via `HKMetadataKeyTimeZone`.
 /// We use this custom key to explicitly store the end timezone offset, which is useful
 /// for precise timezone tracking and handling daylight saving time transitions.
 /// This is especially important when start and end timezones differ (e.g., travel).
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_end_time_zone_offset`
 enum EndTimeZoneOffsetKey: CustomMetadataKey {
     typealias Value = Int64
 

@@ -1,9 +1,11 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HKCorrelation` → `BloodPressureRecordDto`.
 extension HKCorrelation {
     /// Converts a blood pressure correlation to a `BloodPressureRecordDto`.
     ///
+    /// - Returns: The corresponding `BloodPressureRecordDto`
     /// - Throws: `HealthConnectorError.invalidArgument` if this correlation is not a blood pressure correlation or
     /// missing required values.
     func toBloodPressureRecordDto() throws -> BloodPressureRecordDto {
@@ -76,9 +78,13 @@ extension HKCorrelation {
     }
 }
 
+/// Extension for mapping `BloodPressureRecordDto` → `HKCorrelation`.
 extension BloodPressureRecordDto {
     /// Converts this DTO to a HealthKit blood pressure correlation.
-    func toHealthKit() throws -> HKCorrelation {
+    ///
+    /// - Returns: The corresponding `HKCorrelation`
+    /// - Throws: `HealthConnectorError` if conversion fails
+    func toHKCorrelation() throws -> HKCorrelation {
         let systolicType = try HKQuantityType.make(from: .bloodPressureSystolic)
         let diastolicType = try HKQuantityType.make(from: .bloodPressureDiastolic)
         let correlationType = try HKCorrelationType.make(from: .bloodPressure)
@@ -226,7 +232,7 @@ extension HKQuantitySample {
 
 extension SystolicBloodPressureRecordDto {
     /// Converts this DTO to a HealthKit quantity sample.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bloodPressureSystolic)
 
         let mmHgUnit = HKUnit.millimeterOfMercury()
@@ -256,7 +262,7 @@ extension SystolicBloodPressureRecordDto {
 
 extension DiastolicBloodPressureRecordDto {
     /// Converts this DTO to a HealthKit quantity sample.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bloodPressureDiastolic)
 
         let mmHgUnit = HKUnit.millimeterOfMercury()

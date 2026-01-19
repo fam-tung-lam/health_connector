@@ -102,7 +102,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
 
         let descriptors =
             try dataTypes
-                .flatMap { try $0.toHealthKit() }
+                .flatMap { try $0.toHKSampleType() }
                 .map { element in
                     guard let sampleType = element as? HKSampleType else {
                         HealthConnectorLogger.error(
@@ -186,7 +186,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
         let nextSyncToken = HealthDataSyncTokenDto(
             token: encodedToken,
             dataTypes: dataTypes,
-            createdAtMillis: Int64(Date().timeIntervalSince1970 * 1000)
+            createdAtMillis: Date().millisecondsSince1970
         )
 
         HealthConnectorLogger.info(

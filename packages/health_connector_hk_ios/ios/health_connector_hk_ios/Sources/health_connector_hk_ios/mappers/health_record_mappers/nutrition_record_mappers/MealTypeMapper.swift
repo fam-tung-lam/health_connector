@@ -1,5 +1,7 @@
 import Foundation
 
+/// Extension for mapping `MealTypeDto` ↔ `String` (HealthKit Metadata).
+///
 /// HealthKit doesn't have a dedicated meal type enum, so we store meal type
 /// information as metadata on nutrition samples.
 extension MealTypeDto {

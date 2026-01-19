@@ -1,11 +1,12 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `Vo2MaxRecordDto` → `HKQuantitySample`.
 extension Vo2MaxRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKSample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .vo2Max)
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
@@ -35,6 +36,7 @@ extension Vo2MaxRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `Vo2MaxRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `Vo2MaxRecordDto`.
     ///

@@ -72,7 +72,7 @@ extension DeletableHealthRecordHandler {
             // Validate and convert string IDs to UUID set
             let uuidSet = try validateAndConvertToUUIDs(ids)
 
-            let sampleType = try type(of: self).dataType.toHealthKit()
+            let sampleType = try type(of: self).dataType.toHKSampleType()
 
             // Create predicate for all UUIDs - HealthKit will handle finding and deleting them
             let predicate = HKQuery.predicateForObjects(with: uuidSet)
@@ -119,7 +119,7 @@ extension DeletableHealthRecordHandler {
                 context: context
             )
 
-            let sampleType = try type(of: self).dataType.toHealthKit()
+            let sampleType = try type(of: self).dataType.toHKSampleType()
             let predicate = HKQuery.predicateForSamples(
                 withStart: startTime,
                 end: endTime,
@@ -189,7 +189,7 @@ extension DeletableCorrelationHealthRecordHandler {
             // Validate and convert string IDs to UUID set
             let uuidSet = try validateAndConvertToUUIDs(ids)
 
-            let sampleType = try type(of: self).dataType.toHealthKit()
+            let sampleType = try type(of: self).dataType.toHKSampleType()
 
             // Batch-fetch all correlations in a SINGLE query
             let predicate = HKQuery.predicateForObjects(with: uuidSet)
@@ -302,7 +302,7 @@ extension DeletableCorrelationHealthRecordHandler {
                 context: context
             )
 
-            let sampleType = try type(of: self).dataType.toHealthKit()
+            let sampleType = try type(of: self).dataType.toHKSampleType()
 
             // Batch-fetch all correlations in time range in a SINGLE query
             let predicate = HKQuery.predicateForSamples(

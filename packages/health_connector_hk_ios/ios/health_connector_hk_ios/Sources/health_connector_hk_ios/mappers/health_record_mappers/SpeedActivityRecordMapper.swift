@@ -1,12 +1,12 @@
 import Foundation
 import HealthKit
 
-/// Extension to convert SpeedActivityRecordDto to HealthKit sample
+/// Extension for mapping `SpeedActivityRecordDto` → `HKQuantitySample`.
 extension SpeedActivityRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     ///
     /// - Returns: HKQuantitySample with the appropriate speed quantity type
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let quantityTypeIdentifier = try activityType.toHealthKitIdentifier()
         let type = try HKQuantityType.make(from: quantityTypeIdentifier)
 
@@ -31,7 +31,7 @@ extension SpeedActivityRecordDto {
     }
 }
 
-/// Extension to convert SpeedActivityTypeDto to HKQuantityTypeIdentifier
+/// Extension for mapping `SpeedActivityTypeDto` → `HKQuantityTypeIdentifier`.
 extension SpeedActivityTypeDto {
     /// Maps to the corresponding HKQuantityTypeIdentifier.
     ///
@@ -81,7 +81,7 @@ extension SpeedActivityTypeDto {
     }
 }
 
-/// Extension to convert HKQuantitySample to SpeedActivityRecordDto
+/// Extension for mapping `HKQuantitySample` → `SpeedActivityRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `SpeedActivityRecordDto`.
     ///

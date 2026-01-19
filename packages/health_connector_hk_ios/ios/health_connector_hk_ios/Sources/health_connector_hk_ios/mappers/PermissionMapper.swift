@@ -1,22 +1,16 @@
 import Foundation
 import HealthKit
 
-/// Extension to convert `HealthDataPermissionDto` to HealthKit types.
+/// Extension for mapping `HealthDataPermissionDto` → `HKSampleType`.
 extension HealthDataPermissionDto {
-    /// Converts this permission DTO to a list of HealthKit `HKSampleType`.
+    /// Converts this `HealthDataPermissionDto` to a list of corresponding `HKSampleType`s.
     ///
-    /// HealthKit uses different object types for different health data:
-    /// - Quantity types: For data that can be measured (e.g., steps, heart rate)
-    /// - Category types: For data that falls into categories (e.g., sleep analysis)
-    /// - Characteristic types: For unchanging data (e.g., blood type, biological sex)
-    ///
-    /// - Returns: A list of corresponding `HKSampleType` for this health data permission.
+    /// - Returns: A list of corresponding `HKSampleType`s for this health data permission.
     ///            For simple types, returns a single-element array.
     ///            For correlation types, returns the correlation type plus all component types.
-    /// - Throws: HealthConnectorError if type creation fails
-    func toHealthKit() throws -> [HKSampleType] {
+    /// - Throws: `HealthConnectorError` if type creation fails
+    func toHKSampleTypes() throws -> [HKSampleType] {
         switch healthDataType {
-        // Quantity types
         case .activeCaloriesBurned,
              .alcoholicBeverages,
              .exerciseTime,
@@ -107,9 +101,8 @@ extension HealthDataPermissionDto {
              .walkingStepLength,
              .heartRateVariabilitySDNN,
              .peripheralPerfusionIndex,
-             .forcedVitalCapacity:
-            try [healthDataType.toHealthKit()]
-        case .sexualActivity,
+             .forcedVitalCapacity,
+             .sexualActivity,
              .cervicalMucus,
              .intermenstrualBleeding,
              .menstrualFlow,
@@ -121,11 +114,9 @@ extension HealthDataPermissionDto {
              .progesteroneTest,
              .progesteroneTestResult,
              .pregnancy:
-            try [healthDataType.toHealthKit()]
-        // Exercise sessions use HKWorkoutType, not HKQuantityType
+            try [healthDataType.toHKSampleType()]
         case .exerciseSession:
             [HKObjectType.workoutType()]
-        // Mindfulness sessions use HKCategoryType
         case .mindfulnessSession:
             [HKObjectType.categoryType(forIdentifier: .mindfulSession)!]
         // For correlation types HealthKit requires requesting permissions for
@@ -134,48 +125,48 @@ extension HealthDataPermissionDto {
             try getNutritionTypes()
         case .bloodPressure:
             try [
-                HealthDataTypeDto.systolicBloodPressure.toHealthKit(),
-                HealthDataTypeDto.diastolicBloodPressure.toHealthKit(),
+                HealthDataTypeDto.systolicBloodPressure.toHKSampleType(),
+                HealthDataTypeDto.diastolicBloodPressure.toHKSampleType(),
             ]
         }
     }
 
     private func getNutritionTypes() throws -> [HKSampleType] {
         try [
-            HealthDataTypeDto.dietaryEnergyConsumed.toHealthKit(),
-            HealthDataTypeDto.caffeine.toHealthKit(),
-            HealthDataTypeDto.protein.toHealthKit(),
-            HealthDataTypeDto.totalCarbohydrate.toHealthKit(),
-            HealthDataTypeDto.totalFat.toHealthKit(),
-            HealthDataTypeDto.saturatedFat.toHealthKit(),
-            HealthDataTypeDto.monounsaturatedFat.toHealthKit(),
-            HealthDataTypeDto.polyunsaturatedFat.toHealthKit(),
-            HealthDataTypeDto.cholesterol.toHealthKit(),
-            HealthDataTypeDto.dietaryFiber.toHealthKit(),
-            HealthDataTypeDto.sugar.toHealthKit(),
-            HealthDataTypeDto.vitaminA.toHealthKit(),
-            HealthDataTypeDto.vitaminB6.toHealthKit(),
-            HealthDataTypeDto.vitaminB12.toHealthKit(),
-            HealthDataTypeDto.vitaminC.toHealthKit(),
-            HealthDataTypeDto.vitaminD.toHealthKit(),
-            HealthDataTypeDto.vitaminE.toHealthKit(),
-            HealthDataTypeDto.vitaminK.toHealthKit(),
-            HealthDataTypeDto.thiamin.toHealthKit(),
-            HealthDataTypeDto.riboflavin.toHealthKit(),
-            HealthDataTypeDto.niacin.toHealthKit(),
-            HealthDataTypeDto.folate.toHealthKit(),
-            HealthDataTypeDto.biotin.toHealthKit(),
-            HealthDataTypeDto.pantothenicAcid.toHealthKit(),
-            HealthDataTypeDto.calcium.toHealthKit(),
-            HealthDataTypeDto.iron.toHealthKit(),
-            HealthDataTypeDto.magnesium.toHealthKit(),
-            HealthDataTypeDto.manganese.toHealthKit(),
-            HealthDataTypeDto.phosphorus.toHealthKit(),
-            HealthDataTypeDto.potassium.toHealthKit(),
-            HealthDataTypeDto.selenium.toHealthKit(),
-            HealthDataTypeDto.sodium.toHealthKit(),
-            HealthDataTypeDto.zinc.toHealthKit(),
-            HealthDataTypeDto.hydration.toHealthKit(),
+            HealthDataTypeDto.dietaryEnergyConsumed.toHKSampleType(),
+            HealthDataTypeDto.caffeine.toHKSampleType(),
+            HealthDataTypeDto.protein.toHKSampleType(),
+            HealthDataTypeDto.totalCarbohydrate.toHKSampleType(),
+            HealthDataTypeDto.totalFat.toHKSampleType(),
+            HealthDataTypeDto.saturatedFat.toHKSampleType(),
+            HealthDataTypeDto.monounsaturatedFat.toHKSampleType(),
+            HealthDataTypeDto.polyunsaturatedFat.toHKSampleType(),
+            HealthDataTypeDto.cholesterol.toHKSampleType(),
+            HealthDataTypeDto.dietaryFiber.toHKSampleType(),
+            HealthDataTypeDto.sugar.toHKSampleType(),
+            HealthDataTypeDto.vitaminA.toHKSampleType(),
+            HealthDataTypeDto.vitaminB6.toHKSampleType(),
+            HealthDataTypeDto.vitaminB12.toHKSampleType(),
+            HealthDataTypeDto.vitaminC.toHKSampleType(),
+            HealthDataTypeDto.vitaminD.toHKSampleType(),
+            HealthDataTypeDto.vitaminE.toHKSampleType(),
+            HealthDataTypeDto.vitaminK.toHKSampleType(),
+            HealthDataTypeDto.thiamin.toHKSampleType(),
+            HealthDataTypeDto.riboflavin.toHKSampleType(),
+            HealthDataTypeDto.niacin.toHKSampleType(),
+            HealthDataTypeDto.folate.toHKSampleType(),
+            HealthDataTypeDto.biotin.toHKSampleType(),
+            HealthDataTypeDto.pantothenicAcid.toHKSampleType(),
+            HealthDataTypeDto.calcium.toHKSampleType(),
+            HealthDataTypeDto.iron.toHKSampleType(),
+            HealthDataTypeDto.magnesium.toHKSampleType(),
+            HealthDataTypeDto.manganese.toHKSampleType(),
+            HealthDataTypeDto.phosphorus.toHKSampleType(),
+            HealthDataTypeDto.potassium.toHKSampleType(),
+            HealthDataTypeDto.selenium.toHKSampleType(),
+            HealthDataTypeDto.sodium.toHKSampleType(),
+            HealthDataTypeDto.zinc.toHKSampleType(),
+            HealthDataTypeDto.hydration.toHKSampleType(),
         ]
     }
 }

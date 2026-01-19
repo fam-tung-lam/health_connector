@@ -1,11 +1,12 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `CyclingPedalingCadenceRecordDto` → `HKQuantitySample`.
 extension CyclingPedalingCadenceRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         if #available(iOS 17.0, *) {
             let type = try HKQuantityType.make(from: .cyclingCadence)
 
@@ -39,6 +40,7 @@ extension CyclingPedalingCadenceRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `CyclingPedalingCadenceRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `CyclingPedalingCadenceRecordDto`.
     ///

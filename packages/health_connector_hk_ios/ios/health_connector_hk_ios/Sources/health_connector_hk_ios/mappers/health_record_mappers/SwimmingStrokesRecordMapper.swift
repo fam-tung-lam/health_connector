@@ -1,11 +1,12 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `SwimmingStrokesRecordDto` → `HKQuantitySample`.
 extension SwimmingStrokesRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKSample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .swimmingStrokeCount)
 
         let quantity = HKQuantity(unit: .count(), doubleValue: count)
@@ -30,6 +31,7 @@ extension SwimmingStrokesRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `SwimmingStrokesRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `SwimmingStrokesRecordDto`.
     ///

@@ -34,11 +34,10 @@ extension RecordingMethodDto: StringSerializable {
 
 /// Custom metadata key for storing recording method.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit has no native support for recording method metadata. This key allows
 /// tracking how health data was recorded (actively, automatically, or manually entered).
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_recording_method`
 enum RecordingMethodKey: StringEnumMetadataKey {
     typealias Value = RecordingMethodDto
 

@@ -1,11 +1,12 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `WalkingDoubleSupportPercentageRecordDto` → `HKQuantitySample`.
 extension WalkingDoubleSupportPercentageRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKSample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .walkingDoubleSupportPercentage)
 
         let quantity = HKQuantity(unit: .percent(), doubleValue: percentage)
@@ -36,6 +37,7 @@ extension WalkingDoubleSupportPercentageRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `WalkingDoubleSupportPercentageRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WalkingDoubleSupportPercentageRecordDto`.
     ///

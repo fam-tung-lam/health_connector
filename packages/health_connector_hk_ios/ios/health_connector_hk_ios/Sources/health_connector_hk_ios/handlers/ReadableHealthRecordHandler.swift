@@ -300,7 +300,7 @@ extension ReadableHealthRecordHandler {
             }
 
             // Build sort descriptor from DTO
-            let (sortIdentifier, ascending) = sortOrder.toHealthKitSort()
+            let (sortIdentifier, ascending) = sortOrder.toHKSampleSortIdentifier()
             let sortDescriptor = NSSortDescriptor(
                 key: sortIdentifier,
                 ascending: ascending

@@ -1,8 +1,11 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `DevicePlacementSideDto` → `HKDevicePlacementSide`.
 extension DevicePlacementSideDto {
-    /// Converts this DTO to a HealthKit device placement side.
+    /// Converts this `DevicePlacementSideDto` to its corresponding `HKDevicePlacementSide`.
+    ///
+    /// - Returns: The corresponding `HKDevicePlacementSide`
     func toHealthKit() -> HKDevicePlacementSide {
         switch self {
         case .unknown:
@@ -17,8 +20,11 @@ extension DevicePlacementSideDto {
     }
 }
 
+/// Extension for mapping `HKDevicePlacementSide` → `DevicePlacementSideDto`.
 extension HKDevicePlacementSide {
-    /// Converts this HealthKit device placement side to a DTO.
+    /// Converts this `HKDevicePlacementSide` to its corresponding `DevicePlacementSideDto`.
+    ///
+    /// - Returns: The corresponding `DevicePlacementSideDto`
     func toDto() -> DevicePlacementSideDto {
         switch self {
         case .unknown:

@@ -1,9 +1,10 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `ForcedVitalCapacityRecordDto` → `HKQuantitySample`.
 extension ForcedVitalCapacityRecordDto {
     /// Converts this DTO to a HealthKit sample.
-    func toHealthKit() throws -> HKSample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .forcedVitalCapacity)
 
         // FVC is measured in liters
@@ -29,6 +30,7 @@ extension ForcedVitalCapacityRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `ForcedVitalCapacityRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `ForcedVitalCapacityRecordDto`.
     ///

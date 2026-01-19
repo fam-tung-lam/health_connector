@@ -97,7 +97,7 @@ final class HealthConnectorLogger {
             return
         }
 
-        let timestampMs = Int64(Date().timeIntervalSince1970 * 1000)
+        let timestampMs = Date().millisecondsSince1970
 
         // Convert context to [String?: String?] for codec compatibility
         // All values must be converted to strings to avoid codec serialization errors
@@ -110,12 +110,12 @@ final class HealthConnectorLogger {
         }
 
         let logDto = HealthConnectorLogDto(
-            level: level.toDto(),
+            level: level.toLogLevelDto(),
             tag: tag,
             millisecondsSinceEpoch: timestampMs,
             message: message ?? "",
             operation: operation,
-            exception: exception?.toExceptionInfoDto(),
+            exception: exception?.toExceptionDto(),
             stackTrace: exception != nil
                 ? Thread.callStackSymbols.joined(separator: "\n") : nil,
             context: convertedContext

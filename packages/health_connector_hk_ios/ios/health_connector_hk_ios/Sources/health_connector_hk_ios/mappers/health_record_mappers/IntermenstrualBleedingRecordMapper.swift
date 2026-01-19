@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - HKCategorySample to DTO
 
+/// Extension for mapping `HKCategorySample` → `IntermenstrualBleedingRecordDto`.
 extension HKCategorySample {
     /// Converts a HealthKit intermenstrual bleeding category sample to `IntermenstrualBleedingRecordDto`.
     func toIntermenstrualBleedingRecordDto() throws -> IntermenstrualBleedingRecordDto {
@@ -19,7 +20,7 @@ extension HKCategorySample {
         return try IntermenstrualBleedingRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             zoneOffsetSeconds: zoneOffset
         )
     }
@@ -27,9 +28,10 @@ extension HKCategorySample {
 
 // MARK: - DTO to HealthKit
 
+/// Extension for mapping `IntermenstrualBleedingRecordDto` → `HKCategorySample`.
 extension IntermenstrualBleedingRecordDto {
     /// Converts a `IntermenstrualBleedingRecordDto` to a HealthKit category sample.
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         guard
             let categoryType = HKObjectType.categoryType(
                 forIdentifier: .intermenstrualBleeding

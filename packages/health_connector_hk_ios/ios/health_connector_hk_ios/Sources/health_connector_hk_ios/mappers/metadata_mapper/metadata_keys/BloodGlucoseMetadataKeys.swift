@@ -74,16 +74,16 @@ extension BloodGlucoseSpecimenSourceDto: StringSerializable {
 
 /// Custom metadata key for storing blood glucose relation to meal.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit's `HKMetadataKeyBloodGlucoseMealTime` only supports `preprandial` (before meal)
 /// and `postprandial` (after meal). We need to support additional states from Android Health
 /// Connect: `unknown`, `general`, and `fasting`.
 ///
-/// **Storage strategy:**
+/// ## Storage strategy
+///
 /// - Write: Store full string value in custom metadata + native HK key when mappable
 /// - Read: Priority 1 = custom metadata, Priority 2 = native HK key, Priority 3 = unknown
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_relation_to_meal`
 enum BloodGlucoseRelationToMealKey: StringEnumMetadataKey {
     typealias Value = BloodGlucoseRelationToMealDto
 
@@ -93,11 +93,10 @@ enum BloodGlucoseRelationToMealKey: StringEnumMetadataKey {
 
 /// Custom metadata key for storing blood glucose specimen source.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit has no native support for specimen source. This information is important
 /// for clinical accuracy of blood glucose readings.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_specimen_source`
 enum BloodGlucoseSpecimenSourceKey: StringEnumMetadataKey {
     typealias Value = BloodGlucoseSpecimenSourceDto
 
@@ -107,11 +106,10 @@ enum BloodGlucoseSpecimenSourceKey: StringEnumMetadataKey {
 
 /// Custom metadata key for storing blood glucose meal type.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit has no native support for meal type context on blood glucose readings.
 /// This allows tracking which meal the reading was associated with.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_meal_type`
 ///
 /// **Note:** This key is shared with `NutrientMealTypeKey` and uses the same
 /// serialization format for consistency.

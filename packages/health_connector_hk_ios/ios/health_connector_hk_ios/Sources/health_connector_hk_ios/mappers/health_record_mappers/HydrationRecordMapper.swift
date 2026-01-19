@@ -1,9 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HydrationRecordDto` → `HKQuantitySample`.
 extension HydrationRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this `HydrationRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .dietaryWater)
 
         let unit = HKUnit.liter()
@@ -29,6 +33,7 @@ extension HydrationRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `HydrationRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `HydrationRecordDto`.
     ///

@@ -1,11 +1,12 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HeartRateRecordDto` → `HKQuantitySample`.
 extension HeartRateRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .heartRate)
 
         // Heart rate is measured in beats per minute (count/minute)
@@ -30,6 +31,7 @@ extension HeartRateRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `HeartRateRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `HeartRateRecordDto`.
     ///

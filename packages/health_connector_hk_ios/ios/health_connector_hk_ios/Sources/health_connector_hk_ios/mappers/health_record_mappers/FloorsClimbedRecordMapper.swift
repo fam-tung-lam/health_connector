@@ -1,9 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `FloorsClimbedRecordDto` → `HKQuantitySample`.
 extension FloorsClimbedRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this `FloorsClimbedRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .flightsClimbed)
 
         let quantity = HKQuantity(unit: .count(), doubleValue: floors)
@@ -28,6 +32,7 @@ extension FloorsClimbedRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `FloorsClimbedRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `FloorsClimbedRecordDto`.
     ///

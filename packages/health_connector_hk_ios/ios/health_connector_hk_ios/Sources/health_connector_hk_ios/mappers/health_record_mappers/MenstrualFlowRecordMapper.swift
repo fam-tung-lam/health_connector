@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - HKCategorySample to DTO
 
+/// Extension for mapping `HKCategorySample` → `MenstrualFlowRecordDto`.
 extension HKCategorySample {
     /// Converts a HealthKit menstrual flow category sample to `MenstrualFlowRecordDto`.
     func toMenstrualFlowRecordDto() throws -> MenstrualFlowRecordDto {
@@ -28,8 +29,8 @@ extension HKCategorySample {
         return try MenstrualFlowRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endTime: Int64(endDate.timeIntervalSince1970 * 1000),
+            startTime: startDate.millisecondsSince1970,
+            endTime: endDate.millisecondsSince1970,
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset,
             flow: value.toMenstrualFlowDto(),
@@ -40,9 +41,10 @@ extension HKCategorySample {
 
 // MARK: - DTO to HealthKit
 
+/// Extension for mapping `MenstrualFlowRecordDto` → `HKCategorySample`.
 extension MenstrualFlowRecordDto {
     /// Converts a `MenstrualFlowRecordDto` to a HealthKit category sample.
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         guard
             let categoryType = HKObjectType.categoryType(
                 forIdentifier: .menstrualFlow

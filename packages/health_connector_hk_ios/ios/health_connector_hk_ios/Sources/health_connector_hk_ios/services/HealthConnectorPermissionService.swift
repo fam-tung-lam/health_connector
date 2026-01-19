@@ -56,7 +56,7 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
     func getPermissionStatus(
         for permission: HealthDataPermissionDto
     ) async throws -> PermissionStatusDto {
-        let objectTypes = try permission.toHealthKit()
+        let objectTypes = try permission.toHKSampleTypes()
         var status: PermissionStatusDto = .unknown
 
         // Only check status for Write permissions (Read is always hidden by HealthKit)
@@ -86,7 +86,7 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
         let types =
             try permissions
                 .filter { $0.accessType == .read }
-                .flatMap { try $0.toHealthKit() }
+                .flatMap { try $0.toHKSampleTypes() }
 
         return Set(types)
     }
@@ -96,7 +96,7 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
         let types =
             try permissions
                 .filter { $0.accessType == .write }
-                .flatMap { try $0.toHealthKit() }
+                .flatMap { try $0.toHKSampleTypes() }
                 .compactMap { $0 as? HKSampleType } // Write requires HKSampleType specifically
 
         return Set(types)
@@ -106,17 +106,6 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
     private func buildPermissionResult(
         for permission: HealthDataPermissionDto
     ) throws -> HealthDataPermissionRequestResultDto {
-        // We call the synchronous logic here since we are already in an async flow in requestAuthorization if needed,
-        // but wait: buildPermissionResult was called synchronously in a map.
-        // requestAuthorization is async.
-        // However, getPermissionStatus logic is essentially synchronous (HKHealthStore.authorizationStatus is sync).
-        // I made getPermissionStatus 'async' to satisfy the Client call site.
-        // But here in buildPermissionResult, I can't easily await inside a sync map.
-        //
-        // I should probably duplicate the logic or make a sync private helper.
-        // Let's make a sync private helper `_getPermissionStatus` and have both public async `getPermissionStatus` and
-        // `buildPermissionResult` use it.
-
         let status = try _getPermissionStatus(for: permission)
         return HealthDataPermissionRequestResultDto(permission: permission, status: status)
     }
@@ -124,7 +113,7 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
     private func _getPermissionStatus(
         for permission: HealthDataPermissionDto
     ) throws -> PermissionStatusDto {
-        let objectTypes = try permission.toHealthKit()
+        let objectTypes = try permission.toHKSampleTypes()
         var status: PermissionStatusDto = .unknown
 
         // Only check status for Write permissions (Read is always hidden by HealthKit)

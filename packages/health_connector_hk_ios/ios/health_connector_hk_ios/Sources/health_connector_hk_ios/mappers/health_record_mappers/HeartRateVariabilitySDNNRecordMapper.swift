@@ -1,9 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HeartRateVariabilitySDNNRecordDto` → `HKQuantitySample`.
 extension HeartRateVariabilitySDNNRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this `HeartRateVariabilitySDNNRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .heartRateVariabilitySDNN)
 
         // DTO value is in milliseconds, HealthKit expects seconds
@@ -28,6 +32,7 @@ extension HeartRateVariabilitySDNNRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `HeartRateVariabilitySDNNRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `HeartRateVariabilitySDNNRecordDto`.
     ///

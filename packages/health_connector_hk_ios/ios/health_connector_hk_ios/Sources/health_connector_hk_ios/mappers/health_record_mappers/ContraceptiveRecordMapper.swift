@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - HKCategorySample to DTO
 
+/// Extension for mapping `HKCategorySample` → `ContraceptiveRecordDto`.
 extension HKCategorySample {
     /// Converts a HealthKit contraceptive category sample to `ContraceptiveRecordDto`.
     func toContraceptiveRecordDto() throws -> ContraceptiveRecordDto {
@@ -29,8 +30,8 @@ extension HKCategorySample {
         return try ContraceptiveRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endTime: Int64(endDate.timeIntervalSince1970 * 1000),
+            startTime: startDate.millisecondsSince1970,
+            endTime: endDate.millisecondsSince1970,
             contraceptiveType: hkType.toContraceptiveTypeDto(),
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset
@@ -40,9 +41,10 @@ extension HKCategorySample {
 
 // MARK: - DTO to HealthKit
 
+/// Extension for mapping `ContraceptiveRecordDto` → `HKCategorySample`.
 extension ContraceptiveRecordDto {
     /// Converts a `ContraceptiveRecordDto` to a HealthKit category sample.
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         guard
             let categoryType = HKObjectType.categoryType(
                 forIdentifier: .contraceptive

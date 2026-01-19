@@ -1,9 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `BodyFatPercentageRecordDto` → `HKQuantitySample`.
 extension BodyFatPercentageRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this `BodyFatPercentageRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bodyFatPercentage)
 
         let unit = HKUnit.percent()
@@ -27,6 +31,7 @@ extension BodyFatPercentageRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `BodyFatPercentageRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BodyFatPercentageRecordDto`.
     ///

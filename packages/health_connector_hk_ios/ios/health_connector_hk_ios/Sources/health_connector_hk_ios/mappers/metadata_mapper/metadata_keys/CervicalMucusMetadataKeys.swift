@@ -71,21 +71,21 @@ extension CervicalMucusSensationDto: StringSerializable {
 
 /// Custom metadata key for storing cervical mucus appearance type as a string.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit's `HKCategoryValueCervicalMucusQuality` only supports 5 appearance types
 /// (dry, sticky, creamy, watery, eggWhite), but Android Health Connect supports 7 types
 /// (including `unusual` and `unknown`). To maintain cross-platform parity and avoid data loss,
 /// we store the complete appearance information in custom metadata.
 ///
-/// **Storage strategy:**
+/// ## Storage strategy
+///
 /// - All 7 appearance types are stored as strings in this metadata key
 /// - Native HealthKit values are used when available (dry, sticky, creamy, watery, eggWhite)
 /// - For `.unusual` and `.unknown`, we use `.dry` (value 1) as a placeholder in the native
 ///   field since HealthKit doesn't accept invalid values for cervical mucus quality
 /// - On read, custom metadata takes priority over native HealthKit values to ensure
 ///   we always retrieve the correct appearance type
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_cervical_mucus_appearance_type`
 enum CervicalMucusAppearanceKey: StringEnumMetadataKey {
     typealias Value = CervicalMucusAppearanceDto
 
@@ -95,17 +95,17 @@ enum CervicalMucusAppearanceKey: StringEnumMetadataKey {
 
 /// Custom metadata key for storing cervical mucus sensation type as a string.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit's `HKCategoryTypeIdentifier.cervicalMucusQuality` exclusively tracks appearance
 /// and has **no support whatsoever** for sensation (light, medium, heavy). Android Health Connect,
 /// however, fully supports sensation tracking. To maintain cross-platform parity, we must store
 /// sensation information in custom metadata.
 ///
-/// **Storage strategy:**
+/// ## Storage strategy
+///
 /// - All sensation values are stored as strings in this metadata key
 /// - On read, we parse the string back to the DTO enum, defaulting to `.unknown` if absent
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_cervical_mucus_sensation_type`
 enum CervicalMucusSensationKey: StringEnumMetadataKey {
     typealias Value = CervicalMucusSensationDto
 

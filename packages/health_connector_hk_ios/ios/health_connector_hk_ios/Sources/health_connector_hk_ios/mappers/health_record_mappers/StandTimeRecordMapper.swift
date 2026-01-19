@@ -1,6 +1,7 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HKQuantitySample` → `StandTimeRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `StandTimeRecordDto`.
     ///

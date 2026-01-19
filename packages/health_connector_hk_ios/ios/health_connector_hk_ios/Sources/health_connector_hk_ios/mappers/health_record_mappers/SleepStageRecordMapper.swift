@@ -1,6 +1,7 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HKCategorySample` → `SleepStageRecordDto`.
 extension HKCategorySample {
     /// Convert HKCategorySample to SleepStageRecordDto
     ///
@@ -30,8 +31,8 @@ extension HKCategorySample {
 
         return try SleepStageRecordDto(
             id: uuid.uuidString,
-            startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endTime: Int64(endDate.timeIntervalSince1970 * 1000),
+            startTime: startDate.millisecondsSince1970,
+            endTime: endDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
             stageType: stageType,
             startZoneOffsetSeconds: startZoneOffset,
@@ -40,10 +41,10 @@ extension HKCategorySample {
     }
 }
 
-/// Mappers for converting SleepStageRecordDto to HKCategorySample
+/// Extension for mapping `SleepStageRecordDto` → `HKCategorySample`.
 extension SleepStageRecordDto {
     /// Converts this DTO to a HealthKit sample.
-    func toHealthKit() throws -> HKSample {
+    func toHKCategorySample() throws -> HKSample {
         let categoryType = try HKCategoryType.make(from: HKCategoryTypeIdentifier.sleepAnalysis)
 
         let value = try HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue
@@ -75,7 +76,7 @@ extension SleepStageRecordDto {
     }
 }
 
-/// Mappers for HKCategoryValueSleepAnalysis to SleepStageDto
+/// Extension for HKCategoryValueSleepAnalysis to SleepStageDto
 extension HKCategoryValueSleepAnalysis {
     /// Convert HKCategoryValueSleepAnalysis to SleepStageDto
     func toDto() -> SleepStageDto {

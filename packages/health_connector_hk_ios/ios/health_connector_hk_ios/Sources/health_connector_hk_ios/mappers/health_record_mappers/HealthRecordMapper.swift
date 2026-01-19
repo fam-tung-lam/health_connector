@@ -1,230 +1,235 @@
 import Foundation
 import HealthKit
 
-/// Central delegation for mapping `HealthRecordDto` → `HKSample`.
+/// Extension for mapping `HealthRecordDto` → `HKSample`.
 extension HealthRecordDto {
-    /// Converts this DTO to its corresponding HealthKit sample.
+    /// Converts this `HealthRecordDto` to its corresponding `HKSample`.
     ///
-    /// - Returns: A HealthKit sample
-    /// - Throws: `HealthConnectorError.unsupportedOperation` if the DTO type has no mapping
-    func toHealthKit() throws -> HKSample {
+    /// - Returns: The corresponding `HKSample`
+    /// - Throws: `HealthConnectorError.invalidArgument` if the `HealthRecordDto` cannot be converted
+    func toHKSample() throws -> HKSample {
         switch self {
         case let dto as ActiveEnergyBurnedRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as AlcoholicBeveragesRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as BloodAlcoholContentRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as BasalEnergyBurnedRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as BloodGlucoseRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as BodyFatPercentageRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as BodyTemperatureRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as BasalBodyTemperatureRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as SleepingWristTemperatureRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as CervicalMucusRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as DiastolicBloodPressureRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as DistanceActivityRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as FloorsClimbedRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as HeartRateRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as HeightRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as HydrationRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as LeanBodyMassRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as OxygenSaturationRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as RespiratoryRateRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as RestingHeartRateRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as StepsRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as SystolicBloodPressureRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as Vo2MaxRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as WeightRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as WheelchairPushesRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as BloodPressureRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCorrelation()
         case let dto as NutritionRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCorrelation()
         case let dto as SexualActivityRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as SleepStageRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as SpeedActivityRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as CyclingPowerRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as RunningPowerRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as CyclingPedalingCadenceRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as ExerciseSessionRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKWorkout()
         case let dto as MindfulnessSessionRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as OvulationTestRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as PregnancyTestRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as ProgesteroneTestRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as IntermenstrualBleedingRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as MenstrualFlowRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as PregnancyRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as ContraceptiveRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as WaistCircumferenceRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as WalkingDoubleSupportPercentageRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as WalkingStepLengthRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as LactationRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKCategorySample()
         case let dto as BodyMassIndexRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as HeartRateVariabilitySDNNRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryEnergyConsumedRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryCaffeineRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryProteinRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryTotalCarbohydrateRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryTotalFatRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietarySaturatedFatRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryMonounsaturatedFatRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryPolyunsaturatedFatRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryCholesterolRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryFiberRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietarySugarRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminARecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminB6RecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminB12RecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminCRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminDRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminERecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminKRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryThiaminRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryRiboflavinRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryNiacinRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryFolateRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryBiotinRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryPantothenicAcidRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryCalciumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryIronRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryMagnesiumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryManganeseRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryPhosphorusRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryPotassiumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietarySeleniumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietarySodiumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryZincRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as SwimmingStrokesRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as PeripheralPerfusionIndexRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         case let dto as ForcedVitalCapacityRecordDto:
-            return try dto.toHealthKit()
+            return try dto.toHKQuantitySample()
         // Read-only records
         case is ExerciseTimeRecordDto,
              is MoveTimeRecordDto,
              is StandTimeRecordDto,
              is WalkingSteadinessRecordDto,
              is WalkingAsymmetryPercentageRecordDto:
-            let typeName = String(describing: type(of: self))
-            fatalError(
-                "\(typeName) is read-only and cannot be written to HealthKit. This indicates a programming error in health_connector."
+            throw HealthConnectorError.invalidArgument(
+                message:
+                "\(String(describing: type(of: self))) is read-only and cannot be written to HealthKit."
             )
         // Unsupported/unimplemented records
         default:
-            throw HealthConnectorError.unsupportedOperation(
+            throw HealthConnectorError.invalidArgument(
                 message:
-                "`HealthRecordDto.toHealthKit()` is not implemented for health record DTO type: '\(type(of: self))."
+                "`HealthRecordDto.toHKSample()` is not supported or implemented for health record DTO type: '\(type(of: self))."
             )
         }
     }
 }
 
+/// Extension for mapping `HKSample` → `HealthRecordDto`.
 extension HKSample {
+    /// Converts this `HKSample` to its corresponding `HealthRecordDto`.
+    ///
+    /// - Returns: The corresponding `HealthRecordDto`
+    /// - Throws: `HealthConnectorError.invalidArgument` if the `HKSample` cannot be converted
     func toDto() throws -> HealthRecordDto {
         let dataType = try healthDataType
 
         if let categorySample = self as? HKCategorySample {
-            return try categorySample.mapCategorySampleToDto(for: dataType)
+            return try categorySample.toHKCategorySampleDto(for: dataType)
         } else if let correlation = self as? HKCorrelation {
-            return try correlation.mapCorrelationSampleToDto(for: dataType)
+            return try correlation.toHKCorrelationDto(for: dataType)
         } else if let quantitySample = self as? HKQuantitySample {
-            return try quantitySample.mapQuantitySampleToDto(for: dataType)
+            return try quantitySample.toHKQuantitySampleDto(for: dataType)
         } else if let workout = self as? HKWorkout {
-            return try workout.toExerciseSessionRecordDto()
+            return try workout.toHKWorkoutDto()
         }
 
         throw HealthConnectorError.invalidArgument(
             message:
-            "`HKSample.toDto()` is not implemented for HKSample type: \(String(describing: type(of: self)))."
+            "`HKSample.toDto()` is not supported or implemented for HKSample type: \(String(describing: type(of: self)))."
         )
     }
 }
 
-/// Central delegation for mapping `HKCategorySample` → `HealthRecordDto`.
+/// Extension for mapping `HKCategorySample` → `HealthRecordDto`.
 extension HKCategorySample {
-    /// Converts this HealthKit category sample to a DTO.
+    /// Converts this `HKCategorySample` to its corresponding `HealthRecordDto`.
     ///
-    /// - Returns: The corresponding HealthRecordDto
-    /// - Throws: `HealthConnectorError.invalidArgument` if the sample cannot be converted
-    func mapCategorySampleToDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
+    /// - Returns: The corresponding `HealthRecordDto`
+    /// - Throws: `HealthConnectorError.invalidArgument` if the `HKCategorySample` cannot be converted
+    func toHKCategorySampleDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
         switch type {
         case .cervicalMucus:
             try toCervicalMucusRecordDto()
@@ -253,20 +258,20 @@ extension HKCategorySample {
         default:
             throw HealthConnectorError.invalidArgument(
                 message:
-                "`HKCategorySample.mapCategorySampleToDto(for: \(type))` is not implemented for HKCategorySample type: \(String(describing: type(of: self)))."
+                "`HKCategorySample.toHKCategorySampleDto(for: \(String(describing: type)))` is not supported or implemented for HKCategorySample type: \(String(describing: self))."
             )
         }
     }
 }
 
-/// Central delegation for mapping `HKCorrelation` → `HealthRecordDto`.
+/// Extension for mapping `HKCorrelation` → `HealthRecordDto`.
 extension HKCorrelation {
-    /// Converts this HealthKit correlation to a DTO for the specified health data type.
+    /// Converts this `HKCorrelation` to its corresponding `HealthRecordDto`.
     ///
     /// - Parameter type: The health data type to convert to
-    /// - Returns: The corresponding HealthRecordDto
-    /// - Throws: `HealthConnectorError.invalidArgument` if the correlation cannot be converted
-    func mapCorrelationSampleToDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
+    /// - Returns: The corresponding `HealthRecordDto`
+    /// - Throws: `HealthConnectorError.invalidArgument` if the `HKCorrelation` cannot be converted
+    func toHKCorrelationDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
         switch type {
         case .bloodPressure:
             try toBloodPressureRecordDto()
@@ -274,24 +279,21 @@ extension HKCorrelation {
             try toNutritionRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
-                message: "Unsupported health data type for HKCorrelation",
-                context: [
-                    "type": type.rawValue,
-                    "correlationType": correlationType.identifier,
-                ]
+                message:
+                "`HKCorrelation.toHKCorrelationDto(for: \(String(describing: type)))` is not supported or implemented for HKCorrelation type: \(String(describing: self))"
             )
         }
     }
 }
 
-/// Central delegation for mapping `HKQuantitySample` → `HealthRecordDto`.
+/// Extension for mapping `HKQuantitySample` → `HealthRecordDto`.
 extension HKQuantitySample {
-    /// Converts this HealthKit quantity sample to a DTO for the specified health data type.
+    /// Converts this `HKQuantitySample` to its corresponding `HealthRecordDto`.
     ///
     /// - Parameter type: The health data type to convert to
-    /// - Returns: The corresponding HealthRecordDto
-    /// - Throws: `HealthConnectorError.invalidArgument` if the sample cannot be converted
-    func mapQuantitySampleToDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
+    /// - Returns: The corresponding `HealthRecordDto`
+    /// - Throws: `HealthConnectorError.invalidArgument` if the `HKQuantitySample` cannot be converted
+    func toHKQuantitySampleDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
         switch type {
         case .steps:
             try toStepsRecordDto()
@@ -467,11 +469,8 @@ extension HKQuantitySample {
             try toPeripheralPerfusionIndexRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
-                message: "Unsupported or unimplemented health data type for HKQuantitySample",
-                context: [
-                    "type": type.rawValue,
-                    "quantityType": quantityType.identifier,
-                ]
+                message:
+                "`HKQuantitySample.toHKQuantitySampleDto(for: \(String(describing: type)))` is not supported or implemented for HKQuantitySample type: \(String(describing: self))"
             )
         }
     }

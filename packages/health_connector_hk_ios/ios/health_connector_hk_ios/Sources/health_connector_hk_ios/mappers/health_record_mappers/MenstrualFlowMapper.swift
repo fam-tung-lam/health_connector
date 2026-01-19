@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - Enum Mapping Helpers
 
+/// Extension for mapping `MenstrualFlowDto` → `Int`.
 extension MenstrualFlowDto {
     /// Converts `MenstrualFlowDto` to HealthKit menstrual flow value.
     ///
@@ -44,6 +45,7 @@ extension MenstrualFlowDto {
 
 // MARK: - HealthKit to DTO Conversion
 
+/// Extension for mapping `Int` → `MenstrualFlowDto`.
 extension Int {
     /// Converts a HealthKit menstrual flow value to `MenstrualFlowDto`.
     ///

@@ -449,7 +449,7 @@ actor HealthConnectorClient: Taggable {
                     withCapability: WritableHealthRecordHandler.self
                 )
 
-                let sample = try record.toHealthKit()
+                let sample = try record.toHKSample()
                 samples.append(sample)
             }
 

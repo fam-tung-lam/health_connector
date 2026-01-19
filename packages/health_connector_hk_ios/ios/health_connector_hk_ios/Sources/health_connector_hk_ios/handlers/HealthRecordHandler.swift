@@ -129,6 +129,6 @@ extension HealthRecordHandler {
 
     /// Default implementation uses the type mapper
     func healthKitType() throws -> HKObjectType {
-        try Self.dataType.toHealthKit()
+        try Self.dataType.toHKSampleType()
     }
 }

@@ -40,13 +40,12 @@ extension MindfulnessSessionTypeDto: StringSerializable {
 
 /// Custom metadata key for storing mindfulness session type.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit only supports a generic `mindfulSession` category type with no native
 /// field to distinguish between different session types (meditation, breathing, etc.).
 /// We store the specific session type in custom metadata to maintain full fidelity
 /// with the cross-platform data model.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_session_type`
 enum MindfulnessSessionTypeKey: StringEnumMetadataKey {
     typealias Value = MindfulnessSessionTypeDto
 
@@ -56,11 +55,10 @@ enum MindfulnessSessionTypeKey: StringEnumMetadataKey {
 
 /// Custom metadata key for storing mindfulness session notes.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit has no standard metadata key for session notes. We use a custom key
 /// to preserve user-entered notes across the platform bridge.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_session_notes`
 enum MindfulnessSessionNotesKey: CustomMetadataKey {
     typealias Value = String
 

@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - HKCategorySample to DTO
 
+/// Extension for mapping `HKCategorySample` → `ProgesteroneTestRecordDto`.
 extension HKCategorySample {
     /// Converts a HealthKit progesterone test category sample to `ProgesteroneTestRecordDto`.
     func toProgesteroneTestRecordDto() throws -> ProgesteroneTestRecordDto {
@@ -28,7 +29,7 @@ extension HKCategorySample {
         return try ProgesteroneTestRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             zoneOffsetSeconds: zoneOffset,
             result: hkResult.toProgesteroneTestResultDto()
         )
@@ -37,9 +38,10 @@ extension HKCategorySample {
 
 // MARK: - DTO to HealthKit
 
+/// Extension for mapping `ProgesteroneTestRecordDto` → `HKCategorySample`.
 extension ProgesteroneTestRecordDto {
     /// Converts a `ProgesteroneTestRecordDto` to a HealthKit category sample.
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         guard
             let categoryType = HKObjectType.categoryType(
                 forIdentifier: .progesteroneTestResult

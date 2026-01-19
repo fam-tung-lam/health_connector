@@ -1,11 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `WeightRecordDto` → `HKQuantitySample`.
 extension WeightRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    /// Converts this `WeightRecordDto` to its corresponding `HKQuantitySample`.
     ///
-    /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bodyMass)
 
         let unit = HKUnit.gramUnit(with: .kilo)
@@ -30,6 +32,7 @@ extension WeightRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `WeightRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WeightRecordDto`.
     ///

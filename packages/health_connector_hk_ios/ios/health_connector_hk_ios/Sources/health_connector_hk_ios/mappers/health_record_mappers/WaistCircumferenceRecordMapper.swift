@@ -1,9 +1,10 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `WaistCircumferenceRecordDto` → `HKQuantitySample`.
 extension WaistCircumferenceRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .waistCircumference)
 
         let quantity = HKQuantity(unit: .meter(), doubleValue: meters)
@@ -26,6 +27,7 @@ extension WaistCircumferenceRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `WaistCircumferenceRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WaistCircumferenceRecordDto`.
     ///

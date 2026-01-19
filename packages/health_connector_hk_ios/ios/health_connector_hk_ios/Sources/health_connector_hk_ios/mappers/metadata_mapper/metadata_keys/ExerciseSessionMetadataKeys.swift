@@ -4,11 +4,10 @@ import Foundation
 
 /// Custom metadata key for storing workout title.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit does not have a standard metadata key for workout titles.
 /// We use a custom key to preserve user-entered titles across the platform bridge.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_workout_title`
 enum ExerciseSessionTitleKey: CustomMetadataKey {
     typealias Value = String
 
@@ -20,11 +19,10 @@ enum ExerciseSessionTitleKey: CustomMetadataKey {
 
 /// Custom metadata key for storing workout notes.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit does not have a standard metadata key for workout notes.
 /// We use a custom key to preserve user-entered notes across the platform bridge.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_workout_notes`
 enum ExerciseSessionNotesKey: CustomMetadataKey {
     typealias Value = String
 

@@ -37,12 +37,11 @@ extension MealTypeDto: StringSerializable {
 
 /// Custom metadata key for storing meal type on nutrient records.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit does not have a standard metadata key for meal type context on
 /// individual nutrient quantity samples. We use a custom key to preserve
 /// meal context from the nutrition record.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_meal_type`
 ///
 /// **Note:** This uses the same key suffix as `BloodGlucoseMealTypeKey` because
 /// both represent the same concept and use the same `MealTypeDto` enum.
@@ -55,11 +54,10 @@ enum NutrientMealTypeKey: StringEnumMetadataKey {
 
 /// Custom metadata key for storing food name on nutrient records.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit does not associate a food name with individual nutrient samples.
 /// We preserve the food name from the original nutrition record in custom metadata.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_food_name`
 enum NutrientFoodNameKey: CustomMetadataKey {
     typealias Value = String
 

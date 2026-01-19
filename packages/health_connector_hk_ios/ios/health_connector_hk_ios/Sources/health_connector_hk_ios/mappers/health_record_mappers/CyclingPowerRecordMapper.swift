@@ -1,9 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `CyclingPowerRecordDto` → `HKQuantitySample`.
 extension CyclingPowerRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this `CyclingPowerRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created or iOS version is unsupported
+    func toHKQuantitySample() throws -> HKQuantitySample {
         if #available(iOS 17.0, *) {
             let type = try HKQuantityType.make(from: .cyclingPower)
 
@@ -33,6 +37,7 @@ extension CyclingPowerRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `CyclingPowerRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `CyclingPowerRecordDto`.
     ///

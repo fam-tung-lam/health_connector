@@ -1,6 +1,7 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HKQuantitySample` → `DietaryBiotinRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit quantity sample to a DietaryBiotinRecordDto.
     ///
@@ -45,9 +46,13 @@ extension HKQuantitySample {
     }
 }
 
+/// Extension for mapping `DietaryBiotinRecordDto` → `HKQuantitySample`.
 extension DietaryBiotinRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKitQuantitySample() throws -> HKQuantitySample {
+    /// Converts this `DietaryBiotinRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let quantityType = try HKQuantityType.make(from: .dietaryBiotin)
         let unit = HKUnit.gram()
         let quantity = HKQuantity(unit: unit, doubleValue: grams)

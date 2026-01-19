@@ -1,9 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `BodyMassIndexRecordDto` → `HKQuantitySample`.
 extension BodyMassIndexRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this `BodyMassIndexRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bodyMassIndex)
 
         // Body Mass Index is a count unit
@@ -27,6 +31,7 @@ extension BodyMassIndexRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `BodyMassIndexRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BodyMassIndexRecordDto`.
     ///

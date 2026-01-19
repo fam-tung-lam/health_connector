@@ -1,9 +1,10 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `SleepingWristTemperatureRecordDto` → `HKQuantitySample`.
 extension SleepingWristTemperatureRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         if #available(iOS 16.0, *) {
             let type = try HKQuantityType.make(from: .appleSleepingWristTemperature)
 
@@ -35,6 +36,7 @@ extension SleepingWristTemperatureRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `SleepingWristTemperatureRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `SleepingWristTemperatureRecordDto`.
     ///

@@ -1,11 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `BasalEnergyBurnedRecordDto` → `HKQuantitySample`.
 extension BasalEnergyBurnedRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    /// Converts this `BasalEnergyBurnedRecordDto` to its corresponding `HKQuantitySample`.
     ///
-    /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .basalEnergyBurned)
 
         let unit = HKUnit.kilocalorie()
@@ -31,6 +33,7 @@ extension BasalEnergyBurnedRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `BasalEnergyBurnedRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BasalEnergyBurnedRecordDto`.
     ///

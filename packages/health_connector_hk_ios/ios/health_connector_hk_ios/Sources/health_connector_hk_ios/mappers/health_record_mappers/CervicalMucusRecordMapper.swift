@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - HKCategorySample to DTO
 
+/// Extension for mapping `HKCategorySample` → `CervicalMucusRecordDto`.
 extension HKCategorySample {
     /// Converts a HealthKit cervical mucus category sample to `CervicalMucusRecordDto`.
     ///
@@ -54,7 +55,7 @@ extension HKCategorySample {
         return try CervicalMucusRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             zoneOffsetSeconds: zoneOffset,
             appearance: appearance,
             sensation: sensation
@@ -64,6 +65,7 @@ extension HKCategorySample {
 
 // MARK: - DTO to HealthKit
 
+/// Extension for mapping `CervicalMucusRecordDto` → `HKCategorySample`.
 extension CervicalMucusRecordDto {
     /// Converts a `CervicalMucusRecordDto` to a HealthKit category sample.
     ///
@@ -82,7 +84,7 @@ extension CervicalMucusRecordDto {
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if category type creation fails
     /// - Returns: `HKCategorySample` with appearance in both native field and custom metadata
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         guard
             let categoryType = HKObjectType.categoryType(
                 forIdentifier: .cervicalMucusQuality

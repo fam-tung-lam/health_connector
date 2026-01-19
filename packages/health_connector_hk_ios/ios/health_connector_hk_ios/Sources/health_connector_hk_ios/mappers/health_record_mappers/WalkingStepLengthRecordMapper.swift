@@ -1,11 +1,12 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `WalkingStepLengthRecordDto` → `HKQuantitySample`.
 extension WalkingStepLengthRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKSample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .walkingStepLength)
 
         let quantity = HKQuantity(unit: .meter(), doubleValue: meters)
@@ -36,6 +37,7 @@ extension WalkingStepLengthRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `WalkingStepLengthRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WalkingStepLengthRecordDto`.
     ///

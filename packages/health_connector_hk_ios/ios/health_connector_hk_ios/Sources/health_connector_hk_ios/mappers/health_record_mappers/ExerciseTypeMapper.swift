@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-/// Mappers for converting between `HKWorkoutActivityType` and `ExerciseTypeDto`.
+/// Extension for converting between `HKWorkoutActivityType` and `ExerciseTypeDto`.
 ///
 /// This mapper implements the iOS HealthKit-specific mapping logic for exercise types
 /// as defined in the core `ExerciseType` enum and the Dart iOS mapper logic.
@@ -15,8 +15,9 @@ import HealthKit
 /// - **iOS-only types** (annotated with `@supportedOnAppleHealth` in core):
 ///   These types ARE present in `ExerciseTypeDto` and map to specific `HKWorkoutActivityType` values.
 /// - **Cross-platform types**: Supported on both platforms with appropriate mappings.
+/// Extension for mapping `HKWorkoutActivityType` ↔ `ExerciseTypeDto`.
 extension HKWorkoutActivityType {
-    /// Convert `HKWorkoutActivityType` to `ExerciseTypeDto`.
+    /// Converts `HKWorkoutActivityType` to `ExerciseTypeDto`.
     func toDto() -> ExerciseTypeDto {
         switch self {
         // MARK: - Cardio & Walking/Running (Cross-platform)
@@ -220,7 +221,7 @@ extension HKWorkoutActivityType {
         }
     }
 
-    /// Convert `ExerciseTypeDto` to `HKWorkoutActivityType`.
+    /// Converts `ExerciseTypeDto` to `HKWorkoutActivityType`.
     ///
     /// - Parameter dto: The exercise type DTO to convert
     /// - Returns: The corresponding HKWorkoutActivityType

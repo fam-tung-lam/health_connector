@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - Metadata Extraction Extensions
 
+/// Extension for mapping `MetadataDto` → `[String: Any]?` (HealthKit Nutrient Metadata).
 extension MetadataDto {
     /// Converts metadata DTO to HealthKit metadata including nutrient-specific fields.
     ///
@@ -31,6 +32,7 @@ extension MetadataDto {
 
 // MARK: - Generic Nutrient Mapper Functions
 
+/// Extension for mapping `HKQuantitySample` → `HealthRecordDto` (Nutrient).
 extension HKQuantitySample {
     /// Converts this HealthKit quantity sample to a nutrient DTO.
     ///
@@ -122,6 +124,7 @@ extension HKQuantitySample {
 
 // MARK: - DTO to HealthKit Conversion
 
+/// Extension for mapping `HealthRecordDto` (Nutrient) → `HKQuantitySample`.
 extension HealthRecordDto {
     /// Converts nutrient DTO to HealthKit quantity sample.
     ///
@@ -136,71 +139,71 @@ extension HealthRecordDto {
     ) throws -> HKQuantitySample {
         switch self {
         case let dto as DietaryEnergyConsumedRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryCaffeineRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryProteinRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryTotalCarbohydrateRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryTotalFatRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietarySaturatedFatRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryMonounsaturatedFatRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryPolyunsaturatedFatRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryCholesterolRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryFiberRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietarySugarRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminARecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminB6RecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminB12RecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminCRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminDRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminERecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryVitaminKRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryThiaminRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryRiboflavinRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryNiacinRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryFolateRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryBiotinRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryPantothenicAcidRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryCalciumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryIronRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryMagnesiumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryManganeseRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryPhosphorusRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryPotassiumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietarySeleniumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietarySodiumRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         case let dto as DietaryZincRecordDto:
-            return try dto.toHealthKitQuantitySample()
+            return try dto.toHKQuantitySample()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Expected nutrient DTO for \(nutrientType), got \(type(of: self))"

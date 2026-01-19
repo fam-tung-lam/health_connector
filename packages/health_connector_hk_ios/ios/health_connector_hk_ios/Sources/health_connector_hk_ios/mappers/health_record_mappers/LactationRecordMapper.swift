@@ -3,6 +3,7 @@ import HealthKit
 
 // MARK: - HKCategorySample to DTO
 
+/// Extension for mapping `HKCategorySample` → `LactationRecordDto`.
 extension HKCategorySample {
     /// Converts a HealthKit lactation category sample to `LactationRecordDto`.
     func toLactationRecordDto() throws -> LactationRecordDto {
@@ -20,8 +21,8 @@ extension HKCategorySample {
         return try LactationRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endTime: Int64(endDate.timeIntervalSince1970 * 1000),
+            startTime: startDate.millisecondsSince1970,
+            endTime: endDate.millisecondsSince1970,
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset
         )
@@ -30,9 +31,10 @@ extension HKCategorySample {
 
 // MARK: - DTO to HealthKit
 
+/// Extension for mapping `LactationRecordDto` → `HKCategorySample`.
 extension LactationRecordDto {
     /// Converts a `LactationRecordDto` to a HealthKit category sample.
-    func toHealthKit() throws -> HKCategorySample {
+    func toHKCategorySample() throws -> HKCategorySample {
         guard
             let categoryType = HKObjectType.categoryType(
                 forIdentifier: .lactation

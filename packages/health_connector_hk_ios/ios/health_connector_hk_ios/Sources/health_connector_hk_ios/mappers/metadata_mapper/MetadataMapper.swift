@@ -1,6 +1,7 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `MetadataDto` → `MetadataBuilder`.
 extension MetadataDto {
     /// Creates a `MetadataBuilder` initialized with this DTO's metadata.
     ///
@@ -29,6 +30,7 @@ extension MetadataDto {
     }
 }
 
+/// Extension for mapping `[String: Any]` → `MetadataBuilder`.
 extension [String: Any] {
     /// Creates a `MetadataBuilder` initialized with this dictionary.
     ///

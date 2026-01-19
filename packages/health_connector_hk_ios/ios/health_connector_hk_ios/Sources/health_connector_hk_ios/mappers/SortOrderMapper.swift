@@ -1,12 +1,12 @@
 import Foundation
 import HealthKit
 
-/// Extension to convert SortOrderDto to HKSampleSortIdentifier and direction.
+/// Extension for mapping `SortOrderDto` → `(sortIdentifier: HKSampleSortIdentifier, ascending: Bool)`.
 extension SortOrderDto {
-    /// Converts this DTO to HealthKit sort descriptor configuration.
+    /// Converts this `SortOrderDto` to HealthKit sort descriptor configuration.
     ///
     /// - Returns: Tuple of (sortIdentifier, ascending)
-    func toHealthKitSort() -> (identifier: String, ascending: Bool) {
+    func toHKSampleSortIdentifier() -> (identifier: String, ascending: Bool) {
         switch self {
         case .timeAscending:
             (HKSampleSortIdentifierStartDate, true)

@@ -1,6 +1,7 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HKCorrelation` → `NutritionRecordDto`.
 extension HKCorrelation {
     /// Converts this food correlation to NutritionRecordDto
     ///
@@ -99,9 +100,10 @@ extension HKCorrelation {
     }
 }
 
+/// Extension for mapping `NutritionRecordDto` → `HKCorrelation`.
 extension NutritionRecordDto {
     /// Converts this DTO to an HKCorrelation for HealthKit
-    func toHealthKitCorrelation() throws -> HKCorrelation {
+    func toHKCorrelation() throws -> HKCorrelation {
         guard let foodType = HKCorrelationType.correlationType(forIdentifier: .food) else {
             throw HealthConnectorError.invalidArgument(
                 message: "Food correlation type not available"

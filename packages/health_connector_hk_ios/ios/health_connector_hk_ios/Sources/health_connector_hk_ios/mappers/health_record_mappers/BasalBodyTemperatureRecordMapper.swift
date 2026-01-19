@@ -1,9 +1,13 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `BasalBodyTemperatureRecordDto` → `HKQuantitySample`.
 extension BasalBodyTemperatureRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this `BasalBodyTemperatureRecordDto` to its corresponding `HKQuantitySample`.
+    ///
+    /// - Returns: The corresponding `HKQuantitySample`
+    /// - Throws: `HealthConnectorError` if the quantity type cannot be created
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .basalBodyTemperature)
 
         let quantity = HKQuantity(unit: .degreeCelsius(), doubleValue: celsius)
@@ -32,6 +36,7 @@ extension BasalBodyTemperatureRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `BasalBodyTemperatureRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BasalBodyTemperatureRecordDto`.
     ///

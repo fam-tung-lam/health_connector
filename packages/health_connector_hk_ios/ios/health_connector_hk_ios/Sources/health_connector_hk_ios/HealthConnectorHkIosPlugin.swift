@@ -78,7 +78,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     HealthConnectorError.unknownError(
                         message: error.localizedDescription,
                         cause: error
-                    ).toDto()))
+                    ).toErrorDto()))
         }
     }
 
@@ -345,7 +345,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     context: errorContext,
                     exception: error
                 )
-                self.complete(completion, with: .failure(error.toDto()))
+                self.complete(completion, with: .failure(error.toErrorDto()))
             } catch {
                 // Log unknown error
                 HealthConnectorLogger.error(
@@ -361,7 +361,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                         HealthConnectorError.unknownError(
                             message: error.localizedDescription,
                             cause: error
-                        ).toDto())
+                        ).toErrorDto())
                 )
             }
         }

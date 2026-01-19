@@ -55,12 +55,11 @@ extension BasalBodyTemperatureMeasurementLocationDto: StringSerializable {
 
 /// Custom metadata key for storing basal body temperature measurement location.
 ///
-/// **Why this exists:**
+/// ## Why this exists
+///
 /// HealthKit has no native support for measurement location in basal body temperature records.
 /// Android Health Connect provides this natively, so we store it in custom metadata to maintain
 /// cross-platform parity.
-///
-/// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_basal_body_temperature_measurement_location`
 enum BasalBodyTemperatureMeasurementLocationKey: StringEnumMetadataKey {
     typealias Value = BasalBodyTemperatureMeasurementLocationDto
 

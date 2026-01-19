@@ -1,9 +1,10 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `RespiratoryRateRecordDto` → `HKQuantitySample`.
 extension RespiratoryRateRecordDto {
     /// Converts this DTO to a HealthKit sample.
-    func toHealthKit() throws -> HKSample {
+    func toHKQuantitySample() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .respiratoryRate)
 
         let unit = HKUnit.count().unitDivided(by: .minute())
@@ -27,6 +28,7 @@ extension RespiratoryRateRecordDto {
     }
 }
 
+/// Extension for mapping `HKQuantitySample` → `RespiratoryRateRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `RespiratoryRateRecordDto`.
     ///

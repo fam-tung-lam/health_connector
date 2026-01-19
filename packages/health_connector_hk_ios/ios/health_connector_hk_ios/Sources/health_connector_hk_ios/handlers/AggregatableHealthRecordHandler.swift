@@ -108,7 +108,7 @@ extension AggregatableQuantityHealthRecordHandler {
         let options = try statisticsOptions(for: metric)
 
         // Lookup the HKQuantityType for this handler
-        guard let quantityType = try Self.dataType.toHealthKit() as? HKQuantityType else {
+        guard let quantityType = try Self.dataType.toHKSampleType() as? HKQuantityType else {
             throw HealthConnectorError.unsupportedOperation(
                 message: "Data type \(Self.dataType) does not support quantity-based aggregation",
                 context: context.merging([

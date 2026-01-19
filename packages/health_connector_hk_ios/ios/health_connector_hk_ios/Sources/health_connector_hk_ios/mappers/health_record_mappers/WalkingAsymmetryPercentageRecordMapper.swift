@@ -1,6 +1,7 @@
 import Foundation
 import HealthKit
 
+/// Extension for mapping `HKQuantitySample` → `WalkingAsymmetryPercentageRecordDto`.
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WalkingAsymmetryPercentageRecordDto`.
     ///
