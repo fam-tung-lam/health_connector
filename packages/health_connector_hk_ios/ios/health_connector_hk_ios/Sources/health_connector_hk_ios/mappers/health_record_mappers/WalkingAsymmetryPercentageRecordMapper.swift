@@ -1,41 +1,6 @@
 import Foundation
 import HealthKit
 
-extension WalkingAsymmetryPercentageRecordDto {
-    /// Converts this DTO to a HealthKit sample.
-    ///
-    /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKSample {
-        let type = try HKQuantityType.make(from: .walkingAsymmetryPercentage)
-
-        let quantity = HKQuantity(unit: .percent(), doubleValue: percentage)
-        let startDate = Date(millisecondsSince1970: startTime)
-        let endDate = Date(millisecondsSince1970: endTime)
-
-        // Create builder with timezone offsets
-        var builder = try MetadataBuilder(
-            from: metadata,
-            startTimeZoneOffset: startZoneOffsetSeconds,
-            endTimeZoneOffset: endZoneOffsetSeconds
-        )
-
-        // Add device placement side to metadata
-        try builder.set(
-            standardKey: HKMetadataKeyDevicePlacementSide,
-            value: devicePlacementSide.toHealthKit().rawValue
-        )
-
-        return HKQuantitySample(
-            type: type,
-            quantity: quantity,
-            start: startDate,
-            end: endDate,
-            device: builder.healthDevice,
-            metadata: builder.metadataDict
-        )
-    }
-}
-
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WalkingAsymmetryPercentageRecordDto`.
     ///

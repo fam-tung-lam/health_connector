@@ -13,14 +13,6 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as AlcoholicBeveragesRecordDto:
             return try dto.toHealthKit()
-        case let dto as ExerciseTimeRecordDto:
-            return try dto.toHealthKit()
-        case let dto as MoveTimeRecordDto:
-            return try dto.toHealthKit()
-        case let dto as StandTimeRecordDto:
-            return try dto.toHealthKit()
-        case let dto as WalkingSteadinessRecordDto:
-            return try dto.toHealthKit()
         case let dto as BloodAlcoholContentRecordDto:
             return try dto.toHealthKit()
         case let dto as BasalEnergyBurnedRecordDto:
@@ -102,8 +94,6 @@ extension HealthRecordDto {
         case let dto as ContraceptiveRecordDto:
             return try dto.toHealthKit()
         case let dto as WaistCircumferenceRecordDto:
-            return try dto.toHealthKit()
-        case let dto as WalkingAsymmetryPercentageRecordDto:
             return try dto.toHealthKit()
         case let dto as WalkingDoubleSupportPercentageRecordDto:
             return try dto.toHealthKit()
@@ -187,14 +177,21 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as ForcedVitalCapacityRecordDto:
             return try dto.toHealthKit()
+        // Read-only records
+        case is ExerciseTimeRecordDto,
+             is MoveTimeRecordDto,
+             is StandTimeRecordDto,
+             is WalkingSteadinessRecordDto,
+             is WalkingAsymmetryPercentageRecordDto:
+            let typeName = String(describing: type(of: self))
+            fatalError(
+                "\(typeName) is read-only and cannot be written to HealthKit. This indicates a programming error in health_connector."
+            )
+        // Unsupported/unimplemented records
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
-                "`HealthRecordDto.toHealthKit()` is not implemented for data type: '\(type(of: self)).",
-                context: [
-                    "dtoType": String(describing: type(of: self)),
-                    "availableTypes": "See mapper files in health_record_mappers/",
-                ]
+                "`HealthRecordDto.toHealthKit()` is not implemented for health record DTO type: '\(type(of: self))."
             )
         }
     }
@@ -215,11 +212,8 @@ extension HKSample {
         }
 
         throw HealthConnectorError.invalidArgument(
-            message: "Unsupported or unimplemented `HKSample.toDto` for data type",
-            context: [
-                "sampleType": String(describing: type(of: self)),
-                "healthDataType": dataType.rawValue,
-            ]
+            message:
+            "`HKSample.toDto()` is not implemented for HKSample type: \(String(describing: type(of: self)))."
         )
     }
 }
@@ -251,39 +245,15 @@ extension HKCategorySample {
         case .menstrualFlow:
             try toMenstrualFlowRecordDto()
         case .pregnancy:
-            if #available(iOS 14.3, *) {
-                try toPregnancyRecordDto()
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Pregnancy is only supported on iOS 14.3 and later",
-                    context: ["dataType": "pregnancy", "minimumIOSVersion": "14.3"]
-                )
-            }
+            try toPregnancyRecordDto()
         case .contraceptive:
-            if #available(iOS 14.3, *) {
-                try toContraceptiveRecordDto()
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Contraceptive is only supported on iOS 14.3 and later",
-                    context: ["dataType": "contraceptive", "minimumIOSVersion": "14.3"]
-                )
-            }
+            try toContraceptiveRecordDto()
         case .lactation:
-            if #available(iOS 14.3, *) {
-                try toLactationRecordDto()
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Lactation is only supported on iOS 14.3 and later",
-                    context: ["dataType": "lactation", "minimumIOSVersion": "14.3"]
-                )
-            }
+            try toLactationRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
-                message: "Unsupported health data type for HKCategorySample",
-                context: [
-                    "type": type.rawValue,
-                    "categoryType": categoryType.identifier,
-                ]
+                message:
+                "`HKCategorySample.mapCategorySampleToDto(for: \(type))` is not implemented for HKCategorySample type: \(String(describing: type(of: self)))."
             )
         }
     }
