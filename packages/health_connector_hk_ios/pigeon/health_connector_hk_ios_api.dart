@@ -732,6 +732,9 @@ enum HealthDataTypeDto {
   /// Apple Walking Steadiness data (iOS only).
   appleWalkingSteadiness,
 
+  /// Walking Double Support Percentage data (iOS only).
+  walkingDoubleSupportPercentage,
+
   /// Blood alcohol content data (iOS only).
   bloodAlcoholContent,
 
@@ -1542,6 +1545,44 @@ class WalkingAsymmetryPercentageRecordDto extends HealthRecordDto {
   });
 
   /// The walking asymmetry percentage (stored as decimal 0.0-1.0).
+  final double percentage;
+
+  /// The placement side of the device used for measurement.
+  final DevicePlacementSideDto devicePlacementSide;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a walking double support percentage record for platform transfer.
+class WalkingDoubleSupportPercentageRecordDto extends HealthRecordDto {
+  WalkingDoubleSupportPercentageRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.percentage,
+    required this.devicePlacementSide,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// The walking double support percentage (stored as decimal 0.0-1.0).
   final double percentage;
 
   /// The placement side of the device used for measurement.

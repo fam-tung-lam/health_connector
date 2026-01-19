@@ -196,6 +196,8 @@ abstract final class AppTexts {
       AppleStandTimeDataType() => appleStandTime,
       AppleWalkingSteadinessDataType() => 'Walking Steadiness',
       WalkingAsymmetryPercentageDataType() => walkingAsymmetryPercentage,
+      WalkingDoubleSupportPercentageDataType() =>
+        walkingDoubleSupportPercentage,
     };
   }
 
@@ -342,6 +344,10 @@ abstract final class AppTexts {
   static const String walkingAsymmetryPercentageDescription =
       'Percentage of time the weight alternates between left and right feet '
       'unidirectionally or becomes unbalanced.';
+  static const String walkingDoubleSupportPercentage =
+      'Walking Double Support'; // or Walking Double Support Percentage
+  static const String walkingDoubleSupportPercentageDescription =
+      'Percentage of time during walking when both feet are on the ground.';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';

@@ -133,6 +133,7 @@ part 'temperature/body_temperature_data_type.dart';
 part 'vo2_max_data_type.dart';
 part 'waist_circumference_data_type.dart';
 part 'walking_asymmetry_percentage_data_type.dart';
+part 'walking_double_support_percentage_data_type.dart';
 part 'weight_data_type.dart';
 part 'wheelchair_pushes_data_type.dart';
 
@@ -453,6 +454,19 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const walkingAsymmetryPercentage =
       WalkingAsymmetryPercentageDataType();
+
+  /// Walking double support percentage data type.
+  ///
+  /// Represents the percentage of steps where both feet are on the ground.
+  /// Used to assess gait symmetry and stability.
+  /// Supports reading and aggregation (MIN, MAX, AVG).
+  ///
+  /// > **Note**: This is a read-only data type. It cannot be written or
+  /// > deleted by third-party apps.
+  @sinceV3_2_0
+  @supportedOnAppleHealth
+  static const walkingDoubleSupportPercentage =
+      WalkingDoubleSupportPercentageDataType();
 
   /// Cervical mucus data type.
   ///
@@ -1172,6 +1186,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     totalEnergyBurned,
     vo2Max,
     waistCircumference,
+    walkingDoubleSupportPercentage,
     walkingAsymmetryPercentage,
     walkingRunningDistance,
     walkingSpeed,

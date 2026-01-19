@@ -36,6 +36,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_session_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_stage_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/walking_asymmetry_percentage_record_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/walking_double_support_percentage_record_list_tile.dart';
 
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/cycling_pedaling_cadence_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/heart_rate_series_list_tile.dart';
@@ -175,6 +176,11 @@ final class HealthRecordListTile extends StatelessWidget {
         ),
       final WalkingAsymmetryPercentageRecord r =>
         WalkingAsymmetryPercentageRecordListTile(
+          record: r,
+          onDelete: onDelete,
+        ),
+      final WalkingDoubleSupportPercentageRecord r =>
+        WalkingDoubleSupportPercentageRecordListTile(
           record: r,
           onDelete: onDelete,
         ),

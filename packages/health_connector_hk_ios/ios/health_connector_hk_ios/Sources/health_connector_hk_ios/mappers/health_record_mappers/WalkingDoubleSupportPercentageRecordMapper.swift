@@ -1,12 +1,12 @@
 import Foundation
 import HealthKit
 
-extension WalkingAsymmetryPercentageRecordDto {
+extension WalkingDoubleSupportPercentageRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKSample {
-        let type = try HKQuantityType.make(from: .walkingAsymmetryPercentage)
+        let type = try HKQuantityType.make(from: .walkingDoubleSupportPercentage)
 
         let quantity = HKQuantity(unit: .percent(), doubleValue: percentage)
         let startDate = Date(millisecondsSince1970: startTime)
@@ -37,20 +37,22 @@ extension WalkingAsymmetryPercentageRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `WalkingAsymmetryPercentageRecordDto`.
+    /// Converts this HealthKit sample to a `WalkingDoubleSupportPercentageRecordDto`.
     ///
-    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a walking asymmetry percentage sample.
-    func toWalkingAsymmetryPercentageRecordDto() throws
-        -> WalkingAsymmetryPercentageRecordDto
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a walking double support percentage
+    /// sample.
+    func toWalkingDoubleSupportPercentageRecordDto() throws
+        -> WalkingDoubleSupportPercentageRecordDto
     {
         guard
-            quantityType.identifier == HKQuantityTypeIdentifier.walkingAsymmetryPercentage.rawValue
+            quantityType.identifier
+            == HKQuantityTypeIdentifier.walkingDoubleSupportPercentage.rawValue
         else {
             throw HealthConnectorError.invalidArgument(
                 message:
-                "Expected walking asymmetry percentage quantity type, got \(quantityType.identifier)",
+                "Expected walking double support percentage quantity type, got \(quantityType.identifier)",
                 context: [
-                    "expected": HKQuantityTypeIdentifier.walkingAsymmetryPercentage
+                    "expected": HKQuantityTypeIdentifier.walkingDoubleSupportPercentage
                         .rawValue,
                     "actual": quantityType.identifier,
                 ]
@@ -81,7 +83,7 @@ extension HKQuantitySample {
                 .unknown
             }
 
-        return try WalkingAsymmetryPercentageRecordDto(
+        return try WalkingDoubleSupportPercentageRecordDto(
             percentage: percentage,
             devicePlacementSide: devicePlacementSide,
             endTime: Int64(endDate.millisecondsSince1970),

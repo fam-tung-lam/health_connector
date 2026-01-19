@@ -517,6 +517,11 @@ extension HealthRecordToDto on HealthRecord {
           '$WalkingAsymmetryPercentageRecord is not supported on Android '
           'Health Connect. This data type is iOS-only.',
         );
+      case WalkingDoubleSupportPercentageRecord():
+        throw UnsupportedError(
+          '$WalkingDoubleSupportPercentageRecord is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

@@ -177,6 +177,8 @@ extension HKSample {
                 return .appleWalkingSteadiness
             case HKQuantityTypeIdentifier.walkingAsymmetryPercentage.rawValue:
                 return .walkingAsymmetryPercentage
+            case HKQuantityTypeIdentifier.walkingDoubleSupportPercentage.rawValue:
+                return .walkingDoubleSupportPercentage
             // Category types
             case HKCategoryTypeIdentifier.sleepAnalysis.rawValue:
                 return .sleepStageRecord

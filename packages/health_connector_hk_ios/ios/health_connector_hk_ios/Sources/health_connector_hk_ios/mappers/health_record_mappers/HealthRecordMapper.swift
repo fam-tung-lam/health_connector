@@ -103,6 +103,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as WalkingAsymmetryPercentageRecordDto:
             return try dto.toHealthKit()
+        case let dto as WalkingDoubleSupportPercentageRecordDto:
+            return try dto.toHealthKit()
         case let dto as LactationRecordDto:
             return try dto.toHealthKit()
         case let dto as BodyMassIndexRecordDto:
@@ -411,6 +413,8 @@ extension HKQuantitySample {
             try toWaistCircumferenceRecordDto()
         case .walkingAsymmetryPercentage:
             try toWalkingAsymmetryPercentageRecordDto()
+        case .walkingDoubleSupportPercentage:
+            try toWalkingDoubleSupportPercentageRecordDto()
         case .forcedVitalCapacity:
             try toForcedVitalCapacityRecordDto()
         case .dietaryEnergyConsumed:

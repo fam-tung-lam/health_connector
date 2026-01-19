@@ -815,6 +815,7 @@ extension on double {
       HealthDataTypeDto.peripheralPerfusionIndex ||
       HealthDataTypeDto.appleWalkingSteadiness ||
       HealthDataTypeDto.walkingAsymmetryPercentage ||
+      HealthDataTypeDto.walkingDoubleSupportPercentage ||
       HealthDataTypeDto.oxygenSaturation => Percentage.fromDecimal(this),
       HealthDataTypeDto.heartRateMeasurementRecord ||
       HealthDataTypeDto.restingHeartRate ||

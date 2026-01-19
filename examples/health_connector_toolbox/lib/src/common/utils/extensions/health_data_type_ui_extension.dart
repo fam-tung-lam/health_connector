@@ -124,6 +124,8 @@ extension HealthDataTypeUI on HealthDataType {
       AppleWalkingSteadinessDataType _ => 'Walking Steadiness',
       WalkingAsymmetryPercentageDataType _ =>
         AppTexts.walkingAsymmetryPercentage,
+      WalkingDoubleSupportPercentageDataType _ =>
+        AppTexts.walkingDoubleSupportPercentage,
     };
   }
 
@@ -262,6 +264,8 @@ extension HealthDataTypeUI on HealthDataType {
         'Measure of walking stability and gait regularity (iOS only)',
       WalkingAsymmetryPercentageDataType _ =>
         AppTexts.walkingAsymmetryPercentageDescription,
+      WalkingDoubleSupportPercentageDataType _ =>
+        AppTexts.walkingDoubleSupportPercentageDescription,
     };
   }
 
@@ -383,6 +387,7 @@ extension HealthDataTypeUI on HealthDataType {
       AppleStandTimeDataType _ => AppIcons.time,
       AppleWalkingSteadinessDataType _ => AppIcons.directionsWalk,
       WalkingAsymmetryPercentageDataType _ => AppIcons.directionsWalk,
+      WalkingDoubleSupportPercentageDataType _ => AppIcons.directionsWalk,
     };
   }
 }
@@ -753,6 +758,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.walkingAsymmetryPercentage,
         AppTexts.percent,
       ),
+      const (WalkingDoubleSupportPercentageDataType) => AppTexts.withUnit(
+        AppTexts.walkingDoubleSupportPercentage,
+        AppTexts.percent,
+      ),
 
       _ => throw ArgumentError(
         'No field label for $runtimeType. '
@@ -777,6 +786,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (BloodAlcoholContentDataType) ||
       const (PeripheralPerfusionIndexDataType) ||
       const (WalkingAsymmetryPercentageDataType) ||
+      const (WalkingDoubleSupportPercentageDataType) ||
       const (OxygenSaturationDataType) => '%',
 
       const (BodyMassIndexDataType) => 'kg/m²',

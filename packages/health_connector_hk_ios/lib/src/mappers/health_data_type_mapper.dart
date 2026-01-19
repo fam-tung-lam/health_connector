@@ -213,6 +213,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.appleWalkingSteadiness;
       case HealthDataTypeDto.walkingAsymmetryPercentage:
         return HealthDataType.walkingAsymmetryPercentage;
+      case HealthDataTypeDto.walkingDoubleSupportPercentage:
+        return HealthDataType.walkingDoubleSupportPercentage;
     }
   }
 }
@@ -496,6 +498,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.appleWalkingSteadiness;
       case WalkingAsymmetryPercentageDataType _:
         return HealthDataTypeDto.walkingAsymmetryPercentage;
+      case WalkingDoubleSupportPercentageDataType _:
+        return HealthDataTypeDto.walkingDoubleSupportPercentage;
     }
   }
 }

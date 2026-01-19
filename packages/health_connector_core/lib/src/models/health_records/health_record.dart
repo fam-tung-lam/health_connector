@@ -150,6 +150,7 @@ part 'temperature/body_temperature_record.dart';
 part 'vo2_max_record.dart';
 part 'waist_circumference_record.dart';
 part 'walking_asymmetry_percentage_record.dart';
+part 'walking_double_support_percentage_record.dart';
 part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
 
