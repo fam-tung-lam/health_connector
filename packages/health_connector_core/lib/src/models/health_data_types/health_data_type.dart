@@ -18,9 +18,9 @@ import 'package:meta/meta.dart' show immutable, internal;
 
 part 'activity_intensity_data_type.dart';
 part 'alcoholic_beverages_data_type.dart';
-part 'exercise_time_data_type.dart';
-part 'move_time_data_type.dart';
-part 'stand_time_data_type.dart';
+part 'time/exercise_time_data_type.dart';
+part 'time/move_time_data_type.dart';
+part 'time/stand_time_data_type.dart';
 part 'walking/walking_steadiness_data_type.dart';
 part 'blood_alcohol_content_data_type.dart';
 part 'blood_glucose_data_type.dart';

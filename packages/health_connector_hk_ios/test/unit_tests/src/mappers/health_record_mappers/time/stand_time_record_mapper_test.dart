@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/stand_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/time/stand_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
-import '../../../utils/fake_data.dart';
+import '../../../../utils/fake_data.dart';
 
 void main() {
   group(

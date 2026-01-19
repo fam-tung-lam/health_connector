@@ -1,21 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/time/move_time_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
-import '../../../utils/fake_data.dart';
+import '../../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'ExerciseTimeRecordMapper',
+    'MoveTimeRecordMapper',
     () {
       group(
-        'ExerciseTimeRecordToDto',
+        'MoveTimeRecordToDto',
         () {
           test(
-            'converts ExerciseTimeRecord to ExerciseTimeRecordDto',
+            'converts MoveTimeRecord to MoveTimeRecordDto',
             () {
-              final record = ExerciseTimeRecord.internal(
+              final record = MoveTimeRecord.internal(
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -29,7 +29,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                exerciseTime: const TimeDuration.minutes(30),
+                moveTime: const TimeDuration.minutes(30),
               );
 
               final dto = record.toDto();
@@ -56,12 +56,12 @@ void main() {
       );
 
       group(
-        'ExerciseTimeRecordDtoToDomain',
+        'MoveTimeRecordDtoToDomain',
         () {
           test(
-            'converts ExerciseTimeRecordDto to ExerciseTimeRecord',
+            'converts MoveTimeRecordDto to MoveTimeRecord',
             () {
-              final dto = ExerciseTimeRecordDto(
+              final dto = MoveTimeRecordDto(
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
@@ -81,7 +81,7 @@ void main() {
               expect(record.id.value, FakeData.fakeId);
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
-              expect(record.exerciseTime.inMinutes, 30);
+              expect(record.moveTime.inMinutes, 30);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
