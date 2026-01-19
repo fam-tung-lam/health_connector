@@ -195,6 +195,7 @@ abstract final class AppTexts {
       AppleMoveTimeDataType() => appleMoveTime,
       AppleStandTimeDataType() => appleStandTime,
       AppleWalkingSteadinessDataType() => 'Walking Steadiness',
+      WalkingAsymmetryPercentageDataType() => walkingAsymmetryPercentage,
     };
   }
 
@@ -337,6 +338,10 @@ abstract final class AppTexts {
   static const String appleStandTime = 'Apple Stand Time';
   static const String appleStandTimeDescription =
       'Amount of time spent standing';
+  static const String walkingAsymmetryPercentage = 'Walking Asymmetry';
+  static const String walkingAsymmetryPercentageDescription =
+      'Percentage of time the weight alternates between left and right feet '
+      'unidirectionally or becomes unbalanced.';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';
@@ -1085,6 +1090,9 @@ abstract final class AppTexts {
   // Speed
   static const String speedDescription =
       'Speed of movement during physical activity';
+  static const String walkingAsymmetryPercentageRecordDescription =
+      'Measure of how often one foot is faster or slower than the other '
+      'when walking.';
 
   // endregion
 

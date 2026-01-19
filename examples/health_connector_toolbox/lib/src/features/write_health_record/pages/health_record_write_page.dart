@@ -590,6 +590,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       AppleWalkingSteadinessDataType _ => throw UnsupportedError(
         'Apple Walking Steadiness is read-only',
       ),
+      WalkingAsymmetryPercentageDataType _ => throw UnsupportedError(
+        'Walking Asymmetry Percentage is read-only',
+      ),
     };
   }
 }

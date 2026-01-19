@@ -298,6 +298,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .bodyMassIndex)
         case .waistCircumference:
             try HKQuantityType.make(from: .waistCircumference)
+        case .walkingAsymmetryPercentage:
+            try HKQuantityType.make(from: .walkingAsymmetryPercentage)
         case .heartRateVariabilitySDNN:
             try HKQuantityType.make(from: .heartRateVariabilitySDNN)
         case .peripheralPerfusionIndex:

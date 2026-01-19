@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/src/annotations/annotations.dart';
+import 'package:health_connector_core/src/models/enums/device_placement_side.dart';
 import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
 import 'package:health_connector_core/src/models/health_platform.dart';
@@ -148,6 +149,7 @@ part 'temperature/basal_body_temperature_record.dart';
 part 'temperature/body_temperature_record.dart';
 part 'vo2_max_record.dart';
 part 'waist_circumference_record.dart';
+part 'walking_asymmetry_percentage_record.dart';
 part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
 

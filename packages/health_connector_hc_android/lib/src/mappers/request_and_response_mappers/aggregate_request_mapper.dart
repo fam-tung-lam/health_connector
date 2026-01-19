@@ -149,6 +149,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case PregnancyDataType _:
           case SwimmingStrokesDataType _:
           case ForcedVitalCapacityDataType _:
+          case WalkingAsymmetryPercentageDataType _:
           case ActivityIntensityDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',

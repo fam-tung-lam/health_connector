@@ -74,6 +74,21 @@ enum RecordingMethodDto {
   unknown,
 }
 
+/// Device placement side for health measurements.
+enum DevicePlacementSideDto {
+  /// The placement side is unknown or not specified.
+  unknown,
+
+  /// The device is placed centrally on the body.
+  central,
+
+  /// The device is placed on the left side of the body.
+  left,
+
+  /// The device is placed on the right side of the body.
+  right,
+}
+
 /// Represents metadata for a health record.
 class MetadataDto {
   MetadataDto({
@@ -1001,6 +1016,9 @@ enum HealthDataTypeDto {
   /// Waist circumference data.
   waistCircumference,
 
+  /// Walking asymmetry percentage data (iOS only).
+  walkingAsymmetryPercentage,
+
   /// The forced vital capacity (FVC) data.
   forcedVitalCapacity,
 
@@ -1490,6 +1508,44 @@ class AppleWalkingSteadinessRecordDto extends HealthRecordDto {
 
   /// The walking steadiness percentage (stored as decimal 0.0-1.0).
   final double percentage;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a Walking Asymmetry Percentage record for platform transfer.
+class WalkingAsymmetryPercentageRecordDto extends HealthRecordDto {
+  WalkingAsymmetryPercentageRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.percentage,
+    required this.devicePlacementSide,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// The walking asymmetry percentage (stored as decimal 0.0-1.0).
+  final double percentage;
+
+  /// The placement side of the device used for measurement.
+  final DevicePlacementSideDto devicePlacementSide;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;

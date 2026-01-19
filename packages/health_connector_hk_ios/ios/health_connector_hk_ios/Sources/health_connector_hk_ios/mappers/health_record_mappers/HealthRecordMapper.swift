@@ -99,13 +99,15 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as ContraceptiveRecordDto:
             return try dto.toHealthKit()
+        case let dto as WaistCircumferenceRecordDto:
+            return try dto.toHealthKit()
+        case let dto as WalkingAsymmetryPercentageRecordDto:
+            return try dto.toHealthKit()
         case let dto as LactationRecordDto:
             return try dto.toHealthKit()
         case let dto as BodyMassIndexRecordDto:
             return try dto.toHealthKit()
         case let dto as HeartRateVariabilitySDNNRecordDto:
-            return try dto.toHealthKit()
-        case let dto as WaistCircumferenceRecordDto:
             return try dto.toHealthKit()
         case let dto as DietaryEnergyConsumedRecordDto:
             return try dto.toHealthKitQuantitySample()
@@ -407,6 +409,10 @@ extension HKQuantitySample {
             try toHeartRateVariabilitySDNNRecordDto()
         case .waistCircumference:
             try toWaistCircumferenceRecordDto()
+        case .walkingAsymmetryPercentage:
+            try toWalkingAsymmetryPercentageRecordDto()
+        case .forcedVitalCapacity:
+            try toForcedVitalCapacityRecordDto()
         case .dietaryEnergyConsumed:
             try toDietaryEnergyConsumedDto()
         case .caffeine:

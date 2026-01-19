@@ -149,6 +149,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
         HealthDataType.heartRateVariabilityRMSSD,
       BodyMassIndexRecord _ => HealthDataType.bodyMassIndex,
       WaistCircumferenceRecord _ => HealthDataType.waistCircumference,
+      WalkingAsymmetryPercentageRecord _ =>
+        HealthDataType.walkingAsymmetryPercentage,
       HeartRateVariabilitySDNNRecord _ =>
         HealthDataType.heartRateVariabilitySDNN,
       PeripheralPerfusionIndexRecord _ =>

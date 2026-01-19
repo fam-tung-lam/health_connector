@@ -367,6 +367,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$ForcedVitalCapacityDataType is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
+      case WalkingAsymmetryPercentageDataType _:
+        throw UnsupportedError(
+          '$WalkingAsymmetryPercentageDataType is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

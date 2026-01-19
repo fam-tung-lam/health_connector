@@ -132,6 +132,7 @@ part 'temperature/basal_body_temperature_data_type.dart';
 part 'temperature/body_temperature_data_type.dart';
 part 'vo2_max_data_type.dart';
 part 'waist_circumference_data_type.dart';
+part 'walking_asymmetry_percentage_data_type.dart';
 part 'weight_data_type.dart';
 part 'wheelchair_pushes_data_type.dart';
 
@@ -439,6 +440,19 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_2_0
   @supportedOnAppleHealth
   static const waistCircumference = WaistCircumferenceDataType();
+
+  /// Walking asymmetry percentage data type.
+  ///
+  /// Represents the percentage of steps where one footstrike is moving at a
+  /// different speed than the other. Used to assess gait symmetry.
+  /// Supports reading and aggregation (MIN, MAX, AVG).
+  ///
+  /// > **Note**: This is a read-only data type. It cannot be written or
+  /// > deleted by third-party apps.
+  @sinceV3_2_0
+  @supportedOnAppleHealth
+  static const walkingAsymmetryPercentage =
+      WalkingAsymmetryPercentageDataType();
 
   /// Cervical mucus data type.
   ///
@@ -1158,6 +1172,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     totalEnergyBurned,
     vo2Max,
     waistCircumference,
+    walkingAsymmetryPercentage,
     walkingRunningDistance,
     walkingSpeed,
     weight,

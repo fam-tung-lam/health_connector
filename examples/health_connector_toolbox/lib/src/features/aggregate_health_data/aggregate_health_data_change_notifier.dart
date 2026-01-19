@@ -159,6 +159,21 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      WalkingAsymmetryPercentageDataType() => _buildAvgMinMax(
+        () => HealthDataType.walkingAsymmetryPercentage.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.walkingAsymmetryPercentage.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.walkingAsymmetryPercentage.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
 
       // Mass/Length types - avg/min/max
       WeightDataType() => _buildAvgMinMax(

@@ -6,6 +6,7 @@
 library;
 
 export 'src/config/health_connector_config.dart' show HealthConnectorConfig;
+export 'src/models/enums/device_placement_side.dart' show DevicePlacementSide;
 export 'src/models/exceptions/health_connector_error_code.dart'
     show HealthConnectorErrorCode;
 export 'src/models/exceptions/health_connector_exception.dart'

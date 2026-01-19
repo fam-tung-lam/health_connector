@@ -82,6 +82,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temper
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/temperature/body_temperature_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/waist_circumference_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking_asymmetry_percentage_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/weight_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/wheelchair_pushes_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
@@ -374,6 +375,8 @@ extension HealthRecordToDto on HealthRecord {
         return AppleStandTimeRecordToDto(record).toDto();
       case final AppleWalkingSteadinessRecord record:
         return AppleWalkingSteadinessRecordToDto(record).toDto();
+      case final WalkingAsymmetryPercentageRecord record:
+        return WalkingAsymmetryPercentageRecordToDto(record).toDto();
     }
   }
 }
@@ -556,6 +559,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return AppleStandTimeRecordDtoToDomain(dto).toDomain();
       case final AppleWalkingSteadinessRecordDto dto:
         return AppleWalkingSteadinessRecordDtoToDomain(dto).toDomain();
+      case final WalkingAsymmetryPercentageRecordDto dto:
+        return WalkingAsymmetryPercentageRecordDtoToDomain(dto).toDomain();
     }
   }
 }
