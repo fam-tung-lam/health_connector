@@ -128,6 +128,9 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingDoubleSupportPercentageDataType _ =>
         AppTexts.walkingDoubleSupportPercentage,
       WalkingStepLengthDataType _ => AppTexts.walkingStepLength,
+      LowHeartRateEventDataType _ => AppTexts.lowHeartRateEvent,
+      IrregularHeartRhythmEventDataType _ => 'Irregular Heart Rhythm Event',
+      HighHeartRateEventDataType _ => AppTexts.highHeartRateEvent,
     };
   }
 
@@ -271,6 +274,10 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingDoubleSupportPercentageDataType _ =>
         AppTexts.walkingDoubleSupportPercentageDescription,
       WalkingStepLengthDataType _ => AppTexts.walkingStepLengthDescription,
+      LowHeartRateEventDataType _ => AppTexts.lowHeartRateEventDescription,
+      IrregularHeartRhythmEventDataType _ =>
+        'Detected irregular heart rhythm notification (iOS only)',
+      HighHeartRateEventDataType _ => AppTexts.highHeartRateEventDescription,
     };
   }
 
@@ -395,6 +402,9 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingAsymmetryPercentageDataType _ => AppIcons.directionsWalk,
       WalkingDoubleSupportPercentageDataType _ => AppIcons.directionsWalk,
       WalkingStepLengthDataType _ => AppIcons.directionsWalk,
+      LowHeartRateEventDataType _ => AppIcons.favorite,
+      IrregularHeartRhythmEventDataType _ => AppIcons.favorite,
+      HighHeartRateEventDataType _ => AppIcons.favorite,
     };
   }
 }
@@ -414,7 +424,9 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (WheelchairPushesDataType) ||
       const (SwimmingStrokesDataType) ||
       const (HeartRateDataType) ||
-      const (RestingHeartRateDataType) => TextInputType.number,
+      const (RestingHeartRateDataType) ||
+      const (LowHeartRateEventDataType) ||
+      const (HighHeartRateEventDataType) => TextInputType.number,
 
       // All other types use decimal number input
       _ => const TextInputType.numberWithOptions(decimal: true),
@@ -444,6 +456,14 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (RestingHeartRateDataType) => AppTexts.valueWithUnit(
         AppTexts.restingHeartRate,
+        AppTexts.bpm,
+      ),
+      const (LowHeartRateEventDataType) => AppTexts.valueWithUnit(
+        AppTexts.lowHeartRateEvent,
+        AppTexts.bpm,
+      ),
+      const (HighHeartRateEventDataType) => AppTexts.valueWithUnit(
+        AppTexts.highHeartRateEvent,
         AppTexts.bpm,
       ),
 

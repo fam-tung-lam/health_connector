@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:health_connector/health_connector_internal.dart' show Metadata;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
-
 import 'package:health_connector_toolbox/src/common/utils/show_app_dialog.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_metadata_info.dart';
 
@@ -23,7 +22,7 @@ final class BaseHealthRecordListTile extends StatefulWidget {
     required this.subtitle,
     required this.detailRows,
     required this.metadata,
-    required this.onDelete,
+    this.onDelete,
     super.key,
   });
 
@@ -32,7 +31,7 @@ final class BaseHealthRecordListTile extends StatefulWidget {
   final Widget subtitle;
   final List<Widget> detailRows;
   final Metadata metadata;
-  final VoidCallback onDelete;
+  final VoidCallback? onDelete;
 
   @override
   State<BaseHealthRecordListTile> createState() =>
@@ -53,7 +52,7 @@ class _BaseHealthRecordListTileState extends State<BaseHealthRecordListTile> {
     if (confirmed) {
       // Haptic feedback on confirmed delete
       await HapticFeedback.mediumImpact();
-      widget.onDelete();
+      widget.onDelete?.call();
     }
   }
 
@@ -93,16 +92,17 @@ class _BaseHealthRecordListTileState extends State<BaseHealthRecordListTile> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              icon: Icon(
-                AppIcons.delete,
-                color: colorScheme.error.withValues(alpha: 0.8),
-                size: 22,
+            if (widget.onDelete != null)
+              IconButton(
+                icon: Icon(
+                  AppIcons.delete,
+                  color: colorScheme.error.withValues(alpha: 0.8),
+                  size: 22,
+                ),
+                tooltip: AppTexts.delete,
+                onPressed: _handleDelete,
+                visualDensity: VisualDensity.compact,
               ),
-              tooltip: AppTexts.delete,
-              onPressed: _handleDelete,
-              visualDensity: VisualDensity.compact,
-            ),
             const SizedBox(width: 4),
             AnimatedRotation(
               turns: _isExpanded ? 0.5 : 0.0,

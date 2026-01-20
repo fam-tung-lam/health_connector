@@ -170,6 +170,8 @@ extension HealthRecordDto {
             record.id
         case let record as NutritionRecordDto:
             record.id
+        case let record as PeripheralPerfusionIndexRecordDto:
+            record.id
         case let record as SwimmingStrokesRecordDto:
             record.id
         case let record as ForcedVitalCapacityRecordDto:
@@ -177,6 +179,12 @@ extension HealthRecordDto {
         case let record as WalkingDoubleSupportPercentageRecordDto:
             record.id
         case let record as WalkingStepLengthRecordDto:
+            record.id
+        case let record as LowHeartRateEventRecordDto:
+            record.id
+        case let record as IrregularHeartRhythmEventRecordDto:
+            record.id
+        case let record as HighHeartRateEventRecordDto:
             record.id
         default:
             nil
@@ -375,6 +383,12 @@ extension HealthRecordDto {
                 return .walkingDoubleSupportPercentage
             case is WalkingStepLengthRecordDto:
                 return .walkingStepLength
+            case is LowHeartRateEventRecordDto:
+                return .lowHeartRateEvent
+            case is IrregularHeartRhythmEventRecordDto:
+                return .irregularHeartRhythmEvent
+            case is HighHeartRateEventRecordDto:
+                return .highHeartRateEvent
             default:
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -564,6 +578,12 @@ extension HealthRecordDto {
         case let dto as WalkingDoubleSupportPercentageRecordDto:
             return dto.endTime
         case let dto as WalkingStepLengthRecordDto:
+            return dto.endTime
+        case let dto as LowHeartRateEventRecordDto:
+            return dto.endTime
+        case let dto as IrregularHeartRhythmEventRecordDto:
+            return dto.endTime
+        case let dto as HighHeartRateEventRecordDto:
             return dto.endTime
         default:
             throw HealthConnectorError.invalidArgument(

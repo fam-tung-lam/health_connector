@@ -15,7 +15,7 @@ part of '../health_record.dart';
 /// ```dart
 /// // This is a read-only record type provided by Apple Watch.
 /// // Records are read from HealthKit, not created manually:
-/// final records = await healthConnector.readRecords<SleepingWristTemperatureRecord>(
+/// final records = await healthConnector.readRecords(
 ///   timeRangeFilter: TimeRangeFilter(
 ///     startTime: DateTime.now().subtract(Duration(days: 7)),
 ///     endTime: DateTime.now(),

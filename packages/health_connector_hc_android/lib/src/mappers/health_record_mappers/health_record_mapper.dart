@@ -532,6 +532,21 @@ extension HealthRecordToDto on HealthRecord {
           '$WalkingAsymmetryPercentageRecord is not supported on Android '
           'Health Connect. This data type is iOS-only.',
         );
+      case final LowHeartRateEventRecord _:
+        throw UnsupportedError(
+          '$LowHeartRateEventRecord is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
+      case IrregularHeartRhythmEventRecord():
+        throw UnsupportedError(
+          '$IrregularHeartRhythmEventRecord is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
+      case HighHeartRateEventRecord():
+        throw UnsupportedError(
+          '$HighHeartRateEventRecord is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

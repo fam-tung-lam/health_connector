@@ -609,6 +609,15 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       WalkingAsymmetryPercentageDataType _ => throw UnsupportedError(
         'Walking Asymmetry Percentage is read-only',
       ),
+      LowHeartRateEventDataType _ => throw UnsupportedError(
+        'Low Heart Rate Event is read-only',
+      ),
+      IrregularHeartRhythmEventDataType _ => throw UnsupportedError(
+        'Irregular Heart Rhythm Event is read-only',
+      ),
+      HighHeartRateEventDataType _ => throw UnsupportedError(
+        'High Heart Rate Event is read-only',
+      ),
     };
   }
 }

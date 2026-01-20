@@ -193,7 +193,7 @@ public enum DevicePlacementSideDto: Int {
   case right = 3
 }
 
-/// Test type for VO2 max measurement (iOS HealthKit).
+/// Test type for VO2 max measurement.
 ///
 /// Maps to HKMetadataKeyVO2MaxTestType enum values.
 public enum Vo2MaxTestTypeDto: Int {
@@ -722,11 +722,11 @@ public enum HealthDataTypeDto: Int {
   case wheelchairPushes = 33
   /// Hydration (water intake) data.
   case hydration = 34
-  /// Heart rate measurement record data (iOS HealthKit).
+  /// Heart rate measurement record data.
   case heartRateMeasurementRecord = 35
-  /// Cycling pedaling cadence measurement record data (iOS HealthKit).
+  /// Cycling pedaling cadence measurement record data.
   case cyclingPedalingCadence = 36
-  /// Sleep stage record data (iOS HealthKit).
+  /// Sleep stage record data.
   case sleepStageRecord = 37
   /// Sexual activity data.
   case sexualActivity = 38
@@ -862,6 +862,12 @@ public enum HealthDataTypeDto: Int {
   case heartRateVariabilitySDNN = 103
   /// Sleeping wrist temperature data.
   case sleepingWristTemperature = 104
+  /// High heart rate event data.
+  case highHeartRateEvent = 105
+  /// Irregular heart rhythm event data.
+  case irregularHeartRhythmEvent = 106
+  /// Low heart rate event data.
+  case lowHeartRateEvent = 107
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -994,22 +1000,22 @@ public struct MetadataDto: Hashable {
   var recordingMethod: RecordingMethodDto
   /// The package name of the source app that wrote this health record.
   var dataOrigin: String
-  /// The name of the device that recorded the data (optional).
+  /// The name of the device that recorded the data.
   var deviceName: String? = nil
-  /// The manufacturer of the device that recorded the data (optional).
+  /// The manufacturer of the device that recorded the data.
   var deviceManufacturer: String? = nil
-  /// The model of the device that recorded the data (optional).
+  /// The model of the device that recorded the data.
   var deviceModel: String? = nil
-  /// The hardware version of the device that recorded the data (optional).
+  /// The hardware version of the device that recorded the data.
   var deviceHardwareVersion: String? = nil
-  /// The firmware version of the device that recorded the data (optional).
+  /// The firmware version of the device that recorded the data.
   var deviceFirmwareVersion: String? = nil
-  /// The software version of the device that recorded the data (optional).
+  /// The software version of the device that recorded the data.
   var deviceSoftwareVersion: String? = nil
-  /// A local identifier for the device that recorded the data (optional).
+  /// A local identifier for the device that recorded the data.
   var deviceLocalIdentifier: String? = nil
   /// The UDI (Unique Device Identifier) for the device that recorded
-  /// the data (optional).
+  /// the data.
   var deviceUdiDeviceIdentifier: String? = nil
 
 
@@ -1089,7 +1095,7 @@ public struct RestingHeartRateRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Resting heart rate in beats per minute.
   var beatsPerMinute: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -1125,6 +1131,175 @@ public struct RestingHeartRateRecordDto: HealthRecordDto {
   }
 }
 
+/// Represents a low heart rate event record for platform transfer.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct LowHeartRateEventRecordDto: HealthRecordDto {
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// The heart rate threshold in beats per minute.
+  var beatsPerMinuteThreshold: Double? = nil
+  /// Timezone offset in seconds for start time.
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time.
+  var endZoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> LowHeartRateEventRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let beatsPerMinuteThreshold: Double? = nilOrValue(pigeonVar_list[4])
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
+
+    return LowHeartRateEventRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      beatsPerMinuteThreshold: beatsPerMinuteThreshold,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      beatsPerMinuteThreshold,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: LowHeartRateEventRecordDto, rhs: LowHeartRateEventRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
+/// Represents a high heart rate event record for platform transfer.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct HighHeartRateEventRecordDto: HealthRecordDto {
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// The heart rate threshold in beats per minute.
+  var beatsPerMinuteThreshold: Double? = nil
+  /// Timezone offset in seconds for start time.
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time.
+  var endZoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HighHeartRateEventRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let beatsPerMinuteThreshold: Double? = nilOrValue(pigeonVar_list[4])
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
+
+    return HighHeartRateEventRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      beatsPerMinuteThreshold: beatsPerMinuteThreshold,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      beatsPerMinuteThreshold,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: HighHeartRateEventRecordDto, rhs: HighHeartRateEventRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
+/// Represents an irregular heart rhythm event record for platform transfer.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct IrregularHeartRhythmEventRecordDto: HealthRecordDto {
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Timezone offset in seconds for start time.
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time.
+  var endZoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> IrregularHeartRhythmEventRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+
+    return IrregularHeartRhythmEventRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: IrregularHeartRhythmEventRecordDto, rhs: IrregularHeartRhythmEventRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 /// Represents a VO2 max record for platform transfer.
 ///
 /// VO2 max is the maximum rate of oxygen consumption during exercise,
@@ -1144,7 +1319,7 @@ public struct Vo2MaxRecordDto: HealthRecordDto {
   ///
   /// Maps to HKMetadataKeyVO2MaxTestType.
   var testType: Vo2MaxTestTypeDto? = nil
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -1195,7 +1370,7 @@ public struct ForcedVitalCapacityRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// The volume in liters.
   var liters: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -1243,7 +1418,7 @@ public struct BodyMassIndexRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// The body mass index value.
   var bodyMassIndex: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -1291,7 +1466,7 @@ public struct WaistCircumferenceRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// The waist circumference measurement.
   var meters: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -1339,7 +1514,7 @@ public struct HeartRateVariabilitySDNNRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// The heart rate variability SDNN value in milliseconds.
   var heartRateVariabilityMillis: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -1393,7 +1568,7 @@ public struct BloodGlucoseRecordDto: HealthRecordDto {
   var relationToMeal: BloodGlucoseRelationToMealDto? = nil
   /// The source of the specimen used for this measurement.
   var specimenSource: BloodGlucoseSpecimenSourceDto? = nil
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -1458,9 +1633,9 @@ public struct ExerciseSessionRecordDto: HealthRecordDto {
   var title: String? = nil
   /// Optional notes about the exercise session.
   var notes: String? = nil
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -1530,9 +1705,9 @@ public struct MindfulnessSessionRecordDto: HealthRecordDto {
   var title: String? = nil
   /// Optional notes about the mindfulness session.
   var notes: String? = nil
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -1592,9 +1767,9 @@ public struct ActiveEnergyBurnedRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -1650,9 +1825,9 @@ public struct AlcoholicBeveragesRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -1709,9 +1884,9 @@ public struct ExerciseTimeRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -1768,9 +1943,9 @@ public struct MoveTimeRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -1827,9 +2002,9 @@ public struct StandTimeRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -1885,9 +2060,9 @@ public struct WalkingSteadinessRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -1945,9 +2120,9 @@ public struct WalkingAsymmetryPercentageRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -2008,9 +2183,9 @@ public struct WalkingDoubleSupportPercentageRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -2056,7 +2231,7 @@ public struct WalkingDoubleSupportPercentageRecordDto: HealthRecordDto {
 }
 
 /// Represents a walking step length record for platform transfer
-/// (iOS HealthKit).
+/// .
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WalkingStepLengthRecordDto: HealthRecordDto {
@@ -2072,9 +2247,9 @@ public struct WalkingStepLengthRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -2135,9 +2310,9 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -2199,7 +2374,7 @@ public struct SpeedActivityRecordDto: HealthRecordDto {
   var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
-  /// Timezone offset in seconds (optional).
+  /// Timezone offset in seconds.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2252,9 +2427,9 @@ public struct FloorsClimbedRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -2310,9 +2485,9 @@ public struct WheelchairPushesRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -2368,9 +2543,9 @@ public struct StepsRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -2424,9 +2599,9 @@ public struct SwimmingStrokesRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -2480,7 +2655,7 @@ public struct WeightRecordDto: HealthRecordDto {
   var time: Int64
   /// Weight measurement.
   var kilograms: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2537,7 +2712,7 @@ public struct BloodPressureRecordDto: HealthRecordDto {
   /// Location where measurement was taken (Android Health Connect Only,
   /// always unknown on iOS HealthKit).
   var measurementLocation: MeasurementLocationDto
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2601,7 +2776,7 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
   /// Location where measurement was taken (Android Health Connect Only,
   /// always unknown on iOS HealthKit).
   var measurementLocation: MeasurementLocationDto
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2662,7 +2837,7 @@ public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
   /// Location where measurement was taken (Android Health Connect Only,
   /// always unknown on iOS HealthKit).
   var measurementLocation: MeasurementLocationDto
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2716,7 +2891,7 @@ public struct LeanBodyMassRecordDto: HealthRecordDto {
   var time: Int64
   /// Lean body mass measurement.
   var kilograms: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2764,7 +2939,7 @@ public struct HeightRecordDto: HealthRecordDto {
   var time: Int64
   /// Height measurement.
   var meters: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2854,7 +3029,7 @@ public struct BodyFatPercentageRecordDto: HealthRecordDto {
   var time: Int64
   /// Body fat percentage measurement.
   var percentage: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2902,7 +3077,7 @@ public struct BodyTemperatureRecordDto: HealthRecordDto {
   var time: Int64
   /// Body temperature measurement.
   var celsius: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -2952,7 +3127,7 @@ public struct BasalBodyTemperatureRecordDto: HealthRecordDto {
   var celsius: Double
   /// The location on the body where the measurement was taken.
   var measurementLocation: BasalBodyTemperatureMeasurementLocationDto
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -3007,9 +3182,9 @@ public struct SleepingWristTemperatureRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Temperature in Celsius.
   var temperatureCelsius: Double
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -3069,7 +3244,7 @@ public struct CervicalMucusRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Observation time in milliseconds since epoch (UTC).
   var time: Int64
-  /// Timezone offset in seconds for observation time (optional).
+  /// Timezone offset in seconds for observation time.
   var zoneOffsetSeconds: Int64? = nil
   /// Cervical mucus appearance.
   /// Values `unusual` and `unknown` use custom metadata on iOS.
@@ -3126,7 +3301,7 @@ public struct CyclingPowerRecordDto: HealthRecordDto {
   var time: Int64
   /// Cycling power measurement.
   var watts: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -3174,7 +3349,7 @@ public struct RunningPowerRecordDto: HealthRecordDto {
   var time: Int64
   /// Running power measurement in Watts.
   var watts: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -3222,7 +3397,7 @@ public struct OxygenSaturationRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Oxygen saturation percentage.
   var percentage: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -3268,7 +3443,7 @@ public struct OvulationTestRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
   /// The ovulation test result.
   var result: OvulationTestResultDto
@@ -3316,7 +3491,7 @@ public struct PregnancyTestRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
   /// The pregnancy test result.
   var result: PregnancyTestResultDto
@@ -3354,7 +3529,7 @@ public struct PregnancyTestRecordDto: HealthRecordDto {
   }
 }
 
-/// Represents a pregnancy record for platform transfer (iOS HealthKit).
+/// Represents a pregnancy record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PregnancyRecordDto: HealthRecordDto {
@@ -3366,9 +3541,9 @@ public struct PregnancyRecordDto: HealthRecordDto {
   var startTime: Int64
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -3407,7 +3582,7 @@ public struct PregnancyRecordDto: HealthRecordDto {
   }
 }
 
-/// Represents a contraceptive record for platform transfer (iOS HealthKit).
+/// Represents a contraceptive record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ContraceptiveRecordDto: HealthRecordDto {
@@ -3421,9 +3596,9 @@ public struct ContraceptiveRecordDto: HealthRecordDto {
   var endTime: Int64
   /// The type of contraceptive method used during this period.
   var contraceptiveType: ContraceptiveTypeDto
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -3475,7 +3650,7 @@ public struct ProgesteroneTestRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
   /// The progesterone test result.
   var result: ProgesteroneTestResultDto
@@ -3523,7 +3698,7 @@ public struct IntermenstrualBleedingRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -3572,9 +3747,9 @@ public struct MenstrualFlowRecordDto: HealthRecordDto {
   var startTime: Int64
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
   /// The menstrual flow intensity.
   var flow: MenstrualFlowDto
@@ -3636,7 +3811,7 @@ public struct RespiratoryRateRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Respiratory rate in breaths per minute.
   var breathsPerMinute: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -3686,9 +3861,9 @@ public struct HydrationRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Volume of water consumed during the interval.
   var liters: Double
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -3779,7 +3954,7 @@ public struct HeartRateRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// The heart rate value in beats per minute (BPM).
   var beatsPerMinute: Double
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   var zoneOffsetSeconds: Int64? = nil
 
 
@@ -3815,7 +3990,7 @@ public struct HeartRateRecordDto: HealthRecordDto {
   }
 }
 
-/// Represents a cycling pedaling cadence measurement record (iOS HealthKit).
+/// Represents a cycling pedaling cadence measurement record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct CyclingPedalingCadenceRecordDto: HealthRecordDto {
@@ -3863,7 +4038,7 @@ public struct CyclingPedalingCadenceRecordDto: HealthRecordDto {
   }
 }
 
-/// Represents a sleep stage record for platform transfer (iOS HealthKit).
+/// Represents a sleep stage record for platform transfer.
 ///
 /// Sleep data in HealthKit uses HKCategorySample with categoryType
 /// .sleepAnalysis. Each record represents a single continuous period in one
@@ -3881,9 +4056,9 @@ public struct SleepStageRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// The sleep stage type for this record.
   var stageType: SleepStageDto
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
 
 
@@ -3935,9 +4110,9 @@ public struct SexualActivityRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Time in milliseconds since epoch (UTC).
   var time: Int64
-  /// Timezone offset in seconds (optional).
+  /// Timezone offset in seconds.
   var zoneOffsetSeconds: Int64? = nil
-  /// Whether protection was used (optional).
+  /// Whether protection was used.
   var protectionUsed: SexualActivityProtectionUsedDto
 
 
@@ -3987,11 +4162,11 @@ public struct DietaryEnergyConsumedRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Time in milliseconds since epoch (UTC).
   var time: Int64
-  /// Timezone offset in seconds (optional).
+  /// Timezone offset in seconds.
   var zoneOffsetSeconds: Int64? = nil
   /// Energy value (in kilocalories).
   var kilocalories: Double
-  /// Name of the food (optional).
+  /// Name of the food.
   var foodName: String? = nil
   /// Meal type classification.
   var mealType: MealTypeDto? = nil
@@ -5734,9 +5909,9 @@ public struct NutritionRecordDto: HealthRecordDto {
   var endTime: Int64
   /// Metadata about this record.
   var metadata: MetadataDto
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
   /// Name of the food (stored in HKMetadataKeyFoodType).
   var foodName: String? = nil
@@ -5961,9 +6136,9 @@ public struct BasalEnergyBurnedRecordDto: HealthRecordDto {
   var startTime: Int64
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   var startZoneOffsetSeconds: Int64? = nil
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   var endZoneOffsetSeconds: Int64? = nil
   /// Energy burned.
   var kilocalories: Double
@@ -6334,7 +6509,7 @@ public struct ReadRecordsRequestDto: Hashable {
   var dataType: HealthDataTypeDto
   /// Maximum number of records to return per page (1-10,000).
   var pageSize: Int64
-  /// Opaque pagination token for fetching next page (optional).
+  /// Opaque pagination token for fetching next page.
   ///
   /// Provided by previous response's nextPageToken.
   var pageToken: String? = nil
@@ -6602,24 +6777,30 @@ private struct PigeonInternalCodecOverflow {
         
     switch type {
       case 0:
-        return PermissionsRequestDto.fromList(wrapped as! [Any?]);
+        return HealthDataSyncResultDto.fromList(wrapped as! [Any?]);
       case 1:
-        return AggregateRequestDto.fromList(wrapped as! [Any?]);
+        return HealthDataPermissionDto.fromList(wrapped as! [Any?]);
       case 2:
-        return DeleteRecordsByIdsRequestDto.fromList(wrapped as! [Any?]);
+        return HealthDataPermissionRequestResultDto.fromList(wrapped as! [Any?]);
       case 3:
-        return DeleteRecordsByTimeRangeRequestDto.fromList(wrapped as! [Any?]);
+        return PermissionsRequestDto.fromList(wrapped as! [Any?]);
       case 4:
-        return ReadRecordRequestDto.fromList(wrapped as! [Any?]);
+        return AggregateRequestDto.fromList(wrapped as! [Any?]);
       case 5:
-        return ReadRecordsRequestDto.fromList(wrapped as! [Any?]);
+        return DeleteRecordsByIdsRequestDto.fromList(wrapped as! [Any?]);
       case 6:
-        return ReadRecordsResponseDto.fromList(wrapped as! [Any?]);
+        return DeleteRecordsByTimeRangeRequestDto.fromList(wrapped as! [Any?]);
       case 7:
-        return HealthConnectorExceptionDto.fromList(wrapped as! [Any?]);
+        return ReadRecordRequestDto.fromList(wrapped as! [Any?]);
       case 8:
-        return HealthConnectorLogDto.fromList(wrapped as! [Any?]);
+        return ReadRecordsRequestDto.fromList(wrapped as! [Any?]);
       case 9:
+        return ReadRecordsResponseDto.fromList(wrapped as! [Any?]);
+      case 10:
+        return HealthConnectorExceptionDto.fromList(wrapped as! [Any?]);
+      case 11:
+        return HealthConnectorLogDto.fromList(wrapped as! [Any?]);
+      case 12:
         return PeripheralPerfusionIndexRecordDto.fromList(wrapped as! [Any?]);
       default: 
         return nil
@@ -6823,189 +7004,189 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 162:
       return RestingHeartRateRecordDto.fromList(self.readValue() as! [Any?])
     case 163:
-      return Vo2MaxRecordDto.fromList(self.readValue() as! [Any?])
+      return LowHeartRateEventRecordDto.fromList(self.readValue() as! [Any?])
     case 164:
-      return ForcedVitalCapacityRecordDto.fromList(self.readValue() as! [Any?])
+      return HighHeartRateEventRecordDto.fromList(self.readValue() as! [Any?])
     case 165:
-      return BodyMassIndexRecordDto.fromList(self.readValue() as! [Any?])
+      return IrregularHeartRhythmEventRecordDto.fromList(self.readValue() as! [Any?])
     case 166:
-      return WaistCircumferenceRecordDto.fromList(self.readValue() as! [Any?])
+      return Vo2MaxRecordDto.fromList(self.readValue() as! [Any?])
     case 167:
-      return HeartRateVariabilitySDNNRecordDto.fromList(self.readValue() as! [Any?])
+      return ForcedVitalCapacityRecordDto.fromList(self.readValue() as! [Any?])
     case 168:
-      return BloodGlucoseRecordDto.fromList(self.readValue() as! [Any?])
+      return BodyMassIndexRecordDto.fromList(self.readValue() as! [Any?])
     case 169:
-      return ExerciseSessionRecordDto.fromList(self.readValue() as! [Any?])
+      return WaistCircumferenceRecordDto.fromList(self.readValue() as! [Any?])
     case 170:
-      return MindfulnessSessionRecordDto.fromList(self.readValue() as! [Any?])
+      return HeartRateVariabilitySDNNRecordDto.fromList(self.readValue() as! [Any?])
     case 171:
-      return ActiveEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
+      return BloodGlucoseRecordDto.fromList(self.readValue() as! [Any?])
     case 172:
-      return AlcoholicBeveragesRecordDto.fromList(self.readValue() as! [Any?])
+      return ExerciseSessionRecordDto.fromList(self.readValue() as! [Any?])
     case 173:
-      return ExerciseTimeRecordDto.fromList(self.readValue() as! [Any?])
+      return MindfulnessSessionRecordDto.fromList(self.readValue() as! [Any?])
     case 174:
-      return MoveTimeRecordDto.fromList(self.readValue() as! [Any?])
+      return ActiveEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
     case 175:
-      return StandTimeRecordDto.fromList(self.readValue() as! [Any?])
+      return AlcoholicBeveragesRecordDto.fromList(self.readValue() as! [Any?])
     case 176:
-      return WalkingSteadinessRecordDto.fromList(self.readValue() as! [Any?])
+      return ExerciseTimeRecordDto.fromList(self.readValue() as! [Any?])
     case 177:
-      return WalkingAsymmetryPercentageRecordDto.fromList(self.readValue() as! [Any?])
+      return MoveTimeRecordDto.fromList(self.readValue() as! [Any?])
     case 178:
-      return WalkingDoubleSupportPercentageRecordDto.fromList(self.readValue() as! [Any?])
+      return StandTimeRecordDto.fromList(self.readValue() as! [Any?])
     case 179:
-      return WalkingStepLengthRecordDto.fromList(self.readValue() as! [Any?])
+      return WalkingSteadinessRecordDto.fromList(self.readValue() as! [Any?])
     case 180:
-      return DistanceActivityRecordDto.fromList(self.readValue() as! [Any?])
+      return WalkingAsymmetryPercentageRecordDto.fromList(self.readValue() as! [Any?])
     case 181:
-      return SpeedActivityRecordDto.fromList(self.readValue() as! [Any?])
+      return WalkingDoubleSupportPercentageRecordDto.fromList(self.readValue() as! [Any?])
     case 182:
-      return FloorsClimbedRecordDto.fromList(self.readValue() as! [Any?])
+      return WalkingStepLengthRecordDto.fromList(self.readValue() as! [Any?])
     case 183:
-      return WheelchairPushesRecordDto.fromList(self.readValue() as! [Any?])
+      return DistanceActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 184:
-      return StepsRecordDto.fromList(self.readValue() as! [Any?])
+      return SpeedActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 185:
-      return SwimmingStrokesRecordDto.fromList(self.readValue() as! [Any?])
+      return FloorsClimbedRecordDto.fromList(self.readValue() as! [Any?])
     case 186:
-      return WeightRecordDto.fromList(self.readValue() as! [Any?])
+      return WheelchairPushesRecordDto.fromList(self.readValue() as! [Any?])
     case 187:
-      return BloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+      return StepsRecordDto.fromList(self.readValue() as! [Any?])
     case 188:
-      return SystolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+      return SwimmingStrokesRecordDto.fromList(self.readValue() as! [Any?])
     case 189:
-      return DiastolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+      return WeightRecordDto.fromList(self.readValue() as! [Any?])
     case 190:
-      return LeanBodyMassRecordDto.fromList(self.readValue() as! [Any?])
+      return BloodPressureRecordDto.fromList(self.readValue() as! [Any?])
     case 191:
-      return HeightRecordDto.fromList(self.readValue() as! [Any?])
+      return SystolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
     case 192:
-      return BloodAlcoholContentRecordDto.fromList(self.readValue() as! [Any?])
+      return DiastolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
     case 193:
-      return BodyFatPercentageRecordDto.fromList(self.readValue() as! [Any?])
+      return LeanBodyMassRecordDto.fromList(self.readValue() as! [Any?])
     case 194:
-      return BodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
+      return HeightRecordDto.fromList(self.readValue() as! [Any?])
     case 195:
-      return BasalBodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
+      return BloodAlcoholContentRecordDto.fromList(self.readValue() as! [Any?])
     case 196:
-      return SleepingWristTemperatureRecordDto.fromList(self.readValue() as! [Any?])
+      return BodyFatPercentageRecordDto.fromList(self.readValue() as! [Any?])
     case 197:
-      return CervicalMucusRecordDto.fromList(self.readValue() as! [Any?])
+      return BodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
     case 198:
-      return CyclingPowerRecordDto.fromList(self.readValue() as! [Any?])
+      return BasalBodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
     case 199:
-      return RunningPowerRecordDto.fromList(self.readValue() as! [Any?])
+      return SleepingWristTemperatureRecordDto.fromList(self.readValue() as! [Any?])
     case 200:
-      return OxygenSaturationRecordDto.fromList(self.readValue() as! [Any?])
+      return CervicalMucusRecordDto.fromList(self.readValue() as! [Any?])
     case 201:
-      return OvulationTestRecordDto.fromList(self.readValue() as! [Any?])
+      return CyclingPowerRecordDto.fromList(self.readValue() as! [Any?])
     case 202:
-      return PregnancyTestRecordDto.fromList(self.readValue() as! [Any?])
+      return RunningPowerRecordDto.fromList(self.readValue() as! [Any?])
     case 203:
-      return PregnancyRecordDto.fromList(self.readValue() as! [Any?])
+      return OxygenSaturationRecordDto.fromList(self.readValue() as! [Any?])
     case 204:
-      return ContraceptiveRecordDto.fromList(self.readValue() as! [Any?])
+      return OvulationTestRecordDto.fromList(self.readValue() as! [Any?])
     case 205:
-      return ProgesteroneTestRecordDto.fromList(self.readValue() as! [Any?])
+      return PregnancyTestRecordDto.fromList(self.readValue() as! [Any?])
     case 206:
-      return IntermenstrualBleedingRecordDto.fromList(self.readValue() as! [Any?])
+      return PregnancyRecordDto.fromList(self.readValue() as! [Any?])
     case 207:
-      return MenstrualFlowRecordDto.fromList(self.readValue() as! [Any?])
+      return ContraceptiveRecordDto.fromList(self.readValue() as! [Any?])
     case 208:
-      return RespiratoryRateRecordDto.fromList(self.readValue() as! [Any?])
+      return ProgesteroneTestRecordDto.fromList(self.readValue() as! [Any?])
     case 209:
-      return HydrationRecordDto.fromList(self.readValue() as! [Any?])
+      return IntermenstrualBleedingRecordDto.fromList(self.readValue() as! [Any?])
     case 210:
-      return HeartRateMeasurementDto.fromList(self.readValue() as! [Any?])
+      return MenstrualFlowRecordDto.fromList(self.readValue() as! [Any?])
     case 211:
-      return HeartRateRecordDto.fromList(self.readValue() as! [Any?])
+      return RespiratoryRateRecordDto.fromList(self.readValue() as! [Any?])
     case 212:
-      return CyclingPedalingCadenceRecordDto.fromList(self.readValue() as! [Any?])
+      return HydrationRecordDto.fromList(self.readValue() as! [Any?])
     case 213:
-      return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
+      return HeartRateMeasurementDto.fromList(self.readValue() as! [Any?])
     case 214:
-      return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
+      return HeartRateRecordDto.fromList(self.readValue() as! [Any?])
     case 215:
-      return DietaryEnergyConsumedRecordDto.fromList(self.readValue() as! [Any?])
+      return CyclingPedalingCadenceRecordDto.fromList(self.readValue() as! [Any?])
     case 216:
-      return DietaryCaffeineRecordDto.fromList(self.readValue() as! [Any?])
+      return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
     case 217:
-      return DietaryProteinRecordDto.fromList(self.readValue() as! [Any?])
+      return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 218:
-      return DietaryTotalCarbohydrateRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryEnergyConsumedRecordDto.fromList(self.readValue() as! [Any?])
     case 219:
-      return DietaryTotalFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCaffeineRecordDto.fromList(self.readValue() as! [Any?])
     case 220:
-      return DietarySaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryProteinRecordDto.fromList(self.readValue() as! [Any?])
     case 221:
-      return DietaryMonounsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryTotalCarbohydrateRecordDto.fromList(self.readValue() as! [Any?])
     case 222:
-      return DietaryPolyunsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryTotalFatRecordDto.fromList(self.readValue() as! [Any?])
     case 223:
-      return DietaryCholesterolRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 224:
-      return DietaryFiberRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryMonounsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 225:
-      return DietarySugarRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPolyunsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 226:
-      return DietaryVitaminARecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCholesterolRecordDto.fromList(self.readValue() as! [Any?])
     case 227:
-      return DietaryVitaminB6RecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryFiberRecordDto.fromList(self.readValue() as! [Any?])
     case 228:
-      return DietaryVitaminB12RecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySugarRecordDto.fromList(self.readValue() as! [Any?])
     case 229:
-      return DietaryVitaminCRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminARecordDto.fromList(self.readValue() as! [Any?])
     case 230:
-      return DietaryVitaminDRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminB6RecordDto.fromList(self.readValue() as! [Any?])
     case 231:
-      return DietaryVitaminERecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminB12RecordDto.fromList(self.readValue() as! [Any?])
     case 232:
-      return LactationRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminCRecordDto.fromList(self.readValue() as! [Any?])
     case 233:
-      return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminDRecordDto.fromList(self.readValue() as! [Any?])
     case 234:
-      return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminERecordDto.fromList(self.readValue() as! [Any?])
     case 235:
-      return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
+      return LactationRecordDto.fromList(self.readValue() as! [Any?])
     case 236:
-      return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
     case 237:
-      return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
     case 238:
-      return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
     case 239:
-      return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
     case 240:
-      return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
     case 241:
-      return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
     case 242:
-      return DietaryMagnesiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
     case 243:
-      return DietaryManganeseRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
     case 244:
-      return DietaryPhosphorusRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
     case 245:
-      return DietaryPotassiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryMagnesiumRecordDto.fromList(self.readValue() as! [Any?])
     case 246:
-      return DietarySeleniumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryManganeseRecordDto.fromList(self.readValue() as! [Any?])
     case 247:
-      return DietarySodiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPhosphorusRecordDto.fromList(self.readValue() as! [Any?])
     case 248:
-      return DietaryZincRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPotassiumRecordDto.fromList(self.readValue() as! [Any?])
     case 249:
-      return NutritionRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySeleniumRecordDto.fromList(self.readValue() as! [Any?])
     case 250:
-      return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySodiumRecordDto.fromList(self.readValue() as! [Any?])
     case 251:
-      return HealthDataSyncTokenDto.fromList(self.readValue() as! [Any?])
+      return DietaryZincRecordDto.fromList(self.readValue() as! [Any?])
     case 252:
-      return HealthDataSyncResultDto.fromList(self.readValue() as! [Any?])
+      return NutritionRecordDto.fromList(self.readValue() as! [Any?])
     case 253:
-      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
+      return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
     case 254:
-      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
+      return HealthDataSyncTokenDto.fromList(self.readValue() as! [Any?])
     case 255:
       return PigeonInternalCodecOverflow.fromList(self.readValue() as! [Any?])
     default:
@@ -7118,320 +7299,332 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? RestingHeartRateRecordDto {
       super.writeByte(162)
       super.writeValue(value.toList())
-    } else if let value = value as? Vo2MaxRecordDto {
+    } else if let value = value as? LowHeartRateEventRecordDto {
       super.writeByte(163)
       super.writeValue(value.toList())
-    } else if let value = value as? ForcedVitalCapacityRecordDto {
+    } else if let value = value as? HighHeartRateEventRecordDto {
       super.writeByte(164)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyMassIndexRecordDto {
+    } else if let value = value as? IrregularHeartRhythmEventRecordDto {
       super.writeByte(165)
       super.writeValue(value.toList())
-    } else if let value = value as? WaistCircumferenceRecordDto {
+    } else if let value = value as? Vo2MaxRecordDto {
       super.writeByte(166)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateVariabilitySDNNRecordDto {
+    } else if let value = value as? ForcedVitalCapacityRecordDto {
       super.writeByte(167)
       super.writeValue(value.toList())
-    } else if let value = value as? BloodGlucoseRecordDto {
+    } else if let value = value as? BodyMassIndexRecordDto {
       super.writeByte(168)
       super.writeValue(value.toList())
-    } else if let value = value as? ExerciseSessionRecordDto {
+    } else if let value = value as? WaistCircumferenceRecordDto {
       super.writeByte(169)
       super.writeValue(value.toList())
-    } else if let value = value as? MindfulnessSessionRecordDto {
+    } else if let value = value as? HeartRateVariabilitySDNNRecordDto {
       super.writeByte(170)
       super.writeValue(value.toList())
-    } else if let value = value as? ActiveEnergyBurnedRecordDto {
+    } else if let value = value as? BloodGlucoseRecordDto {
       super.writeByte(171)
       super.writeValue(value.toList())
-    } else if let value = value as? AlcoholicBeveragesRecordDto {
+    } else if let value = value as? ExerciseSessionRecordDto {
       super.writeByte(172)
       super.writeValue(value.toList())
-    } else if let value = value as? ExerciseTimeRecordDto {
+    } else if let value = value as? MindfulnessSessionRecordDto {
       super.writeByte(173)
       super.writeValue(value.toList())
-    } else if let value = value as? MoveTimeRecordDto {
+    } else if let value = value as? ActiveEnergyBurnedRecordDto {
       super.writeByte(174)
       super.writeValue(value.toList())
-    } else if let value = value as? StandTimeRecordDto {
+    } else if let value = value as? AlcoholicBeveragesRecordDto {
       super.writeByte(175)
       super.writeValue(value.toList())
-    } else if let value = value as? WalkingSteadinessRecordDto {
+    } else if let value = value as? ExerciseTimeRecordDto {
       super.writeByte(176)
       super.writeValue(value.toList())
-    } else if let value = value as? WalkingAsymmetryPercentageRecordDto {
+    } else if let value = value as? MoveTimeRecordDto {
       super.writeByte(177)
       super.writeValue(value.toList())
-    } else if let value = value as? WalkingDoubleSupportPercentageRecordDto {
+    } else if let value = value as? StandTimeRecordDto {
       super.writeByte(178)
       super.writeValue(value.toList())
-    } else if let value = value as? WalkingStepLengthRecordDto {
+    } else if let value = value as? WalkingSteadinessRecordDto {
       super.writeByte(179)
       super.writeValue(value.toList())
-    } else if let value = value as? DistanceActivityRecordDto {
+    } else if let value = value as? WalkingAsymmetryPercentageRecordDto {
       super.writeByte(180)
       super.writeValue(value.toList())
-    } else if let value = value as? SpeedActivityRecordDto {
+    } else if let value = value as? WalkingDoubleSupportPercentageRecordDto {
       super.writeByte(181)
       super.writeValue(value.toList())
-    } else if let value = value as? FloorsClimbedRecordDto {
+    } else if let value = value as? WalkingStepLengthRecordDto {
       super.writeByte(182)
       super.writeValue(value.toList())
-    } else if let value = value as? WheelchairPushesRecordDto {
+    } else if let value = value as? DistanceActivityRecordDto {
       super.writeByte(183)
       super.writeValue(value.toList())
-    } else if let value = value as? StepsRecordDto {
+    } else if let value = value as? SpeedActivityRecordDto {
       super.writeByte(184)
       super.writeValue(value.toList())
-    } else if let value = value as? SwimmingStrokesRecordDto {
+    } else if let value = value as? FloorsClimbedRecordDto {
       super.writeByte(185)
       super.writeValue(value.toList())
-    } else if let value = value as? WeightRecordDto {
+    } else if let value = value as? WheelchairPushesRecordDto {
       super.writeByte(186)
       super.writeValue(value.toList())
-    } else if let value = value as? BloodPressureRecordDto {
+    } else if let value = value as? StepsRecordDto {
       super.writeByte(187)
       super.writeValue(value.toList())
-    } else if let value = value as? SystolicBloodPressureRecordDto {
+    } else if let value = value as? SwimmingStrokesRecordDto {
       super.writeByte(188)
       super.writeValue(value.toList())
-    } else if let value = value as? DiastolicBloodPressureRecordDto {
+    } else if let value = value as? WeightRecordDto {
       super.writeByte(189)
       super.writeValue(value.toList())
-    } else if let value = value as? LeanBodyMassRecordDto {
+    } else if let value = value as? BloodPressureRecordDto {
       super.writeByte(190)
       super.writeValue(value.toList())
-    } else if let value = value as? HeightRecordDto {
+    } else if let value = value as? SystolicBloodPressureRecordDto {
       super.writeByte(191)
       super.writeValue(value.toList())
-    } else if let value = value as? BloodAlcoholContentRecordDto {
+    } else if let value = value as? DiastolicBloodPressureRecordDto {
       super.writeByte(192)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyFatPercentageRecordDto {
+    } else if let value = value as? LeanBodyMassRecordDto {
       super.writeByte(193)
       super.writeValue(value.toList())
-    } else if let value = value as? BodyTemperatureRecordDto {
+    } else if let value = value as? HeightRecordDto {
       super.writeByte(194)
       super.writeValue(value.toList())
-    } else if let value = value as? BasalBodyTemperatureRecordDto {
+    } else if let value = value as? BloodAlcoholContentRecordDto {
       super.writeByte(195)
       super.writeValue(value.toList())
-    } else if let value = value as? SleepingWristTemperatureRecordDto {
+    } else if let value = value as? BodyFatPercentageRecordDto {
       super.writeByte(196)
       super.writeValue(value.toList())
-    } else if let value = value as? CervicalMucusRecordDto {
+    } else if let value = value as? BodyTemperatureRecordDto {
       super.writeByte(197)
       super.writeValue(value.toList())
-    } else if let value = value as? CyclingPowerRecordDto {
+    } else if let value = value as? BasalBodyTemperatureRecordDto {
       super.writeByte(198)
       super.writeValue(value.toList())
-    } else if let value = value as? RunningPowerRecordDto {
+    } else if let value = value as? SleepingWristTemperatureRecordDto {
       super.writeByte(199)
       super.writeValue(value.toList())
-    } else if let value = value as? OxygenSaturationRecordDto {
+    } else if let value = value as? CervicalMucusRecordDto {
       super.writeByte(200)
       super.writeValue(value.toList())
-    } else if let value = value as? OvulationTestRecordDto {
+    } else if let value = value as? CyclingPowerRecordDto {
       super.writeByte(201)
       super.writeValue(value.toList())
-    } else if let value = value as? PregnancyTestRecordDto {
+    } else if let value = value as? RunningPowerRecordDto {
       super.writeByte(202)
       super.writeValue(value.toList())
-    } else if let value = value as? PregnancyRecordDto {
+    } else if let value = value as? OxygenSaturationRecordDto {
       super.writeByte(203)
       super.writeValue(value.toList())
-    } else if let value = value as? ContraceptiveRecordDto {
+    } else if let value = value as? OvulationTestRecordDto {
       super.writeByte(204)
       super.writeValue(value.toList())
-    } else if let value = value as? ProgesteroneTestRecordDto {
+    } else if let value = value as? PregnancyTestRecordDto {
       super.writeByte(205)
       super.writeValue(value.toList())
-    } else if let value = value as? IntermenstrualBleedingRecordDto {
+    } else if let value = value as? PregnancyRecordDto {
       super.writeByte(206)
       super.writeValue(value.toList())
-    } else if let value = value as? MenstrualFlowRecordDto {
+    } else if let value = value as? ContraceptiveRecordDto {
       super.writeByte(207)
       super.writeValue(value.toList())
-    } else if let value = value as? RespiratoryRateRecordDto {
+    } else if let value = value as? ProgesteroneTestRecordDto {
       super.writeByte(208)
       super.writeValue(value.toList())
-    } else if let value = value as? HydrationRecordDto {
+    } else if let value = value as? IntermenstrualBleedingRecordDto {
       super.writeByte(209)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateMeasurementDto {
+    } else if let value = value as? MenstrualFlowRecordDto {
       super.writeByte(210)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateRecordDto {
+    } else if let value = value as? RespiratoryRateRecordDto {
       super.writeByte(211)
       super.writeValue(value.toList())
-    } else if let value = value as? CyclingPedalingCadenceRecordDto {
+    } else if let value = value as? HydrationRecordDto {
       super.writeByte(212)
       super.writeValue(value.toList())
-    } else if let value = value as? SleepStageRecordDto {
+    } else if let value = value as? HeartRateMeasurementDto {
       super.writeByte(213)
       super.writeValue(value.toList())
-    } else if let value = value as? SexualActivityRecordDto {
+    } else if let value = value as? HeartRateRecordDto {
       super.writeByte(214)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryEnergyConsumedRecordDto {
+    } else if let value = value as? CyclingPedalingCadenceRecordDto {
       super.writeByte(215)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCaffeineRecordDto {
+    } else if let value = value as? SleepStageRecordDto {
       super.writeByte(216)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryProteinRecordDto {
+    } else if let value = value as? SexualActivityRecordDto {
       super.writeByte(217)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryTotalCarbohydrateRecordDto {
+    } else if let value = value as? DietaryEnergyConsumedRecordDto {
       super.writeByte(218)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryTotalFatRecordDto {
+    } else if let value = value as? DietaryCaffeineRecordDto {
       super.writeByte(219)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySaturatedFatRecordDto {
+    } else if let value = value as? DietaryProteinRecordDto {
       super.writeByte(220)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMonounsaturatedFatRecordDto {
+    } else if let value = value as? DietaryTotalCarbohydrateRecordDto {
       super.writeByte(221)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPolyunsaturatedFatRecordDto {
+    } else if let value = value as? DietaryTotalFatRecordDto {
       super.writeByte(222)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCholesterolRecordDto {
+    } else if let value = value as? DietarySaturatedFatRecordDto {
       super.writeByte(223)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFiberRecordDto {
+    } else if let value = value as? DietaryMonounsaturatedFatRecordDto {
       super.writeByte(224)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySugarRecordDto {
+    } else if let value = value as? DietaryPolyunsaturatedFatRecordDto {
       super.writeByte(225)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminARecordDto {
+    } else if let value = value as? DietaryCholesterolRecordDto {
       super.writeByte(226)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminB6RecordDto {
+    } else if let value = value as? DietaryFiberRecordDto {
       super.writeByte(227)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminB12RecordDto {
+    } else if let value = value as? DietarySugarRecordDto {
       super.writeByte(228)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminCRecordDto {
+    } else if let value = value as? DietaryVitaminARecordDto {
       super.writeByte(229)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminDRecordDto {
+    } else if let value = value as? DietaryVitaminB6RecordDto {
       super.writeByte(230)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminERecordDto {
+    } else if let value = value as? DietaryVitaminB12RecordDto {
       super.writeByte(231)
       super.writeValue(value.toList())
-    } else if let value = value as? LactationRecordDto {
+    } else if let value = value as? DietaryVitaminCRecordDto {
       super.writeByte(232)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminKRecordDto {
+    } else if let value = value as? DietaryVitaminDRecordDto {
       super.writeByte(233)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryThiaminRecordDto {
+    } else if let value = value as? DietaryVitaminERecordDto {
       super.writeByte(234)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryRiboflavinRecordDto {
+    } else if let value = value as? LactationRecordDto {
       super.writeByte(235)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryNiacinRecordDto {
+    } else if let value = value as? DietaryVitaminKRecordDto {
       super.writeByte(236)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFolateRecordDto {
+    } else if let value = value as? DietaryThiaminRecordDto {
       super.writeByte(237)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryBiotinRecordDto {
+    } else if let value = value as? DietaryRiboflavinRecordDto {
       super.writeByte(238)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPantothenicAcidRecordDto {
+    } else if let value = value as? DietaryNiacinRecordDto {
       super.writeByte(239)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCalciumRecordDto {
+    } else if let value = value as? DietaryFolateRecordDto {
       super.writeByte(240)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryIronRecordDto {
+    } else if let value = value as? DietaryBiotinRecordDto {
       super.writeByte(241)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMagnesiumRecordDto {
+    } else if let value = value as? DietaryPantothenicAcidRecordDto {
       super.writeByte(242)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryManganeseRecordDto {
+    } else if let value = value as? DietaryCalciumRecordDto {
       super.writeByte(243)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPhosphorusRecordDto {
+    } else if let value = value as? DietaryIronRecordDto {
       super.writeByte(244)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPotassiumRecordDto {
+    } else if let value = value as? DietaryMagnesiumRecordDto {
       super.writeByte(245)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySeleniumRecordDto {
+    } else if let value = value as? DietaryManganeseRecordDto {
       super.writeByte(246)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySodiumRecordDto {
+    } else if let value = value as? DietaryPhosphorusRecordDto {
       super.writeByte(247)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryZincRecordDto {
+    } else if let value = value as? DietaryPotassiumRecordDto {
       super.writeByte(248)
       super.writeValue(value.toList())
-    } else if let value = value as? NutritionRecordDto {
+    } else if let value = value as? DietarySeleniumRecordDto {
       super.writeByte(249)
       super.writeValue(value.toList())
-    } else if let value = value as? BasalEnergyBurnedRecordDto {
+    } else if let value = value as? DietarySodiumRecordDto {
       super.writeByte(250)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataSyncTokenDto {
+    } else if let value = value as? DietaryZincRecordDto {
       super.writeByte(251)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataSyncResultDto {
+    } else if let value = value as? NutritionRecordDto {
       super.writeByte(252)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionDto {
+    } else if let value = value as? BasalEnergyBurnedRecordDto {
       super.writeByte(253)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionRequestResultDto {
+    } else if let value = value as? HealthDataSyncTokenDto {
       super.writeByte(254)
       super.writeValue(value.toList())
-    } else if let value = value as? PermissionsRequestDto {
+    } else if let value = value as? HealthDataSyncResultDto {
       let wrap = PigeonInternalCodecOverflow(type: 0, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? AggregateRequestDto {
+    } else if let value = value as? HealthDataPermissionDto {
       let wrap = PigeonInternalCodecOverflow(type: 1, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+    } else if let value = value as? HealthDataPermissionRequestResultDto {
       let wrap = PigeonInternalCodecOverflow(type: 2, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+    } else if let value = value as? PermissionsRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 3, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? ReadRecordRequestDto {
+    } else if let value = value as? AggregateRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 4, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 5, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? ReadRecordsResponseDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 6, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? HealthConnectorExceptionDto {
+    } else if let value = value as? ReadRecordRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 7, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? HealthConnectorLogDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 8, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? PeripheralPerfusionIndexRecordDto {
+    } else if let value = value as? ReadRecordsResponseDto {
       let wrap = PigeonInternalCodecOverflow(type: 9, wrapped: value.toList())
+      super.writeByte(255)
+      super.writeValue(wrap.toList())
+    } else if let value = value as? HealthConnectorExceptionDto {
+      let wrap = PigeonInternalCodecOverflow(type: 10, wrapped: value.toList())
+      super.writeByte(255)
+      super.writeValue(wrap.toList())
+    } else if let value = value as? HealthConnectorLogDto {
+      let wrap = PigeonInternalCodecOverflow(type: 11, wrapped: value.toList())
+      super.writeByte(255)
+      super.writeValue(wrap.toList())
+    } else if let value = value as? PeripheralPerfusionIndexRecordDto {
+      let wrap = PigeonInternalCodecOverflow(type: 12, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
     } else {

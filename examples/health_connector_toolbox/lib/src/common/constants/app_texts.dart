@@ -170,6 +170,8 @@ abstract final class AppTexts {
       DietaryPantothenicAcidDataType() => pantothenicAcid,
       NutritionDataType() => nutrition,
       RestingHeartRateDataType() => restingHeartRate,
+      LowHeartRateEventDataType() => lowHeartRateEvent,
+      HighHeartRateEventDataType() => highHeartRateEvent,
       OxygenSaturationDataType() => oxygenSaturation,
       ForcedVitalCapacityDataType() => forcedVitalCapacity,
       RespiratoryRateDataType() => respiratoryRate,
@@ -200,6 +202,7 @@ abstract final class AppTexts {
       WalkingDoubleSupportPercentageDataType() =>
         walkingDoubleSupportPercentage,
       WalkingStepLengthDataType() => walkingStepLength,
+      IrregularHeartRhythmEventDataType() => 'Irregular Heart Rhythm Event',
     };
   }
 
@@ -455,6 +458,12 @@ abstract final class AppTexts {
   static const String vagina = 'Vagina';
   static const String wrist = 'Wrist';
   static const String heartRate = 'Heart Rate';
+  static const String lowHeartRateEvent = 'Low Heart Rate Event';
+  static const String lowHeartRateEventDescription =
+      'Recorded when heart rate drops below configured threshold (iOS only)';
+  static const String highHeartRateEvent = 'High Heart Rate Event';
+  static const String highHeartRateEventDescription =
+      'Recorded when heart rate exceeds configured threshold (iOS only)';
   static const String restingHeartRate = 'Resting Heart Rate';
   static const String heartRateSamples = '$heartRate Samples';
   static const String addSample = 'Add Sample';

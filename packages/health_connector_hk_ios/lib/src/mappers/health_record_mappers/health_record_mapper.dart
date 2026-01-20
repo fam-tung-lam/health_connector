@@ -16,6 +16,9 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_vital_capacity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_variability_sdnn_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/high_heart_rate_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/irregular_heart_rhythm_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/low_heart_rate_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/resting_heart_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/hydration_record_mapper.dart';
@@ -395,6 +398,18 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$WalkingAsymmetryPercentageRecord is read-only data type.',
         );
+      case final LowHeartRateEventRecord _:
+        throw UnsupportedError(
+          '$LowHeartRateEventRecord is read-only data type.',
+        );
+      case final IrregularHeartRhythmEventRecord _:
+        throw UnsupportedError(
+          '$IrregularHeartRhythmEventRecord is read-only data type.',
+        );
+      case final HighHeartRateEventRecord _:
+        throw UnsupportedError(
+          '$HighHeartRateEventRecord is read-only data type.',
+        );
     }
   }
 }
@@ -404,6 +419,12 @@ extension HealthRecordToDto on HealthRecord {
 extension HealthRecordDtoToDomain on HealthRecordDto {
   HealthRecord toDomain() {
     switch (this) {
+      case final LowHeartRateEventRecordDto dto:
+        return LowHeartRateEventRecordDtoToDomain(dto).toDomain();
+      case final IrregularHeartRhythmEventRecordDto dto:
+        return IrregularHeartRhythmEventRecordDtoToDomain(dto).toDomain();
+      case final HighHeartRateEventRecordDto dto:
+        return HighHeartRateEventRecordDtoToDomain(dto).toDomain();
       case final ActiveEnergyBurnedRecordDto dto:
         return ActiveEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final AlcoholicBeveragesRecordDto dto:

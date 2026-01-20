@@ -216,6 +216,12 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.walkingStepLength;
       case HealthDataTypeDto.sleepingWristTemperature:
         return HealthDataType.sleepingWristTemperature;
+      case HealthDataTypeDto.lowHeartRateEvent:
+        return HealthDataType.lowHeartRateEvent;
+      case HealthDataTypeDto.irregularHeartRhythmEvent:
+        return HealthDataType.irregularHeartRhythmEvent;
+      case HealthDataTypeDto.highHeartRateEvent:
+        return HealthDataType.highHeartRateEvent;
     }
   }
 }
@@ -251,6 +257,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.basalBodyTemperature;
       case SleepingWristTemperatureDataType _:
         return HealthDataTypeDto.sleepingWristTemperature;
+      case LowHeartRateEventDataType _:
+        return HealthDataTypeDto.lowHeartRateEvent;
       case CervicalMucusDataType _:
         return HealthDataTypeDto.cervicalMucus;
       case StepsDataType _:
@@ -504,6 +512,10 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.walkingDoubleSupportPercentage;
       case WalkingStepLengthDataType _:
         return HealthDataTypeDto.walkingStepLength;
+      case IrregularHeartRhythmEventDataType _:
+        return HealthDataTypeDto.irregularHeartRhythmEvent;
+      case HighHeartRateEventDataType _:
+        return HealthDataTypeDto.highHeartRateEvent;
     }
   }
 }

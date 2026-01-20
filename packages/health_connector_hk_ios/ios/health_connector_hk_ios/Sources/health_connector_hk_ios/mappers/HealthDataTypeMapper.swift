@@ -303,6 +303,12 @@ extension HealthDataTypeDto {
             HKObjectType.workoutType()
         case .mindfulnessSession:
             try HKCategoryType.make(from: .mindfulSession)
+        case .lowHeartRateEvent:
+            try HKCategoryType.make(from: .lowHeartRateEvent)
+        case .irregularHeartRhythmEvent:
+            try HKCategoryType.make(from: .irregularHeartRhythmEvent)
+        case .highHeartRateEvent:
+            try HKCategoryType.make(from: .highHeartRateEvent)
         }
     }
 }

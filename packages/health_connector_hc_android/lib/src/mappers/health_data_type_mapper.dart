@@ -381,6 +381,21 @@ extension HealthDataTypeToDto on HealthDataType {
           '$WalkingStepLengthDataType are not supported on Android '
           'Health Connect. These data types are iOS-only.',
         );
+      case LowHeartRateEventDataType():
+        throw UnsupportedError(
+          '$LowHeartRateEventDataType is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
+      case IrregularHeartRhythmEventDataType():
+        throw UnsupportedError(
+          '$IrregularHeartRhythmEventDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
+      case HighHeartRateEventDataType():
+        throw UnsupportedError(
+          '$HighHeartRateEventDataType is not supported on Android Health '
+          'Connect. This data type is iOS-only.',
+        );
     }
   }
 }

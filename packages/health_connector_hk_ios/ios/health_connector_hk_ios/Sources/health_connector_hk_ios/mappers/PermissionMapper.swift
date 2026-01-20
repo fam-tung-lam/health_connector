@@ -113,16 +113,19 @@ extension HealthDataPermissionDto {
              .pregnancyTest,
              .progesteroneTest,
              .progesteroneTestResult,
-             .pregnancy:
+             .pregnancy,
+             .exerciseSession,
+             .mindfulnessSession,
+             .lowHeartRateEvent,
+             .irregularHeartRhythmEvent,
+             .highHeartRateEvent:
             try [healthDataType.toHKSampleType()]
-        case .exerciseSession:
-            [HKObjectType.workoutType()]
-        case .mindfulnessSession:
-            [HKObjectType.categoryType(forIdentifier: .mindfulSession)!]
+
         // For correlation types HealthKit requires requesting permissions for
         // the individual quantity types, not the correlation type itself
         case .nutrition:
             try getNutritionTypes()
+
         case .bloodPressure:
             try [
                 HealthDataTypeDto.systolicBloodPressure.toHKSampleType(),

@@ -22,7 +22,7 @@ final class IntervalHealthRecordTile<T extends IntervalHealthRecord>
     required this.title,
     required this.subtitleBuilder,
     required this.detailRowsBuilder,
-    required this.onDelete,
+    this.onDelete,
     super.key,
   });
 
@@ -31,7 +31,7 @@ final class IntervalHealthRecordTile<T extends IntervalHealthRecord>
   final String title;
   final RecordSubtitleBuilder<T> subtitleBuilder;
   final RecordDetailRowsBuilder<T> detailRowsBuilder;
-  final VoidCallback onDelete;
+  final VoidCallback? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,6 @@ final class IntervalHealthRecordTile<T extends IntervalHealthRecord>
       subtitle: subtitleBuilder(record, context),
       detailRows: detailRows,
       metadata: record.metadata,
-      onDelete: onDelete,
     );
   }
 }

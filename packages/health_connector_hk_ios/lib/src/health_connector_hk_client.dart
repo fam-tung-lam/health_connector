@@ -821,7 +821,10 @@ extension on double {
       HealthDataTypeDto.heartRateMeasurementRecord ||
       HealthDataTypeDto.restingHeartRate ||
       HealthDataTypeDto.respiratoryRate ||
-      HealthDataTypeDto.cyclingPedalingCadence => Frequency.perMinute(this),
+      HealthDataTypeDto.cyclingPedalingCadence ||
+      HealthDataTypeDto.lowHeartRateEvent ||
+      HealthDataTypeDto.irregularHeartRhythmEvent ||
+      HealthDataTypeDto.highHeartRateEvent => Frequency.perMinute(this),
       HealthDataTypeDto.systolicBloodPressure ||
       HealthDataTypeDto.diastolicBloodPressure ||
       HealthDataTypeDto.bloodPressure => Pressure.millimetersOfMercury(this),

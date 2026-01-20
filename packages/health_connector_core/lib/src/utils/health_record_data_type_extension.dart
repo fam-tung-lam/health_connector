@@ -161,6 +161,10 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       PeripheralPerfusionIndexRecord _ =>
         HealthDataType.peripheralPerfusionIndex,
       ForcedVitalCapacityRecord _ => HealthDataType.forcedVitalCapacity,
+      LowHeartRateEventRecord _ => HealthDataType.lowHeartRateEvent,
+      HighHeartRateEventRecord _ => HealthDataType.highHeartRateEvent,
+      IrregularHeartRhythmEventRecord _ =>
+        HealthDataType.irregularHeartRhythmEvent,
     };
   }
 }

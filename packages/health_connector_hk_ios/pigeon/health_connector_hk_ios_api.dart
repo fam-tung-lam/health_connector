@@ -126,29 +126,29 @@ class MetadataDto {
   /// The package name of the source app that wrote this health record.
   final String dataOrigin;
 
-  /// The name of the device that recorded the data (optional).
+  /// The name of the device that recorded the data.
   final String? deviceName;
 
-  /// The manufacturer of the device that recorded the data (optional).
+  /// The manufacturer of the device that recorded the data.
   final String? deviceManufacturer;
 
-  /// The model of the device that recorded the data (optional).
+  /// The model of the device that recorded the data.
   final String? deviceModel;
 
-  /// The hardware version of the device that recorded the data (optional).
+  /// The hardware version of the device that recorded the data.
   final String? deviceHardwareVersion;
 
-  /// The firmware version of the device that recorded the data (optional).
+  /// The firmware version of the device that recorded the data.
   final String? deviceFirmwareVersion;
 
-  /// The software version of the device that recorded the data (optional).
+  /// The software version of the device that recorded the data.
   final String? deviceSoftwareVersion;
 
-  /// A local identifier for the device that recorded the data (optional).
+  /// A local identifier for the device that recorded the data.
   final String? deviceLocalIdentifier;
 
   /// The UDI (Unique Device Identifier) for the device that recorded
-  /// the data (optional).
+  /// the data.
   final String? deviceUdiDeviceIdentifier;
 }
 
@@ -156,7 +156,7 @@ class MetadataDto {
 
 // region Health Records
 
-/// Test type for VO2 max measurement (iOS HealthKit).
+/// Test type for VO2 max measurement.
 ///
 /// Maps to HKMetadataKeyVO2MaxTestType enum values.
 enum Vo2MaxTestTypeDto {
@@ -819,13 +819,13 @@ enum HealthDataTypeDto {
   /// Hydration (water intake) data.
   hydration,
 
-  /// Heart rate measurement record data (iOS HealthKit).
+  /// Heart rate measurement record data.
   heartRateMeasurementRecord,
 
-  /// Cycling pedaling cadence measurement record data (iOS HealthKit).
+  /// Cycling pedaling cadence measurement record data.
   cyclingPedalingCadence,
 
-  /// Sleep stage record data (iOS HealthKit).
+  /// Sleep stage record data.
   sleepStageRecord,
 
   /// Sexual activity data.
@@ -1033,6 +1033,15 @@ enum HealthDataTypeDto {
 
   /// Sleeping wrist temperature data.
   sleepingWristTemperature,
+
+  /// High heart rate event data.
+  highHeartRateEvent,
+
+  /// Irregular heart rhythm event data.
+  irregularHeartRhythmEvent,
+
+  /// Low heart rate event data.
+  lowHeartRateEvent,
 }
 
 /// Sealed class for all health record DTOs.
@@ -1060,8 +1069,106 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   /// Resting heart rate in beats per minute.
   final double beatsPerMinute;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
+}
+
+/// Represents a low heart rate event record for platform transfer.
+class LowHeartRateEventRecordDto extends HealthRecordDto {
+  LowHeartRateEventRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.beatsPerMinuteThreshold,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The heart rate threshold in beats per minute.
+  final double? beatsPerMinuteThreshold;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a high heart rate event record for platform transfer.
+class HighHeartRateEventRecordDto extends HealthRecordDto {
+  HighHeartRateEventRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.beatsPerMinuteThreshold,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The heart rate threshold in beats per minute.
+  final double? beatsPerMinuteThreshold;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents an irregular heart rhythm event record for platform transfer.
+class IrregularHeartRhythmEventRecordDto extends HealthRecordDto {
+  IrregularHeartRhythmEventRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a VO2 max record for platform transfer.
@@ -1095,7 +1202,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   /// Maps to HKMetadataKeyVO2MaxTestType.
   final Vo2MaxTestTypeDto? testType;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1121,7 +1228,7 @@ class ForcedVitalCapacityRecordDto extends HealthRecordDto {
   /// The volume in liters.
   final double liters;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1147,7 +1254,7 @@ class BodyMassIndexRecordDto extends HealthRecordDto {
   /// The body mass index value.
   final double bodyMassIndex;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1173,7 +1280,7 @@ class WaistCircumferenceRecordDto extends HealthRecordDto {
   /// The waist circumference measurement.
   final double meters;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1199,7 +1306,7 @@ class HeartRateVariabilitySDNNRecordDto extends HealthRecordDto {
   /// The heart rate variability SDNN value in milliseconds.
   final double heartRateVariabilityMillis;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1237,7 +1344,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
   /// The source of the specimen used for this measurement.
   final BloodGlucoseSpecimenSourceDto? specimenSource;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1278,10 +1385,10 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
   /// Optional notes about the exercise session.
   final String? notes;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1324,10 +1431,10 @@ class MindfulnessSessionRecordDto extends HealthRecordDto {
   /// Optional notes about the mindfulness session.
   final String? notes;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1357,10 +1464,10 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1391,10 +1498,10 @@ class AlcoholicBeveragesRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1426,10 +1533,10 @@ class ExerciseTimeRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1461,10 +1568,10 @@ class MoveTimeRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1496,10 +1603,10 @@ class StandTimeRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1530,10 +1637,10 @@ class WalkingSteadinessRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1568,10 +1675,10 @@ class WalkingAsymmetryPercentageRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1606,15 +1713,15 @@ class WalkingDoubleSupportPercentageRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
 /// Represents a walking step length record for platform transfer
-/// (iOS HealthKit).
+///.
 class WalkingStepLengthRecordDto extends HealthRecordDto {
   WalkingStepLengthRecordDto({
     required this.id,
@@ -1645,10 +1752,10 @@ class WalkingStepLengthRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1683,10 +1790,10 @@ class DistanceActivityRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1719,7 +1826,7 @@ class SpeedActivityRecordDto extends HealthRecordDto {
   /// Metadata about this record.
   final MetadataDto metadata;
 
-  /// Timezone offset in seconds (optional).
+  /// Timezone offset in seconds.
   final int? zoneOffsetSeconds;
 }
 
@@ -1750,10 +1857,10 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1784,10 +1891,10 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1818,10 +1925,10 @@ class StepsRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1851,10 +1958,10 @@ class SwimmingStrokesRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -1880,7 +1987,7 @@ class WeightRecordDto extends HealthRecordDto {
   /// Weight measurement.
   final double kilograms;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1921,7 +2028,7 @@ class BloodPressureRecordDto extends HealthRecordDto {
   /// always unknown on iOS HealthKit).
   final MeasurementLocationDto measurementLocation;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1958,7 +2065,7 @@ class SystolicBloodPressureRecordDto extends HealthRecordDto {
   /// always unknown on iOS HealthKit).
   final MeasurementLocationDto measurementLocation;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -1995,7 +2102,7 @@ class DiastolicBloodPressureRecordDto extends HealthRecordDto {
   /// always unknown on iOS HealthKit).
   final MeasurementLocationDto measurementLocation;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2021,7 +2128,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
   /// Lean body mass measurement.
   final double kilograms;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2047,7 +2154,7 @@ class HeightRecordDto extends HealthRecordDto {
   /// Height measurement.
   final double meters;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2090,7 +2197,7 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
   /// Body fat percentage measurement.
   final double percentage;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2116,7 +2223,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   /// Body temperature measurement.
   final double celsius;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2146,7 +2253,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
   /// The location on the body where the measurement was taken.
   final BasalBodyTemperatureMeasurementLocationDto measurementLocation;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2179,10 +2286,10 @@ class SleepingWristTemperatureRecordDto extends HealthRecordDto {
   /// Temperature in Celsius.
   final double temperatureCelsius;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -2214,7 +2321,7 @@ class CervicalMucusRecordDto extends HealthRecordDto {
   /// Observation time in milliseconds since epoch (UTC).
   final int time;
 
-  /// Timezone offset in seconds for observation time (optional).
+  /// Timezone offset in seconds for observation time.
   final int? zoneOffsetSeconds;
 
   /// Cervical mucus appearance.
@@ -2248,7 +2355,7 @@ class CyclingPowerRecordDto extends HealthRecordDto {
   /// Cycling power measurement.
   final double watts;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2274,7 +2381,7 @@ class RunningPowerRecordDto extends HealthRecordDto {
   /// Running power measurement in Watts.
   final double watts;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2300,7 +2407,7 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
   /// Oxygen saturation percentage.
   final double percentage;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2323,7 +2430,7 @@ class OvulationTestRecordDto extends HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   final int time;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 
   /// The ovulation test result.
@@ -2349,14 +2456,14 @@ class PregnancyTestRecordDto extends HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   final int time;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 
   /// The pregnancy test result.
   final PregnancyTestResultDto result;
 }
 
-/// Represents a pregnancy record for platform transfer (iOS HealthKit).
+/// Represents a pregnancy record for platform transfer.
 class PregnancyRecordDto extends HealthRecordDto {
   PregnancyRecordDto({
     required this.id,
@@ -2379,14 +2486,14 @@ class PregnancyRecordDto extends HealthRecordDto {
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
-/// Represents a contraceptive record for platform transfer (iOS HealthKit).
+/// Represents a contraceptive record for platform transfer.
 class ContraceptiveRecordDto extends HealthRecordDto {
   ContraceptiveRecordDto({
     required this.id,
@@ -2413,10 +2520,10 @@ class ContraceptiveRecordDto extends HealthRecordDto {
   /// The type of contraceptive method used during this period.
   final ContraceptiveTypeDto contraceptiveType;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -2439,7 +2546,7 @@ class ProgesteroneTestRecordDto extends HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   final int time;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 
   /// The progesterone test result.
@@ -2464,7 +2571,7 @@ class IntermenstrualBleedingRecordDto extends HealthRecordDto {
   /// Measurement time in milliseconds since epoch (UTC).
   final int time;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2497,10 +2604,10 @@ class MenstrualFlowRecordDto extends HealthRecordDto {
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 
   /// The menstrual flow intensity.
@@ -2533,7 +2640,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   /// Respiratory rate in breaths per minute.
   final double breathsPerMinute;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
@@ -2564,10 +2671,10 @@ class HydrationRecordDto extends HealthRecordDto {
   /// Volume of water consumed during the interval.
   final double liters;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -2611,11 +2718,11 @@ class HeartRateRecordDto extends HealthRecordDto {
   /// The heart rate value in beats per minute (BPM).
   final double beatsPerMinute;
 
-  /// Timezone offset in seconds for measurement time (optional).
+  /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
 }
 
-/// Represents a cycling pedaling cadence measurement record (iOS HealthKit).
+/// Represents a cycling pedaling cadence measurement record.
 class CyclingPedalingCadenceRecordDto extends HealthRecordDto {
   CyclingPedalingCadenceRecordDto({
     required this.id,
@@ -2641,7 +2748,7 @@ class CyclingPedalingCadenceRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 }
 
-/// Represents a sleep stage record for platform transfer (iOS HealthKit).
+/// Represents a sleep stage record for platform transfer.
 ///
 /// Sleep data in HealthKit uses HKCategorySample with categoryType
 /// .sleepAnalysis. Each record represents a single continuous period in one
@@ -2672,10 +2779,10 @@ class SleepStageRecordDto extends HealthRecordDto {
   /// The sleep stage type for this record.
   final SleepStageDto stageType;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }
 
@@ -2698,10 +2805,10 @@ class SexualActivityRecordDto extends HealthRecordDto {
   /// Time in milliseconds since epoch (UTC).
   final int time;
 
-  /// Timezone offset in seconds (optional).
+  /// Timezone offset in seconds.
   final int? zoneOffsetSeconds;
 
-  /// Whether protection was used (optional).
+  /// Whether protection was used.
   final SexualActivityProtectionUsedDto protectionUsed;
 }
 
@@ -2730,13 +2837,13 @@ class DietaryEnergyConsumedRecordDto extends HealthRecordDto {
   /// Time in milliseconds since epoch (UTC).
   final int time;
 
-  /// Timezone offset in seconds (optional).
+  /// Timezone offset in seconds.
   final int? zoneOffsetSeconds;
 
   /// Energy value (in kilocalories).
   final double kilocalories;
 
-  /// Name of the food (optional).
+  /// Name of the food.
   final String? foodName;
 
   /// Meal type classification.
@@ -3505,10 +3612,10 @@ class NutritionRecordDto extends HealthRecordDto {
   /// Metadata about this record.
   final MetadataDto metadata;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 
   /// Name of the food (stored in HKMetadataKeyFoodType).
@@ -3645,10 +3752,10 @@ class BasalEnergyBurnedRecordDto extends HealthRecordDto {
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
 
-  /// Timezone offset in seconds for start time (optional).
+  /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
 
-  /// Timezone offset in seconds for end time (optional).
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 
   /// Energy burned.
@@ -3897,7 +4004,7 @@ class ReadRecordsRequestDto {
   /// Maximum number of records to return per page (1-10,000).
   final int pageSize;
 
-  /// Opaque pagination token for fetching next page (optional).
+  /// Opaque pagination token for fetching next page.
   ///
   /// Provided by previous response's nextPageToken.
   final String? pageToken;

@@ -58,6 +58,9 @@ part 'heart_rate/heart_rate_series_data_type.dart';
 part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
 part 'heart_rate/heart_rate_variability_sdnn_data_type.dart';
 part 'heart_rate/resting_heart_rate_data_type.dart';
+part 'heart_rate/high_heart_rate_event_data_type.dart';
+part 'heart_rate/irregular_heart_rhythm_event_data_type.dart';
+part 'heart_rate/low_heart_rate_event_data_type.dart';
 part 'height_data_type.dart';
 part 'hydration_data_type.dart';
 part 'lean_body_mass_data_type.dart';
@@ -690,6 +693,37 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const RestingHeartRateDataType restingHeartRate =
       RestingHeartRateDataType();
 
+  /// Low heart rate event data type.
+  ///
+  /// Represents events where the heart rate falls below a specific threshold.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_3_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const lowHeartRateEvent = LowHeartRateEventDataType();
+
+  /// High heart rate event data type.
+  ///
+  /// Represents events where the heart rate exceeds a specific threshold.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_3_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const highHeartRateEvent = HighHeartRateEventDataType();
+
+  /// Irregular heart rhythm event data type.
+  ///
+  /// Represents events where an irregular heart rhythm is detected, such as
+  /// atrial fibrillation (AFib).
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_3_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const irregularHeartRhythmEvent = IrregularHeartRhythmEventDataType();
+
   /// Running power data type.
   @sinceV3_1_0
   @supportedOnAppleHealth
@@ -1188,10 +1222,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     heartRateVariabilityRMSSD,
     heartRateVariabilitySDNN,
     height,
+    highHeartRateEvent,
     hydration,
     intermenstrualBleeding,
+    irregularHeartRhythmEvent,
     lactation,
     leanBodyMass,
+    lowHeartRateEvent,
     menstrualFlow,
     menstrualFlowInstant,
     mindfulnessSession,

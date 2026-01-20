@@ -182,7 +182,10 @@ extension HealthRecordDto {
              is MoveTimeRecordDto,
              is StandTimeRecordDto,
              is WalkingSteadinessRecordDto,
-             is WalkingAsymmetryPercentageRecordDto:
+             is WalkingAsymmetryPercentageRecordDto,
+             is HighHeartRateEventRecordDto,
+             is IrregularHeartRhythmEventRecordDto,
+             is LowHeartRateEventRecordDto:
             throw HealthConnectorError.invalidArgument(
                 message:
                 "\(String(describing: type(of: self))) is read-only and cannot be written to HealthKit."
@@ -255,6 +258,12 @@ extension HKCategorySample {
             try toContraceptiveRecordDto()
         case .lactation:
             try toLactationRecordDto()
+        case .lowHeartRateEvent:
+            try toLowHeartRateEventRecordDto()
+        case .irregularHeartRhythmEvent:
+            try toIrregularHeartRhythmEventRecordDto()
+        case .highHeartRateEvent:
+            try toHighHeartRateEventRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

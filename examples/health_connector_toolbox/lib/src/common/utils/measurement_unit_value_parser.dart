@@ -26,7 +26,10 @@ abstract class MeasurementUnitValueParser {
       CyclingPedalingCadenceDataType() ||
       CyclingPedalingCadenceSeriesDataType() ||
       StepsCadenceSeriesDataType() ||
-      RestingHeartRateDataType() => _parseFrequency(value),
+      RestingHeartRateDataType() ||
+      LowHeartRateEventDataType() ||
+      IrregularHeartRhythmEventDataType() ||
+      HighHeartRateEventDataType() => _parseFrequency(value),
 
       // Mass types (kilograms)
       WeightDataType() ||

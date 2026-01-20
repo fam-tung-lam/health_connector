@@ -206,6 +206,12 @@ extension HKSample {
                 return .pregnancy
             case HKCategoryTypeIdentifier.contraceptive.rawValue:
                 return .contraceptive
+            case HKCategoryTypeIdentifier.lowHeartRateEvent.rawValue:
+                return .lowHeartRateEvent
+            case HKCategoryTypeIdentifier.irregularHeartRhythmEvent.rawValue:
+                return .irregularHeartRhythmEvent
+            case HKCategoryTypeIdentifier.highHeartRateEvent.rawValue:
+                return .highHeartRateEvent
             // Correlation types
             case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
                 return .bloodPressure
