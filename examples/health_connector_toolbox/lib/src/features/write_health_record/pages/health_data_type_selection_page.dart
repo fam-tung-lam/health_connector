@@ -38,6 +38,8 @@ class _HealthDataTypeSelectionPageState
           (type) =>
               type.supportedHealthPlatforms.contains(widget.healthPlatform),
         )
+        .whereType<WriteableHealthDataType>()
+        .cast<HealthDataType>()
         .toList();
 
     final grouped = <HealthDataTypeCategory, List<HealthDataType>>{};
