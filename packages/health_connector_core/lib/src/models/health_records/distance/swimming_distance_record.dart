@@ -38,15 +38,8 @@ final class SwimmingDistanceRecord extends DistanceActivityRecord {
   /// Internal factory for creating [SwimmingDistanceRecord] instances
   /// without validation.
   ///
-  /// Creates a [SwimmingDistanceRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [SwimmingDistanceRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [SwimmingDistanceRecord] constructor, which enforces validation.
   @internalUse
   factory SwimmingDistanceRecord.internal({
     required HealthRecordId id,

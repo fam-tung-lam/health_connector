@@ -95,15 +95,8 @@ final class Vo2MaxRecord extends InstantHealthRecord {
   /// Internal factory for creating [Vo2MaxRecord] instances
   /// without validation.
   ///
-  /// Creates a [Vo2MaxRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [Vo2MaxRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [Vo2MaxRecord] constructor, which enforces validation.
   @internalUse
   factory Vo2MaxRecord.internal({
     required HealthRecordId id,

@@ -5,10 +5,10 @@ part of '../health_data_type.dart';
 /// Tracks the percentage of steps where both feet are on the ground.
 /// A lower value generally indicates better balance and stability.
 ///
-/// > **Note**: While this data type supports write operations, Walking
-/// > Double Support Percentage is often calculated by Apple's internal
-/// > algorithms. Third-party apps can write data, but it may not appear in
-/// > all Apple Health contexts.
+/// **Note**: While this data type supports write operations, Walking
+/// Double Support Percentage is often calculated by Apple's internal
+/// algorithms. Third-party apps can write data, but it may not appear in
+/// all Apple Health contexts.
 ///
 /// ## Platform Mapping
 ///

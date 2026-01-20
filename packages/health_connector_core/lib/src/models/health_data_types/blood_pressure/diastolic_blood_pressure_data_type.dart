@@ -21,9 +21,9 @@ part of '../health_data_type.dart';
 /// - Aggregatable: Calculate avg, min, max diastolic pressure
 /// - Deletable: Delete records by IDs or time range
 ///
-/// > [!NOTE]
-/// > This data type is only supported on iOS/HealthKit. For Android,
-/// > use [BloodPressureDataType] which includes both systolic and
+/// [!NOTE]
+/// This data type is only supported on iOS/HealthKit. For Android,
+/// use [BloodPressureDataType] which includes both systolic and
 /// diastolic values.
 ///
 /// ## See also

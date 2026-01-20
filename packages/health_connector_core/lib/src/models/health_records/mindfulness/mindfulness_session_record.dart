@@ -54,14 +54,8 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
   /// Internal factory for creating [MindfulnessSessionRecord] instances without
   /// validation.
   ///
-  /// Creates a [MindfulnessSessionRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [MindfulnessSessionRecord] constructor, which enforces validation and
-  /// business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [MindfulnessSessionRecord] constructor, which enforces validation.
   @internalUse
   factory MindfulnessSessionRecord.internal({
     required HealthRecordId id,
@@ -179,13 +173,13 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
 /// - **iOS HealthKit**: Stored in custom metadata since iOS HealthKit only
 ///   supports generic `HKCategoryValue.notApplicable` type.
 ///
-/// > [!NOTE]
-/// > **iOS HealthKit Limitation**: HealthKit only supports a single generic
-/// > mindfulness category type with `HKCategoryValue.notApplicable`. The
-/// > [MindfulnessSessionType] is preserved via custom metadata when writing
-/// > through this SDK.
-/// > When viewing in the native iOS Apple Health app, all sessions appear as
-/// > generic "Mindful Minutes" without type differentiation.
+/// [!NOTE]
+/// **iOS HealthKit Limitation**: HealthKit only supports a single generic
+/// mindfulness category type with `HKCategoryValue.notApplicable`. The
+/// [MindfulnessSessionType] is preserved via custom metadata when writing
+/// through this SDK.
+/// When viewing in the native iOS Apple Health app, all sessions appear as
+/// generic "Mindful Minutes" without type differentiation.
 ///
 /// {@category Health Records}
 @sinceV2_1_0

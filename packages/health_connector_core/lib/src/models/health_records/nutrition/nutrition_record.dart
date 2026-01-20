@@ -230,15 +230,8 @@ final class NutritionRecord extends IntervalHealthRecord {
   /// Internal factory for creating [NutritionRecord] instances
   /// without validation.
   ///
-  /// Creates a [NutritionRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [NutritionRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [NutritionRecord] constructor, which enforces validation.
   @internalUse
   factory NutritionRecord.internal({
     required HealthRecordId id,

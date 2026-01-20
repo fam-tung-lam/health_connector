@@ -37,6 +37,7 @@ part of '../health_data_type.dart';
 ///
 /// {@category Health Records}
 @sinceV2_2_0
+@supportedOnAppleHealthIOS17Plus
 @immutable
 final class CyclingPedalingCadenceDataType
     extends HealthDataType<CyclingPedalingCadenceRecord, Number>

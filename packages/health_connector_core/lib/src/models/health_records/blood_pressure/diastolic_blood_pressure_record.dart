@@ -94,18 +94,12 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
   }
 
   /// Internal factory for creating [DiastolicBloodPressureRecord] instances
-  /// without
-  /// validation.
-  ///
-  /// Creates a [DiastolicBloodPressureRecord] by directly mapping platform data
-  /// to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// without validation.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DiastolicBloodPressureRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DiastolicBloodPressureRecord.internal({
     required HealthRecordId id,

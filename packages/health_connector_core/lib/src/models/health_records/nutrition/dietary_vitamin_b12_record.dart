@@ -86,7 +86,7 @@ final class DietaryVitaminB12Record extends DietaryVitaminRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryVitaminB12Record] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryVitaminB12Record.internal({
     required Mass mass,

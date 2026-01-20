@@ -21,9 +21,9 @@ part of '../health_data_type.dart';
 /// - Writeable: Write distance records
 /// - Aggregatable: Sum total distance
 ///
-/// > [!NOTE]
-/// > This data type is only supported on Android Health Connect. For iOS,
-/// > use activity-specific distance types.
+/// [!NOTE]
+/// This data type is only supported on Android Health Connect. For iOS,
+/// use activity-specific distance types.
 ///
 /// {@category Health Records}
 @sinceV1_0_0

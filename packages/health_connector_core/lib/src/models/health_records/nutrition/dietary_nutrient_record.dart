@@ -11,9 +11,9 @@ part of '../health_record.dart';
 ///
 /// - **iOS HealthKit**: Various `HKQuantityTypeIdentifier` nutrient types
 ///
-/// > [!NOTE]
-/// > Individual nutrient records are iOS-only. Android Health Connect uses the
-/// > combined [NutritionRecord] instead.
+/// [!NOTE]
+/// Individual nutrient records are iOS-only. Android Health Connect uses the
+/// combined [NutritionRecord] instead.
 ///
 /// {@category Health Records}
 @sinceV1_1_0

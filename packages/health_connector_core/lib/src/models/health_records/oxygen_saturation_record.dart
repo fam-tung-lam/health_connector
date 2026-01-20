@@ -88,15 +88,8 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
   /// Internal factory for creating [OxygenSaturationRecord] instances
   /// without validation.
   ///
-  /// Creates a [OxygenSaturationRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [OxygenSaturationRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [OxygenSaturationRecord] constructor, which enforces validation.
   @internalUse
   factory OxygenSaturationRecord.internal({
     required HealthRecordId id,

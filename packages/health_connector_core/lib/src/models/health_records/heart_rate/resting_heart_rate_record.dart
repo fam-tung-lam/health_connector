@@ -93,14 +93,8 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
   /// Internal factory for creating [RestingHeartRateRecord] instances without
   /// validation.
   ///
-  /// Creates a [RestingHeartRateRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [RestingHeartRateRecord] constructor, which enforces validation and
-  /// business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [RestingHeartRateRecord] constructor, which enforces validation.
   @internalUse
   factory RestingHeartRateRecord.internal({
     required HealthRecordId id,

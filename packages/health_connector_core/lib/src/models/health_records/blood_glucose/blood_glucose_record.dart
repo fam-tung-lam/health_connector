@@ -98,13 +98,9 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   /// Internal factory for creating [BloodGlucoseRecord] instances without
   /// validation.
   ///
-  /// Creates a [BloodGlucoseRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [BloodGlucoseRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory BloodGlucoseRecord.internal({
     required HealthRecordId id,

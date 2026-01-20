@@ -37,11 +37,11 @@ extension ActivityIntensityRecordDtoToDomain on ActivityIntensityRecordDto {
       startTime: DateTime.fromMillisecondsSinceEpoch(
         startTime,
         isUtc: true,
-      ).toLocal(),
+      ),
       endTime: DateTime.fromMillisecondsSinceEpoch(
         endTime,
         isUtc: true,
-      ).toLocal(),
+      ),
       activityIntensityType: activityIntensityType.toDomain(),
       title: title,
       notes: notes,

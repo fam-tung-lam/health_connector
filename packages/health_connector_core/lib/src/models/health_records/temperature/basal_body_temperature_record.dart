@@ -91,15 +91,8 @@ final class BasalBodyTemperatureRecord extends InstantHealthRecord {
   /// Internal factory for creating [BasalBodyTemperatureRecord] instances
   /// without validation.
   ///
-  /// Creates a [BasalBodyTemperatureRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BasalBodyTemperatureRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [BasalBodyTemperatureRecord] constructor, which enforces validation.
   @internalUse
   factory BasalBodyTemperatureRecord.internal({
     required HealthRecordId id,

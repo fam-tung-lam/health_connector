@@ -84,7 +84,7 @@ final class DietaryManganeseRecord extends DietaryMineralRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryManganeseRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryManganeseRecord.internal({
     required Mass mass,

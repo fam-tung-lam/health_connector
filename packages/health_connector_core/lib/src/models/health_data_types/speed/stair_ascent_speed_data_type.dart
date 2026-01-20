@@ -30,7 +30,7 @@ part of '../health_data_type.dart';
 ///
 /// {@category Health Records}
 @sinceV2_0_0
-@supportedOnAppleHealth
+@supportedOnAppleHealthIOS16Plus
 @immutable
 final class StairAscentSpeedDataType
     extends SpeedActivityDataType<StairAscentSpeedRecord> {

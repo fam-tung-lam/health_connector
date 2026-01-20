@@ -29,7 +29,7 @@ part of '../health_data_type.dart';
 ///
 /// {@category Health Records}
 @sinceV2_0_0
-@supportedOnAppleHealth
+@supportedOnAppleHealthIOS18Plus
 @immutable
 final class CrossCountrySkiingDistanceDataType
     extends DistanceActivityDataType<CrossCountrySkiingDistanceRecord>

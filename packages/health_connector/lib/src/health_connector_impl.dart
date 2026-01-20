@@ -593,7 +593,7 @@ final class HealthConnectorImpl implements HealthConnector {
     final context = {
       'data_type': request.dataType.runtimeType.toString(),
       if (request is DeleteRecordsInTimeRangeRequest)
-        'query_span_days': request.startTime.difference(request.endTime)
+        'query_span_days': request.endTime.difference(request.startTime)
       else
         'id_to_delete_count':
             (request as DeleteRecordsByIdsRequest).recordIds.length,

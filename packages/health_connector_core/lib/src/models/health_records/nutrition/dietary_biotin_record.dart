@@ -85,7 +85,7 @@ final class DietaryBiotinRecord extends DietaryVitaminRecord {
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryBiotinRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryBiotinRecord.internal({
     required Mass mass,

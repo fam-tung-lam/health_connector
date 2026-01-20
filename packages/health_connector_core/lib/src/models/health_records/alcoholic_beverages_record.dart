@@ -81,15 +81,8 @@ final class AlcoholicBeveragesRecord extends IntervalHealthRecord {
   /// Internal factory for creating [AlcoholicBeveragesRecord] instances
   /// without validation.
   ///
-  /// Creates an [AlcoholicBeveragesRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [AlcoholicBeveragesRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [AlcoholicBeveragesRecord] constructor, which enforces validation.
   @internalUse
   factory AlcoholicBeveragesRecord.internal({
     required HealthRecordId id,

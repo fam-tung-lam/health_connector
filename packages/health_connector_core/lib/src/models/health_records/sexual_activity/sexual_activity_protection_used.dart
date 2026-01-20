@@ -41,8 +41,8 @@ enum SexualActivityProtectionUsed {
   ///   `HCCustomMetadataKeySexualActivityProtectionUsed = "unknown"`
   /// - **Android Health Connect**: `PROTECTION_USED_UNKNOWN`
   ///
-  /// > **Note:** On iOS, this value requires custom metadata handling as
-  /// > HealthKit's native `HKMetadataKeySexualActivityProtectionUsed` only
-  /// > supports boolean values.
+  /// **Note:** On iOS, this value requires custom metadata handling as
+  /// HealthKit's native `HKMetadataKeySexualActivityProtectionUsed` only
+  /// supports boolean values.
   unknown,
 }

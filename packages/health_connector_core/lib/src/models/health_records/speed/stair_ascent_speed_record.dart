@@ -20,7 +20,7 @@ part of '../health_record.dart';
 ///
 /// {@category Health Records}
 @sinceV2_0_0
-@supportedOnAppleHealth
+@supportedOnAppleHealthIOS16Plus
 @immutable
 final class StairAscentSpeedRecord extends SpeedActivityRecord {
   /// Minimum valid stair ascent speed in km/h (0.0 km/h).
@@ -71,15 +71,8 @@ final class StairAscentSpeedRecord extends SpeedActivityRecord {
   /// Internal factory for creating [StairAscentSpeedRecord] instances
   /// without validation.
   ///
-  /// Creates a [StairAscentSpeedRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [StairAscentSpeedRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [StairAscentSpeedRecord] constructor, which enforces validation.
   @internalUse
   factory StairAscentSpeedRecord.internal({
     required HealthRecordId id,

@@ -61,15 +61,10 @@ final class DietaryMonounsaturatedFatRecord extends DietaryMacronutrientRecord {
   /// without
   /// validation.
   ///
-  /// Creates a [DietaryMonounsaturatedFatRecord] by directly mapping platform
-  /// data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryMonounsaturatedFatRecord] constructor, which enforces validation
   /// and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryMonounsaturatedFatRecord.internal({
     required Mass mass,

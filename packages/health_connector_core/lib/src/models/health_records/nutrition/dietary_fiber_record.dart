@@ -86,7 +86,7 @@ final class DietaryFiberRecord extends DietaryMacronutrientRecord {
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryFiberRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryFiberRecord.internal({
     required Mass mass,

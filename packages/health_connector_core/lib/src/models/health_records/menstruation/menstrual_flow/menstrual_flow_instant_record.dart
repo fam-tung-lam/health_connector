@@ -48,14 +48,8 @@ final class MenstrualFlowInstantRecord extends InstantHealthRecord {
   /// Internal factory for creating [MenstrualFlowInstantRecord] instances
   /// without validation.
   ///
-  /// Creates a [MenstrualFlowInstantRecord] by directly mapping platform data
-  /// to fields, bypassing the normal validation and business rules applied by
-  /// the public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [MenstrualFlowInstantRecord] constructor, which enforces validation and
-  /// business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [MenstrualFlowInstantRecord] constructor, which enforces validation.
   @internalUse
   factory MenstrualFlowInstantRecord.internal({
     required HealthRecordId id,

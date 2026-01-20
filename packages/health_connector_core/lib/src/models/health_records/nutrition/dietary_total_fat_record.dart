@@ -84,7 +84,7 @@ final class DietaryTotalFatRecord extends DietaryMacronutrientRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryTotalFatRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryTotalFatRecord.internal({
     required Mass mass,

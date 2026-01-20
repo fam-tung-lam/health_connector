@@ -20,7 +20,7 @@ part of '../health_record.dart';
 ///
 /// {@category Health Records}
 @sinceV2_1_0
-@supportedOnAppleHealth
+@supportedOnAppleHealthIOS17Plus
 @immutable
 final class CyclingPowerRecord extends InstantHealthRecord {
   /// Minimum valid cycling power (0.0 W).
@@ -69,15 +69,8 @@ final class CyclingPowerRecord extends InstantHealthRecord {
   /// Internal factory for creating [CyclingPowerRecord] instances
   /// without validation.
   ///
-  /// Creates a [CyclingPowerRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CyclingPowerRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [CyclingPowerRecord] constructor, which enforces validation.
   @internalUse
   factory CyclingPowerRecord.internal({
     required HealthRecordId id,

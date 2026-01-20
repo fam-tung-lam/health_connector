@@ -5,8 +5,7 @@ sensitive health data while giving developers full visibility during development
 
 ## Zero-Logging Policy
 
-Health data is highly sensitive. To ensure privacy and compliance (GDPR, HIPAA), the SDK adopts a *
-*strict zero-logging policy by default**.
+Health data is highly sensitive. To ensure privacy and compliance (GDPR, HIPAA), the SDK adopts a **strict zero-logging policy by default**.
 
 - **No Internal Logging**: The SDK never writes to `print`, `stdout`, or platform logs (
   Logcat/Console) unless explicitly configured.

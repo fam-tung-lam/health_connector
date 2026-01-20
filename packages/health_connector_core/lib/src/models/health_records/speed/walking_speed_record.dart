@@ -20,7 +20,7 @@ part of '../health_record.dart';
 ///
 /// {@category Health Records}
 @sinceV2_0_0
-@supportedOnAppleHealth
+@supportedOnAppleHealthIOS16Plus
 @immutable
 final class WalkingSpeedRecord extends SpeedActivityRecord {
   /// Minimum valid walking speed in km/h (0.0 km/h).
@@ -70,15 +70,8 @@ final class WalkingSpeedRecord extends SpeedActivityRecord {
   /// Internal factory for creating [WalkingSpeedRecord] instances
   /// without validation.
   ///
-  /// Creates a [WalkingSpeedRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WalkingSpeedRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [WalkingSpeedRecord] constructor, which enforces validation.
   @internalUse
   factory WalkingSpeedRecord.internal({
     required HealthRecordId id,

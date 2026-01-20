@@ -38,15 +38,8 @@ final class WheelchairDistanceRecord extends DistanceActivityRecord {
   /// Internal factory for creating [WheelchairDistanceRecord] instances
   /// without validation.
   ///
-  /// Creates a [WheelchairDistanceRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WheelchairDistanceRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [WheelchairDistanceRecord] constructor, which enforces validation.
   @internalUse
   factory WheelchairDistanceRecord.internal({
     required HealthRecordId id,

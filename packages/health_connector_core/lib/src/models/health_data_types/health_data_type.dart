@@ -272,25 +272,29 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const downhillSnowSportsDistance =
       DownhillSnowSportsDistanceDataType();
 
-  /// Rowing distance data type (iOS 18+).
+  /// Rowing distance data type.
   @sinceV2_0_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS18Plus
   static const rowingDistance = RowingDistanceDataType();
 
-  /// Paddle sports distance data type (iOS 18+).
+  /// Paddle sports distance data type.
   @sinceV2_0_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS18Plus
   static const paddleSportsDistance = PaddleSportsDistanceDataType();
 
-  /// Cross-country skiing distance data type (iOS 18+).
+  /// Cross-country skiing distance data type.
   @sinceV2_0_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS18Plus
   static const crossCountrySkiingDistance =
       CrossCountrySkiingDistanceDataType();
 
-  /// Skating sports distance data type (iOS 18+).
+  /// Skating sports distance data type.
   @sinceV2_0_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS18Plus
   static const skatingSportsDistance = SkatingSportsDistanceDataType();
 
   /// Six-minute walk test distance data type.
@@ -303,32 +307,35 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const walkingRunningDistance = WalkingRunningDistanceDataType();
 
-  /// Speed data type (Android Health Connect only).
+  /// Speed data type.
   ///
   /// Represents speed measurements as a series of samples over a time interval.
-  /// For iOS, use the activity-specific speed types.
   @sinceV2_0_0
   @supportedOnHealthConnect
   static const speedSeries = SpeedSeriesDataType();
 
-  /// Walking speed data type (iOS HealthKit only).
+  /// Walking speed data type.
   @sinceV2_0_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   static const walkingSpeed = WalkingSpeedDataType();
 
-  /// Running speed data type (iOS HealthKit only).
+  /// Running speed data type.
   @sinceV2_0_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   static const runningSpeed = RunningSpeedDataType();
 
-  /// Stair ascent speed data type (iOS HealthKit only).
+  /// Stair ascent speed data type.
   @sinceV2_0_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   static const stairAscentSpeed = StairAscentSpeedDataType();
 
-  /// Stair descent speed data type (iOS HealthKit only).
+  /// Stair descent speed data type.
   @sinceV2_0_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   static const stairDescentSpeed = StairDescentSpeedDataType();
 
   /// Step count data type.
@@ -392,10 +399,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents the temperature measured at the wrist during sleep.
   /// Supports AVG, MIN, MAX aggregation.
   ///
-  /// > **Note**: This is a read-only data type. It cannot be written or
-  /// > deleted by third-party apps.
+  /// **Note**: This is a read-only data type.
   @sinceV3_2_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
+  @readOnly
   static const sleepingWristTemperature = SleepingWristTemperatureDataType();
 
   /// Basal body temperature data type.
@@ -461,8 +469,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// different speed than the other. Used to assess gait symmetry.
   /// Supports reading and aggregation (MIN, MAX, AVG).
   ///
-  /// > **Note**: This is a read-only data type. It cannot be written or
-  /// > deleted by third-party apps.
+  /// **Note**: This is a read-only data type.
   @sinceV3_2_0
   @supportedOnAppleHealth
   @readOnly
@@ -475,8 +482,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Used to assess gait symmetry and stability.
   /// Supports reading and aggregation (MIN, MAX, AVG).
   ///
-  /// > **Note**: This is a read-only data type. It cannot be written or
-  /// > deleted by third-party apps.
+  /// **Note**: This is a read-only data type.
   @sinceV3_2_0
   @supportedOnAppleHealth
   static const walkingDoubleSupportPercentage =
@@ -488,8 +494,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// and the point of initial contact of the opposite foot.
   /// Supports reading and aggregation (MIN, MAX, AVG).
   ///
-  /// > **Note**: This is a read-only data type. It cannot be written or
-  /// > deleted by third-party apps.
+  /// **Note**: This is a read-only data type.
   @sinceV3_2_0
   @supportedOnAppleHealth
   static const walkingStepLength = WalkingStepLengthDataType();
@@ -516,11 +521,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// existing active energy data and writing new measurements.
   static const activeEnergyBurned = ActiveEnergyBurnedDataType();
 
-  /// Activity intensity data type (Android Health Connect only).
+  /// Activity intensity data type.
   ///
   /// Tracks periods of moderate and vigorous physical activity.
   /// Supports reading, writing, custom sum aggregation, and deletion.
-  @sinceV3_1_0
+  @sinceV3_2_0
   @supportedOnHealthConnect
   static const activityIntensity = ActivityIntensityDataType();
 
@@ -528,6 +533,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the amount of time spent exercising that contributes towards
   /// the user's daily exercise goals. Activity evaluated as exercise by Apple.
+  /// 
+  /// **Note**: This is a read-only data type.
   @sinceV3_2_0
   @supportedOnAppleHealth
   @readOnly
@@ -536,6 +543,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Apple Move Time data type.
   ///
   /// Represents the amount of time the user has been moving.
+  /// 
+  /// **Note**: This is a read-only data type.
   @sinceV3_2_0
   @supportedOnAppleHealth
   @readOnly
@@ -545,6 +554,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the amount of time the user has stood still for at least
   /// one minute in an hour.
+  /// 
+  /// **Note**: This is a read-only data type.
   @sinceV3_2_0
   @supportedOnAppleHealth
   @readOnly
@@ -554,6 +565,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the user's walking steadiness as a percentage, measuring the
   /// stability and regularity of a person's gait.
+  /// 
+  /// **Note**: This is a read-only data type.
   @sinceV3_2_0
   @supportedOnAppleHealth
   @readOnly
@@ -614,7 +627,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// hydration data and writing new measurements.
   static const hydration = HydrationDataType();
 
-  /// Heart rate series data type (Android Health Connect only).
+  /// Heart rate series data type.
   ///
   /// Represents a series of heart rate measurements over a time interval.
   /// Each record has a single ID that encompasses all heart rate measurements.
@@ -624,7 +637,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnHealthConnect
   static const heartRateSeries = HeartRateSeriesDataType();
 
-  /// Heart rate data type (iOS HealthKit only).
+  /// Heart rate data type.
   ///
   /// Represents a single heart rate measurement at a specific point in time.
   /// Each record has its own UUID.
@@ -634,7 +647,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const heartRate = HeartRateDataType();
 
-  /// Sleep session health data type (Android Health Connect only).
+  /// Sleep session health data type.
   ///
   /// Represents a complete sleep session with multiple sleep stages.
   /// Each sleep session has a single ID that encompasses all stages.
@@ -643,7 +656,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnHealthConnect
   static const sleepSession = SleepSessionDataType();
 
-  /// Sleep stage record health data type (iOS HealthKit only).
+  /// Sleep stage record health data type.
   ///
   /// Sleep stage records is an individual measurements, one per sleep stage.
   /// A complete night's sleep consists of multiple records.
@@ -680,6 +693,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Running power data type.
   @sinceV3_1_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   static const RunningPowerDataType runningPower = RunningPowerDataType._();
 
   /// Ovulation test data type.
@@ -733,9 +747,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Menstrual flow instant data type.
   ///
   /// Represents the intensity of menstrual flow at a specific point in time.
-  /// This data type is for Android Health Connect only. iOS uses
-  /// [menstrualFlow] instead, which tracks flow over intervals with
-  /// cycle start metadata.
   @sinceV2_2_0
   @supportedOnHealthConnect
   static const menstrualFlowInstant = MenstrualFlowInstantDataType();
@@ -743,9 +754,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Menstrual flow data type.
   ///
   /// Represents the intensity of menstrual flow over a time interval,
-  /// including cycle start metadata. This data type is for iOS HealthKit only.
-  /// Android uses [menstrualFlowInstant] instead, which tracks flow at
-  /// specific points in time.
+  /// including cycle start metadata.
   @sinceV2_2_0
   @supportedOnAppleHealth
   static const menstrualFlow = MenstrualFlowDataType();
@@ -774,20 +783,19 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const peripheralPerfusionIndex = PeripheralPerfusionIndexDataType();
 
-  /// Power data type (Android Health Connect only).
+  /// Power data type.
   ///
   /// Represents power measurements as a series of samples over a time interval.
-  /// For iOS, use [cyclingPower].
   @sinceV2_1_0
   @supportedOnHealthConnect
   static const powerSeries = PowerSeriesDataType();
 
-  /// Cycling power data type (iOS HealthKit only).
+  /// Cycling power data type.
   ///
   /// Represents cycling power output measurements.
-  /// For Android, use [powerSeries].
   @sinceV2_1_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS17Plus
   static const cyclingPower = CyclingPowerDataType();
 
   /// Cycling pedaling cadence series record data type.
@@ -820,6 +828,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV2_2_0
   @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS17Plus
   static const cyclingPedalingCadence = CyclingPedalingCadenceDataType();
 
   /// Respiratory rate data type.

@@ -59,13 +59,9 @@ final class SleepStageRecord extends IntervalHealthRecord {
   /// Internal factory for creating [BloodPressureRecord] instances without
   /// validation.
   ///
-  /// Creates a [BloodPressureRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [BloodPressureRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory SleepStageRecord.internal({
     required HealthRecordId id,

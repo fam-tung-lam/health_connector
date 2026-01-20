@@ -41,15 +41,8 @@ final class SixMinuteWalkTestDistanceRecord extends DistanceActivityRecord {
   /// Internal factory for creating [SixMinuteWalkTestDistanceRecord] instances
   /// without validation.
   ///
-  /// Creates a [SixMinuteWalkTestDistanceRecord] by directly mapping platform
-  /// data to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [SixMinuteWalkTestDistanceRecord] constructor, which enforces validation
-  /// and business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [SixMinuteWalkTestDistanceRecord] constructor, which enforces validation.
   @internalUse
   factory SixMinuteWalkTestDistanceRecord.internal({
     required HealthRecordId id,

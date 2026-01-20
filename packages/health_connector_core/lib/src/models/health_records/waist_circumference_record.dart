@@ -85,15 +85,8 @@ final class WaistCircumferenceRecord extends InstantHealthRecord {
   /// Internal factory for creating [WaistCircumferenceRecord] instances
   /// without validation.
   ///
-  /// Creates a [WaistCircumferenceRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WaistCircumferenceRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [WaistCircumferenceRecord] constructor, which enforces validation.
   @internalUse
   factory WaistCircumferenceRecord.internal({
     required HealthRecordId id,

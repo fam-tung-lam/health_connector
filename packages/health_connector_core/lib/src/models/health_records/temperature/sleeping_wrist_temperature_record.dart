@@ -2,25 +2,48 @@ part of '../health_record.dart';
 
 /// Represents a sleeping wrist temperature measurement over a time interval.
 ///
-/// **Platform:** iOS HealthKit only.
+/// [SleepingWristTemperatureRecord] tracks wrist temperature measured during
+/// sleep. This is a read-only record provided by Apple Watch.
 ///
-/// Maps to `HKQuantityTypeIdentifier.appleSleepingWristTemperature`.
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: Not supported
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.appleSleepingWristTemperature`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applesleepingwristtemperature) (iOS 16+)
+///
+/// ## Example
+///
+/// ```dart
+/// // This is a read-only record type provided by Apple Watch.
+/// // Records are read from HealthKit, not created manually:
+/// final records = await healthConnector.readRecords<SleepingWristTemperatureRecord>(
+///   timeRangeFilter: TimeRangeFilter(
+///     startTime: DateTime.now().subtract(Duration(days: 7)),
+///     endTime: DateTime.now(),
+///   ),
+/// );
+///
+/// for (final record in records) {
+///   print('Temperature: ${record.temperature.inCelsius}°C');
+///   print('Time: ${record.startTime} to ${record.endTime}');
+/// }
+/// ```
+///
+/// ## See also
+///
+/// - [SleepingWristTemperatureDataType]
+/// - [BasalBodyTemperatureRecord]
 ///
 /// {@category Health Records}
 @sinceV3_2_0
+@supportedOnAppleHealthIOS16Plus
+@readOnly
 @immutable
 final class SleepingWristTemperatureRecord extends IntervalHealthRecord {
   /// Internal factory for creating [SleepingWristTemperatureRecord] instances
   /// without validation.
   ///
-  /// Creates a [SleepingWristTemperatureRecord] by directly mapping platform
-  /// data to fields, bypassing the normal validation and business rules applied
-  /// by the public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [SleepingWristTemperatureRecord] constructor, which enforces validation
-  /// and business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [SleepingWristTemperatureRecord] constructor, which enforces validation.
   @internalUse
   factory SleepingWristTemperatureRecord.internal({
     required HealthRecordId id,
@@ -42,7 +65,7 @@ final class SleepingWristTemperatureRecord extends IntervalHealthRecord {
     );
   }
 
-  /// Creates a sleeping wrist temperature record.
+  /// Private constructor without validation.
   SleepingWristTemperatureRecord._({
     required super.startTime,
     required super.endTime,
@@ -53,7 +76,10 @@ final class SleepingWristTemperatureRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
   });
 
-  /// The temperature value.
+  /// The wrist temperature measured during sleep.
+  ///
+  /// This value represents the temperature deviation from the user's baseline
+  /// wrist temperature during sleep, as measured by Apple Watch.
   final Temperature temperature;
 
   @override

@@ -30,8 +30,8 @@ part of '../health_record.dart';
 /// Attempting to use a platform-specific type on an unsupported platform will
 /// result in a runtime error.
 ///
-/// > **Important:** Attempting to use a platform-specific type on an
-/// > unsupported platform will result in [UnsupportedOperationException].
+/// **Important:** Attempting to use a platform-specific type on an
+/// unsupported platform will result in [UnsupportedOperationException].
 ///
 /// {@category Health Records}
 @sinceV2_0_0

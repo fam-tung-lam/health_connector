@@ -87,7 +87,7 @@ final class DietaryRiboflavinRecord extends DietaryVitaminRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryRiboflavinRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryRiboflavinRecord.internal({
     required Mass mass,

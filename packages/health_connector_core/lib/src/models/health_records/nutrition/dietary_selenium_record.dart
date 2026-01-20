@@ -84,7 +84,7 @@ final class DietarySeleniumRecord extends DietaryMineralRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietarySeleniumRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietarySeleniumRecord.internal({
     required Mass mass,

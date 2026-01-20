@@ -57,14 +57,8 @@ final class ContraceptiveRecord extends IntervalHealthRecord {
   /// Internal factory for creating [ContraceptiveRecord] instances without
   /// validation.
   ///
-  /// Creates a [ContraceptiveRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [ContraceptiveRecord] constructor, which enforces validation and
-  /// business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [ContraceptiveRecord] constructor, which enforces validation.
   @internalUse
   factory ContraceptiveRecord.internal({
     required HealthRecordId id,

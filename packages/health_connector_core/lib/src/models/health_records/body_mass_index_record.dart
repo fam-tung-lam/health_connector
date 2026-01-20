@@ -81,15 +81,8 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
   /// Internal factory for creating [BodyMassIndexRecord] instances
   /// without validation.
   ///
-  /// Creates a [BodyMassIndexRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BodyMassIndexRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [BodyMassIndexRecord] constructor, which enforces validation.
   @internalUse
   factory BodyMassIndexRecord.internal({
     required HealthRecordId id,

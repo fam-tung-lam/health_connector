@@ -30,7 +30,7 @@ part of '../health_record.dart';
 ///
 /// {@category Health Records}
 @sinceV2_2_0
-@supportedOnAppleHealth
+@supportedOnAppleHealthIOS17Plus
 @immutable
 final class CyclingPedalingCadenceRecord extends InstantHealthRecord {
   /// Minimum valid cycling cadence (0.0 RPM).
@@ -79,15 +79,8 @@ final class CyclingPedalingCadenceRecord extends InstantHealthRecord {
   /// Internal factory for creating [CyclingPedalingCadenceRecord] instances
   /// without validation.
   ///
-  /// Creates a [CyclingPedalingCadenceRecord] by directly mapping platform data
-  /// to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CyclingPedalingCadenceRecord] constructor, which enforces validation and
-  /// business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [CyclingPedalingCadenceRecord] constructor, which enforces validation.
   @internalUse
   factory CyclingPedalingCadenceRecord.internal({
     required HealthRecordId id,

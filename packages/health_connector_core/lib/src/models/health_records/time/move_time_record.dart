@@ -38,14 +38,8 @@ final class MoveTimeRecord extends IntervalHealthRecord {
   /// Internal factory for creating [MoveTimeRecord] instances without
   /// validation.
   ///
-  /// Creates an [MoveTimeRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [MoveTimeRecord] constructor, which enforces validation and
-  /// business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [MoveTimeRecord] constructor, which enforces validation.
   @internalUse
   factory MoveTimeRecord.internal({
     required HealthRecordId id,

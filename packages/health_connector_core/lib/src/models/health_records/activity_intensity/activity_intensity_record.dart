@@ -63,14 +63,8 @@ final class ActivityIntensityRecord extends IntervalHealthRecord {
   /// Internal factory for creating [ActivityIntensityRecord] instances without
   /// validation.
   ///
-  /// Creates an [ActivityIntensityRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [ActivityIntensityRecord] constructor, which enforces validation and
-  /// business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [ActivityIntensityRecord] constructor, which enforces validation.
   @internalUse
   factory ActivityIntensityRecord.internal({
     required HealthRecordId id,

@@ -23,7 +23,7 @@ part of '../health_record.dart';
 ///
 /// {@category Health Records}
 @sinceV2_0_0
-@supportedOnAppleHealth
+@supportedOnAppleHealthIOS18Plus
 @immutable
 final class CrossCountrySkiingDistanceRecord extends DistanceActivityRecord {
   /// Creates a cross-country skiing distance record.
@@ -40,15 +40,8 @@ final class CrossCountrySkiingDistanceRecord extends DistanceActivityRecord {
   /// Internal factory for creating [CrossCountrySkiingDistanceRecord] instances
   /// without validation.
   ///
-  /// Creates a [CrossCountrySkiingDistanceRecord] by directly mapping platform
-  /// data to fields,
-  /// bypassing the normal validation and business rules applied by the
-  /// public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CrossCountrySkiingDistanceRecord] constructor, which enforces validation
-  /// and business rules.
-  /// This factory is restricted to the SDK developers and contributors.
+  /// [CrossCountrySkiingDistanceRecord] constructor, which enforces validation.
   @internalUse
   factory CrossCountrySkiingDistanceRecord.internal({
     required HealthRecordId id,

@@ -20,7 +20,7 @@ part of '../health_record.dart';
 ///
 /// {@category Health Records}
 @sinceV3_1_0
-@supportedOnAppleHealth
+@supportedOnAppleHealthIOS16Plus
 @immutable
 final class RunningPowerRecord extends InstantHealthRecord {
   /// Minimum valid running power (0.0 W).

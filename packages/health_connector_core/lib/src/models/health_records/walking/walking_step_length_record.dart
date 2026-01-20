@@ -110,14 +110,8 @@ final class WalkingStepLengthRecord extends IntervalHealthRecord {
   /// Internal factory for creating [WalkingStepLengthRecord] instances
   /// without validation.
   ///
-  /// Creates a [WalkingStepLengthRecord] by directly mapping platform data
-  /// to fields, bypassing the normal validation and business rules applied
-  /// by the public constructor.
-  ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WalkingStepLengthRecord] constructor, which enforces validation and
-  /// business rules. This factory is restricted to the SDK developers and
-  /// contributors.
+  /// [WalkingStepLengthRecord] constructor, which enforces validation.
   @internalUse
   factory WalkingStepLengthRecord.internal({
     required HealthRecordId id,

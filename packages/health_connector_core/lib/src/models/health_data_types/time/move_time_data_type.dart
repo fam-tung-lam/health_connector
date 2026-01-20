@@ -6,9 +6,9 @@ part of '../health_data_type.dart';
 /// towards the user's daily Move goals in Apple Health. This is an iOS-specific
 /// metric calculated by Apple's algorithms based on active calories burned.
 ///
-/// > **Note**: This data type is read-only. Apple Move Time is calculated
-/// > by internal Apple's algorithms and cannot be written or deleted by
-/// > third-party apps.
+/// **Note**: This data type is read-only. Apple Move Time is calculated
+/// by internal Apple's algorithms and cannot be written or deleted by
+/// third-party apps.
 ///
 /// ## Platform Mapping
 ///

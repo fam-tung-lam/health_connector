@@ -84,7 +84,7 @@ final class DietaryCalciumRecord extends DietaryMineralRecord {
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryCalciumRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryCalciumRecord.internal({
     required Mass mass,

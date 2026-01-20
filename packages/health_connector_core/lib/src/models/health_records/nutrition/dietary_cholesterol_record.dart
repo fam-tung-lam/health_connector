@@ -86,7 +86,7 @@ final class DietaryCholesterolRecord extends DietaryMacronutrientRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryCholesterolRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryCholesterolRecord.internal({
     required Mass mass,

@@ -83,7 +83,7 @@ final class DietarySugarRecord extends DietaryMacronutrientRecord {
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietarySugarRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietarySugarRecord.internal({
     required Mass mass,

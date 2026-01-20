@@ -89,7 +89,7 @@ final class DietaryPantothenicAcidRecord extends DietaryVitaminRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryPantothenicAcidRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryPantothenicAcidRecord.internal({
     required Mass mass,

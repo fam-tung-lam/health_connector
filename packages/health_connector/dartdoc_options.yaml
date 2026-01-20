@@ -11,6 +11,8 @@ dartdoc:
       markdown: doc/topics/permissions.md
     "Exceptions":
       markdown: doc/topics/exceptions.md
+    "Annotations":
+      markdown: doc/topics/annotations.md
 
   categoryOrder:
     - "Core API"
@@ -18,6 +20,7 @@ dartdoc:
     - "Permissions"
     - "Exceptions"
     - "Logging"
+    - "Annotations"
 
   # Hide internal implementation files
   nodoc:

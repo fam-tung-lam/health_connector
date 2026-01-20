@@ -85,7 +85,7 @@ final class DietaryPhosphorusRecord extends DietaryMineralRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryPhosphorusRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryPhosphorusRecord.internal({
     required Mass mass,

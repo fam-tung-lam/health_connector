@@ -83,7 +83,7 @@ final class DietaryZincRecord extends DietaryMineralRecord {
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryZincRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietaryZincRecord.internal({
     required Mass mass,

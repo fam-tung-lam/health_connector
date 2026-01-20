@@ -88,7 +88,7 @@ final class DietarySaturatedFatRecord extends DietaryMacronutrientRecord {
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietarySaturatedFatRecord] constructor, which enforces validation and
   /// business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// rules.
   @internalUse
   factory DietarySaturatedFatRecord.internal({
     required Mass mass,

@@ -25,6 +25,8 @@ part of '../health_data_type.dart';
 ///
 /// {@category Health Records}
 @sinceV3_2_0
+@supportedOnAppleHealthIOS16Plus
+@readOnly
 @immutable
 final class SleepingWristTemperatureDataType
     extends HealthDataType<SleepingWristTemperatureRecord, Temperature>
