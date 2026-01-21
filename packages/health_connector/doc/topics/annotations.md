@@ -2,106 +2,6 @@
 
 The Health Connector SDK uses several annotations to communicate API stability, platform support, versioning, and usage constraints. These annotations help developers make informed decisions when integrating health data features into their applications.
 
-## Annotation Types
-
-### @internalUse
-
-Marks APIs intended only for cross-package communication and implementation details **within** the Health Connector SDK ecosystem.
-
-**Application developers should not use or depend on APIs marked with `@internalUse`**, as these are not considered part of the public API surface and can be changed without notice.
-
-```dart
-@internalUse
-final class AggregateRequest {}
-
-// ❌ Not intended: Do not instantiate AggregateRequest in apps
-final request = AggregateRequest();
-
-// ✅ Intended: Use the documented approach instead
-final sumAggregateRequest = HealthDataType.steps.aggregateSum(
-  startTime: DateTime.now().startOfDay,
-  endTime: DateTime.now(),
-);
-```
-
-**When you see this annotation**: Use the higher-level, documented APIs instead of the annotated internal implementation details.
-
----
-
-### @experimentalApi
-
-Marks APIs as experimental and subject to change. APIs with this annotation are not considered stable and might be changed with breaking changes without bumping the major version of the SDK.
-
-**Application developers should use APIs marked with `@experimentalApi` with caution**, as these are not considered part of the stable API surface and can be changed or removed without adhering to strict semantic versioning (i.e., breaking changes may occur in minor or patch releases).
-
-```dart
-@experimentalApi
-class NewFeature {
-  // This feature is still being refined and may change
-}
-```
-
-**When you see this annotation**: Be prepared for potential breaking changes in future SDK updates, even in minor or patch versions.
-
----
-
-### @readOnly
-
-Marks health data types and records as read-only. These types cannot be written, updated, or deleted through the Health Connector SDK.
-
-Read-only data types typically represent metrics that are **automatically calculated or derived** by the underlying health platform (e.g., Walking Steadiness, Apple Move Time, Exercise Time). Because these values are system-computed, platforms do not allow apps to write or modify them directly to preserve data integrity and accuracy.
-
-```dart
-@readOnly
-final class WalkingSteadinessDataType extends HealthDataType
-    implements ReadableHealthDataType<WalkingSteadinessRecord> {
-  // Only implements ReadableHealthDataType
-  // NOT WriteableHealthDataType or DeletableHealthDataType
-}
-
-@readOnly
-final class WalkingSteadinessRecord extends HealthRecord {
-  // Records of this type can only be obtained through read operations
-}
-
-// ✅ Correct: Reading read-only data
-final records = await healthConnector.readRecords(
-  HealthDataType.walkingSteadiness,
-  timeRange: TimeRangeFilter.lastNDays(30),
-);
-
-// ❌ Incorrect: Attempting to write will throw UnsupportedOperationException
-try {
-  await healthConnector.writeRecord(walkingSteadinessRecord);
-} catch (e) {
-  // Throws: UnsupportedOperationException
-  print(e); // "Writing WalkingSteadinessRecord is not supported"
-}
-```
-
-**When you see this annotation**: You can only use read operations (`readRecords`, `aggregate`, etc.) with this data type. Attempting to write, update, or delete will throw an `UnsupportedOperationException`.
-
----
-
-### @Since('version')
-
-Marks the SDK version where an API was added. This helps developers understand which APIs are available based on their SDK version.
-
-The SDK provides convenient version-specific annotations:
-
-```dart
-@sinceV1_0_0  // Available since version 1.0.0
-Future<void> coreMethod() { ... }
-
-@sinceV2_0_0  // Available since version 2.0.0
-Future<void> newerMethod() { ... }
-
-@sinceV3_2_0  // Available since version 3.2.0
-Future<void> latestMethod() { ... }
-```
-
-**When you see this annotation**: Ensure your project's `health_connector` dependency meets or exceeds the specified version.
-
 ---
 
 ### @SupportedOn
@@ -158,6 +58,106 @@ Future<void> syncWithGoogleFit() async {
 - Check the platform at runtime using `HealthConnector.getHealthPlatformStatus()`
 - For version-specific APIs on iOS, check the OS version before using the API
 - Be prepared to handle `UnsupportedOperationException` if used on unsupported platforms/versions
+
+---
+
+### @internalUse
+
+Marks APIs intended only for cross-package communication and implementation details **within** the Health Connector SDK ecosystem.
+
+**Application developers should not use or depend on APIs marked with `@internalUse`**, as these are not considered part of the public API surface and can be changed without notice.
+
+```dart
+@internalUse
+final class AggregateRequest {}
+
+// ❌ Not intended: Do not instantiate AggregateRequest in apps
+final request = AggregateRequest();
+
+// ✅ Intended: Use the documented approach instead
+final sumAggregateRequest = HealthDataType.steps.aggregateSum(
+  startTime: DateTime.now().startOfDay,
+  endTime: DateTime.now(),
+);
+```
+
+**When you see this annotation**: Use the higher-level, documented APIs instead of the annotated internal implementation details.
+
+---
+
+### @readOnly
+
+Marks health data types and records as read-only. These types cannot be written, updated, or deleted through the Health Connector SDK.
+
+Read-only data types typically represent metrics that are **automatically calculated or derived** by the underlying health platform (e.g., Walking Steadiness, Apple Move Time, Exercise Time). Because these values are system-computed, platforms do not allow apps to write or modify them directly to preserve data integrity and accuracy.
+
+```dart
+@readOnly
+final class WalkingSteadinessDataType extends HealthDataType
+    implements ReadableHealthDataType<WalkingSteadinessRecord> {
+  // Only implements ReadableHealthDataType
+  // NOT WriteableHealthDataType or DeletableHealthDataType
+}
+
+@readOnly
+final class WalkingSteadinessRecord extends HealthRecord {
+  // Records of this type can only be obtained through read operations
+}
+
+// ✅ Correct: Reading read-only data
+final records = await healthConnector.readRecords(
+  HealthDataType.walkingSteadiness,
+  timeRange: TimeRangeFilter.lastNDays(30),
+);
+
+// ❌ Incorrect: Attempting to write will throw UnsupportedOperationException
+try {
+  await healthConnector.writeRecord(walkingSteadinessRecord);
+} catch (e) {
+  // Throws: UnsupportedOperationException
+  print(e); // "Writing WalkingSteadinessRecord is not supported"
+}
+```
+
+**When you see this annotation**: You can only use read operations (`readRecords`, `aggregate`, etc.) with this data type. Attempting to write, update, or delete will throw an `UnsupportedOperationException`.
+
+---
+
+### @experimentalApi
+
+Marks APIs as experimental and subject to change. APIs with this annotation are not considered stable and might be changed with breaking changes without bumping the major version of the SDK.
+
+**Application developers should use APIs marked with `@experimentalApi` with caution**, as these are not considered part of the stable API surface and can be changed or removed without adhering to strict semantic versioning (i.e., breaking changes may occur in minor or patch releases).
+
+```dart
+@experimentalApi
+class NewFeature {
+  // This feature is still being refined and may change
+}
+```
+
+**When you see this annotation**: Be prepared for potential breaking changes in future SDK updates, even in minor or patch versions.
+
+---
+
+### @Since('version')
+
+Marks the SDK version where an API was added. This helps developers understand which APIs are available based on their SDK version.
+
+The SDK provides convenient version-specific annotations:
+
+```dart
+@sinceV1_0_0  // Available since version 1.0.0
+Future<void> coreMethod() { ... }
+
+@sinceV2_0_0  // Available since version 2.0.0
+Future<void> newerMethod() { ... }
+
+@sinceV3_2_0  // Available since version 3.2.0
+Future<void> latestMethod() { ... }
+```
+
+**When you see this annotation**: Ensure your project's `health_connector` dependency meets or exceeds the specified version.
 
 ---
 
