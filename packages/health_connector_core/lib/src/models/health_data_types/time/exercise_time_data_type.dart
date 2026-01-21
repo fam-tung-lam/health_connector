@@ -7,9 +7,10 @@ part of '../health_data_type.dart';
 /// calculated by Apple's algorithms based on heart rate, movement, and activity
 /// intensity.
 ///
-/// **Note**: This data type is read-only. Apple Exercise Time is calculated
-/// by internal Apple's algorithms and cannot be written or deleted by
-/// third-party apps.
+/// > [!NOTE]
+/// > This data type is **read-only**. Records of this type are calculated by
+/// > Apple's internal algorithms and cannot be written or deleted by
+/// > third-party apps.
 ///
 /// ## Platform Mapping
 ///

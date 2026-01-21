@@ -4,9 +4,10 @@ part of '../health_data_type.dart';
 ///
 /// Tracks the amount of time spent standing. This is an iOS-specific metric.
 ///
-/// **Note**: This data type is read-only. Apple Stand Time is calculated
-/// by internal Apple's algorithms and cannot be written or deleted by
-/// third-party apps.
+/// > [!NOTE]
+/// > This data type is **read-only**. Records of this type are calculated by
+/// > Apple's internal algorithms and cannot be written or deleted by
+/// > third-party apps.
 ///
 /// ## Platform Mapping
 ///

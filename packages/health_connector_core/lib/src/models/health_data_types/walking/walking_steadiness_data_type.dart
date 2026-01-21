@@ -7,9 +7,9 @@ part of '../health_data_type.dart';
 /// balance and fall risk, with higher percentages indicating more stable
 /// walking patterns.
 ///
-/// **Note**: This data type is read-only. Apple Walking Steadiness is
-/// calculated by Apple's internal algorithms and cannot be written or
-/// deleted by third-party apps.
+/// > [!NOTE]
+/// > This data type is **read-only**. Records of this type are calculated by
+/// > Apple's internal algorithms and cannot be written or deleted by third-party apps.
 ///
 /// ## Platform Mapping
 ///
