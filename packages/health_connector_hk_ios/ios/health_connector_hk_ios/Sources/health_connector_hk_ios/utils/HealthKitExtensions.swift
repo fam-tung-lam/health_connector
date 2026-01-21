@@ -212,8 +212,6 @@ extension HKSample {
                 return .irregularHeartRhythmEvent
             case HKCategoryTypeIdentifier.highHeartRateEvent.rawValue:
                 return .highHeartRateEvent
-            case HKCategoryTypeIdentifier.highHeartRateEvent.rawValue:
-                return .highHeartRateEvent
             case HKCategoryTypeIdentifier.appleWalkingSteadinessEvent.rawValue:
                 return .walkingSteadinessEvent
             // Correlation types
@@ -234,6 +232,8 @@ extension HKSample {
                         return .stairDescentSpeed
                     case HKQuantityTypeIdentifier.runningPower.rawValue:
                         return .runningPower
+                    case HKCategoryTypeIdentifier.infrequentMenstrualCycles.rawValue:
+                        return .infrequentMenstrualCycleEvent
                     default:
                         break
                     }

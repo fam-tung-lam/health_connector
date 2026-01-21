@@ -130,6 +130,8 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingStepLengthDataType _ => AppTexts.walkingStepLength,
       LowHeartRateEventDataType _ => AppTexts.lowHeartRateEvent,
       IrregularHeartRhythmEventDataType _ => 'Irregular Heart Rhythm Event',
+      InfrequentMenstrualCycleEventDataType _ =>
+        AppTexts.infrequentMenstrualCycleEvent,
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEvent,
       WalkingSteadinessEventDataType _ => AppTexts.walkingSteadinessEvent,
     };
@@ -278,6 +280,8 @@ extension HealthDataTypeUI on HealthDataType {
       LowHeartRateEventDataType _ => AppTexts.lowHeartRateEventDescription,
       IrregularHeartRhythmEventDataType _ =>
         'Detected irregular heart rhythm notification (iOS only)',
+      InfrequentMenstrualCycleEventDataType _ =>
+        AppTexts.infrequentMenstrualCycleEventDescription,
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEventDescription,
       WalkingSteadinessEventDataType _ =>
         AppTexts.walkingSteadinessEventDescription,
@@ -407,6 +411,7 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingStepLengthDataType _ => AppIcons.directionsWalk,
       LowHeartRateEventDataType _ => AppIcons.favorite,
       IrregularHeartRhythmEventDataType _ => AppIcons.favorite,
+      InfrequentMenstrualCycleEventDataType _ => AppIcons.waterDrop,
       HighHeartRateEventDataType _ => AppIcons.favorite,
       WalkingSteadinessEventDataType _ => AppIcons.directionsWalk,
     };

@@ -163,6 +163,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       ForcedVitalCapacityRecord _ => HealthDataType.forcedVitalCapacity,
       LowHeartRateEventRecord _ => HealthDataType.lowHeartRateEvent,
       HighHeartRateEventRecord _ => HealthDataType.highHeartRateEvent,
+      InfrequentMenstrualCycleEventRecord _ =>
+        HealthDataType.infrequentMenstrualCycleEvent,
       IrregularHeartRhythmEventRecord _ =>
         HealthDataType.irregularHeartRhythmEvent,
       WalkingSteadinessEventRecord _ => HealthDataType.walkingSteadinessEvent,

@@ -156,6 +156,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case ActivityIntensityDataType _:
           case LowHeartRateEventDataType _:
           case IrregularHeartRhythmEventDataType _:
+          case InfrequentMenstrualCycleEventDataType _:
           case HighHeartRateEventDataType _:
           case WalkingSteadinessEventDataType _:
             throw ArgumentError(

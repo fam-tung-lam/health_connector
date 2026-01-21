@@ -172,6 +172,7 @@ abstract final class AppTexts {
       RestingHeartRateDataType() => restingHeartRate,
       LowHeartRateEventDataType() => lowHeartRateEvent,
       HighHeartRateEventDataType() => highHeartRateEvent,
+      InfrequentMenstrualCycleEventDataType() => infrequentMenstrualCycleEvent,
       OxygenSaturationDataType() => oxygenSaturation,
       ForcedVitalCapacityDataType() => forcedVitalCapacity,
       RespiratoryRateDataType() => respiratoryRate,
@@ -465,6 +466,10 @@ abstract final class AppTexts {
   static const String highHeartRateEvent = 'High Heart Rate Event';
   static const String highHeartRateEventDescription =
       'Recorded when heart rate exceeds configured threshold (iOS only)';
+  static const String infrequentMenstrualCycleEvent =
+      'Infrequent Menstrual Cycle Event';
+  static const String infrequentMenstrualCycleEventDescription =
+      'Detected when having a period 1-2 times in the last 6 months (iOS 16+)';
   static const String walkingSteadinessEvent = 'Walking Steadiness Event';
   static const String walkingSteadinessEventDescription =
       'Records an incident where the user showed a reduced score '

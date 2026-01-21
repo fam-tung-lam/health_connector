@@ -864,6 +864,9 @@ extension on double {
       HealthDataTypeDto.bodyMassIndex ||
       HealthDataTypeDto.forcedVitalCapacity ||
       HealthDataTypeDto.heartRateVariabilitySDNN => Number(this),
+      HealthDataTypeDto.infrequentMenstrualCycleEvent => throw ArgumentError(
+        '$InfrequentMenstrualCycleEventDataType is not aggregatable.',
+      ),
       HealthDataTypeDto.walkingSteadinessEvent => throw ArgumentError(
         '$WalkingSteadinessEventDataType is not aggregatable.',
       ),

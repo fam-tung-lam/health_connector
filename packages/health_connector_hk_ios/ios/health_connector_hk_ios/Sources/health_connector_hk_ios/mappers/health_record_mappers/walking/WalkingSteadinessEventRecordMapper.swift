@@ -12,7 +12,7 @@ extension HKCategorySample {
         else {
             throw HealthConnectorError.invalidArgument(
                 message:
-                    "Expected walking steadiness event category type, got \(categoryType.identifier)",
+                "Expected walking steadiness event category type, got \(categoryType.identifier)",
                 context: [
                     "expected": HKCategoryTypeIdentifier.appleWalkingSteadinessEvent.rawValue,
                     "actual": categoryType.identifier,
@@ -51,8 +51,8 @@ extension HKCategorySample {
     }
 }
 
-extension WalkingSteadinessTypeDto {
-    fileprivate init(from eventType: HKCategoryValueAppleWalkingSteadinessEvent) throws {
+private extension WalkingSteadinessTypeDto {
+    init(from eventType: HKCategoryValueAppleWalkingSteadinessEvent) throws {
         switch eventType {
         case .initialLow:
             self = .initialLow

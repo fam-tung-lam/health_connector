@@ -263,6 +263,19 @@ extension HKCategorySample {
             try toLowHeartRateEventRecordDto()
         case .irregularHeartRhythmEvent:
             try toIrregularHeartRhythmEventRecordDto()
+        case .infrequentMenstrualCycleEvent:
+            if #available(iOS 16.0, *) {
+                try toInfrequentMenstrualCycleEventRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Infrequent menstrual cycle event is only supported on iOS 16.0 and later",
+                    context: [
+                        "dataType": "infrequentMenstrualCycleEvent",
+                        "minimumIOSVersion": "16.0",
+                    ]
+                )
+            }
         case .highHeartRateEvent:
             try toHighHeartRateEventRecordDto()
         case .walkingSteadinessEvent:

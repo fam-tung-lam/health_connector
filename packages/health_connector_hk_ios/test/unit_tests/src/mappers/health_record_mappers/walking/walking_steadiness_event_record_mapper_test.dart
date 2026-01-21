@@ -9,7 +9,7 @@ void main() {
     group('WalkingSteadinessEventRecordDtoToDomain', () {
       test(
         'converts WalkingSteadinessEventRecordDto to '
-            'WalkingSteadinessEventRecord',
+        'WalkingSteadinessEventRecord',
         () {
           final dto = WalkingSteadinessEventRecordDto(
             id: FakeData.fakeId,

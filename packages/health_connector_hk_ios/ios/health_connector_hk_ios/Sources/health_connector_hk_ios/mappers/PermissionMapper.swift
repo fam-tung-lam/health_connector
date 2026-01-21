@@ -118,6 +118,7 @@ extension HealthDataPermissionDto {
              .mindfulnessSession,
              .lowHeartRateEvent,
              .irregularHeartRhythmEvent,
+             .infrequentMenstrualCycleEvent,
              .highHeartRateEvent,
              .walkingSteadinessEvent:
             try [healthDataType.toHKSampleType()]

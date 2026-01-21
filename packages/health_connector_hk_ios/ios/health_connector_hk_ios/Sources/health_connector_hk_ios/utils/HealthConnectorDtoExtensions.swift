@@ -391,6 +391,8 @@ extension HealthRecordDto {
                 return .lowHeartRateEvent
             case is IrregularHeartRhythmEventRecordDto:
                 return .irregularHeartRhythmEvent
+            case is InfrequentMenstrualCycleEventRecordDto:
+                return .infrequentMenstrualCycleEvent
             case is HighHeartRateEventRecordDto:
                 return .highHeartRateEvent
             default:

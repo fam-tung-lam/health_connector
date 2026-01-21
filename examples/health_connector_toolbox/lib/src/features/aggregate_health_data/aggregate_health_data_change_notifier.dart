@@ -799,6 +799,7 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       ),
       LowHeartRateEventDataType() ||
       IrregularHeartRhythmEventDataType() ||
+      InfrequentMenstrualCycleEventDataType() ||
       HighHeartRateEventDataType() ||
       WalkingSteadinessEventDataType() => throw UnsupportedError(
         'Low heart rate event does not support aggregation',

@@ -230,6 +230,10 @@ abstract class MeasurementUnitValueParser {
         '$ActivityIntensityDataType is a record of intensity activity type, '
         'cannot be parsed from a single string input.',
       ),
+      InfrequentMenstrualCycleEventDataType() => throw UnsupportedError(
+        '$InfrequentMenstrualCycleEventDataType is a read-only event record, '
+        'cannot be parsed from a single string input.',
+      ),
     };
   }
 
