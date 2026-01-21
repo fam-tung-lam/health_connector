@@ -1,22 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/high_heart_rate_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/low_heart_rate_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
 import '../../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'HighHeartRateEventRecordMapper',
+    'LowHeartRateEventRecordMapper',
     () {
       group(
-        'HighHeartRateEventRecordDtoToDomain',
+        'LowHeartRateEventRecordDtoToDomain',
         () {
           test(
-            'converts HighHeartRateEventRecordDto to HighHeartRateEventRecord',
+            'converts LowHeartRateEventRecordDto to LowHeartRateEventRecord',
             () {
               final time = FakeData.fakeTime;
 
-              final dto = HighHeartRateEventRecordDto(
+              final dto = LowHeartRateEventRecordDto(
                 id: FakeData.fakeId,
                 startTime: time.millisecondsSinceEpoch,
                 endTime: time
@@ -32,7 +32,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                beatsPerMinuteThreshold: 120.0,
+                beatsPerMinuteThreshold: 50.0,
               );
 
               final record = dto.toDomain();
@@ -43,7 +43,7 @@ void main() {
                 record.endTime,
                 time.add(const Duration(minutes: 5)).toLocal(),
               );
-              expect(record.rateThreshold!.inPerMinute, 120.0);
+              expect(record.rateThreshold!.inPerMinute, 50.0);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
