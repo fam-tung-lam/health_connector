@@ -577,6 +577,11 @@ extension HealthRecordToDto on HealthRecord {
           '$AtrialFibrillationBurdenRecord is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case WalkingHeartRateAverageRecord():
+        throw UnsupportedError(
+          '$WalkingHeartRateAverageRecord is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

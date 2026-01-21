@@ -210,6 +210,7 @@ abstract final class AppTexts {
         persistentIntermenstrualBleedingEvent,
       ProlongedMenstrualPeriodEventDataType() => prolongedMenstrualPeriodEvent,
       AtrialFibrillationBurdenDataType() => atrialFibrillationBurden,
+      WalkingHeartRateAverageDataType() => walkingHeartRateAverage,
     };
   }
 
@@ -480,6 +481,9 @@ abstract final class AppTexts {
       'Records an incident where the user showed a reduced score '
       'for their gait’s steadiness (iOS only)';
   static const String atrialFibrillationBurden = 'AFib Burden';
+  static const String walkingHeartRateAverage = 'Walking Heart Rate Average';
+  static const String walkingHeartRateAverageDescription =
+      'Average heart rate while walking';
   static const String irregularMenstrualCycleEvent =
       'Irregular Menstrual Cycle Event';
   static const String irregularMenstrualCycleEventDescription =

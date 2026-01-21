@@ -29,7 +29,8 @@ abstract class MeasurementUnitValueParser {
       RestingHeartRateDataType() ||
       LowHeartRateEventDataType() ||
       IrregularHeartRhythmEventDataType() ||
-      HighHeartRateEventDataType() => _parseFrequency(value),
+      HighHeartRateEventDataType() ||
+      WalkingHeartRateAverageDataType() => _parseFrequency(value),
 
       // Mass types (kilograms)
       WeightDataType() ||

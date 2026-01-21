@@ -749,6 +749,9 @@ enum HealthDataTypeDto {
   /// Apple Walking Steadiness data (iOS only).
   walkingSteadiness,
 
+  /// Walking Heart Rate Average data (iOS only).
+  walkingHeartRateAverage,
+
   /// Walking Double Support Percentage data type (iOS only).
   walkingDoubleSupportPercentage,
 
@@ -1106,6 +1109,40 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
+}
+
+/// Represents a walking heart rate average record for platform transfer.
+class WalkingHeartRateAverageRecordDto extends HealthRecordDto {
+  WalkingHeartRateAverageRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.beatsPerMinute,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Average heart rate in beats per minute.
+  final double beatsPerMinute;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a low heart rate event record for platform transfer.

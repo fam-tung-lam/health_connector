@@ -25,6 +25,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_variability_sdnn_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/resting_heart_rate_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/walking_heart_rate_average_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/hydration_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/lean_body_mass_record_mapper.dart';
@@ -443,6 +444,10 @@ extension HealthRecordToDto on HealthRecord {
           '$AtrialFibrillationBurdenRecord is '
           'read-only data type.',
         );
+      case final WalkingHeartRateAverageRecord _:
+        throw UnsupportedError(
+          '$WalkingHeartRateAverageRecord is read-only data type.',
+        );
     }
   }
 }
@@ -652,6 +657,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return ProlongedMenstrualPeriodEventRecordDtoToDomain(dto).toDomain();
       case final AtrialFibrillationBurdenRecordDto dto:
         return AtrialFibrillationBurdenRecordDtoToDomain(dto).toDomain();
+      case final WalkingHeartRateAverageRecordDto dto:
+        return WalkingHeartRateAverageRecordDtoToDomain(dto).toDomain();
     }
   }
 }

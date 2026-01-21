@@ -62,6 +62,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .heartRate)
         case .restingHeartRate:
             try HKQuantityType.make(from: .restingHeartRate)
+        case .walkingHeartRateAverage:
+            try HKQuantityType.make(from: .walkingHeartRateAverage)
         case .oxygenSaturation:
             try HKQuantityType.make(from: .oxygenSaturation)
         case .respiratoryRate:

@@ -61,6 +61,7 @@ part 'heart_rate/heart_rate_variability_rmssd_record.dart';
 part 'heart_rate/heart_rate_variability_sdnn_record.dart';
 part 'events/high_heart_rate_event_record.dart';
 part 'heart_rate/resting_heart_rate_record.dart';
+part 'heart_rate/walking_heart_rate_average_record.dart';
 part 'events/infrequent_menstrual_cycle_event_record.dart';
 part 'events/irregular_menstrual_cycle_event_record.dart';
 part 'events/persistent_intermenstrual_bleeding_event_record.dart';

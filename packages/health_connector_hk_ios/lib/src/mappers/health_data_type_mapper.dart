@@ -234,6 +234,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.prolongedMenstrualPeriodEvent;
       case HealthDataTypeDto.atrialFibrillationBurden:
         return HealthDataType.atrialFibrillationBurden;
+      case HealthDataTypeDto.walkingHeartRateAverage:
+        return HealthDataType.walkingHeartRateAverage;
     }
   }
 }
@@ -541,6 +543,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.prolongedMenstrualPeriodEvent;
       case AtrialFibrillationBurdenDataType _:
         return HealthDataTypeDto.atrialFibrillationBurden;
+      case WalkingHeartRateAverageDataType _:
+        return HealthDataTypeDto.walkingHeartRateAverage;
     }
   }
 }

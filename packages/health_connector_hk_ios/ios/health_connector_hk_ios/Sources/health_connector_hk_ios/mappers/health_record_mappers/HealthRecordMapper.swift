@@ -188,7 +188,8 @@ extension HealthRecordDto {
              is IrregularHeartRhythmEventRecordDto,
              is WalkingSteadinessEventRecordDto,
              is PersistentIntermenstrualBleedingEventRecordDto,
-             is LowHeartRateEventRecordDto:
+             is LowHeartRateEventRecordDto,
+             is WalkingHeartRateAverageRecordDto:
             throw HealthConnectorError.invalidArgument(
                 message:
                 "\(String(describing: type(of: self))) is read-only and cannot be written to HealthKit."
@@ -553,6 +554,8 @@ extension HKQuantitySample {
                     message: "Atrial Fibrillation Burden is not available on this iOS version."
                 )
             }
+        case .walkingHeartRateAverage:
+            try toWalkingHeartRateAverageRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

@@ -141,6 +141,7 @@ extension HealthDataTypeUI on HealthDataType {
       ProlongedMenstrualPeriodEventDataType _ =>
         AppTexts.prolongedMenstrualPeriodEvent,
       AtrialFibrillationBurdenDataType _ => AppTexts.atrialFibrillationBurden,
+      WalkingHeartRateAverageDataType _ => AppTexts.walkingHeartRateAverage,
     };
   }
 
@@ -300,6 +301,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.prolongedMenstrualPeriodEvent,
       AtrialFibrillationBurdenDataType _ =>
         'Percentage of time the heart shows signs of atrial fibrillation',
+      WalkingHeartRateAverageDataType _ =>
+        AppTexts.walkingHeartRateAverageDescription,
     };
   }
 
@@ -433,6 +436,7 @@ extension HealthDataTypeUI on HealthDataType {
       PersistentIntermenstrualBleedingEventDataType _ => AppIcons.waterDrop,
       ProlongedMenstrualPeriodEventDataType _ => AppIcons.waterDrop,
       AtrialFibrillationBurdenDataType _ => AppIcons.favorite,
+      WalkingHeartRateAverageDataType _ => AppIcons.favorite,
     };
   }
 }
@@ -458,7 +462,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (IrregularMenstrualCycleEventDataType) ||
       const (HighHeartRateEventDataType) ||
       const (WalkingSteadinessEventDataType) ||
-      const (ProlongedMenstrualPeriodEventDataType) => TextInputType.number,
+      const (ProlongedMenstrualPeriodEventDataType) ||
+      const (WalkingHeartRateAverageDataType) => TextInputType.number,
 
       // Percentage types - Decimal
       const (AtrialFibrillationBurdenDataType) =>
@@ -512,6 +517,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (AtrialFibrillationBurdenDataType) => AppTexts.withUnit(
         AppTexts.atrialFibrillationBurden,
         AppTexts.percent,
+      ),
+      const (WalkingHeartRateAverageDataType) => AppTexts.valueWithUnit(
+        AppTexts.walkingHeartRateAverage,
+        AppTexts.bpm,
       ),
 
       // Mass Types (Kilograms)

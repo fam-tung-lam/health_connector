@@ -636,6 +636,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       AtrialFibrillationBurdenDataType _ => throw UnsupportedError(
         'Atrial Fibrillation Burden is read-only',
       ),
+      WalkingHeartRateAverageDataType _ => throw UnsupportedError(
+        'Walking Heart Rate Average is read-only',
+      ),
     };
   }
 }

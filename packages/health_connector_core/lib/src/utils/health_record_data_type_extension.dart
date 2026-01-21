@@ -93,6 +93,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       SexualActivityRecord _ => HealthDataType.sexualActivity,
       MindfulnessSessionRecord _ => HealthDataType.mindfulnessSession,
       RestingHeartRateRecord _ => HealthDataType.restingHeartRate,
+      WalkingHeartRateAverageRecord _ => HealthDataType.walkingHeartRateAverage,
       OvulationTestRecord _ => HealthDataType.ovulationTest,
       PregnancyTestRecord _ => HealthDataType.pregnancyTest,
       ProgesteroneTestRecord _ => HealthDataType.progesteroneTest,

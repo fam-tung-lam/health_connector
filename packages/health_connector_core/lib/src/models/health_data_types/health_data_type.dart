@@ -62,6 +62,7 @@ part 'heart_rate/heart_rate_series_data_type.dart';
 part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
 part 'heart_rate/heart_rate_variability_sdnn_data_type.dart';
 part 'heart_rate/resting_heart_rate_data_type.dart';
+part 'heart_rate/walking_heart_rate_average_data_type.dart';
 part 'height_data_type.dart';
 part 'hydration_data_type.dart';
 part 'lean_body_mass_data_type.dart';
@@ -710,6 +711,16 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const RestingHeartRateDataType restingHeartRate =
       RestingHeartRateDataType();
 
+  /// Walking heart rate average data type.
+  ///
+  /// Represents a user's average heart rate while walking.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_4_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const walkingHeartRateAverage = WalkingHeartRateAverageDataType();
+
   /// Low heart rate event data type.
   ///
   /// Represents events where the heart rate falls below a specific threshold.
@@ -1352,6 +1363,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     waistCircumference,
     walkingAsymmetryPercentage,
     walkingDoubleSupportPercentage,
+    walkingHeartRateAverage,
     walkingRunningDistance,
     walkingSpeed,
     walkingSteadinessEvent,

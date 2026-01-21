@@ -65,6 +65,8 @@ extension HKSample {
                 return .heartRateMeasurementRecord
             case HKQuantityTypeIdentifier.restingHeartRate.rawValue:
                 return .restingHeartRate
+            case HKQuantityTypeIdentifier.walkingHeartRateAverage.rawValue:
+                return .walkingHeartRateAverage
             case HKQuantityTypeIdentifier.oxygenSaturation.rawValue:
                 return .oxygenSaturation
             case HKQuantityTypeIdentifier.respiratoryRate.rawValue:
