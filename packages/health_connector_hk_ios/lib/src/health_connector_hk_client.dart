@@ -877,6 +877,9 @@ extension on double {
       HealthDataTypeDto.irregularMenstrualCycleEvent => throw ArgumentError(
         '$IrregularMenstrualCycleEventDataType is not aggregatable.',
       ),
+      HealthDataTypeDto.prolongedMenstrualPeriodEvent => throw ArgumentError(
+        '$ProlongedMenstrualPeriodEventDataType is not aggregatable.',
+      ),
     };
   }
 }

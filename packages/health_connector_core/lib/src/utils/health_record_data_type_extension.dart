@@ -172,6 +172,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       WalkingSteadinessEventRecord _ => HealthDataType.walkingSteadinessEvent,
       PersistentIntermenstrualBleedingEventRecord _ =>
         HealthDataType.persistentIntermenstrualBleedingEvent,
+      ProlongedMenstrualPeriodEventRecord _ =>
+        HealthDataType.prolongedMenstrualPeriodEvent,
     };
   }
 }

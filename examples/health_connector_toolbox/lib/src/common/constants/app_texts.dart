@@ -208,6 +208,7 @@ abstract final class AppTexts {
       IrregularMenstrualCycleEventDataType() => irregularMenstrualCycleEvent,
       PersistentIntermenstrualBleedingEventDataType() =>
         persistentIntermenstrualBleedingEvent,
+      ProlongedMenstrualPeriodEventDataType() => prolongedMenstrualPeriodEvent,
     };
   }
 
@@ -486,6 +487,10 @@ abstract final class AppTexts {
       'Persistent Intermenstrual Bleeding Event';
   static const String persistentIntermenstrualBleedingEventDescription =
       'Detected when intermenstrual bleeding is persistent (iOS 16+)';
+  static const String prolongedMenstrualPeriodEvent =
+      'Prolonged Menstrual Period Event';
+  static const String prolongedMenstrualPeriodEventDescription =
+      'Detected when a menstrual period is longer than usual (iOS 16+)';
   static const String initialLow = 'Initial Low';
   static const String repeatLow = 'Repeat Low';
   static const String initialVeryLow = 'Initial Very Low';

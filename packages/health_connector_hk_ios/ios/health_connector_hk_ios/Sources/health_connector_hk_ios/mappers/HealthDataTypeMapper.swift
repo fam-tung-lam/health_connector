@@ -361,6 +361,20 @@ extension HealthDataTypeDto {
                     ]
                 )
             }
+        case .prolongedMenstrualPeriodEvent:
+            if #available(iOS 16.0, *) {
+                try HKCategoryType.make(from: .prolongedMenstrualPeriods)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Prolonged menstrual period event is only supported on iOS 16.0 and later",
+                    context: [
+                        "dataType": "prolongedMenstrualPeriodEvent",
+                        "HKCategoryType": ".prolongedMenstrualPeriods",
+                        "minimumIOSVersion": "16.0",
+                    ]
+                )
+            }
         }
     }
 }

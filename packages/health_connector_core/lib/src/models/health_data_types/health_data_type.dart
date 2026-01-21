@@ -51,6 +51,7 @@ part 'events/irregular_heart_rhythm_event_data_type.dart';
 part 'events/irregular_menstrual_cycle_event_data_type.dart';
 part 'events/low_heart_rate_event_data_type.dart';
 part 'events/persistent_intermenstrual_bleeding_event_data_type.dart';
+part 'events/prolonged_menstrual_period_event_data_type.dart';
 part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
 part 'forced_vital_capacity_data_type.dart';
@@ -768,6 +769,20 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const persistentIntermenstrualBleedingEvent =
       PersistentIntermenstrualBleedingEventDataType();
 
+  /// Prolonged menstrual period event data type.
+  ///
+  /// Represents events where prolonged menstrual periods are detected by
+  /// HealthKit. A prolonged period is defined as menstrual bleeding that lasts
+  /// for ten or more days, and this has happened at least two times in the
+  /// last six months.
+  ///
+  /// **Note**: This is a read-only data type. Available on iOS 16.0+.
+  @sinceV3_4_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const prolongedMenstrualPeriodEvent =
+      ProlongedMenstrualPeriodEventDataType();
+
   /// Running power data type.
   @sinceV3_1_0
   @supportedOnAppleHealth
@@ -1294,10 +1309,12 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     oxygenSaturation,
     paddleSportsDistance,
     peripheralPerfusionIndex,
+    persistentIntermenstrualBleedingEvent,
     powerSeries,
     pregnancy,
     pregnancyTest,
     progesteroneTest,
+    prolongedMenstrualPeriodEvent,
     respiratoryRate,
     restingHeartRate,
     rowingDistance,

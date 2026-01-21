@@ -1071,6 +1071,9 @@ enum HealthDataTypeDto {
 
   /// Persistent Intermenstrual Bleeding Event.
   persistentIntermenstrualBleedingEvent,
+
+  /// Prolonged Menstrual Period event data type (iOS only).
+  prolongedMenstrualPeriodEvent,
 }
 
 /// Sealed class for all health record DTOs.
@@ -4344,6 +4347,24 @@ class PersistentIntermenstrualBleedingEventRecordDto extends HealthRecordDto {
   });
 
   final String id;
+  final int startTime;
+  final int endTime;
+  final MetadataDto metadata;
+  final int? startZoneOffsetSeconds;
+  final int? endZoneOffsetSeconds;
+}
+
+class ProlongedMenstrualPeriodEventRecordDto extends HealthRecordDto {
+  ProlongedMenstrualPeriodEventRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  final String? id;
   final int startTime;
   final int endTime;
   final MetadataDto metadata;

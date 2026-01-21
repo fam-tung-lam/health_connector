@@ -24,10 +24,8 @@ extension HealthDataPermissionDto {
              .cyclingPower,
              .runningPower,
              .cyclingPedalingCadence,
-             .cyclingPedalingCadence,
              .swimmingDistance,
              .swimmingStrokes,
-             .wheelchairDistance,
              .wheelchairDistance,
              .walkingRunningDistance,
              .downhillSnowSportsDistance,
@@ -122,7 +120,8 @@ extension HealthDataPermissionDto {
              .infrequentMenstrualCycleEvent,
              .highHeartRateEvent,
              .walkingSteadinessEvent,
-             .persistentIntermenstrualBleedingEvent:
+             .persistentIntermenstrualBleedingEvent,
+             .prolongedMenstrualPeriodEvent:
             try [healthDataType.toHKSampleType()]
 
         // For correlation types HealthKit requires requesting permissions for

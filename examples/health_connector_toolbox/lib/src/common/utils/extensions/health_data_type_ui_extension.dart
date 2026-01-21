@@ -138,6 +138,8 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingSteadinessEventDataType _ => AppTexts.walkingSteadinessEvent,
       PersistentIntermenstrualBleedingEventDataType _ =>
         AppTexts.persistentIntermenstrualBleedingEvent,
+      ProlongedMenstrualPeriodEventDataType _ =>
+        AppTexts.prolongedMenstrualPeriodEvent,
     };
   }
 
@@ -293,6 +295,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.walkingSteadinessEventDescription,
       PersistentIntermenstrualBleedingEventDataType _ =>
         AppTexts.persistentIntermenstrualBleedingEvent,
+      ProlongedMenstrualPeriodEventDataType _ =>
+        AppTexts.prolongedMenstrualPeriodEvent,
     };
   }
 
@@ -424,6 +428,7 @@ extension HealthDataTypeUI on HealthDataType {
       HighHeartRateEventDataType _ => AppIcons.favorite,
       WalkingSteadinessEventDataType _ => AppIcons.directionsWalk,
       PersistentIntermenstrualBleedingEventDataType _ => AppIcons.waterDrop,
+      ProlongedMenstrualPeriodEventDataType _ => AppIcons.waterDrop,
     };
   }
 }
@@ -448,7 +453,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (IrregularHeartRhythmEventDataType) ||
       const (IrregularMenstrualCycleEventDataType) ||
       const (HighHeartRateEventDataType) ||
-      const (WalkingSteadinessEventDataType) => TextInputType.number,
+      const (WalkingSteadinessEventDataType) ||
+      const (ProlongedMenstrualPeriodEventDataType) => TextInputType.number,
 
       // All other types use decimal number input
       _ => const TextInputType.numberWithOptions(decimal: true),
@@ -492,6 +498,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.highHeartRateEvent,
         AppTexts.bpm,
       ),
+      const (ProlongedMenstrualPeriodEventDataType) =>
+        AppTexts.prolongedMenstrualPeriodEvent,
       const (WalkingSteadinessEventDataType) => AppTexts.walkingSteadinessEvent,
 
       // Mass Types (Kilograms)

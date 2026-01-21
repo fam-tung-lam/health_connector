@@ -1032,6 +1032,9 @@ enum HealthDataTypeDto {
 
   /// Persistent Intermenstrual Bleeding Event.
   persistentIntermenstrualBleedingEvent,
+
+  /// Prolonged Menstrual Period event data type (iOS only).
+  prolongedMenstrualPeriodEvent,
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -9485,6 +9488,73 @@ class PersistentIntermenstrualBleedingEventRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+class ProlongedMenstrualPeriodEventRecordDto extends HealthRecordDto {
+  ProlongedMenstrualPeriodEventRecordDto({
+    this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  String? id;
+
+  int startTime;
+
+  int endTime;
+
+  MetadataDto metadata;
+
+  int? startZoneOffsetSeconds;
+
+  int? endZoneOffsetSeconds;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      id,
+      startTime,
+      endTime,
+      metadata,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static ProlongedMenstrualPeriodEventRecordDto decode(Object result) {
+    result as List<Object?>;
+    return ProlongedMenstrualPeriodEventRecordDto(
+      id: result[0] as String?,
+      startTime: result[1]! as int,
+      endTime: result[2]! as int,
+      metadata: result[3]! as MetadataDto,
+      startZoneOffsetSeconds: result[4] as int?,
+      endZoneOffsetSeconds: result[5] as int?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ProlongedMenstrualPeriodEventRecordDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 // ignore: camel_case_types
 class _PigeonCodecOverflow {
   _PigeonCodecOverflow({required this.type, required this.wrapped});
@@ -9546,6 +9616,8 @@ class _PigeonCodecOverflow {
         return PeripheralPerfusionIndexRecordDto.decode(wrapped!);
       case 17:
         return PersistentIntermenstrualBleedingEventRecordDto.decode(wrapped!);
+      case 18:
+        return ProlongedMenstrualPeriodEventRecordDto.decode(wrapped!);
     }
     return null;
   }
@@ -10058,6 +10130,13 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PersistentIntermenstrualBleedingEventRecordDto) {
       final _PigeonCodecOverflow wrap = _PigeonCodecOverflow(
         type: 17,
+        wrapped: value.encode(),
+      );
+      buffer.putUint8(255);
+      writeValue(buffer, wrap.encode());
+    } else if (value is ProlongedMenstrualPeriodEventRecordDto) {
+      final _PigeonCodecOverflow wrap = _PigeonCodecOverflow(
+        type: 18,
         wrapped: value.encode(),
       );
       buffer.putUint8(255);

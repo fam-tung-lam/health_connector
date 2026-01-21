@@ -890,6 +890,8 @@ public enum HealthDataTypeDto: Int {
   case walkingSteadinessEvent = 110
   /// Persistent Intermenstrual Bleeding Event.
   case persistentIntermenstrualBleedingEvent = 111
+  /// Prolonged Menstrual Period event data type (iOS only).
+  case prolongedMenstrualPeriodEvent = 112
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -6977,6 +6979,51 @@ public struct PersistentIntermenstrualBleedingEventRecordDto: HealthRecordDto {
   }
 }
 
+/// Generated class from Pigeon that represents data sent in messages.
+public struct ProlongedMenstrualPeriodEventRecordDto: HealthRecordDto {
+  var id: String? = nil
+  var startTime: Int64
+  var endTime: Int64
+  var metadata: MetadataDto
+  var startZoneOffsetSeconds: Int64? = nil
+  var endZoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ProlongedMenstrualPeriodEventRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+
+    return ProlongedMenstrualPeriodEventRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: ProlongedMenstrualPeriodEventRecordDto, rhs: ProlongedMenstrualPeriodEventRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 
 private struct PigeonInternalCodecOverflow {
   var type: Int
@@ -7043,6 +7090,8 @@ private struct PigeonInternalCodecOverflow {
         return PeripheralPerfusionIndexRecordDto.fromList(wrapped as! [Any?]);
       case 17:
         return PersistentIntermenstrualBleedingEventRecordDto.fromList(wrapped as! [Any?]);
+      case 18:
+        return ProlongedMenstrualPeriodEventRecordDto.fromList(wrapped as! [Any?]);
       default: 
         return nil
     }
@@ -7890,6 +7939,10 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
       super.writeValue(wrap.toList())
     } else if let value = value as? PersistentIntermenstrualBleedingEventRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 17, wrapped: value.toList())
+      super.writeByte(255)
+      super.writeValue(wrap.toList())
+    } else if let value = value as? ProlongedMenstrualPeriodEventRecordDto {
+      let wrap = PigeonInternalCodecOverflow(type: 18, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
     } else {

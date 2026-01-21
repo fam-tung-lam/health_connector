@@ -630,6 +630,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       PersistentIntermenstrualBleedingEventDataType _ => throw UnsupportedError(
         'Persistent Intermenstrual Bleeding Event is read-only',
       ),
+      ProlongedMenstrualPeriodEventDataType _ => throw UnsupportedError(
+        'Prolonged Menstrual Period Event is read-only',
+      ),
     };
   }
 }

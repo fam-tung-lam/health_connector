@@ -800,6 +800,9 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       PersistentIntermenstrualBleedingEventDataType() => throw UnsupportedError(
         'Persistent intermenstrual bleeding event does not support aggregation',
       ),
+      ProlongedMenstrualPeriodEventDataType() => throw UnsupportedError(
+        'Prolonged menstrual period event does not support aggregation',
+      ),
       LowHeartRateEventDataType() ||
       IrregularHeartRhythmEventDataType() ||
       InfrequentMenstrualCycleEventDataType() ||

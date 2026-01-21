@@ -17,6 +17,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_menstrual_cycle_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/low_heart_rate_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/persistent_intermenstrual_bleeding_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/prolonged_menstrual_period_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_vital_capacity_record_mapper.dart';
@@ -378,12 +379,12 @@ extension HealthRecordToDto on HealthRecord {
           '$MenstrualFlowInstantRecord is not supported on iOS HealthKit. '
           'Use $MenstrualFlowRecord instead.',
         );
-
-      // Read-only data types
       case final ActivityIntensityRecord _:
         throw UnsupportedError(
           '$ActivityIntensityRecord is not supported on iOS HealthKit.',
         );
+
+      // Read-only data types
       case final ExerciseTimeRecord _:
         throw UnsupportedError('$ExerciseTimeRecord is read-only data type.');
       case final MoveTimeRecord _:
@@ -429,6 +430,11 @@ extension HealthRecordToDto on HealthRecord {
       case final PersistentIntermenstrualBleedingEventRecord _:
         throw UnsupportedError(
           '$PersistentIntermenstrualBleedingEventRecord is '
+          'read-only data type.',
+        );
+      case final ProlongedMenstrualPeriodEventRecord _:
+        throw UnsupportedError(
+          '$ProlongedMenstrualPeriodEventRecord is '
           'read-only data type.',
         );
     }
@@ -636,6 +642,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return PersistentIntermenstrualBleedingEventRecordDtoToDomain(
           dto,
         ).toDomain();
+      case final ProlongedMenstrualPeriodEventRecordDto dto:
+        return ProlongedMenstrualPeriodEventRecordDtoToDomain(dto).toDomain();
     }
   }
 }

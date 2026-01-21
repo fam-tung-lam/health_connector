@@ -230,6 +230,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.walkingSteadinessEvent;
       case HealthDataTypeDto.persistentIntermenstrualBleedingEvent:
         return HealthDataType.persistentIntermenstrualBleedingEvent;
+      case HealthDataTypeDto.prolongedMenstrualPeriodEvent:
+        return HealthDataType.prolongedMenstrualPeriodEvent;
     }
   }
 }
@@ -533,6 +535,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.walkingSteadinessEvent;
       case PersistentIntermenstrualBleedingEventDataType _:
         return HealthDataTypeDto.persistentIntermenstrualBleedingEvent;
+      case ProlongedMenstrualPeriodEventDataType _:
+        return HealthDataTypeDto.prolongedMenstrualPeriodEvent;
     }
   }
 }

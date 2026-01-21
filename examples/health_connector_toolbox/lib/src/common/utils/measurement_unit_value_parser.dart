@@ -242,6 +242,10 @@ abstract class MeasurementUnitValueParser {
         '$PersistentIntermenstrualBleedingEventDataType is a read-only event '
         'record, cannot be parsed from a single string input.',
       ),
+      ProlongedMenstrualPeriodEventDataType() => throw UnsupportedError(
+        '$ProlongedMenstrualPeriodEventDataType is a read-only event record, '
+        'cannot be parsed from a single string input.',
+      ),
     };
   }
 

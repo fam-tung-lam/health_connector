@@ -192,6 +192,8 @@ extension HealthRecordDto {
             record.id
         case let record as PersistentIntermenstrualBleedingEventRecordDto:
             record.id
+        case let record as ProlongedMenstrualPeriodEventRecordDto:
+            record.id
         default:
             nil
         }
@@ -403,6 +405,8 @@ extension HealthRecordDto {
                 return .irregularMenstrualCycleEvent
             case is PersistentIntermenstrualBleedingEventRecordDto:
                 return .persistentIntermenstrualBleedingEvent
+            case is ProlongedMenstrualPeriodEventRecordDto:
+                return .prolongedMenstrualPeriodEvent
             default:
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -604,6 +608,8 @@ extension HealthRecordDto {
         case let dto as IrregularMenstrualCycleEventRecordDto:
             return dto.endTime
         case let dto as PersistentIntermenstrualBleedingEventRecordDto:
+            return dto.endTime
+        case let dto as ProlongedMenstrualPeriodEventRecordDto:
             return dto.endTime
         default:
             throw HealthConnectorError.invalidArgument(

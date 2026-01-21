@@ -161,6 +161,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case HighHeartRateEventDataType _:
           case WalkingSteadinessEventDataType _:
           case PersistentIntermenstrualBleedingEventDataType _:
+          case ProlongedMenstrualPeriodEventDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );
