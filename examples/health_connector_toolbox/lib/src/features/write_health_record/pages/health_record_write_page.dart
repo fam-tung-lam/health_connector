@@ -621,6 +621,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       InfrequentMenstrualCycleEventDataType _ => throw UnsupportedError(
         'Infrequent Menstrual Cycle Event is read-only',
       ),
+      IrregularMenstrualCycleEventDataType _ => throw UnsupportedError(
+        'Irregular Menstrual Cycle Event is read-only',
+      ),
       WalkingSteadinessEventDataType _ => throw UnsupportedError(
         'Walking Steadiness Event is read-only',
       ),

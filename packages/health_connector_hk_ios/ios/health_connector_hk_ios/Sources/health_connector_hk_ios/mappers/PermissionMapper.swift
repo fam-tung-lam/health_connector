@@ -118,6 +118,7 @@ extension HealthDataPermissionDto {
              .mindfulnessSession,
              .lowHeartRateEvent,
              .irregularHeartRhythmEvent,
+             .irregularMenstrualCycleEvent,
              .infrequentMenstrualCycleEvent,
              .highHeartRateEvent,
              .walkingSteadinessEvent:

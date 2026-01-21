@@ -547,6 +547,11 @@ extension HealthRecordToDto on HealthRecord {
           '$InfrequentMenstrualCycleEventRecord is not supported on Android '
           'Health Connect. This data type is iOS-only.',
         );
+      case IrregularMenstrualCycleEventRecord():
+        throw UnsupportedError(
+          '$IrregularMenstrualCycleEventRecord is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
       case HighHeartRateEventRecord():
         throw UnsupportedError(
           '$HighHeartRateEventRecord is not supported on Android '

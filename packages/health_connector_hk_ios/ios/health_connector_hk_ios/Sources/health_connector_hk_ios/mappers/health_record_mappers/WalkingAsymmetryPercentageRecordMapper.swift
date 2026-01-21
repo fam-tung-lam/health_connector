@@ -50,10 +50,10 @@ extension HKQuantitySample {
         return try WalkingAsymmetryPercentageRecordDto(
             percentage: percentage,
             devicePlacementSide: devicePlacementSide,
-            endTime: Int64(endDate.millisecondsSince1970),
+            endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
-            startTime: Int64(startDate.millisecondsSince1970),
+            startTime: startDate.millisecondsSince1970,
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset
         )

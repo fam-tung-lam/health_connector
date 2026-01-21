@@ -391,6 +391,12 @@ extension HealthDataTypeToDto on HealthDataType {
           '$IrregularHeartRhythmEventDataType is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case IrregularMenstrualCycleEventDataType():
+        throw UnsupportedError(
+          '$IrregularMenstrualCycleEventDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
+
       case InfrequentMenstrualCycleEventDataType():
         throw UnsupportedError(
           '$InfrequentMenstrualCycleEventDataType is not supported on '

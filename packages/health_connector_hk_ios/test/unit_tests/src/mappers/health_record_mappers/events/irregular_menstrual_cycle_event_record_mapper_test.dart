@@ -1,23 +1,23 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/infrequent_menstrual_cycle_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_menstrual_cycle_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
 import '../../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'InfrequentMenstrualCycleEventRecordMapper',
+    'IrregularMenstrualCycleEventRecordMapper',
     () {
       group(
-        'InfrequentMenstrualCycleEventRecordDtoToDomain',
+        'IrregularMenstrualCycleEventRecordDtoToDomain',
         () {
           test(
-            'converts InfrequentMenstrualCycleEventRecordDto to '
-            'InfrequentMenstrualCycleEventRecord',
+            'converts IrregularMenstrualCycleEventRecordDto to '
+            'IrregularMenstrualCycleEventRecord',
             () {
               final time = FakeData.fakeTime;
 
-              final dto = InfrequentMenstrualCycleEventRecordDto(
+              final dto = IrregularMenstrualCycleEventRecordDto(
                 id: FakeData.fakeId,
                 startTime: time.millisecondsSinceEpoch,
                 endTime: time

@@ -1,21 +1,21 @@
 import Foundation
 import HealthKit
 
-/// Extension for mapping `HKCategorySample` → `InfrequentMenstrualCycleEventRecordDto`.
+/// Extension for mapping `HKCategorySample` → `IrregularMenstrualCycleEventRecordDto`.
 extension HKCategorySample {
-    /// Converts this HealthKit sample to an `InfrequentMenstrualCycleEventRecordDto`.
+    /// Converts this HealthKit sample to an `IrregularMenstrualCycleEventRecordDto`.
     ///
-    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an infrequent menstrual cycle event
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an irregular menstrual cycle event
     /// sample.
     @available(iOS 16.0, *)
-    func toInfrequentMenstrualCycleEventRecordDto() throws -> InfrequentMenstrualCycleEventRecordDto {
-        guard categoryType.identifier == HKCategoryTypeIdentifier.infrequentMenstrualCycles.rawValue
+    func toIrregularMenstrualCycleEventRecordDto() throws -> IrregularMenstrualCycleEventRecordDto {
+        guard categoryType.identifier == HKCategoryTypeIdentifier.irregularMenstrualCycles.rawValue
         else {
             throw HealthConnectorError.invalidArgument(
                 message:
-                "Expected infrequent menstrual cycle event category type, got \(categoryType.identifier)",
+                "Expected irregular menstrual cycle event category type, got \(categoryType.identifier)",
                 context: [
-                    "expected": HKCategoryTypeIdentifier.infrequentMenstrualCycles.rawValue,
+                    "expected": HKCategoryTypeIdentifier.irregularMenstrualCycles.rawValue,
                     "actual": categoryType.identifier,
                 ]
             )
@@ -32,7 +32,7 @@ extension HKCategorySample {
         let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
-        return try InfrequentMenstrualCycleEventRecordDto(
+        return try IrregularMenstrualCycleEventRecordDto(
             id: uuid.uuidString,
             startTime: startDate.millisecondsSince1970,
             endTime: endDate.millisecondsSince1970,

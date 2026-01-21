@@ -205,6 +205,7 @@ abstract final class AppTexts {
       WalkingStepLengthDataType() => walkingStepLength,
       IrregularHeartRhythmEventDataType() => 'Irregular Heart Rhythm Event',
       WalkingSteadinessEventDataType() => walkingSteadinessEvent,
+      IrregularMenstrualCycleEventDataType() => irregularMenstrualCycleEvent,
     };
   }
 
@@ -474,6 +475,11 @@ abstract final class AppTexts {
   static const String walkingSteadinessEventDescription =
       'Records an incident where the user showed a reduced score '
       'for their gait’s steadiness (iOS only)';
+  static const String irregularMenstrualCycleEvent =
+      'Irregular Menstrual Cycle Event';
+  static const String irregularMenstrualCycleEventDescription =
+      'Detected when a menstrual cycle is consistently longer or shorter than '
+      'usual';
   static const String initialLow = 'Initial Low';
   static const String repeatLow = 'Repeat Low';
   static const String initialVeryLow = 'Initial Very Low';

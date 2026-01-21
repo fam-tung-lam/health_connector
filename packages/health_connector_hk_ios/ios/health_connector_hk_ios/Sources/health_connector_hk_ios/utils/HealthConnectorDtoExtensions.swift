@@ -188,6 +188,8 @@ extension HealthRecordDto {
             record.id
         case let record as HighHeartRateEventRecordDto:
             record.id
+        case let record as IrregularMenstrualCycleEventRecordDto:
+            record.id
         default:
             nil
         }
@@ -395,6 +397,8 @@ extension HealthRecordDto {
                 return .infrequentMenstrualCycleEvent
             case is HighHeartRateEventRecordDto:
                 return .highHeartRateEvent
+            case is IrregularMenstrualCycleEventRecordDto:
+                return .irregularMenstrualCycleEvent
             default:
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -592,6 +596,8 @@ extension HealthRecordDto {
         case let dto as IrregularHeartRhythmEventRecordDto:
             return dto.endTime
         case let dto as HighHeartRateEventRecordDto:
+            return dto.endTime
+        case let dto as IrregularMenstrualCycleEventRecordDto:
             return dto.endTime
         default:
             throw HealthConnectorError.invalidArgument(

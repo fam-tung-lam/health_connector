@@ -276,6 +276,19 @@ extension HKCategorySample {
                     ]
                 )
             }
+        case .irregularMenstrualCycleEvent:
+            if #available(iOS 16.0, *) {
+                try toIrregularMenstrualCycleEventRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Irregular menstrual cycle event is only supported on iOS 16.0 and later",
+                    context: [
+                        "dataType": "irregularMenstrualCycleEvent",
+                        "minimumIOSVersion": "16.0",
+                    ]
+                )
+            }
         case .highHeartRateEvent:
             try toHighHeartRateEventRecordDto()
         case .walkingSteadinessEvent:

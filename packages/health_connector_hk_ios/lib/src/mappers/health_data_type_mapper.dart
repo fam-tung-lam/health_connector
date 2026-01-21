@@ -222,6 +222,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.irregularHeartRhythmEvent;
       case HealthDataTypeDto.infrequentMenstrualCycleEvent:
         return HealthDataType.infrequentMenstrualCycleEvent;
+      case HealthDataTypeDto.irregularMenstrualCycleEvent:
+        return HealthDataType.irregularMenstrualCycleEvent;
       case HealthDataTypeDto.highHeartRateEvent:
         return HealthDataType.highHeartRateEvent;
       case HealthDataTypeDto.walkingSteadinessEvent:
@@ -520,8 +522,11 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.irregularHeartRhythmEvent;
       case InfrequentMenstrualCycleEventDataType _:
         return HealthDataTypeDto.infrequentMenstrualCycleEvent;
+      case IrregularMenstrualCycleEventDataType _:
+        return HealthDataTypeDto.irregularMenstrualCycleEvent;
       case HighHeartRateEventDataType _:
         return HealthDataTypeDto.highHeartRateEvent;
+
       case WalkingSteadinessEventDataType _:
         return HealthDataTypeDto.walkingSteadinessEvent;
     }

@@ -48,6 +48,7 @@ part 'energy_burned/total_energy_burned_data_type.dart';
 part 'events/high_heart_rate_event_data_type.dart';
 part 'events/infrequent_menstrual_cycle_event_data_type.dart';
 part 'events/irregular_heart_rhythm_event_data_type.dart';
+part 'events/irregular_menstrual_cycle_event_data_type.dart';
 part 'events/low_heart_rate_event_data_type.dart';
 part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
@@ -739,6 +740,20 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @readOnly
   static const irregularHeartRhythmEvent = IrregularHeartRhythmEventDataType();
 
+  /// Irregular menstrual cycle event data type.
+  ///
+  /// Represents events where irregular menstrual cycles are detected by
+  /// HealthKit. An irregular cycle is defined as at least a
+  /// seventeen-day difference between a person’s shortest and longest cycles
+  /// over the last six months.
+  ///
+  /// **Note**: This is a read-only data type. Available on iOS 16.0+.
+  @sinceV3_4_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const irregularMenstrualCycleEvent =
+      IrregularMenstrualCycleEventDataType();
+
   /// Running power data type.
   @sinceV3_1_0
   @supportedOnAppleHealth
@@ -1253,6 +1268,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     infrequentMenstrualCycleEvent,
     intermenstrualBleeding,
     irregularHeartRhythmEvent,
+    irregularMenstrualCycleEvent,
     lactation,
     leanBodyMass,
     lowHeartRateEvent,

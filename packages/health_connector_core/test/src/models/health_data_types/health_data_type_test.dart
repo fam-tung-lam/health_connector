@@ -80,6 +80,7 @@ void main() {
               HealthDataType.walkingAsymmetryPercentage,
               HealthDataType.walkingDoubleSupportPercentage,
               HealthDataType.walkingSpeed,
+              HealthDataType.walkingSteadinessEvent,
               HealthDataType.walkingStepLength,
             ],
           ],
@@ -132,7 +133,9 @@ void main() {
               HealthDataType.basalBodyTemperature,
               HealthDataType.cervicalMucus,
               HealthDataType.contraceptive,
+              HealthDataType.infrequentMenstrualCycleEvent,
               HealthDataType.intermenstrualBleeding,
+              HealthDataType.irregularMenstrualCycleEvent,
               HealthDataType.lactation,
               HealthDataType.menstrualFlow,
               HealthDataType.menstrualFlowInstant,
@@ -353,6 +356,18 @@ void main() {
         [HealthDataType.dietaryBiotin, 'dietary_biotin'],
         [HealthDataType.dietaryPantothenicAcid, 'dietary_pantothenic_acid'],
         [HealthDataType.walkingStepLength, 'walking_step_length'],
+        [
+          HealthDataType.walkingSteadinessEvent,
+          'walking_steadiness_event',
+        ],
+        [
+          HealthDataType.infrequentMenstrualCycleEvent,
+          'infrequent_menstrual_cycle_event',
+        ],
+        [
+          HealthDataType.irregularMenstrualCycleEvent,
+          'irregular_menstrual_cycle_event',
+        ],
       ],
       (HealthDataType type, String expectedKey) {
         expect(type.id, equals(expectedKey));

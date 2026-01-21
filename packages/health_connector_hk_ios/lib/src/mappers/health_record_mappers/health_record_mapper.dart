@@ -14,6 +14,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/high_heart_rate_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/infrequent_menstrual_cycle_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_heart_rhythm_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_menstrual_cycle_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/low_heart_rate_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
@@ -412,6 +413,10 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$InfrequentMenstrualCycleEventRecord is read-only data type.',
         );
+      case final IrregularMenstrualCycleEventRecord _:
+        throw UnsupportedError(
+          '$IrregularMenstrualCycleEventRecord is read-only data type.',
+        );
       case final HighHeartRateEventRecord _:
         throw UnsupportedError(
           '$HighHeartRateEventRecord is read-only data type.',
@@ -435,6 +440,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return IrregularHeartRhythmEventRecordDtoToDomain(dto).toDomain();
       case final InfrequentMenstrualCycleEventRecordDto dto:
         return InfrequentMenstrualCycleEventRecordDtoToDomain(dto).toDomain();
+      case final IrregularMenstrualCycleEventRecordDto dto:
+        return IrregularMenstrualCycleEventRecordDtoToDomain(dto).toDomain();
       case final HighHeartRateEventRecordDto dto:
         return HighHeartRateEventRecordDtoToDomain(dto).toDomain();
       case final ActiveEnergyBurnedRecordDto dto:
