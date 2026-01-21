@@ -100,6 +100,125 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.activeCaloriesBurned;
       case ActivityIntensityDataType _:
         return HealthDataTypeDto.activityIntensity;
+      case DistanceDataType _:
+        return HealthDataTypeDto.distance;
+      case ElevationGainedDataType _:
+        return HealthDataTypeDto.elevationGained;
+      case FloorsClimbedDataType _:
+        return HealthDataTypeDto.floorsClimbed;
+      case HeightDataType _:
+        return HealthDataTypeDto.height;
+      case HydrationDataType _:
+        return HealthDataTypeDto.hydration;
+      case LeanBodyMassDataType _:
+        return HealthDataTypeDto.leanBodyMass;
+      case BodyFatPercentageDataType _:
+        return HealthDataTypeDto.bodyFatPercentage;
+      case BodyTemperatureDataType _:
+        return HealthDataTypeDto.bodyTemperature;
+      case BasalBodyTemperatureDataType _:
+        return HealthDataTypeDto.basalBodyTemperature;
+      case CervicalMucusDataType _:
+        return HealthDataTypeDto.cervicalMucus;
+      case StepsDataType _:
+        return HealthDataTypeDto.steps;
+      case WeightDataType _:
+        return HealthDataTypeDto.weight;
+      case WheelchairPushesDataType _:
+        return HealthDataTypeDto.wheelchairPushes;
+      case HeartRateSeriesDataType _:
+        return HealthDataTypeDto.heartRateSeriesRecord;
+      case CyclingPedalingCadenceSeriesDataType _:
+        return HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord;
+      case StepsCadenceSeriesDataType _:
+        return HealthDataTypeDto.stepsCadenceSeriesRecord;
+      case SexualActivityDataType _:
+        return HealthDataTypeDto.sexualActivity;
+      case SleepSessionDataType _:
+        return HealthDataTypeDto.sleepSession;
+      case ExerciseSessionDataType _:
+        return HealthDataTypeDto.exerciseSession;
+      case MindfulnessSessionDataType _:
+        return HealthDataTypeDto.mindfulnessSession;
+      case BoneMassDataType _:
+        return HealthDataTypeDto.boneMass;
+      case BodyWaterMassDataType _:
+        return HealthDataTypeDto.bodyWaterMass;
+      case HeartRateVariabilityRMSSDDataType _:
+        return HealthDataTypeDto.heartRateVariabilityRMSSD;
+      case BloodPressureDataType _:
+        return HealthDataTypeDto.bloodPressure;
+      case OvulationTestDataType _:
+        return HealthDataTypeDto.ovulationTest;
+      case IntermenstrualBleedingDataType _:
+        return HealthDataTypeDto.intermenstrualBleeding;
+      case MenstrualFlowInstantDataType _:
+        return HealthDataTypeDto.menstrualFlowInstant;
+      case OxygenSaturationDataType _:
+        return HealthDataTypeDto.oxygenSaturation;
+      case RespiratoryRateDataType _:
+        return HealthDataTypeDto.respiratoryRate;
+      case NutritionDataType _:
+        return HealthDataTypeDto.nutrition;
+      case RestingHeartRateDataType _:
+        return HealthDataTypeDto.restingHeartRate;
+      case Vo2MaxDataType _:
+        return HealthDataTypeDto.vo2Max;
+      case BloodGlucoseDataType _:
+        return HealthDataTypeDto.bloodGlucose;
+      case TotalEnergyBurnedDataType _:
+        return HealthDataTypeDto.totalCaloriesBurned;
+      case SpeedSeriesDataType _:
+        return HealthDataTypeDto.speedSeries;
+      case PowerSeriesDataType _:
+        return HealthDataTypeDto.powerSeries;
+
+      // Not supported data types
+      case SleepingWristTemperatureDataType _:
+        throw UnsupportedError(
+          '$SleepingWristTemperatureDataType is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
+      case ForcedVitalCapacityDataType _:
+        throw UnsupportedError(
+          '$ForcedVitalCapacityDataType is not supported on Android '
+          'Health Connect.',
+        );
+      case ForcedExpiratoryVolumeDataType _:
+        throw UnsupportedError(
+          '$ForcedExpiratoryVolumeDataType is not supported on Android '
+          'Health Connect.',
+        );
+      case PregnancyTestDataType _:
+        throw UnsupportedError(
+          '$PregnancyTestDataType is not supported on Android Health Connect. '
+          'This data type is iOS-only (requires iOS 15.0+).',
+        );
+      case ProgesteroneTestDataType _:
+        throw UnsupportedError(
+          '$ProgesteroneTestDataType is not supported on Android Health '
+          'Connect.',
+        );
+      case ContraceptiveDataType _:
+        throw UnsupportedError(
+          '$ContraceptiveDataType is not supported on Android Health Connect. '
+          'This data type is iOS-only (requires iOS 14.3+).',
+        );
+      case LactationDataType _:
+        throw UnsupportedError(
+          '$LactationDataType is not supported on Android Health Connect. '
+          'This data type is iOS-only (requires iOS 15.0+).',
+        );
+      case PregnancyDataType _:
+        throw UnsupportedError(
+          '$PregnancyDataType is not supported on Android Health Connect. '
+          'This data type is iOS-only (requires iOS 15.0+).',
+        );
+      case PeripheralPerfusionIndexDataType _:
+        throw UnsupportedError(
+          '$PeripheralPerfusionIndexDataType is not supported on '
+          'Android Health Connect.',
+        );
       case AlcoholicBeveragesDataType _:
         throw UnsupportedError(
           '$AlcoholicBeveragesDataType is not supported on Android Health '
@@ -130,118 +249,6 @@ extension HealthDataTypeToDto on HealthDataType {
           '$BloodAlcoholContentDataType is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
-      case DistanceDataType _:
-        return HealthDataTypeDto.distance;
-      case ElevationGainedDataType _:
-        return HealthDataTypeDto.elevationGained;
-      case FloorsClimbedDataType _:
-        return HealthDataTypeDto.floorsClimbed;
-      case HeightDataType _:
-        return HealthDataTypeDto.height;
-      case HydrationDataType _:
-        return HealthDataTypeDto.hydration;
-      case LeanBodyMassDataType _:
-        return HealthDataTypeDto.leanBodyMass;
-      case BodyFatPercentageDataType _:
-        return HealthDataTypeDto.bodyFatPercentage;
-      case BodyTemperatureDataType _:
-        return HealthDataTypeDto.bodyTemperature;
-      case BasalBodyTemperatureDataType _:
-        return HealthDataTypeDto.basalBodyTemperature;
-      case SleepingWristTemperatureDataType _:
-        throw UnsupportedError(
-          '$SleepingWristTemperatureDataType is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
-        );
-      case CervicalMucusDataType _:
-        return HealthDataTypeDto.cervicalMucus;
-      case StepsDataType _:
-        return HealthDataTypeDto.steps;
-      case WeightDataType _:
-        return HealthDataTypeDto.weight;
-      case WheelchairPushesDataType _:
-        return HealthDataTypeDto.wheelchairPushes;
-      case HeartRateSeriesDataType _:
-        return HealthDataTypeDto.heartRateSeriesRecord;
-      case ForcedVitalCapacityDataType _:
-        throw UnsupportedError(
-          '$ForcedVitalCapacityDataType is not supported on Android '
-          'Health Connect.',
-        );
-      case CyclingPedalingCadenceSeriesDataType _:
-        return HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord;
-      case StepsCadenceSeriesDataType _:
-        return HealthDataTypeDto.stepsCadenceSeriesRecord;
-      case SexualActivityDataType _:
-        return HealthDataTypeDto.sexualActivity;
-      case SleepSessionDataType _:
-        return HealthDataTypeDto.sleepSession;
-      case ExerciseSessionDataType _:
-        return HealthDataTypeDto.exerciseSession;
-      case MindfulnessSessionDataType _:
-        return HealthDataTypeDto.mindfulnessSession;
-      case BoneMassDataType _:
-        return HealthDataTypeDto.boneMass;
-      case BodyWaterMassDataType _:
-        return HealthDataTypeDto.bodyWaterMass;
-      case HeartRateVariabilityRMSSDDataType _:
-        return HealthDataTypeDto.heartRateVariabilityRMSSD;
-      case BloodPressureDataType _:
-        return HealthDataTypeDto.bloodPressure;
-      case OvulationTestDataType _:
-        return HealthDataTypeDto.ovulationTest;
-      case PregnancyTestDataType _:
-        throw UnsupportedError(
-          '$PregnancyTestDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
-        );
-      case ProgesteroneTestDataType _:
-        throw UnsupportedError(
-          '$ProgesteroneTestDataType is not supported on Android Health '
-          'Connect.',
-        );
-      case ContraceptiveDataType _:
-        throw UnsupportedError(
-          '$ContraceptiveDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 14.3+).',
-        );
-      case LactationDataType _:
-        throw UnsupportedError(
-          '$LactationDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
-        );
-      case PregnancyDataType _:
-        throw UnsupportedError(
-          '$PregnancyDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
-        );
-      case IntermenstrualBleedingDataType _:
-        return HealthDataTypeDto.intermenstrualBleeding;
-      case MenstrualFlowInstantDataType _:
-        return HealthDataTypeDto.menstrualFlowInstant;
-      case PeripheralPerfusionIndexDataType _:
-        throw UnsupportedError(
-          '$PeripheralPerfusionIndexDataType is not supported on '
-          'Android Health Connect.',
-        );
-      case OxygenSaturationDataType _:
-        return HealthDataTypeDto.oxygenSaturation;
-      case RespiratoryRateDataType _:
-        return HealthDataTypeDto.respiratoryRate;
-      case NutritionDataType _:
-        return HealthDataTypeDto.nutrition;
-      case RestingHeartRateDataType _:
-        return HealthDataTypeDto.restingHeartRate;
-      case Vo2MaxDataType _:
-        return HealthDataTypeDto.vo2Max;
-      case BloodGlucoseDataType _:
-        return HealthDataTypeDto.bloodGlucose;
-      case TotalEnergyBurnedDataType _:
-        return HealthDataTypeDto.totalCaloriesBurned;
-      case SpeedSeriesDataType _:
-        return HealthDataTypeDto.speedSeries;
-      case PowerSeriesDataType _:
-        return HealthDataTypeDto.powerSeries;
       case DietaryEnergyConsumedDataType _:
       case DietaryCaffeineDataType _:
       case DietaryProteinDataType _:

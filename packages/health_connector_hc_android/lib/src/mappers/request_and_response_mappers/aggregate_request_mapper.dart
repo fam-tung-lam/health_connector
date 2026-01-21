@@ -150,6 +150,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case PregnancyDataType _:
           case SwimmingStrokesDataType _:
           case ForcedVitalCapacityDataType _:
+          case ForcedExpiratoryVolumeDataType _:
           case WalkingAsymmetryPercentageDataType _:
           case WalkingDoubleSupportPercentageDataType _:
           case WalkingStepLengthDataType _:

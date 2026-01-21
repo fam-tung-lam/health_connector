@@ -582,6 +582,11 @@ extension HealthRecordToDto on HealthRecord {
           '$WalkingHeartRateAverageRecord is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case ForcedExpiratoryVolumeRecord():
+        throw UnsupportedError(
+          '$ForcedExpiratoryVolumeRecord is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

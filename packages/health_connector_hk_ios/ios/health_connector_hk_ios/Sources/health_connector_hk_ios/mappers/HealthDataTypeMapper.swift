@@ -301,6 +301,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .peripheralPerfusionIndex)
         case .forcedVitalCapacity:
             try HKQuantityType.make(from: .forcedVitalCapacity)
+        case .forcedExpiratoryVolume:
+            try HKQuantityType.make(from: .forcedExpiratoryVolume1)
         case .exerciseSession:
             HKObjectType.workoutType()
         case .mindfulnessSession:

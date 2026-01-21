@@ -60,7 +60,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         guard let handler = baseHandler as? T else {
             throw HealthConnectorError.unsupportedOperation(
                 message:
-                "Data type \(type.rawValue) does not support \(String(describing: capability))",
+                    "Data type \(type.rawValue) does not support \(String(describing: capability))",
                 context: [
                     "dataType": type.rawValue,
                     "capability": String(describing: capability),
@@ -180,6 +180,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(BloodAlcoholContentHandler(healthStore: healthStore))
         register(PeripheralPerfusionIndexHandler(healthStore: healthStore))
         register(ForcedVitalCapacityHandler(healthStore: healthStore))
+        register(ForcedExpiratoryVolumeHandler(healthStore: healthStore))
         register(HighHeartRateEventRecordHandler(healthStore: healthStore))
         register(IrregularHeartRhythmEventRecordHandler(healthStore: healthStore))
         register(LowHeartRateEventRecordHandler(healthStore: healthStore))
@@ -188,6 +189,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(IrregularMenstrualCycleEventRecordHandler(healthStore: healthStore))
         register(PersistentIntermenstrualBleedingEventRecordHandler(healthStore: healthStore))
         register(ProlongedMenstrualPeriodEventRecordHandler(healthStore: healthStore))
+        register(AtrialFibrillationBurdenHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

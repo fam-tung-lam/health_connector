@@ -20,6 +20,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/prolonged_menstrual_period_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_expiratory_volume_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_vital_capacity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/atrial_fibrillation_burden_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_record_mapper.dart';
@@ -315,6 +316,8 @@ extension HealthRecordToDto on HealthRecord {
         return PeripheralPerfusionIndexRecordToDto(record).toDto();
       case final ForcedVitalCapacityRecord record:
         return ForcedVitalCapacityRecordToDto(record).toDto();
+      case final ForcedExpiratoryVolumeRecord record:
+        return ForcedExpiratoryVolumeRecordToDto(record).toDto();
       case final WalkingDoubleSupportPercentageRecord record:
         return WalkingDoubleSupportPercentageRecordToDto(record).toDto();
       case final WalkingStepLengthRecord record:
@@ -633,6 +636,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return PeripheralPerfusionIndexRecordDtoToDomain(dto).toDomain();
       case final ForcedVitalCapacityRecordDto dto:
         return ForcedVitalCapacityRecordDtoToDomain(dto).toDomain();
+      case final ForcedExpiratoryVolumeRecordDto dto:
+        return ForcedExpiratoryVolumeRecordDtoToDomain(dto).toDomain();
       case final ExerciseTimeRecordDto dto:
         return ExerciseTimeRecordDtoToDomain(dto).toDomain();
       case final MoveTimeRecordDto dto:

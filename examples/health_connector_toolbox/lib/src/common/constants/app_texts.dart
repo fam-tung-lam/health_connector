@@ -175,6 +175,7 @@ abstract final class AppTexts {
       InfrequentMenstrualCycleEventDataType() => infrequentMenstrualCycleEvent,
       OxygenSaturationDataType() => oxygenSaturation,
       ForcedVitalCapacityDataType() => forcedVitalCapacity,
+      ForcedExpiratoryVolumeDataType() => forcedExpiratoryVolume,
       RespiratoryRateDataType() => respiratoryRate,
       Vo2MaxDataType() => vo2Max,
       BloodGlucoseDataType() => bloodGlucose,
@@ -447,6 +448,10 @@ abstract final class AppTexts {
   static const String forcedVitalCapacityDescription =
       'The total volume of air that can be forcibly exhaled from the lungs '
       'after the deepest breath possible.';
+  static const String forcedExpiratoryVolume = 'Forced Expiratory Volume';
+  static const String forcedExpiratoryVolumeDescription =
+      'The amount of air that can be forcibly exhaled from the lungs in the '
+      'first second of a forced exhalation.';
   static const String respiratoryRate = 'Respiratory Rate';
   static const String vo2Max = 'VO2 Max';
   static const String vo2MaxTestType = 'Test $type';

@@ -170,8 +170,17 @@ final class HealthRecordListTile extends StatelessWidget {
         record: r,
         onDelete: onDelete,
       ),
+
       final ForcedVitalCapacityRecord r =>
         SimpleInstantMeasurementListTile<ForcedVitalCapacityRecord>(
+          record: r,
+          icon: AppIcons.air,
+          titleBuilder: (r) => '${r.volume.inLiters.toStringAsFixed(2)} L',
+          valueExtractor: (r) => r.volume,
+          onDelete: onDelete,
+        ),
+      final ForcedExpiratoryVolumeRecord r =>
+        SimpleIntervalMeasurementListTile<ForcedExpiratoryVolumeRecord>(
           record: r,
           icon: AppIcons.air,
           titleBuilder: (r) => '${r.volume.inLiters.toStringAsFixed(2)} L',

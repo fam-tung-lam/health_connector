@@ -749,6 +749,9 @@ enum HealthDataTypeDto {
   /// Apple Walking Steadiness data (iOS only).
   walkingSteadiness,
 
+  /// Forced Expiratory Volume, 1st Second data (iOS only).
+  forcedExpiratoryVolume,
+
   /// Walking Heart Rate Average data (iOS only).
   walkingHeartRateAverage,
 
@@ -1396,6 +1399,40 @@ class ForcedVitalCapacityRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
+}
+
+/// Represents a forced expiratory volume 1 record for platform transfer (iOS).
+class ForcedExpiratoryVolumeRecordDto extends HealthRecordDto {
+  ForcedExpiratoryVolumeRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.liters,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Forced expiratory volume in liters.
+  final double liters;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a body mass index record for platform transfer.

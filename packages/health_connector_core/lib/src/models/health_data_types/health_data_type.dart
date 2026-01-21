@@ -55,6 +55,7 @@ part 'events/prolonged_menstrual_period_event_data_type.dart';
 part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
 part 'forced_vital_capacity_data_type.dart';
+part 'forced_expiratory_volume_data_type.dart';
 part 'health_data_type_category.dart';
 part 'heart_rate/atrial_fibrillation_burden_data_type.dart';
 part 'heart_rate/heart_rate_data_type.dart';
@@ -604,6 +605,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV3_1_0
   @supportedOnAppleHealth
   static const forcedVitalCapacity = ForcedVitalCapacityDataType();
+
+  /// Forced expiratory volume data type.
+  ///
+  /// Represents the user's forced expiratory volume, 1st second (FEV1)
+  /// measurements.
+  @sinceV3_4_0
+  @supportedOnAppleHealth
+  static const forcedExpiratoryVolume = ForcedExpiratoryVolumeDataType();
 
   /// Elevation gained data type.
   ///
@@ -1310,6 +1319,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     elevationGained,
     exerciseSession,
     floorsClimbed,
+    forcedExpiratoryVolume,
     forcedVitalCapacity,
     heartRate,
     heartRateSeries,

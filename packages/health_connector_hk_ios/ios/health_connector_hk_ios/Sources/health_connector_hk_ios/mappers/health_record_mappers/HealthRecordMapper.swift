@@ -177,6 +177,8 @@ extension HealthRecordDto {
             return try dto.toHKQuantitySample()
         case let dto as ForcedVitalCapacityRecordDto:
             return try dto.toHKQuantitySample()
+        case let dto as ForcedExpiratoryVolumeRecordDto:
+            return try dto.toHKQuantitySample()
         // Read-only records
         case is ExerciseTimeRecordDto,
              is MoveTimeRecordDto,
@@ -476,6 +478,8 @@ extension HKQuantitySample {
             try toWalkingStepLengthRecordDto()
         case .forcedVitalCapacity:
             try toForcedVitalCapacityRecordDto()
+        case .forcedExpiratoryVolume:
+            try toForcedExpiratoryVolumeRecordDto()
         case .dietaryEnergyConsumed:
             try toDietaryEnergyConsumedDto()
         case .caffeine:

@@ -811,7 +811,8 @@ extension on double {
       HealthDataTypeDto.polyunsaturatedFat ||
       HealthDataTypeDto.protein ||
       HealthDataTypeDto.totalCarbohydrate => Mass.grams(this),
-      HealthDataTypeDto.hydration => Volume.liters(this),
+      HealthDataTypeDto.hydration ||
+      HealthDataTypeDto.forcedExpiratoryVolume => Volume.liters(this),
       HealthDataTypeDto.bodyFatPercentage ||
       HealthDataTypeDto.bloodAlcoholContent ||
       HealthDataTypeDto.peripheralPerfusionIndex ||

@@ -100,6 +100,7 @@ extension HealthDataPermissionDto {
              .heartRateVariabilitySDNN,
              .peripheralPerfusionIndex,
              .forcedVitalCapacity,
+             .forcedExpiratoryVolume,
              .sexualActivity,
              .cervicalMucus,
              .intermenstrualBleeding,

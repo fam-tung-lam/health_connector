@@ -148,7 +148,8 @@ abstract class MeasurementUnitValueParser {
 
       // Volume
       HydrationDataType() ||
-      ForcedVitalCapacityDataType() => _parseVolume(value),
+      ForcedVitalCapacityDataType() ||
+      ForcedExpiratoryVolumeDataType() => _parseVolume(value),
 
       // Complex/composite types that cannot be parsed from a single string value
       BloodPressureDataType() => throw UnsupportedError(
