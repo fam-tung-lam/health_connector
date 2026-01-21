@@ -412,6 +412,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$WalkingSteadinessEventDataType is not supported on Android Health '
           'Connect. This data type is iOS-only.',
         );
+      case PersistentIntermenstrualBleedingEventDataType():
+        throw UnsupportedError(
+          '$PersistentIntermenstrualBleedingEventDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

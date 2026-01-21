@@ -348,6 +348,19 @@ extension HealthDataTypeDto {
                     ]
                 )
             }
+        case .persistentIntermenstrualBleedingEvent:
+            if #available(iOS 16.0, *) {
+                try HKCategoryType.make(from: .persistentIntermenstrualBleeding)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Persistent intermenstrual bleeding event is only supported on iOS 16.0 and later",
+                    context: [
+                        "dataType": "persistentIntermenstrualBleedingEvent",
+                        "minimumIOSVersion": "16.0",
+                    ]
+                )
+            }
         }
     }
 }

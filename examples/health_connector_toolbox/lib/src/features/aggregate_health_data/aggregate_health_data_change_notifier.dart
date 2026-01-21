@@ -797,6 +797,9 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       PeripheralPerfusionIndexDataType() => throw UnsupportedError(
         'Peripheral perfusion index does not support aggregation',
       ),
+      PersistentIntermenstrualBleedingEventDataType() => throw UnsupportedError(
+        'Persistent intermenstrual bleeding event does not support aggregation',
+      ),
       LowHeartRateEventDataType() ||
       IrregularHeartRhythmEventDataType() ||
       InfrequentMenstrualCycleEventDataType() ||

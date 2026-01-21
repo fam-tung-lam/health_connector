@@ -50,6 +50,7 @@ part 'events/infrequent_menstrual_cycle_event_data_type.dart';
 part 'events/irregular_heart_rhythm_event_data_type.dart';
 part 'events/irregular_menstrual_cycle_event_data_type.dart';
 part 'events/low_heart_rate_event_data_type.dart';
+part 'events/persistent_intermenstrual_bleeding_event_data_type.dart';
 part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
 part 'forced_vital_capacity_data_type.dart';
@@ -753,6 +754,19 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @readOnly
   static const irregularMenstrualCycleEvent =
       IrregularMenstrualCycleEventDataType();
+
+  /// Persistent intermenstrual bleeding event data type.
+  ///
+  /// Represents events where persistent intermenstrual bleeding is detected by
+  /// HealthKit. Persistent spotting is defined as spotting that occurs in at
+  /// least two of your cycles in the last six months.
+  ///
+  /// **Note**: This is a read-only data type. Available on iOS 16.0+.
+  @sinceV3_4_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const persistentIntermenstrualBleedingEvent =
+      PersistentIntermenstrualBleedingEventDataType();
 
   /// Running power data type.
   @sinceV3_1_0

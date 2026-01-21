@@ -1068,6 +1068,9 @@ enum HealthDataTypeDto {
 
   /// Walking Steadiness event data.
   walkingSteadinessEvent,
+
+  /// Persistent Intermenstrual Bleeding Event.
+  persistentIntermenstrualBleedingEvent,
 }
 
 /// Sealed class for all health record DTOs.
@@ -4328,4 +4331,22 @@ class PeripheralPerfusionIndexRecordDto extends HealthRecordDto {
 
   /// Metadata associated with the record.
   final MetadataDto metadata;
+}
+
+class PersistentIntermenstrualBleedingEventRecordDto extends HealthRecordDto {
+  PersistentIntermenstrualBleedingEventRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  final String id;
+  final int startTime;
+  final int endTime;
+  final MetadataDto metadata;
+  final int? startZoneOffsetSeconds;
+  final int? endZoneOffsetSeconds;
 }

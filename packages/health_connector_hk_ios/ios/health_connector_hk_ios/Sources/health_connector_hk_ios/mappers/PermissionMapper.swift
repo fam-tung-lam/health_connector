@@ -121,7 +121,8 @@ extension HealthDataPermissionDto {
              .irregularMenstrualCycleEvent,
              .infrequentMenstrualCycleEvent,
              .highHeartRateEvent,
-             .walkingSteadinessEvent:
+             .walkingSteadinessEvent,
+             .persistentIntermenstrualBleedingEvent:
             try [healthDataType.toHKSampleType()]
 
         // For correlation types HealthKit requires requesting permissions for

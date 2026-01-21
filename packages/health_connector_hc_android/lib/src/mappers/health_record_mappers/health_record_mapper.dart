@@ -562,6 +562,11 @@ extension HealthRecordToDto on HealthRecord {
           '$WalkingSteadinessEventRecord is not supported on Android '
           'Health Connect. This data type is iOS-only.',
         );
+      case PersistentIntermenstrualBleedingEventRecord():
+        throw UnsupportedError(
+          '$PersistentIntermenstrualBleedingEventRecord is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

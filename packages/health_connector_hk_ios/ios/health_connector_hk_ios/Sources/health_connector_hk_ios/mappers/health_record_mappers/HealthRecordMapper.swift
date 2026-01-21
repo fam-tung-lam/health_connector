@@ -186,6 +186,7 @@ extension HealthRecordDto {
              is HighHeartRateEventRecordDto,
              is IrregularHeartRhythmEventRecordDto,
              is WalkingSteadinessEventRecordDto,
+             is PersistentIntermenstrualBleedingEventRecordDto,
              is LowHeartRateEventRecordDto:
             throw HealthConnectorError.invalidArgument(
                 message:
@@ -289,6 +290,19 @@ extension HKCategorySample {
                     ]
                 )
             }
+        case .persistentIntermenstrualBleedingEvent:
+            if #available(iOS 16.0, *) {
+                try toPersistentIntermenstrualBleedingEventRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Persistent intermenstrual bleeding event is only supported on iOS 16.0 and later",
+                    context: [
+                        "dataType": "persistentIntermenstrualBleedingEvent",
+                        "minimumIOSVersion": "16.0",
+                    ]
+                )
+            }
         case .highHeartRateEvent:
             try toHighHeartRateEventRecordDto()
         case .walkingSteadinessEvent:
@@ -342,185 +356,234 @@ extension HKQuantitySample {
     /// - Parameter type: The health data type to convert to
     /// - Returns: The corresponding `HealthRecordDto`
     /// - Throws: `HealthConnectorError.invalidArgument` if the `HKQuantitySample` cannot be converted
-    func toHKQuantitySampleDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
-        switch type {
-        case .steps:
-            try toStepsRecordDto()
-        case .weight:
-            try toWeightRecordDto()
-        case .height:
-            try toHeightRecordDto()
-        case .activeCaloriesBurned:
-            try toActiveEnergyBurnedRecordDto()
-        case .alcoholicBeverages:
-            try toAlcoholicBeveragesRecordDto()
-        case .exerciseTime:
-            try toExerciseTimeRecordDto()
-        case .moveTime:
-            try toMoveTimeRecordDto()
-        case .standTime:
-            try toStandTimeRecordDto()
-        case .walkingSteadiness:
-            try toWalkingSteadinessRecordDto()
-        case .bloodAlcoholContent:
-            try toBloodAlcoholContentRecordDto()
-        case .basalEnergyBurned:
-            try toBasalEnergyBurnedRecordDto()
-        case .bodyFatPercentage:
-            try toBodyFatPercentageRecordDto()
-        case .bodyTemperature:
-            try toBodyTemperatureRecordDto()
-        case .basalBodyTemperature:
-            try toBasalBodyTemperatureRecordDto()
-        case .sleepingWristTemperature:
-            try toSleepingWristTemperatureRecordDto()
-        case .floorsClimbed:
-            try toFloorsClimbedRecordDto()
-        case .heartRateMeasurementRecord:
-            try toHeartRateRecordDto()
-        case .hydration:
-            try toHydrationRecordDto()
-        case .leanBodyMass:
-            try toLeanBodyMassRecordDto()
-        case .oxygenSaturation:
-            try toOxygenSaturationRecordDto()
-        case .respiratoryRate:
-            try toRespiratoryRateRecordDto()
-        case .restingHeartRate:
-            try toRestingHeartRateRecordDto()
-        case .vo2Max:
-            try toVo2MaxRecordDto()
-        case .wheelchairPushes:
-            try toWheelchairPushesRecordDto()
-        case .bloodGlucose:
-            try toBloodGlucoseRecordDto()
-        case .systolicBloodPressure:
-            try toSystolicBloodPressureRecordDto()
-        case .diastolicBloodPressure:
-            try toDiastolicBloodPressureRecordDto()
-        case .cyclingDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .cycling)
-        case .swimmingDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .swimming)
-        case .wheelchairDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .wheelchair)
-        case .walkingRunningDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .walkingRunning)
-        case .downhillSnowSportsDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .downhillSnowSports)
-        case .rowingDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .rowing)
-        case .paddleSportsDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .paddleSports)
-        case .crossCountrySkiingDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .crossCountrySkiing)
-        case .skatingSportsDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .skatingSports)
-        case .sixMinuteWalkTestDistance:
-            try toDistanceActivityRecordDto(distanceActivityType: .sixMinuteWalkTest)
-        case .walkingSpeed:
-            try toSpeedActivityRecordDto(speedActivityType: .walking)
-        case .runningSpeed:
-            try toSpeedActivityRecordDto(speedActivityType: .running)
-        case .stairAscentSpeed:
-            try toSpeedActivityRecordDto(speedActivityType: .stairAscent)
-        case .stairDescentSpeed:
-            try toSpeedActivityRecordDto(speedActivityType: .stairDescent)
-        case .cyclingPower:
-            try toCyclingPowerRecordDto()
-        case .runningPower:
-            try toRunningPowerRecordDto()
-        case .cyclingPedalingCadence:
-            try toCyclingPedalingCadenceRecordDto()
-        case .bodyMassIndex:
-            try toBodyMassIndexRecordDto()
-        case .heartRateVariabilitySDNN:
-            try toHeartRateVariabilitySDNNRecordDto()
-        case .waistCircumference:
-            try toWaistCircumferenceRecordDto()
-        case .walkingAsymmetryPercentage:
-            try toWalkingAsymmetryPercentageRecordDto()
-        case .walkingDoubleSupportPercentage:
-            try toWalkingDoubleSupportPercentageRecordDto()
-        case .walkingStepLength:
-            try toWalkingStepLengthRecordDto()
-        case .forcedVitalCapacity:
-            try toForcedVitalCapacityRecordDto()
-        case .dietaryEnergyConsumed:
-            try toDietaryEnergyConsumedDto()
-        case .caffeine:
-            try toDietaryCaffeineDto()
-        case .protein:
-            try toDietaryProteinDto()
-        case .totalCarbohydrate:
-            try toDietaryTotalCarbohydrateDto()
-        case .totalFat:
-            try toDietaryTotalFatDto()
-        case .saturatedFat:
-            try toDietarySaturatedFatDto()
-        case .monounsaturatedFat:
-            try toDietaryMonounsaturatedFatDto()
-        case .polyunsaturatedFat:
-            try toDietaryPolyunsaturatedFatDto()
-        case .cholesterol:
-            try toDietaryCholesterolDto()
-        case .dietaryFiber:
-            try toDietaryFiberDto()
-        case .sugar:
-            try toDietarySugarDto()
-        case .vitaminA:
-            try toDietaryVitaminADto()
-        case .vitaminB6:
-            try toDietaryVitaminB6Dto()
-        case .vitaminB12:
-            try toDietaryVitaminB12Dto()
-        case .vitaminC:
-            try toDietaryVitaminCDto()
-        case .vitaminD:
-            try toDietaryVitaminDDto()
-        case .vitaminE:
-            try toDietaryVitaminEDto()
-        case .vitaminK:
-            try toDietaryVitaminKDto()
-        case .thiamin:
-            try toDietaryThiaminDto()
-        case .riboflavin:
-            try toDietaryRiboflavinDto()
-        case .niacin:
-            try toDietaryNiacinDto()
-        case .folate:
-            try toDietaryFolateDto()
-        case .biotin:
-            try toDietaryBiotinDto()
-        case .pantothenicAcid:
-            try toDietaryPantothenicAcidDto()
-        case .calcium:
-            try toDietaryCalciumDto()
-        case .iron:
-            try toDietaryIronDto()
-        case .magnesium:
-            try toDietaryMagnesiumDto()
-        case .manganese:
-            try toDietaryManganeseDto()
-        case .phosphorus:
-            try toDietaryPhosphorusDto()
-        case .potassium:
-            try toDietaryPotassiumDto()
-        case .selenium:
-            try toDietarySeleniumDto()
-        case .sodium:
-            try toDietarySodiumDto()
-        case .zinc:
-            try toDietaryZincDto()
-        case .swimmingStrokes:
-            try toSwimmingStrokesRecordDto()
-        case .peripheralPerfusionIndex:
-            try toPeripheralPerfusionIndexRecordDto()
-        default:
-            throw HealthConnectorError.invalidArgument(
-                message:
-                "`HKQuantitySample.toHKQuantitySampleDto(for: \(String(describing: type)))` is not supported or implemented for HKQuantitySample type: \(String(describing: self))"
-            )
-        }
+    if let dietaryDto = try toDietaryRecordDto(for: type) {
+        return dietaryDto
+    }
+
+    if let activityDto = try toActivityRecordDto(for: type) {
+        return activityDto
+    }
+
+    if let vitalsDto = try toVitalsRecordDto(for: type) {
+        return vitalsDto
+    }
+
+    switch type {
+    case .weight:
+        return try toWeightRecordDto()
+    case .height:
+        return try toHeightRecordDto()
+    case .bodyFatPercentage:
+        return try toBodyFatPercentageRecordDto()
+    case .bodyTemperature:
+        return try toBodyTemperatureRecordDto()
+    case .basalBodyTemperature:
+        return try toBasalBodyTemperatureRecordDto()
+    case .sleepingWristTemperature:
+        return try toSleepingWristTemperatureRecordDto()
+    case .leanBodyMass:
+        return try toLeanBodyMassRecordDto()
+    case .bodyMassIndex:
+        return try toBodyMassIndexRecordDto()
+    case .waistCircumference:
+        return try toWaistCircumferenceRecordDto()
+    case .forcedVitalCapacity:
+        return try toForcedVitalCapacityRecordDto()
+    case .peripheralPerfusionIndex:
+        return try toPeripheralPerfusionIndexRecordDto()
+    case .swimmingStrokes:
+        return try toSwimmingStrokesRecordDto()
+    case .bloodAlcoholContent:
+        return try toBloodAlcoholContentRecordDto()
+    case .alcoholicBeverages:
+        return try toAlcoholicBeveragesRecordDto()
+    case .uvExposure:
+        // Assuming this exists or falls into default if not handled
+        throw HealthConnectorError.invalidArgument(
+            message:
+            "`HKQuantitySample.toHKQuantitySampleDto(for: \(String(describing: type)))` is not supported or implemented for HKQuantitySample type: \(String(describing: self))"
+        )
+    default:
+        throw HealthConnectorError.invalidArgument(
+            message:
+            "`HKQuantitySample.toHKQuantitySampleDto(for: \(String(describing: type)))` is not supported or implemented for HKQuantitySample type: \(String(describing: self))"
+        )
+    }
+}
+
+private func toDietaryRecordDto(for type: HealthDataTypeDto) throws -> HealthRecordDto? {
+    switch type {
+    case .dietaryEnergyConsumed:
+        try toDietaryEnergyConsumedDto()
+    case .caffeine:
+        try toDietaryCaffeineDto()
+    case .protein:
+        try toDietaryProteinDto()
+    case .totalCarbohydrate:
+        try toDietaryTotalCarbohydrateDto()
+    case .totalFat:
+        try toDietaryTotalFatDto()
+    case .saturatedFat:
+        try toDietarySaturatedFatDto()
+    case .monounsaturatedFat:
+        try toDietaryMonounsaturatedFatDto()
+    case .polyunsaturatedFat:
+        try toDietaryPolyunsaturatedFatDto()
+    case .cholesterol:
+        try toDietaryCholesterolDto()
+    case .dietaryFiber:
+        try toDietaryFiberDto()
+    case .sugar:
+        try toDietarySugarDto()
+    case .vitaminA:
+        try toDietaryVitaminADto()
+    case .vitaminB6:
+        try toDietaryVitaminB6Dto()
+    case .vitaminB12:
+        try toDietaryVitaminB12Dto()
+    case .vitaminC:
+        try toDietaryVitaminCDto()
+    case .vitaminD:
+        try toDietaryVitaminDDto()
+    case .vitaminE:
+        try toDietaryVitaminEDto()
+    case .vitaminK:
+        try toDietaryVitaminKDto()
+    case .thiamin:
+        try toDietaryThiaminDto()
+    case .riboflavin:
+        try toDietaryRiboflavinDto()
+    case .niacin:
+        try toDietaryNiacinDto()
+    case .folate:
+        try toDietaryFolateDto()
+    case .biotin:
+        try toDietaryBiotinDto()
+    case .pantothenicAcid:
+        try toDietaryPantothenicAcidDto()
+    case .calcium:
+        try toDietaryCalciumDto()
+    case .iron:
+        try toDietaryIronDto()
+    case .magnesium:
+        try toDietaryMagnesiumDto()
+    case .manganese:
+        try toDietaryManganeseDto()
+    case .phosphorus:
+        try toDietaryPhosphorusDto()
+    case .potassium:
+        try toDietaryPotassiumDto()
+    case .selenium:
+        try toDietarySeleniumDto()
+    case .sodium:
+        try toDietarySodiumDto()
+    case .zinc:
+        try toDietaryZincDto()
+    default:
+        nil
+    }
+}
+
+private func toActivityRecordDto(for type: HealthDataTypeDto) throws -> HealthRecordDto? {
+    switch type {
+    case .steps:
+        try toStepsRecordDto()
+    case .activeCaloriesBurned:
+        try toActiveEnergyBurnedRecordDto()
+    case .basalEnergyBurned:
+        try toBasalEnergyBurnedRecordDto()
+    case .exerciseTime:
+        try toExerciseTimeRecordDto()
+    case .moveTime:
+        try toMoveTimeRecordDto()
+    case .standTime:
+        try toStandTimeRecordDto()
+    case .floorsClimbed:
+        try toFloorsClimbedRecordDto()
+    case .wheelchairPushes:
+        try toWheelchairPushesRecordDto()
+    case .cyclingDistance:
+        try toDistanceActivityRecordDto(distanceActivityType: .cycling)
+    case .swimmingDistance:
+        try toDistanceActivityRecordDto(distanceActivityType: .swimming)
+    case .wheelchairDistance:
+        try toDistanceActivityRecordDto(distanceActivityType: .wheelchair)
+    case .walkingRunningDistance:
+        try toDistanceActivityRecordDto(
+            distanceActivityType: .walkingRunning
+        )
+    case .downhillSnowSportsDistance:
+        try toDistanceActivityRecordDto(
+            distanceActivityType: .downhillSnowSports
+        )
+    case .rowingDistance:
+        try toDistanceActivityRecordDto(distanceActivityType: .rowing)
+    case .paddleSportsDistance:
+        try toDistanceActivityRecordDto(
+            distanceActivityType: .paddleSports
+        )
+    case .crossCountrySkiingDistance:
+        try toDistanceActivityRecordDto(
+            distanceActivityType: .crossCountrySkiing
+        )
+    case .skatingSportsDistance:
+        try toDistanceActivityRecordDto(
+            distanceActivityType: .skatingSports
+        )
+    case .sixMinuteWalkTestDistance:
+        try toDistanceActivityRecordDto(
+            distanceActivityType: .sixMinuteWalkTest
+        )
+    case .walkingSpeed:
+        try toSpeedActivityRecordDto(speedActivityType: .walking)
+    case .runningSpeed:
+        try toSpeedActivityRecordDto(speedActivityType: .running)
+    case .stairAscentSpeed:
+        try toSpeedActivityRecordDto(speedActivityType: .stairAscent)
+    case .stairDescentSpeed:
+        try toSpeedActivityRecordDto(speedActivityType: .stairDescent)
+    case .cyclingPower:
+        try toCyclingPowerRecordDto()
+    case .runningPower:
+        try toRunningPowerRecordDto()
+    case .cyclingPedalingCadence:
+        try toCyclingPedalingCadenceRecordDto()
+    case .walkingSteadiness:
+        try toWalkingSteadinessRecordDto()
+    case .walkingAsymmetryPercentage:
+        try toWalkingAsymmetryPercentageRecordDto()
+    case .walkingDoubleSupportPercentage:
+        try toWalkingDoubleSupportPercentageRecordDto()
+    case .walkingStepLength:
+        try toWalkingStepLengthRecordDto()
+    default:
+        nil
+    }
+}
+
+private func toVitalsRecordDto(for type: HealthDataTypeDto) throws -> HealthRecordDto? {
+    switch type {
+    case .heartRateMeasurementRecord:
+        try toHeartRateRecordDto()
+    case .restingHeartRate:
+        try toRestingHeartRateRecordDto()
+    case .heartRateVariabilitySDNN:
+        try toHeartRateVariabilitySDNNRecordDto()
+    case .bloodGlucose:
+        try toBloodGlucoseRecordDto()
+    case .systolicBloodPressure:
+        try toSystolicBloodPressureRecordDto()
+    case .diastolicBloodPressure:
+        try toDiastolicBloodPressureRecordDto()
+    case .respiratoryRate:
+        try toRespiratoryRateRecordDto()
+    case .oxygenSaturation:
+        try toOxygenSaturationRecordDto()
+    case .vo2Max:
+        try toVo2MaxRecordDto()
+    case .hydration:
+        try toHydrationRecordDto()
+    default:
+        nil
     }
 }

@@ -136,6 +136,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.infrequentMenstrualCycleEvent,
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEvent,
       WalkingSteadinessEventDataType _ => AppTexts.walkingSteadinessEvent,
+      PersistentIntermenstrualBleedingEventDataType _ =>
+        AppTexts.persistentIntermenstrualBleedingEvent,
     };
   }
 
@@ -289,6 +291,8 @@ extension HealthDataTypeUI on HealthDataType {
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEventDescription,
       WalkingSteadinessEventDataType _ =>
         AppTexts.walkingSteadinessEventDescription,
+      PersistentIntermenstrualBleedingEventDataType _ =>
+        AppTexts.persistentIntermenstrualBleedingEvent,
     };
   }
 
@@ -419,6 +423,7 @@ extension HealthDataTypeUI on HealthDataType {
       InfrequentMenstrualCycleEventDataType _ => AppIcons.waterDrop,
       HighHeartRateEventDataType _ => AppIcons.favorite,
       WalkingSteadinessEventDataType _ => AppIcons.directionsWalk,
+      PersistentIntermenstrualBleedingEventDataType _ => AppIcons.waterDrop,
     };
   }
 }

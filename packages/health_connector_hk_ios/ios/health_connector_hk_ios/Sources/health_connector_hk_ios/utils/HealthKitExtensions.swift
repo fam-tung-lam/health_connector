@@ -236,6 +236,8 @@ extension HKSample {
                         return .infrequentMenstrualCycleEvent
                     case HKCategoryTypeIdentifier.irregularMenstrualCycles.rawValue:
                         return .irregularMenstrualCycleEvent
+                    case HKCategoryTypeIdentifier.persistentIntermenstrualBleeding.rawValue:
+                        return .persistentIntermenstrualBleedingEvent
                     default:
                         break
                     }

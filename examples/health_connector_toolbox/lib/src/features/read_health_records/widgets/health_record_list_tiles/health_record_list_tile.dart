@@ -16,6 +16,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/intermenstrual_bleeding_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/mass_nutrient_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/menstrual_flow_instant_record_list_tile.dart';
+
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/nutrition_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/ovulation_test_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/pregnancy_test_list_tile.dart';
@@ -36,6 +37,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/low_heart_rate_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/menstrual_flow_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/mindfulness_session_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/persistent_intermenstrual_bleeding_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/pregnancy_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/simple_interval_measurement_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_session_list_tile.dart';
@@ -121,6 +123,10 @@ final class HealthRecordListTile extends StatelessWidget {
         ),
       final InfrequentMenstrualCycleEventRecord r =>
         InfrequentMenstrualCycleEventRecordListTile(
+          record: r,
+        ),
+      final PersistentIntermenstrualBleedingEventRecord r =>
+        PersistentIntermenstrualBleedingEventRecordListTile(
           record: r,
         ),
       final HighHeartRateEventRecord r => HighHeartRateEventRecordListTile(

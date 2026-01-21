@@ -206,6 +206,8 @@ abstract final class AppTexts {
       IrregularHeartRhythmEventDataType() => 'Irregular Heart Rhythm Event',
       WalkingSteadinessEventDataType() => walkingSteadinessEvent,
       IrregularMenstrualCycleEventDataType() => irregularMenstrualCycleEvent,
+      PersistentIntermenstrualBleedingEventDataType() =>
+        persistentIntermenstrualBleedingEvent,
     };
   }
 
@@ -480,6 +482,10 @@ abstract final class AppTexts {
   static const String irregularMenstrualCycleEventDescription =
       'Detected when a menstrual cycle is consistently longer or shorter than '
       'usual';
+  static const String persistentIntermenstrualBleedingEvent =
+      'Persistent Intermenstrual Bleeding Event';
+  static const String persistentIntermenstrualBleedingEventDescription =
+      'Detected when intermenstrual bleeding is persistent (iOS 16+)';
   static const String initialLow = 'Initial Low';
   static const String repeatLow = 'Repeat Low';
   static const String initialVeryLow = 'Initial Very Low';

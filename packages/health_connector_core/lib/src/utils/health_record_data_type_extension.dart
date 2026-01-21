@@ -170,6 +170,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       IrregularHeartRhythmEventRecord _ =>
         HealthDataType.irregularHeartRhythmEvent,
       WalkingSteadinessEventRecord _ => HealthDataType.walkingSteadinessEvent,
+      PersistentIntermenstrualBleedingEventRecord _ =>
+        HealthDataType.persistentIntermenstrualBleedingEvent,
     };
   }
 }

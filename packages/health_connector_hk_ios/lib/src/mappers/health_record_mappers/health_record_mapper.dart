@@ -16,6 +16,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_heart_rhythm_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_menstrual_cycle_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/low_heart_rate_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/persistent_intermenstrual_bleeding_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_vital_capacity_record_mapper.dart';
@@ -425,6 +426,11 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$WalkingSteadinessEventRecord is read-only data type.',
         );
+      case final PersistentIntermenstrualBleedingEventRecord _:
+        throw UnsupportedError(
+          '$PersistentIntermenstrualBleedingEventRecord is '
+          'read-only data type.',
+        );
     }
   }
 }
@@ -626,6 +632,10 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return WalkingStepLengthRecordDtoToDomain(dto).toDomain();
       case final WalkingSteadinessEventRecordDto dto:
         return WalkingSteadinessEventRecordDtoMapper(dto).toDomain();
+      case final PersistentIntermenstrualBleedingEventRecordDto dto:
+        return PersistentIntermenstrualBleedingEventRecordDtoToDomain(
+          dto,
+        ).toDomain();
     }
   }
 }

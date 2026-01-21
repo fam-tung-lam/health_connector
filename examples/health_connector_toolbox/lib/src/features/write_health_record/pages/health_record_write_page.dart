@@ -627,6 +627,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       WalkingSteadinessEventDataType _ => throw UnsupportedError(
         'Walking Steadiness Event is read-only',
       ),
+      PersistentIntermenstrualBleedingEventDataType _ => throw UnsupportedError(
+        'Persistent Intermenstrual Bleeding Event is read-only',
+      ),
     };
   }
 }
