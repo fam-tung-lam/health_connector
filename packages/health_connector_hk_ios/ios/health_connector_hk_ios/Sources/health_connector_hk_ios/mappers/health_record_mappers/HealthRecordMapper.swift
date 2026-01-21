@@ -183,6 +183,7 @@ extension HealthRecordDto {
              is StandTimeRecordDto,
              is WalkingSteadinessRecordDto,
              is WalkingAsymmetryPercentageRecordDto,
+             is AtrialFibrillationBurdenRecordDto,
              is HighHeartRateEventRecordDto,
              is IrregularHeartRhythmEventRecordDto,
              is WalkingSteadinessEventRecordDto,
@@ -544,6 +545,14 @@ extension HKQuantitySample {
             try toSwimmingStrokesRecordDto()
         case .peripheralPerfusionIndex:
             try toPeripheralPerfusionIndexRecordDto()
+        case .atrialFibrillationBurden:
+            if #available(iOS 16.0, *) {
+                try toAtrialFibrillationBurdenRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Atrial Fibrillation Burden is not available on this iOS version."
+                )
+            }
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

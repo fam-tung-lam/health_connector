@@ -422,6 +422,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$ProlongedMenstrualPeriodEventDataType is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case AtrialFibrillationBurdenDataType():
+        throw UnsupportedError(
+          '$AtrialFibrillationBurdenDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

@@ -1035,6 +1035,9 @@ enum HealthDataTypeDto {
 
   /// Prolonged Menstrual Period event data type (iOS only).
   prolongedMenstrualPeriodEvent,
+
+  /// Atrial Fibrillation Burden data.
+  atrialFibrillationBurden,
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -9555,6 +9558,86 @@ class ProlongedMenstrualPeriodEventRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Represents an Atrial Fibrillation Burden record for platform transfer (iOS HealthKit only, iOS 16.0+).
+class AtrialFibrillationBurdenRecordDto extends HealthRecordDto {
+  AtrialFibrillationBurdenRecordDto({
+    this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.percentage,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  int endTime;
+
+  /// Metadata about this record.
+  MetadataDto metadata;
+
+  /// The atrial fibrillation burden percentage (stored as decimal 0.0-1.0).
+  double percentage;
+
+  /// Timezone offset in seconds for start time.
+  int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  int? endZoneOffsetSeconds;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      id,
+      startTime,
+      endTime,
+      metadata,
+      percentage,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static AtrialFibrillationBurdenRecordDto decode(Object result) {
+    result as List<Object?>;
+    return AtrialFibrillationBurdenRecordDto(
+      id: result[0] as String?,
+      startTime: result[1]! as int,
+      endTime: result[2]! as int,
+      metadata: result[3]! as MetadataDto,
+      percentage: result[4]! as double,
+      startZoneOffsetSeconds: result[5] as int?,
+      endZoneOffsetSeconds: result[6] as int?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! AtrialFibrillationBurdenRecordDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 // ignore: camel_case_types
 class _PigeonCodecOverflow {
   _PigeonCodecOverflow({required this.type, required this.wrapped});
@@ -9618,6 +9701,8 @@ class _PigeonCodecOverflow {
         return PersistentIntermenstrualBleedingEventRecordDto.decode(wrapped!);
       case 18:
         return ProlongedMenstrualPeriodEventRecordDto.decode(wrapped!);
+      case 19:
+        return AtrialFibrillationBurdenRecordDto.decode(wrapped!);
     }
     return null;
   }
@@ -10137,6 +10222,13 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is ProlongedMenstrualPeriodEventRecordDto) {
       final _PigeonCodecOverflow wrap = _PigeonCodecOverflow(
         type: 18,
+        wrapped: value.encode(),
+      );
+      buffer.putUint8(255);
+      writeValue(buffer, wrap.encode());
+    } else if (value is AtrialFibrillationBurdenRecordDto) {
+      final _PigeonCodecOverflow wrap = _PigeonCodecOverflow(
+        type: 19,
         wrapped: value.encode(),
       );
       buffer.putUint8(255);

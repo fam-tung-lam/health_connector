@@ -232,6 +232,8 @@ extension HKSample {
                         return .stairDescentSpeed
                     case HKQuantityTypeIdentifier.runningPower.rawValue:
                         return .runningPower
+                    case HKQuantityTypeIdentifier.atrialFibrillationBurden.rawValue:
+                        return .atrialFibrillationBurden
                     case HKCategoryTypeIdentifier.infrequentMenstrualCycles.rawValue:
                         return .infrequentMenstrualCycleEvent
                     case HKCategoryTypeIdentifier.irregularMenstrualCycles.rawValue:

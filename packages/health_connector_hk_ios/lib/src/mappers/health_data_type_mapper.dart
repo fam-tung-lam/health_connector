@@ -232,6 +232,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.persistentIntermenstrualBleedingEvent;
       case HealthDataTypeDto.prolongedMenstrualPeriodEvent:
         return HealthDataType.prolongedMenstrualPeriodEvent;
+      case HealthDataTypeDto.atrialFibrillationBurden:
+        return HealthDataType.atrialFibrillationBurden;
     }
   }
 }
@@ -537,6 +539,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.persistentIntermenstrualBleedingEvent;
       case ProlongedMenstrualPeriodEventDataType _:
         return HealthDataTypeDto.prolongedMenstrualPeriodEvent;
+      case AtrialFibrillationBurdenDataType _:
+        return HealthDataTypeDto.atrialFibrillationBurden;
     }
   }
 }

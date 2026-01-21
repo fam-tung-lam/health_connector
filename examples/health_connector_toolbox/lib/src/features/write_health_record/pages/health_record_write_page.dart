@@ -633,6 +633,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       ProlongedMenstrualPeriodEventDataType _ => throw UnsupportedError(
         'Prolonged Menstrual Period Event is read-only',
       ),
+      AtrialFibrillationBurdenDataType _ => throw UnsupportedError(
+        'Atrial Fibrillation Burden is read-only',
+      ),
     };
   }
 }

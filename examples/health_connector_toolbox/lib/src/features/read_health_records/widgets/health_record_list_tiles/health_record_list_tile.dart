@@ -211,6 +211,14 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.percentage,
           onDelete: onDelete,
         ),
+      final AtrialFibrillationBurdenRecord r =>
+        SimpleIntervalMeasurementListTile<AtrialFibrillationBurdenRecord>(
+          record: r,
+          icon: AppIcons.favorite,
+          titleBuilder: (r) => '${r.percentage.asWhole.toStringAsFixed(1)} %',
+          valueExtractor: (r) => r.percentage,
+          onDelete: onDelete,
+        ),
       final WalkingAsymmetryPercentageRecord r =>
         WalkingAsymmetryPercentageRecordListTile(
           record: r,

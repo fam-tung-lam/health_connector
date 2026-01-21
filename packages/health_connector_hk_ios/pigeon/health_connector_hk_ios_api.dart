@@ -1074,6 +1074,9 @@ enum HealthDataTypeDto {
 
   /// Prolonged Menstrual Period event data type (iOS only).
   prolongedMenstrualPeriodEvent,
+
+  /// Atrial Fibrillation Burden data.
+  atrialFibrillationBurden,
 }
 
 /// Sealed class for all health record DTOs.
@@ -4369,5 +4372,40 @@ class ProlongedMenstrualPeriodEventRecordDto extends HealthRecordDto {
   final int endTime;
   final MetadataDto metadata;
   final int? startZoneOffsetSeconds;
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents an Atrial Fibrillation Burden record for platform transfer
+/// (iOS HealthKit only, iOS 16.0+).
+class AtrialFibrillationBurdenRecordDto extends HealthRecordDto {
+  AtrialFibrillationBurdenRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.percentage,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The atrial fibrillation burden percentage (stored as decimal 0.0-1.0).
+  final double percentage;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
 }

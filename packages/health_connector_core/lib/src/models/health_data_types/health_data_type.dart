@@ -56,6 +56,7 @@ part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
 part 'forced_vital_capacity_data_type.dart';
 part 'health_data_type_category.dart';
+part 'heart_rate/atrial_fibrillation_burden_data_type.dart';
 part 'heart_rate/heart_rate_data_type.dart';
 part 'heart_rate/heart_rate_series_data_type.dart';
 part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
@@ -645,6 +646,17 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnHealthConnect
   static const heartRateSeries = HeartRateSeriesDataType();
 
+  /// Atrial Fibrillation Burden data type.
+  ///
+  /// Represents estimates of the percentage of time a person’s heart shows
+  /// signs of AFib.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_4_0
+  @supportedOnAppleHealthIOS16Plus
+  @readOnly
+  static const atrialFibrillationBurden = AtrialFibrillationBurdenDataType();
+
   /// Heart rate data type.
   ///
   /// Represents a single heart rate measurement at a specific point in time.
@@ -1227,6 +1239,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     activeEnergyBurned,
     activityIntensity,
     alcoholicBeverages,
+    atrialFibrillationBurden,
     exerciseTime,
     moveTime,
     standTime,

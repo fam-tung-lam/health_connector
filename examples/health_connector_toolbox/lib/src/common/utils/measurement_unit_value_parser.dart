@@ -142,7 +142,8 @@ abstract class MeasurementUnitValueParser {
       WalkingSteadinessDataType() ||
       WalkingAsymmetryPercentageDataType() ||
       WalkingDoubleSupportPercentageDataType() ||
-      WalkingSteadinessEventDataType() => _parsePercentage(value),
+      WalkingSteadinessEventDataType() ||
+      AtrialFibrillationBurdenDataType() => _parsePercentage(value),
 
       // Volume
       HydrationDataType() ||

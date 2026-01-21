@@ -892,6 +892,8 @@ public enum HealthDataTypeDto: Int {
   case persistentIntermenstrualBleedingEvent = 111
   /// Prolonged Menstrual Period event data type (iOS only).
   case prolongedMenstrualPeriodEvent = 112
+  /// Atrial Fibrillation Burden data.
+  case atrialFibrillationBurden = 113
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -7024,6 +7026,64 @@ public struct ProlongedMenstrualPeriodEventRecordDto: HealthRecordDto {
   }
 }
 
+/// Represents an Atrial Fibrillation Burden record for platform transfer (iOS HealthKit only, iOS 16.0+).
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct AtrialFibrillationBurdenRecordDto: HealthRecordDto {
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// The atrial fibrillation burden percentage (stored as decimal 0.0-1.0).
+  var percentage: Double
+  /// Timezone offset in seconds for start time.
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time.
+  var endZoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> AtrialFibrillationBurdenRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let percentage = pigeonVar_list[4] as! Double
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
+
+    return AtrialFibrillationBurdenRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      percentage: percentage,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      percentage,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: AtrialFibrillationBurdenRecordDto, rhs: AtrialFibrillationBurdenRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 
 private struct PigeonInternalCodecOverflow {
   var type: Int
@@ -7092,6 +7152,8 @@ private struct PigeonInternalCodecOverflow {
         return PersistentIntermenstrualBleedingEventRecordDto.fromList(wrapped as! [Any?]);
       case 18:
         return ProlongedMenstrualPeriodEventRecordDto.fromList(wrapped as! [Any?]);
+      case 19:
+        return AtrialFibrillationBurdenRecordDto.fromList(wrapped as! [Any?]);
       default: 
         return nil
     }
@@ -7943,6 +8005,10 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
       super.writeValue(wrap.toList())
     } else if let value = value as? ProlongedMenstrualPeriodEventRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 18, wrapped: value.toList())
+      super.writeByte(255)
+      super.writeValue(wrap.toList())
+    } else if let value = value as? AtrialFibrillationBurdenRecordDto {
+      let wrap = PigeonInternalCodecOverflow(type: 19, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
     } else {

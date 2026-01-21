@@ -572,6 +572,11 @@ extension HealthRecordToDto on HealthRecord {
           '$ProlongedMenstrualPeriodEventRecord is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case AtrialFibrillationBurdenRecord():
+        throw UnsupportedError(
+          '$AtrialFibrillationBurdenRecord is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

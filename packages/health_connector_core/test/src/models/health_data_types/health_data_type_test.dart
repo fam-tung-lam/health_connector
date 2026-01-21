@@ -160,6 +160,7 @@ void main() {
             HealthDataType.vitalsTypes.toList(),
             HealthDataTypeCategory.vitals,
             <HealthDataType>[
+              HealthDataType.atrialFibrillationBurden,
               HealthDataType.bloodAlcoholContent,
               HealthDataType.bloodGlucose,
               HealthDataType.bloodPressure,
@@ -231,6 +232,10 @@ void main() {
     parameterizedTest(
       'verify explicit id values',
       [
+        [
+          HealthDataType.atrialFibrillationBurden,
+          'atrial_fibrillation_burden',
+        ],
         [HealthDataType.distance, 'distance'],
         [HealthDataType.cyclingDistance, 'cycling_distance'],
         [HealthDataType.swimmingDistance, 'swimming_distance'],

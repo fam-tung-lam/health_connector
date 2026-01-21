@@ -140,6 +140,7 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.persistentIntermenstrualBleedingEvent,
       ProlongedMenstrualPeriodEventDataType _ =>
         AppTexts.prolongedMenstrualPeriodEvent,
+      AtrialFibrillationBurdenDataType _ => AppTexts.atrialFibrillationBurden,
     };
   }
 
@@ -297,6 +298,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.persistentIntermenstrualBleedingEvent,
       ProlongedMenstrualPeriodEventDataType _ =>
         AppTexts.prolongedMenstrualPeriodEvent,
+      AtrialFibrillationBurdenDataType _ =>
+        'Percentage of time the heart shows signs of atrial fibrillation',
     };
   }
 
@@ -429,6 +432,7 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingSteadinessEventDataType _ => AppIcons.directionsWalk,
       PersistentIntermenstrualBleedingEventDataType _ => AppIcons.waterDrop,
       ProlongedMenstrualPeriodEventDataType _ => AppIcons.waterDrop,
+      AtrialFibrillationBurdenDataType _ => AppIcons.favorite,
     };
   }
 }
@@ -455,6 +459,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (HighHeartRateEventDataType) ||
       const (WalkingSteadinessEventDataType) ||
       const (ProlongedMenstrualPeriodEventDataType) => TextInputType.number,
+
+      // Percentage types - Decimal
+      const (AtrialFibrillationBurdenDataType) =>
+        const TextInputType.numberWithOptions(decimal: true),
 
       // All other types use decimal number input
       _ => const TextInputType.numberWithOptions(decimal: true),
@@ -501,6 +509,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (ProlongedMenstrualPeriodEventDataType) =>
         AppTexts.prolongedMenstrualPeriodEvent,
       const (WalkingSteadinessEventDataType) => AppTexts.walkingSteadinessEvent,
+      const (AtrialFibrillationBurdenDataType) => AppTexts.withUnit(
+        AppTexts.atrialFibrillationBurden,
+        AppTexts.percent,
+      ),
 
       // Mass Types (Kilograms)
       const (WeightDataType) => AppTexts.valueWithUnit(
@@ -853,6 +865,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (PeripheralPerfusionIndexDataType) ||
       const (WalkingAsymmetryPercentageDataType) ||
       const (WalkingDoubleSupportPercentageDataType) ||
+      const (AtrialFibrillationBurdenDataType) ||
       const (OxygenSaturationDataType) => '%',
 
       const (BodyMassIndexDataType) => 'kg/m²',

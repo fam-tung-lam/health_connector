@@ -375,6 +375,18 @@ extension HealthDataTypeDto {
                     ]
                 )
             }
+        case .atrialFibrillationBurden:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .atrialFibrillationBurden)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Atrial fibrillation burden is only supported on iOS 16.0 and later",
+                    context: [
+                        "dataType": "atrialFibrillationBurden",
+                        "minimumIOSVersion": "16.0",
+                    ]
+                )
+            }
         }
     }
 }
