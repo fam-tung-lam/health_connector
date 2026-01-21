@@ -2,8 +2,9 @@ part of '../health_data_type.dart';
 
 /// Walking Step Length data type.
 ///
-/// Tracks the distance between the point of initial contact of one foot
-/// and the point of initial contact of the opposite foot.
+/// Step length is the distance between the user’s front foot and back foot when
+/// they walk. The record's value represents the average step length between
+/// the start and end times.
 ///
 /// ## Platform Mapping
 ///

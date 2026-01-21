@@ -712,6 +712,23 @@ enum MindfulnessSessionTypeDto {
   unguided,
 }
 
+/// Walking steadiness event type.
+///
+/// Maps to iOS HKCategoryValueAppleWalkingSteadinessEvent.
+enum WalkingSteadinessTypeDto {
+  /// Initial low steadiness event.
+  initialLow,
+
+  /// Initial very low steadiness event.
+  initialVeryLow,
+
+  /// Repeat low steadiness event.
+  repeatLow,
+
+  /// Repeat very low steadiness event.
+  repeatVeryLow,
+}
+
 /// Represents a health data type.
 enum HealthDataTypeDto {
   /// Active energy burned data.
@@ -1042,6 +1059,9 @@ enum HealthDataTypeDto {
 
   /// Low heart rate event data.
   lowHeartRateEvent,
+
+  /// Walking Steadiness event data.
+  walkingSteadinessEvent,
 }
 
 /// Sealed class for all health record DTOs.
@@ -1163,6 +1183,40 @@ class IrregularHeartRhythmEventRecordDto extends HealthRecordDto {
 
   /// Metadata about this record.
   final MetadataDto metadata;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a walking steadiness event record for platform transfer.
+class WalkingSteadinessEventRecordDto extends HealthRecordDto {
+  WalkingSteadinessEventRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.type,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The type of walking steadiness event.
+  final WalkingSteadinessTypeDto type;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;

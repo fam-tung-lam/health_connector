@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart' show PlatformException;
+import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         AggregateRequest,
@@ -863,6 +864,9 @@ extension on double {
       HealthDataTypeDto.bodyMassIndex ||
       HealthDataTypeDto.forcedVitalCapacity ||
       HealthDataTypeDto.heartRateVariabilitySDNN => Number(this),
+      HealthDataTypeDto.walkingSteadinessEvent => throw ArgumentError(
+        '$WalkingSteadinessEventDataType is not aggregatable.',
+      ),
     };
   }
 }

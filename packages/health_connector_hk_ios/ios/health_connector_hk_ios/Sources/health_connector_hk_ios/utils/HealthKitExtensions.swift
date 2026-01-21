@@ -212,6 +212,10 @@ extension HKSample {
                 return .irregularHeartRhythmEvent
             case HKCategoryTypeIdentifier.highHeartRateEvent.rawValue:
                 return .highHeartRateEvent
+            case HKCategoryTypeIdentifier.highHeartRateEvent.rawValue:
+                return .highHeartRateEvent
+            case HKCategoryTypeIdentifier.appleWalkingSteadinessEvent.rawValue:
+                return .walkingSteadinessEvent
             // Correlation types
             case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
                 return .bloodPressure

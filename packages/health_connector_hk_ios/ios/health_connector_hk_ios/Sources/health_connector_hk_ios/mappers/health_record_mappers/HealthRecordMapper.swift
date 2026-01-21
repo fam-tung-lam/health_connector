@@ -185,6 +185,7 @@ extension HealthRecordDto {
              is WalkingAsymmetryPercentageRecordDto,
              is HighHeartRateEventRecordDto,
              is IrregularHeartRhythmEventRecordDto,
+             is WalkingSteadinessEventRecordDto,
              is LowHeartRateEventRecordDto:
             throw HealthConnectorError.invalidArgument(
                 message:
@@ -264,6 +265,19 @@ extension HKCategorySample {
             try toIrregularHeartRhythmEventRecordDto()
         case .highHeartRateEvent:
             try toHighHeartRateEventRecordDto()
+        case .walkingSteadinessEvent:
+            if #available(iOS 15.0, *) {
+                try toWalkingSteadinessEventRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Walking steadiness event is only supported on iOS 15.0 and later",
+                    context: [
+                        "dataType": "walkingSteadinessEvent",
+                        "minimumIOSVersion": "15.0",
+                    ]
+                )
+            }
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

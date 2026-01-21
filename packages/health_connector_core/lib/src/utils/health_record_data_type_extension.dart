@@ -165,6 +165,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       HighHeartRateEventRecord _ => HealthDataType.highHeartRateEvent,
       IrregularHeartRhythmEventRecord _ =>
         HealthDataType.irregularHeartRhythmEvent,
+      WalkingSteadinessEventRecord _ => HealthDataType.walkingSteadinessEvent,
     };
   }
 }

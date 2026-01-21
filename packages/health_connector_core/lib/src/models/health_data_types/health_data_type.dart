@@ -138,6 +138,7 @@ part 'waist_circumference_data_type.dart';
 part 'walking/walking_asymmetry_percentage_data_type.dart';
 part 'walking/walking_double_support_percentage_data_type.dart';
 part 'walking/walking_steadiness_data_type.dart';
+part 'walking/walking_steadiness_event_data_type.dart';
 part 'walking/walking_step_length_data_type.dart';
 part 'weight_data_type.dart';
 part 'wheelchair_pushes_data_type.dart';
@@ -1152,6 +1153,17 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV1_1_0
   static const dietaryPantothenicAcid = DietaryPantothenicAcidDataType();
 
+  /// Represents a walking steadiness event.
+  ///
+  /// Records an incident where the user showed a reduced score for their
+  /// gait’s steadiness.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_4_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const walkingSteadinessEvent = WalkingSteadinessEventDataType();
+
   /// Returns a list of all available health data types.
   static const values = <HealthDataType<HealthRecord, MeasurementUnit>>[
     activeEnergyBurned,
@@ -1267,6 +1279,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     walkingDoubleSupportPercentage,
     walkingRunningDistance,
     walkingSpeed,
+    walkingSteadinessEvent,
     walkingStepLength,
     weight,
     wheelchairDistance,

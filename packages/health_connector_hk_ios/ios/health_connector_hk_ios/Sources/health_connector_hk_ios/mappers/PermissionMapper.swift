@@ -118,7 +118,8 @@ extension HealthDataPermissionDto {
              .mindfulnessSession,
              .lowHeartRateEvent,
              .irregularHeartRhythmEvent,
-             .highHeartRateEvent:
+             .highHeartRateEvent,
+             .walkingSteadinessEvent:
             try [healthDataType.toHKSampleType()]
 
         // For correlation types HealthKit requires requesting permissions for

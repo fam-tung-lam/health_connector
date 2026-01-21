@@ -141,7 +141,8 @@ abstract class MeasurementUnitValueParser {
       StandTimeDataType() => _parseTimeDurationMinutes(value),
       WalkingSteadinessDataType() ||
       WalkingAsymmetryPercentageDataType() ||
-      WalkingDoubleSupportPercentageDataType() => _parsePercentage(value),
+      WalkingDoubleSupportPercentageDataType() ||
+      WalkingSteadinessEventDataType() => _parsePercentage(value),
 
       // Volume
       HydrationDataType() ||

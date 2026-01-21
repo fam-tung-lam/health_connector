@@ -203,6 +203,7 @@ abstract final class AppTexts {
         walkingDoubleSupportPercentage,
       WalkingStepLengthDataType() => walkingStepLength,
       IrregularHeartRhythmEventDataType() => 'Irregular Heart Rhythm Event',
+      WalkingSteadinessEventDataType() => walkingSteadinessEvent,
     };
   }
 
@@ -464,6 +465,14 @@ abstract final class AppTexts {
   static const String highHeartRateEvent = 'High Heart Rate Event';
   static const String highHeartRateEventDescription =
       'Recorded when heart rate exceeds configured threshold (iOS only)';
+  static const String walkingSteadinessEvent = 'Walking Steadiness Event';
+  static const String walkingSteadinessEventDescription =
+      'Records an incident where the user showed a reduced score '
+      'for their gait’s steadiness (iOS only)';
+  static const String initialLow = 'Initial Low';
+  static const String repeatLow = 'Repeat Low';
+  static const String initialVeryLow = 'Initial Very Low';
+  static const String repeatVeryLow = 'Repeat Very Low';
   static const String restingHeartRate = 'Resting Heart Rate';
   static const String heartRateSamples = '$heartRate Samples';
   static const String addSample = 'Add Sample';

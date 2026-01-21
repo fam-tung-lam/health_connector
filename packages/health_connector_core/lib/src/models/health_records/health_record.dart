@@ -18,6 +18,7 @@ part 'time/exercise_time_record.dart';
 part 'time/move_time_record.dart';
 part 'time/stand_time_record.dart';
 part 'walking/walking_steadiness_record.dart';
+part 'walking/walking_steadiness_event_record.dart';
 part 'blood_alcohol_content_record.dart';
 part 'blood_glucose/blood_glucose_record.dart';
 part 'blood_glucose/blood_glucose_relation_to_meal.dart';

@@ -309,6 +309,19 @@ extension HealthDataTypeDto {
             try HKCategoryType.make(from: .irregularHeartRhythmEvent)
         case .highHeartRateEvent:
             try HKCategoryType.make(from: .highHeartRateEvent)
+        case .walkingSteadinessEvent:
+            if #available(iOS 15.0, *) {
+                try HKCategoryType.make(from: .appleWalkingSteadinessEvent)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Walking steadiness event is only supported on iOS 15.0 and later",
+                    context: [
+                        "dataType": "walkingSteadinessEvent",
+                        "minimumIOSVersion": "15.0",
+                    ]
+                )
+            }
         }
     }
 }

@@ -87,6 +87,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_ma
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/waist_circumference_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_asymmetry_percentage_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_double_support_percentage_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_steadiness_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_steadiness_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/walking/walking_step_length_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/weight_record_mapper.dart';
@@ -410,6 +411,10 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$HighHeartRateEventRecord is read-only data type.',
         );
+      case final WalkingSteadinessEventRecord _:
+        throw UnsupportedError(
+          '$WalkingSteadinessEventRecord is read-only data type.',
+        );
     }
   }
 }
@@ -605,6 +610,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return WalkingDoubleSupportPercentageRecordDtoToDomain(dto).toDomain();
       case final WalkingStepLengthRecordDto dto:
         return WalkingStepLengthRecordDtoToDomain(dto).toDomain();
+      case final WalkingSteadinessEventRecordDto dto:
+        return WalkingSteadinessEventRecordDtoMapper(dto).toDomain();
     }
   }
 }

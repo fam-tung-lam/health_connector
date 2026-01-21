@@ -547,6 +547,11 @@ extension HealthRecordToDto on HealthRecord {
           '$HighHeartRateEventRecord is not supported on Android '
           'Health Connect. This data type is iOS-only.',
         );
+      case WalkingSteadinessEventRecord():
+        throw UnsupportedError(
+          '$WalkingSteadinessEventRecord is not supported on Android '
+          'Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

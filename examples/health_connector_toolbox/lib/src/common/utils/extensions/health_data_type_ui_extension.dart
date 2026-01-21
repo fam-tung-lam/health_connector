@@ -131,6 +131,7 @@ extension HealthDataTypeUI on HealthDataType {
       LowHeartRateEventDataType _ => AppTexts.lowHeartRateEvent,
       IrregularHeartRhythmEventDataType _ => 'Irregular Heart Rhythm Event',
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEvent,
+      WalkingSteadinessEventDataType _ => AppTexts.walkingSteadinessEvent,
     };
   }
 
@@ -278,6 +279,8 @@ extension HealthDataTypeUI on HealthDataType {
       IrregularHeartRhythmEventDataType _ =>
         'Detected irregular heart rhythm notification (iOS only)',
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEventDescription,
+      WalkingSteadinessEventDataType _ =>
+        AppTexts.walkingSteadinessEventDescription,
     };
   }
 
@@ -405,6 +408,7 @@ extension HealthDataTypeUI on HealthDataType {
       LowHeartRateEventDataType _ => AppIcons.favorite,
       IrregularHeartRhythmEventDataType _ => AppIcons.favorite,
       HighHeartRateEventDataType _ => AppIcons.favorite,
+      WalkingSteadinessEventDataType _ => AppIcons.directionsWalk,
     };
   }
 }
@@ -426,7 +430,9 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (HeartRateDataType) ||
       const (RestingHeartRateDataType) ||
       const (LowHeartRateEventDataType) ||
-      const (HighHeartRateEventDataType) => TextInputType.number,
+      const (IrregularHeartRhythmEventDataType) ||
+      const (HighHeartRateEventDataType) ||
+      const (WalkingSteadinessEventDataType) => TextInputType.number,
 
       // All other types use decimal number input
       _ => const TextInputType.numberWithOptions(decimal: true),
@@ -462,10 +468,13 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.lowHeartRateEvent,
         AppTexts.bpm,
       ),
+      const (IrregularHeartRhythmEventDataType) =>
+        'Irregular Heart Rhythm Event',
       const (HighHeartRateEventDataType) => AppTexts.valueWithUnit(
         AppTexts.highHeartRateEvent,
         AppTexts.bpm,
       ),
+      const (WalkingSteadinessEventDataType) => AppTexts.walkingSteadinessEvent,
 
       // Mass Types (Kilograms)
       const (WeightDataType) => AppTexts.valueWithUnit(

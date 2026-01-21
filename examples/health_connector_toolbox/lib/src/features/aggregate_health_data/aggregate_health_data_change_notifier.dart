@@ -797,15 +797,13 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       PeripheralPerfusionIndexDataType() => throw UnsupportedError(
         'Peripheral perfusion index does not support aggregation',
       ),
-      LowHeartRateEventDataType() => throw UnsupportedError(
+      LowHeartRateEventDataType() ||
+      IrregularHeartRhythmEventDataType() ||
+      HighHeartRateEventDataType() ||
+      WalkingSteadinessEventDataType() => throw UnsupportedError(
         'Low heart rate event does not support aggregation',
       ),
-      IrregularHeartRhythmEventDataType() => throw UnsupportedError(
-        'Irregular heart rhythm event does not support aggregation',
-      ),
-      HighHeartRateEventDataType() => throw UnsupportedError(
-        'High heart rate event does not support aggregation',
-      ),
+
       ContraceptiveDataType() => throw UnsupportedError(
         'Contraceptive does not support aggregation',
       ),

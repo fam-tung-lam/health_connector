@@ -46,6 +46,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/speed_activity_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/speed_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/steps_cadence_series_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/walking/walking_steadiness_event_record_list_tile.dart';
 
 /// A widget that displays a health record in a list tile format.
 ///
@@ -105,10 +106,13 @@ final class HealthRecordListTile extends StatelessWidget {
       final LowHeartRateEventRecord r => LowHeartRateEventRecordListTile(
         record: r,
       ),
-      final IrregularHeartRhythmEventRecord r =>
+      IrregularHeartRhythmEventRecord() =>
         IrregularHeartRhythmEventRecordListTile(
-          record: r,
+          record: record as IrregularHeartRhythmEventRecord,
         ),
+      WalkingSteadinessEventRecord() => WalkingSteadinessEventRecordListTile(
+        record: record as WalkingSteadinessEventRecord,
+      ),
       final HighHeartRateEventRecord r => HighHeartRateEventRecordListTile(
         record: r,
       ),
