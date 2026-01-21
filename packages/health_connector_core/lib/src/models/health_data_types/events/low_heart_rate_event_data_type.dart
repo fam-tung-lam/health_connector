@@ -5,8 +5,9 @@ part of '../health_data_type.dart';
 /// This data type captures events where low heart rate is detected.
 ///
 /// > [!NOTE]
-/// > This data type is **read-only**. Records of this type are generated automatically
-/// > by Apple Watch algorithms and cannot be written by third-party applications.
+/// > This data type is **read-only**. Records of this type are generated
+/// automatically by Apple Watch algorithms and cannot be written by
+/// > third-party applications.
 ///
 /// To generate test data in the iOS Simulator:
 /// 1. Open the **Health** app.

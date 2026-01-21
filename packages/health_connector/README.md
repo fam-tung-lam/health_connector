@@ -8,7 +8,7 @@
 </p>
 
 **Production-grade Flutter SDK for iOS HealthKit and Android Health Connect.** Access **100+ health
-data types** with compile-time type safety, incremental sync, and privacy-first architecture.
+data types** with compile-time type safety, Synchronize Data, and privacy-first architecture.
 
 ---
 
@@ -25,14 +25,14 @@ data types** with compile-time type safety, incremental sync, and privacy-first 
   - [⚡ Quick Demo](#-quick-demo)
 
 - [📘 Developer Guide](#-developer-guide)
-  - [🔐 Permission Management](#-permission-management)
-  - [📖 Reading Data](#-reading-data)
-  - [💾 Writing Data](#-writing-data)
+  - [🔐 Manage Permissions](#-manage-permissions)
+  - [📖 Read Data](#-read-data)
+  - [💾 Write Data](#-write-data)
   - [🗑️ Deleting Data](#-deleting-data)
-  - [🔄 Updating Data](#-updating-data)
-  - [➕ Aggregating Data](#-aggregating-data)
-  - [🔁 Incremental Sync](#-incremental-sync)
-  - [⚙️ Feature Management](#-feature-management)
+  - [🔄 Update Data](#-update-data)
+  - [➕ Aggregate Data](#-aggregate-data)
+  - [🔁 Synchronize Data](#-synchronize-data)
+  - [⚙️ Manage Features](#-manage-features)
   - [⚠️ Error Handling](#-error-handling)
   - [📝 Logging](#-logging)
 
@@ -92,21 +92,21 @@ flutter pub get && flutter run
 
 ### 📋 Requirements
 
-| Component       | Requirements                                      |
-|-----------------|---------------------------------------------------|
-| **Flutter SDK** | ≥3.35.7                                           |
-| **Android**     | OS: API 26+<br>Languages: Kotlin ≥2.1.0, Java ≥17 |
-| **iOS**         | OS: ≥15.0<br>Language: Swift ≥5.9                 |
+| Component   | Requirements                                        |
+|-------------|-----------------------------------------------------|
+| **Flutter** | • SDK: ≥3.35.7                                      |
+| **Android** | • OS: API 26+<br>• Languages: Kotlin 2.1.0, Java 17 |
+| **iOS**     | • OS: ≥15.0<br>• Language: Swift 5.9                |
 
 > **✨ Upgrading is Easy:**
 >
 > - **Flutter 3.35.7** has great backward compatibility up to **Flutter 3.32.0**, making the
-    migration very straightforward and requiring no changes to your existing code. For projects
-    already using Material 3 UI, great backward compatibility extends up to **Flutter 3.27.0**.
+> migration very straightforward and requiring no changes to your existing code. For projects
+> already using Material 3 UI, great backward compatibility extends up to **Flutter 3.27.0**.
 >
 > - **Swift 5.9** has great backward compatibility up to **Swift 5.0**, and **Kotlin 2.1** up to
-    **Kotlin 2.0**. Migration is very straightforward — simply update version in your build configuration
-    files. **No changes to your existing native code are required.**
+> **Kotlin 2.0**. Migration is very straightforward — simply update version in your build configuration
+> files. **No changes to your existing native code are required.**
 
 ### 📦 Installation
 
@@ -342,14 +342,17 @@ Future<void> quickStart() async {
 }
 ```
 
-> **What's Next?** Check out the [Developer Guide](#-developer-guide) for full API documentation,
-> error handling, and advanced features.
+> **What's Next?**
+>
+> - Check out the [Developer Guide](#-developer-guide) for full API documentation, error handling,
+>   and advanced features.
+> - Check out the [Supported Health Data Types](#-supported-health-data-types).
 
 ---
 
 ## 📘 Developer Guide
 
-### 🔐 Permission Management
+### 🔐 Manage Permissions
 
 #### Check Permission Status
 
@@ -455,7 +458,7 @@ try {
 }
 ```
 
-### 📖 Reading Data
+### 📖 Read Data
 
 > **Historical Data Access:** Android Health Connect defaults to 30 days—request
 `HealthPlatformFeature.readHealthDataHistory` permission for older data. iOS HealthKit has no
@@ -486,7 +489,6 @@ if (record != null) {
 final readRequest = HealthDataType.steps.readInTimeRange(
   startTime: DateTime.now().subtract(Duration(days: 7)),
   endTime: DateTime.now(),
-  pageSize: 100,
 );
 
 // 2. Process read request
@@ -546,7 +548,7 @@ while (true) {
 print('📊 Total: ${allRecords.length} records');
 ```
 
-### 💾 Writing Data
+### 💾 Write Data
 
 #### Write Single Record
 
@@ -638,7 +640,7 @@ final request = HealthDataType.steps.deleteInTimeRange(
 await connector.deleteRecords(request);
 ```
 
-### 🔄 Updating Data
+### 🔄 Update Data
 
 > **iOS Limitation:** HealthKit uses an immutable data model—records cannot be updated, only deleted
 > and recreated. This is a platform security restriction.
@@ -697,7 +699,7 @@ await connector.updateRecords(updated);
 print('✅ Updated ${updated.length} records');
 ```
 
-### 📊 Aggregating Data
+### ➕ Aggregate Data
 
 ```dart
 final now = DateTime.now();
@@ -740,103 +742,155 @@ final maxResult = await connector.aggregate(
 print('Maximum weight: ${maxResult.inKilograms} kg');
 ```
 
-### 🔁 Incremental Sync
+### 🔁 Synchronize Data
 
-Incremental sync allows you to retrieve only health data that has changed since your last sync,
-reducing bandwidth usage and improving performance.
+Synchronize Data is an **incremental sync API** that retrieves **only health data that has changed
+since your last sync**, dramatically reducing bandwidth usage and improving performance for apps
+that need to stay up-to-date with health data.
 
-#### How It Works
+#### When to Use Sync vs Regular Reads
 
-- **Initial Sync**: Pass `null` as `syncToken` to get initial sync token
-- **Incremental Sync**: Use the returned `nextSyncToken` for subsequent syncs
-- **Change Tracking**: Automatically tracks additions, updates, and deletions
+| Use Case                                                        | Recommended Approach  |
+|:----------------------------------------------------------------|:----------------------|
+| **Periodic background sync** (e.g., daily health data updates)  | ✅ Use `synchronize()` |
+| **Real-time monitoring** of ongoing activity                    | ✅ Use `synchronize()` |
+| **One-time data fetch** for a specific time range               | Use `readRecords()`   |
+| **User-requested historical data** (e.g., "show me last month") | Use `readRecords()`   |
 
-#### Example: Basic Incremental Sync
+#### How Synchronization Works
+
+Synchronization follows a **two-phase flow**:
+
+1. **Phase 1: Set Checkpoint** (one-time setup)
+   - Call `synchronize()` with `syncToken: null`
+   - This establishes a point-in-time marker (no data is returned)
+   - Save the returned `nextSyncToken` for later use
+
+2. **Phase 2: Fetch Changes** (repeated syncs)
+   - Call `synchronize()` with your saved `syncToken`
+   - Receive only records that changed since that token was created
+     - **Upserted records**: New or updated records since last sync
+     - **Deleted record IDs**: Records that were deleted since last sync
+   - Always save the new `nextSyncToken` to continue tracking changes
+
+#### Example: Complete Sync Flow
 
 ```dart
 import 'package:health_connector/health_connector.dart';
 
-final storage = LocalTokenStorage(); // f.e. SharedPreferences
+// Use SharedPreferences, secure storage, or your preferred persistence layer
+final storage = LocalTokenStorage();
 
-// 1. Initial setup - set initial sync checkpoint
-Future<void> setInitialSyncCheckpoint() async {
+// ────────────────────────────────────────────────────────────
+// Step 1: Set Initial Checkpoint (run once per user/device)
+// ────────────────────────────────────────────────────────────
+Future<void> setupSyncCheckpoint() async {
   final connector = await HealthConnector.create();
 
+  // Pass null to establish "now" as the starting point
   final result = await connector.synchronize(
     dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
-    syncToken: null,
+    syncToken: null, // 👈 null = set checkpoint
   );
-  final initialSyncToken = result.nextSyncToken;
 
-  // Save token
-  await storage.saveToken(initialSyncToken.toJson());
+  // No data returned at this stage
+  assert(result.upsertedRecords.isEmpty);
+  assert(result.deletedRecordIds.isEmpty);
 
-  print('✅ Initial sync setup complete');
+  // Save token for future syncs
+  await storage.saveToken(result.nextSyncToken.toJson());
+  print('✅ Sync checkpoint established');
 }
 
-// 2. Incremental sync - get changes
-Future<void> performIncrementalSync() async {
+// ────────────────────────────────────────────────────────────
+// Step 2: Fetch Changes Since Last Sync (run periodically)
+// ────────────────────────────────────────────────────────────
+Future<void> syncHealthData() async {
   final connector = await HealthConnector.create();
 
   // Load saved token
   final tokenJson = await storage.loadToken();
   if (tokenJson == null) {
-    print('⚠️ No token found, setting sync checkpoint instead');
-    await setInitialSyncCheckpoint();
+    print('⚠️ No checkpoint found. Run setupSyncCheckpoint() first.');
     return;
   }
 
   final token = HealthDataSyncToken.fromJson(tokenJson);
 
+  // Fetch changes since the token was created
   final result = await connector.synchronize(
     dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
-    syncToken: token,
+    syncToken: token, // 👈 Use saved token
   );
 
-  // Process changes
-  print('Upserted records: ${result.upsertedRecords.length}');
-  print('Deleted record IDs: ${result.deletedRecordIds.length}');
-  print('Has more pages: ${result.hasMore}');
+  print('📊 Sync results:');
+  print('  • New/updated records: ${result.upsertedRecords.length}');
+  print('  • Deleted record IDs: ${result.deletedRecordIds.length}');
 
-  // Process changes
+  // Process upserted records (new or modified)
   for (final record in result.upsertedRecords) {
-    // Process upserted record
-  }
-  for (final id in result.deletedRecordIds) {
-    // Process deleted record ID
+    await database.upsert(record); // Update your local database
   }
 
-  // Save new token
+  // Process deletions
+  for (final id in result.deletedRecordIds) {
+    await database.delete(id); // Remove from your local database
+  }
+
+  // ⚠️ CRITICAL: Always save the new token immediately
   await storage.saveToken(result.nextSyncToken.toJson());
+  print('✅ Sync complete');
 }
 ```
 
-#### Pagination Support
+#### Handling Pagination
+
+When there are many changes, results are **paginated automatically**. Use `hasMore` to detect
+pagination and fetch all pages in a loop:
 
 ```dart
-var token = savedToken;
-final upsertedRecords = <HealthRecord>[];
-final deletedRecordIds = <HealthRecordId>[];
+Future<void> syncAllPages() async {
+  final connector = await HealthConnector.create();
 
-// Fetch all pages
-while (true) {
-  final result = await connector.synchronize(
-    dataTypes: [HealthDataType.steps],
-    syncToken: token,
-  );
+  final tokenJson = await storage.loadToken();
+  if (tokenJson == null) {
+    print('⚠️ No checkpoint found');
+    return;
+  }
 
-  upsertedRecords.addAll(result.upsertedRecords);
-  deletedRecordIds.addAll(result.deletedRecordIds);
+  var token = HealthDataSyncToken.fromJson(tokenJson);
+  final allUpsertedRecords = <HealthRecord>[];
+  final allDeletedRecordIds = <HealthRecordId>[];
 
-  if (!result.hasMore) break;
-  token = result.nextSyncToken;
+  // Fetch all pages until hasMore is false
+  do {
+    final result = await connector.synchronize(
+      dataTypes: [HealthDataType.steps],
+      syncToken: token,
+    );
+
+    allUpsertedRecords.addAll(result.upsertedRecords);
+    allDeletedRecordIds.addAll(result.deletedRecordIds);
+
+    // Update token for next page
+    token = result.nextSyncToken;
+
+    print('Fetched page with:');
+    print('  • New/updated records: ${result.upsertedRecords.length}');
+    print('  • Deleted record IDs: ${result.deletedRecordIds.length}');
+  } while (result.hasMore);
+
+  // Process all changes together
+  print('📊 Sync results:');
+  print('  • New/updated records: ${allUpsertedRecords.length}');
+  print('  • Deleted record IDs: ${allDeletedRecordIds.length}');
+
+  // Save the final token for the next synchronization
+  await storage.saveToken(token.toJson());
 }
-
-// Save new token
-await storage.saveToken(token.toJson());
 ```
 
-### ⚙️ Feature Management
+### ⚙️ Manage Features
 
 #### Check Feature Availability
 
@@ -855,28 +909,28 @@ if (status == HealthPlatformFeatureStatus.available) {
 }
 ```
 
-> **Feature Availability:** All features are built directly into the OS and are always available. On Android, Health Connect features may vary depending on the installed app and Android version. Use `getFeatureStatus()` to verify feature support on the user's device before requesting permissions.
+> **Note:** All features are built directly into the OS and are always available. On Android, Health Connect features may vary depending on the installed app and Android version. Use `getFeatureStatus()` to verify feature support on the user's device before requesting permissions.
 
 ### ⚠️ Error Handling
 
 Every `HealthConnectorException` thrown by the SDK includes a `HealthConnectorErrorCode` that
 provides specific details about what went wrong. Use this code to handle errors programmatically.
 
-| Error Code                                  | Exception Type                      | Platform | Description & Causes                                                     | Recovery Strategy                                                             |
-|:--------------------------------------------|:------------------------------------|:---------|:-------------------------------------------------------------------------|:------------------------------------------------------------------------------|
-| `permissionNotGranted`                      | `AuthorizationException`            | Both     | Permission denied, revoked, or not determined.                           | Request permissions or guide user to settings.                                |
-| `permissionNotDeclared`                     | `ConfigurationException`            | All      | Missing required permission in `AndroidManifest.xml` or `Info.plist`.    | **Developer Error:** Add missing permissions to your app configuration.       |
-| `healthServiceUnavailable`                  | `HealthServiceUnavailableException` | All      | Device doesn't support Health Connect (Android) or HealthKit (iPad).     | Check `getHealthPlatformStatus()`. Gracefully disable health features.        |
-| `healthServiceRestricted`                   | `HealthServiceUnavailableException` | All      | Health data access restricted by system policy (e.g. parental controls). | Gracefully disable health features and inform the user.                       |
-| `healthServiceNotInstalledOrUpdateRequired` | `HealthServiceUnavailableException` | Android  | Health Connect app is missing or needs an update.                        | Prompt user to install/update via `launchHealthAppPageInAppStore()`.          |
-| `healthServiceDatabaseInaccessible`         | `HealthServiceException`            | iOS      | Device is locked and health database is encrypted/inaccessible.          | Wait for device unlock or notify user to unlock their device.                 |
-| `ioError`                                   | `HealthServiceException`            | Android  | Device storage I/O failed while reading/writing records.                 | Retry operation with exponential backoff.                                     |
-| `remoteError`                               | `HealthServiceException`            | Android  | IPC communication with the underlying health service failed.             | Retry operation; usually a temporary system glitch.                           |
-| `rateLimitExceeded`                         | `HealthServiceException`            | Android  | API request quota exhausted.                                             | Wait and retry later. Implement exponential backoff.                          |
-| `dataSyncInProgress`                        | `HealthServiceException`            | Android  | Health Connect is currently syncing data; operations locked.             | Retry after a short delay or show a "Syncing..." status.                      |
-| `invalidArgument`                           | `InvalidArgumentException`          | All      | Invalid parameter, malformed record, or expired usage of a token.        | Validate input. For expired sync tokens, restart sync with `syncToken: null`. |
-| `unsupportedOperation`                      | `UnsupportedOperationException`     | All      | The requested operation is not supported on this platform/version.       | Check capability with `getFeatureStatus()` before calling.                    |
-| `unknownError`                              | `UnknownException`                  | All      | An unclassified internal system error occurred.                          | Log the error details for debugging.                                          |
+| Error Code                                  | Exception Type                      | Platform | Description & Causes                                                                                                            | Recovery Strategy                                                             |
+|:--------------------------------------------|:------------------------------------|:---------|:--------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------|
+| `permissionNotGranted`                      | `AuthorizationException`            | Both     | Permission denied, revoked, or not determined.                                                                                  | Request permissions or guide user to settings.                                |
+| `permissionNotDeclared`                     | `ConfigurationException`            | All      | Missing required permission in `AndroidManifest.xml` or `Info.plist`.                                                           | **Developer Error:** Add missing permissions to your app configuration.       |
+| `healthServiceUnavailable`                  | `HealthServiceUnavailableException` | All      | Device doesn't support Health Connect (Android) or HealthKit (iPad).                                                            | Check `getHealthPlatformStatus()`. Gracefully disable health features.        |
+| `healthServiceRestricted`                   | `HealthServiceUnavailableException` | All      | Health data access restricted by system policy (e.g. parental controls).                                                        | Gracefully disable health features and inform the user.                       |
+| `healthServiceNotInstalledOrUpdateRequired` | `HealthServiceUnavailableException` | Android  | Health Connect app is missing or needs an update.                                                                               | Prompt user to install/update via `launchHealthAppPageInAppStore()`.          |
+| `healthServiceDatabaseInaccessible`         | `HealthServiceException`            | iOS      | Device is locked and health database is encrypted/inaccessible.                                                                 | Wait for device unlock or notify user to unlock their device.                 |
+| `ioError`                                   | `HealthServiceException`            | Android  | Device storage I/O failed while reading/writing records.                                                                        | Retry operation with exponential backoff.                                     |
+| `remoteError`                               | `HealthServiceException`            | Android  | IPC communication with the underlying health service failed.                                                                    | Retry operation; usually a temporary system glitch.                           |
+| `rateLimitExceeded`                         | `HealthServiceException`            | Android  | API request quota exhausted.                                                                                                    | Wait and retry later. Implement exponential backoff.                          |
+| `dataSyncInProgress`                        | `HealthServiceException`            | Android  | Health Connect is currently syncing data; operations locked.                                                                    | Retry after a short delay.                                                    |
+| `invalidArgument`                           | `InvalidArgumentException`          | All      | Invalid parameter, malformed record, or expired usage of a token.                                                               | Validate input. For expired sync tokens, restart sync with `syncToken: null`. |
+| `unsupportedOperation`                      | `UnsupportedOperationException`     | All      | The requested operation is not supported on the current platform or OS version (e.g. accessing Android-only data types on iOS). | Check `@supportedOn` annotations in documentation before using the API.       |
+| `unknownError`                              | `UnknownException`                  | All      | An unclassified internal system error occurred.                                                                                 | Log the error details for debugging.                                          |
 
 #### Example: Robust Error Handling
 
@@ -884,11 +938,9 @@ provides specific details about what went wrong. Use this code to handle errors 
 try {
   await connector.writeRecord(record);
 } on AuthorizationException catch (e) {
-  // 1. Permission Issues
   // Permission not granted.
   print('🔒 Authorization failed: ${e.message}');
 } on HealthServiceUnavailableException catch (e) {
-  // 2. Service Availability Issues
   // Health Connect missing (Android) or device unsupported (iOS).
   print('❌ Service unavailable: ${e.code}');
 
@@ -900,7 +952,6 @@ try {
     _disableHealthIntegration();
   }
 } on HealthServiceException catch (e) {
-  // 3. Runtime/Operational Errors
   switch (e.code) {
     case HealthConnectorErrorCode.rateLimitExceeded:
       // API quota exhausted. Wait and retry with backoff.
@@ -911,7 +962,7 @@ try {
 
     case HealthConnectorErrorCode.dataSyncInProgress:
       // Health Connect is busy syncing.
-      print('🔄 Syncing... please wait.');
+      print('🔄 Syncing... Retrying later...');
       break;
 
     case HealthConnectorErrorCode.remoteError:
@@ -926,10 +977,8 @@ try {
       break;
   }
 } on InvalidArgumentException catch (e) {
-  // 4. Input Errors
   print('⚠️ Invalid data or expired token: ${e.message}');
 } catch (e, stack) {
-  // 5. Unknown/Unexpected Errors
   print('⁉️ Unexpected system error: $e');
   // reportToCrashlytics(e, stack);
 }
