@@ -12,8 +12,8 @@ extension InfrequentMenstrualCycleEventRecordDtoToDomain
   InfrequentMenstrualCycleEventRecord toDomain() {
     return InfrequentMenstrualCycleEventRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
-      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
-      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),

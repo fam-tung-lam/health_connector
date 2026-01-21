@@ -40,7 +40,7 @@ extension HKQuantitySample {
         else {
             throw HealthConnectorError.invalidArgument(
                 message:
-                    "Expected forced expiratory volume 1 quantity type, got \(quantityType.identifier)",
+                "Expected forced expiratory volume 1 quantity type, got \(quantityType.identifier)",
                 context: [
                     "expected": HKQuantityTypeIdentifier.forcedExpiratoryVolume1.rawValue,
                     "actual": quantityType.identifier,

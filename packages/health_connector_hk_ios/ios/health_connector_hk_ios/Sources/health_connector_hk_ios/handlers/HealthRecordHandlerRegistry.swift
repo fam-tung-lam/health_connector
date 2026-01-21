@@ -60,7 +60,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         guard let handler = baseHandler as? T else {
             throw HealthConnectorError.unsupportedOperation(
                 message:
-                    "Data type \(type.rawValue) does not support \(String(describing: capability))",
+                "Data type \(type.rawValue) does not support \(String(describing: capability))",
                 context: [
                     "dataType": type.rawValue,
                     "capability": String(describing: capability),

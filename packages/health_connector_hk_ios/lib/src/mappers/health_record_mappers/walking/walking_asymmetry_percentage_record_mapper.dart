@@ -13,8 +13,8 @@ extension WalkingAsymmetryPercentageRecordDtoToDomain
   WalkingAsymmetryPercentageRecord toDomain() {
     return WalkingAsymmetryPercentageRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
-      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
-      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       metadata: metadata.toDomain(),
       percentage: Percentage.fromDecimal(percentage),
       devicePlacementSide: devicePlacementSide.toDomain(),

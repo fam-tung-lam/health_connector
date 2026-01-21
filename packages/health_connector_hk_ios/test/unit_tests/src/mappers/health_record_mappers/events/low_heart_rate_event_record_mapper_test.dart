@@ -38,10 +38,10 @@ void main() {
               final record = dto.toDomain();
 
               expect(record.id.value, FakeData.fakeId);
-              expect(record.startTime, time.toLocal());
+              expect(record.startTime, time);
               expect(
                 record.endTime,
-                time.add(const Duration(minutes: 5)).toLocal(),
+                time.add(const Duration(minutes: 5)),
               );
               expect(record.rateThreshold!.inPerMinute, 50.0);
               expect(

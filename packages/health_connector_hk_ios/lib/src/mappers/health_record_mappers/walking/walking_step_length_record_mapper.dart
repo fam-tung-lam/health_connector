@@ -29,8 +29,8 @@ extension WalkingStepLengthRecordDtoToDomain on WalkingStepLengthRecordDto {
   WalkingStepLengthRecord toDomain() {
     return WalkingStepLengthRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
-      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
-      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       metadata: metadata.toDomain(),
       length: Length.meters(meters),
       devicePlacementSide: devicePlacementSide.toDomain(),
