@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Represents the Root Mean Square of Successive Differences (RMSSD) between
 /// heartbeats. This is a common measure of heart rate variability.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in milliseconds ([Number]).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`HeartRateVariabilityRMSSDRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord)
@@ -29,7 +25,7 @@ part of '../health_data_type.dart';
 @supportedOnHealthConnect
 @immutable
 final class HeartRateVariabilityRMSSDDataType
-    extends HealthDataType<HeartRateVariabilityRMSSDRecord, Number>
+    extends HealthDataType<HeartRateVariabilityRMSSDRecord, TimeDuration>
     implements
         ReadableHealthDataType<HeartRateVariabilityRMSSDRecord>,
         ReadableByIdHealthDataType<HeartRateVariabilityRMSSDRecord>,

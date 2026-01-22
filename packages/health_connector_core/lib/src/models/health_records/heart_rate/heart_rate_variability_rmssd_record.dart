@@ -11,16 +11,6 @@ part of '../health_record.dart';
 /// - **Android Health Connect**: [`HeartRateVariabilityRMSSDRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord)
 /// - **iOS HealthKit**: Not supported.
 ///
-/// ## Example
-///
-/// ```dart
-/// final record = HeartRateVariabilityRMSSDRecord(
-///   time: DateTime.now(),
-///   rmssd: TimeDuration.milliseconds(45.0),
-///   metadata: Metadata.manualEntry(),
-/// );
-/// ```
-///
 /// ## See also
 ///
 /// - [HeartRateVariabilityRMSSDDataType]
@@ -30,17 +20,17 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
-  /// Minimum valid HRV RMSSD in milliseconds (1.0 ms).
+  /// Minimum valid HRV RMSSD.
   ///
   /// Practical lower limit; values near zero indicate measurement error or
   /// severe pathology.
-  static const double minRmssdMs = 1.0;
+  static const TimeDuration minRmssd = TimeDuration.milliseconds(1.0);
 
-  /// Maximum valid HRV RMSSD in milliseconds (250.0 ms).
+  /// Maximum valid HRV RMSSD.
   ///
   /// Research consensus indicates 5-200 ms typical range; 250 ms provides
   /// margin for exceptional parasympathetic tone.
-  static const double maxRmssdMs = 250.0;
+  static const TimeDuration maxRmssd = TimeDuration.milliseconds(250.0);
 
   /// Creates a heart rate variability (RMSSD) record.
   ///
@@ -55,13 +45,13 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [rmssd] is outside the valid range of
-  ///   [minRmssdMs]-[maxRmssdMs] ms.
+  ///   [minRmssd]-[maxRmssd] ms.
   ///
   /// ## Validation Rationale
   ///
-  /// - **Minimum ([minRmssdMs] ms)**: Practical lower limit; values near zero
+  /// - **Minimum ([minRmssd] ms)**: Practical lower limit; values near zero
   ///   indicate measurement error or severe pathology.
-  /// - **Maximum ([maxRmssdMs] ms)**: Research consensus indicates 5-200 ms
+  /// - **Maximum ([maxRmssd] ms)**: Research consensus indicates 5-200 ms
   ///   typical range; 250 ms provides margin for exceptional parasympathetic
   ///   tone.
   HeartRateVariabilityRMSSDRecord({
@@ -71,15 +61,11 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   }) {
-    final ms = rmssd.inMilliseconds;
     require(
-      condition: ms >= minRmssdMs && ms <= maxRmssdMs,
+      condition: rmssd >= minRmssd && rmssd <= maxRmssd,
       value: rmssd,
       name: 'rmssd',
-      message:
-          'HRV RMSSD must be between '
-          '$minRmssdMs-${maxRmssdMs.toStringAsFixed(0)} ms. '
-          'Got ${ms.toStringAsFixed(1)} ms.',
+      message: 'HRV RMSSD must be between $minRmssd-$maxRmssd. Got $rmssd.',
     );
   }
 
