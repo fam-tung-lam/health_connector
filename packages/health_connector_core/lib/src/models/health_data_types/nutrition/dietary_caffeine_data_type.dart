@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary caffeine intake, a stimulant compound affecting the central
 /// nervous system, found in coffee and tea.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCaffeine`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycaffeine)

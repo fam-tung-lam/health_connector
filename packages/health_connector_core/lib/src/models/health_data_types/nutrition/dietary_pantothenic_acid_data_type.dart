@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary pantothenic acid (vitamin b5) intake, a water-soluble vitamin
 /// essential for synthesizing coenzyme A.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryPantothenicAcid`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarypantothenicacid)

@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary riboflavin (vitamin b2) intake, a water-soluble vitamin
 /// supporting cellular function and energy production.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryRiboflavin`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryriboflavin)

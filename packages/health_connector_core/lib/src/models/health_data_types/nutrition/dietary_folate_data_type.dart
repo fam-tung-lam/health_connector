@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary folate (vitamin b9) intake, a water-soluble vitamin vital for
 /// DNA synthesis and cell division.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (micrograms typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFolate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfolate)

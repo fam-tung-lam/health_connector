@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary calcium intake, a mineral essential for bone health,
 /// muscle function, and nerve transmission.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCalcium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycalcium)

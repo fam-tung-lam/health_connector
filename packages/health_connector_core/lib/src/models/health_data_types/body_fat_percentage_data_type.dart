@@ -5,11 +5,6 @@ part of 'health_data_type.dart';
 /// Represents the percentage of body weight that is fat tissue, used for
 /// tracking body composition and fitness progress.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Percentage] (decimal from 0-1).
-/// For example, 0.25 represents 25% body fat.
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`BodyFatRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyFatRecord)

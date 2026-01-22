@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary selenium intake, a trace mineral and antioxidant supporting
 /// thyroid function.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (micrograms typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySelenium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryselenium)

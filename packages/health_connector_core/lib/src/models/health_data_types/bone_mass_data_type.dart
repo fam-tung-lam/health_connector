@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Represents the mass of bone in the user's body.
 /// This is a point-in-time measure.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (kilograms, pounds, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`BoneMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BoneMassRecord)

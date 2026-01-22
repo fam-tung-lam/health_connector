@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Represents the systolic (upper) blood pressure value, measured during
 /// the contraction phase of the heart cycle. This is an iOS-specific data type.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Pressure] units (mmHg, kPa, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Part of [`BloodPressureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)

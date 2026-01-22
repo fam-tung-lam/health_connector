@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary potassium intake, a essential mineral crucial for heart
 /// function and fluid balance.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryPotassium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarypotassium)

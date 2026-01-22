@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary biotin (vitamin b7) intake, a water-soluble vitamin
 /// supporting hair, skin, and nail health.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (micrograms typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryBiotin`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarybiotin)

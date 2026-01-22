@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary protein intake, a macronutrient essential for muscle growth,
 /// repair, and overall body function.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (grams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryProtein`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryprotein)

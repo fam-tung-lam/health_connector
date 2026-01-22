@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary iron intake, a essential mineral for oxygen transport in
 /// blood via hemoglobin.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryIron`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryiron)

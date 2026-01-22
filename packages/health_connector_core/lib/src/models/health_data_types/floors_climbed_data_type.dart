@@ -6,10 +6,6 @@ part of 'health_data_type.dart';
 /// by devices with barometric altimeters. One floor is approximately 10 feet
 /// (3 meters) of elevation gain.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Number] (count of floors).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`FloorsClimbedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbedRecord)

@@ -7,10 +7,6 @@ part of 'health_data_type.dart';
 /// (kg/m²). It is commonly used to screen for weight categories that may lead
 /// to health problems.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as dimensionless [Number] (kg/m²).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported

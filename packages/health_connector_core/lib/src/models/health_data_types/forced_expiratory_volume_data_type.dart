@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Forced Expiratory Volume 1 (FEV1) is the amount of air that can be
 /// forcibly exhaled from the lungs in the first second of a forced exhalation.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Volume] units.
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported

@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary phosphorus intake, a essential mineral vital for bones,
 /// teeth, and energy production.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryPhosphorus`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryphosphorus)

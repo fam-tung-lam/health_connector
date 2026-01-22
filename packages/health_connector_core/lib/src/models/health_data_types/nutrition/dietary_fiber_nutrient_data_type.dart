@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary dietary fiber intake, a indigestible carbohydrate important
 /// for digestive health.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (grams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFiber`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfiber)

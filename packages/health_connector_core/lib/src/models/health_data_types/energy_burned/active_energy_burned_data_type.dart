@@ -6,10 +6,6 @@ part of '../health_data_type.dart';
 /// excluding basal metabolic rate (BMR). Active calories represent energy
 /// expended beyond resting metabolism.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Energy] units (kilocalories, kilojoules, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`ActiveEnergyBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveEnergyBurnedRecord)

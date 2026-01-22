@@ -4,10 +4,6 @@ part of '../health_data_type.dart';
 ///
 /// Tracks distance traveled while using a wheelchair.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units (meters typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceWheelchair`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewheelchair)

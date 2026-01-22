@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary polyunsaturated fat intake, a healthy fat including omega-3
 /// and omega-6 fatty acids.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (grams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFatPolyunsaturated`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatpolyunsaturated)

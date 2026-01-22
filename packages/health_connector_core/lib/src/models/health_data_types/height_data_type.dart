@@ -5,11 +5,6 @@ part of 'health_data_type.dart';
 /// Represents body height measurements, typically used for tracking growth
 /// in children, calculating BMI, and monitoring overall health metrics.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units (meters, centimeters, feet, inches,
-/// etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`HeightRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeightRecord)

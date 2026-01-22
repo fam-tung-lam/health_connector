@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Exercise sessions track physical activity periods with exercise type,
 /// duration, and optional notes.
 ///
-/// ## Measurement Unit
-///
-/// Duration is measured in [TimeDuration] (seconds, minutes, hours).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: `ExerciseSessionRecord`

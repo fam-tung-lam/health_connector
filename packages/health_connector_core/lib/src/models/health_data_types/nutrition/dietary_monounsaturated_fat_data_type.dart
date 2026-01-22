@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary monounsaturated fat intake, a healthy fat beneficial for
 /// heart health.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (grams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFatMonounsaturated`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatmonounsaturated)

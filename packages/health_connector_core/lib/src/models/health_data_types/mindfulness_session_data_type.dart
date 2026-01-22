@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Represents mindfulness sessions including meditation, breathing exercises,
 /// and other mindfulness activities.
 ///
-/// ## Measurement Unit
-///
-/// Duration is measured in [TimeDuration] (seconds, minutes, hours).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`MindfulnessSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MindfulnessSessionRecord)

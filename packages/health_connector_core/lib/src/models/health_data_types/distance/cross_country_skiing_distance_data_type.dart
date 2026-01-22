@@ -4,10 +4,6 @@ part of '../health_data_type.dart';
 ///
 /// Tracks distance traveled while cross-country skiing.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units (meters typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceCrossCountrySkiing`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancecrosscountryskiing)

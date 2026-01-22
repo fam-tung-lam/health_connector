@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Represents the weight of body tissue excluding fat, including muscle, bone,
 /// organs, and water. Used for tracking body composition and fitness progress.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (kilograms, pounds, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`LeanBodyMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/LeanBodyMassRecord)

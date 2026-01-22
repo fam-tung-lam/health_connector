@@ -4,10 +4,6 @@ part of 'health_data_type.dart';
 ///
 /// Represents the user's forced vital capacity measurements.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Volume] units.
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported

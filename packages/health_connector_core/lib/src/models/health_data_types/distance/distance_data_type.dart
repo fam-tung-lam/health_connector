@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Represents generic distance measurements on Android Health Connect.
 /// Tracks distance covered during any activity.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units (meters, kilometers, miles, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`DistanceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/DistanceRecord)

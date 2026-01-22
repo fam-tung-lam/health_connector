@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary magnesium intake, a essential mineral supporting muscle and
 /// nerve function.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryMagnesium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarymagnesium)

@@ -4,10 +4,6 @@ part of '../health_data_type.dart';
 ///
 /// Tracks distance traveled while ice skating or roller skating.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units (meters typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceSkatingSports`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distanceskatingsports)

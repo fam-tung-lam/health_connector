@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary niacin (vitamin b3) intake, a water-soluble vitamin
 /// supporting metabolism and DNA repair.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryNiacin`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryniacin)

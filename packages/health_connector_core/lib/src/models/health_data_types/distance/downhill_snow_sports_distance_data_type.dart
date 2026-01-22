@@ -4,10 +4,6 @@ part of '../health_data_type.dart';
 ///
 /// Tracks distance traveled while skiing or snowboarding downhill.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units (meters typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceDownhillSnowSports`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancedownhillsnowsports)

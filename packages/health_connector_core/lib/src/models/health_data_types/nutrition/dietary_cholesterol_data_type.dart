@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary cholesterol intake, a lipid needed for cell membranes and
 /// hormone production.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCholesterol`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycholesterol)

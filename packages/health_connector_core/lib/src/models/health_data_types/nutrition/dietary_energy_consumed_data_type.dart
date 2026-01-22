@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary energy intake, a total caloric intake from all
 /// macronutrient sources.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (kilocalories typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryEnergyConsumed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryenergyconsumed)

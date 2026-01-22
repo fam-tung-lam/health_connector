@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary manganese intake, a trace mineral important for bone
 /// formation and metabolism.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryManganese`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarymanganese)

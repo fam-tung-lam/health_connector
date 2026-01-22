@@ -31,7 +31,9 @@ void main() {
               HealthDataType.paddleSportsDistance,
               HealthDataType.powerSeries,
               HealthDataType.rowingDistance,
+              HealthDataType.runningGroundContactTime,
               HealthDataType.runningPower,
+              HealthDataType.runningStrideLength,
               HealthDataType.skatingSportsDistance,
               HealthDataType.speedSeries,
               HealthDataType.steps,
@@ -61,7 +63,10 @@ void main() {
           [
             HealthDataType.clinicalTypes.toList(),
             HealthDataTypeCategory.clinical,
-            <HealthDataType>[],
+            <HealthDataType>[
+              HealthDataType.inhalerUsage,
+              HealthDataType.insulinDelivery,
+            ],
           ],
           [
             HealthDataType.mentalHealthTypes.toList(),
@@ -162,6 +167,7 @@ void main() {
             HealthDataTypeCategory.vitals,
             <HealthDataType>[
               HealthDataType.atrialFibrillationBurden,
+              HealthDataType.electrodermalActivity,
               HealthDataType.bloodAlcoholContent,
               HealthDataType.bloodGlucose,
               HealthDataType.bloodPressure,
@@ -170,6 +176,7 @@ void main() {
               HealthDataType.forcedExpiratoryVolume,
               HealthDataType.forcedVitalCapacity,
               HealthDataType.heartRate,
+              HealthDataType.heartRateRecoveryOneMinute,
               HealthDataType.heartRateSeries,
               HealthDataType.heartRateVariabilityRMSSD,
               HealthDataType.heartRateVariabilitySDNN,

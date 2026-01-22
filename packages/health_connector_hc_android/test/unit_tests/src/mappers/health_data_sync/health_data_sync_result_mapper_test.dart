@@ -32,7 +32,7 @@ void main() {
                 hasMore: true,
                 nextSyncToken: HealthDataSyncToken.internal(
                   token: 'next-token',
-                  dataTypes: [HealthDataType.steps],
+                  dataTypes: const [HealthDataType.steps],
                   createdAt: now,
                 ),
               );
@@ -52,8 +52,8 @@ void main() {
             'handles empty lists correctly',
             () {
               final result = HealthDataSyncResult.internal(
-                upsertedRecords: [],
-                deletedRecordIds: [],
+                upsertedRecords: const [],
+                deletedRecordIds: const [],
                 hasMore: false,
                 nextSyncToken: null,
               );
@@ -72,7 +72,7 @@ void main() {
             'HealthRecordId.none',
             () {
               final result = HealthDataSyncResult.internal(
-                upsertedRecords: [],
+                upsertedRecords: const [],
                 deletedRecordIds: [
                   HealthRecordId('valid-id'),
                   HealthRecordId.none,
@@ -83,7 +83,7 @@ void main() {
               );
 
               expect(
-                () => result.toDto(),
+                result.toDto,
                 throwsA(
                   isA<ArgumentError>()
                       .having((e) => e.name, 'name', 'deletedRecordIds')
@@ -114,7 +114,12 @@ void main() {
                   StepsRecordDto(
                     count: 5000,
                     id: 'record-123',
-                    metadata: MetadataDto(dataOrigin: FakeData.fakeDataOrigin),
+                    metadata: MetadataDto(
+                      dataOrigin: FakeData.fakeDataOrigin,
+                      recordingMethod: RecordingMethodDto.manualEntry,
+                      clientRecordVersion: 1,
+                      deviceType: DeviceTypeDto.phone,
+                    ),
                     startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                     startZoneOffsetSeconds:
                         FakeData.fakeLocalStartTime.timeZoneOffset.inSeconds,

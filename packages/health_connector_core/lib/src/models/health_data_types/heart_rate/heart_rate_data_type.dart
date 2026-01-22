@@ -6,10 +6,6 @@ part of '../health_data_type.dart';
 /// Each measurement is a discrete reading typically taken at a specific point
 /// in time.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Frequency] (beats per minute).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.heartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)

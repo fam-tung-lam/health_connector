@@ -7,10 +7,6 @@ part of '../health_data_type.dart';
 /// Each measurement is a discrete reading typically taken at a specific point
 /// in time during cycling activity.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Frequency] (revolutions per minute).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**:

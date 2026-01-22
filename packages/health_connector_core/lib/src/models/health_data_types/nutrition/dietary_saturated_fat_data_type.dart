@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary saturated fat intake, a type of fat that should be limited
 /// for cardiovascular health.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (grams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFatSaturated`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatsaturated)

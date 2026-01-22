@@ -4,10 +4,6 @@ part of 'health_data_type.dart';
 ///
 /// Represents the elevation gained by the user.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units.
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`ElevationGainedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ElevationGainedRecord)

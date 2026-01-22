@@ -8,10 +8,6 @@ part of '../health_data_type.dart';
 /// autonomic nervous system's regulation of heart rate. Higher values
 /// generally indicate better cardiovascular fitness and stress resilience.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [TimeDuration] representing milliseconds.
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not currently supported
