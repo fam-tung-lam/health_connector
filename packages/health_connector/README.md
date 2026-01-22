@@ -8,7 +8,8 @@
 </p>
 
 **Production-grade Flutter SDK for iOS HealthKit and Android Health Connect.** Access **100+ health
-data types** with compile-time type safety, incremental data synchronization, and privacy-first architecture.
+data types** with compile-time type safety, incremental data synchronization, and privacy-first
+architecture.
 
 ---
 
@@ -19,29 +20,29 @@ data types** with compile-time type safety, incremental data synchronization, an
 - [🎮 See It In Action](#-see-it-in-action--interactive-toolbox-demo)
 
 - [🚀 Quick Start](#-quick-start)
-  - [📋 Requirements](#-requirements)
-  - [📦 Installation](#-installation)
-  - [🔧 Platform Setup](#-platform-setup)
-  - [⚡ Quick Demo](#-quick-demo)
+    - [📋 Requirements](#-requirements)
+    - [📦 Installation](#-installation)
+    - [🔧 Platform Setup](#-platform-setup)
+    - [⚡ Quick Demo](#-quick-demo)
 
 - [📘 Developer Guide](#-developer-guide)
-  - [🔐 Manage Permissions](#-manage-permissions)
-  - [📖 Read Data](#-read-data)
-  - [💾 Write Data](#-write-data)
-  - [🗑️ Delete Data](#-delete-data)
-  - [🔄 Update Data](#-update-data)
-  - [➕ Aggregate Data](#-aggregate-data)
-  - [🔁 Synchronize Data](#-synchronize-data)
-  - [⚙️ Manage Features](#-manage-features)
-  - [⚠️ Error Handling](#-error-handling)
-  - [📝 Logging](#-logging)
+    - [🔐 Manage Permissions](#-manage-permissions)
+    - [📖 Read Data](#-read-data)
+    - [💾 Write Data](#-write-data)
+    - [🗑️ Delete Data](#-delete-data)
+    - [🔄 Update Data](#-update-data)
+    - [➕ Aggregate Data](#-aggregate-data)
+    - [🔁 Synchronize Data](#-synchronize-data)
+    - [⚙️ Manage Features](#-manage-features)
+    - [⚠️ Error Handling](#-error-handling)
+    - [📝 Logging](#-logging)
 
 - [📋 Supported Health Data Types](#-supported-health-data-types)
 
 - [📚 References](#-references)
-  - [⬆️ Migration Guides](#-migration-guides)
-  - [🤝 Contributing](#-contributing)
-  - [📄 License](#-license)
+    - [⬆️ Migration Guides](#-migration-guides)
+    - [🤝 Contributing](#-contributing)
+    - [📄 License](#-license)
 
 ---
 
@@ -102,12 +103,13 @@ flutter pub get && flutter run
 > **✨ Upgrading is Easy:**
 >
 > - **Flutter 3.35.7** has great backward compatibility up to **Flutter 3.32.0**, making the
-> migration very straightforward and requiring no changes to your existing code. For projects
-> already using Material 3 UI, great backward compatibility extends up to **Flutter 3.27.0**.
+    > migration very straightforward and requiring no changes to your existing code. For projects
+    > already using Material 3 UI, great backward compatibility extends up to **Flutter 3.27.0**.
 >
 > - **Swift 5.9** has great backward compatibility up to **Swift 5.0**, and **Kotlin 2.1** up to
-> **Kotlin 2.0**. Migration is very straightforward — simply update version in your build configuration
-> files. **No changes to your existing native code are required.**
+    > **Kotlin 2.0**. Migration is very straightforward — simply update version in your build
+    configuration
+    > files. **No changes to your existing native code are required.**
 
 ### 📦 Installation
 
@@ -170,7 +172,8 @@ Update `android/app/src/main/AndroidManifest.xml`:
 > **❗ Important**: You must declare a permission for _each_ health data type and feature your app
 > accesses.
 > See
-> the [Health Connect data types list](https://developer.android.com/health-and-fitness/guides/health-connect/plan/data-types)
+>
+the [Health Connect data types list](https://developer.android.com/health-and-fitness/guides/health-connect/plan/data-types)
 > for all available permissions.
 
 ##### Step 2: Update MainActivity (Android 14+)
@@ -347,7 +350,7 @@ Future<void> quickStart() async {
 > **What's Next?**
 >
 > - Check out the [Developer Guide](#-developer-guide) for full API documentation, error handling,
->   and advanced features.
+    > and advanced features.
 > - Check out the [Supported Health Data Types](#-supported-health-data-types).
 
 ---
@@ -363,17 +366,22 @@ Future<void> quickStart() async {
 > read permissions. This is a native privacy feature, not an SDK limitation.
 
 ```dart
-final status = await connector.getPermissionStatus(
-  HealthDataType.steps.readPermission,
+
+final status = await
+connector.getPermissionStatus
+(
+HealthDataType.steps.readPermission,
 );
 
-switch (status) {
-  case PermissionStatus.granted:
-    print('Steps read permission granted');
-  case PermissionStatus.denied:
-    print('Steps read permission denied');
-  case PermissionStatus.unknown:
-    print('Steps read permission unknown (iOS read)');
+switch
+(
+status) {
+case PermissionStatus.granted:
+print('Steps read permission granted');
+case PermissionStatus.denied:
+print('Steps read permission denied');
+case PermissionStatus.unknown:
+print('Steps read permission unknown (iOS read)');
 }
 ```
 
@@ -415,18 +423,21 @@ final permissions = [
 ];
 
 // 2. Request permissions
-final results = await connector.requestPermissions(permissions);
+final results = await
+connector.requestPermissions
+(
+permissions);
 
 // 3. Process results
 for (final result in results) {
-  switch (result.status) {
-    case PermissionStatus.granted:
-      print('Granted: ${result.permission}');
-    case PermissionStatus.denied:
-      print('Denied: ${result.permission}');
-    case PermissionStatus.unknown:
-      print('Unknown: ${result.permission} (iOS read permission)');
-  }
+switch (result.status) {
+case PermissionStatus.granted:
+print('Granted: ${result.permission}');
+case PermissionStatus.denied:
+print('Denied: ${result.permission}');
+case PermissionStatus.unknown:
+print('Unknown: ${result.permission} (iOS read permission)');
+}
 }
 ```
 
@@ -437,12 +448,12 @@ for (final result in results) {
 
 ```dart
 try {
-  final grantedPermissions = await connector.getGrantedPermissions();
-  for (final permission in grantedPermissions) {
-    print('Granted: ${permission.dataType} (${permission.accessType})'); // Example: ✅ Granted: HealthDataType.steps (read)
-  }
+final grantedPermissions = await connector.getGrantedPermissions();
+for (final permission in grantedPermissions) {
+print('Granted: ${permission.dataType} (${permission.accessType})'); // Example: ✅ Granted: HealthDataType.steps (read)
+}
 } on UnsupportedOperationException {
-  print('Listing granted permissions is not supported on iOS');
+print('Listing granted permissions is not supported on iOS');
 }
 ```
 
@@ -453,10 +464,10 @@ try {
 
 ```dart
 try {
-  await connector.revokeAllPermissions();
-  print('Permissions revoked');
+await connector.revokeAllPermissions();
+print('Permissions revoked');
 } on UnsupportedOperationException {
-  print('Programmatic revocation is not supported on iOS');
+print('Programmatic revocation is not supported on iOS');
 }
 ```
 
@@ -465,7 +476,7 @@ try {
 > **Historical Data Access:**
 >
 > - Android Health Connect defaults to 30 days—request
-`HealthPlatformFeature.readHealthDataHistory` permission for older data.
+    `HealthPlatformFeature.readHealthDataHistory` permission for older data.
 > - iOS HealthKit has no restrictions for historical data access.
 
 #### Read by ID
@@ -475,13 +486,16 @@ try {
 final readRequest = HealthDataType.steps.readById(HealthRecordId('record-id'));
 
 // 2. Process read request
-final record = await connector.readRecord(readRequest);
+final record = await
+connector.readRecord
+(
+readRequest);
 
 // 3. Process result
 if (record != null) {
-  print('Found: ${record.count.value} steps');
+print('Found: ${record.count.value} steps');
 } else {
-  print('No record found.');
+print('No record found.');
 }
 ```
 
@@ -495,12 +509,15 @@ final readRequest = HealthDataType.steps.readInTimeRange(
 );
 
 // 2. Process read request
-final response = await connector.readRecords(readRequest);
+final response = await
+connector.readRecords
+(
+readRequest);
 
 // 3. Process result
 print('Found ${response.records.length} records');
 for (final record in response.records) {
-  print('${record.count.value} steps on ${record.startTime}');
+print('${record.count.value} steps on ${record.startTime}');
 }
 ```
 
@@ -508,21 +525,23 @@ for (final record in response.records) {
 
 ```dart
 // Sort oldest first (ascending)
-final oldestFirst = await connector.readRecords(
-  HealthDataType.steps.readInTimeRange(
-    startTime: DateTime.now().subtract(Duration(days: 7)),
-    endTime: DateTime.now(),
-    sortDescriptor: SortDescriptor.timeAscending,
-  ),
+final oldestFirst = await
+connector.readRecords
+(
+HealthDataType.steps.readInTimeRange(
+startTime: DateTime.now().subtract(Duration(days: 7)),
+endTime: DateTime.now(),
+sortDescriptor: SortDescriptor.timeAscending,
+),
 );
 
 // Sort newest first (descending) - default behavior
 final newestFirst = await connector.readRecords(
-  HealthDataType.steps.readInTimeRange(
-    startTime: DateTime.now().subtract(Duration(days: 7)),
-    endTime: DateTime.now(),
-    sortDescriptor: SortDescriptor.timeDescending, // Default
-  ),
+HealthDataType.steps.readInTimeRange(
+startTime: DateTime.now().subtract(Duration(days: 7)),
+endTime: DateTime.now(),
+sortDescriptor: SortDescriptor.timeDescending, // Default
+),
 );
 ```
 
@@ -537,20 +556,19 @@ var request = HealthDataType.steps.readInTimeRange(
 );
 
 // 2. Fetch all pages
-final allRecords = <StepsRecord>[];
-while (true) {
-  final response = await connector.readRecords(request);
-  allRecords.addAll(response.records.cast<StepsRecord>());
+final allRecords = <StepsRecord>[];while (true) {
+final response = await connector.readRecords(request);
+allRecords.addAll(response.records.cast<StepsRecord>());
 
-  // Check if there are more pages
-  if (response.nextPageRequest == null) {
-    print('No more pages');
+// Check if there are more pages
+if (response.nextPageRequest == null) {
+print('No more pages');
 
-    break;
-  }
+break;
+}
 
-  print('Fetching next page...');
-  request = response.nextPageRequest!;
+print('Fetching next page...');
+request = response.nextPageRequest!;
 }
 
 // 3. Print total records
@@ -575,13 +593,17 @@ final record = StepsRecord(
 );
 
 // 2. Write record
-final recordId = await connector.writeRecord(record);
+final recordId = await
+connector.writeRecord
+(
+record);
 print('Saved: $recordId');
 ```
 
 #### Batch Write Multiple Records
 
 ```dart
+
 final now = DateTime.now();
 
 // 1. Create records
@@ -614,13 +636,20 @@ final records = [
 ];
 
 // 2. Write records (atomic operation—all succeed or all fail)
-final ids = await connector.writeRecords(records);
-print('Wrote ${ids.length} records');
+final ids = await
+connector.writeRecords
+(
+records);
+print('Wrote ${ids.length}
+ records
+'
+);
 ```
 
 ### 🗑️ Delete Data
 
-> **Note:** Apps can only delete records they created—this is a platform security restriction. Attempting to delete records created by other apps will throw an `AuthorizationException`.
+> **Note:** Apps can only delete records they created—this is a platform security restriction.
+> Attempting to delete records created by other apps will throw an `AuthorizationException`.
 
 #### Delete by IDs
 
@@ -632,8 +661,17 @@ final request = HealthDataType.steps.deleteByIds([
 ]);
 
 // 2. Delete specific steps records by IDs (atomic operation—all succeed or all fail)
-await connector.deleteRecords(request);
-print('Deleted');
+await
+connector.deleteRecords
+(
+request
+);
+print
+(
+'
+Deleted
+'
+);
 ```
 
 #### Delete by Time Range
@@ -646,7 +684,11 @@ final request = HealthDataType.steps.deleteInTimeRange(
 );
 
 // 2. Delete all steps records created in the past week (atomic operation—all succeed or all fail)
-await connector.deleteRecords(request);
+await
+connector.deleteRecords
+(
+request
+);
 ```
 
 ### 🔄 Update Data
@@ -658,49 +700,65 @@ await connector.deleteRecords(request);
 
 ```dart
 // 1. Fetch record to update
-final record = await connector.readRecord(
-  HealthDataType.steps.readById(HealthRecordId('record-id')),
+final record = await
+connector.readRecord
+(
+HealthDataType.steps.readById(HealthRecordId('record-id')),
 );
 
 // 2. Update record value
 await connector.updateRecord(
-  record.copyWith(count: Number(record.count.value + 500)),
+record.copyWith(count: Number(record.count.value + 500)),
 );
-print('Record updated');
+print
+(
+'
+Record updated
+'
+);
 ```
 
 #### iOS Workaround: Delete + Recreate
 
 ```dart
 // 1. Delete existing record
-await connector.deleteRecords(
-  HealthDataType.steps.deleteByIds([existingRecord.id]),
+await
+connector.deleteRecords
+(
+HealthDataType.steps.deleteByIds([existingRecord.id]),
 );
 
 // 2. Change record value
 final newRecord = existingRecord.copyWith(
-  id: HealthRecordId.none,
-  count: Number(newValue),
+id: HealthRecordId.none,
+count: Number(newValue),
 );
 
 // 3. Write new record with updated value
-final newId = await connector.writeRecord(newRecord); // ⚠️ Note: ID changes after recreation
+final newId = await connector
+.
+writeRecord
+(
+newRecord
+); // ⚠️ Note: ID changes after recreation
 ```
 
 #### Batch Update (Android Health Connect only)
 
 ```dart
 // 1. Fetch records to update
-final response = await connector.readRecords(
-  HealthDataType.steps.readInTimeRange(
-    startTime: DateTime.now().subtract(Duration(days: 7)),
-    endTime: DateTime.now(),
-  ),
+final response = await
+connector.readRecords
+(
+HealthDataType.steps.readInTimeRange(
+startTime: DateTime.now().subtract(Duration(days: 7)),
+endTime: DateTime.now(),
+),
 );
 
 // 2. Apply changes
 final updated = response.records.map((r) =>
-  r.copyWith(count: Number(r.count.value + 100))
+r.copyWith(count: Number(r.count.value + 100))
 ).toList();
 
 // 3. Update records (atomic operation—all succeed or all fail)
@@ -711,49 +769,57 @@ print('Updated ${updated.length} records');
 ### ➕ Aggregate Data
 
 ```dart
+
 final now = DateTime.now();
 final thirtyDaysAgo = now.subtract(Duration(days: 30));
 
 // Calculate total steps for the past 30 days
-final sumResult = await connector.aggregate(
-  HealthDataType.steps.aggregateSum(
-    startTime: thirtyDaysAgo,
-    endTime: now,
-  ),
+final sumResult = await
+connector.aggregate
+(
+HealthDataType.steps.aggregateSum(
+startTime: thirtyDaysAgo,
+endTime: now,
+),
 );
 print('Total steps: ${sumResult.value}');
 
 // Calculate average weight for the past 30 days
 final avgResult = await connector.aggregate(
-  HealthDataType.weight.aggregateAvg(
-    startTime: thirtyDaysAgo,
-    endTime: now,
-  ),
+HealthDataType.weight.aggregateAvg(
+startTime: thirtyDaysAgo,
+endTime: now,
+),
 );
 print('Average weight: ${avgResult.inKilograms} kg');
 
 // Calculate minimum weight for the past 30 days
 final minResult = await connector.aggregate(
-  HealthDataType.weight.aggregateMin(
-    startTime: thirtyDaysAgo,
-    endTime: now,
-  ),
+HealthDataType.weight.aggregateMin(
+startTime: thirtyDaysAgo,
+endTime: now,
+),
 );
 print('Minimum weight: ${minResult.inKilograms} kg');
 
 // Calculate maximum weight for the past 30 days
 final maxResult = await connector.aggregate(
-  HealthDataType.weight.aggregateMax(
-    startTime: thirtyDaysAgo,
-    endTime: now,
-  ),
+HealthDataType.weight.aggregateMax(
+startTime: thirtyDaysAgo,
+endTime: now,
+),
 );
-print('Maximum weight: ${maxResult.inKilograms} kg');
+print('Maximum weight: ${maxResult.inKilograms
+}
+ kg
+'
+);
 ```
 
 ### 🔁 Synchronize Data
 
-Data synchronization is an **incremental sync API** that retrieves **only health data that has changed
+Data synchronization is an **incremental sync API** that retrieves **only health data that has
+changed
 since your last sync**, dramatically reducing bandwidth usage and improving performance for apps
 that need to stay up-to-date with health data.
 
@@ -771,16 +837,16 @@ that need to stay up-to-date with health data.
 Synchronization follows a **two-phase flow**:
 
 1. **Phase 1: Set Checkpoint** (one-time setup)
-   - Call `synchronize()` with `syncToken: null`
-   - This establishes a point-in-time marker (no data is returned)
-   - Save the returned `nextSyncToken` for later use
+    - Call `synchronize()` with `syncToken: null`
+    - This establishes a point-in-time marker (no data is returned)
+    - Save the returned `nextSyncToken` for later use
 
 2. **Phase 2: Fetch Changes** (repeated syncs)
-   - Call `synchronize()` with your saved `syncToken`
-   - Receive only records that changed since that token was created
-     - **Upserted records**: New or updated records since last sync
-     - **Deleted record IDs**: Records that were deleted since last sync
-   - Always save the new `nextSyncToken` to continue tracking changes
+    - Call `synchronize()` with your saved `syncToken`
+    - Receive only records that changed since that token was created
+        - **Upserted records**: New or updated records since last sync
+        - **Deleted record IDs**: Records that were deleted since last sync
+    - Always save the new `nextSyncToken` to continue tracking changes
 
 #### Example: Complete Sync Flow
 
@@ -904,21 +970,28 @@ Future<void> syncAllPages() async {
 #### Check Feature Availability
 
 ```dart
-final status = await connector.getFeatureStatus(
-  HealthPlatformFeature.readHealthDataInBackground,
+
+final status = await
+connector.getFeatureStatus
+(
+HealthPlatformFeature.readHealthDataInBackground,
 );
 
-if (status == HealthPlatformFeatureStatus.available) {
-  await connector.requestPermissions([
-    HealthPlatformFeature.readHealthDataInBackground.permission,
-  ]);
-  print('Feature available and requested');
+if
+(
+status == HealthPlatformFeatureStatus.available) {
+await connector.requestPermissions([
+HealthPlatformFeature.readHealthDataInBackground.permission,
+]);
+print('Feature available and requested');
 } else {
-  print('Feature not available—implement fallback');
+print('Feature not available—implement fallback');
 }
 ```
 
-> **Note:** All features are built directly into the OS and are always available. On Android, Health Connect features may vary depending on the installed app and Android version. Use `getFeatureStatus()` to verify feature support on the user's device before requesting permissions.
+> **Note:** All features are built directly into the OS and are always available. On Android, Health
+> Connect features may vary depending on the installed app and Android version. Use
+`getFeatureStatus()` to verify feature support on the user's device before requesting permissions.
 
 ### ⚠️ Error Handling
 
@@ -945,34 +1018,34 @@ provides specific details about what went wrong. Use this code to handle errors 
 
 ```dart
 try {
-  await connector.writeRecord(record);
+await connector.writeRecord(record);
 } on AuthorizationException catch (e) {
-  print('Authorization failed: ${e.message}');
+print('Authorization failed: ${e.message}');
 } on HealthServiceUnavailableException catch (e) {
-  print('Health service unavailable: ${e.code}');
+print('Health service unavailable: ${e.code}');
 } on HealthServiceException catch (e) {
-  switch (e.code) {
-    case HealthConnectorErrorCode.rateLimitExceeded:
-      print('Rate limit exceeded. Retrying in 5s...');
-      break;
+switch (e.code) {
+case HealthConnectorErrorCode.rateLimitExceeded:
+print('Rate limit exceeded. Retrying in 5s...');
+break;
 
-    case HealthConnectorErrorCode.dataSyncInProgress:
-      print('Health Connect is busy syncing... Retrying later...');
-      break;
+case HealthConnectorErrorCode.dataSyncInProgress:
+print('Health Connect is busy syncing... Retrying later...');
+break;
 
-    case HealthConnectorErrorCode.remoteError:
-    case HealthConnectorErrorCode.ioError:
-      print('Temporary system glitches. Retrying later...');
-      break;
+case HealthConnectorErrorCode.remoteError:
+case HealthConnectorErrorCode.ioError:
+print('Temporary system glitches. Retrying later...');
+break;
 
-    default:
-      print('Health Service Warning: ${e.message}');
-      break;
-  }
+default:
+print('Health Service Warning: ${e.message}');
+break;
+}
 } on InvalidArgumentException catch (e) {
-  print('Invalid data or expired token: ${e.message}');
+print('Invalid data or expired token: ${e.message}');
 } catch (e, stack) {
-  print('Unexpected system error: $e');
+print('Unexpected system error: $e');
 }
 ```
 
@@ -995,26 +1068,31 @@ The system is configured via `HealthConnectorLoggerConfig`, where you define a l
 
 ```dart
 // Configure logging with built-in processors
-final connector = await HealthConnector.create(
-  const HealthConnectorConfig(
-    loggerConfig: HealthConnectorLoggerConfig(
-      enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
-      logProcessors: [
-        // Print warnings and errors to console
-        PrintLogProcessor(
-          levels: [
-            HealthConnectorLogLevel.warning,
-            HealthConnectorLogLevel.error,
-          ],
-        ),
+final connector = await
+HealthConnector.create
+(
+const HealthConnectorConfig(
+loggerConfig: HealthConnectorLoggerConfig(
+enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
+logProcessors: [
+// Print warnings and errors to console
+PrintLogProcessor(
+levels: [
+HealthConnectorLogLevel.warning,
+HealthConnectorLogLevel.error,
+],
+),
 
-        // Send all logs to dart:developer (integrates with DevTools)
-        DeveloperLogProcessor(
-          levels: HealthConnectorLogLevel.values,
-        ),
-      ],
-    ),
-  ),
+// Send all logs to dart:developer (integrates with DevTools)
+DeveloperLogProcessor(
+levels: HealthConnectorLogLevel.values,
+),
+]
+,
+)
+,
+)
+,
 );
 ```
 
@@ -1053,14 +1131,19 @@ class FileLogProcessor extends HealthConnectorLogProcessor {
 }
 
 // Use custom processor
-final connector = await HealthConnector.create(
-  HealthConnectorConfig(
-    loggerConfig: HealthConnectorLoggerConfig(
-      logProcessors: [
-        FileLogProcessor(logFile: File('/path/to/app.log')),
-      ],
-    ),
-  ),
+final connector = await
+HealthConnector.create
+(
+HealthConnectorConfig(
+loggerConfig: HealthConnectorLoggerConfig(
+logProcessors: [
+FileLogProcessor(logFile: File('/path/to/app.log')),
+]
+,
+)
+,
+)
+,
 );
 ```
 
@@ -1126,13 +1209,16 @@ final connector = await HealthConnector.create(
 
 #### Mobility
 
-| Data Type                         | Description                                    | Data Type                                       | Supported Aggregation | Supported On  | Android Health Connect API | iOS HealthKit API                                                                                                                                                      |
-|-----------------------------------|------------------------------------------------|-------------------------------------------------|-----------------------|---------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Walking Asymmetry Percentage      | Percentage of steps with different foot speeds | `HealthDataType.walkingAsymmetryPercentage`     | Avg, Min, Max         | iOS HealthKit | -                          | [HKQuantityTypeIdentifier.walkingAsymmetryPercentage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingasymmetrypercentage)         |
-| Walking Double Support Percentage | Percentage of steps with both feet on ground   | `HealthDataType.walkingDoubleSupportPercentage` | Avg, Min, Max         | iOS HealthKit | -                          | [HKQuantityTypeIdentifier.walkingDoubleSupportPercentage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingdoublesupportpercentage) |
-| Walking Step Length               | Distance between foot contacts                 | `HealthDataType.walkingStepLength`              | Avg, Min, Max         | iOS HealthKit | -                          | [HKQuantityTypeIdentifier.walkingStepLength](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingsteplength)                           |
-| Walking Steadiness                | Stability and regularity of gait               | `HealthDataType.walkingSteadiness`              | -                     | iOS HealthKit | -                          | [HKQuantityTypeIdentifier.appleWalkingSteadiness](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applewalkingsteadiness)                 |
-| Walking Steadiness Event          | Reduced gait steadiness event                  | `HealthDataType.walkingSteadinessEvent`         | -                     | iOS HealthKit | -                          | [HKCategoryTypeIdentifier.appleWalkingSteadinessEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/applewalkingsteadinessevent)       |
+| Data Type                         | Description                                    | Data Type                                       | Supported Aggregation | Supported On            | Android Health Connect API | iOS HealthKit API                                                                                                                                                      |
+|-----------------------------------|------------------------------------------------|-------------------------------------------------|-----------------------|-------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Walking Asymmetry Percentage      | Percentage of steps with different foot speeds | `HealthDataType.walkingAsymmetryPercentage`     | Avg, Min, Max         | iOS HealthKit           | -                          | [HKQuantityTypeIdentifier.walkingAsymmetryPercentage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingasymmetrypercentage)         |
+| Walking Double Support Percentage | Percentage of steps with both feet on ground   | `HealthDataType.walkingDoubleSupportPercentage` | Avg, Min, Max         | iOS HealthKit           | -                          | [HKQuantityTypeIdentifier.walkingDoubleSupportPercentage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingdoublesupportpercentage) |
+| Walking Step Length               | Distance between foot contacts                 | `HealthDataType.walkingStepLength`              | Avg, Min, Max         | iOS HealthKit           | -                          | [HKQuantityTypeIdentifier.walkingStepLength](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingsteplength)                           |
+| Walking Steadiness                | Stability and regularity of gait               | `HealthDataType.walkingSteadiness`              | -                     | iOS HealthKit           | -                          | [HKQuantityTypeIdentifier.appleWalkingSteadiness](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applewalkingsteadiness)                 |
+| Walking Steadiness Event          | Reduced gait steadiness event                  | `HealthDataType.walkingSteadinessEvent`         | -                     | iOS HealthKit           | -                          | [HKCategoryTypeIdentifier.appleWalkingSteadinessEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/applewalkingsteadinessevent)       |
+| Running Ground Contact Time       | Time foot is in contact with ground            | `HealthDataType.runningGroundContactTime`       | Avg, Min, Max         | iOS HealthKit (iOS 16+) | -                          | [HKQuantityTypeIdentifier.runningGroundContactTime](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runninggroundcontacttime)             |
+| Running Stride Length             | Distance covered by a single step              | `HealthDataType.runningStrideLength`            | Avg, Min, Max         | iOS HealthKit (iOS 16+) | -                          | [HKQuantityTypeIdentifier.runningStrideLength](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runningstridelength)                       |
+| Number of Times Fallen            | Number of times the user has fallen            | `HealthDataType.numberOfTimesFallen`            | Sum                   | iOS HealthKit           | -                          | [HKQuantityTypeIdentifier.numberOfTimesFallen](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/numberoftimesfallen)                       |
 
 #### Exercise Sessions
 
@@ -1258,29 +1344,33 @@ final connector = await HealthConnector.create(
 
 ### ❤️ Vitals
 
-| Data Type                    | Description                           | Data Type                                  | Supported Aggregation | Supported On                          | Android Health Connect API                                                                                                                               | iOS HealthKit API                                                                                                                                            |
-|------------------------------|---------------------------------------|--------------------------------------------|-----------------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Heart Rate Series            | Heart rate measurements over time     | `HealthDataType.heartRateSeries`           | Avg, Min, Max         | Android Health Connect                | [HeartRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)                                 | -                                                                                                                                                            |
-| Heart Rate Measurement       | Single heart rate measurement         | `HealthDataType.heartRate`                 | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)                                 |
-| Resting Heart Rate           | Heart rate while at rest              | `HealthDataType.restingHeartRate`          | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [RestingHeartRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord)                   | [HKQuantityTypeIdentifier.restingHeartRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate)                   |
-| High Heart Rate Event        | High heart rate event detected        | `HealthDataType.highHeartRateEvent`        | -                     | iOS HealthKit                         | -                                                                                                                                                        | [HKCategoryTypeIdentifier.highHeartRateEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/highheartrateevent/)              |
-| Low Heart Rate Event         | Low heart rate event detected         | `HealthDataType.lowHeartRateEvent`         | -                     | iOS HealthKit                         | -                                                                                                                                                        | [HKCategoryTypeIdentifier.lowHeartRateEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/lowheartrateevent)                 |
-| Irregular Heart Rhythm Event | Irregular heart rhythm event detected | `HealthDataType.irregularHeartRhythmEvent` | -                     | iOS HealthKit                         | -                                                                                                                                                        | [HKCategoryTypeIdentifier.irregularHeartRhythmEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/irregularheartrhythmevent) |
-| Blood Pressure               | Systolic and diastolic blood pressure | `HealthDataType.bloodPressure`             | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [BloodPressureRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)                         | [HKCorrelationTypeIdentifier.bloodPressure](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodpressure/)                  |
-| Systolic Blood Pressure      | Upper blood pressure value            | `HealthDataType.systolicBloodPressure`     | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodPressureSystolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressuresystolic)         |
-| Diastolic Blood Pressure     | Lower blood pressure value            | `HealthDataType.diastolicBloodPressure`    | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressurediastolic)       |
-| Oxygen Saturation            | Blood oxygen saturation percentage    | `HealthDataType.oxygenSaturation`          | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [OxygenSaturationRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord)                   | [HKQuantityTypeIdentifier.oxygenSaturation](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensaturation)                   |
-| Respiratory Rate             | Breathing rate (breaths per minute)   | `HealthDataType.respiratoryRate`           | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [RespiratoryRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord)                     | [HKQuantityTypeIdentifier.respiratoryRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/respiratoryrate)                     |
-| VO₂ Max                      | Maximum oxygen consumption            | `HealthDataType.vo2Max`                    | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [Vo2MaxRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)                                       | [HKQuantityTypeIdentifier.vo2Max](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)                                       |
-| Blood Glucose                | Blood glucose concentration           | `HealthDataType.bloodGlucose`              | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [BloodGlucoseRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)                           | [HKQuantityTypeIdentifier.bloodGlucose](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose)                           |
-| HRV RMSSD                    | Heart Rate Variability (RMSSD)        | `HealthDataType.heartRateVariabilityRMSSD` | -                     | Android Health Connect                | [HeartRateVariabilityRMSSDRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord) | -                                                                                                                                                            |
-| HRV SDNN                     | Heart Rate Variability (SDNN)         | `HealthDataType.heartRateVariabilitySDNN`  | -                     | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRateVariabilitySDNN](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn)   |
-| Peripheral Perfusion Index   | Peripheral blood flow measurement     | `HealthDataType.peripheralPerfusionIndex`  | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.peripheralPerfusionIndex](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/peripheralperfusionindex)   |
-| Forced Vital Capacity        | Forced vital capacity measurement     | `HealthDataType.forcedVitalCapacity`       | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.forcedVitalCapacity](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/forcedvitalcapacity)             |
-| Blood Alcohol Content        | Blood alcohol content percentage      | `HealthDataType.bloodAlcoholContent`       | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodAlcoholContent](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodAlcoholContent)             |
-| Forced Expiratory Volume     | Forced expiratory volume (1s)         | `HealthDataType.forcedExpiratoryVolume`    | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.forcedExpiratoryVolume1](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/forcedexpiratoryvolume1)     |
-| Atrial Fibrillation Burden   | AFib burden percentage                | `HealthDataType.atrialFibrillationBurden`  | Avg, Min, Max         | iOS HealthKit (iOS 16+)               | -                                                                                                                                                        | [HKQuantityTypeIdentifier.atrialFibrillationBurden](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/atrialfibrillationburden)   |
-| Walking Heart Rate Average   | Average heart rate while walking      | `HealthDataType.walkingHeartRateAverage`   | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.walkingHeartRateAverage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingheartrateaverage)     |
+| Data Type                    | Description                               | Data Type                                   | Supported Aggregation | Supported On                          | Android Health Connect API                                                                                                                               | iOS HealthKit API                                                                                                                                              |
+|------------------------------|-------------------------------------------|---------------------------------------------|-----------------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Heart Rate Series            | Heart rate measurements over time         | `HealthDataType.heartRateSeries`            | Avg, Min, Max         | Android Health Connect                | [HeartRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)                                 | -                                                                                                                                                              |
+| Heart Rate Measurement       | Single heart rate measurement             | `HealthDataType.heartRate`                  | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)                                   |
+| Resting Heart Rate           | Heart rate while at rest                  | `HealthDataType.restingHeartRate`           | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [RestingHeartRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord)                   | [HKQuantityTypeIdentifier.restingHeartRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate)                     |
+| High Heart Rate Event        | High heart rate event detected            | `HealthDataType.highHeartRateEvent`         | -                     | iOS HealthKit                         | -                                                                                                                                                        | [HKCategoryTypeIdentifier.highHeartRateEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/highheartrateevent/)                |
+| Low Heart Rate Event         | Low heart rate event detected             | `HealthDataType.lowHeartRateEvent`          | -                     | iOS HealthKit                         | -                                                                                                                                                        | [HKCategoryTypeIdentifier.lowHeartRateEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/lowheartrateevent)                   |
+| Irregular Heart Rhythm Event | Irregular heart rhythm event detected     | `HealthDataType.irregularHeartRhythmEvent`  | -                     | iOS HealthKit                         | -                                                                                                                                                        | [HKCategoryTypeIdentifier.irregularHeartRhythmEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/irregularheartrhythmevent)   |
+| Blood Pressure               | Systolic and diastolic blood pressure     | `HealthDataType.bloodPressure`              | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [BloodPressureRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)                         | [HKCorrelationTypeIdentifier.bloodPressure](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodpressure/)                    |
+| Systolic Blood Pressure      | Upper blood pressure value                | `HealthDataType.systolicBloodPressure`      | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodPressureSystolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressuresystolic)           |
+| Diastolic Blood Pressure     | Lower blood pressure value                | `HealthDataType.diastolicBloodPressure`     | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressurediastolic)         |
+| Oxygen Saturation            | Blood oxygen saturation percentage        | `HealthDataType.oxygenSaturation`           | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [OxygenSaturationRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord)                   | [HKQuantityTypeIdentifier.oxygenSaturation](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensaturation)                     |
+| Respiratory Rate             | Breathing rate (breaths per minute)       | `HealthDataType.respiratoryRate`            | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [RespiratoryRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord)                     | [HKQuantityTypeIdentifier.respiratoryRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/respiratoryrate)                       |
+| VO₂ Max                      | Maximum oxygen consumption                | `HealthDataType.vo2Max`                     | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [Vo2MaxRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)                                       | [HKQuantityTypeIdentifier.vo2Max](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)                                         |
+| Blood Glucose                | Blood glucose concentration               | `HealthDataType.bloodGlucose`               | Avg, Min, Max         | Android Health Connect, iOS HealthKit | [BloodGlucoseRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)                           | [HKQuantityTypeIdentifier.bloodGlucose](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose)                             |
+| HRV RMSSD                    | Heart Rate Variability (RMSSD)            | `HealthDataType.heartRateVariabilityRMSSD`  | -                     | Android Health Connect                | [HeartRateVariabilityRMSSDRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord) | -                                                                                                                                                              |
+| HRV SDNN                     | Heart Rate Variability (SDNN)             | `HealthDataType.heartRateVariabilitySDNN`   | -                     | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRateVariabilitySDNN](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn)     |
+| Peripheral Perfusion Index   | Peripheral blood flow measurement         | `HealthDataType.peripheralPerfusionIndex`   | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.peripheralPerfusionIndex](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/peripheralperfusionindex)     |
+| Forced Vital Capacity        | Forced vital capacity measurement         | `HealthDataType.forcedVitalCapacity`        | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.forcedVitalCapacity](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/forcedvitalcapacity)               |
+| Blood Alcohol Content        | Blood alcohol content percentage          | `HealthDataType.bloodAlcoholContent`        | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodAlcoholContent](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodAlcoholContent)               |
+| Forced Expiratory Volume     | Forced expiratory volume (1s)             | `HealthDataType.forcedExpiratoryVolume`     | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.forcedExpiratoryVolume1](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/forcedexpiratoryvolume1)       |
+| Atrial Fibrillation Burden   | AFib burden percentage                    | `HealthDataType.atrialFibrillationBurden`   | Avg, Min, Max         | iOS HealthKit (iOS 16+)               | -                                                                                                                                                        | [HKQuantityTypeIdentifier.atrialFibrillationBurden](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/atrialfibrillationburden)     |
+| Walking Heart Rate Average   | Average heart rate while walking          | `HealthDataType.walkingHeartRateAverage`    | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.walkingHeartRateAverage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingheartrateaverage)       |
+| Heart Rate Recovery 1 min    | Heart rate reduction 1 min after exercise | `HealthDataType.heartRateRecoveryOneMinute` | Avg, Min, Max         | iOS HealthKit (iOS 16+)               | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRateRecoveryOneMinute](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartraterecoveryoneminute) |
+| Electrodermal Activity       | Skin conductance measurements             | `HealthDataType.electrodermalActivity`      | Sum                   | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.electrodermalActivity](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/electrodermalactivity)           |
+| Inhaler Usage                | Number of puffs from an inhaler           | `HealthDataType.inhalerUsage`               | Sum                   | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.inhalerUsage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/inhalerusage)                             |
+| Insulin Delivery             | Amount of insulin delivered               | `HealthDataType.insulinDelivery`            | Sum                   | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.insulinDelivery](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/insulindelivery)                       |
 
 ### 😴 Sleep
 

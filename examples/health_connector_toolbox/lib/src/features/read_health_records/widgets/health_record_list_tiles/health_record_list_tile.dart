@@ -117,20 +117,22 @@ final class HealthRecordListTile extends StatelessWidget {
       final HeartRateRecoveryOneMinuteRecord r =>
         HeartRateRecoveryOneMinuteRecordListTile(
           record: r,
+          onDelete: onDelete,
         ),
       final LowHeartRateEventRecord r => LowHeartRateEventRecordListTile(
         record: r,
       ),
-      IrregularHeartRhythmEventRecord() =>
+      final IrregularHeartRhythmEventRecord r =>
         IrregularHeartRhythmEventRecordListTile(
-          record: record as IrregularHeartRhythmEventRecord,
+          record: r,
         ),
-      WalkingSteadinessEventRecord() => WalkingSteadinessEventRecordListTile(
-        record: record as WalkingSteadinessEventRecord,
-      ),
-      IrregularMenstrualCycleEventRecord() =>
+      final WalkingSteadinessEventRecord r =>
+        WalkingSteadinessEventRecordListTile(
+          record: r,
+        ),
+      final IrregularMenstrualCycleEventRecord r =>
         IrregularMenstrualCycleEventRecordListTile(
-          record: record as IrregularMenstrualCycleEventRecord,
+          record: r,
         ),
       final InfrequentMenstrualCycleEventRecord r =>
         InfrequentMenstrualCycleEventRecordListTile(

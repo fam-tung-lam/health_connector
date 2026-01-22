@@ -14,7 +14,7 @@ part of 'health_data_type.dart';
 ///
 /// - Readable: Query electrodermal activity records
 /// - Writeable: Write electrodermal activity records
-/// - Aggregatable: Sum total conductance
+/// - Aggregatable: Min, max, and average conductance
 /// - Deletable: Delete records by IDs or time range
 ///
 /// ## See also
@@ -31,7 +31,9 @@ final class ElectrodermalActivityDataType
         ReadableByIdHealthDataType<ElectrodermalActivityRecord>,
         ReadableInTimeRangeHealthDataType<ElectrodermalActivityRecord>,
         WriteableHealthDataType<ElectrodermalActivityRecord>,
-        SumAggregatableHealthDataType<Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
+        AvgAggregatableHealthDataType<Number>,
         DeletableByIdsHealthDataType<ElectrodermalActivityRecord>,
         DeletableInTimeRangeHealthDataType<ElectrodermalActivityRecord> {
   /// Creates an electrodermal activity data type.
@@ -60,7 +62,9 @@ final class ElectrodermalActivityDataType
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
-    AggregationMetric.sum,
+    AggregationMetric.min,
+    AggregationMetric.max,
+    AggregationMetric.avg,
   ];
 
   @override
@@ -95,13 +99,39 @@ final class ElectrodermalActivityDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<Number> aggregateSum({
+  AggregateRequest<Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
     return StandardAggregateRequest(
       dataType: this,
-      aggregationMetric: AggregationMetric.sum,
+      aggregationMetric: AggregationMetric.min,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  AggregateRequest<Number> aggregateMax({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return StandardAggregateRequest(
+      dataType: this,
+      aggregationMetric: AggregationMetric.max,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  AggregateRequest<Number> aggregateAvg({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return StandardAggregateRequest(
+      dataType: this,
+      aggregationMetric: AggregationMetric.avg,
       startTime: startTime,
       endTime: endTime,
     );

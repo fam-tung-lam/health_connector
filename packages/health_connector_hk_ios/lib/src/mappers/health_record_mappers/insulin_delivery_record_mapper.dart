@@ -1,9 +1,14 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show Number, InsulinDeliveryRecord, HealthRecordId, DateTimeToDto;
+    show
+        Number,
+        InsulinDeliveryRecord,
+        InsulinDeliveryReason,
+        HealthRecordId,
+        DateTimeToDto;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show InsulinDeliveryRecordDto;
+    show InsulinDeliveryRecordDto, InsulinDeliveryReasonDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [InsulinDeliveryRecord] to [InsulinDeliveryRecordDto].
@@ -22,6 +27,7 @@ extension InsulinDeliveryRecordToDto on InsulinDeliveryRecord {
       ),
       metadata: metadata.toDto(),
       units: units.value.toDouble(),
+      reason: InsulinDeliveryReasonDto.values.byName(reason.name),
     );
   }
 }
@@ -38,6 +44,7 @@ extension InsulinDeliveryRecordDtoToDomain on InsulinDeliveryRecordDto {
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
       units: Number(units),
+      reason: InsulinDeliveryReason.values.byName(reason.name),
     );
   }
 }

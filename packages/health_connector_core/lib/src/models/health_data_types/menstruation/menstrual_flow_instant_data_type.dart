@@ -58,7 +58,7 @@ part of '../health_data_type.dart';
 @supportedOnHealthConnect
 @immutable
 final class MenstrualFlowInstantDataType
-    extends HealthDataType<MenstrualFlowInstantRecord, TimeDuration>
+    extends HealthDataType<MenstrualFlowInstantRecord, MeasurementUnit>
     implements
         ReadableByIdHealthDataType<MenstrualFlowInstantRecord>,
         ReadableInTimeRangeHealthDataType<MenstrualFlowInstantRecord>,

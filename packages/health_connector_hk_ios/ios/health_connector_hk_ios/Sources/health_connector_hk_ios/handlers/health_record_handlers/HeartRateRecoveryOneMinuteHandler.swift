@@ -21,6 +21,7 @@ final class HeartRateRecoveryOneMinuteHandler: @unchecked Sendable,
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.avg, .min, .max]
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        quantity.doubleValue(for: .count())
+        let bpm = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
+        return bpm
     }
 }

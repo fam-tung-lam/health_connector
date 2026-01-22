@@ -163,12 +163,18 @@ final class MeasurementUnitDisplay extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
         );
-      case TimeDuration(:final inSeconds, :final inMinutes, :final inHours):
+      case TimeDuration(
+        :final inSeconds,
+        :final inMinutes,
+        :final inHours,
+        :final inMilliseconds,
+      ):
         return _UnitDisplay(
           primaryValue: '${inHours.toStringAsFixed(2)} ${AppTexts.hours}',
           secondaryValues: [
             '${inMinutes.toStringAsFixed(2)} ${AppTexts.minutes}',
             '${inSeconds.toStringAsFixed(0)} ${AppTexts.secondsFull}',
+            '${inMilliseconds.toStringAsFixed(0)} ${AppTexts.millisecond}',
           ],
         );
       case Percentage(:final asWhole, :final asDecimal):

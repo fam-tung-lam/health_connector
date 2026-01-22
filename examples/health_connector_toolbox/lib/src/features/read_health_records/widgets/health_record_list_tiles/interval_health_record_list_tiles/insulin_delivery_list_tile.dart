@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
+import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/insulin_delivery_reason_extension.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_detail_row.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/health_record_list_tile_subtitle.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/interval_health_record_list_tile.dart';
 
@@ -26,7 +29,12 @@ final class InsulinDeliveryTile extends StatelessWidget {
         endTime: r.endTime,
         recordingMethod: r.metadata.recordingMethod.name,
       ),
-      detailRowsBuilder: (r, ctx) => [],
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.reason,
+          value: r.reason.displayName,
+        ),
+      ],
       onDelete: onDelete,
     );
   }

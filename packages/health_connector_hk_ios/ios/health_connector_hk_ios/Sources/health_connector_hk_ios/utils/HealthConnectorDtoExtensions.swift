@@ -407,6 +407,10 @@ extension HealthRecordDto {
                 return .swimmingStrokes
             case is InhalerUsageRecordDto:
                 return .inhalerUsage
+            case is ElectrodermalActivityRecordDto:
+                return .electrodermalActivity
+            case is InsulinDeliveryRecordDto:
+                return .insulinDelivery
             case is ForcedVitalCapacityRecordDto:
                 return .forcedVitalCapacity
             case is ForcedExpiratoryVolumeRecordDto:
@@ -656,6 +660,14 @@ extension HealthRecordDto {
         case let dto as NumberOfTimesFallenRecordDto:
             return dto.endTime
         case let dto as RunningStrideLengthRecordDto:
+            return dto.endTime
+        case let dto as RunningGroundContactTimeRecordDto:
+            return dto.endTime
+        case let dto as ElectrodermalActivityRecordDto:
+            return dto.endTime
+        case let dto as InhalerUsageRecordDto:
+            return dto.endTime
+        case let dto as InsulinDeliveryRecordDto:
             return dto.endTime
         default:
             throw HealthConnectorError.invalidArgument(

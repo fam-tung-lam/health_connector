@@ -18,9 +18,16 @@ import 'package:health_connector/health_connector_internal.dart'
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
-/// Extension on [MeasurementUnit] to provide UI-related properties.
+/// Extension on [MeasurementUnit] to provide UI-related properties and
+/// metadata.
+///
+/// This extension provides standard display names and icons for various
+/// measurement units used throughout the Toolbox App's user interface.
 extension MeasurementUnitUI on MeasurementUnit {
-  /// Returns the display name for this measurement unit.
+  /// Returns the localized display name for this measurement unit.
+  ///
+  /// This name is suitable for use in labels, form fields, and headings
+  /// to identify the type of measurement being displayed or recorded.
   String get displayName {
     return switch (this) {
       Mass _ => AppTexts.mass,
@@ -39,7 +46,10 @@ extension MeasurementUnitUI on MeasurementUnit {
     };
   }
 
-  /// Returns the icon for this measurement unit.
+  /// Returns a representative icon for this measurement unit.
+  ///
+  /// This icon should be used consistently across the app (e.g., in lists,
+  /// detail views, and icons) to provide a visual cue for the unit type.
   IconData get icon {
     return switch (this) {
       Mass _ => AppIcons.mass,

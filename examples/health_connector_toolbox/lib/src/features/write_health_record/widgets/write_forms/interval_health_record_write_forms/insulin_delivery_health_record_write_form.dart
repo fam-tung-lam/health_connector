@@ -19,10 +19,35 @@ final class InsulinDeliveryWriteForm extends IntervalHealthRecordWriteForm {
 /// State for insulin delivery form widget.
 final class InsulinDeliveryFormState
     extends IntervalHealthRecordFormState<InsulinDeliveryWriteForm> {
+  InsulinDeliveryReason _reason = InsulinDeliveryReason.basal;
+
   @override
   List<Widget> buildFields(BuildContext context) {
     return [
       ...super.buildFields(context),
+      const SizedBox(height: 16),
+      DropdownButtonFormField<InsulinDeliveryReason>(
+        initialValue: _reason,
+        decoration: const InputDecoration(
+          labelText: 'Reason',
+          border: OutlineInputBorder(),
+        ),
+        items: InsulinDeliveryReason.values
+            .map(
+              (reason) => DropdownMenuItem(
+                value: reason,
+                child: Text(reason.name.toUpperCase()),
+              ),
+            )
+            .toList(),
+        onChanged: (newValue) {
+          if (newValue != null) {
+            setState(() {
+              _reason = newValue;
+            });
+          }
+        },
+      ),
       const SizedBox(height: 16),
       HealthRecordValueWriteFormField(
         dataType: HealthDataType.insulinDelivery,
@@ -41,6 +66,7 @@ final class InsulinDeliveryFormState
       startTime: startDateTime!,
       endTime: endDateTime!,
       units: value! as Number,
+      reason: _reason,
       metadata: metadata,
     );
   }

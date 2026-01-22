@@ -114,8 +114,16 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      ElectrodermalActivityDataType() => _buildSum(
-        () => HealthDataType.electrodermalActivity.aggregateSum(
+      ElectrodermalActivityDataType() => _buildAvgMinMax(
+        () => HealthDataType.electrodermalActivity.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.electrodermalActivity.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.electrodermalActivity.aggregateMax(
           startTime: startTime,
           endTime: endTime,
         ),

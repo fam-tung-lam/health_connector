@@ -15,7 +15,9 @@ extension HeartRateRecoveryOneMinuteRecordDto {
 
         let type = try HKQuantityType.make(from: .heartRateRecoveryOneMinute)
 
-        let quantity = HKQuantity(unit: .count(), doubleValue: heartRateCount)
+        // Heart rate recovery is measured in beats per minute (count/minute)
+        let unit = HKUnit.count().unitDivided(by: .minute())
+        let quantity = HKQuantity(unit: unit, doubleValue: beatsPerMinute)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
@@ -42,8 +44,15 @@ extension HKQuantitySample {
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a heart rate recovery sample.
     func toHeartRateRecoveryOneMinuteRecordDto() throws -> HeartRateRecoveryOneMinuteRecordDto {
-        guard #available(iOS 16.0, *),
-              quantityType.identifier == HKQuantityTypeIdentifier.heartRateRecoveryOneMinute.rawValue
+        guard #available(iOS 16.0, *) else {
+            throw HealthConnectorError.unsupportedOperation(
+                message: "Heart Rate Recovery One Minute is only supported on iOS 16.0 and later",
+                context: ["minimumIOSVersion": "16.0"]
+            )
+        }
+
+        guard
+            quantityType.identifier == HKQuantityTypeIdentifier.heartRateRecoveryOneMinute.rawValue
         else {
             throw HealthConnectorError.invalidArgument(
                 message:
@@ -55,7 +64,9 @@ extension HKQuantitySample {
             )
         }
 
-        let heartRateCount = quantity.doubleValue(for: .count())
+        // Heart rate recovery is measured in beats per minute (count/minute)
+        let unit = HKUnit.count().unitDivided(by: .minute())
+        let beatsPerMinute = quantity.doubleValue(for: unit)
 
         // Create builder from HK metadata with source and device
         var builder = MetadataBuilder(
@@ -69,13 +80,13 @@ extension HKQuantitySample {
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         return try HeartRateRecoveryOneMinuteRecordDto(
-            heartRateCount: heartRateCount,
-            endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
-            metadata: builder.toMetadataDto(),
             startTime: startDate.millisecondsSince1970,
+            endTime: endDate.millisecondsSince1970,
             startZoneOffsetSeconds: startZoneOffset,
-            endZoneOffsetSeconds: endZoneOffset
+            endZoneOffsetSeconds: endZoneOffset,
+            metadata: builder.toMetadataDto(),
+            beatsPerMinute: beatsPerMinute
         )
     }
 }

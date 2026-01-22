@@ -249,6 +249,15 @@ enum BloodGlucoseRelationToMealDto {
   afterMeal,
 }
 
+/// Represents the reason for insulin delivery.
+enum InsulinDeliveryReasonDto {
+  /// Insulin administered to meet the user’s basic metabolic needs.
+  basal,
+
+  /// Insulin administered to meet the user’s episodic requirements.
+  bolus,
+}
+
 /// Source of the biological specimen for valid blood glucose measurement.
 enum BloodGlucoseSpecimenSourceDto {
   /// Unknown specimen source.
@@ -3014,6 +3023,7 @@ class InsulinDeliveryRecordDto extends HealthRecordDto {
     required this.endTime,
     required this.metadata,
     required this.units,
+    required this.reason,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
   });
@@ -3032,6 +3042,9 @@ class InsulinDeliveryRecordDto extends HealthRecordDto {
 
   /// Amount of insulin delivered in international units.
   final double units;
+
+  /// The reason for the insulin delivery.
+  final InsulinDeliveryReasonDto reason;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
@@ -3145,14 +3158,12 @@ class CyclingPedalingCadenceRecordDto extends HealthRecordDto {
 }
 
 /// Represents a heart rate recovery measurement in one minute.
-///
-/// Maps to iOS HKQuantityTypeIdentifier.heartRateRecoveryOneMinute.
 class HeartRateRecoveryOneMinuteRecordDto extends HealthRecordDto {
   HeartRateRecoveryOneMinuteRecordDto({
     required this.startTime,
     required this.endTime,
     required this.metadata,
-    required this.heartRateCount,
+    required this.beatsPerMinute,
     this.id,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
@@ -3164,7 +3175,7 @@ class HeartRateRecoveryOneMinuteRecordDto extends HealthRecordDto {
   final int? startZoneOffsetSeconds;
   final int? endZoneOffsetSeconds;
   final MetadataDto metadata;
-  final double heartRateCount;
+  final double beatsPerMinute;
 }
 
 /// Represents a sleep stage record for platform transfer.

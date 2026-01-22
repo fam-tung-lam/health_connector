@@ -513,6 +513,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       // Count Types
       const (StepsDataType) => AppTexts.stepCount,
       const (InhalerUsageDataType) => 'Puffs',
+      const (InsulinDeliveryDataType) => AppTexts.withUnit(
+        'Insulin Delivery',
+        'IU',
+      ),
       const (AlcoholicBeveragesDataType) => AppTexts.alcoholicBeverages,
       const (FloorsClimbedDataType) => AppTexts.floorsClimbed,
       const (ElevationGainedDataType) => AppTexts.valueWithUnit(
@@ -521,6 +525,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (WheelchairPushesDataType) => AppTexts.wheelchairPushes,
       const (SwimmingStrokesDataType) => AppTexts.swimmingStrokes,
+      const (ElectrodermalActivityDataType) => AppTexts.withUnit(
+        'Electrodermal Activity',
+        'µS',
+      ),
       const (HeartRateDataType) => AppTexts.valueWithUnit(
         AppTexts.heartRate,
         AppTexts.bpm,
@@ -892,6 +900,14 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.walkingStepLength,
         AppTexts.meter,
       ),
+      const (RunningStrideLengthDataType) => AppTexts.withUnit(
+        AppTexts.runningStrideLength,
+        AppTexts.meter,
+      ),
+      const (RunningGroundContactTimeDataType) => AppTexts.withUnit(
+        'Running Ground Contact Time',
+        AppTexts.millisecond,
+      ),
 
       _ => throw ArgumentError(
         'No field label for $runtimeType. '
@@ -937,7 +953,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (WheelchairDistanceDataType) ||
       const (WaistCircumferenceDataType) ||
       const (WalkingRunningDistanceDataType) ||
-      const (WalkingStepLengthDataType) => AppTexts.meter,
+      const (WalkingStepLengthDataType) ||
+      const (RunningStrideLengthDataType) => AppTexts.meter,
 
       // Vital Signs
       const (BodyTemperatureDataType) => AppTexts.celsius,
@@ -950,10 +967,17 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (ForcedExpiratoryVolumeDataType) => AppTexts.liter,
       const (Vo2MaxDataType) => AppTexts.millilitersPerKilogramPerMinute,
       const (HeartRateVariabilityRMSSDDataType) ||
-      const (HeartRateVariabilitySDNNDataType) => AppTexts.millisecond,
+      const (HeartRateVariabilitySDNNDataType) ||
+      const (RunningGroundContactTimeDataType) => AppTexts.millisecond,
 
       // Power
       const (CyclingPowerDataType) || const (RunningPowerDataType) => 'W',
+
+      // Insulin
+      const (InsulinDeliveryDataType) => 'IU',
+
+      // Electrodermal Activity
+      const (ElectrodermalActivityDataType) => 'µS',
 
       // Activity & Energy
       const (ActiveEnergyBurnedDataType) ||
@@ -1091,6 +1115,12 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (HydrationDataType) => AppTexts.getPleaseEnterText(
         AppTexts.hydration,
       ),
+      const (InsulinDeliveryDataType) => AppTexts.getPleaseEnterText(
+        'Insulin Delivery',
+      ),
+      const (ElectrodermalActivityDataType) => AppTexts.getPleaseEnterText(
+        'Electrodermal Activity',
+      ),
       const (DietaryCaffeineDataType) => AppTexts.getPleaseEnterText(
         AppTexts.caffeine,
       ),
@@ -1186,6 +1216,12 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (DietaryPantothenicAcidDataType) => AppTexts.getPleaseEnterText(
         AppTexts.pantothenicAcid,
+      ),
+      const (RunningStrideLengthDataType) => AppTexts.getPleaseEnterText(
+        AppTexts.runningStrideLength,
+      ),
+      const (RunningGroundContactTimeDataType) => AppTexts.getPleaseEnterText(
+        'Running Ground Contact Time',
       ),
 
       _ => AppTexts.pleaseEnterValidNumber,

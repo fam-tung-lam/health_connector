@@ -20,6 +20,12 @@ extension InsulinDeliveryRecordDto {
             endTimeZoneOffset: endZoneOffsetSeconds
         )
 
+        // Add insulin delivery reason to metadata
+        builder.set(
+            standardKey: HKMetadataKeyInsulinDeliveryReason,
+            value: reason.toHKInsulinDeliveryReason.rawValue
+        )
+
         return HKQuantitySample(
             type: type,
             quantity: quantity,
@@ -52,11 +58,18 @@ extension HKQuantitySample {
         let units = quantity.doubleValue(for: .internationalUnit())
 
         // Create builder from HK metadata with source and device
-        var builder = MetadataBuilder(
+        let builder = MetadataBuilder(
             fromHKMetadata: metadata ?? [:],
             source: sourceRevision.source,
             device: device
         )
+
+        // Extract insulin delivery reason from metadata (defaults to basal if missing)
+        let reasonRawValue =
+            metadata?[HKMetadataKeyInsulinDeliveryReason] as? Int
+                ?? HKInsulinDeliveryReason.basal.rawValue
+        let reason = InsulinDeliveryReasonDto.from(
+            hkInsulinDeliveryReason: HKInsulinDeliveryReason(rawValue: reasonRawValue) ?? .basal)
 
         // Extract timezone offsets from metadata
         let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
@@ -68,6 +81,7 @@ extension HKQuantitySample {
             endTime: endDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
             units: units,
+            reason: reason,
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset
         )

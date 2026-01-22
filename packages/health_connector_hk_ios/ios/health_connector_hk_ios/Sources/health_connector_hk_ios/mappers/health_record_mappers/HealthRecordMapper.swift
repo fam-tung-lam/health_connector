@@ -191,6 +191,8 @@ extension HealthRecordDto {
             return try dto.toHKQuantitySample()
         case let dto as RunningStrideLengthRecordDto:
             return try dto.toHKQuantitySample()
+        case let dto as RunningGroundContactTimeRecordDto:
+            return try dto.toHKQuantitySample()
         // Read-only records
         case is ExerciseTimeRecordDto,
              is MoveTimeRecordDto,

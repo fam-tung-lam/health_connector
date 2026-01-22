@@ -21,6 +21,7 @@ abstract class MeasurementUnitValueParser {
       FloorsClimbedDataType() ||
       WheelchairPushesDataType() ||
       NumberOfTimesFallenDataType() ||
+      HeartRateRecoveryOneMinuteDataType() ||
       SwimmingStrokesDataType() => _parseIntegerCount(value),
 
       // Frequency types
@@ -32,7 +33,6 @@ abstract class MeasurementUnitValueParser {
       LowHeartRateEventDataType() ||
       IrregularHeartRhythmEventDataType() ||
       HighHeartRateEventDataType() ||
-      HeartRateRecoveryOneMinuteDataType() ||
       WalkingHeartRateAverageDataType() => _parseFrequency(value),
 
       // Mass types (kilograms)

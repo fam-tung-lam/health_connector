@@ -35,7 +35,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                heartRateCount: 18.0,
+                beatsPerMinute: 18.0,
               );
 
               final record = dto.toDomain();
@@ -43,7 +43,7 @@ void main() {
               expect(record.id.value, FakeData.fakeId);
               expect(record.startTime, startTime);
               expect(record.endTime, endTime);
-              expect(record.heartRateCount.value, 18.0);
+              expect(record.rate.inPerMinute, 18.0);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
@@ -69,7 +69,7 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: startTime,
                 endTime: endTime,
-                heartRateCount: const Number(22.0),
+                rate: Frequency.perMinute(22.0),
                 metadata: Metadata.internal(
                   recordingMethod: RecordingMethod.manualEntry,
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
@@ -85,7 +85,7 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.startTime, startTime.millisecondsSinceEpoch);
               expect(dto.endTime, endTime.millisecondsSinceEpoch);
-              expect(dto.heartRateCount, 22.0);
+              expect(dto.beatsPerMinute, 22.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );

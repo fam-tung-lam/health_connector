@@ -217,7 +217,7 @@ abstract final class AppTexts {
       AtrialFibrillationBurdenDataType() => atrialFibrillationBurden,
       WalkingHeartRateAverageDataType() => walkingHeartRateAverage,
       ElectrodermalActivityDataType() => 'Electrodermal Activity',
-      InsulinDeliveryDataType() => 'Insulin Delivery',
+      InsulinDeliveryDataType() => insulinDelivery,
       InhalerUsageDataType() => 'Inhaler Usage',
     };
   }
@@ -315,6 +315,7 @@ abstract final class AppTexts {
   static const String durationHHMM = '$duration (HH:MM)';
   static const String deviceLabel = 'Device';
   static const String devicePlacementSide = 'Device Placement Side';
+  static const String reason = 'Reason';
   static const String recording = 'Recording';
   static const String recordingMethod = 'Recording Method';
   static const String search = 'Search...';
@@ -379,6 +380,7 @@ abstract final class AppTexts {
   static const String runningGroundContactTime = 'Running Ground Contact Time';
   static const String runningGroundContactTimeDescription =
       'Amount of time the foot is in contact with the ground during running.';
+  static const String insulinDelivery = 'Insulin Delivery';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';
@@ -581,6 +583,10 @@ abstract final class AppTexts {
   static const String unusual = 'Unusual';
   static const String unspecified = 'Unspecified';
   static const String none = 'None';
+
+  // Insulin Delivery Reason
+  static const String basal = 'Basal';
+  static const String bolus = 'Bolus';
 
   // endregion
 

@@ -30,6 +30,7 @@ void main() {
                   device: const Device(type: DeviceType.phone),
                 ),
                 units: const Number(10.5),
+                reason: InsulinDeliveryReason.basal,
               );
 
               final dto = record.toDto();
@@ -49,6 +50,7 @@ void main() {
                 FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
               expect(dto.units, 10.5);
+              expect(dto.reason, InsulinDeliveryReasonDto.basal);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -74,6 +76,7 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 units: 15.0,
+                reason: InsulinDeliveryReasonDto.bolus,
               );
 
               final record = dto.toDomain();
@@ -82,6 +85,7 @@ void main() {
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
               expect(record.units.value, 15.0);
+              expect(record.reason, InsulinDeliveryReason.bolus);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
@@ -105,12 +109,14 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 units: 20.0,
+                reason: InsulinDeliveryReasonDto.basal,
               );
 
               final record = dto.toDomain();
 
               expect(record.id, HealthRecordId.none);
               expect(record.units.value, 20.0);
+              expect(record.reason, InsulinDeliveryReason.basal);
             },
           );
 
@@ -130,11 +136,13 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 units: 0.0,
+                reason: InsulinDeliveryReasonDto.basal,
               );
 
               final record = dto.toDomain();
 
               expect(record.units.value, 0.0);
+              expect(record.reason, InsulinDeliveryReason.basal);
             },
           );
 
@@ -154,11 +162,13 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 units: 500.0,
+                reason: InsulinDeliveryReasonDto.bolus,
               );
 
               final record = dto.toDomain();
 
               expect(record.units.value, 500.0);
+              expect(record.reason, InsulinDeliveryReason.bolus);
             },
           );
         },

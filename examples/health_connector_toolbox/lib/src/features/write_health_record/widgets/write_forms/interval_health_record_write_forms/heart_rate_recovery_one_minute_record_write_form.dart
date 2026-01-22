@@ -42,7 +42,7 @@ final class HeartRateRecoveryOneMinuteFormState
     return HeartRateRecoveryOneMinuteRecord(
       startTime: startDateTime!,
       endTime: endDateTime!,
-      heartRateCount: value! as Number,
+      rate: value! as Frequency,
       metadata: metadata,
     );
   }

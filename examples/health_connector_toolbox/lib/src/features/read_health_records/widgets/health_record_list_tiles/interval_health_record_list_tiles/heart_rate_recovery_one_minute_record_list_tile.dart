@@ -9,10 +9,12 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 class HeartRateRecoveryOneMinuteRecordListTile extends StatelessWidget {
   const HeartRateRecoveryOneMinuteRecordListTile({
     required this.record,
+    required this.onDelete,
     super.key,
   });
 
   final HeartRateRecoveryOneMinuteRecord record;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,12 @@ class HeartRateRecoveryOneMinuteRecordListTile extends StatelessWidget {
         recordingMethod: r.metadata.recordingMethod.name,
       ),
       detailRowsBuilder: (r, ctx) => [],
+      onDelete: onDelete,
     );
   }
 
   String _getTitle() {
-    final heartRateCount = record.heartRateCount.value;
-    return '${heartRateCount.toStringAsFixed(0)} ${AppTexts.bpm}';
+    final beatsPerMinute = record.rate.inPerMinute;
+    return '${beatsPerMinute.toStringAsFixed(0)} ${AppTexts.bpm}';
   }
 }

@@ -63,11 +63,11 @@ extension HKQuantitySample {
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         return try NumberOfTimesFallenRecordDto(
-            count: count,
-            endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
-            metadata: builder.toMetadataDto(),
             startTime: startDate.millisecondsSince1970,
+            endTime: endDate.millisecondsSince1970,
+            metadata: builder.toMetadataDto(),
+            count: count,
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset
         )

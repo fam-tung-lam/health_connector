@@ -18,7 +18,7 @@ final class ElectrodermalActivityHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .electrodermalActivity
 
-    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
     init(healthStore: HKHealthStore) {
         self.healthStore = healthStore

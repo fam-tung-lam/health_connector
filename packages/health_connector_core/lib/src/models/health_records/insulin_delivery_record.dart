@@ -34,6 +34,7 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [units]: The amount of insulin delivered in international units
   ///   (must be >= 0).
+  /// - [reason]: The reason for the insulin delivery.
   ///
   /// ## Throws
   ///
@@ -46,6 +47,7 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
     required super.endTime,
     required super.metadata,
     required this.units,
+    required this.reason,
     super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
@@ -71,6 +73,7 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
     required DateTime startTime,
     required DateTime endTime,
     required Number units,
+    required InsulinDeliveryReason reason,
     required Metadata metadata,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
@@ -79,6 +82,7 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
       startTime: startTime,
       endTime: endTime,
       units: units,
+      reason: reason,
       metadata: metadata,
       id: id,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -92,6 +96,7 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
     required super.endTime,
     required super.metadata,
     required this.units,
+    required this.reason,
     super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
@@ -102,11 +107,15 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
   /// Must be non-negative (>= 0).
   final Number units;
 
+  /// The reason for the insulin delivery.
+  final InsulinDeliveryReason reason;
+
   /// Creates a copy with the given fields replaced with the new values.
   InsulinDeliveryRecord copyWith({
     DateTime? startTime,
     DateTime? endTime,
     Number? units,
+    InsulinDeliveryReason? reason,
     Metadata? metadata,
     HealthRecordId? id,
     int? startZoneOffsetSeconds,
@@ -116,6 +125,7 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       units: units ?? this.units,
+      reason: reason ?? this.reason,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       startZoneOffsetSeconds:
@@ -135,6 +145,7 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
           units == other.units &&
+          reason == other.reason &&
           metadata == other.metadata;
 
   @override
@@ -145,5 +156,17 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
       (startZoneOffsetSeconds?.hashCode ?? 0) ^
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
       units.hashCode ^
+      reason.hashCode ^
       metadata.hashCode;
+}
+
+/// Represents the reason for insulin delivery.
+///
+/// {@category Health Records}
+enum InsulinDeliveryReason {
+  /// Insulin administered to meet the user’s basic metabolic needs.
+  basal,
+
+  /// Insulin administered to meet the user’s episodic requirements.
+  bolus,
 }

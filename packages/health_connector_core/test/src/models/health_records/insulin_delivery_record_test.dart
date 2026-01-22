@@ -14,6 +14,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: validUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
       );
 
@@ -28,6 +29,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: InsulinDeliveryRecord.minUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
       );
 
@@ -39,6 +41,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: InsulinDeliveryRecord.maxUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
       );
 
@@ -51,6 +54,7 @@ void main() {
           startTime: startTime,
           endTime: endTime,
           units: const Number(-0.1),
+          reason: InsulinDeliveryReason.basal,
           metadata: metadata,
         ),
         throwsArgumentError,
@@ -63,6 +67,7 @@ void main() {
           startTime: startTime,
           endTime: endTime,
           units: const Number(500.1),
+          reason: InsulinDeliveryReason.basal,
           metadata: metadata,
         ),
         throwsArgumentError,
@@ -75,6 +80,7 @@ void main() {
           startTime: endTime,
           endTime: startTime,
           units: validUnits,
+          reason: InsulinDeliveryReason.basal,
           metadata: metadata,
         ),
         throwsArgumentError,
@@ -86,6 +92,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: validUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
       );
 
@@ -115,6 +122,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: validUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
       );
 
@@ -131,6 +139,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: validUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
       );
 
@@ -138,6 +147,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: validUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
       );
 
@@ -145,6 +155,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: const Number(15.0),
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
       );
 
@@ -159,6 +170,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: validUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
         startZoneOffsetSeconds: 3600,
         endZoneOffsetSeconds: 3600,
@@ -169,6 +181,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: validUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
         startZoneOffsetSeconds: 3600,
         endZoneOffsetSeconds: 3600,
@@ -179,6 +192,7 @@ void main() {
         startTime: startTime,
         endTime: endTime,
         units: validUnits,
+        reason: InsulinDeliveryReason.basal,
         metadata: metadata,
         startZoneOffsetSeconds: 3600,
         endZoneOffsetSeconds: 3600,

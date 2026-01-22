@@ -6,7 +6,7 @@ void main() {
     final startTime = DateTime(2026, 1, 11, 10);
     final endTime = DateTime(2026, 1, 11, 10, 1);
     final metadata = Metadata.manualEntry();
-    const heartRateCount = Number(15.0);
+    final beatsPerMinute = Frequency.perMinute(15.0);
 
     test('constructor enforces validation', () {
       // Valid record
@@ -14,7 +14,7 @@ void main() {
         () => HeartRateRecoveryOneMinuteRecord(
           startTime: startTime,
           endTime: endTime,
-          heartRateCount: heartRateCount,
+          rate: beatsPerMinute,
           metadata: metadata,
         ),
         returnsNormally,
@@ -25,7 +25,7 @@ void main() {
         () => HeartRateRecoveryOneMinuteRecord(
           startTime: startTime,
           endTime: endTime,
-          heartRateCount: const Number(-1.0),
+          rate: Frequency.perMinute(-1.0),
           metadata: metadata,
         ),
         throwsArgumentError,
@@ -36,7 +36,7 @@ void main() {
         () => HeartRateRecoveryOneMinuteRecord(
           startTime: startTime,
           endTime: endTime,
-          heartRateCount: const Number(201.0),
+          rate: Frequency.perMinute(201.0),
           metadata: metadata,
         ),
         throwsArgumentError,
@@ -48,7 +48,7 @@ void main() {
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
-        heartRateCount: heartRateCount,
+        rate: beatsPerMinute,
         metadata: metadata,
       );
 
@@ -56,12 +56,12 @@ void main() {
         id: HealthRecordId.none,
         startTime: startTime,
         endTime: endTime,
-        heartRateCount: heartRateCount,
+        rate: beatsPerMinute,
         metadata: metadata,
       );
 
       final differentRecord = record1.copyWith(
-        heartRateCount: const Number(20.0),
+        rate: Frequency.perMinute(20.0),
       );
 
       expect(record1, equals(record2));
@@ -73,7 +73,7 @@ void main() {
       final record = HeartRateRecoveryOneMinuteRecord(
         startTime: startTime,
         endTime: endTime,
-        heartRateCount: heartRateCount,
+        rate: beatsPerMinute,
         metadata: metadata,
       );
 
@@ -86,7 +86,7 @@ void main() {
 
       expect(copiedRecord.startTime, equals(updatedStartTime));
       expect(copiedRecord.endTime, equals(updatedEndTime));
-      expect(copiedRecord.heartRateCount, equals(heartRateCount));
+      expect(copiedRecord.rate, equals(beatsPerMinute));
     });
   });
 }

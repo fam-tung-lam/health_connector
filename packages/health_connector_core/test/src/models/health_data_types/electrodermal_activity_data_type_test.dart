@@ -23,7 +23,9 @@ void main() {
           expect(dataType, isA<ReadableByIdHealthDataType>());
           expect(dataType, isA<ReadableInTimeRangeHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
-          expect(dataType, isA<SumAggregatableHealthDataType>());
+          expect(dataType, isA<MinAggregatableHealthDataType>());
+          expect(dataType, isA<MaxAggregatableHealthDataType>());
+          expect(dataType, isA<AvgAggregatableHealthDataType>());
           expect(dataType, isA<DeletableByIdsHealthDataType>());
           expect(dataType, isA<DeletableInTimeRangeHealthDataType>());
         },
@@ -70,9 +72,13 @@ void main() {
         () {
           expect(
             dataType.supportedAggregationMetrics,
-            contains(AggregationMetric.sum),
+            containsAll([
+              AggregationMetric.min,
+              AggregationMetric.max,
+              AggregationMetric.avg,
+            ]),
           );
-          expect(dataType.supportedAggregationMetrics, hasLength(1));
+          expect(dataType.supportedAggregationMetrics, hasLength(3));
         },
       );
 
@@ -114,17 +120,51 @@ void main() {
       );
 
       test(
-        'aggregateSum creates correct request',
+        'aggregateMin creates correct request',
         () {
           final startTime = DateTime(2026);
           final endTime = DateTime(2026, 1, 2);
-          final request = dataType.aggregateSum(
+          final request = dataType.aggregateMin(
             startTime: startTime,
             endTime: endTime,
           );
 
           expect(request.dataType, dataType);
-          expect(request.aggregationMetric, AggregationMetric.sum);
+          expect(request.aggregationMetric, AggregationMetric.min);
+          expect(request.startTime, startTime);
+          expect(request.endTime, endTime);
+        },
+      );
+
+      test(
+        'aggregateMax creates correct request',
+        () {
+          final startTime = DateTime(2026);
+          final endTime = DateTime(2026, 1, 2);
+          final request = dataType.aggregateMax(
+            startTime: startTime,
+            endTime: endTime,
+          );
+
+          expect(request.dataType, dataType);
+          expect(request.aggregationMetric, AggregationMetric.max);
+          expect(request.startTime, startTime);
+          expect(request.endTime, endTime);
+        },
+      );
+
+      test(
+        'aggregateAvg creates correct request',
+        () {
+          final startTime = DateTime(2026);
+          final endTime = DateTime(2026, 1, 2);
+          final request = dataType.aggregateAvg(
+            startTime: startTime,
+            endTime: endTime,
+          );
+
+          expect(request.dataType, dataType);
+          expect(request.aggregationMetric, AggregationMetric.avg);
           expect(request.startTime, startTime);
           expect(request.endTime, endTime);
         },

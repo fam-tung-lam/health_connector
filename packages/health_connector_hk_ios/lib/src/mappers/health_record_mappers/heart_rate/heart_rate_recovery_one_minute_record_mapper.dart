@@ -1,6 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
-        Number,
+        Frequency,
         HeartRateRecoveryOneMinuteRecord,
         HealthRecordId,
         DateTimeToDto;
@@ -27,7 +27,7 @@ extension HeartRateRecoveryOneMinuteRecordToDto
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      heartRateCount: heartRateCount.value.toDouble(),
+      beatsPerMinute: rate.inPerMinute,
     );
   }
 }
@@ -45,7 +45,7 @@ extension HeartRateRecoveryOneMinuteRecordDtoToDomain
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      heartRateCount: Number(heartRateCount),
+      rate: Frequency.perMinute(beatsPerMinute),
     );
   }
 }
