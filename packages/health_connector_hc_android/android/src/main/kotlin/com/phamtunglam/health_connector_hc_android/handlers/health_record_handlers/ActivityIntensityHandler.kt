@@ -67,8 +67,8 @@ internal class ActivityIntensityHandler(
 
         val value = result[metric] ?: error("Aggregation result for $metric is null")
 
-        // Return duration in milliseconds
-        value.toMillis().toDouble()
+        // Return duration in seconds
+        value.toSeconds().toDouble()
     }
 
     /**

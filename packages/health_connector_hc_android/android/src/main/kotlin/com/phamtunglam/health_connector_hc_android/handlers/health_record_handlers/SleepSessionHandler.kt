@@ -9,7 +9,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecor
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import kotlin.time.Duration
+import java.time.Duration
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -36,8 +36,8 @@ internal class SleepSessionHandler(
     override fun convertAggregatedValue(aggregatedValue: Any): Double {
         val duration = aggregatedValue as? Duration
             ?: throw IllegalArgumentException(
-                "Aggregated value is not Duration: ${aggregatedValue::class.simpleName}",
+                "Aggregated value is not Duration type: ${aggregatedValue::class.qualifiedName}",
             )
-        return duration.inWholeMilliseconds.toDouble()
+        return duration.toSeconds().toDouble()
     }
 }

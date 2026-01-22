@@ -20,7 +20,7 @@ class BodyFatRecordMapperTest {
     private companion object {
         const val TEST_ID = "bodyfat-id"
         const val TEST_TIME = 1609459200000L
-        const val TEST_PERCENTAGE = 0.18
+        const val TEST_PERCENTAGE = 18.0
     }
 
     @Test

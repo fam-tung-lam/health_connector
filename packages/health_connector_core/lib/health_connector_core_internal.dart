@@ -47,6 +47,7 @@ export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'
     hide ReadRecordsResponse;
 export 'src/utils/date_time_utils.dart';
+export 'src/utils/double_to_measurement_unit_extension.dart';
 export 'src/utils/health_record_data_type_extension.dart';
 export 'src/utils/permission_extension.dart';
 export 'src/utils/validation_utils.dart';

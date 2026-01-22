@@ -37,6 +37,6 @@ internal class MindfulnessSessionHandler(
             ?: throw IllegalArgumentException(
                 "Aggregated value is not java.time.Duration type: ${aggregatedValue::class.qualifiedName}",
             )
-        return javaDuration.toMillis().toDouble()
+        return javaDuration.toSeconds().toDouble()
     }
 }

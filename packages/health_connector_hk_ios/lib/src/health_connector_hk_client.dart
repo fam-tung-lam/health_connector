@@ -1,43 +1,5 @@
 import 'package:flutter/services.dart' show PlatformException;
-import 'package:health_connector_core/health_connector_core.dart';
-import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        AggregateRequest,
-        HealthConnectorConfig,
-        HealthConnectorException,
-        HealthConnectorPlatformClient,
-        HealthDataPermission,
-        HealthDataSyncResult,
-        HealthDataSyncToken,
-        HealthDataType,
-        HealthPlatformFeaturePermission,
-        HealthPlatformStatus,
-        HealthRecord,
-        HealthRecordId,
-        MeasurementUnit,
-        Energy,
-        Frequency,
-        Length,
-        Mass,
-        Number,
-        Percentage,
-        Pressure,
-        Temperature,
-        TimeDuration,
-        Volume,
-        Permission,
-        PermissionRequestResult,
-        PermissionStatus,
-        ReadRecordByIdRequest,
-        ReadRecordsInTimeRangeRequest,
-        ReadRecordsInTimeRangeResponse,
-        PermissionListExtension,
-        sinceV1_0_0,
-        internalUse,
-        DeleteRecordsRequest,
-        UnsupportedOperationException,
-        DeleteRecordsInTimeRangeRequest,
-        DeleteRecordsByIdsRequest;
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/health_connector_hk_native_log_api.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_config_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mapper.dart';
@@ -48,10 +10,9 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
-import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show HealthConnectorHKIOSApi, HealthDataTypeDto, HealthPlatformStatusDto;
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:health_connector_logger/health_connector_logger.dart';
-import 'package:meta/meta.dart' show immutable, visibleForTesting, internal;
+import 'package:meta/meta.dart';
 
 /// Platform client that communicates with native iOS HealthKit code.
 ///
@@ -609,10 +570,15 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     try {
       final requestDto = request.toDto();
 
-      final responseDto = await _platformClient.aggregate(requestDto);
+      final aggregatedResultDouble = await _platformClient.aggregate(
+        requestDto,
+      );
 
-      final response =
-          responseDto.toMeasurementUnit(request.dataType.toDto()) as U;
+      final aggregatedResult =
+          aggregatedResultDouble.toMeasurementUnit(
+                request.dataType,
+              )
+              as U;
 
       HealthConnectorLogger.info(
         tag,
@@ -620,11 +586,11 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         message: 'HealthKit data aggregated successfully',
         context: {
           ...context,
-          'result_type': response.runtimeType.toString(),
+          'result_type': aggregatedResult.runtimeType.toString(),
         },
       );
 
-      return response;
+      return aggregatedResult;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         tag,
@@ -748,151 +714,5 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
     }
-  }
-}
-
-extension on double {
-  MeasurementUnit toMeasurementUnit(HealthDataTypeDto dataType) {
-    return switch (dataType) {
-      HealthDataTypeDto.steps ||
-      HealthDataTypeDto.floorsClimbed ||
-      HealthDataTypeDto.swimmingStrokes ||
-      HealthDataTypeDto.numberOfTimesFallen ||
-      HealthDataTypeDto.wheelchairPushes ||
-      HealthDataTypeDto.insulinDelivery ||
-      HealthDataTypeDto.electrodermalActivity ||
-      HealthDataTypeDto.inhalerUsage => Number(this),
-      HealthDataTypeDto.exerciseTime ||
-      HealthDataTypeDto.moveTime ||
-      HealthDataTypeDto.standTime ||
-      HealthDataTypeDto.runningGroundContactTime => TimeDuration.seconds(this),
-      HealthDataTypeDto.activeCaloriesBurned ||
-      HealthDataTypeDto.basalEnergyBurned ||
-      HealthDataTypeDto.dietaryEnergyConsumed => Energy.kilocalories(this),
-      HealthDataTypeDto.distance ||
-      HealthDataTypeDto.walkingRunningDistance ||
-      HealthDataTypeDto.cyclingDistance ||
-      HealthDataTypeDto.wheelchairDistance ||
-      HealthDataTypeDto.heartRateRecoveryOneMinute ||
-      HealthDataTypeDto.heartRateVariabilitySDNN ||
-      HealthDataTypeDto.height ||
-      HealthDataTypeDto.waistCircumference ||
-      HealthDataTypeDto.swimmingDistance ||
-      HealthDataTypeDto.downhillSnowSportsDistance ||
-      HealthDataTypeDto.rowingDistance ||
-      HealthDataTypeDto.paddleSportsDistance ||
-      HealthDataTypeDto.crossCountrySkiingDistance ||
-      HealthDataTypeDto.skatingSportsDistance ||
-      HealthDataTypeDto.sixMinuteWalkTestDistance ||
-      HealthDataTypeDto.walkingStepLength ||
-      HealthDataTypeDto.runningStrideLength => Length.meters(this),
-      HealthDataTypeDto.weight ||
-      HealthDataTypeDto.leanBodyMass ||
-      HealthDataTypeDto.calcium ||
-      HealthDataTypeDto.iron ||
-      HealthDataTypeDto.zinc ||
-      HealthDataTypeDto.potassium ||
-      HealthDataTypeDto.sodium ||
-      HealthDataTypeDto.magnesium ||
-      HealthDataTypeDto.manganese ||
-      HealthDataTypeDto.selenium ||
-      HealthDataTypeDto.caffeine ||
-      HealthDataTypeDto.vitaminA ||
-      HealthDataTypeDto.thiamin ||
-      HealthDataTypeDto.riboflavin ||
-      HealthDataTypeDto.niacin ||
-      HealthDataTypeDto.pantothenicAcid ||
-      HealthDataTypeDto.vitaminB6 ||
-      HealthDataTypeDto.biotin ||
-      HealthDataTypeDto.vitaminB12 ||
-      HealthDataTypeDto.folate ||
-      HealthDataTypeDto.vitaminC ||
-      HealthDataTypeDto.vitaminD ||
-      HealthDataTypeDto.vitaminE ||
-      HealthDataTypeDto.vitaminK ||
-      HealthDataTypeDto.sugar ||
-      HealthDataTypeDto.dietaryFiber ||
-      HealthDataTypeDto.cholesterol ||
-      HealthDataTypeDto.totalFat ||
-      HealthDataTypeDto.saturatedFat ||
-      HealthDataTypeDto.monounsaturatedFat ||
-      HealthDataTypeDto.polyunsaturatedFat ||
-      HealthDataTypeDto.protein ||
-      HealthDataTypeDto.totalCarbohydrate => Mass.grams(this),
-      HealthDataTypeDto.hydration ||
-      HealthDataTypeDto.forcedExpiratoryVolume => Volume.liters(this),
-      HealthDataTypeDto.bodyFatPercentage ||
-      HealthDataTypeDto.bloodAlcoholContent ||
-      HealthDataTypeDto.peripheralPerfusionIndex ||
-      HealthDataTypeDto.walkingSteadiness ||
-      HealthDataTypeDto.walkingAsymmetryPercentage ||
-      HealthDataTypeDto.walkingDoubleSupportPercentage ||
-      HealthDataTypeDto.oxygenSaturation ||
-      HealthDataTypeDto.atrialFibrillationBurden => Percentage.fromDecimal(
-        this,
-      ),
-      HealthDataTypeDto.heartRateMeasurementRecord ||
-      HealthDataTypeDto.restingHeartRate ||
-      HealthDataTypeDto.respiratoryRate ||
-      HealthDataTypeDto.cyclingPedalingCadence ||
-      HealthDataTypeDto.lowHeartRateEvent ||
-      HealthDataTypeDto.irregularHeartRhythmEvent ||
-      HealthDataTypeDto.highHeartRateEvent ||
-      HealthDataTypeDto.walkingHeartRateAverage => Frequency.perMinute(this),
-      HealthDataTypeDto.systolicBloodPressure ||
-      HealthDataTypeDto.diastolicBloodPressure ||
-      HealthDataTypeDto.bloodPressure => Pressure.millimetersOfMercury(this),
-      HealthDataTypeDto.bodyTemperature ||
-      HealthDataTypeDto.basalBodyTemperature ||
-      HealthDataTypeDto.sleepingWristTemperature => Temperature.celsius(this),
-      HealthDataTypeDto.alcoholicBeverages ||
-      HealthDataTypeDto.bloodAlcoholContent ||
-      HealthDataTypeDto.cyclingPower ||
-      HealthDataTypeDto.runningPower ||
-      HealthDataTypeDto.cervicalMucus ||
-      HealthDataTypeDto.sleepStageRecord ||
-      HealthDataTypeDto.sexualActivity ||
-      HealthDataTypeDto.peripheralPerfusionIndex ||
-      HealthDataTypeDto.walkingSpeed ||
-      HealthDataTypeDto.runningSpeed ||
-      HealthDataTypeDto.stairAscentSpeed ||
-      HealthDataTypeDto.stairDescentSpeed ||
-      HealthDataTypeDto.phosphorus ||
-      HealthDataTypeDto.nutrition ||
-      HealthDataTypeDto.ovulationTest ||
-      HealthDataTypeDto.pregnancyTest ||
-      HealthDataTypeDto.pregnancy ||
-      HealthDataTypeDto.contraceptive ||
-      HealthDataTypeDto.progesteroneTest ||
-      HealthDataTypeDto.lactation ||
-      HealthDataTypeDto.ovulationTestResult ||
-      HealthDataTypeDto.progesteroneTestResult ||
-      HealthDataTypeDto.sleepStage ||
-      HealthDataTypeDto.intermenstrualBleeding ||
-      HealthDataTypeDto.menstrualFlow ||
-      HealthDataTypeDto.vo2Max ||
-      HealthDataTypeDto.bloodGlucose ||
-      HealthDataTypeDto.exerciseSession ||
-      HealthDataTypeDto.mindfulnessSession ||
-      HealthDataTypeDto.bodyMassIndex ||
-      HealthDataTypeDto.forcedVitalCapacity ||
-      HealthDataTypeDto.heartRateVariabilitySDNN => Number(this),
-      HealthDataTypeDto.infrequentMenstrualCycleEvent => throw ArgumentError(
-        '$InfrequentMenstrualCycleEventDataType is not aggregatable.',
-      ),
-      HealthDataTypeDto.walkingSteadinessEvent => throw ArgumentError(
-        '$WalkingSteadinessEventDataType is not aggregatable.',
-      ),
-      HealthDataTypeDto.persistentIntermenstrualBleedingEvent =>
-        throw ArgumentError(
-          '$PersistentIntermenstrualBleedingEventDataType is not aggregatable.',
-        ),
-      HealthDataTypeDto.irregularMenstrualCycleEvent => throw ArgumentError(
-        '$IrregularMenstrualCycleEventDataType is not aggregatable.',
-      ),
-      HealthDataTypeDto.prolongedMenstrualPeriodEvent => throw ArgumentError(
-        '$ProlongedMenstrualPeriodEventDataType is not aggregatable.',
-      ),
-    };
   }
 }

@@ -1,45 +1,5 @@
-import 'package:flutter/services.dart' show PlatformException;
-import 'package:health_connector_core/health_connector_core.dart';
-import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        AggregateRequest,
-        DeleteRecordsRequest,
-        HealthConnectorConfig,
-        HealthConnectorException,
-        HealthConnectorPlatformClient,
-        HealthDataPermission,
-        HealthDataPermissionAccessType,
-        HealthDataSyncResult,
-        HealthDataSyncToken,
-        HealthDataType,
-        HealthPlatformFeature,
-        HealthPlatformFeatureStatus,
-        HealthPlatformStatus,
-        HealthRecord,
-        HealthRecordId,
-        MeasurementUnit,
-        Mass,
-        Length,
-        Energy,
-        Volume,
-        Pressure,
-        Velocity,
-        Power,
-        BloodGlucose,
-        Percentage,
-        Frequency,
-        Number,
-        Permission,
-        PermissionRequestResult,
-        internalUse,
-        sinceV1_0_0,
-        sinceV2_3_0,
-        PermissionStatus,
-        ReadRecordByIdRequest,
-        ReadRecordsInTimeRangeRequest,
-        ReadRecordsInTimeRangeResponse,
-        DeleteRecordsInTimeRangeRequest,
-        DeleteRecordsByIdsRequest;
+import 'package:flutter/services.dart';
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/health_connector_hc_native_log_api.dart';
 import 'package:health_connector_hc_android/src/mappers/exception_mappers/health_connector_error_code_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_connector_config_mapper.dart';
@@ -54,13 +14,9 @@ import 'package:health_connector_hc_android/src/mappers/permission_mappers/permi
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permissions_list_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/permission_request_result_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
-import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show
-        HealthConnectorHCAndroidApi,
-        HealthDataTypeDto,
-        HealthPlatformStatusDto;
+import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 import 'package:health_connector_logger/health_connector_logger.dart';
-import 'package:meta/meta.dart' show immutable, visibleForTesting, internal;
+import 'package:meta/meta.dart';
 
 /// Platform client that communicates with native Android Health Connect code.
 ///
@@ -910,11 +866,13 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     try {
       final requestDto = request.toDto();
 
-      final aggregatedValueDto = await _platformClient.aggregate(requestDto);
+      final aggregatedResultDouble = await _platformClient.aggregate(
+        requestDto,
+      );
 
-      final aggregatedValue =
-          aggregatedValueDto.toMeasurementUnit(
-                request.dataType.toDto(),
+      final aggregatedResult =
+          aggregatedResultDouble.toMeasurementUnit(
+                request.dataType,
               )
               as U;
 
@@ -924,11 +882,11 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         message: 'Health Connect data aggregated successfully',
         context: {
           ...context,
-          'result_type': aggregatedValue.runtimeType.toString(),
+          'result_type': aggregatedResult.runtimeType.toString(),
         },
       );
 
-      return aggregatedValue;
+      return aggregatedResult;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         tag,
@@ -1185,91 +1143,5 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     );
 
     grantedPermissions.addAll(nutrientPermissionsToAdd);
-  }
-}
-
-extension _DoubleAggregationToDomain on double {
-  MeasurementUnit toMeasurementUnit(
-    HealthDataTypeDto dataType,
-  ) {
-    switch (dataType) {
-      // Energy (Kcal)
-      case HealthDataTypeDto.activeCaloriesBurned:
-      case HealthDataTypeDto.totalCaloriesBurned:
-        return Energy.kilocalories(this);
-
-      // Length (Meters)
-      case HealthDataTypeDto.distance:
-      case HealthDataTypeDto.height:
-      case HealthDataTypeDto.elevationGained:
-        return Length.meters(this);
-
-      // Mass (Kg)
-      case HealthDataTypeDto.weight:
-      case HealthDataTypeDto.leanBodyMass:
-      case HealthDataTypeDto.boneMass:
-      case HealthDataTypeDto.bodyWaterMass:
-        return Mass.kilograms(this);
-
-      // Mass (g) - Nutrition
-      // Note: Nutrition uses grams, but here we cover body mass types.
-      case HealthDataTypeDto.nutrition:
-        return Mass.grams(this);
-
-      // Volume (Liters)
-      case HealthDataTypeDto.hydration:
-        return Volume.liters(this);
-
-      // Power (Watts)
-      case HealthDataTypeDto.powerSeries:
-        return Power.watts(this);
-
-      // Pressure (mmHg)
-      case HealthDataTypeDto.bloodPressure:
-        return Pressure.millimetersOfMercury(this);
-
-      // Frequency (BPM / Per Minute)
-      case HealthDataTypeDto.heartRateSeriesRecord:
-      case HealthDataTypeDto.restingHeartRate:
-      case HealthDataTypeDto.respiratoryRate:
-        return Frequency.perMinute(this);
-
-      // Speed (m/s)
-      case HealthDataTypeDto.speedSeries:
-        return Velocity.metersPerSecond(this);
-
-      // Percentage
-      case HealthDataTypeDto.bodyFatPercentage:
-      case HealthDataTypeDto.oxygenSaturation:
-        return Percentage.fromWhole(this);
-
-      // BloodGlucose
-      case HealthDataTypeDto.bloodGlucose:
-        return BloodGlucose.millimolesPerLiter(this);
-
-      // TimeDuration
-      case HealthDataTypeDto.activityIntensity:
-      case HealthDataTypeDto.exerciseSession:
-      case HealthDataTypeDto.sleepSession:
-      case HealthDataTypeDto.mindfulnessSession:
-        return TimeDuration.milliseconds(this);
-
-      // Number
-      case HealthDataTypeDto.steps:
-      case HealthDataTypeDto.floorsClimbed:
-      case HealthDataTypeDto.wheelchairPushes:
-      case HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord:
-      case HealthDataTypeDto.stepsCadenceSeriesRecord:
-      case HealthDataTypeDto.vo2Max:
-      case HealthDataTypeDto.bodyTemperature:
-      case HealthDataTypeDto.basalBodyTemperature:
-      case HealthDataTypeDto.cervicalMucus:
-      case HealthDataTypeDto.sexualActivity:
-      case HealthDataTypeDto.ovulationTest:
-      case HealthDataTypeDto.intermenstrualBleeding:
-      case HealthDataTypeDto.menstrualFlowInstant:
-      case HealthDataTypeDto.heartRateVariabilityRMSSD:
-        return Number(this);
-    }
   }
 }
