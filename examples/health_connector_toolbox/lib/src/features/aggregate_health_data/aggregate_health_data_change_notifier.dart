@@ -492,6 +492,21 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      HeartRateRecoveryOneMinuteDataType() => _buildAvgMinMax(
+        () => HealthDataType.heartRateRecoveryOneMinute.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.heartRateRecoveryOneMinute.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.heartRateRecoveryOneMinute.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       CyclingPedalingCadenceDataType() => _buildAvgMinMax(
         () => HealthDataType.cyclingPedalingCadence.aggregateAvg(
           startTime: startTime,

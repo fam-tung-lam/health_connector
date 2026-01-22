@@ -59,6 +59,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/exercise_session_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/floors_climbed_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/forced_expiratory_volume_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/heart_rate_recovery_one_minute_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/hydration_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/inhaler_usage_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/insulin_delivery_health_record_write_form.dart';
@@ -664,6 +665,11 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       WalkingHeartRateAverageDataType _ => throw UnsupportedError(
         'Walking Heart Rate Average is read-only',
       ),
+      HeartRateRecoveryOneMinuteDataType _ =>
+        HeartRateRecoveryOneMinuteWriteForm(
+          healthPlatform: _notifier.healthPlatform,
+          onSubmit: _onSubmit,
+        ),
 
       // endregion
     };

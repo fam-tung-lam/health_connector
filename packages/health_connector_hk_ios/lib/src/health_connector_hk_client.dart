@@ -772,6 +772,8 @@ extension on double {
       HealthDataTypeDto.walkingRunningDistance ||
       HealthDataTypeDto.cyclingDistance ||
       HealthDataTypeDto.wheelchairDistance ||
+      HealthDataTypeDto.heartRateRecoveryOneMinute ||
+      HealthDataTypeDto.heartRateVariabilitySDNN ||
       HealthDataTypeDto.height ||
       HealthDataTypeDto.waistCircumference ||
       HealthDataTypeDto.swimmingDistance ||

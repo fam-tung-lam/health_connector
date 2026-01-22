@@ -714,199 +714,201 @@ public enum HealthDataTypeDto: Int {
   case paddleSportsDistance = 22
   /// Number of times fallen.
   case numberOfTimesFallen = 23
+  /// Heart Rate Recovery (1 minute) data (iOS only).
+  case heartRateRecoveryOneMinute = 24
   /// Cross-country skiing distance (iOS 18+).
   /// Cross-country skiing distance (iOS 18+).
-  case crossCountrySkiingDistance = 24
+  case crossCountrySkiingDistance = 25
   /// Skating sports distance (iOS 18+).
-  case skatingSportsDistance = 25
+  case skatingSportsDistance = 26
   /// Six-minute walk test distance.
-  case sixMinuteWalkTestDistance = 26
+  case sixMinuteWalkTestDistance = 27
   /// Floors climbed data.
-  case floorsClimbed = 27
+  case floorsClimbed = 28
   /// Step count data.
-  case steps = 28
+  case steps = 29
   /// Body weight data.
-  case weight = 29
+  case weight = 30
   /// Body height data.
-  case height = 30
+  case height = 31
   /// Body fat percentage data.
-  case bodyFatPercentage = 31
+  case bodyFatPercentage = 32
   /// Body temperature data.
-  case bodyTemperature = 32
+  case bodyTemperature = 33
   /// Basal body temperature data.
-  case basalBodyTemperature = 33
+  case basalBodyTemperature = 34
   /// Cervical mucus observation data.
-  case cervicalMucus = 34
+  case cervicalMucus = 35
   /// Lean body mass data.
-  case leanBodyMass = 35
+  case leanBodyMass = 36
   /// Wheelchair pushes data.
-  case wheelchairPushes = 36
+  case wheelchairPushes = 37
   /// Electrodermal activity data (iOS only).
-  case electrodermalActivity = 37
+  case electrodermalActivity = 38
   /// Inhaler usage data (iOS only).
-  case inhalerUsage = 38
+  case inhalerUsage = 39
   /// Hydration (water intake) data.
-  case hydration = 39
+  case hydration = 40
   /// Insulin delivery data (iOS only).
-  case insulinDelivery = 40
+  case insulinDelivery = 41
   /// Heart rate measurement record data.
-  case heartRateMeasurementRecord = 41
+  case heartRateMeasurementRecord = 42
   /// Cycling pedaling cadence measurement record data.
-  case cyclingPedalingCadence = 42
+  case cyclingPedalingCadence = 43
   /// Sleep stage record data.
-  case sleepStageRecord = 43
+  case sleepStageRecord = 44
   /// Sexual activity data.
-  case sexualActivity = 44
+  case sexualActivity = 45
   /// Peripheral perfusion index data.
-  case peripheralPerfusionIndex = 45
+  case peripheralPerfusionIndex = 46
   /// Walking speed data.
-  case walkingSpeed = 46
+  case walkingSpeed = 47
   /// Running speed data.
-  case runningSpeed = 47
+  case runningSpeed = 48
   /// Stair ascent speed data.
-  case stairAscentSpeed = 48
+  case stairAscentSpeed = 49
   /// Stair descent speed data.
-  case stairDescentSpeed = 49
+  case stairDescentSpeed = 50
   /// Energy nutrient data (calories consumed).
-  case dietaryEnergyConsumed = 50
+  case dietaryEnergyConsumed = 51
   /// Caffeine nutrient data.
-  case caffeine = 51
+  case caffeine = 52
   /// Protein nutrient data.
-  case protein = 52
+  case protein = 53
   /// Total carbohydrate nutrient data.
-  case totalCarbohydrate = 53
+  case totalCarbohydrate = 54
   /// Total fat nutrient data.
-  case totalFat = 54
+  case totalFat = 55
   /// Saturated fat nutrient data.
-  case saturatedFat = 55
+  case saturatedFat = 56
   /// Monounsaturated fat nutrient data.
-  case monounsaturatedFat = 56
+  case monounsaturatedFat = 57
   /// Polyunsaturated fat nutrient data.
-  case polyunsaturatedFat = 57
+  case polyunsaturatedFat = 58
   /// Cholesterol nutrient data.
-  case cholesterol = 58
+  case cholesterol = 59
   /// Dietary fiber nutrient data.
-  case dietaryFiber = 59
+  case dietaryFiber = 60
   /// Sugar nutrient data.
-  case sugar = 60
+  case sugar = 61
   /// Vitamin A nutrient data.
-  case vitaminA = 61
+  case vitaminA = 62
   /// Vitamin B6 nutrient data.
-  case vitaminB6 = 62
+  case vitaminB6 = 63
   /// Vitamin B12 nutrient data.
-  case vitaminB12 = 63
+  case vitaminB12 = 64
   /// Vitamin C nutrient data.
-  case vitaminC = 64
+  case vitaminC = 65
   /// Vitamin D nutrient data.
-  case vitaminD = 65
+  case vitaminD = 66
   /// Vitamin E nutrient data.
-  case vitaminE = 66
+  case vitaminE = 67
   /// Vitamin K nutrient data.
-  case vitaminK = 67
+  case vitaminK = 68
   /// Thiamin (Vitamin B1) nutrient data.
-  case thiamin = 68
+  case thiamin = 69
   /// Riboflavin (Vitamin B2) nutrient data.
-  case riboflavin = 69
+  case riboflavin = 70
   /// Niacin (Vitamin B3) nutrient data.
-  case niacin = 70
+  case niacin = 71
   /// Folate (Vitamin B9) nutrient data.
-  case folate = 71
+  case folate = 72
   /// Biotin (Vitamin B7) nutrient data.
-  case biotin = 72
+  case biotin = 73
   /// Pantothenic acid (Vitamin B5) nutrient data.
-  case pantothenicAcid = 73
+  case pantothenicAcid = 74
   /// Calcium nutrient data.
-  case calcium = 74
+  case calcium = 75
   /// Iron nutrient data.
-  case iron = 75
+  case iron = 76
   /// Magnesium nutrient data.
-  case magnesium = 76
+  case magnesium = 77
   /// Manganese nutrient data.
-  case manganese = 77
+  case manganese = 78
   /// Phosphorus nutrient data.
-  case phosphorus = 78
+  case phosphorus = 79
   /// Potassium nutrient data.
-  case potassium = 79
+  case potassium = 80
   /// Selenium nutrient data.
-  case selenium = 80
+  case selenium = 81
   /// Sodium nutrient data.
-  case sodium = 81
+  case sodium = 82
   /// Zinc nutrient data.
-  case zinc = 82
+  case zinc = 83
   /// Combined nutrition record (HKCorrelation.food).
-  case nutrition = 83
+  case nutrition = 84
   /// Resting heart rate data.
-  case restingHeartRate = 84
+  case restingHeartRate = 85
   /// Composite blood pressure (HKCorrelationType.bloodPressure).
-  case bloodPressure = 85
+  case bloodPressure = 86
   /// Systolic blood pressure (HKQuantityType.bloodPressureSystolic).
-  case systolicBloodPressure = 86
+  case systolicBloodPressure = 87
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
-  case diastolicBloodPressure = 87
+  case diastolicBloodPressure = 88
   /// Ovulation test data.
-  case ovulationTest = 88
+  case ovulationTest = 89
   /// Pregnancy test data (iOS only).
-  case pregnancyTest = 89
+  case pregnancyTest = 90
   /// Pregnancy data (iOS only).
-  case pregnancy = 90
+  case pregnancy = 91
   /// Contraceptive data (iOS only).
-  case contraceptive = 91
+  case contraceptive = 92
   /// Progesterone test data (iOS only).
-  case progesteroneTest = 92
+  case progesteroneTest = 93
   /// Lactation data (iOS only).
-  case lactation = 93
+  case lactation = 94
   /// Ovulation test result.
-  case ovulationTestResult = 94
+  case ovulationTestResult = 95
   /// Progesterone test result (iOS only).
-  case progesteroneTestResult = 95
+  case progesteroneTestResult = 96
   /// Sleep stage type.
-  case sleepStage = 96
+  case sleepStage = 97
   /// Intermenstrual bleeding data.
-  case intermenstrualBleeding = 97
+  case intermenstrualBleeding = 98
   /// Menstrual flow data (iOS HealthKit only).
-  case menstrualFlow = 98
+  case menstrualFlow = 99
   /// Oxygen saturation data.
-  case oxygenSaturation = 99
+  case oxygenSaturation = 100
   /// Respiratory rate data.
-  case respiratoryRate = 100
+  case respiratoryRate = 101
   /// VO2 max (maximal oxygen uptake) data.
-  case vo2Max = 101
+  case vo2Max = 102
   /// Blood glucose data.
-  case bloodGlucose = 102
+  case bloodGlucose = 103
   /// Exercise session data.
-  case exerciseSession = 103
+  case exerciseSession = 104
   /// Mindfulness session data.
-  case mindfulnessSession = 104
+  case mindfulnessSession = 105
   /// Body mass index data.
-  case bodyMassIndex = 105
+  case bodyMassIndex = 106
   /// Waist circumference data.
-  case waistCircumference = 106
+  case waistCircumference = 107
   /// Walking asymmetry percentage data (iOS only).
-  case walkingAsymmetryPercentage = 107
+  case walkingAsymmetryPercentage = 108
   /// The forced vital capacity (FVC) data.
-  case forcedVitalCapacity = 108
+  case forcedVitalCapacity = 109
   /// Heart rate variability (SDNN) data.
-  case heartRateVariabilitySDNN = 109
+  case heartRateVariabilitySDNN = 110
   /// Sleeping wrist temperature data.
-  case sleepingWristTemperature = 110
+  case sleepingWristTemperature = 111
   /// High heart rate event data.
-  case highHeartRateEvent = 111
+  case highHeartRateEvent = 112
   /// Infrequent menstrual cycle event data (iOS 16+).
-  case infrequentMenstrualCycleEvent = 112
+  case infrequentMenstrualCycleEvent = 113
   /// Irregular menstrual cycle event data (iOS 16+).
-  case irregularMenstrualCycleEvent = 113
+  case irregularMenstrualCycleEvent = 114
   /// Irregular heart rhythm event data.
-  case irregularHeartRhythmEvent = 114
+  case irregularHeartRhythmEvent = 115
   /// Low heart rate event data.
-  case lowHeartRateEvent = 115
+  case lowHeartRateEvent = 116
   /// Walking Steadiness event data.
-  case walkingSteadinessEvent = 116
+  case walkingSteadinessEvent = 117
   /// Persistent Intermenstrual Bleeding Event.
-  case persistentIntermenstrualBleedingEvent = 117
+  case persistentIntermenstrualBleedingEvent = 118
   /// Prolonged Menstrual Period event data type (iOS only).
-  case prolongedMenstrualPeriodEvent = 118
+  case prolongedMenstrualPeriodEvent = 119
   /// Atrial Fibrillation Burden data.
-  case atrialFibrillationBurden = 119
+  case atrialFibrillationBurden = 120
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -4531,6 +4533,59 @@ public struct CyclingPedalingCadenceRecordDto: HealthRecordDto {
   }
 }
 
+/// Represents a heart rate recovery measurement in one minute.
+///
+/// Maps to iOS HKQuantityTypeIdentifier.heartRateRecoveryOneMinute.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct HeartRateRecoveryOneMinuteRecordDto: HealthRecordDto {
+  var id: String? = nil
+  var startTime: Int64
+  var endTime: Int64
+  var startZoneOffsetSeconds: Int64? = nil
+  var endZoneOffsetSeconds: Int64? = nil
+  var metadata: MetadataDto
+  var heartRateCount: Double
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateRecoveryOneMinuteRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+    let metadata = pigeonVar_list[5] as! MetadataDto
+    let heartRateCount = pigeonVar_list[6] as! Double
+
+    return HeartRateRecoveryOneMinuteRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      metadata: metadata,
+      heartRateCount: heartRateCount
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+      metadata,
+      heartRateCount,
+    ]
+  }
+  public static func == (lhs: HeartRateRecoveryOneMinuteRecordDto, rhs: HeartRateRecoveryOneMinuteRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 /// Represents a sleep stage record for platform transfer.
 ///
 /// Sleep data in HealthKit uses HKCategorySample with categoryType
@@ -7477,56 +7532,58 @@ private struct PigeonInternalCodecOverflow {
         
     switch type {
       case 0:
-        return DietaryManganeseRecordDto.fromList(wrapped as! [Any?]);
+        return DietaryMagnesiumRecordDto.fromList(wrapped as! [Any?]);
       case 1:
-        return DietaryPhosphorusRecordDto.fromList(wrapped as! [Any?]);
+        return DietaryManganeseRecordDto.fromList(wrapped as! [Any?]);
       case 2:
-        return DietaryPotassiumRecordDto.fromList(wrapped as! [Any?]);
+        return DietaryPhosphorusRecordDto.fromList(wrapped as! [Any?]);
       case 3:
-        return DietarySeleniumRecordDto.fromList(wrapped as! [Any?]);
+        return DietaryPotassiumRecordDto.fromList(wrapped as! [Any?]);
       case 4:
-        return DietarySodiumRecordDto.fromList(wrapped as! [Any?]);
+        return DietarySeleniumRecordDto.fromList(wrapped as! [Any?]);
       case 5:
-        return DietaryZincRecordDto.fromList(wrapped as! [Any?]);
+        return DietarySodiumRecordDto.fromList(wrapped as! [Any?]);
       case 6:
-        return NutritionRecordDto.fromList(wrapped as! [Any?]);
+        return DietaryZincRecordDto.fromList(wrapped as! [Any?]);
       case 7:
-        return BasalEnergyBurnedRecordDto.fromList(wrapped as! [Any?]);
+        return NutritionRecordDto.fromList(wrapped as! [Any?]);
       case 8:
-        return HealthDataSyncTokenDto.fromList(wrapped as! [Any?]);
+        return BasalEnergyBurnedRecordDto.fromList(wrapped as! [Any?]);
       case 9:
-        return HealthDataSyncResultDto.fromList(wrapped as! [Any?]);
+        return HealthDataSyncTokenDto.fromList(wrapped as! [Any?]);
       case 10:
-        return HealthDataPermissionDto.fromList(wrapped as! [Any?]);
+        return HealthDataSyncResultDto.fromList(wrapped as! [Any?]);
       case 11:
-        return HealthDataPermissionRequestResultDto.fromList(wrapped as! [Any?]);
+        return HealthDataPermissionDto.fromList(wrapped as! [Any?]);
       case 12:
-        return PermissionsRequestDto.fromList(wrapped as! [Any?]);
+        return HealthDataPermissionRequestResultDto.fromList(wrapped as! [Any?]);
       case 13:
-        return AggregateRequestDto.fromList(wrapped as! [Any?]);
+        return PermissionsRequestDto.fromList(wrapped as! [Any?]);
       case 14:
-        return DeleteRecordsByIdsRequestDto.fromList(wrapped as! [Any?]);
+        return AggregateRequestDto.fromList(wrapped as! [Any?]);
       case 15:
-        return DeleteRecordsByTimeRangeRequestDto.fromList(wrapped as! [Any?]);
+        return DeleteRecordsByIdsRequestDto.fromList(wrapped as! [Any?]);
       case 16:
-        return ReadRecordRequestDto.fromList(wrapped as! [Any?]);
+        return DeleteRecordsByTimeRangeRequestDto.fromList(wrapped as! [Any?]);
       case 17:
-        return ReadRecordsRequestDto.fromList(wrapped as! [Any?]);
+        return ReadRecordRequestDto.fromList(wrapped as! [Any?]);
       case 18:
-        return ReadRecordsResponseDto.fromList(wrapped as! [Any?]);
+        return ReadRecordsRequestDto.fromList(wrapped as! [Any?]);
       case 19:
-        return HealthConnectorExceptionDto.fromList(wrapped as! [Any?]);
+        return ReadRecordsResponseDto.fromList(wrapped as! [Any?]);
       case 20:
-        return HealthConnectorLogDto.fromList(wrapped as! [Any?]);
+        return HealthConnectorExceptionDto.fromList(wrapped as! [Any?]);
       case 21:
-        return PeripheralPerfusionIndexRecordDto.fromList(wrapped as! [Any?]);
+        return HealthConnectorLogDto.fromList(wrapped as! [Any?]);
       case 22:
-        return PersistentIntermenstrualBleedingEventRecordDto.fromList(wrapped as! [Any?]);
+        return PeripheralPerfusionIndexRecordDto.fromList(wrapped as! [Any?]);
       case 23:
-        return ProlongedMenstrualPeriodEventRecordDto.fromList(wrapped as! [Any?]);
+        return PersistentIntermenstrualBleedingEventRecordDto.fromList(wrapped as! [Any?]);
       case 24:
-        return AtrialFibrillationBurdenRecordDto.fromList(wrapped as! [Any?]);
+        return ProlongedMenstrualPeriodEventRecordDto.fromList(wrapped as! [Any?]);
       case 25:
+        return AtrialFibrillationBurdenRecordDto.fromList(wrapped as! [Any?]);
+      case 26:
         return NumberOfTimesFallenRecordDto.fromList(wrapped as! [Any?]);
       default: 
         return nil
@@ -7858,65 +7915,65 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 224:
       return CyclingPedalingCadenceRecordDto.fromList(self.readValue() as! [Any?])
     case 225:
-      return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
+      return HeartRateRecoveryOneMinuteRecordDto.fromList(self.readValue() as! [Any?])
     case 226:
-      return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
+      return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
     case 227:
-      return DietaryEnergyConsumedRecordDto.fromList(self.readValue() as! [Any?])
+      return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 228:
-      return DietaryCaffeineRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryEnergyConsumedRecordDto.fromList(self.readValue() as! [Any?])
     case 229:
-      return DietaryProteinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCaffeineRecordDto.fromList(self.readValue() as! [Any?])
     case 230:
-      return DietaryTotalCarbohydrateRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryProteinRecordDto.fromList(self.readValue() as! [Any?])
     case 231:
-      return DietaryTotalFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryTotalCarbohydrateRecordDto.fromList(self.readValue() as! [Any?])
     case 232:
-      return DietarySaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryTotalFatRecordDto.fromList(self.readValue() as! [Any?])
     case 233:
-      return DietaryMonounsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 234:
-      return DietaryPolyunsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryMonounsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 235:
-      return DietaryCholesterolRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPolyunsaturatedFatRecordDto.fromList(self.readValue() as! [Any?])
     case 236:
-      return DietaryFiberRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCholesterolRecordDto.fromList(self.readValue() as! [Any?])
     case 237:
-      return DietarySugarRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryFiberRecordDto.fromList(self.readValue() as! [Any?])
     case 238:
-      return DietaryVitaminARecordDto.fromList(self.readValue() as! [Any?])
+      return DietarySugarRecordDto.fromList(self.readValue() as! [Any?])
     case 239:
-      return DietaryVitaminB6RecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminARecordDto.fromList(self.readValue() as! [Any?])
     case 240:
-      return DietaryVitaminB12RecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminB6RecordDto.fromList(self.readValue() as! [Any?])
     case 241:
-      return DietaryVitaminCRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminB12RecordDto.fromList(self.readValue() as! [Any?])
     case 242:
-      return DietaryVitaminDRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminCRecordDto.fromList(self.readValue() as! [Any?])
     case 243:
-      return DietaryVitaminERecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminDRecordDto.fromList(self.readValue() as! [Any?])
     case 244:
-      return LactationRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminERecordDto.fromList(self.readValue() as! [Any?])
     case 245:
-      return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
+      return LactationRecordDto.fromList(self.readValue() as! [Any?])
     case 246:
-      return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryVitaminKRecordDto.fromList(self.readValue() as! [Any?])
     case 247:
-      return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryThiaminRecordDto.fromList(self.readValue() as! [Any?])
     case 248:
-      return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryRiboflavinRecordDto.fromList(self.readValue() as! [Any?])
     case 249:
-      return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryNiacinRecordDto.fromList(self.readValue() as! [Any?])
     case 250:
-      return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryFolateRecordDto.fromList(self.readValue() as! [Any?])
     case 251:
-      return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryBiotinRecordDto.fromList(self.readValue() as! [Any?])
     case 252:
-      return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryPantothenicAcidRecordDto.fromList(self.readValue() as! [Any?])
     case 253:
-      return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryCalciumRecordDto.fromList(self.readValue() as! [Any?])
     case 254:
-      return DietaryMagnesiumRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryIronRecordDto.fromList(self.readValue() as! [Any?])
     case 255:
       return PigeonInternalCodecOverflow.fromList(self.readValue() as! [Any?])
     default:
@@ -8215,198 +8272,202 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? CyclingPedalingCadenceRecordDto {
       super.writeByte(224)
       super.writeValue(value.toList())
-    } else if let value = value as? SleepStageRecordDto {
+    } else if let value = value as? HeartRateRecoveryOneMinuteRecordDto {
       super.writeByte(225)
       super.writeValue(value.toList())
-    } else if let value = value as? SexualActivityRecordDto {
+    } else if let value = value as? SleepStageRecordDto {
       super.writeByte(226)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryEnergyConsumedRecordDto {
+    } else if let value = value as? SexualActivityRecordDto {
       super.writeByte(227)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCaffeineRecordDto {
+    } else if let value = value as? DietaryEnergyConsumedRecordDto {
       super.writeByte(228)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryProteinRecordDto {
+    } else if let value = value as? DietaryCaffeineRecordDto {
       super.writeByte(229)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryTotalCarbohydrateRecordDto {
+    } else if let value = value as? DietaryProteinRecordDto {
       super.writeByte(230)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryTotalFatRecordDto {
+    } else if let value = value as? DietaryTotalCarbohydrateRecordDto {
       super.writeByte(231)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySaturatedFatRecordDto {
+    } else if let value = value as? DietaryTotalFatRecordDto {
       super.writeByte(232)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMonounsaturatedFatRecordDto {
+    } else if let value = value as? DietarySaturatedFatRecordDto {
       super.writeByte(233)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPolyunsaturatedFatRecordDto {
+    } else if let value = value as? DietaryMonounsaturatedFatRecordDto {
       super.writeByte(234)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCholesterolRecordDto {
+    } else if let value = value as? DietaryPolyunsaturatedFatRecordDto {
       super.writeByte(235)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFiberRecordDto {
+    } else if let value = value as? DietaryCholesterolRecordDto {
       super.writeByte(236)
       super.writeValue(value.toList())
-    } else if let value = value as? DietarySugarRecordDto {
+    } else if let value = value as? DietaryFiberRecordDto {
       super.writeByte(237)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminARecordDto {
+    } else if let value = value as? DietarySugarRecordDto {
       super.writeByte(238)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminB6RecordDto {
+    } else if let value = value as? DietaryVitaminARecordDto {
       super.writeByte(239)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminB12RecordDto {
+    } else if let value = value as? DietaryVitaminB6RecordDto {
       super.writeByte(240)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminCRecordDto {
+    } else if let value = value as? DietaryVitaminB12RecordDto {
       super.writeByte(241)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminDRecordDto {
+    } else if let value = value as? DietaryVitaminCRecordDto {
       super.writeByte(242)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminERecordDto {
+    } else if let value = value as? DietaryVitaminDRecordDto {
       super.writeByte(243)
       super.writeValue(value.toList())
-    } else if let value = value as? LactationRecordDto {
+    } else if let value = value as? DietaryVitaminERecordDto {
       super.writeByte(244)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryVitaminKRecordDto {
+    } else if let value = value as? LactationRecordDto {
       super.writeByte(245)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryThiaminRecordDto {
+    } else if let value = value as? DietaryVitaminKRecordDto {
       super.writeByte(246)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryRiboflavinRecordDto {
+    } else if let value = value as? DietaryThiaminRecordDto {
       super.writeByte(247)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryNiacinRecordDto {
+    } else if let value = value as? DietaryRiboflavinRecordDto {
       super.writeByte(248)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryFolateRecordDto {
+    } else if let value = value as? DietaryNiacinRecordDto {
       super.writeByte(249)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryBiotinRecordDto {
+    } else if let value = value as? DietaryFolateRecordDto {
       super.writeByte(250)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryPantothenicAcidRecordDto {
+    } else if let value = value as? DietaryBiotinRecordDto {
       super.writeByte(251)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryCalciumRecordDto {
+    } else if let value = value as? DietaryPantothenicAcidRecordDto {
       super.writeByte(252)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryIronRecordDto {
+    } else if let value = value as? DietaryCalciumRecordDto {
       super.writeByte(253)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryMagnesiumRecordDto {
+    } else if let value = value as? DietaryIronRecordDto {
       super.writeByte(254)
       super.writeValue(value.toList())
-    } else if let value = value as? DietaryManganeseRecordDto {
+    } else if let value = value as? DietaryMagnesiumRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 0, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DietaryPhosphorusRecordDto {
+    } else if let value = value as? DietaryManganeseRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 1, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DietaryPotassiumRecordDto {
+    } else if let value = value as? DietaryPhosphorusRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 2, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DietarySeleniumRecordDto {
+    } else if let value = value as? DietaryPotassiumRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 3, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DietarySodiumRecordDto {
+    } else if let value = value as? DietarySeleniumRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 4, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DietaryZincRecordDto {
+    } else if let value = value as? DietarySodiumRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 5, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? NutritionRecordDto {
+    } else if let value = value as? DietaryZincRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 6, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? BasalEnergyBurnedRecordDto {
+    } else if let value = value as? NutritionRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 7, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? HealthDataSyncTokenDto {
+    } else if let value = value as? BasalEnergyBurnedRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 8, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? HealthDataSyncResultDto {
+    } else if let value = value as? HealthDataSyncTokenDto {
       let wrap = PigeonInternalCodecOverflow(type: 9, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? HealthDataPermissionDto {
+    } else if let value = value as? HealthDataSyncResultDto {
       let wrap = PigeonInternalCodecOverflow(type: 10, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? HealthDataPermissionRequestResultDto {
+    } else if let value = value as? HealthDataPermissionDto {
       let wrap = PigeonInternalCodecOverflow(type: 11, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? PermissionsRequestDto {
+    } else if let value = value as? HealthDataPermissionRequestResultDto {
       let wrap = PigeonInternalCodecOverflow(type: 12, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? AggregateRequestDto {
+    } else if let value = value as? PermissionsRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 13, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+    } else if let value = value as? AggregateRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 14, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 15, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? ReadRecordRequestDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 16, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
+    } else if let value = value as? ReadRecordRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 17, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? ReadRecordsResponseDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       let wrap = PigeonInternalCodecOverflow(type: 18, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? HealthConnectorExceptionDto {
+    } else if let value = value as? ReadRecordsResponseDto {
       let wrap = PigeonInternalCodecOverflow(type: 19, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? HealthConnectorLogDto {
+    } else if let value = value as? HealthConnectorExceptionDto {
       let wrap = PigeonInternalCodecOverflow(type: 20, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? PeripheralPerfusionIndexRecordDto {
+    } else if let value = value as? HealthConnectorLogDto {
       let wrap = PigeonInternalCodecOverflow(type: 21, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? PersistentIntermenstrualBleedingEventRecordDto {
+    } else if let value = value as? PeripheralPerfusionIndexRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 22, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? ProlongedMenstrualPeriodEventRecordDto {
+    } else if let value = value as? PersistentIntermenstrualBleedingEventRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 23, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? AtrialFibrillationBurdenRecordDto {
+    } else if let value = value as? ProlongedMenstrualPeriodEventRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 24, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
-    } else if let value = value as? NumberOfTimesFallenRecordDto {
+    } else if let value = value as? AtrialFibrillationBurdenRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 25, wrapped: value.toList())
+      super.writeByte(255)
+      super.writeValue(wrap.toList())
+    } else if let value = value as? NumberOfTimesFallenRecordDto {
+      let wrap = PigeonInternalCodecOverflow(type: 26, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
     } else {

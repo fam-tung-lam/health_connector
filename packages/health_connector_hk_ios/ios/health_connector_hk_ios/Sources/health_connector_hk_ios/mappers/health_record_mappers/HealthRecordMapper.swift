@@ -37,6 +37,8 @@ extension HealthRecordDto {
             return try dto.toHKQuantitySample()
         case let dto as HeartRateRecordDto:
             return try dto.toHKQuantitySample()
+        case let dto as HeartRateRecoveryOneMinuteRecordDto:
+            return try dto.toHKQuantitySample()
         case let dto as HeightRecordDto:
             return try dto.toHKQuantitySample()
         case let dto as ElectrodermalActivityRecordDto:
@@ -418,6 +420,16 @@ extension HKQuantitySample {
             try toFloorsClimbedRecordDto()
         case .heartRateMeasurementRecord:
             try toHeartRateRecordDto()
+        case .heartRateRecoveryOneMinute:
+            if #available(iOS 16.0, *) {
+                try toHeartRateRecoveryOneMinuteRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Heart Rate Recovery One Minute is only supported on iOS 16.0 and later",
+                    context: ["minimumIOSVersion": "16.0"]
+                )
+            }
         case .electrodermalActivity:
             try toElectrodermalActivityRecordDto()
         case .hydration:

@@ -60,6 +60,7 @@ part 'forced_vital_capacity_data_type.dart';
 part 'health_data_type_category.dart';
 part 'heart_rate/atrial_fibrillation_burden_data_type.dart';
 part 'heart_rate/heart_rate_data_type.dart';
+part 'heart_rate/heart_rate_recovery_one_minute_data_type.dart';
 part 'heart_rate/heart_rate_series_data_type.dart';
 part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
 part 'heart_rate/heart_rate_variability_sdnn_data_type.dart';
@@ -682,6 +683,12 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const heartRate = HeartRateDataType();
 
+  /// Heart rate recovery one minute health data type.
+  @sinceV3_5_0
+  @supportedOnAppleHealthIOS16Plus
+  static const heartRateRecoveryOneMinute =
+      HeartRateRecoveryOneMinuteDataType();
+
   /// Sleep session health data type.
   ///
   /// Represents a complete sleep session with multiple sleep stages.
@@ -1279,6 +1286,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     forcedExpiratoryVolume,
     forcedVitalCapacity,
     heartRate,
+    heartRateRecoveryOneMinute,
     heartRateSeries,
     heartRateVariabilityRMSSD,
     heartRateVariabilitySDNN,

@@ -434,6 +434,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$AtrialFibrillationBurdenDataType is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case HeartRateRecoveryOneMinuteDataType():
+        throw UnsupportedError(
+          '$HeartRateRecoveryOneMinuteDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
       case WalkingHeartRateAverageDataType():
         throw UnsupportedError(
           '$WalkingHeartRateAverageDataType is not supported on '

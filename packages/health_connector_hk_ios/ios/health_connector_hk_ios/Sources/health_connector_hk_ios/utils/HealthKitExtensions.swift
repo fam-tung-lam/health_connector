@@ -246,6 +246,8 @@ extension HKSample {
                         return .atrialFibrillationBurden
                     case HKQuantityTypeIdentifier.numberOfTimesFallen.rawValue:
                         return .numberOfTimesFallen
+                    case HKQuantityTypeIdentifier.heartRateRecoveryOneMinute.rawValue:
+                        return .heartRateRecoveryOneMinute
                     case HKCategoryTypeIdentifier.infrequentMenstrualCycles.rawValue:
                         return .infrequentMenstrualCycleEvent
                     case HKCategoryTypeIdentifier.irregularMenstrualCycles.rawValue:

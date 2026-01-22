@@ -194,8 +194,9 @@ abstract final class AppTexts {
       BodyWaterMassDataType() => bodyWaterMass,
       HeartRateVariabilityRMSSDDataType() => heartRateVariabilityRMSSD,
       BodyMassIndexDataType() => bodyMassIndex,
-      WaistCircumferenceDataType() => waistCircumference,
-      HeartRateVariabilitySDNNDataType() => heartRateVariabilitySDNN,
+      HeartRateRecoveryOneMinuteDataType _ => heartRateRecoveryOneMinute,
+      HeartRateVariabilitySDNNDataType _ => heartRateVariabilitySDNN,
+      WaistCircumferenceDataType _ => waistCircumference,
       ActivityIntensityDataType() => activityIntensity,
       ExerciseTimeDataType() => exerciseTime,
       MoveTimeDataType() => moveTime,
@@ -434,8 +435,9 @@ abstract final class AppTexts {
   static const String bodyWaterMass = 'Body Water Mass';
   static const String heartRateVariabilityRMSSD =
       'Heart Rate Variability (RMSSD)';
-  static const String heartRateVariabilitySDNN =
-      'Heart Rate Variability (SDNN)';
+  static const String heartRateRecoveryOneMinute =
+      'Heart Rate Recovery (1 min)';
+  static const String heartRateVariabilitySDNN = 'Heart Rate Variability SDNN';
   static const String cervicalMucus = 'Cervical Mucus';
   static const String hydration = 'Hydration';
   static const String bloodPressure = 'Blood Pressure';

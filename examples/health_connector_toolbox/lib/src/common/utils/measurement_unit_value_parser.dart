@@ -32,6 +32,7 @@ abstract class MeasurementUnitValueParser {
       LowHeartRateEventDataType() ||
       IrregularHeartRhythmEventDataType() ||
       HighHeartRateEventDataType() ||
+      HeartRateRecoveryOneMinuteDataType() ||
       WalkingHeartRateAverageDataType() => _parseFrequency(value),
 
       // Mass types (kilograms)

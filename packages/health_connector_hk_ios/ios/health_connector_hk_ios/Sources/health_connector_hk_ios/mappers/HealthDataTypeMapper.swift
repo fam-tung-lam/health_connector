@@ -64,6 +64,19 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .restingHeartRate)
         case .walkingHeartRateAverage:
             try HKQuantityType.make(from: .walkingHeartRateAverage)
+        case .heartRateRecoveryOneMinute:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .heartRateRecoveryOneMinute)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Heart rate recovery one minute is only supported on iOS 16.0 and later",
+                    context: [
+                        "dataType": "heartRateRecoveryOneMinute",
+                        "minimumIOSVersion": "16.0",
+                    ]
+                )
+            }
         case .oxygenSaturation:
             try HKQuantityType.make(from: .oxygenSaturation)
         case .respiratoryRate:

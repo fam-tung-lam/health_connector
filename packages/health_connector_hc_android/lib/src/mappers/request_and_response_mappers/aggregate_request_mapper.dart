@@ -164,6 +164,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case PersistentIntermenstrualBleedingEventDataType _:
           case ProlongedMenstrualPeriodEventDataType _:
           case AtrialFibrillationBurdenDataType _:
+          case HeartRateRecoveryOneMinuteDataType _:
           case WalkingHeartRateAverageDataType _:
           case NumberOfTimesFallenDataType _:
           case ElectrodermalActivityDataType _:

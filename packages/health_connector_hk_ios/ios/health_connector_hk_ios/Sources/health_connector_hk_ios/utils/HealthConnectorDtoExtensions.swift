@@ -206,6 +206,8 @@ extension HealthRecordDto {
             record.id
         case let record as WalkingHeartRateAverageRecordDto:
             record.id
+        case let record as HeartRateRecoveryOneMinuteRecordDto:
+            record.id
         case let record as NumberOfTimesFallenRecordDto:
             record.id
         default:
@@ -429,6 +431,8 @@ extension HealthRecordDto {
                 return .atrialFibrillationBurden
             case is WalkingHeartRateAverageRecordDto:
                 return .walkingHeartRateAverage
+            case is HeartRateRecoveryOneMinuteRecordDto:
+                return .heartRateRecoveryOneMinute
             case is NumberOfTimesFallenRecordDto:
                 return .numberOfTimesFallen
             default:
@@ -640,6 +644,8 @@ extension HealthRecordDto {
         case let dto as AtrialFibrillationBurdenRecordDto:
             return dto.endTime
         case let dto as WalkingHeartRateAverageRecordDto:
+            return dto.endTime
+        case let dto as HeartRateRecoveryOneMinuteRecordDto:
             return dto.endTime
         case let dto as NumberOfTimesFallenRecordDto:
             return dto.endTime

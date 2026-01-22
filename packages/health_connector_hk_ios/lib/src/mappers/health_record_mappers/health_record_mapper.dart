@@ -25,6 +25,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_vital_capacity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/atrial_fibrillation_burden_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_recovery_one_minute_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_variability_sdnn_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/resting_heart_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/walking_heart_rate_average_record_mapper.dart';
@@ -194,6 +195,8 @@ extension HealthRecordToDto on HealthRecord {
         return WheelchairPushesRecordToDto(record).toDto();
       case final HeartRateRecord record:
         return HeartRateRecordToDto(record).toDto();
+      case final HeartRateRecoveryOneMinuteRecord record:
+        return HeartRateRecoveryOneMinuteRecordToDto(record).toDto();
       case final CyclingPedalingCadenceRecord record:
         return CyclingPedalingCadenceRecordToDto(record).toDto();
       case final SexualActivityRecord record:
@@ -522,6 +525,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return WheelchairPushesRecordDtoToDomain(dto).toDomain();
       case final HeartRateRecordDto dto:
         return HeartRateRecordDtoToDomain(dto).toDomain();
+      case final HeartRateRecoveryOneMinuteRecordDto dto:
+        return HeartRateRecoveryOneMinuteRecordDtoToDomain(dto).toDomain();
       case final CyclingPedalingCadenceRecordDto dto:
         return CyclingPedalingCadenceRecordDtoToDomain(
           dto,

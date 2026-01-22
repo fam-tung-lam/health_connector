@@ -45,6 +45,7 @@ extension HealthDataTypeUI on HealthDataType {
       ElectrodermalActivityDataType _ => 'Electrodermal Activity',
       InhalerUsageDataType _ => 'Inhaler Usage',
       HydrationDataType _ => AppTexts.hydration,
+      HeartRateRecoveryOneMinuteDataType _ => 'Heart Rate Recovery (1 min)',
       InsulinDeliveryDataType _ => 'Insulin Delivery',
       HeartRateDataType _ => AppTexts.heartRate,
       HeartRateSeriesDataType _ => AppTexts.heartRate,
@@ -316,6 +317,8 @@ extension HealthDataTypeUI on HealthDataType {
         'Percentage of time the heart shows signs of atrial fibrillation',
       WalkingHeartRateAverageDataType _ =>
         AppTexts.walkingHeartRateAverageDescription,
+      HeartRateRecoveryOneMinuteDataType _ =>
+        'Heart rate reduction one minute after exercise',
       NumberOfTimesFallenDataType _ =>
         'The number of times the user has fallen',
     };
@@ -456,6 +459,7 @@ extension HealthDataTypeUI on HealthDataType {
       ProlongedMenstrualPeriodEventDataType _ => AppIcons.waterDrop,
       AtrialFibrillationBurdenDataType _ => AppIcons.favorite,
       WalkingHeartRateAverageDataType _ => AppIcons.favorite,
+      HeartRateRecoveryOneMinuteDataType _ => AppIcons.favorite,
       NumberOfTimesFallenDataType _ => AppIcons.warning,
     };
   }
@@ -484,6 +488,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (WalkingSteadinessEventDataType) ||
       const (ProlongedMenstrualPeriodEventDataType) ||
       const (WalkingHeartRateAverageDataType) ||
+      const (HeartRateRecoveryOneMinuteDataType) ||
       const (NumberOfTimesFallenDataType) => TextInputType.number,
 
       // Percentage types - Decimal
@@ -542,6 +547,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (WalkingHeartRateAverageDataType) => AppTexts.valueWithUnit(
         AppTexts.walkingHeartRateAverage,
+        AppTexts.bpm,
+      ),
+      const (HeartRateRecoveryOneMinuteDataType) => AppTexts.valueWithUnit(
+        'Heart Rate Recovery',
         AppTexts.bpm,
       ),
       const (NumberOfTimesFallenDataType) => AppTexts.numberOfTimesFallen,

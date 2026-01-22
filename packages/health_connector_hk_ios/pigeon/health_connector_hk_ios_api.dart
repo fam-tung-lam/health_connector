@@ -803,6 +803,9 @@ enum HealthDataTypeDto {
   /// Number of times fallen.
   numberOfTimesFallen,
 
+  /// Heart Rate Recovery (1 minute) data (iOS only).
+  heartRateRecoveryOneMinute,
+
   /// Cross-country skiing distance (iOS 18+).
 
   /// Cross-country skiing distance (iOS 18+).
@@ -3065,6 +3068,29 @@ class CyclingPedalingCadenceRecordDto extends HealthRecordDto {
 
   /// Metadata for this record.
   final MetadataDto metadata;
+}
+
+/// Represents a heart rate recovery measurement in one minute.
+///
+/// Maps to iOS HKQuantityTypeIdentifier.heartRateRecoveryOneMinute.
+class HeartRateRecoveryOneMinuteRecordDto extends HealthRecordDto {
+  HeartRateRecoveryOneMinuteRecordDto({
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.heartRateCount,
+    this.id,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  final String? id;
+  final int startTime;
+  final int endTime;
+  final int? startZoneOffsetSeconds;
+  final int? endZoneOffsetSeconds;
+  final MetadataDto metadata;
+  final double heartRateCount;
 }
 
 /// Represents a sleep stage record for platform transfer.

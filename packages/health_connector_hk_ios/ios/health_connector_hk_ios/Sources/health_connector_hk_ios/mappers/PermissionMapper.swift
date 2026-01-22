@@ -49,6 +49,7 @@ extension HealthDataPermissionDto {
              .weight,
              .wheelchairPushes,
              .heartRateMeasurementRecord,
+             .heartRateRecoveryOneMinute,
              .restingHeartRate,
              .sleepStageRecord,
              .sleepStage,

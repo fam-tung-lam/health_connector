@@ -445,6 +445,11 @@ extension HealthRecordToDto on HealthRecord {
           '$HeartRateRecord is not supported on Android. '
           'Use $HeartRateSeriesRecord instead.',
         );
+      case HeartRateRecoveryOneMinuteRecord():
+        throw UnsupportedError(
+          '$HeartRateRecoveryOneMinuteRecord is not supported on '
+          'Android Health Connect.',
+        );
       case final SystolicBloodPressureRecord _:
         throw UnsupportedError(
           '$SystolicBloodPressureRecord is not supported on '
