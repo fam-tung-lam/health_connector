@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Sexual activity records track occurrences of sexual activity with optional
 /// information about whether protection was used.
 ///
-/// ## Measurement Unit
-///
-/// Duration is measured in [TimeDuration] (seconds, minutes, hours).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`SexualActivityRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SexualActivityRecord)
@@ -57,7 +53,7 @@ part of 'health_data_type.dart';
 @sinceV2_1_0
 @immutable
 final class SexualActivityDataType
-    extends HealthDataType<SexualActivityRecord, TimeDuration>
+    extends HealthDataType<SexualActivityRecord, MeasurementUnit>
     implements
         ReadableByIdHealthDataType<SexualActivityRecord>,
         ReadableInTimeRangeHealthDataType<SexualActivityRecord>,

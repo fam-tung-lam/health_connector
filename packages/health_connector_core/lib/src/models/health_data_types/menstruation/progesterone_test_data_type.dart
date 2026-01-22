@@ -49,7 +49,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class ProgesteroneTestDataType
-    extends HealthDataType<ProgesteroneTestRecord, TimeDuration>
+    extends HealthDataType<ProgesteroneTestRecord, MeasurementUnit>
     implements
         ReadableByIdHealthDataType<ProgesteroneTestRecord>,
         ReadableInTimeRangeHealthDataType<ProgesteroneTestRecord>,

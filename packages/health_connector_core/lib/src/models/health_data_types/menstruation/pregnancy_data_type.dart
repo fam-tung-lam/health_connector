@@ -47,7 +47,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class PregnancyDataType
-    extends HealthDataType<PregnancyRecord, TimeDuration>
+    extends HealthDataType<PregnancyRecord, MeasurementUnit>
     implements
         ReadableByIdHealthDataType<PregnancyRecord>,
         ReadableInTimeRangeHealthDataType<PregnancyRecord>,

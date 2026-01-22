@@ -34,7 +34,7 @@ part of '../health_data_type.dart';
 @readOnly
 @immutable
 final class IrregularHeartRhythmEventDataType
-    extends HealthDataType<IrregularHeartRhythmEventRecord, Frequency>
+    extends HealthDataType<IrregularHeartRhythmEventRecord, MeasurementUnit>
     implements
         ReadableByIdHealthDataType<IrregularHeartRhythmEventRecord>,
         ReadableInTimeRangeHealthDataType<IrregularHeartRhythmEventRecord> {

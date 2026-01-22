@@ -56,7 +56,7 @@ part of '../health_data_type.dart';
 @sinceV2_2_0
 @immutable
 final class IntermenstrualBleedingDataType
-    extends HealthDataType<IntermenstrualBleedingRecord, TimeDuration>
+    extends HealthDataType<IntermenstrualBleedingRecord, MeasurementUnit>
     implements
         ReadableByIdHealthDataType<IntermenstrualBleedingRecord>,
         ReadableInTimeRangeHealthDataType<IntermenstrualBleedingRecord>,
