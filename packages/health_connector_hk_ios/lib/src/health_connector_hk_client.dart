@@ -764,7 +764,8 @@ extension on double {
       HealthDataTypeDto.inhalerUsage => Number(this),
       HealthDataTypeDto.exerciseTime ||
       HealthDataTypeDto.moveTime ||
-      HealthDataTypeDto.standTime => TimeDuration.seconds(this),
+      HealthDataTypeDto.standTime ||
+      HealthDataTypeDto.runningGroundContactTime => TimeDuration.seconds(this),
       HealthDataTypeDto.activeCaloriesBurned ||
       HealthDataTypeDto.basalEnergyBurned ||
       HealthDataTypeDto.dietaryEnergyConsumed => Energy.kilocalories(this),
@@ -783,7 +784,8 @@ extension on double {
       HealthDataTypeDto.crossCountrySkiingDistance ||
       HealthDataTypeDto.skatingSportsDistance ||
       HealthDataTypeDto.sixMinuteWalkTestDistance ||
-      HealthDataTypeDto.walkingStepLength => Length.meters(this),
+      HealthDataTypeDto.walkingStepLength ||
+      HealthDataTypeDto.runningStrideLength => Length.meters(this),
       HealthDataTypeDto.weight ||
       HealthDataTypeDto.leanBodyMass ||
       HealthDataTypeDto.calcium ||

@@ -131,6 +131,8 @@ part 'sexual_activity_data_type.dart';
 part 'sleep/sleep_session_data_type.dart';
 part 'sleep/sleep_stage_record_data_type.dart';
 part 'speed/running_speed_data_type.dart';
+part 'running/running_ground_contact_time_data_type.dart';
+part 'running/running_stride_length_data_type.dart';
 part 'speed/speed_activity_data_type.dart';
 part 'speed/speed_series_data_type.dart';
 part 'speed/stair_ascent_speed_data_type.dart';
@@ -340,6 +342,19 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   @supportedOnAppleHealthIOS16Plus
   static const runningSpeed = RunningSpeedDataType();
+
+  /// Running stride length data type.
+  ///
+  /// Tracks the amount of time the foot is in contact with the ground during
+  /// running.
+  @sinceV3_5_0
+  @supportedOnAppleHealthIOS16Plus
+  static const runningGroundContactTime = RunningGroundContactTimeDataType();
+
+  /// Represents the distance covered by a single step while running.
+  @sinceV3_5_0
+  @supportedOnAppleHealthIOS16Plus
+  static const runningStrideLength = RunningStrideLengthDataType();
 
   /// Stair ascent speed data type.
   @sinceV2_0_0
@@ -1319,8 +1334,10 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     respiratoryRate,
     restingHeartRate,
     rowingDistance,
+    runningGroundContactTime,
     runningPower,
     runningSpeed,
+    runningStrideLength,
     sexualActivity,
     sixMinuteWalkTestDistance,
     skatingSportsDistance,

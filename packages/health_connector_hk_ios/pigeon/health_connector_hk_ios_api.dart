@@ -800,6 +800,12 @@ enum HealthDataTypeDto {
   /// Paddle sports distance (iOS 18+).
   paddleSportsDistance,
 
+  /// Running ground contact time (iOS 16+).
+  runningGroundContactTime,
+
+  /// Running stride length (iOS 16+).
+  runningStrideLength,
+
   /// Number of times fallen.
   numberOfTimesFallen,
 
@@ -1971,6 +1977,74 @@ class WalkingStepLengthRecordDto extends HealthRecordDto {
 
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a running stride length record for platform transfer.
+/// Running ground contact time record DTO (iOS 16+).
+class RunningGroundContactTimeRecordDto extends HealthRecordDto {
+  RunningGroundContactTimeRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.seconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// The running ground contact time in seconds.
+  final double seconds;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+class RunningStrideLengthRecordDto extends HealthRecordDto {
+  RunningStrideLengthRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.strideLength,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// The running stride length in meters.
+  final double strideLength;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;

@@ -256,6 +256,10 @@ extension HKSample {
                         return .persistentIntermenstrualBleedingEvent
                     case HKCategoryTypeIdentifier.prolongedMenstrualPeriods.rawValue:
                         return .prolongedMenstrualPeriodEvent
+                    case HKQuantityTypeIdentifier.runningGroundContactTime.rawValue:
+                        return .runningGroundContactTime
+                    case HKQuantityTypeIdentifier.runningStrideLength.rawValue:
+                        return .runningStrideLength
                     default:
                         break
                     }

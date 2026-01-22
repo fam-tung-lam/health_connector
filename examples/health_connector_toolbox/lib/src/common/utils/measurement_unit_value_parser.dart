@@ -102,7 +102,8 @@ abstract class MeasurementUnitValueParser {
       SwimmingDistanceDataType() ||
       WheelchairDistanceDataType() ||
       WalkingRunningDistanceDataType() ||
-      WalkingStepLengthDataType() => _parseLength(value),
+      WalkingStepLengthDataType() ||
+      RunningStrideLengthDataType() => _parseLength(value),
 
       // Blood Glucose
       BloodGlucoseDataType() => _parseBloodGlucose(value),
@@ -135,9 +136,10 @@ abstract class MeasurementUnitValueParser {
       // Double Number types
       BodyMassIndexDataType() => _parseDoubleNumber(value),
 
-      // Time duration types (HRV)
+      // Time duration types (milliseconds)
       HeartRateVariabilityRMSSDDataType() ||
-      HeartRateVariabilitySDNNDataType() => _parseTimeDuration(value),
+      HeartRateVariabilitySDNNDataType() ||
+      RunningGroundContactTimeDataType() => _parseTimeDuration(value),
 
       // Time duration (Minutes)
       ExerciseTimeDataType() ||

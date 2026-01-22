@@ -180,6 +180,10 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.paddleSportsDistance;
       case HealthDataTypeDto.crossCountrySkiingDistance:
         return HealthDataType.crossCountrySkiingDistance;
+      case HealthDataTypeDto.runningGroundContactTime:
+        return HealthDataType.runningGroundContactTime;
+      case HealthDataTypeDto.runningStrideLength:
+        return HealthDataType.runningStrideLength;
       case HealthDataTypeDto.skatingSportsDistance:
         return HealthDataType.skatingSportsDistance;
       case HealthDataTypeDto.sixMinuteWalkTestDistance:
@@ -467,6 +471,10 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.walkingDoubleSupportPercentage;
       case WalkingStepLengthDataType _:
         return HealthDataTypeDto.walkingStepLength;
+      case RunningGroundContactTimeDataType _:
+        return HealthDataTypeDto.runningGroundContactTime;
+      case RunningStrideLengthDataType _:
+        return HealthDataTypeDto.runningStrideLength;
       case IrregularHeartRhythmEventDataType _:
         return HealthDataTypeDto.irregularHeartRhythmEvent;
       case InfrequentMenstrualCycleEventDataType _:

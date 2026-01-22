@@ -412,6 +412,24 @@ extension HealthDataTypeDto {
             }
         case .numberOfTimesFallen:
             try HKQuantityType.make(from: .numberOfTimesFallen)
+        case .runningGroundContactTime:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .runningGroundContactTime)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Running ground contact time is only supported on iOS 16.0 and later",
+                    context: ["dataType": "runningGroundContactTime", "minimumIOSVersion": "16.0"]
+                )
+            }
+        case .runningStrideLength:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .runningStrideLength)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Running stride length is only supported on iOS 16.0 and later",
+                    context: ["dataType": "runningStrideLength", "minimumIOSVersion": "16.0"]
+                )
+            }
         }
     }
 }

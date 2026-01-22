@@ -147,6 +147,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.prolongedMenstrualPeriodEvent,
       AtrialFibrillationBurdenDataType _ => AppTexts.atrialFibrillationBurden,
       WalkingHeartRateAverageDataType _ => AppTexts.walkingHeartRateAverage,
+      RunningGroundContactTimeDataType _ => 'Running Ground Contact Time',
+      RunningStrideLengthDataType _ => AppTexts.runningStrideLength,
       NumberOfTimesFallenDataType _ => AppTexts.numberOfTimesFallen,
     };
   }
@@ -317,6 +319,9 @@ extension HealthDataTypeUI on HealthDataType {
         'Percentage of time the heart shows signs of atrial fibrillation',
       WalkingHeartRateAverageDataType _ =>
         AppTexts.walkingHeartRateAverageDescription,
+      RunningGroundContactTimeDataType _ =>
+        'Amount of time the foot is in contact with the ground during running',
+      RunningStrideLengthDataType _ => AppTexts.runningStrideLengthDescription,
       HeartRateRecoveryOneMinuteDataType _ =>
         'Heart rate reduction one minute after exercise',
       NumberOfTimesFallenDataType _ =>
@@ -459,6 +464,8 @@ extension HealthDataTypeUI on HealthDataType {
       ProlongedMenstrualPeriodEventDataType _ => AppIcons.waterDrop,
       AtrialFibrillationBurdenDataType _ => AppIcons.favorite,
       WalkingHeartRateAverageDataType _ => AppIcons.favorite,
+      RunningGroundContactTimeDataType _ => AppIcons.runCircle,
+      RunningStrideLengthDataType _ => AppIcons.runCircle,
       HeartRateRecoveryOneMinuteDataType _ => AppIcons.favorite,
       NumberOfTimesFallenDataType _ => AppIcons.warning,
     };

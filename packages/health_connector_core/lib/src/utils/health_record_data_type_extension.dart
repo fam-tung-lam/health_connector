@@ -165,6 +165,9 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       WalkingDoubleSupportPercentageRecord _ =>
         HealthDataType.walkingDoubleSupportPercentage,
       WalkingStepLengthRecord _ => HealthDataType.walkingStepLength,
+      RunningGroundContactTimeRecord _ =>
+        HealthDataType.runningGroundContactTime,
+      RunningStrideLengthRecord _ => HealthDataType.runningStrideLength,
       HeartRateVariabilitySDNNRecord _ =>
         HealthDataType.heartRateVariabilitySDNN,
       PeripheralPerfusionIndexRecord _ =>

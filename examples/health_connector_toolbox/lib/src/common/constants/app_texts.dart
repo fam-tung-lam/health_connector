@@ -206,6 +206,8 @@ abstract final class AppTexts {
       WalkingDoubleSupportPercentageDataType() =>
         walkingDoubleSupportPercentage,
       WalkingStepLengthDataType() => walkingStepLength,
+      RunningStrideLengthDataType() => runningStrideLength,
+      RunningGroundContactTimeDataType() => runningGroundContactTime,
       IrregularHeartRhythmEventDataType() => 'Irregular Heart Rhythm Event',
       WalkingSteadinessEventDataType() => walkingSteadinessEvent,
       IrregularMenstrualCycleEventDataType() => irregularMenstrualCycleEvent,
@@ -371,6 +373,12 @@ abstract final class AppTexts {
   static const String walkingStepLengthDescription =
       'Distance between the heel of one foot and the heel of the other foot '
       'while walking.';
+  static const String runningStrideLength = 'Running Stride Length';
+  static const String runningStrideLengthDescription =
+      'Distance covered by a single step while running.';
+  static const String runningGroundContactTime = 'Running Ground Contact Time';
+  static const String runningGroundContactTimeDescription =
+      'Amount of time the foot is in contact with the ground during running.';
 
   // region Health Data Type Categories
   static const String activityCategory = 'Activity';

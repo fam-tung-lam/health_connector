@@ -464,6 +464,16 @@ extension HealthDataTypeToDto on HealthDataType {
           '$InhalerUsageDataType is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case RunningStrideLengthDataType():
+        throw UnsupportedError(
+          '$RunningStrideLengthDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
+      case RunningGroundContactTimeDataType():
+        throw UnsupportedError(
+          '$RunningGroundContactTimeDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

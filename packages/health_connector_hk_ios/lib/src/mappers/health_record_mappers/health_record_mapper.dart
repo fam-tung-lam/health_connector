@@ -84,6 +84,8 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/periph
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/cycling_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/running_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/running/running_ground_contact_time_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/running/running_stride_length_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sexual_activity/sexual_activity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep/sleep_stage_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/speed/speed_activity_record_mapper.dart';
@@ -335,6 +337,10 @@ extension HealthRecordToDto on HealthRecord {
         return WalkingDoubleSupportPercentageRecordToDto(record).toDto();
       case final WalkingStepLengthRecord record:
         return WalkingStepLengthRecordToDto(record).toDto();
+      case final RunningGroundContactTimeRecord record:
+        return RunningGroundContactTimeRecordToDto(record).toDto();
+      case final RunningStrideLengthRecord record:
+        return RunningStrideLengthRecordToDto(record).toDto();
       case final NumberOfTimesFallenRecord record:
         return NumberOfTimesFallenRecordToDto(record).toDto();
 
@@ -675,6 +681,10 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return WalkingDoubleSupportPercentageRecordDtoToDomain(dto).toDomain();
       case final WalkingStepLengthRecordDto dto:
         return WalkingStepLengthRecordDtoToDomain(dto).toDomain();
+      case final RunningGroundContactTimeRecordDto dto:
+        return RunningGroundContactTimeRecordDtoToDomain(dto).toDomain();
+      case final RunningStrideLengthRecordDto dto:
+        return RunningStrideLengthRecordDtoToDomain(dto).toDomain();
       case final WalkingSteadinessEventRecordDto dto:
         return WalkingSteadinessEventRecordDtoMapper(dto).toDomain();
       case final PersistentIntermenstrualBleedingEventRecordDto dto:

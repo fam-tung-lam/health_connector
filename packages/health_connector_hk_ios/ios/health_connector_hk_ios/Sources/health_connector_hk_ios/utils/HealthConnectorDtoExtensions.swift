@@ -210,6 +210,8 @@ extension HealthRecordDto {
             record.id
         case let record as NumberOfTimesFallenRecordDto:
             record.id
+        case let record as RunningStrideLengthRecordDto:
+            record.id
         default:
             nil
         }
@@ -435,6 +437,10 @@ extension HealthRecordDto {
                 return .heartRateRecoveryOneMinute
             case is NumberOfTimesFallenRecordDto:
                 return .numberOfTimesFallen
+            case is RunningGroundContactTimeRecordDto:
+                return .runningGroundContactTime
+            case is RunningStrideLengthRecordDto:
+                return .runningStrideLength
             default:
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -648,6 +654,8 @@ extension HealthRecordDto {
         case let dto as HeartRateRecoveryOneMinuteRecordDto:
             return dto.endTime
         case let dto as NumberOfTimesFallenRecordDto:
+            return dto.endTime
+        case let dto as RunningStrideLengthRecordDto:
             return dto.endTime
         default:
             throw HealthConnectorError.invalidArgument(

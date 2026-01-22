@@ -604,6 +604,16 @@ extension HealthRecordToDto on HealthRecord {
           'Android Health Connect.',
         );
 
+      case RunningStrideLengthRecord():
+        throw UnsupportedError(
+          '$RunningStrideLengthRecord is not supported on Android '
+          'Health Connect.',
+        );
+      case RunningGroundContactTimeRecord():
+        throw UnsupportedError(
+          '$RunningGroundContactTimeRecord is not supported on Android '
+          'Health Connect.',
+        );
       // endregion
       case CrossCountrySkiingDistanceRecord():
         throw UnsupportedError(

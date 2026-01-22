@@ -43,6 +43,8 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/persistent_intermenstrual_bleeding_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/pregnancy_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/prolonged_menstrual_period_event_record_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/running_ground_contact_time_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/running_stride_length_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/simple_interval_measurement_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_session_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_stage_list_tile.dart';
@@ -307,6 +309,15 @@ final class HealthRecordListTile extends StatelessWidget {
         icon: AppIcons.runCircle,
         titleBuilder: (r) => '${r.power.inWatts.toStringAsFixed(1)} W',
         valueExtractor: (r) => r.power,
+        onDelete: onDelete,
+      ),
+      final RunningGroundContactTimeRecord r =>
+        RunningGroundContactTimeRecordListTile(
+          record: r,
+          onDelete: onDelete,
+        ),
+      final RunningStrideLengthRecord r => RunningStrideLengthRecordListTile(
+        record: r,
         onDelete: onDelete,
       ),
 

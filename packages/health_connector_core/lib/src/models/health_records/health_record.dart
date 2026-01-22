@@ -149,6 +149,8 @@ part 'sleep/sleep_session_record.dart';
 part 'sleep/sleep_stage.dart';
 part 'sleep/sleep_stage_record.dart';
 part 'speed/running_speed_record.dart';
+part 'running/running_ground_contact_time_record.dart';
+part 'running/running_stride_length_record.dart';
 part 'speed/speed_activity_record.dart';
 part 'speed/speed_series_record.dart';
 part 'speed/stair_ascent_speed_record.dart';

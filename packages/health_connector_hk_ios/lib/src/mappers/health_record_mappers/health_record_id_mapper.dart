@@ -2,7 +2,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
     show HealthRecordId;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [HealthRecordId] to [String] for DTO transfer.
+/// Converts [HealthRecordId] to nullable [String] for DTO transfer.
 @internal
 extension HealthRecordIdFromDomainToDto on HealthRecordId {
   String toDto() => value;

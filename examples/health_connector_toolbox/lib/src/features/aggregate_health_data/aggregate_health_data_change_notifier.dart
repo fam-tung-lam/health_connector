@@ -225,6 +225,36 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      RunningStrideLengthDataType() => _buildAvgMinMax(
+        () => HealthDataType.runningStrideLength.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.runningStrideLength.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.runningStrideLength.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      RunningGroundContactTimeDataType() => _buildAvgMinMax(
+        () => HealthDataType.runningGroundContactTime.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.runningGroundContactTime.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.runningGroundContactTime.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       AtrialFibrillationBurdenDataType() => _buildAvgMinMax(
         () => HealthDataType.atrialFibrillationBurden.aggregateAvg(
           startTime: startTime,
