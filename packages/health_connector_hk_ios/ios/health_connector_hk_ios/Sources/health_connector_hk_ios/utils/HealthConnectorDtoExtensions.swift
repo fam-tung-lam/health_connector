@@ -36,6 +36,8 @@ extension HealthRecordDto {
             record.id
         case let record as HeightRecordDto:
             record.id
+        case let record as ElectrodermalActivityRecordDto:
+            record.id
         case let record as HydrationRecordDto:
             record.id
         case let record as InsulinDeliveryRecordDto:

@@ -844,6 +844,9 @@ enum HealthDataTypeDto {
   /// Wheelchair pushes data.
   wheelchairPushes,
 
+  /// Electrodermal activity data (iOS only).
+  electrodermalActivity,
+
   /// Hydration (water intake) data.
   hydration,
 
@@ -2853,6 +2856,40 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for measurement time.
   final int? zoneOffsetSeconds;
+}
+
+/// Represents an electrodermal activity record for platform transfer.
+class ElectrodermalActivityRecordDto extends HealthRecordDto {
+  ElectrodermalActivityRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.conductance,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Skin conductance in microsiemens.
+  final double conductance;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a hydration (water intake) record for platform transfer.

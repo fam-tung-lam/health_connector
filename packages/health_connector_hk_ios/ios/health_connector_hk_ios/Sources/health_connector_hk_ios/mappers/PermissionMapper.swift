@@ -36,6 +36,7 @@ extension HealthDataPermissionDto {
              .sixMinuteWalkTestDistance,
              .floorsClimbed,
              .height,
+             .electrodermalActivity,
              .hydration,
              .insulinDelivery,
              .leanBodyMass,

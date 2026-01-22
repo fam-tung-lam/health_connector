@@ -4,20 +4,21 @@ import 'package:test/test.dart';
 
 void main() {
   group(
-    'InsulinDeliveryDataType',
+    'ElectrodermalActivityDataType',
     () {
-      const dataType = HealthDataType.insulinDelivery;
+      const dataType = HealthDataType.electrodermalActivity;
+
       test(
         'has correct id',
         () {
-          expect(dataType.id, equals('insulin_delivery'));
+          expect(dataType.id, equals('electrodermal_activity'));
         },
       );
 
       test(
         'type and capabilities are correctly defined',
         () {
-          expect(dataType, isA<InsulinDeliveryDataType>());
+          expect(dataType, isA<ElectrodermalActivityDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<ReadableByIdHealthDataType>());
           expect(dataType, isA<ReadableInTimeRangeHealthDataType>());
@@ -80,7 +81,7 @@ void main() {
         () {
           expect(
             dataType.category,
-            equals(HealthDataTypeCategory.clinical),
+            equals(HealthDataTypeCategory.vitals),
           );
         },
       );

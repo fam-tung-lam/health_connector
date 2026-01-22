@@ -39,6 +39,8 @@ extension HealthRecordDto {
             return try dto.toHKQuantitySample()
         case let dto as HeightRecordDto:
             return try dto.toHKQuantitySample()
+        case let dto as ElectrodermalActivityRecordDto:
+            return try dto.toHKQuantitySample()
         case let dto as HydrationRecordDto:
             return try dto.toHKQuantitySample()
         case let dto as InsulinDeliveryRecordDto:
@@ -414,6 +416,8 @@ extension HKQuantitySample {
             try toFloorsClimbedRecordDto()
         case .heartRateMeasurementRecord:
             try toHeartRateRecordDto()
+        case .electrodermalActivity:
+            try toElectrodermalActivityRecordDto()
         case .hydration:
             try toHydrationRecordDto()
         case .insulinDelivery:

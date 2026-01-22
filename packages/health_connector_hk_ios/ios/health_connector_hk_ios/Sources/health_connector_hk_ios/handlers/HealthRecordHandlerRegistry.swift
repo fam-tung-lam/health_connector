@@ -83,6 +83,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(BasalEnergyBurnedHandler(healthStore: healthStore))
         register(FloorsClimbedHandler(healthStore: healthStore))
         register(WheelchairPushesHandler(healthStore: healthStore))
+        register(ElectrodermalActivityHandler(healthStore: healthStore))
         register(HydrationHandler(healthStore: healthStore))
         register(InsulinDeliveryHandler(healthStore: healthStore))
         register(WeightHandler(healthStore: healthStore))

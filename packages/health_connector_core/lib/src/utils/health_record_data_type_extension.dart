@@ -79,6 +79,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       FloorsClimbedRecord _ => HealthDataType.floorsClimbed,
       WheelchairPushesRecord _ => HealthDataType.wheelchairPushes,
       LeanBodyMassRecord _ => HealthDataType.leanBodyMass,
+      ElectrodermalActivityRecord _ => HealthDataType.electrodermalActivity,
       HydrationRecord _ => HealthDataType.hydration,
       InsulinDeliveryRecord _ => HealthDataType.insulinDelivery,
       BloodPressureRecord _ => HealthDataType.bloodPressure,

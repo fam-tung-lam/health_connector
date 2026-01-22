@@ -38,6 +38,7 @@ abstract final class AppIcons {
   static const IconData runCircle = Icons.run_circle;
   static const IconData terrain = Icons.terrain;
   static const IconData pool = Icons.pool;
+  static const IconData sensors = Icons.sensors;
 
   // Permissions & Security
   static const IconData lockOutline = Icons.lock_outline;

@@ -1,28 +1,28 @@
 part of 'health_record.dart';
 
-/// Represents a record of the number of times the user has fallen.
+/// Represents an electrodermal activity record over a time interval.
 ///
-/// [NumberOfTimesFallenRecord] tracks the number of times the user fell during
-/// a specific time period.
+/// [ElectrodermalActivityRecord] tracks skin conductance measurements, which
+/// increase as sweat gland activity increases.
 ///
 /// ## See also
 ///
-/// - [NumberOfTimesFallenDataType]
+/// - [ElectrodermalActivityDataType]
 ///
 /// {@category Health Records}
 @sinceV3_5_0
 @supportedOnAppleHealth
 @immutable
-final class NumberOfTimesFallenRecord extends IntervalHealthRecord {
-  /// Minimum valid count (0).
-  static const Number minCount = Number.zero;
+final class ElectrodermalActivityRecord extends IntervalHealthRecord {
+  /// Minimum valid conductance (0 microsiemens).
+  static const Number minConductance = Number.zero;
 
-  /// Maximum valid count (100).
+  /// Maximum valid conductance (100 microsiemens).
   ///
-  /// Represents a safety margin.
-  static const Number maxCount = Number(100);
+  /// Typical range is 0-30 microsiemens; this provides safety margin.
+  static const Number maxConductance = Number(100);
 
-  /// Creates a number of times fallen record.
+  /// Creates an electrodermal activity record.
   ///
   /// ## Parameters
   ///
@@ -32,50 +32,52 @@ final class NumberOfTimesFallenRecord extends IntervalHealthRecord {
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
   /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [count]: The number of times fallen (must be >= 0).
+  /// - [conductance]: The skin conductance in microsiemens
+  ///   (must be >= 0 and <= 100).
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [count] is negative.
+  /// - [ArgumentError] if [conductance] is outside valid range.
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  NumberOfTimesFallenRecord({
+  ElectrodermalActivityRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,
-    required this.count,
+    required this.conductance,
     super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
     require(
-      condition: count >= minCount && count <= maxCount,
-      value: count,
-      name: 'count',
+      condition: conductance >= minConductance && conductance <= maxConductance,
+      value: conductance,
+      name: 'conductance',
       message:
-          'Count must be between ${minCount.value.toInt()}-'
-          '${maxCount.value.toInt()}. '
-          'Got ${count.value.toInt()}.',
+          'Conductance must be between ${minConductance.value}-'
+          '${maxConductance.value} microsiemens. '
+          'Got ${conductance.value}.',
     );
   }
 
-  /// Internal factory for creating [NumberOfTimesFallenRecord] instances
+  /// Internal factory for creating [ElectrodermalActivityRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use.
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [ElectrodermalActivityRecord] constructor, which enforces validation.
   @internalUse
-  factory NumberOfTimesFallenRecord.internal({
+  factory ElectrodermalActivityRecord.internal({
     required HealthRecordId id,
     required DateTime startTime,
     required DateTime endTime,
-    required Number count,
+    required Number conductance,
     required Metadata metadata,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
   }) {
-    return NumberOfTimesFallenRecord._(
+    return ElectrodermalActivityRecord._(
       startTime: startTime,
       endTime: endTime,
-      count: count,
+      conductance: conductance,
       metadata: metadata,
       id: id,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -84,33 +86,35 @@ final class NumberOfTimesFallenRecord extends IntervalHealthRecord {
   }
 
   /// Private constructor without validation.
-  NumberOfTimesFallenRecord._({
+  ElectrodermalActivityRecord._({
     required super.startTime,
     required super.endTime,
     required super.metadata,
-    required this.count,
+    required this.conductance,
     super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
 
-  /// The number of times fallen.
-  final Number count;
+  /// The skin conductance measurement in microsiemens.
+  ///
+  /// Must be between 0 and 100 microsiemens.
+  final Number conductance;
 
   /// Creates a copy with the given fields replaced with the new values.
-  NumberOfTimesFallenRecord copyWith({
+  ElectrodermalActivityRecord copyWith({
     DateTime? startTime,
     DateTime? endTime,
-    Number? count,
+    Number? conductance,
     Metadata? metadata,
     HealthRecordId? id,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
   }) {
-    return NumberOfTimesFallenRecord(
+    return ElectrodermalActivityRecord(
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
-      count: count ?? this.count,
+      conductance: conductance ?? this.conductance,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       startZoneOffsetSeconds:
@@ -122,14 +126,14 @@ final class NumberOfTimesFallenRecord extends IntervalHealthRecord {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is NumberOfTimesFallenRecord &&
+      other is ElectrodermalActivityRecord &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           startTime == other.startTime &&
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          count == other.count &&
+          conductance == other.conductance &&
           metadata == other.metadata;
 
   @override
@@ -139,6 +143,6 @@ final class NumberOfTimesFallenRecord extends IntervalHealthRecord {
       endTime.hashCode ^
       (startZoneOffsetSeconds?.hashCode ?? 0) ^
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
-      count.hashCode ^
+      conductance.hashCode ^
       metadata.hashCode;
 }

@@ -22,6 +22,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.floorsClimbed;
       case HealthDataTypeDto.height:
         return HealthDataType.height;
+      case HealthDataTypeDto.electrodermalActivity:
+        return HealthDataType.electrodermalActivity;
       case HealthDataTypeDto.hydration:
         return HealthDataType.hydration;
       case HealthDataTypeDto.insulinDelivery:
@@ -263,6 +265,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.floorsClimbed;
       case HeightDataType _:
         return HealthDataTypeDto.height;
+      case ElectrodermalActivityDataType _:
+        return HealthDataTypeDto.electrodermalActivity;
       case HydrationDataType _:
         return HealthDataTypeDto.hydration;
       case InsulinDeliveryDataType _:

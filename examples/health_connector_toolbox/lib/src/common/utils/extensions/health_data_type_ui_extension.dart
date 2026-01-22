@@ -42,6 +42,7 @@ extension HealthDataTypeUI on HealthDataType {
       ElevationGainedDataType _ => AppTexts.elevationGained,
       WheelchairPushesDataType _ => AppTexts.wheelchairPushes,
       SwimmingStrokesDataType _ => AppTexts.swimmingStrokes,
+      ElectrodermalActivityDataType _ => 'Electrodermal Activity',
       HydrationDataType _ => AppTexts.hydration,
       InsulinDeliveryDataType _ => 'Insulin Delivery',
       HeartRateDataType _ => AppTexts.heartRate,
@@ -189,6 +190,8 @@ extension HealthDataTypeUI on HealthDataType {
       ElevationGainedDataType _ => 'Accumulated elevation gain',
       WheelchairPushesDataType _ => AppTexts.wheelchairPushesDescription,
       SwimmingStrokesDataType _ => 'Count of swimming strokes',
+      ElectrodermalActivityDataType _ =>
+        'Skin conductance in microsiemens (iOS only)',
       HydrationDataType _ => AppTexts.hydrationDescription,
       InsulinDeliveryDataType _ =>
         'Amount of insulin delivered in international units (iOS only)',
@@ -352,6 +355,7 @@ extension HealthDataTypeUI on HealthDataType {
       ElevationGainedDataType _ => AppIcons.terrain,
       WheelchairPushesDataType _ => AppIcons.accessible,
       SwimmingStrokesDataType _ => AppIcons.pool,
+      ElectrodermalActivityDataType _ => AppIcons.sensors,
       HydrationDataType _ => AppIcons.volume,
       InsulinDeliveryDataType _ => AppIcons.medication,
       HeartRateDataType _ => AppIcons.favorite,

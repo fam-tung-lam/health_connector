@@ -759,7 +759,8 @@ extension on double {
       HealthDataTypeDto.swimmingStrokes ||
       HealthDataTypeDto.numberOfTimesFallen ||
       HealthDataTypeDto.wheelchairPushes ||
-      HealthDataTypeDto.insulinDelivery => Number(this),
+      HealthDataTypeDto.insulinDelivery ||
+      HealthDataTypeDto.electrodermalActivity => Number(this),
       HealthDataTypeDto.exerciseTime ||
       HealthDataTypeDto.moveTime ||
       HealthDataTypeDto.standTime => TimeDuration.seconds(this),

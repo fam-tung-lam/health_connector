@@ -64,6 +64,7 @@ part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
 part 'heart_rate/heart_rate_variability_sdnn_data_type.dart';
 part 'heart_rate/resting_heart_rate_data_type.dart';
 part 'heart_rate/walking_heart_rate_average_data_type.dart';
+part 'electrodermal_activity_data_type.dart';
 part 'height_data_type.dart';
 part 'hydration_data_type.dart';
 part 'insulin_delivery_data_type.dart';
@@ -655,6 +656,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// and maintain healthy fluid intake. Supports both reading existing
   /// hydration data and writing new measurements.
   static const hydration = HydrationDataType();
+
+  /// Electrodermal activity data type.
+  ///
+  /// Tracks skin conductance measurements, which increase as sweat gland
+  /// activity increases. Commonly used in stress monitoring and biofeedback
+  /// applications.
+  @sinceV3_5_0
+  @supportedOnAppleHealth
+  static const electrodermalActivity = ElectrodermalActivityDataType();
 
   /// Insulin delivery data type.
   ///
@@ -1278,6 +1288,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     activityIntensity,
     alcoholicBeverages,
     atrialFibrillationBurden,
+    electrodermalActivity,
     exerciseTime,
     moveTime,
     standTime,

@@ -152,6 +152,9 @@ abstract class MeasurementUnitValueParser {
       ForcedVitalCapacityDataType() ||
       ForcedExpiratoryVolumeDataType() => _parseVolume(value),
 
+      // Electrodermal activity (conductance in microsiemens)
+      ElectrodermalActivityDataType() => _parseDoubleNumber(value),
+
       // Insulin delivery (international units)
       InsulinDeliveryDataType() => _parseDoubleNumber(value),
 

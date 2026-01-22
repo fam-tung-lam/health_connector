@@ -213,6 +213,7 @@ abstract final class AppTexts {
       ProlongedMenstrualPeriodEventDataType() => prolongedMenstrualPeriodEvent,
       AtrialFibrillationBurdenDataType() => atrialFibrillationBurden,
       WalkingHeartRateAverageDataType() => walkingHeartRateAverage,
+      ElectrodermalActivityDataType() => 'Electrodermal Activity',
       InsulinDeliveryDataType() => 'Insulin Delivery',
     };
   }
