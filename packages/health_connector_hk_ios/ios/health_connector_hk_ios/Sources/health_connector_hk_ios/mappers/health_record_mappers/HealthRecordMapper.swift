@@ -179,6 +179,8 @@ extension HealthRecordDto {
             return try dto.toHKQuantitySample()
         case let dto as ForcedExpiratoryVolumeRecordDto:
             return try dto.toHKQuantitySample()
+        case let dto as NumberOfTimesFallenRecordDto:
+            return try dto.toHKQuantitySample()
         // Read-only records
         case is ExerciseTimeRecordDto,
              is MoveTimeRecordDto,
@@ -560,6 +562,8 @@ extension HKQuantitySample {
             }
         case .walkingHeartRateAverage:
             try toWalkingHeartRateAverageRecordDto()
+        case .numberOfTimesFallen:
+            try toNumberOfTimesFallenRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

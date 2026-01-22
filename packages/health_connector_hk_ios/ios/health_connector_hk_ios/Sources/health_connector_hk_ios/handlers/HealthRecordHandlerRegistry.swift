@@ -190,6 +190,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(PersistentIntermenstrualBleedingEventRecordHandler(healthStore: healthStore))
         register(ProlongedMenstrualPeriodEventRecordHandler(healthStore: healthStore))
         register(AtrialFibrillationBurdenHandler(healthStore: healthStore))
+        register(NumberOfTimesFallenHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

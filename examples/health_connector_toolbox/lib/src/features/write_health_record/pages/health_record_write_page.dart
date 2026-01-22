@@ -61,6 +61,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/hydration_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/lactation_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/mindfulness_session_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/number_of_times_fallen_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/nutrition_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/paddle_sports_distance_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/pregnancy_record_write_form.dart';
@@ -578,6 +579,10 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         onSubmit: _onSubmit,
       ),
       ForcedExpiratoryVolumeDataType _ => ForcedExpiratoryVolumeWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      NumberOfTimesFallenDataType _ => NumberOfTimesFallenWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),

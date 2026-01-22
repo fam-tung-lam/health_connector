@@ -92,6 +92,7 @@ part 'menstruation/pregnancy_test/pregnancy_test_result.dart';
 part 'menstruation/progesterone_test/progesterone_test_record.dart';
 part 'menstruation/progesterone_test/progesterone_test_result.dart';
 part 'mindfulness/mindfulness_session_record.dart';
+part 'number_of_times_fallen_record.dart';
 part 'nutrition/dietary_biotin_record.dart';
 part 'nutrition/dietary_caffeine_record.dart';
 part 'nutrition/dietary_calcium_record.dart';

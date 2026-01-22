@@ -800,6 +800,11 @@ enum HealthDataTypeDto {
   /// Paddle sports distance (iOS 18+).
   paddleSportsDistance,
 
+  /// Number of times fallen.
+  numberOfTimesFallen,
+
+  /// Cross-country skiing distance (iOS 18+).
+
   /// Cross-country skiing distance (iOS 18+).
   crossCountrySkiingDistance,
 
@@ -4476,6 +4481,40 @@ class AtrialFibrillationBurdenRecordDto extends HealthRecordDto {
 
   /// The atrial fibrillation burden percentage (stored as decimal 0.0-1.0).
   final double percentage;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a number of times fallen record for platform transfer (iOS Only).
+class NumberOfTimesFallenRecordDto extends HealthRecordDto {
+  NumberOfTimesFallenRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.count,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The number of times fallen (count).
+  final double count;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;

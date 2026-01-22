@@ -391,6 +391,18 @@ extension HealthDataTypeDto {
                     ]
                 )
             }
+        case .numberOfTimesFallen:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .numberOfTimesFallen)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Number of times fallen is only supported on iOS 16.0 and later",
+                    context: [
+                        "dataType": "numberOfTimesFallen",
+                        "minimumIOSVersion": "16.0",
+                    ]
+                )
+            }
         }
     }
 }

@@ -117,6 +117,7 @@ abstract final class AppTexts {
       FloorsClimbedDataType() => floorsClimbed,
       ElevationGainedDataType() => elevationGained,
       WheelchairPushesDataType() => wheelchairPushes,
+      NumberOfTimesFallenDataType() => numberOfTimesFallen,
       SwimmingStrokesDataType() => swimmingStrokes,
       HydrationDataType() => hydration,
       HeartRateDataType() || HeartRateSeriesDataType() => heartRate,
@@ -506,6 +507,7 @@ abstract final class AppTexts {
   static const String repeatLow = 'Repeat Low';
   static const String initialVeryLow = 'Initial Very Low';
   static const String repeatVeryLow = 'Repeat Very Low';
+  static const String numberOfTimesFallen = 'Number of Times Fallen';
   static const String restingHeartRate = 'Resting Heart Rate';
   static const String heartRateSamples = '$heartRate Samples';
   static const String addSample = 'Add Sample';

@@ -766,6 +766,10 @@ enum HealthDataTypeDto {
   /// Paddle sports distance (iOS 18+).
   paddleSportsDistance,
 
+  /// Number of times fallen.
+  numberOfTimesFallen,
+
+  /// Cross-country skiing distance (iOS 18+).
   /// Cross-country skiing distance (iOS 18+).
   crossCountrySkiingDistance,
 
@@ -9805,6 +9809,86 @@ class AtrialFibrillationBurdenRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Represents a number of times fallen record for platform transfer (iOS Only).
+class NumberOfTimesFallenRecordDto extends HealthRecordDto {
+  NumberOfTimesFallenRecordDto({
+    this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.count,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  int endTime;
+
+  /// Metadata about this record.
+  MetadataDto metadata;
+
+  /// The number of times fallen (count).
+  double count;
+
+  /// Timezone offset in seconds for start time.
+  int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  int? endZoneOffsetSeconds;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      id,
+      startTime,
+      endTime,
+      metadata,
+      count,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static NumberOfTimesFallenRecordDto decode(Object result) {
+    result as List<Object?>;
+    return NumberOfTimesFallenRecordDto(
+      id: result[0] as String?,
+      startTime: result[1]! as int,
+      endTime: result[2]! as int,
+      metadata: result[3]! as MetadataDto,
+      count: result[4]! as double,
+      startZoneOffsetSeconds: result[5] as int?,
+      endZoneOffsetSeconds: result[6] as int?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! NumberOfTimesFallenRecordDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 // ignore: camel_case_types
 class _PigeonCodecOverflow {
   _PigeonCodecOverflow({required this.type, required this.wrapped});
@@ -9874,6 +9958,8 @@ class _PigeonCodecOverflow {
         return ProlongedMenstrualPeriodEventRecordDto.decode(wrapped!);
       case 21:
         return AtrialFibrillationBurdenRecordDto.decode(wrapped!);
+      case 22:
+        return NumberOfTimesFallenRecordDto.decode(wrapped!);
     }
     return null;
   }
@@ -10414,6 +10500,13 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is AtrialFibrillationBurdenRecordDto) {
       final _PigeonCodecOverflow wrap = _PigeonCodecOverflow(
         type: 21,
+        wrapped: value.encode(),
+      );
+      buffer.putUint8(255);
+      writeValue(buffer, wrap.encode());
+    } else if (value is NumberOfTimesFallenRecordDto) {
+      final _PigeonCodecOverflow wrap = _PigeonCodecOverflow(
+        type: 22,
         wrapped: value.encode(),
       );
       buffer.putUint8(255);

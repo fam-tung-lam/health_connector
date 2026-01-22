@@ -238,6 +238,8 @@ extension HKSample {
                         return .runningPower
                     case HKQuantityTypeIdentifier.atrialFibrillationBurden.rawValue:
                         return .atrialFibrillationBurden
+                    case HKQuantityTypeIdentifier.numberOfTimesFallen.rawValue:
+                        return .numberOfTimesFallen
                     case HKCategoryTypeIdentifier.infrequentMenstrualCycles.rawValue:
                         return .infrequentMenstrualCycleEvent
                     case HKCategoryTypeIdentifier.irregularMenstrualCycles.rawValue:

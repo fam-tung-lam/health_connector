@@ -43,6 +43,7 @@ abstract final class AppIcons {
   static const IconData lockOutline = Icons.lock_outline;
   static const IconData helpOutline = Icons.help_outline;
   static const IconData infoOutline = Icons.info_outline;
+  static const IconData warning = Icons.warning;
 
   // Status & Feedback
   static const IconData error = Icons.error;

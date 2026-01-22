@@ -72,6 +72,7 @@ void main() {
             HealthDataType.mobilityTypes.toList(),
             HealthDataTypeCategory.mobility,
             <HealthDataType>[
+              HealthDataType.numberOfTimesFallen,
               HealthDataType.walkingSteadiness,
               HealthDataType.runningSpeed,
               HealthDataType.sixMinuteWalkTestDistance,
@@ -425,6 +426,10 @@ void main() {
         [
           HealthDataType.walkingDoubleSupportPercentage,
           'walking_double_support_percentage',
+        ],
+        [
+          HealthDataType.numberOfTimesFallen,
+          'number_of_times_fallen',
         ],
       ],
       (HealthDataType type, String expectedKey) {

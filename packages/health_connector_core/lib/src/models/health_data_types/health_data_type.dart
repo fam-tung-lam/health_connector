@@ -78,6 +78,7 @@ part 'menstruation/pregnancy_data_type.dart';
 part 'menstruation/pregnancy_test_data_type.dart';
 part 'menstruation/progesterone_test_data_type.dart';
 part 'mindfulness_session_data_type.dart';
+part 'number_of_times_fallen_data_type.dart';
 part 'nutrition/dietary_biotin_data_type.dart';
 part 'nutrition/dietary_caffeine_data_type.dart';
 part 'nutrition/dietary_calcium_data_type.dart';
@@ -582,6 +583,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   @readOnly
   static const walkingSteadiness = WalkingSteadinessDataType();
+
+  /// Number of times fallen data type.
+  ///
+  /// Tracks the number of times the user has fallen.
+  /// Supports reading, writing, deletion, and SUM aggregation.
+  @sinceV3_5_0
+  @supportedOnAppleHealth
+  static const numberOfTimesFallen = NumberOfTimesFallenDataType();
 
   /// Exercise session data type.
   ///
@@ -1263,6 +1272,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     exerciseTime,
     moveTime,
     standTime,
+    numberOfTimesFallen,
     walkingSteadiness,
     basalBodyTemperature,
     basalEnergyBurned,

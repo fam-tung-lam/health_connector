@@ -587,6 +587,11 @@ extension HealthRecordToDto on HealthRecord {
           '$ForcedExpiratoryVolumeRecord is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case NumberOfTimesFallenRecord():
+        throw UnsupportedError(
+          '$NumberOfTimesFallenRecord is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

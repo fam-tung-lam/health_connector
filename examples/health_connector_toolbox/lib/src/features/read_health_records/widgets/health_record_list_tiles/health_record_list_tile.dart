@@ -221,6 +221,14 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.percentage,
           onDelete: onDelete,
         ),
+      final NumberOfTimesFallenRecord r =>
+        SimpleIntervalMeasurementListTile<NumberOfTimesFallenRecord>(
+          record: r,
+          icon: AppIcons.warning,
+          titleBuilder: (r) => '${r.count.value} times',
+          valueExtractor: (r) => r.count,
+          onDelete: onDelete,
+        ),
       final AtrialFibrillationBurdenRecord r =>
         SimpleIntervalMeasurementListTile<AtrialFibrillationBurdenRecord>(
           record: r,

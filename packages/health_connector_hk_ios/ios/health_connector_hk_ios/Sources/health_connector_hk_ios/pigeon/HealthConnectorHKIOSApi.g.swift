@@ -712,192 +712,195 @@ public enum HealthDataTypeDto: Int {
   case rowingDistance = 21
   /// Paddle sports distance (iOS 18+).
   case paddleSportsDistance = 22
+  /// Number of times fallen.
+  case numberOfTimesFallen = 23
   /// Cross-country skiing distance (iOS 18+).
-  case crossCountrySkiingDistance = 23
+  /// Cross-country skiing distance (iOS 18+).
+  case crossCountrySkiingDistance = 24
   /// Skating sports distance (iOS 18+).
-  case skatingSportsDistance = 24
+  case skatingSportsDistance = 25
   /// Six-minute walk test distance.
-  case sixMinuteWalkTestDistance = 25
+  case sixMinuteWalkTestDistance = 26
   /// Floors climbed data.
-  case floorsClimbed = 26
+  case floorsClimbed = 27
   /// Step count data.
-  case steps = 27
+  case steps = 28
   /// Body weight data.
-  case weight = 28
+  case weight = 29
   /// Body height data.
-  case height = 29
+  case height = 30
   /// Body fat percentage data.
-  case bodyFatPercentage = 30
+  case bodyFatPercentage = 31
   /// Body temperature data.
-  case bodyTemperature = 31
+  case bodyTemperature = 32
   /// Basal body temperature data.
-  case basalBodyTemperature = 32
+  case basalBodyTemperature = 33
   /// Cervical mucus observation data.
-  case cervicalMucus = 33
+  case cervicalMucus = 34
   /// Lean body mass data.
-  case leanBodyMass = 34
+  case leanBodyMass = 35
   /// Wheelchair pushes data.
-  case wheelchairPushes = 35
+  case wheelchairPushes = 36
   /// Hydration (water intake) data.
-  case hydration = 36
+  case hydration = 37
   /// Heart rate measurement record data.
-  case heartRateMeasurementRecord = 37
+  case heartRateMeasurementRecord = 38
   /// Cycling pedaling cadence measurement record data.
-  case cyclingPedalingCadence = 38
+  case cyclingPedalingCadence = 39
   /// Sleep stage record data.
-  case sleepStageRecord = 39
+  case sleepStageRecord = 40
   /// Sexual activity data.
-  case sexualActivity = 40
+  case sexualActivity = 41
   /// Peripheral perfusion index data.
-  case peripheralPerfusionIndex = 41
+  case peripheralPerfusionIndex = 42
   /// Walking speed data.
-  case walkingSpeed = 42
+  case walkingSpeed = 43
   /// Running speed data.
-  case runningSpeed = 43
+  case runningSpeed = 44
   /// Stair ascent speed data.
-  case stairAscentSpeed = 44
+  case stairAscentSpeed = 45
   /// Stair descent speed data.
-  case stairDescentSpeed = 45
+  case stairDescentSpeed = 46
   /// Energy nutrient data (calories consumed).
-  case dietaryEnergyConsumed = 46
+  case dietaryEnergyConsumed = 47
   /// Caffeine nutrient data.
-  case caffeine = 47
+  case caffeine = 48
   /// Protein nutrient data.
-  case protein = 48
+  case protein = 49
   /// Total carbohydrate nutrient data.
-  case totalCarbohydrate = 49
+  case totalCarbohydrate = 50
   /// Total fat nutrient data.
-  case totalFat = 50
+  case totalFat = 51
   /// Saturated fat nutrient data.
-  case saturatedFat = 51
+  case saturatedFat = 52
   /// Monounsaturated fat nutrient data.
-  case monounsaturatedFat = 52
+  case monounsaturatedFat = 53
   /// Polyunsaturated fat nutrient data.
-  case polyunsaturatedFat = 53
+  case polyunsaturatedFat = 54
   /// Cholesterol nutrient data.
-  case cholesterol = 54
+  case cholesterol = 55
   /// Dietary fiber nutrient data.
-  case dietaryFiber = 55
+  case dietaryFiber = 56
   /// Sugar nutrient data.
-  case sugar = 56
+  case sugar = 57
   /// Vitamin A nutrient data.
-  case vitaminA = 57
+  case vitaminA = 58
   /// Vitamin B6 nutrient data.
-  case vitaminB6 = 58
+  case vitaminB6 = 59
   /// Vitamin B12 nutrient data.
-  case vitaminB12 = 59
+  case vitaminB12 = 60
   /// Vitamin C nutrient data.
-  case vitaminC = 60
+  case vitaminC = 61
   /// Vitamin D nutrient data.
-  case vitaminD = 61
+  case vitaminD = 62
   /// Vitamin E nutrient data.
-  case vitaminE = 62
+  case vitaminE = 63
   /// Vitamin K nutrient data.
-  case vitaminK = 63
+  case vitaminK = 64
   /// Thiamin (Vitamin B1) nutrient data.
-  case thiamin = 64
+  case thiamin = 65
   /// Riboflavin (Vitamin B2) nutrient data.
-  case riboflavin = 65
+  case riboflavin = 66
   /// Niacin (Vitamin B3) nutrient data.
-  case niacin = 66
+  case niacin = 67
   /// Folate (Vitamin B9) nutrient data.
-  case folate = 67
+  case folate = 68
   /// Biotin (Vitamin B7) nutrient data.
-  case biotin = 68
+  case biotin = 69
   /// Pantothenic acid (Vitamin B5) nutrient data.
-  case pantothenicAcid = 69
+  case pantothenicAcid = 70
   /// Calcium nutrient data.
-  case calcium = 70
+  case calcium = 71
   /// Iron nutrient data.
-  case iron = 71
+  case iron = 72
   /// Magnesium nutrient data.
-  case magnesium = 72
+  case magnesium = 73
   /// Manganese nutrient data.
-  case manganese = 73
+  case manganese = 74
   /// Phosphorus nutrient data.
-  case phosphorus = 74
+  case phosphorus = 75
   /// Potassium nutrient data.
-  case potassium = 75
+  case potassium = 76
   /// Selenium nutrient data.
-  case selenium = 76
+  case selenium = 77
   /// Sodium nutrient data.
-  case sodium = 77
+  case sodium = 78
   /// Zinc nutrient data.
-  case zinc = 78
+  case zinc = 79
   /// Combined nutrition record (HKCorrelation.food).
-  case nutrition = 79
+  case nutrition = 80
   /// Resting heart rate data.
-  case restingHeartRate = 80
+  case restingHeartRate = 81
   /// Composite blood pressure (HKCorrelationType.bloodPressure).
-  case bloodPressure = 81
+  case bloodPressure = 82
   /// Systolic blood pressure (HKQuantityType.bloodPressureSystolic).
-  case systolicBloodPressure = 82
+  case systolicBloodPressure = 83
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
-  case diastolicBloodPressure = 83
+  case diastolicBloodPressure = 84
   /// Ovulation test data.
-  case ovulationTest = 84
+  case ovulationTest = 85
   /// Pregnancy test data (iOS only).
-  case pregnancyTest = 85
+  case pregnancyTest = 86
   /// Pregnancy data (iOS only).
-  case pregnancy = 86
+  case pregnancy = 87
   /// Contraceptive data (iOS only).
-  case contraceptive = 87
+  case contraceptive = 88
   /// Progesterone test data (iOS only).
-  case progesteroneTest = 88
+  case progesteroneTest = 89
   /// Lactation data (iOS only).
-  case lactation = 89
+  case lactation = 90
   /// Ovulation test result.
-  case ovulationTestResult = 90
+  case ovulationTestResult = 91
   /// Progesterone test result (iOS only).
-  case progesteroneTestResult = 91
+  case progesteroneTestResult = 92
   /// Sleep stage type.
-  case sleepStage = 92
+  case sleepStage = 93
   /// Intermenstrual bleeding data.
-  case intermenstrualBleeding = 93
+  case intermenstrualBleeding = 94
   /// Menstrual flow data (iOS HealthKit only).
-  case menstrualFlow = 94
+  case menstrualFlow = 95
   /// Oxygen saturation data.
-  case oxygenSaturation = 95
+  case oxygenSaturation = 96
   /// Respiratory rate data.
-  case respiratoryRate = 96
+  case respiratoryRate = 97
   /// VO2 max (maximal oxygen uptake) data.
-  case vo2Max = 97
+  case vo2Max = 98
   /// Blood glucose data.
-  case bloodGlucose = 98
+  case bloodGlucose = 99
   /// Exercise session data.
-  case exerciseSession = 99
+  case exerciseSession = 100
   /// Mindfulness session data.
-  case mindfulnessSession = 100
+  case mindfulnessSession = 101
   /// Body mass index data.
-  case bodyMassIndex = 101
+  case bodyMassIndex = 102
   /// Waist circumference data.
-  case waistCircumference = 102
+  case waistCircumference = 103
   /// Walking asymmetry percentage data (iOS only).
-  case walkingAsymmetryPercentage = 103
+  case walkingAsymmetryPercentage = 104
   /// The forced vital capacity (FVC) data.
-  case forcedVitalCapacity = 104
+  case forcedVitalCapacity = 105
   /// Heart rate variability (SDNN) data.
-  case heartRateVariabilitySDNN = 105
+  case heartRateVariabilitySDNN = 106
   /// Sleeping wrist temperature data.
-  case sleepingWristTemperature = 106
+  case sleepingWristTemperature = 107
   /// High heart rate event data.
-  case highHeartRateEvent = 107
+  case highHeartRateEvent = 108
   /// Infrequent menstrual cycle event data (iOS 16+).
-  case infrequentMenstrualCycleEvent = 108
+  case infrequentMenstrualCycleEvent = 109
   /// Irregular menstrual cycle event data (iOS 16+).
-  case irregularMenstrualCycleEvent = 109
+  case irregularMenstrualCycleEvent = 110
   /// Irregular heart rhythm event data.
-  case irregularHeartRhythmEvent = 110
+  case irregularHeartRhythmEvent = 111
   /// Low heart rate event data.
-  case lowHeartRateEvent = 111
+  case lowHeartRateEvent = 112
   /// Walking Steadiness event data.
-  case walkingSteadinessEvent = 112
+  case walkingSteadinessEvent = 113
   /// Persistent Intermenstrual Bleeding Event.
-  case persistentIntermenstrualBleedingEvent = 113
+  case persistentIntermenstrualBleedingEvent = 114
   /// Prolonged Menstrual Period event data type (iOS only).
-  case prolongedMenstrualPeriodEvent = 114
+  case prolongedMenstrualPeriodEvent = 115
   /// Atrial Fibrillation Burden data.
-  case atrialFibrillationBurden = 115
+  case atrialFibrillationBurden = 116
 }
 
 /// Error codes that native platforms can use when throwing error.
@@ -7205,6 +7208,64 @@ public struct AtrialFibrillationBurdenRecordDto: HealthRecordDto {
   }
 }
 
+/// Represents a number of times fallen record for platform transfer (iOS Only).
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct NumberOfTimesFallenRecordDto: HealthRecordDto {
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// The number of times fallen (count).
+  var count: Double
+  /// Timezone offset in seconds for start time.
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time.
+  var endZoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> NumberOfTimesFallenRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let count = pigeonVar_list[4] as! Double
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
+
+    return NumberOfTimesFallenRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      count: count,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      count,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: NumberOfTimesFallenRecordDto, rhs: NumberOfTimesFallenRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 
 private struct PigeonInternalCodecOverflow {
   var type: Int
@@ -7279,6 +7340,8 @@ private struct PigeonInternalCodecOverflow {
         return ProlongedMenstrualPeriodEventRecordDto.fromList(wrapped as! [Any?]);
       case 21:
         return AtrialFibrillationBurdenRecordDto.fromList(wrapped as! [Any?]);
+      case 22:
+        return NumberOfTimesFallenRecordDto.fromList(wrapped as! [Any?]);
       default: 
         return nil
     }
@@ -8142,6 +8205,10 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
       super.writeValue(wrap.toList())
     } else if let value = value as? AtrialFibrillationBurdenRecordDto {
       let wrap = PigeonInternalCodecOverflow(type: 21, wrapped: value.toList())
+      super.writeByte(255)
+      super.writeValue(wrap.toList())
+    } else if let value = value as? NumberOfTimesFallenRecordDto {
+      let wrap = PigeonInternalCodecOverflow(type: 22, wrapped: value.toList())
       super.writeByte(255)
       super.writeValue(wrap.toList())
     } else {

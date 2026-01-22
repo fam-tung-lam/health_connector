@@ -238,6 +238,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.atrialFibrillationBurden;
       case HealthDataTypeDto.walkingHeartRateAverage:
         return HealthDataType.walkingHeartRateAverage;
+      case HealthDataTypeDto.numberOfTimesFallen:
+        return HealthDataType.numberOfTimesFallen;
     }
   }
 }
@@ -549,6 +551,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.atrialFibrillationBurden;
       case WalkingHeartRateAverageDataType _:
         return HealthDataTypeDto.walkingHeartRateAverage;
+      case NumberOfTimesFallenDataType _:
+        return HealthDataTypeDto.numberOfTimesFallen;
     }
   }
 }

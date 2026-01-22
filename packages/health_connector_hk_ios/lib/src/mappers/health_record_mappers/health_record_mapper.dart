@@ -40,6 +40,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstr
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/pregnancy_test_result/pregnancy_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/progesterone_test_result/progesterone_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mobility/number_of_times_fallen_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_biotin_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_caffeine_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_calcium_record_mapper.dart';
@@ -322,6 +323,8 @@ extension HealthRecordToDto on HealthRecord {
         return WalkingDoubleSupportPercentageRecordToDto(record).toDto();
       case final WalkingStepLengthRecord record:
         return WalkingStepLengthRecordToDto(record).toDto();
+      case final NumberOfTimesFallenRecord record:
+        return NumberOfTimesFallenRecordToDto(record).toDto();
 
       // Not supported data types
       case final HeartRateSeriesRecord _:
@@ -664,6 +667,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return AtrialFibrillationBurdenRecordDtoToDomain(dto).toDomain();
       case final WalkingHeartRateAverageRecordDto dto:
         return WalkingHeartRateAverageRecordDtoToDomain(dto).toDomain();
+      case final NumberOfTimesFallenRecordDto dto:
+        return NumberOfTimesFallenRecordDtoToDomain(dto).toDomain();
     }
   }
 }

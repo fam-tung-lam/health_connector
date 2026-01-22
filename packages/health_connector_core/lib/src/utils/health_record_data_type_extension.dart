@@ -145,6 +145,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       DietaryPantothenicAcidRecord _ => HealthDataType.dietaryPantothenicAcid,
       TotalEnergyBurnedRecord _ => HealthDataType.totalEnergyBurned,
       BasalEnergyBurnedRecord _ => HealthDataType.basalEnergyBurned,
+      NumberOfTimesFallenRecord _ => HealthDataType.numberOfTimesFallen,
       AtrialFibrillationBurdenRecord _ =>
         HealthDataType.atrialFibrillationBurden,
       BasalBodyTemperatureRecord _ => HealthDataType.basalBodyTemperature,

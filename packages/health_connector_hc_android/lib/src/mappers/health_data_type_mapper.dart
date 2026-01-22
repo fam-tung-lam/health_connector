@@ -439,6 +439,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$WalkingHeartRateAverageDataType is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case NumberOfTimesFallenDataType():
+        throw UnsupportedError(
+          '$NumberOfTimesFallenDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }
