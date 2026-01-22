@@ -6,10 +6,6 @@ part of 'health_data_type.dart';
 /// fitness trackers, and smartphones. One of the most commonly tracked
 /// health metrics for daily activity monitoring.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Number] (count of steps).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`StepsRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsRecord)

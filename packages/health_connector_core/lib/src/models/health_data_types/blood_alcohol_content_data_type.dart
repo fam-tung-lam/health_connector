@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Tracks the user's blood alcohol content (BAC), typically expressed as a
 /// percentage.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Percentage].
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bloodAlcoholContent`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodAlcoholContent)

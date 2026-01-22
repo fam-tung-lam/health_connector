@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Represents steps cadence measurements as a series of samples over a time
 /// interval.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Frequency] units.
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`StepsCadenceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsCadenceRecord)

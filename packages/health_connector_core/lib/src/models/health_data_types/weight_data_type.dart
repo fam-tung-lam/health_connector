@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Represents body weight measurements, typically used for tracking body
 /// composition changes, fitness progress, and health monitoring.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (kilograms, pounds, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`WeightRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WeightRecord)

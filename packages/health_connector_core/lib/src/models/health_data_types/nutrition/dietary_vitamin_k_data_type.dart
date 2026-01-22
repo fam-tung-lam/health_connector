@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary vitamin k intake, a fat-soluble vitamin necessary for blood
 /// clotting and bone health.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (micrograms typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminK`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamink)

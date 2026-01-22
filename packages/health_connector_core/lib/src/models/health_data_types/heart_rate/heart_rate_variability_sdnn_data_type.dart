@@ -10,7 +10,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Measurement Unit
 ///
-/// Values are measured as [Number] representing milliseconds.
+/// Values are measured as [TimeDuration] representing milliseconds.
 ///
 /// ## Platform Mapping
 ///
@@ -34,12 +34,12 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class HeartRateVariabilitySDNNDataType
-    extends HealthDataType<HeartRateVariabilitySDNNRecord, Number>
+    extends HealthDataType<HeartRateVariabilitySDNNRecord, TimeDuration>
     implements
-        MinAggregatableHealthDataType<Number>,
-        MaxAggregatableHealthDataType<Number>,
-        AvgAggregatableHealthDataType<Number>,
-        SumAggregatableHealthDataType<Number>,
+        MinAggregatableHealthDataType<TimeDuration>,
+        MaxAggregatableHealthDataType<TimeDuration>,
+        AvgAggregatableHealthDataType<TimeDuration>,
+        SumAggregatableHealthDataType<TimeDuration>,
         ReadableHealthDataType<HeartRateVariabilitySDNNRecord>,
         ReadableByIdHealthDataType<HeartRateVariabilitySDNNRecord>,
         ReadableInTimeRangeHealthDataType<HeartRateVariabilitySDNNRecord>,
@@ -70,7 +70,7 @@ final class HeartRateVariabilitySDNNDataType
   ];
 
   @override
-  AggregateRequest<Number> aggregateMin({
+  AggregateRequest<TimeDuration> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -83,7 +83,7 @@ final class HeartRateVariabilitySDNNDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMax({
+  AggregateRequest<TimeDuration> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -96,7 +96,7 @@ final class HeartRateVariabilitySDNNDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateAvg({
+  AggregateRequest<TimeDuration> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -109,7 +109,7 @@ final class HeartRateVariabilitySDNNDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateSum({
+  AggregateRequest<TimeDuration> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

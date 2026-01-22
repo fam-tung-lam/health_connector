@@ -9,7 +9,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Measurement Unit
 ///
-/// Values are measured as [Number] (revolutions per minute).
+/// Values are measured as [Frequency] (revolutions per minute).
 ///
 /// ## Platform Mapping
 ///
@@ -40,15 +40,15 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealthIOS17Plus
 @immutable
 final class CyclingPedalingCadenceDataType
-    extends HealthDataType<CyclingPedalingCadenceRecord, Number>
+    extends HealthDataType<CyclingPedalingCadenceRecord, Frequency>
     implements
         ReadableHealthDataType<CyclingPedalingCadenceRecord>,
         ReadableByIdHealthDataType<CyclingPedalingCadenceRecord>,
         ReadableInTimeRangeHealthDataType<CyclingPedalingCadenceRecord>,
         WriteableHealthDataType<CyclingPedalingCadenceRecord>,
-        AvgAggregatableHealthDataType<Number>,
-        MinAggregatableHealthDataType<Number>,
-        MaxAggregatableHealthDataType<Number>,
+        AvgAggregatableHealthDataType<Frequency>,
+        MinAggregatableHealthDataType<Frequency>,
+        MaxAggregatableHealthDataType<Frequency>,
         DeletableByIdsHealthDataType<CyclingPedalingCadenceRecord>,
         DeletableInTimeRangeHealthDataType<CyclingPedalingCadenceRecord> {
   /// Creates a cycling pedaling cadence measurement data type.
@@ -114,7 +114,7 @@ final class CyclingPedalingCadenceDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<Number> aggregateAvg({
+  AggregateRequest<Frequency> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -127,7 +127,7 @@ final class CyclingPedalingCadenceDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMin({
+  AggregateRequest<Frequency> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -140,7 +140,7 @@ final class CyclingPedalingCadenceDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMax({
+  AggregateRequest<Frequency> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

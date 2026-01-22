@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary total carbohydrate intake, a primary energy source for the
 /// body.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (grams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCarbohydrates`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycarbohydrates)

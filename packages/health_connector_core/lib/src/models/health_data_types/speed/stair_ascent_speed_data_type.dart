@@ -4,10 +4,6 @@ part of '../health_data_type.dart';
 ///
 /// Tracks vertical speed while climbing stairs.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Velocity] units (meters/second typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.stairAscentSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stairascentspeed)

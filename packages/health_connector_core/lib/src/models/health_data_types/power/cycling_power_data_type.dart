@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks the power output during cycling activity, useful for monitoring
 /// cycling performance and training intensity.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Power] units (watts, kilowatts).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only** (iOS 16.0+): [`HKQuantityTypeIdentifier.cyclingPower`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingpower)

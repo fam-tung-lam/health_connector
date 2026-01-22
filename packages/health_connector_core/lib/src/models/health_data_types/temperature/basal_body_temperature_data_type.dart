@@ -7,10 +7,6 @@ part of '../health_data_type.dart';
 /// waking and before any physical activity. Commonly used for fertility
 /// tracking and menstrual cycle monitoring.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Temperature] units (Celsius, Fahrenheit, Kelvin).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`BasalBodyTemperatureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BasalBodyTemperatureRecord)

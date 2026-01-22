@@ -4,10 +4,6 @@ part of '../health_data_type.dart';
 ///
 /// Tracks distance traveled during a standard six-minute walk test.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units (meters typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/sixminutewalktestdistance)

@@ -4,10 +4,6 @@ part of '../health_data_type.dart';
 ///
 /// Tracks dietary sugar intake, a simple carbohydrate providing quick energy.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (grams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySugar`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarysugar)

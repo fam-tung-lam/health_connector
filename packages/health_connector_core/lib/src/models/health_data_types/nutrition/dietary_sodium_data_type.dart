@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary sodium intake, a essential mineral regulating fluid balance
 /// and nerve function.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySodium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarysodium)

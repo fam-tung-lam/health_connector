@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary vitamin a intake, a fat-soluble vitamin essential for vision,
 /// immune function, and cell growth.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (micrograms typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminA`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamina)

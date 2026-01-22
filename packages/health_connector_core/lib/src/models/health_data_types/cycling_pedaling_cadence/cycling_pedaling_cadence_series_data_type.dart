@@ -29,15 +29,15 @@ part of '../health_data_type.dart';
 @supportedOnHealthConnect
 @immutable
 final class CyclingPedalingCadenceSeriesDataType
-    extends HealthDataType<CyclingPedalingCadenceSeriesRecord, Number>
+    extends HealthDataType<CyclingPedalingCadenceSeriesRecord, Frequency>
     implements
         ReadableHealthDataType<CyclingPedalingCadenceSeriesRecord>,
         ReadableByIdHealthDataType<CyclingPedalingCadenceSeriesRecord>,
         ReadableInTimeRangeHealthDataType<CyclingPedalingCadenceSeriesRecord>,
         WriteableHealthDataType<CyclingPedalingCadenceSeriesRecord>,
-        AvgAggregatableHealthDataType<Number>,
-        MinAggregatableHealthDataType<Number>,
-        MaxAggregatableHealthDataType<Number>,
+        AvgAggregatableHealthDataType<Frequency>,
+        MinAggregatableHealthDataType<Frequency>,
+        MaxAggregatableHealthDataType<Frequency>,
         DeletableByIdsHealthDataType<CyclingPedalingCadenceSeriesRecord>,
         DeletableInTimeRangeHealthDataType<CyclingPedalingCadenceSeriesRecord> {
   /// Creates a cycling pedaling cadence series data type.
@@ -104,7 +104,7 @@ final class CyclingPedalingCadenceSeriesDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<Number> aggregateAvg({
+  AggregateRequest<Frequency> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -117,7 +117,7 @@ final class CyclingPedalingCadenceSeriesDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMin({
+  AggregateRequest<Frequency> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -130,7 +130,7 @@ final class CyclingPedalingCadenceSeriesDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMax({
+  AggregateRequest<Frequency> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

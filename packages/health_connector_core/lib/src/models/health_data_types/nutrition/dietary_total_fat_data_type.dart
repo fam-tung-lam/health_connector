@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary total fat intake, a essential for energy storage, hormone
 /// production, and nutrient absorption.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (grams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFatTotal`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfattotal)

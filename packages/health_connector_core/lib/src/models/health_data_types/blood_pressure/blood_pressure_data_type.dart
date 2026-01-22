@@ -6,10 +6,6 @@ part of '../health_data_type.dart';
 /// diastolic values in a single measurement. Blood press records include
 /// measurement context (body position, measurement location).
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Pressure] units (mmHg typically).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`BloodPressureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)

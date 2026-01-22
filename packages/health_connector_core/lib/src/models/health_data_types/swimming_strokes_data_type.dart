@@ -4,10 +4,6 @@ part of 'health_data_type.dart';
 ///
 /// Tracks the number of strokes taken during swimming.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Number] (count of strokes).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported

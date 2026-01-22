@@ -6,10 +6,6 @@ part of '../health_data_type.dart';
 /// a separate record with its own UUID. A complete night's sleep consists of
 /// multiple records.
 ///
-/// ## Measurement Unit
-///
-/// Duration is measured in [TimeDuration] (seconds, minutes, hours).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (use

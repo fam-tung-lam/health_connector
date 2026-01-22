@@ -14,11 +14,6 @@ part of 'health_record.dart';
 /// - **Android Health Connect**: [`Vo2MaxRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)
 /// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.vo2Max`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)
 ///
-/// ## Measurement Unit
-///
-/// VO₂ max is expressed in milliliters of oxygen per kilogram of body weight
-/// per minute (mL/kg/min).
-///
 /// ## Example
 ///
 /// ```dart

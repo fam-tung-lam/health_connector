@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks the speed at which a user runs, useful for monitoring running
 /// performance, pace improvements, and training intensity.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Velocity] units (meters/second, km/hour, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.runningSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runningspeed)

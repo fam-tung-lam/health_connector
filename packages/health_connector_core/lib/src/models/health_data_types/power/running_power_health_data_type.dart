@@ -4,10 +4,6 @@ part of '../health_data_type.dart';
 ///
 /// Running power estimates the effort exerted while running, measured in Watts.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Power] units.
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported.

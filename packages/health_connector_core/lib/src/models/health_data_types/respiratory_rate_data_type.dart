@@ -22,14 +22,14 @@ part of 'health_data_type.dart';
 @sinceV1_3_0
 @immutable
 final class RespiratoryRateDataType
-    extends HealthDataType<RespiratoryRateRecord, Number>
+    extends HealthDataType<RespiratoryRateRecord, Frequency>
     implements
         ReadableByIdHealthDataType<RespiratoryRateRecord>,
         ReadableInTimeRangeHealthDataType<RespiratoryRateRecord>,
         WriteableHealthDataType<RespiratoryRateRecord>,
-        AvgAggregatableHealthDataType<Number>,
-        MinAggregatableHealthDataType<Number>,
-        MaxAggregatableHealthDataType<Number>,
+        AvgAggregatableHealthDataType<Frequency>,
+        MinAggregatableHealthDataType<Frequency>,
+        MaxAggregatableHealthDataType<Frequency>,
         DeletableByIdsHealthDataType<RespiratoryRateRecord>,
         DeletableInTimeRangeHealthDataType<RespiratoryRateRecord> {
   /// Creates a respiratory rate data type.
@@ -87,7 +87,7 @@ final class RespiratoryRateDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateAvg({
+  AggregateRequest<Frequency> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -100,7 +100,7 @@ final class RespiratoryRateDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMin({
+  AggregateRequest<Frequency> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -113,7 +113,7 @@ final class RespiratoryRateDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMax({
+  AggregateRequest<Frequency> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

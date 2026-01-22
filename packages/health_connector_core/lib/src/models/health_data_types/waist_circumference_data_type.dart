@@ -7,10 +7,6 @@ part of 'health_data_type.dart';
 /// measured at the narrowest point of the torso, typically at the level
 /// of the navel.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Length] units (meters, centimeters, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not currently supported

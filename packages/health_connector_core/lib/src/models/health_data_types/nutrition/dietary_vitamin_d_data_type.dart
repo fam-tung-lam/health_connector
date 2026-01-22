@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary vitamin d intake, a fat-soluble vitamin crucial for bone
 /// health and calcium absorption.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (micrograms typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminD`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamind)

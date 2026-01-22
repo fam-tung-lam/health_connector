@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary vitamin c (ascorbic acid) intake, a water-soluble vitamin
 /// that is a powerful antioxidant and supports immune system.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminC`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminc)

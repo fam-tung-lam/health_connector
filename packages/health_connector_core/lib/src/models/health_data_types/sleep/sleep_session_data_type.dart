@@ -6,10 +6,6 @@ part of '../health_data_type.dart';
 /// container records that encompass all sleep stages within a single session,
 /// with one ID for the entire session.
 ///
-/// ## Measurement Unit
-///
-/// Duration is measured in [TimeDuration] (seconds, minutes, hours).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`SleepSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord)

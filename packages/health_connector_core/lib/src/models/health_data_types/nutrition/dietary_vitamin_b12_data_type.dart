@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary vitamin b12 (cobalamin) intake, a water-soluble vitamin
 /// essential for red blood cell formation and neurological function.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (micrograms typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminB12`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminb12)

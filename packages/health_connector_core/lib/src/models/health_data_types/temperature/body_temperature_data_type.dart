@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Represents body temperature measurements, typically used for monitoring
 /// health status, fever detection, and reproductive health tracking.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Temperature] units (Celsius, Fahrenheit, Kelvin).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`BodyTemperatureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyTemperatureRecord)

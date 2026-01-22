@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Represents the peripheral perfusion index (PPI), which is a measure of the
 /// peripheral blood flow.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Percentage].
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported

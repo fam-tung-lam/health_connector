@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary vitamin e intake, a fat-soluble vitamin and antioxidant
 /// protecting cells from damage.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminE`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamine)

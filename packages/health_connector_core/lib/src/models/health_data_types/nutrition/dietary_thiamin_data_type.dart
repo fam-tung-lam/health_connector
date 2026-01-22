@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary thiamin (vitamin b1) intake, a water-soluble vitamin that
 /// helps convert nutrients into energy.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryThiamin`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarythiamin)

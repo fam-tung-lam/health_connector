@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Tracks the number of alcoholic beverages consumed, typically recorded
 /// manually by users for health monitoring purposes.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Number] (count of alcoholic beverages).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported

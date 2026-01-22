@@ -6,10 +6,6 @@ part of '../health_data_type.dart';
 /// Represents comprehensive nutrition information for meals and food items.
 /// Tracks macronutrients, vitamins, minerals, and other nutritional values.
 ///
-/// ## Measurement Unit
-///
-/// Contains multiple measurements across different units (Mass, Energy, etc.).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)

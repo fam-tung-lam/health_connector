@@ -8,7 +8,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Measurement Unit
 ///
-/// Values are measured as [Number] (beats per minute).
+/// Values are measured as [Frequency] (beats per minute).
 ///
 /// ## Platform Mapping
 ///
@@ -35,15 +35,15 @@ part of '../health_data_type.dart';
 /// {@category Health Records}
 @sinceV1_0_0
 @immutable
-final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
+final class HeartRateDataType extends HealthDataType<HeartRateRecord, Frequency>
     implements
         ReadableHealthDataType<HeartRateRecord>,
         ReadableByIdHealthDataType<HeartRateRecord>,
         ReadableInTimeRangeHealthDataType<HeartRateRecord>,
         WriteableHealthDataType<HeartRateRecord>,
-        AvgAggregatableHealthDataType<Number>,
-        MinAggregatableHealthDataType<Number>,
-        MaxAggregatableHealthDataType<Number>,
+        AvgAggregatableHealthDataType<Frequency>,
+        MinAggregatableHealthDataType<Frequency>,
+        MaxAggregatableHealthDataType<Frequency>,
         DeletableByIdsHealthDataType<HeartRateRecord>,
         DeletableInTimeRangeHealthDataType<HeartRateRecord> {
   /// Creates a heart rate measurement data type.
@@ -108,7 +108,7 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<Number> aggregateAvg({
+  AggregateRequest<Frequency> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -121,7 +121,7 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
   }
 
   @override
-  AggregateRequest<Number> aggregateMin({
+  AggregateRequest<Frequency> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -134,7 +134,7 @@ final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
   }
 
   @override
-  AggregateRequest<Number> aggregateMax({
+  AggregateRequest<Frequency> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

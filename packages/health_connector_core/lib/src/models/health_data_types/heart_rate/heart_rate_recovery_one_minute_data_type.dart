@@ -26,15 +26,15 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealthIOS16Plus
 @immutable
 final class HeartRateRecoveryOneMinuteDataType
-    extends HealthDataType<HeartRateRecoveryOneMinuteRecord, Number>
+    extends HealthDataType<HeartRateRecoveryOneMinuteRecord, Frequency>
     implements
         ReadableHealthDataType<HeartRateRecoveryOneMinuteRecord>,
         ReadableByIdHealthDataType<HeartRateRecoveryOneMinuteRecord>,
         ReadableInTimeRangeHealthDataType<HeartRateRecoveryOneMinuteRecord>,
         WriteableHealthDataType<HeartRateRecoveryOneMinuteRecord>,
-        AvgAggregatableHealthDataType<Number>,
-        MinAggregatableHealthDataType<Number>,
-        MaxAggregatableHealthDataType<Number>,
+        AvgAggregatableHealthDataType<Frequency>,
+        MinAggregatableHealthDataType<Frequency>,
+        MaxAggregatableHealthDataType<Frequency>,
         DeletableByIdsHealthDataType<HeartRateRecoveryOneMinuteRecord>,
         DeletableInTimeRangeHealthDataType<HeartRateRecoveryOneMinuteRecord> {
   /// Creates a heart rate recovery one minute measurement data type.
@@ -101,7 +101,7 @@ final class HeartRateRecoveryOneMinuteDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<Number> aggregateAvg({
+  AggregateRequest<Frequency> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -114,7 +114,7 @@ final class HeartRateRecoveryOneMinuteDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMin({
+  AggregateRequest<Frequency> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -127,7 +127,7 @@ final class HeartRateRecoveryOneMinuteDataType
   }
 
   @override
-  AggregateRequest<Number> aggregateMax({
+  AggregateRequest<Frequency> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

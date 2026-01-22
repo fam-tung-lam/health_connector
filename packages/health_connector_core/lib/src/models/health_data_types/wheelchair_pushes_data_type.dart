@@ -5,10 +5,6 @@ part of 'health_data_type.dart';
 /// Tracks the number of wheelchair pushes, used for monitoring mobility
 /// and activity for wheelchair users.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Number] (count of pushes).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: `WheelchairPushesRecord`

@@ -5,10 +5,6 @@ part of '../health_data_type.dart';
 /// Tracks dietary vitamin b6 (pyridoxine) intake, a water-soluble vitamin
 /// important for protein metabolism and cognitive development.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [Mass] units (milligrams typically).
-///
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminB6`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminb6)

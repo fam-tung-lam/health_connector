@@ -9,10 +9,6 @@ part of '../health_data_type.dart';
 /// > automatically by Apple Watch during sleep and cannot be written by
 /// > third-party applications.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Temperature].
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported.

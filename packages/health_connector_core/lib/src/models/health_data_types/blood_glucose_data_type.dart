@@ -7,10 +7,6 @@ part of 'health_data_type.dart';
 /// include context such as meal relation, specimen source, and measurement
 /// type.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured in [BloodGlucose] units (mg/dL or mmol/L).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`BloodGlucoseRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)

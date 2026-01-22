@@ -7,11 +7,6 @@ part of 'health_data_type.dart';
 /// standard
 /// for measuring cardiorespiratory fitness and aerobic endurance.
 ///
-/// ## Measurement Unit
-///
-/// Values are measured as [Number] (mL/kg/min - milliliters of oxygen per
-/// kilogram of body weight per minute).
-///
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`Vo2MaxRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)
