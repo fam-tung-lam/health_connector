@@ -81,6 +81,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       LeanBodyMassRecord _ => HealthDataType.leanBodyMass,
       ElectrodermalActivityRecord _ => HealthDataType.electrodermalActivity,
       HydrationRecord _ => HealthDataType.hydration,
+      InhalerUsageRecord _ => HealthDataType.inhalerUsage,
       InsulinDeliveryRecord _ => HealthDataType.insulinDelivery,
       BloodPressureRecord _ => HealthDataType.bloodPressure,
       SystolicBloodPressureRecord _ => HealthDataType.systolicBloodPressure,

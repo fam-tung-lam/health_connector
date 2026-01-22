@@ -93,7 +93,7 @@ abstract final class AppTexts {
       LeanBodyMassDataType() => leanBodyMass,
       BodyTemperatureDataType() => bodyTemperature,
       BasalBodyTemperatureDataType() => basalBodyTemperature,
-      SleepingWristTemperatureDataType() => 'Sleeping Wrist Temperature',
+      SleepingWristTemperatureDataType() => sleepingWristTemperature,
       CervicalMucusDataType() => cervicalMucus,
       BloodPressureDataType() => bloodPressure,
       SystolicBloodPressureDataType() => systolic,
@@ -200,7 +200,7 @@ abstract final class AppTexts {
       ExerciseTimeDataType() => exerciseTime,
       MoveTimeDataType() => moveTime,
       StandTimeDataType() => standTime,
-      WalkingSteadinessDataType() => 'Walking Steadiness',
+      WalkingSteadinessDataType() => walkingSteadiness,
       WalkingAsymmetryPercentageDataType() => walkingAsymmetryPercentage,
       WalkingDoubleSupportPercentageDataType() =>
         walkingDoubleSupportPercentage,
@@ -215,6 +215,7 @@ abstract final class AppTexts {
       WalkingHeartRateAverageDataType() => walkingHeartRateAverage,
       ElectrodermalActivityDataType() => 'Electrodermal Activity',
       InsulinDeliveryDataType() => 'Insulin Delivery',
+      InhalerUsageDataType() => 'Inhaler Usage',
     };
   }
 
@@ -428,6 +429,7 @@ abstract final class AppTexts {
   static const String waistCircumference = 'Waist Circumference';
   static const String bodyTemperature = 'Body Temperature';
   static const String basalBodyTemperature = 'Basal Body Temperature';
+  static const String sleepingWristTemperature = 'Sleeping Wrist Temperature';
   static const String boneMass = 'Bone Mass';
   static const String bodyWaterMass = 'Body Water Mass';
   static const String heartRateVariabilityRMSSD =
@@ -484,7 +486,8 @@ abstract final class AppTexts {
       'Infrequent Menstrual Cycle Event';
   static const String infrequentMenstrualCycleEventDescription =
       'Detected when having a period 1-2 times in the last 6 months (iOS 16+)';
-  static const String walkingSteadinessEvent = 'Walking Steadiness Event';
+  static const String walkingSteadiness = 'Walking Steadiness';
+  static const String walkingSteadinessEvent = '$walkingSteadiness Event';
   static const String walkingSteadinessEventDescription =
       'Records an incident where the user showed a reduced score '
       'for their gait’s steadiness (iOS only)';

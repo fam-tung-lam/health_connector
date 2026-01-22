@@ -37,6 +37,7 @@ extension HealthDataPermissionDto {
              .floorsClimbed,
              .height,
              .electrodermalActivity,
+             .inhalerUsage,
              .hydration,
              .insulinDelivery,
              .leanBodyMass,

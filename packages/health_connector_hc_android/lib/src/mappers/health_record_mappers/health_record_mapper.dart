@@ -153,11 +153,6 @@ extension HealthRecordToDto on HealthRecord {
         return BodyTemperatureRecordToDto(record).toDto();
       case final BasalBodyTemperatureRecord record:
         return BasalBodyTemperatureRecordToDto(record).toDto();
-      case SleepingWristTemperatureRecord():
-        throw UnsupportedError(
-          '$SleepingWristTemperatureRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
-        );
       case final CervicalMucusRecord record:
         return CervicalMucusRecordToDto(record).toDto();
       case final StepsRecord record:
@@ -208,6 +203,17 @@ extension HealthRecordToDto on HealthRecord {
         return BodyWaterMassRecordToDto(record).toDto();
       case final HeartRateVariabilityRMSSDRecord record:
         return HeartRateVariabilityRMSSDRecordToDto(record).toDto();
+      case final PowerSeriesRecord record:
+        return PowerSeriesRecordToDto(record).toDto();
+      case final SpeedSeriesRecord record:
+        return SpeedSeriesRecordToDto(record).toDto();
+
+      // region Unsupported records
+      case SleepingWristTemperatureRecord():
+        throw UnsupportedError(
+          '$SleepingWristTemperatureRecord is not supported on Android Health '
+          'Connect.',
+        );
       case AlcoholicBeveragesRecord():
         throw UnsupportedError(
           'AlcoholicBeveragesRecord is not supported on Android Health '
@@ -216,22 +222,22 @@ extension HealthRecordToDto on HealthRecord {
       case ExerciseTimeRecord():
         throw UnsupportedError(
           '$ExerciseTimeRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case MoveTimeRecord():
         throw UnsupportedError(
           '$MoveTimeRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case StandTimeRecord():
         throw UnsupportedError(
           '$StandTimeRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case WalkingSteadinessRecord():
         throw UnsupportedError(
           '$WalkingSteadinessRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case final BasalEnergyBurnedRecord _:
         throw UnsupportedError(
@@ -242,32 +248,27 @@ extension HealthRecordToDto on HealthRecord {
       case PeripheralPerfusionIndexRecord():
         throw UnsupportedError(
           '$PeripheralPerfusionIndexRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case PregnancyTestRecord():
         throw UnsupportedError(
-          'PregnancyTestRecord is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
+          'PregnancyTestRecord is not supported on Android Health Connect. ',
         );
       case ProgesteroneTestRecord():
         throw UnsupportedError(
-          'ProgesteroneTestRecord is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
+          'ProgesteroneTestRecord is not supported on Android Health Connect. ',
         );
       case ContraceptiveRecord():
         throw UnsupportedError(
-          'ContraceptiveRecord is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 14.3+).',
+          'ContraceptiveRecord is not supported on Android Health Connect. ',
         );
       case LactationRecord():
         throw UnsupportedError(
-          'LactationRecord is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
+          'LactationRecord is not supported on Android Health Connect. ',
         );
       case PregnancyRecord():
         throw UnsupportedError(
-          'PregnancyRecord is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
+          'PregnancyRecord is not supported on Android Health Connect. ',
         );
       case final DietaryEnergyConsumedRecord _:
         throw UnsupportedError(
@@ -454,20 +455,15 @@ extension HealthRecordToDto on HealthRecord {
           '$DiastolicBloodPressureRecord is not supported on '
           'Health Connect. Use $BloodPressureRecord instead.',
         );
-      case final DistanceActivityRecord _:
-        throw UnsupportedError(
-          '$DistanceActivityRecord and its subclasses are iOS-only '
-          'and not supported on Android Health Connect.',
-        );
       case final CyclingPowerRecord _:
         throw UnsupportedError(
-          '$CyclingPowerRecord is iOS-only and not supported on '
-          'Android Health Connect. Use $PowerSeriesRecord instead.',
+          '$CyclingPowerRecord is not supported on Android Health Connect. '
+          'Use $PowerSeriesRecord instead.',
         );
       case final RunningPowerRecord _:
         throw UnsupportedError(
-          '$RunningPowerRecord is iOS-only and not supported on '
-          'Android Health Connect. Use $PowerSeriesRecord instead.',
+          '$RunningPowerRecord is not supported on Android Health Connect. '
+          'Use $PowerSeriesRecord instead.',
         );
       case final CyclingPedalingCadenceRecord _:
         throw UnsupportedError(
@@ -475,14 +471,9 @@ extension HealthRecordToDto on HealthRecord {
           'Android Health Connect. '
           'Use $CyclingPedalingCadenceSeriesRecord instead.',
         );
-      case final PowerSeriesRecord record:
-        return PowerSeriesRecordToDto(record).toDto();
-      case final SpeedSeriesRecord record:
-        return SpeedSeriesRecordToDto(record).toDto();
       case final SpeedActivityRecord _:
         throw UnsupportedError(
-          '$SpeedActivityRecord and its subclasses are iOS-only '
-          'and not supported on Android Health Connect.',
+          '$SpeedActivityRecord is not supported on Android Health Connect.',
         );
       case final BodyMassIndexRecord _:
         throw UnsupportedError(
@@ -515,92 +506,149 @@ extension HealthRecordToDto on HealthRecord {
       case ForcedVitalCapacityRecord():
         throw UnsupportedError(
           '$ForcedVitalCapacityRecord is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case WalkingDoubleSupportPercentageRecord():
         throw UnsupportedError(
           '$WalkingDoubleSupportPercentageRecord is not supported on Android '
-          'Health Connect. These data types are iOS-only.',
+          'Health Connect.',
         );
       case WalkingStepLengthRecord():
         throw UnsupportedError(
           '$WalkingStepLengthRecord is not supported on Android '
-          'Health Connect. These data types are iOS-only.',
+          'Health Connect.',
         );
       case WalkingAsymmetryPercentageRecord():
         throw UnsupportedError(
           '$WalkingAsymmetryPercentageRecord is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          'Health Connect.',
         );
       case final LowHeartRateEventRecord _:
         throw UnsupportedError(
           '$LowHeartRateEventRecord is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          'Health Connect.',
         );
       case IrregularHeartRhythmEventRecord():
         throw UnsupportedError(
           '$IrregularHeartRhythmEventRecord is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          'Health Connect.',
         );
       case InfrequentMenstrualCycleEventRecord():
         throw UnsupportedError(
           '$InfrequentMenstrualCycleEventRecord is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          'Health Connect.',
         );
       case IrregularMenstrualCycleEventRecord():
         throw UnsupportedError(
           '$IrregularMenstrualCycleEventRecord is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          'Health Connect.',
         );
       case HighHeartRateEventRecord():
         throw UnsupportedError(
           '$HighHeartRateEventRecord is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          'Health Connect.',
         );
       case WalkingSteadinessEventRecord():
         throw UnsupportedError(
           '$WalkingSteadinessEventRecord is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          'Health Connect.',
         );
       case PersistentIntermenstrualBleedingEventRecord():
         throw UnsupportedError(
           '$PersistentIntermenstrualBleedingEventRecord is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case ProlongedMenstrualPeriodEventRecord():
         throw UnsupportedError(
           '$ProlongedMenstrualPeriodEventRecord is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case AtrialFibrillationBurdenRecord():
         throw UnsupportedError(
           '$AtrialFibrillationBurdenRecord is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case WalkingHeartRateAverageRecord():
         throw UnsupportedError(
           '$WalkingHeartRateAverageRecord is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case ForcedExpiratoryVolumeRecord():
         throw UnsupportedError(
           '$ForcedExpiratoryVolumeRecord is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case NumberOfTimesFallenRecord():
         throw UnsupportedError(
           '$NumberOfTimesFallenRecord is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case ElectrodermalActivityRecord():
         throw UnsupportedError(
           '$ElectrodermalActivityRecord is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case InsulinDeliveryRecord():
         throw UnsupportedError(
           '$InsulinDeliveryRecord is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
+        );
+      case InhalerUsageRecord():
+        throw UnsupportedError(
+          '$InhalerUsageRecord is not supported on '
+          'Android Health Connect.',
+        );
+
+      // endregion
+      case CrossCountrySkiingDistanceRecord():
+        throw UnsupportedError(
+          '$CrossCountrySkiingDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case CyclingDistanceRecord():
+        throw UnsupportedError(
+          '$CyclingDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case DownhillSnowSportsDistanceRecord():
+        throw UnsupportedError(
+          '$DownhillSnowSportsDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case PaddleSportsDistanceRecord():
+        throw UnsupportedError(
+          '$PaddleSportsDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case RowingDistanceRecord():
+        throw UnsupportedError(
+          '$RowingDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case SixMinuteWalkTestDistanceRecord():
+        throw UnsupportedError(
+          '$SixMinuteWalkTestDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case SkatingSportsDistanceRecord():
+        throw UnsupportedError(
+          '$SkatingSportsDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case SwimmingDistanceRecord():
+        throw UnsupportedError(
+          '$SwimmingDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case WalkingRunningDistanceRecord():
+        throw UnsupportedError(
+          '$WalkingRunningDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
+        );
+      case WheelchairDistanceRecord():
+        throw UnsupportedError(
+          '$WheelchairDistanceRecord is not supported on '
+          'Android Health Connect. Use $DistanceDataType instead.',
         );
     }
   }

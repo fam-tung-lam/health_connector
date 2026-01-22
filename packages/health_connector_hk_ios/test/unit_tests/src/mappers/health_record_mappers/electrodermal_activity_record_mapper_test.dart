@@ -13,7 +13,8 @@ void main() {
         'ElectrodermalActivityRecordToDto',
         () {
           test(
-            'converts ElectrodermalActivityRecord to ElectrodermalActivityRecordDto',
+            'converts ElectrodermalActivityRecord to '
+            'ElectrodermalActivityRecordDto',
             () {
               final record = ElectrodermalActivityRecord(
                 id: HealthRecordId(FakeData.fakeId),
@@ -59,7 +60,8 @@ void main() {
         'ElectrodermalActivityRecordDtoToDomain',
         () {
           test(
-            'converts ElectrodermalActivityRecordDto to ElectrodermalActivityRecord',
+            'converts ElectrodermalActivityRecordDto to '
+            'ElectrodermalActivityRecord',
             () {
               final dto = ElectrodermalActivityRecordDto(
                 id: FakeData.fakeId,

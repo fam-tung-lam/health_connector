@@ -889,6 +889,13 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      InhalerUsageDataType() => _buildSum(
+        () => HealthDataType.inhalerUsage.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
     };
   }
 

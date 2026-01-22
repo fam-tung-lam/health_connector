@@ -244,6 +244,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.walkingHeartRateAverage;
       case HealthDataTypeDto.numberOfTimesFallen:
         return HealthDataType.numberOfTimesFallen;
+      case HealthDataTypeDto.inhalerUsage:
+        return HealthDataType.inhalerUsage;
     }
   }
 }
@@ -325,7 +327,6 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.dietaryFiber;
       case DietarySugarDataType _:
         return HealthDataTypeDto.sugar;
-
       case DietaryVitaminADataType _:
         return HealthDataTypeDto.vitaminA;
       case DietaryVitaminB6DataType _:
@@ -352,7 +353,6 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.biotin;
       case DietaryPantothenicAcidDataType _:
         return HealthDataTypeDto.pantothenicAcid;
-
       case DietaryCalciumDataType _:
         return HealthDataTypeDto.calcium;
       case DietaryIronDataType _:
@@ -371,7 +371,6 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.sodium;
       case DietaryZincDataType _:
         return HealthDataTypeDto.zinc;
-
       case NutritionDataType _:
         return HealthDataTypeDto.nutrition;
       case BloodPressureDataType _:
@@ -408,7 +407,6 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.forcedExpiratoryVolume;
       case BloodGlucoseDataType _:
         return HealthDataTypeDto.bloodGlucose;
-      // Distance activity types (iOS HealthKit only)
       case CyclingDistanceDataType _:
         return HealthDataTypeDto.cyclingDistance;
       case CyclingPowerDataType _:
@@ -435,7 +433,6 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.walkingRunningDistance;
       case SwimmingStrokesDataType _:
         return HealthDataTypeDto.swimmingStrokes;
-      // Speed activity types (iOS HealthKit only)
       case WalkingSpeedDataType _:
         return HealthDataTypeDto.walkingSpeed;
       case RunningSpeedDataType _:
@@ -452,6 +449,47 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.lactation;
       case HeartRateVariabilitySDNNDataType _:
         return HealthDataTypeDto.heartRateVariabilitySDNN;
+      case ExerciseTimeDataType _:
+        return HealthDataTypeDto.exerciseTime;
+      case MoveTimeDataType _:
+        return HealthDataTypeDto.moveTime;
+      case StandTimeDataType _:
+        return HealthDataTypeDto.standTime;
+      case WalkingSteadinessDataType _:
+        return HealthDataTypeDto.walkingSteadiness;
+      case WalkingAsymmetryPercentageDataType _:
+        return HealthDataTypeDto.walkingAsymmetryPercentage;
+      case WalkingDoubleSupportPercentageDataType _:
+        return HealthDataTypeDto.walkingDoubleSupportPercentage;
+      case WalkingStepLengthDataType _:
+        return HealthDataTypeDto.walkingStepLength;
+      case IrregularHeartRhythmEventDataType _:
+        return HealthDataTypeDto.irregularHeartRhythmEvent;
+      case InfrequentMenstrualCycleEventDataType _:
+        return HealthDataTypeDto.infrequentMenstrualCycleEvent;
+      case IrregularMenstrualCycleEventDataType _:
+        return HealthDataTypeDto.irregularMenstrualCycleEvent;
+      case HighHeartRateEventDataType _:
+        return HealthDataTypeDto.highHeartRateEvent;
+      case WalkingSteadinessEventDataType _:
+        return HealthDataTypeDto.walkingSteadinessEvent;
+      case PersistentIntermenstrualBleedingEventDataType _:
+        return HealthDataTypeDto.persistentIntermenstrualBleedingEvent;
+      case ProlongedMenstrualPeriodEventDataType _:
+        return HealthDataTypeDto.prolongedMenstrualPeriodEvent;
+      case AtrialFibrillationBurdenDataType _:
+        return HealthDataTypeDto.atrialFibrillationBurden;
+      case WalkingHeartRateAverageDataType _:
+        return HealthDataTypeDto.walkingHeartRateAverage;
+      case NumberOfTimesFallenDataType _:
+        return HealthDataTypeDto.numberOfTimesFallen;
+      case InhalerUsageDataType _:
+        return HealthDataTypeDto.inhalerUsage;
+      case PeripheralPerfusionIndexDataType _:
+        return HealthDataTypeDto.peripheralPerfusionIndex;
+
+      // Region Unsupported data types
+
       case ElevationGainedDataType _:
         throw UnsupportedError(
           '$ElevationGainedDataType is not supported on iOS '
@@ -498,7 +536,7 @@ extension HealthDataTypeToDto on HealthDataType {
       case TotalEnergyBurnedDataType _:
         throw UnsupportedError(
           '$TotalEnergyBurnedDataType is not supported on iOS '
-          'HealthKit. Use $ActiveEnergyBurnedDataType + '
+          'HealthKit. Use $ActiveEnergyBurnedDataType and '
           '$BasalEnergyBurnedDataType instead.',
         );
       case BoneMassDataType _:
@@ -514,53 +552,17 @@ extension HealthDataTypeToDto on HealthDataType {
           '$HeartRateVariabilityRMSSDDataType is not supported on iOS '
           'HealthKit. Use $HeartRateVariabilitySDNNDataType instead.',
         );
-
       case MenstrualFlowInstantDataType _:
         throw UnsupportedError(
           '$MenstrualFlowInstantDataType is not supported on iOS HealthKit. '
           'Use $MenstrualFlowDataType instead.',
         );
-      case PeripheralPerfusionIndexDataType _:
-        return HealthDataTypeDto.peripheralPerfusionIndex;
       case ActivityIntensityDataType _:
         throw UnsupportedError(
           '$ActivityIntensityDataType is not supported on iOS HealthKit.',
         );
-      case ExerciseTimeDataType _:
-        return HealthDataTypeDto.exerciseTime;
-      case MoveTimeDataType _:
-        return HealthDataTypeDto.moveTime;
-      case StandTimeDataType _:
-        return HealthDataTypeDto.standTime;
-      case WalkingSteadinessDataType _:
-        return HealthDataTypeDto.walkingSteadiness;
-      case WalkingAsymmetryPercentageDataType _:
-        return HealthDataTypeDto.walkingAsymmetryPercentage;
-      case WalkingDoubleSupportPercentageDataType _:
-        return HealthDataTypeDto.walkingDoubleSupportPercentage;
-      case WalkingStepLengthDataType _:
-        return HealthDataTypeDto.walkingStepLength;
-      case IrregularHeartRhythmEventDataType _:
-        return HealthDataTypeDto.irregularHeartRhythmEvent;
-      case InfrequentMenstrualCycleEventDataType _:
-        return HealthDataTypeDto.infrequentMenstrualCycleEvent;
-      case IrregularMenstrualCycleEventDataType _:
-        return HealthDataTypeDto.irregularMenstrualCycleEvent;
-      case HighHeartRateEventDataType _:
-        return HealthDataTypeDto.highHeartRateEvent;
 
-      case WalkingSteadinessEventDataType _:
-        return HealthDataTypeDto.walkingSteadinessEvent;
-      case PersistentIntermenstrualBleedingEventDataType _:
-        return HealthDataTypeDto.persistentIntermenstrualBleedingEvent;
-      case ProlongedMenstrualPeriodEventDataType _:
-        return HealthDataTypeDto.prolongedMenstrualPeriodEvent;
-      case AtrialFibrillationBurdenDataType _:
-        return HealthDataTypeDto.atrialFibrillationBurden;
-      case WalkingHeartRateAverageDataType _:
-        return HealthDataTypeDto.walkingHeartRateAverage;
-      case NumberOfTimesFallenDataType _:
-        return HealthDataTypeDto.numberOfTimesFallen;
+      // endregion
     }
   }
 }

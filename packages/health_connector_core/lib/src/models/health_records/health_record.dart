@@ -70,6 +70,7 @@ part 'events/low_heart_rate_event_record.dart';
 part 'events/irregular_heart_rhythm_event_record.dart';
 part 'events/prolonged_menstrual_period_event_record.dart';
 part 'electrodermal_activity_record.dart';
+part 'inhaler_usage_record.dart';
 part 'height_record.dart';
 part 'hydration_record.dart';
 part 'insulin_delivery_record.dart';

@@ -60,6 +60,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/floors_climbed_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/forced_expiratory_volume_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/hydration_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/inhaler_usage_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/insulin_delivery_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/lactation_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/mindfulness_session_health_record_write_form.dart';
@@ -609,8 +610,12 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
+      InhalerUsageDataType() => InhalerUsageWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
 
-      // Read-only data types
+      // region Read-only data types
       ExerciseTimeDataType _ => throw UnsupportedError(
         'Apple Exercise Time is read-only',
       ),
@@ -659,6 +664,8 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       WalkingHeartRateAverageDataType _ => throw UnsupportedError(
         'Walking Heart Rate Average is read-only',
       ),
+
+      // endregion
     };
   }
 }

@@ -38,6 +38,8 @@ extension HealthRecordDto {
             record.id
         case let record as ElectrodermalActivityRecordDto:
             record.id
+        case let record as InhalerUsageRecordDto:
+            record.id
         case let record as HydrationRecordDto:
             record.id
         case let record as InsulinDeliveryRecordDto:
@@ -399,6 +401,8 @@ extension HealthRecordDto {
                 return .contraceptive
             case is SwimmingStrokesRecordDto:
                 return .swimmingStrokes
+            case is InhalerUsageRecordDto:
+                return .inhalerUsage
             case is ForcedVitalCapacityRecordDto:
                 return .forcedVitalCapacity
             case is ForcedExpiratoryVolumeRecordDto:

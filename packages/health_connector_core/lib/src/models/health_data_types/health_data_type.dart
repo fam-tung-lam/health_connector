@@ -41,6 +41,7 @@ part 'distance/skating_sports_distance_data_type.dart';
 part 'distance/swimming_distance_data_type.dart';
 part 'distance/walking_running_distance_data_type.dart';
 part 'distance/wheelchair_distance_data_type.dart';
+part 'electrodermal_activity_data_type.dart';
 part 'elevation_gained_data_type.dart';
 part 'energy_burned/active_energy_burned_data_type.dart';
 part 'energy_burned/basal_energy_burned_data_type.dart';
@@ -54,8 +55,8 @@ part 'events/persistent_intermenstrual_bleeding_event_data_type.dart';
 part 'events/prolonged_menstrual_period_event_data_type.dart';
 part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
-part 'forced_vital_capacity_data_type.dart';
 part 'forced_expiratory_volume_data_type.dart';
+part 'forced_vital_capacity_data_type.dart';
 part 'health_data_type_category.dart';
 part 'heart_rate/atrial_fibrillation_burden_data_type.dart';
 part 'heart_rate/heart_rate_data_type.dart';
@@ -64,9 +65,9 @@ part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
 part 'heart_rate/heart_rate_variability_sdnn_data_type.dart';
 part 'heart_rate/resting_heart_rate_data_type.dart';
 part 'heart_rate/walking_heart_rate_average_data_type.dart';
-part 'electrodermal_activity_data_type.dart';
 part 'height_data_type.dart';
 part 'hydration_data_type.dart';
+part 'inhaler_usage_data_type.dart';
 part 'insulin_delivery_data_type.dart';
 part 'lean_body_mass_data_type.dart';
 part 'menstruation/cervical_mucus_data_type.dart';
@@ -255,8 +256,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Distance data type.
   ///
   /// Represents the distance traveled during activities such as walking,
-  /// running, or cycling. Supports both reading existing distance data
-  /// and writing new distance measurements.
+  /// running, or cycling.
   @supportedOnHealthConnect
   static const distance = DistanceDataType();
 
@@ -354,34 +354,32 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
 
   /// Step count data type.
   ///
-  /// Represents the number of steps taken by the user. Supports both reading
-  /// existing step count data and writing new step count entries.
+  /// Represents the number of steps taken by the user.
   static const steps = StepsDataType();
 
   /// Body weight data type.
   ///
-  /// Represents the user's body weight measurements. Supports both reading
-  /// existing weight data and writing new weight measurements.
+  /// Represents the user's body weight measurements.
   static const weight = WeightDataType();
 
   /// Blood glucose data type.
   ///
   /// Represents the concentration of glucose in the blood.
-  /// Supports AVG, MIN, MAX aggregation.
+
   @sinceV1_4_0
   static const bloodGlucose = BloodGlucoseDataType();
 
   /// Blood pressure data type (composite).
   ///
   /// Represents a composite blood pressure measurement with both systolic
-  /// and diastolic values. Supports AVG, MIN, MAX aggregation.
+  /// and diastolic values.
   @sinceV1_2_0
   static const bloodPressure = BloodPressureDataType();
 
   /// Systolic blood pressure data type.
   ///
   /// Represents the systolic (upper) blood pressure value.
-  /// Supports AVG, MIN, MAX aggregation.
+
   @sinceV1_2_0
   @supportedOnAppleHealth
   static const systolicBloodPressure = SystolicBloodPressureDataType();
@@ -389,7 +387,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Diastolic blood pressure data type.
   ///
   /// Represents the diastolic (lower) blood pressure value.
-  /// Supports AVG, MIN, MAX aggregation.
+
   @sinceV1_2_0
   @supportedOnAppleHealth
   static const diastolicBloodPressure = DiastolicBloodPressureDataType();
@@ -398,20 +396,18 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the user's body fat percentage measurements.
   /// Body fat percentage is expressed as a decimal value between 0 and
-  /// 1 (e.g., 0.25 = 25%). Supports both reading existing body fat percentage
-  /// data and writing new measurements.
+  /// 1 (e.g., 0.25 = 25%).
   static const bodyFatPercentage = BodyFatPercentageDataType();
 
   /// Body temperature data type.
   ///
-  /// Represents the user's body temperature measurements. Supports both reading
-  /// existing body temperature data and writing new measurements.
+  /// Represents the user's body temperature measurements.
   static const bodyTemperature = BodyTemperatureDataType();
 
   /// Sleeping wrist temperature data type.
   ///
   /// Represents the temperature measured at the wrist during sleep.
-  /// Supports AVG, MIN, MAX aggregation.
+
   ///
   /// **Note**: This is a read-only data type.
   @sinceV3_2_0
@@ -432,7 +428,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Bone mass data type.
   ///
   /// Represents the user's bone mass measurements.
-  /// Supports reading, writing, and deletion.
   @sinceV2_2_0
   @supportedOnHealthConnect
   static const boneMass = BoneMassDataType();
@@ -440,7 +435,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Body water mass data type.
   ///
   /// Represents the user's body water mass measurements.
-  /// Supports reading, writing, and deletion.
   @sinceV2_2_0
   @supportedOnHealthConnect
   static const bodyWaterMass = BodyWaterMassDataType();
@@ -448,7 +442,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Heart rate variability (RMSSD) data type.
   ///
   /// Represents the user's heart rate variability (RMSSD) measurements.
-  /// Supports reading, writing, and deletion.
   @sinceV2_2_0
   @supportedOnHealthConnect
   static const heartRateVariabilityRMSSD = HeartRateVariabilityRMSSDDataType();
@@ -456,7 +449,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Heart rate variability (SDNN) data type.
   ///
   /// Represents the user's heart rate variability (SDNN) measurements.
-  /// Supports reading, writing, and deletion.
   @sinceV2_2_0
   @supportedOnAppleHealth
   static const heartRateVariabilitySDNN = HeartRateVariabilitySDNNDataType();
@@ -464,7 +456,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Body mass index data type.
   ///
   /// Represents the user's body mass index (BMI).
-  /// Supports reading, writing, and deletion.
   @sinceV2_2_0
   @supportedOnAppleHealth
   static const bodyMassIndex = BodyMassIndexDataType();
@@ -472,7 +463,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Waist circumference data type.
   ///
   /// Represents the user's waist circumference.
-  /// Supports reading, writing, and deletion.
   @sinceV2_2_0
   @supportedOnAppleHealth
   static const waistCircumference = WaistCircumferenceDataType();
@@ -481,7 +471,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the percentage of steps where one footstrike is moving at a
   /// different speed than the other. Used to assess gait symmetry.
-  /// Supports reading and aggregation (MIN, MAX, AVG).
   ///
   /// **Note**: This is a read-only data type.
   @sinceV3_2_0
@@ -494,7 +483,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the percentage of steps where both feet are on the ground.
   /// Used to assess gait symmetry and stability.
-  /// Supports reading and aggregation (MIN, MAX, AVG).
   ///
   /// **Note**: This is a read-only data type.
   @sinceV3_2_0
@@ -506,7 +494,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the distance between the point of initial contact of one foot
   /// and the point of initial contact of the opposite foot.
-  /// Supports reading and aggregation (MIN, MAX, AVG).
   ///
   /// **Note**: This is a read-only data type.
   @sinceV3_2_0
@@ -516,29 +503,25 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Cervical mucus data type.
   ///
   /// Represents cervical mucus observations including appearance and sensation.
-  /// Used for fertility tracking. Supports reading, writing, and deletion of
-  /// cervical mucus records.
+  /// Used for fertility tracking.
   @sinceV2_1_0
   static const cervicalMucus = CervicalMucusDataType();
 
   /// Body height data type.
   ///
-  /// Represents the user's body height measurements. Supports both reading
-  /// existing height data and writing new height measurements.
+  /// Represents the user's body height measurements.
   static const height = HeightDataType();
 
   /// Active energy burned data type.
   ///
   /// Represents the amount of energy burned during physical activity over a
   /// time interval. Active energy are those burned through exercise
-  /// and movement, excluding basal metabolic rate. Supports both reading
-  /// existing active energy data and writing new measurements.
+  /// and movement, excluding basal metabolic rate.
   static const activeEnergyBurned = ActiveEnergyBurnedDataType();
 
   /// Activity intensity data type.
   ///
   /// Tracks periods of moderate and vigorous physical activity.
-  /// Supports reading, writing, custom sum aggregation, and deletion.
   @sinceV3_2_0
   @supportedOnHealthConnect
   static const activityIntensity = ActivityIntensityDataType();
@@ -589,7 +572,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Number of times fallen data type.
   ///
   /// Tracks the number of times the user has fallen.
-  /// Supports reading, writing, deletion, and SUM aggregation.
   @sinceV3_5_0
   @supportedOnAppleHealth
   static const numberOfTimesFallen = NumberOfTimesFallenDataType();
@@ -597,7 +579,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Exercise session data type.
   ///
   /// Represents exercise sessions with exercise type, duration, and notes.
-  /// Supports reading, writing, sum aggregation, and deletion.
   @sinceV2_0_0
   static const exerciseSession = ExerciseSessionDataType();
 
@@ -605,14 +586,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the number of floors (flights of stairs) climbed during
   /// a time interval. A floor is typically defined as a vertical distance
-  /// of approximately 3 meters (10 feet). Supports both reading existing
-  /// floors climbed data and writing new measurements.
+  /// of approximately 3 meters (10 feet).
   static const floorsClimbed = FloorsClimbedDataType();
 
   /// Forced vital capacity data type.
   ///
   /// Represents the user's forced vital capacity measurements.
-  /// Supports AVG, MIN, MAX aggregation.
+
   @sinceV3_1_0
   @supportedOnAppleHealth
   static const forcedVitalCapacity = ForcedVitalCapacityDataType();
@@ -628,7 +608,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Elevation gained data type.
   ///
   /// Represents the elevation gain accumulated during physical activity.
-  /// Supports both reading existing data and writing new measurements.
   @sinceV3_1_0
   @supportedOnHealthConnect
   static const elevationGained = ElevationGainedDataType();
@@ -637,24 +616,20 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the number of wheelchair pushes performed during
   /// a time interval. A push represents a single propulsion action
-  /// used to move a wheelchair forward. Supports both reading existing
-  /// wheelchair pushes data and writing new measurements.
+  /// used to move a wheelchair forward.
   static const wheelchairPushes = WheelchairPushesDataType();
 
   /// Lean body mass data type.
   ///
   /// Represents the user's lean body mass measurements. Lean body mass
   /// is the total weight of the body minus the weight of body fat.
-  /// Supports both reading existing lean body mass data and writing
-  /// new measurements.
   static const leanBodyMass = LeanBodyMassDataType();
 
   /// Hydration (water intake) data type.
   ///
   /// Represents the volume of water consumed over a time interval.
   /// Tracks water consumption to help users monitor daily hydration levels
-  /// and maintain healthy fluid intake. Supports both reading existing
-  /// hydration data and writing new measurements.
+  /// and maintain healthy fluid intake.
   static const hydration = HydrationDataType();
 
   /// Electrodermal activity data type.
@@ -665,6 +640,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV3_5_0
   @supportedOnAppleHealth
   static const electrodermalActivity = ElectrodermalActivityDataType();
+
+  /// Inhaler usage data type.
+  ///
+  /// Tracks the number of puffs taken from an inhaler over a time interval.
+  @sinceV3_5_0
+  @supportedOnAppleHealth
+  static const inhalerUsage = InhalerUsageDataType();
 
   /// Insulin delivery data type.
   ///
@@ -678,8 +660,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents a series of heart rate measurements over a time interval.
   /// Each record has a single ID that encompasses all heart rate measurements.
-  ///
-  /// Supports both reading existing heart rate data and writing
   /// new measurements.
   @supportedOnHealthConnect
   static const heartRateSeries = HeartRateSeriesDataType();
@@ -699,9 +679,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents a single heart rate measurement at a specific point in time.
   /// Each record has its own UUID.
-  ///
-  /// Supports both reading existing heart rate data and writing
-  /// new measurements.
   @supportedOnAppleHealth
   static const heartRate = HeartRateDataType();
 
@@ -709,8 +686,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents a complete sleep session with multiple sleep stages.
   /// Each sleep session has a single ID that encompasses all stages.
-  ///
-  /// Supports both reading existing sleep data and writing new sessions.
   @supportedOnHealthConnect
   static const sleepSession = SleepSessionDataType();
 
@@ -719,16 +694,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Sleep stage records is an individual measurements, one per sleep stage.
   /// A complete night's sleep consists of multiple records.
   /// Each record has its own UUID.
-  ///
-  /// Supports both reading existing sleep data and writing new measurements.
   @supportedOnAppleHealth
   static const sleepStageRecord = SleepStageDataType();
 
   /// Mindfulness session data type.
   ///
   /// Represents mindfulness sessions including meditation, breathing exercises,
-  /// and other mindfulness activities. Supports reading, writing, deletion,
-  /// and SUM aggregation for total mindfulness duration.
+  /// and other mindfulness activities.
   @sinceV2_1_0
   static const mindfulnessSession = MindfulnessSessionDataType();
 
@@ -743,7 +715,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the heart rate while at complete rest, typically measured
   /// first thing in the morning before getting out of bed.
-  /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_3_0
   static const RestingHeartRateDataType restingHeartRate =
       RestingHeartRateDataType();
@@ -877,7 +848,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents contraceptive usage periods, tracking the time during which
   /// specific contraceptive methods are used.
-  /// Supports reading, writing, and deletion.
   @sinceV3_1_0
   @supportedOnAppleHealth
   static const contraceptive = ContraceptiveDataType();
@@ -915,7 +885,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Lactation data type.
   ///
   /// Represents the act of breastfeeding or expressing breast milk.
-  /// Supports reading, writing, and deletion.
   @sinceV3_1_0
   @supportedOnAppleHealth
   static const lactation = LactationDataType();
@@ -923,15 +892,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Oxygen saturation data type.
   ///
   /// Represents the percentage of oxygen-saturated hemoglobin relative
-  /// to total hemoglobin in the blood. Supports reading and writing
-  /// oxygen saturation measurements.
+  /// to total hemoglobin in the blood.
   @sinceV1_3_0
   static const oxygenSaturation = OxygenSaturationDataType();
 
   /// Peripheral perfusion index data type.
   ///
   /// Represents the blood flow to the peripheral tissues.
-  /// Supports AVG, MIN, MAX aggregation.
   @sinceV3_1_0
   @supportedOnAppleHealth
   static const peripheralPerfusionIndex = PeripheralPerfusionIndexDataType();
@@ -956,7 +923,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents cycling cadence measurements in revolutions per minute (RPM).
   /// Each record contains multiple cadence samples over a time interval.
   ///
-  /// Supports AVG, MIN, MAX aggregation.
+
   @sinceV2_2_0
   @supportedOnHealthConnect
   static const cyclingPedalingCadenceSeries =
@@ -967,7 +934,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents steps cadence measurements in steps per minute.
   /// Each record contains multiple cadence samples over a time interval.
   ///
-  /// Supports AVG, MIN, MAX aggregation.
+
   @sinceV3_1_0
   @supportedOnHealthConnect
   static const stepsCadenceSeries = StepsCadenceSeriesDataType();
@@ -978,7 +945,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// minute (RPM).
   /// Each record is a discrete measurement at a specific point in time.
   ///
-  /// Supports AVG, MIN, MAX aggregation.
+
   @sinceV2_2_0
   @supportedOnAppleHealth
   @supportedOnAppleHealthIOS17Plus
@@ -987,7 +954,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Respiratory rate data type.
   ///
   /// Represents the number of breaths a person takes per minute.
-  /// Supports reading and writing respiratory rate measurements.
   @sinceV1_0_0
   static const respiratoryRate = RespiratoryRateDataType();
 
@@ -995,7 +961,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the maximum rate of oxygen consumption during exercise,
   /// a key indicator of cardiorespiratory fitness.
-  /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_3_0
   static const vo2Max = Vo2MaxDataType();
 
@@ -1008,8 +973,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
 
   /// Dietary energy consumed data type.
   ///
-  /// Represents energy intake. Supports reading, writing,
-  /// and sum aggregation of energy nutrient records.
+  /// Represents energy intake.
   @sinceV1_1_0
   static const dietaryEnergyConsumed = DietaryEnergyConsumedDataType();
 
@@ -1017,16 +981,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the total energy burned by the user, including both
   /// active energy and basal metabolic rate.
-  ///
-  /// Supports reading, writing, and sum aggregation.
   @sinceV2_2_0
   @supportedOnHealthConnect
   static const totalEnergyBurned = TotalEnergyBurnedDataType();
 
   /// Alcoholic beverages data type.
   ///
-  /// Tracks the number of alcoholic beverages consumed. Supports reading,
-  /// writing, deletion, and sum aggregation.
+  /// Tracks the number of alcoholic beverages consumed.
   @sinceV3_1_0
   @supportedOnAppleHealth
   static const alcoholicBeverages = AlcoholicBeveragesDataType();
@@ -1034,7 +995,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Blood alcohol content data type.
   ///
   /// Represents the concentration of alcohol in the blood.
-  /// Supports AVG, MIN, MAX aggregation.
   @sinceV3_1_0
   @supportedOnAppleHealth
   static const bloodAlcoholContent = BloodAlcoholContentDataType();
@@ -1042,226 +1002,193 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Basal energy burned data type.
   ///
   /// Represents the energy burned by the body at rest (BMR).
-  ///
-  /// Supports reading, writing, and sum aggregation.
   @sinceV2_2_0
   @supportedOnAppleHealth
   static const basalEnergyBurned = BasalEnergyBurnedDataType();
 
   /// Caffeine data type.
   ///
-  /// Represents caffeine intake. Supports reading, writing,
-  /// and sum aggregation of caffeine nutrient records.
+  /// Represents caffeine intake.
   @sinceV1_1_0
   static const dietaryCaffeine = DietaryCaffeineDataType();
 
   /// Protein data type.
   ///
-  /// Represents protein intake. Supports reading, writing,
-  /// and sum aggregation of protein nutrient records.
+  /// Represents protein intake.
   @sinceV1_1_0
   static const dietaryProtein = DietaryProteinDataType();
 
   /// Total carbohydrate data type.
   ///
-  /// Represents total carbohydrate intake. Supports reading, writing,
-  /// and sum aggregation of total carbohydrate nutrient records.
+  /// Represents total carbohydrate intake.
   @sinceV1_1_0
   static const dietaryTotalCarbohydrate = DietaryTotalCarbohydrateDataType();
 
   /// Total fat data type.
   ///
-  /// Represents total fat intake. Supports reading, writing,
-  /// and sum aggregation of total fat nutrient records.
+  /// Represents total fat intake.
   @sinceV1_1_0
   static const dietaryTotalFat = DietaryTotalFatDataType();
 
   /// Saturated fat data type.
   ///
-  /// Represents saturated fat intake. Supports reading, writing,
-  /// and sum aggregation of saturated fat nutrient records.
+  /// Represents saturated fat intake.
   @sinceV1_1_0
   static const dietarySaturatedFat = DietarySaturatedFatDataType();
 
   /// Monounsaturated fat data type.
   ///
-  /// Represents monounsaturated fat intake. Supports reading, writing,
-  /// and sum aggregation of monounsaturated fat nutrient records.
+  /// Represents monounsaturated fat intake.
   @sinceV1_1_0
   static const dietaryMonounsaturatedFat = DietaryMonounsaturatedFatDataType();
 
   /// Polyunsaturated fat data type.
   ///
-  /// Represents polyunsaturated fat intake. Supports reading, writing,
-  /// and sum aggregation of polyunsaturated fat nutrient records.
+  /// Represents polyunsaturated fat intake.
   @sinceV1_1_0
   static const dietaryPolyunsaturatedFat = DietaryPolyunsaturatedFatDataType();
 
   /// Cholesterol data type.
   ///
-  /// Represents cholesterol intake. Supports reading, writing,
-  /// and sum aggregation of cholesterol nutrient records.
+  /// Represents cholesterol intake.
   @sinceV1_1_0
   static const dietaryCholesterol = DietaryCholesterolDataType();
 
   /// Dietary fiber data type.
   ///
-  /// Represents dietary fiber intake. Supports reading, writing,
-  /// and sum aggregation of dietary fiber nutrient records.
+  /// Represents dietary fiber intake.
   @sinceV1_1_0
   static const dietaryFiber = DietaryFiberNutrientDataType();
 
   /// Sugar data type.
   ///
-  /// Represents sugar intake. Supports reading, writing,
-  /// and sum aggregation of sugar nutrient records.
+  /// Represents sugar intake.
   @sinceV1_1_0
   static const dietarySugar = DietarySugarDataType();
 
   /// Calcium data type.
   ///
-  /// Represents calcium intake. Supports reading, writing,
-  /// and sum aggregation of calcium nutrient records.
+  /// Represents calcium intake.
   @sinceV1_1_0
   static const dietaryCalcium = DietaryCalciumDataType();
 
   /// Iron data type.
   ///
-  /// Represents iron intake. Supports reading, writing,
-  /// and sum aggregation of iron nutrient records.
+  /// Represents iron intake.
   @sinceV1_1_0
   static const dietaryIron = DietaryIronDataType();
 
   /// Magnesium data type.
   ///
-  /// Represents magnesium intake. Supports reading, writing,
-  /// and sum aggregation of magnesium nutrient records.
+  /// Represents magnesium intake.
   @sinceV1_1_0
   static const dietaryMagnesium = DietaryMagnesiumDataType();
 
   /// Manganese data type.
   ///
-  /// Represents manganese intake. Supports reading, writing,
-  /// and sum aggregation of manganese nutrient records.
+  /// Represents manganese intake.
   @sinceV1_1_0
   static const dietaryManganese = DietaryManganeseDataType();
 
   /// Phosphorus data type.
   ///
-  /// Represents phosphorus intake. Supports reading, writing,
-  /// and sum aggregation of phosphorus nutrient records.
+  /// Represents phosphorus intake.
   @sinceV1_1_0
   static const dietaryPhosphorus = DietaryPhosphorusDataType();
 
   /// Potassium data type.
   ///
-  /// Represents potassium intake. Supports reading, writing,
-  /// and sum aggregation of potassium nutrient records.
+  /// Represents potassium intake.
   @sinceV1_1_0
   static const dietaryPotassium = DietaryPotassiumDataType();
 
   /// Selenium data type.
   ///
-  /// Represents selenium intake. Supports reading, writing,
-  /// and sum aggregation of selenium nutrient records.
+  /// Represents selenium intake.
   @sinceV1_1_0
   static const dietarySelenium = DietarySeleniumDataType();
 
   /// Sodium data type.
   ///
-  /// Represents sodium intake. Supports reading, writing,
-  /// and sum aggregation of sodium nutrient records.
+  /// Represents sodium intake.
   @sinceV1_1_0
   static const dietarySodium = DietarySodiumDataType();
 
   /// Zinc data type.
   ///
-  /// Represents zinc intake. Supports reading, writing,
-  /// and sum aggregation of zinc nutrient records.
+  /// Represents zinc intake.
   @sinceV1_1_0
   static const dietaryZinc = DietaryZincDataType();
 
   /// Vitamin A data type.
   ///
-  /// Represents vitamin A intake. Supports reading, writing,
-  /// and sum aggregation of vitamin A nutrient records.
+  /// Represents vitamin A intake.
   @sinceV1_1_0
   static const dietaryVitaminA = DietaryVitaminADataType();
 
   /// Vitamin B6 data type.
   ///
-  /// Represents vitamin B6 intake. Supports reading, writing,
-  /// and sum aggregation of vitamin B6 nutrient records.
+  /// Represents vitamin B6 intake.
   @sinceV1_1_0
   static const dietaryVitaminB6 = DietaryVitaminB6DataType();
 
   /// Vitamin B12 data type.
   ///
-  /// Represents vitamin B12 intake. Supports reading, writing,
-  /// and sum aggregation of vitamin B12 nutrient records.
+  /// Represents vitamin B12 intake.
   @sinceV1_1_0
   static const dietaryVitaminB12 = DietaryVitaminB12DataType();
 
   /// Vitamin C data type.
   ///
-  /// Represents vitamin C intake. Supports reading, writing,
-  /// and sum aggregation of vitamin C nutrient records.
+  /// Represents vitamin C intake.
   @sinceV1_1_0
   static const dietaryVitaminC = DietaryVitaminCDataType();
 
   /// Vitamin D data type.
   ///
-  /// Represents vitamin D intake. Supports reading, writing,
-  /// and sum aggregation of vitamin D nutrient records.
+  /// Represents vitamin D intake.
   @sinceV1_1_0
   static const dietaryVitaminD = DietaryVitaminDDataType();
 
   /// Vitamin E data type.
   ///
-  /// Represents vitamin E intake. Supports reading, writing,
-  /// and sum aggregation of vitamin E nutrient records.
+  /// Represents vitamin E intake.
   @sinceV1_1_0
   static const dietaryVitaminE = DietaryVitaminEDataType();
 
   /// Vitamin K data type.
   ///
-  /// Represents vitamin K intake. Supports reading, writing,
-  /// and sum aggregation of vitamin K nutrient records.
+  /// Represents vitamin K intake.
   @sinceV1_1_0
   static const dietaryVitaminK = DietaryVitaminKDataType();
 
   /// Thiamin data type.
   ///
-  /// Represents thiamin (vitamin B1) intake. Supports reading, writing,
-  /// and sum aggregation of thiamin nutrient records.
+  /// Represents thiamin (vitamin B1) intake.
   @sinceV1_1_0
   static const dietaryThiamin = DietaryThiaminDataType();
 
   /// Riboflavin data type.
   ///
-  /// Represents riboflavin (vitamin B2) intake. Supports reading, writing,
-  /// and sum aggregation of riboflavin nutrient records.
+  /// Represents riboflavin (vitamin B2) intake.
   @sinceV1_1_0
   static const dietaryRiboflavin = DietaryRiboflavinDataType();
 
   /// Niacin data type.
   ///
-  /// Represents niacin (vitamin B3) intake. Supports reading, writing,
-  /// and sum aggregation of niacin nutrient records.
+  /// Represents niacin (vitamin B3) intake.
   @sinceV1_1_0
   static const dietaryNiacin = DietaryNiacinDataType();
 
   /// Folate data type.
   ///
-  /// Represents folate (vitamin B9) intake. Supports reading, writing,
-  /// and sum aggregation of folate nutrient records.
+  /// Represents folate (vitamin B9) intake.
   @sinceV1_1_0
   static const dietaryFolate = DietaryFolateDataType();
 
   /// Biotin data type.
   ///
-  /// Represents biotin (vitamin B7) intake. Supports reading, writing,
-  /// and sum aggregation of biotin nutrient records.
+  /// Represents biotin (vitamin B7) intake.
   @sinceV1_1_0
   static const dietaryBiotin = DietaryBiotinDataType();
 
@@ -1358,6 +1285,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     height,
     highHeartRateEvent,
     hydration,
+    inhalerUsage,
     infrequentMenstrualCycleEvent,
     insulinDelivery,
     intermenstrualBleeding,

@@ -59,6 +59,8 @@ extension HKSample {
                 return .wheelchairPushes
             case HKQuantityTypeIdentifier.electrodermalActivity.rawValue:
                 return .electrodermalActivity
+            case HKQuantityTypeIdentifier.inhalerUsage.rawValue:
+                return .inhalerUsage
             case HKQuantityTypeIdentifier.dietaryWater.rawValue:
                 return .hydration
             case HKQuantityTypeIdentifier.insulinDelivery.rawValue:

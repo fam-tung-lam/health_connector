@@ -847,6 +847,9 @@ enum HealthDataTypeDto {
   /// Electrodermal activity data (iOS only).
   electrodermalActivity,
 
+  /// Inhaler usage data (iOS only).
+  inhalerUsage,
+
   /// Hydration (water intake) data.
   hydration,
 
@@ -2952,6 +2955,40 @@ class InsulinDeliveryRecordDto extends HealthRecordDto {
 
   /// Amount of insulin delivered in international units.
   final double units;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents an inhaler usage record for platform transfer.
+class InhalerUsageRecordDto extends HealthRecordDto {
+  InhalerUsageRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.puffs,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Number of puffs taken from the inhaler during the interval.
+  final double puffs;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
