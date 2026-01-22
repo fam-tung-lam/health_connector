@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecord, ReadRecordByIdRequest, sinceV1_0_0;
+    show HealthRecord, ReadRecordByIdRequest;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
@@ -7,21 +7,21 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ReadRecordByIdRequest] to [ReadRecordRequestDto].
-@sinceV1_0_0
 @internal
 extension ReadRecordRequestDtoMapper<R extends HealthRecord>
     on ReadRecordByIdRequest<R> {
   ReadRecordRequestDto toDto() {
-    final idDto = id.toDto();
-
-    if (idDto == null) {
-      throw ArgumentError(
-        'ID cannot be `HealthRecordId.none` for ReadRecordByIdRequest.',
+    final idToRead = id.toDto();
+    if (idToRead == null) {
+      throw ArgumentError.value(
+        idToRead,
+        'id',
+        '`ReadRecordByIdRequest.id` cannot be `HealthRecordId.none`.',
       );
     }
 
     return ReadRecordRequestDto(
-      recordId: idDto,
+      recordId: idToRead,
       dataType: dataType.toDto(),
     );
   }

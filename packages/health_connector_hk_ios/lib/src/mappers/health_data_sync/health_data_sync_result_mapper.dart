@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthDataSyncResult;
+    show HealthDataSyncResult, HealthRecordId;
 import 'package:health_connector_hk_ios/src/mappers/health_data_sync/health_data_sync_token_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
@@ -12,9 +12,21 @@ import 'package:meta/meta.dart' show internal;
 @internal
 extension HealthDataSyncResultFromDomainToDto on HealthDataSyncResult {
   HealthDataSyncResultDto toDto() {
+    if (deletedRecordIds.any((id) => id == HealthRecordId.none)) {
+      throw ArgumentError.value(
+        deletedRecordIds,
+        'deletedRecordIds',
+        '`HealthDataSyncResult.deletedRecordIds` list cannot contain '
+            '`HealthRecordId.none`.',
+      );
+    }
+
     return HealthDataSyncResultDto(
       upsertedRecords: upsertedRecords.map((e) => e.toDto()).toList(),
-      deletedRecordIds: deletedRecordIds.map((e) => e.toDto()).toList(),
+      deletedRecordIds: deletedRecordIds
+          .map((e) => e.toDto())
+          .cast<String>() // Safe cast because of the check above.
+          .toList(),
       hasMore: hasMore,
       nextSyncToken: nextSyncToken?.toDto(),
     );

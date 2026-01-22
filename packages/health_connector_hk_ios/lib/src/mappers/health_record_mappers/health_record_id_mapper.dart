@@ -5,16 +5,22 @@ import 'package:meta/meta.dart' show internal;
 /// Converts [HealthRecordId] to nullable [String] for DTO transfer.
 @internal
 extension HealthRecordIdFromDomainToDto on HealthRecordId {
-  String toDto() => value;
+  String? toDto() => this == HealthRecordId.none ? null : value;
 }
 
 /// Converts [String] to [HealthRecordId].
 @internal
-extension HealthRecordIdFromDtoToDomain on String {
+extension HealthRecordIdFromDtoToDomain on String? {
   HealthRecordId toDomain() {
-    if (this == HealthRecordId.none.value) {
+    final value = this;
+    if (value == null) {
       return HealthRecordId.none;
     }
-    return HealthRecordId(this);
+
+    if (value.isEmpty) {
+      return HealthRecordId.none;
+    }
+
+    return HealthRecordId(value);
   }
 }

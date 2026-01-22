@@ -20,11 +20,11 @@ void main() {
           );
 
           test(
-            'converts HealthRecordId.none to empty string',
+            'converts HealthRecordId.none to null',
             () {
               final dto = HealthRecordId.none.toDto();
 
-              expect(dto, '');
+              expect(dto, isNull);
             },
           );
         },
@@ -40,6 +40,16 @@ void main() {
               final id = dto.toDomain();
 
               expect(id.value, 'test-id-456');
+            },
+          );
+
+          test(
+            'converts null to HealthRecordId.none',
+            () {
+              const String? dto = null;
+              final id = dto.toDomain();
+
+              expect(id, HealthRecordId.none);
             },
           );
 

@@ -1,22 +1,26 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, sinceV1_0_0;
+    show HealthRecordId;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [HealthRecordId] to [String] for DTO transfer.
-@sinceV1_0_0
+/// Converts [HealthRecordId] to nullable [String] for DTO transfer.
 @internal
-extension HealthRecordIdToString on HealthRecordId {
-  String? toDto() => value.isEmpty ? null : value;
+extension HealthRecordIdFromDomainToDto on HealthRecordId {
+  String? toDto() => this == HealthRecordId.none ? null : value;
 }
 
 /// Converts [String] to [HealthRecordId].
-@sinceV1_0_0
 @internal
-extension StringToHealthRecordId on String {
+extension HealthRecordIdFromDtoToDomain on String? {
   HealthRecordId toDomain() {
-    if (this == HealthRecordId.none.value) {
+    final value = this;
+    if (value == null) {
       return HealthRecordId.none;
     }
-    return HealthRecordId(this);
+
+    if (value.isEmpty) {
+      return HealthRecordId.none;
+    }
+
+    return HealthRecordId(value);
   }
 }

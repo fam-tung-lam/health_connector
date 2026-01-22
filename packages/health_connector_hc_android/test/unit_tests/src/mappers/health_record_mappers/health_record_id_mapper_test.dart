@@ -47,6 +47,26 @@ void main() {
               expect(id, isNot(HealthRecordId.none));
             },
           );
+
+          test(
+            'converts null to HealthRecordId.none',
+            () {
+              const String? dto = null;
+              final id = dto.toDomain();
+
+              expect(id, HealthRecordId.none);
+            },
+          );
+
+          test(
+            'converts empty string to HealthRecordId.none',
+            () {
+              const dto = '';
+              final id = dto.toDomain();
+
+              expect(id, HealthRecordId.none);
+            },
+          );
         },
       );
     },
