@@ -141,12 +141,7 @@ enum class RecordingMethodDto(val raw: Int) {
   }
 }
 
-/**
- * Cervical mucus appearance classification.
- *
- * Maps to Android Health Connect CervicalMucusRecord appearance types
- * and iOS HealthKit HKCategoryValueCervicalMucusQuality enum.
- */
+/** Cervical mucus appearance classification. */
 enum class CervicalMucusAppearanceDto(val raw: Int) {
   /** Unknown appearance. */
   UNKNOWN(0),
@@ -170,12 +165,7 @@ enum class CervicalMucusAppearanceDto(val raw: Int) {
   }
 }
 
-/**
- * Cervical mucus sensation classification.
- *
- * Maps to Android Health Connect CervicalMucusRecord sensation types.
- * Note: Not natively supported on iOS HealthKit.
- */
+/** Cervical mucus sensation classification. */
 enum class CervicalMucusSensationDto(val raw: Int) {
   /** Unknown sensation. */
   UNKNOWN(0),
@@ -193,12 +183,7 @@ enum class CervicalMucusSensationDto(val raw: Int) {
   }
 }
 
-/**
- * Sexual activity protection used classification.
- *
- * Maps to Android Health Connect SexualActivityRecord protection types
- * and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
- */
+/** Sexual activity protection used classification. */
 enum class SexualActivityProtectionUsedDto(val raw: Int) {
   /** Protection was used. */
   PROTECTED(0),
@@ -214,12 +199,7 @@ enum class SexualActivityProtectionUsedDto(val raw: Int) {
   }
 }
 
-/**
- * Ovulation test result classification.
- *
- * Maps to Android Health Connect OvulationTestRecord result constants
- * and iOS HealthKit HKCategoryValueOvulationTestResult enum.
- */
+/** Ovulation test result classification. */
 enum class OvulationTestResultDto(val raw: Int) {
   /** Test result is negative (no hormonal surge). */
   NEGATIVE(0),
@@ -269,11 +249,7 @@ enum class BasalBodyTemperatureMeasurementLocationDto(val raw: Int) {
   }
 }
 
-/**
- * Menstrual flow intensity classification.
- *
- * Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants.
- */
+/** Menstrual flow intensity classification. */
 enum class MenstrualFlowDto(val raw: Int) {
   /** Flow is unknown or unspecified. */
   UNKNOWN(0),
@@ -291,23 +267,19 @@ enum class MenstrualFlowDto(val raw: Int) {
   }
 }
 
-/**
- * Measurement method for VO2 max calculation (Android Health Connect).
- *
- * Maps to Health Connect Vo2MaxMeasurementMethod constants.
- */
+/** Measurement method for VO2 max calculation. */
 enum class Vo2MaxMeasurementMethodDto(val raw: Int) {
-  /** Other or unknown measurement method (0). */
+  /** Other or unknown measurement method. */
   OTHER(0),
-  /** Direct measurement using metabolic cart gas exchange analysis (1). */
+  /** Direct measurement using metabolic cart gas exchange analysis. */
   METABOLIC_CART(1),
-  /** Calculated using heart rate ratio (maxHR / restingHR) (2). */
+  /** Calculated using heart rate ratio (maxHR / restingHR). */
   HEART_RATE_RATIO(2),
-  /** Based on the Cooper 12-minute run test (3). */
+  /** Based on the Cooper 12-minute run test. */
   COOPER_TEST(3),
-  /** Based on the multistage fitness test (beep test) (4). */
+  /** Based on the multistage fitness test (beep test). */
   MULTISTAGE_FITNESS_TEST(4),
-  /** Based on the Rockport 1-mile walk test (5). */
+  /** Based on the Rockport 1-mile walk test. */
   ROCKPORT_FITNESS_TEST(5);
 
   companion object {
@@ -421,11 +393,7 @@ enum class BloodGlucoseSpecimenSourceDto(val raw: Int) {
   }
 }
 
-/**
- * Activity intensity type classification.
- *
- * Maps to Android Health Connect ActivityIntensityRecord intensity types.
- */
+/** Activity intensity type classification. */
 enum class ActivityIntensityTypeDto(val raw: Int) {
   /** Moderate intensity activity. */
   MODERATE(0),
@@ -439,13 +407,7 @@ enum class ActivityIntensityTypeDto(val raw: Int) {
   }
 }
 
-/**
- * Exercise type classification for exercise sessions.
- *
- * Maps to Android Health Connect ExerciseSessionRecord exercise types
- * and iOS HealthKit HKWorkoutActivityType.
- * Some types are iOS-only and will be rejected on Android Health Connect.
- */
+/** Exercise type classification for exercise sessions. */
 enum class ExerciseTypeDto(val raw: Int) {
   /** Other or unclassified exercise type. */
   OTHER(0),
@@ -529,27 +491,19 @@ enum class ExerciseTypeDto(val raw: Int) {
   }
 }
 
-/**
- * Mindfulness session type classification.
- *
- * Maps to Android Health Connect MindfulnessSessionRecord session type
- * constants.
- *
- * Note: iOS HealthKit only supports a single generic mindfulness category
- * type. Session types are stored in custom metadata when writing to HealthKit.
- */
+/** Mindfulness session type classification. */
 enum class MindfulnessSessionTypeDto(val raw: Int) {
-  /** Unknown or unspecified session type (0). */
+  /** Unknown or unspecified session type. */
   UNKNOWN(0),
-  /** Meditation session (1). */
+  /** Meditation session. */
   MEDITATION(1),
-  /** Breathing exercise session (2). */
+  /** Breathing exercise session. */
   BREATHING(2),
-  /** Music-based mindfulness session (3). */
+  /** Music-based mindfulness session. */
   MUSIC(3),
-  /** Movement-based mindfulness session (4). */
+  /** Movement-based mindfulness session. */
   MOVEMENT(4),
-  /** Unguided mindfulness session (5). */
+  /** Unguided mindfulness session. */
   UNGUIDED(5);
 
   companion object {
@@ -594,9 +548,9 @@ enum class HealthDataTypeDto(val raw: Int) {
   /** Hydration (water intake) data. */
   HYDRATION(15),
   /** Heart rate series record data. */
-  HEART_RATE_SERIES_RECORD(16),
+  HEART_RATE_SERIES(16),
   /** Cycling pedaling cadence series record data. */
-  CYCLING_PEDALING_CADENCE_SERIES_RECORD(17),
+  CYCLING_PEDALING_CADENCE_SERIES(17),
   /** Sexual activity data. */
   SEXUAL_ACTIVITY(18),
   /** Sleep session data. */
@@ -611,7 +565,7 @@ enum class HealthDataTypeDto(val raw: Int) {
   OVULATION_TEST(23),
   /** Intermenstrual bleeding data. */
   INTERMENSTRUAL_BLEEDING(24),
-  /** Menstrual flow instant data (Android Health Connect). */
+  /** Menstrual flow instant data. */
   MENSTRUAL_FLOW_INSTANT(25),
   /** Oxygen saturation data. */
   OXYGEN_SATURATION(26),
@@ -673,7 +627,7 @@ enum class HealthConnectorErrorCodeDto(val raw: Int) {
   INVALID_ARGUMENT(2),
   /** Health service is not available on this device. */
   HEALTH_SERVICE_UNAVAILABLE(3),
-  /** Health Connect app not installed or update required (Android only). */
+  /** Health Connect app not installed or update required. */
   HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED(4),
   /** Storage read/write operation failed. */
   IO_ERROR(5),
@@ -909,9 +863,9 @@ data class MetadataDto (
   val deviceType: DeviceTypeDto,
   /** The method used to record this data. */
   val recordingMethod: RecordingMethodDto,
-  /** The manufacturer of the device that recorded the data (optional). */
+  /** The manufacturer of the device that recorded the data. */
   val deviceManufacturer: String? = null,
-  /** The model of the device that recorded the data (optional). */
+  /** The model of the device that recorded the data. */
   val deviceModel: String? = null,
   /**
    * The timestamp when this record was last modified on the platform.
@@ -980,13 +934,13 @@ data class BloodGlucoseRecordDto (
   val metadata: MetadataDto,
   /** The blood glucose level. */
   val millimolesPerLiter: Double,
-  /** The relationship to a meal (optional). */
+  /** The relationship to a meal. */
   val relationToMeal: BloodGlucoseRelationToMealDto? = null,
-  /** The source of the specimen (optional). */
+  /** The source of the specimen. */
   val specimenSource: BloodGlucoseSpecimenSourceDto? = null,
-  /** The type of meal (optional). */
+  /** The type of meal. */
   val mealType: MealTypeDto? = null,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1041,7 +995,7 @@ data class RestingHeartRateRecordDto (
   val metadata: MetadataDto,
   /** Resting heart rate in beats per minute. */
   val beatsPerMinute: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1090,7 +1044,7 @@ data class OxygenSaturationRecordDto (
   val metadata: MetadataDto,
   /** The oxygen saturation percentage. */
   val percentage: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1137,7 +1091,7 @@ data class OvulationTestRecordDto (
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
   val time: Long,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null,
   /** The ovulation test result. */
   val result: OvulationTestResultDto
@@ -1186,7 +1140,7 @@ data class IntermenstrualBleedingRecordDto (
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
   val time: Long,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1220,10 +1174,7 @@ data class IntermenstrualBleedingRecordDto (
 }
 
 /**
- * Represents a menstrual flow instant record for platform transfer (Android).
- *
- * This DTO is used for Android Health Connect's MenstruationFlowRecord,
- * which tracks flow intensity at a single point in time.
+ * Represents a menstrual flow instant record for platform transfer.
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
@@ -1234,7 +1185,7 @@ data class MenstrualFlowInstantRecordDto (
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
   val time: Long,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null,
   /** The menstrual flow intensity. */
   val flow: MenstrualFlowDto
@@ -1285,7 +1236,7 @@ data class RespiratoryRateRecordDto (
   val metadata: MetadataDto,
   /** Respiratory rate in breaths per minute. */
   val breathsPerMinute: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1343,7 +1294,7 @@ data class Vo2MaxRecordDto (
    * Maps to Health Connect's Vo2MaxMeasurementMethod.
    */
   val measurementMethod: Vo2MaxMeasurementMethodDto? = null,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1392,9 +1343,9 @@ data class ActiveEnergyBurnedRecordDto (
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
   val startTime: Long,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1449,9 +1400,9 @@ data class DistanceRecordDto (
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
   val startTime: Long,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1506,9 +1457,9 @@ data class FloorsClimbedRecordDto (
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
   val startTime: Long,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1563,9 +1514,9 @@ data class WheelchairPushesRecordDto (
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
   val startTime: Long,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1620,9 +1571,9 @@ data class StepsRecordDto (
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
   val startTime: Long,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1675,7 +1626,7 @@ data class WeightRecordDto (
   val time: Long,
   /** Weight measurement. */
   val kilograms: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1730,7 +1681,7 @@ data class BloodPressureRecordDto (
   val bodyPosition: BodyPositionDto,
   /** Location where measurement was taken. */
   val measurementLocation: MeasurementLocationDto,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1785,7 +1736,7 @@ data class LeanBodyMassRecordDto (
   val time: Long,
   /** Lean body mass measurement. */
   val kilograms: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1834,7 +1785,7 @@ data class HeightRecordDto (
   val time: Long,
   /** Height measurement. */
   val meters: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1883,7 +1834,7 @@ data class BodyFatPercentageRecordDto (
   val time: Long,
   /** Body fat percentage measurement. */
   val percentage: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1932,7 +1883,7 @@ data class BodyTemperatureRecordDto (
   val time: Long,
   /** Body temperature measurement. */
   val celsius: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -1983,7 +1934,7 @@ data class BasalBodyTemperatureRecordDto (
   val celsius: Double,
   /** The location on the body where the measurement was taken. */
   val measurementLocation: BasalBodyTemperatureMeasurementLocationDto,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -2032,11 +1983,11 @@ data class CervicalMucusRecordDto (
   val metadata: MetadataDto,
   /** Observation time in milliseconds since epoch (UTC). */
   val time: Long,
-  /** Timezone offset in seconds for observation time (optional). */
+  /** Timezone offset in seconds for observation time. */
   val zoneOffsetSeconds: Long? = null,
-  /** Cervical mucus appearance (optional). */
+  /** Cervical mucus appearance. */
   val appearance: CervicalMucusAppearanceDto,
-  /** Cervical mucus sensation (optional). */
+  /** Cervical mucus sensation. */
   val sensation: CervicalMucusSensationDto
 ) : HealthRecordDto()
  {
@@ -2089,9 +2040,9 @@ data class HydrationRecordDto (
   val metadata: MetadataDto,
   /** Volume of water consumed during the interval. */
   val liters: Double,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -2186,9 +2137,9 @@ data class HeartRateSeriesRecordDto (
   val metadata: MetadataDto,
   /** List of heart rate measurements within this time interval. */
   val samples: List<HeartRateSampleDto>,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -2420,7 +2371,7 @@ data class StepsCadenceSeriesRecordDto (
 }
 
 /**
- * Represents an elevation gained record for platform transfer (Android Only).
+ * Represents an elevation gained record for platform transfer.
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
@@ -2529,9 +2480,9 @@ data class SpeedSeriesRecordDto (
   val metadata: MetadataDto,
   /** List of speed measurements within this time interval. */
   val samples: List<SpeedSampleDto>,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -2623,9 +2574,9 @@ data class PowerSeriesRecordDto (
   val metadata: MetadataDto,
   /** List of power measurements within this time interval. */
   val samples: List<PowerSampleDto>,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -2774,9 +2725,9 @@ data class SexualActivityRecordDto (
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
   val time: Long,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null,
-  /** Whether protection was used (optional). */
+  /** Whether protection was used. */
   val protectionUsed: SexualActivityProtectionUsedDto
 ) : HealthRecordDto()
  {
@@ -2825,9 +2776,9 @@ data class ExerciseSessionRecordDto (
   val startTime: Long,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
   /** Type of exercise performed. */
   val exerciseType: ExerciseTypeDto,
@@ -2879,8 +2830,6 @@ data class ExerciseSessionRecordDto (
 /**
  * Represents an activity intensity record for platform transfer.
  *
- * Maps to Android Health Connect ActivityIntensityRecord.
- *
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class ActivityIntensityRecordDto (
@@ -2892,9 +2841,9 @@ data class ActivityIntensityRecordDto (
   val startTime: Long,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
   /** The intensity type of the activity. */
   val activityIntensityType: ActivityIntensityTypeDto,
@@ -2946,9 +2895,6 @@ data class ActivityIntensityRecordDto (
 /**
  * Represents a mindfulness session record for platform transfer.
  *
- * Note: iOS HealthKit only supports generic mindfulness category. The session
- * type is stored in custom metadata when writing to HealthKit.
- *
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class MindfulnessSessionRecordDto (
@@ -2960,9 +2906,9 @@ data class MindfulnessSessionRecordDto (
   val startTime: Long,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
   /** Type of mindfulness session. */
   val sessionType: MindfulnessSessionTypeDto,
@@ -3037,11 +2983,11 @@ data class NutritionRecordDto (
    * - For combined nutrition: use `nutrition`
    */
   val healthDataType: HealthDataTypeDto,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
-  /** Name of the food (optional). */
+  /** Name of the food. */
   val foodName: String? = null,
   /** Meal type classification. */
   val mealType: MealTypeDto,
@@ -3232,9 +3178,9 @@ data class TotalEnergyBurnedRecordDto (
   val startTime: Long,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /** Timezone offset in seconds for start time (optional). */
+  /** Timezone offset in seconds for start time. */
   val startZoneOffsetSeconds: Long? = null,
-  /** Timezone offset in seconds for end time (optional). */
+  /** Timezone offset in seconds for end time. */
   val endZoneOffsetSeconds: Long? = null,
   /** Energy burned. */
   val kilocalories: Double
@@ -3289,7 +3235,7 @@ data class BoneMassRecordDto (
   val time: Long,
   /** Bone mass measurement. */
   val kilograms: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -3338,7 +3284,7 @@ data class HeartRateVariabilityRMSSDRecordDto (
   val time: Long,
   /** Heart rate variability in milliseconds. */
   val heartRateVariabilityMillis: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -3387,7 +3333,7 @@ data class BodyWaterMassRecordDto (
   val time: Long,
   /** Body water mass measurement. */
   val kilograms: Double,
-  /** Timezone offset in seconds for measurement time (optional). */
+  /** Timezone offset in seconds for measurement time. */
   val zoneOffsetSeconds: Long? = null
 ) : HealthRecordDto()
  {
@@ -3965,7 +3911,7 @@ data class ReadRecordsRequestDto (
   /** Maximum number of records to return per page (1-10,000). */
   val pageSize: Long,
   /**
-   * Opaque pagination token for fetching next page (optional).
+   * Opaque pagination token for fetching next page.
    *
    * Provided by previous response's nextPageToken.
    */
@@ -5000,11 +4946,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
  *
  * This API is implemented on the Flutter side and called by the native
  * platform to deliver log events in real-time. It serves as the callback
- * handler for the event channel stream.
- *
- * Platform flow:
- * - iOS: Native code calls this method for each log event emitted by
- *   the Health Connector SDK operations
+ * handler for log events.
  *
  * Generated class from Pigeon that represents Flutter messages that can be called from Kotlin.
  */

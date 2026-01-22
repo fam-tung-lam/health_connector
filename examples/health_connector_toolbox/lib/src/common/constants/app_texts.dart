@@ -1068,14 +1068,14 @@ abstract final class AppTexts {
   // Heart Rate
   static const String heartRateRecordDescription =
       'Heart rate measurement at a specific point in time';
-  static const String heartRateSeriesRecordDescription =
+  static const String heartRateSeriesDescription =
       'Heart rate measurements over a period of time';
   static const String restingHeartRateDescription = 'Heart rate while at rest';
 
   // Cycling Pedaling Cadence
   static const String cyclingPedalingCadenceRecordDescription =
       'Cycling pedaling cadence (RPM) at a specific point in time';
-  static const String cyclingPedalingCadenceSeriesRecordDescription =
+  static const String cyclingPedalingCadenceSeriesDescription =
       'Cycling pedaling cadence (RPM) measurements over a period of time';
 
   // Sleep

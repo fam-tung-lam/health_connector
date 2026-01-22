@@ -102,7 +102,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is WeightRecordDto -> HealthDataTypeDto.WEIGHT
         is LeanBodyMassRecordDto -> HealthDataTypeDto.LEAN_BODY_MASS
         is WheelchairPushesRecordDto -> HealthDataTypeDto.WHEELCHAIR_PUSHES
-        is HeartRateSeriesRecordDto -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
+        is HeartRateSeriesRecordDto -> HealthDataTypeDto.HEART_RATE_SERIES
         is RestingHeartRateRecordDto -> HealthDataTypeDto.RESTING_HEART_RATE
         is SexualActivityRecordDto -> HealthDataTypeDto.SEXUAL_ACTIVITY
         is SleepSessionRecordDto -> HealthDataTypeDto.SLEEP_SESSION
@@ -115,7 +115,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is OxygenSaturationRecordDto -> HealthDataTypeDto.OXYGEN_SATURATION
         is PowerSeriesRecordDto -> HealthDataTypeDto.POWER_SERIES
         is CyclingPedalingCadenceSeriesRecordDto ->
-            HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
+            HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES
         is StepsCadenceSeriesRecordDto ->
             HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD
         is RespiratoryRateRecordDto -> HealthDataTypeDto.RESPIRATORY_RATE

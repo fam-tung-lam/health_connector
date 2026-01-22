@@ -25,7 +25,7 @@ internal class CyclingPedalingCadenceHandler(
     DeletableHealthRecordHandler,
     HealthConnectAggregatableHealthRecordHandler {
 
-    override val dataType = HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
+    override val dataType = HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES
 
     override val tag = "CyclingPedalingCadenceHandler"
 

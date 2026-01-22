@@ -360,14 +360,14 @@ class PermissionRequestMapperTest {
             Arguments.of(
                 "android.permission.health.READ_HEART_RATE",
                 HealthDataPermissionRequestDto(
-                    healthDataType = HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
+                    healthDataType = HealthDataTypeDto.HEART_RATE_SERIES,
                     accessType = PermissionAccessTypeDto.READ,
                 ),
             ),
             Arguments.of(
                 "android.permission.health.WRITE_HEART_RATE",
                 HealthDataPermissionRequestDto(
-                    healthDataType = HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
+                    healthDataType = HealthDataTypeDto.HEART_RATE_SERIES,
                     accessType = PermissionAccessTypeDto.WRITE,
                 ),
             ),
@@ -585,14 +585,14 @@ class PermissionRequestMapperTest {
             Arguments.of(
                 "android.permission.health.READ_CYCLING_PEDALING_CADENCE",
                 HealthDataPermissionRequestDto(
-                    healthDataType = HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD,
+                    healthDataType = HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES,
                     accessType = PermissionAccessTypeDto.READ,
                 ),
             ),
             Arguments.of(
                 "android.permission.health.WRITE_CYCLING_PEDALING_CADENCE",
                 HealthDataPermissionRequestDto(
-                    healthDataType = HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD,
+                    healthDataType = HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES,
                     accessType = PermissionAccessTypeDto.WRITE,
                 ),
             ),

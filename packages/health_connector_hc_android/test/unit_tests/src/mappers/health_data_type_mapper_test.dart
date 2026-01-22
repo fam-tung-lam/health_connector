@@ -43,11 +43,11 @@ void main() {
                 HealthDataType.wheelchairPushes,
               ],
               [
-                HealthDataTypeDto.heartRateSeriesRecord,
+                HealthDataTypeDto.heartRateSeries,
                 HealthDataType.heartRateSeries,
               ],
               [
-                HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord,
+                HealthDataTypeDto.cyclingPedalingCadenceSeries,
                 HealthDataType.cyclingPedalingCadenceSeries,
               ],
               [HealthDataTypeDto.sexualActivity, HealthDataType.sexualActivity],
@@ -141,11 +141,11 @@ void main() {
               ],
               [
                 HealthDataType.heartRateSeries,
-                HealthDataTypeDto.heartRateSeriesRecord,
+                HealthDataTypeDto.heartRateSeries,
               ],
               [
                 HealthDataType.cyclingPedalingCadenceSeries,
-                HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord,
+                HealthDataTypeDto.cyclingPedalingCadenceSeries,
               ],
               [HealthDataType.sexualActivity, HealthDataTypeDto.sexualActivity],
               [HealthDataType.sleepSession, HealthDataTypeDto.sleepSession],

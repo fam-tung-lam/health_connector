@@ -119,7 +119,7 @@ class HealthDataTypeMapperTest {
             Arguments.of(HealthDataTypeDto.OXYGEN_SATURATION, OxygenSaturationRecord::class),
             Arguments.of(HealthDataTypeDto.RESPIRATORY_RATE, RespiratoryRateRecord::class),
             Arguments.of(
-                HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
+                HealthDataTypeDto.HEART_RATE_SERIES,
                 HeartRateRecord::class,
             ),
             Arguments.of(HealthDataTypeDto.RESTING_HEART_RATE, RestingHeartRateRecord::class),
@@ -151,7 +151,7 @@ class HealthDataTypeMapperTest {
             Arguments.of(HealthDataTypeDto.SPEED_SERIES, SpeedRecord::class),
             Arguments.of(HealthDataTypeDto.POWER_SERIES, PowerRecord::class),
             Arguments.of(
-                HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD,
+                HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES,
                 CyclingPedalingCadenceRecord::class,
             ),
         )

@@ -47,14 +47,14 @@ class AggregateRequestDtoExtensionTest {
                 startTime = TEST_START_TIME,
                 endTime = TEST_END_TIME,
                 aggregationMetric = AggregationMetricDto.AVG,
-                dataType = HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
+                dataType = HealthDataTypeDto.HEART_RATE_SERIES,
             )
 
             // When & Then
             request.startTime shouldBe TEST_START_TIME
             request.endTime shouldBe TEST_END_TIME
             request.aggregationMetric shouldBe AggregationMetricDto.AVG
-            request.dataType shouldBe HealthDataTypeDto.HEART_RATE_SERIES_RECORD
+            request.dataType shouldBe HealthDataTypeDto.HEART_RATE_SERIES
         }
     }
 

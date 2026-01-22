@@ -260,7 +260,7 @@ private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (hea
         }
     }
 
-    HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> {
+    HealthDataTypeDto.HEART_RATE_SERIES -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
                 HeartRateRecord::class,
@@ -440,7 +440,7 @@ private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (hea
         }
     }
 
-    HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD -> {
+    HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
                 CyclingPedalingCadenceRecord::class,
@@ -602,7 +602,7 @@ private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
         "CERVICAL_MUCUS" -> HealthDataTypeDto.CERVICAL_MUCUS
         "SEXUAL_ACTIVITY" -> HealthDataTypeDto.SEXUAL_ACTIVITY
         "WHEELCHAIR_PUSHES" -> HealthDataTypeDto.WHEELCHAIR_PUSHES
-        "HEART_RATE" -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
+        "HEART_RATE" -> HealthDataTypeDto.HEART_RATE_SERIES
         "RESTING_HEART_RATE" -> HealthDataTypeDto.RESTING_HEART_RATE
         "SLEEP" -> HealthDataTypeDto.SLEEP_SESSION
         "BLOOD_PRESSURE" -> HealthDataTypeDto.BLOOD_PRESSURE
@@ -617,7 +617,7 @@ private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
         "SPEED" -> HealthDataTypeDto.SPEED_SERIES
         "POWER" -> HealthDataTypeDto.POWER_SERIES
         "STEPS_CADENCE" -> HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD
-        "CYCLING_PEDALING_CADENCE" -> HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
+        "CYCLING_PEDALING_CADENCE" -> HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES
         "EXERCISE" -> HealthDataTypeDto.EXERCISE_SESSION
         "MINDFULNESS" -> HealthDataTypeDto.MINDFULNESS_SESSION
         "BONE_MASS" -> HealthDataTypeDto.BONE_MASS

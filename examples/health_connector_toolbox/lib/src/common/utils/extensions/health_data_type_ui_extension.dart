@@ -202,13 +202,13 @@ extension HealthDataTypeUI on HealthDataType {
       InsulinDeliveryDataType _ =>
         'Amount of insulin delivered in international units (iOS only)',
       HeartRateDataType _ => AppTexts.heartRateRecordDescription,
-      HeartRateSeriesDataType _ => AppTexts.heartRateSeriesRecordDescription,
+      HeartRateSeriesDataType _ => AppTexts.heartRateSeriesDescription,
       StepsCadenceSeriesDataType _ =>
         AppTexts.stepsCadenceSeriesRecordDescription,
       CyclingPedalingCadenceDataType _ =>
         AppTexts.cyclingPedalingCadenceRecordDescription,
       CyclingPedalingCadenceSeriesDataType _ =>
-        AppTexts.cyclingPedalingCadenceSeriesRecordDescription,
+        AppTexts.cyclingPedalingCadenceSeriesDescription,
       RestingHeartRateDataType _ => AppTexts.restingHeartRateDescription,
       SleepSessionDataType _ => AppTexts.sleepSessionDescription,
       SleepStageDataType _ => AppTexts.sleepStageRecordDescription,

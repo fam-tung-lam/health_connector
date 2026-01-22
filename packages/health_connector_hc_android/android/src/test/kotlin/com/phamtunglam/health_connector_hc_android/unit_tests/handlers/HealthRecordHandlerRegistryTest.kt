@@ -126,9 +126,9 @@ class HealthRecordHandlerRegistryTest {
         Arguments.of(HealthDataTypeDto.LEAN_BODY_MASS, LeanBodyMassHandler::class),
         Arguments.of(HealthDataTypeDto.WHEELCHAIR_PUSHES, WheelchairPushesHandler::class),
         Arguments.of(HealthDataTypeDto.HYDRATION, HydrationHandler::class),
-        Arguments.of(HealthDataTypeDto.HEART_RATE_SERIES_RECORD, HeartRateHandler::class),
+        Arguments.of(HealthDataTypeDto.HEART_RATE_SERIES, HeartRateHandler::class),
         Arguments.of(
-            HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD,
+            HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES,
             CyclingPedalingCadenceHandler::class,
         ),
         Arguments.of(

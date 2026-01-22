@@ -64,7 +64,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.STEPS -> StepsRecord::class
     HealthDataTypeDto.WEIGHT -> WeightRecord::class
     HealthDataTypeDto.WHEELCHAIR_PUSHES -> WheelchairPushesRecord::class
-    HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> HeartRateRecord::class
+    HealthDataTypeDto.HEART_RATE_SERIES -> HeartRateRecord::class
     HealthDataTypeDto.SEXUAL_ACTIVITY -> SexualActivityRecord::class
     HealthDataTypeDto.SLEEP_SESSION -> SleepSessionRecord::class
     HealthDataTypeDto.RESTING_HEART_RATE -> RestingHeartRateRecord::class
@@ -79,7 +79,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.MENSTRUAL_FLOW_INSTANT -> MenstruationFlowRecord::class
     HealthDataTypeDto.SPEED_SERIES -> SpeedRecord::class
     HealthDataTypeDto.POWER_SERIES -> PowerRecord::class
-    HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD -> CyclingPedalingCadenceRecord::class
+    HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES -> CyclingPedalingCadenceRecord::class
     HealthDataTypeDto.STEPS_CADENCE_SERIES_RECORD -> StepsCadenceRecord::class
     HealthDataTypeDto.MINDFULNESS_SESSION -> MindfulnessSessionRecord::class
     HealthDataTypeDto.TOTAL_CALORIES_BURNED -> TotalCaloriesBurnedRecord::class
