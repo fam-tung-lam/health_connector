@@ -43,6 +43,7 @@ extension HealthDataTypeUI on HealthDataType {
       WheelchairPushesDataType _ => AppTexts.wheelchairPushes,
       SwimmingStrokesDataType _ => AppTexts.swimmingStrokes,
       HydrationDataType _ => AppTexts.hydration,
+      InsulinDeliveryDataType _ => 'Insulin Delivery',
       HeartRateDataType _ => AppTexts.heartRate,
       HeartRateSeriesDataType _ => AppTexts.heartRate,
       StepsCadenceSeriesDataType _ => AppTexts.stepsCadence,
@@ -189,6 +190,8 @@ extension HealthDataTypeUI on HealthDataType {
       WheelchairPushesDataType _ => AppTexts.wheelchairPushesDescription,
       SwimmingStrokesDataType _ => 'Count of swimming strokes',
       HydrationDataType _ => AppTexts.hydrationDescription,
+      InsulinDeliveryDataType _ =>
+        'Amount of insulin delivered in international units (iOS only)',
       HeartRateDataType _ => AppTexts.heartRateRecordDescription,
       HeartRateSeriesDataType _ => AppTexts.heartRateSeriesRecordDescription,
       StepsCadenceSeriesDataType _ =>
@@ -350,6 +353,7 @@ extension HealthDataTypeUI on HealthDataType {
       WheelchairPushesDataType _ => AppIcons.accessible,
       SwimmingStrokesDataType _ => AppIcons.pool,
       HydrationDataType _ => AppIcons.volume,
+      InsulinDeliveryDataType _ => AppIcons.medication,
       HeartRateDataType _ => AppIcons.favorite,
       HeartRateSeriesDataType _ => AppIcons.favorite,
       StepsCadenceSeriesDataType _ => AppIcons.speed,

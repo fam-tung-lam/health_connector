@@ -38,6 +38,8 @@ extension HealthRecordDto {
             record.id
         case let record as HydrationRecordDto:
             record.id
+        case let record as InsulinDeliveryRecordDto:
+            record.id
         case let record as LeanBodyMassRecordDto:
             record.id
         case let record as BodyFatPercentageRecordDto:

@@ -31,6 +31,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/exercise_session_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/high_heart_rate_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/infrequent_menstrual_cycle_event_record_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/insulin_delivery_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/irregular_heart_rhythm_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/irregular_menstrual_cycle_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/lactation_record_list_tile.dart';
@@ -743,6 +744,10 @@ final class HealthRecordListTile extends StatelessWidget {
           // Display only, no value
           onDelete: onDelete,
         ),
+      final InsulinDeliveryRecord r => InsulinDeliveryTile(
+        record: r,
+        onDelete: onDelete,
+      ),
     };
 
     // Wrap tile with consistent spacing

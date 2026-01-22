@@ -152,6 +152,9 @@ abstract class MeasurementUnitValueParser {
       ForcedVitalCapacityDataType() ||
       ForcedExpiratoryVolumeDataType() => _parseVolume(value),
 
+      // Insulin delivery (international units)
+      InsulinDeliveryDataType() => _parseDoubleNumber(value),
+
       // Complex/composite types that cannot be parsed from a single string value
       BloodPressureDataType() => throw UnsupportedError(
         '$BloodPressureDataType requires systolic and diastolic values, '

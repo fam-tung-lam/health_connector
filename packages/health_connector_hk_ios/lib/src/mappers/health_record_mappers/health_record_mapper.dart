@@ -29,6 +29,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/walking_heart_rate_average_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/hydration_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/insulin_delivery_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/lean_body_mass_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/cervical_mucus/cervical_mucus_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/contraceptive/contraceptive_record_mapper.dart';
@@ -181,6 +182,8 @@ extension HealthRecordToDto on HealthRecord {
         return CervicalMucusRecordToDto(record).toDto();
       case final HydrationRecord record:
         return HydrationRecordToDto(record).toDto();
+      case final InsulinDeliveryRecord record:
+        return InsulinDeliveryRecordToDto(record).toDto();
       case final WheelchairPushesRecord record:
         return WheelchairPushesRecordToDto(record).toDto();
       case final HeartRateRecord record:
@@ -503,6 +506,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return CervicalMucusRecordDtoToDomain(dto).toDomain();
       case final HydrationRecordDto dto:
         return HydrationRecordDtoToDomain(dto).toDomain();
+      case final InsulinDeliveryRecordDto dto:
+        return InsulinDeliveryRecordDtoToDomain(dto).toDomain();
       case final WheelchairPushesRecordDto dto:
         return WheelchairPushesRecordDtoToDomain(dto).toDomain();
       case final HeartRateRecordDto dto:

@@ -66,6 +66,7 @@ part 'heart_rate/resting_heart_rate_data_type.dart';
 part 'heart_rate/walking_heart_rate_average_data_type.dart';
 part 'height_data_type.dart';
 part 'hydration_data_type.dart';
+part 'insulin_delivery_data_type.dart';
 part 'lean_body_mass_data_type.dart';
 part 'menstruation/cervical_mucus_data_type.dart';
 part 'menstruation/contraceptive_data_type.dart';
@@ -654,6 +655,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// and maintain healthy fluid intake. Supports both reading existing
   /// hydration data and writing new measurements.
   static const hydration = HydrationDataType();
+
+  /// Insulin delivery data type.
+  ///
+  /// Tracks the amount of insulin delivered to the user. This is typically
+  /// recorded by insulin pumps and other diabetes management devices.
+  @sinceV3_5_0
+  @supportedOnAppleHealth
+  static const insulinDelivery = InsulinDeliveryDataType();
 
   /// Heart rate series data type.
   ///
@@ -1339,6 +1348,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     highHeartRateEvent,
     hydration,
     infrequentMenstrualCycleEvent,
+    insulinDelivery,
     intermenstrualBleeding,
     irregularHeartRhythmEvent,
     irregularMenstrualCycleEvent,

@@ -444,6 +444,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$NumberOfTimesFallenDataType is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case InsulinDeliveryDataType():
+        throw UnsupportedError(
+          '$InsulinDeliveryDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

@@ -24,6 +24,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.height;
       case HealthDataTypeDto.hydration:
         return HealthDataType.hydration;
+      case HealthDataTypeDto.insulinDelivery:
+        return HealthDataType.insulinDelivery;
       case HealthDataTypeDto.leanBodyMass:
         return HealthDataType.leanBodyMass;
       case HealthDataTypeDto.bodyFatPercentage:
@@ -263,6 +265,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.height;
       case HydrationDataType _:
         return HealthDataTypeDto.hydration;
+      case InsulinDeliveryDataType _:
+        return HealthDataTypeDto.insulinDelivery;
       case LeanBodyMassDataType _:
         return HealthDataTypeDto.leanBodyMass;
       case BodyFatPercentageDataType _:

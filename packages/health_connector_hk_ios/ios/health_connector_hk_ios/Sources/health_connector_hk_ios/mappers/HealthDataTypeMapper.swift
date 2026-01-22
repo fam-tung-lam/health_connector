@@ -76,6 +76,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .bloodPressureDiastolic)
         case .hydration:
             try HKQuantityType.make(from: .dietaryWater)
+        case .insulinDelivery:
+            try HKQuantityType.make(from: .insulinDelivery)
         case .dietaryEnergyConsumed:
             try HKQuantityType.make(from: .dietaryEnergyConsumed)
         case .caffeine:

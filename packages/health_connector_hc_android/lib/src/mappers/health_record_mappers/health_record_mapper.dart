@@ -592,6 +592,11 @@ extension HealthRecordToDto on HealthRecord {
           '$NumberOfTimesFallenRecord is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case InsulinDeliveryRecord():
+        throw UnsupportedError(
+          '$InsulinDeliveryRecord is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

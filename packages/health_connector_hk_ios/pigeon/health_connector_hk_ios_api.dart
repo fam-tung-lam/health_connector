@@ -847,6 +847,9 @@ enum HealthDataTypeDto {
   /// Hydration (water intake) data.
   hydration,
 
+  /// Insulin delivery data (iOS only).
+  insulinDelivery,
+
   /// Heart rate measurement record data.
   heartRateMeasurementRecord,
 
@@ -2878,6 +2881,40 @@ class HydrationRecordDto extends HealthRecordDto {
 
   /// Volume of water consumed during the interval.
   final double liters;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents an insulin delivery record for platform transfer.
+class InsulinDeliveryRecordDto extends HealthRecordDto {
+  InsulinDeliveryRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.units,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Amount of insulin delivered in international units.
+  final double units;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;

@@ -37,6 +37,7 @@ extension HealthDataPermissionDto {
              .floorsClimbed,
              .height,
              .hydration,
+             .insulinDelivery,
              .leanBodyMass,
              .bodyFatPercentage,
              .bodyTemperature,

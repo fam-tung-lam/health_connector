@@ -114,6 +114,13 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      InsulinDeliveryDataType() => _buildSum(
+        () => HealthDataType.insulinDelivery.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       ElevationGainedDataType() => _buildSum(
         () => HealthDataType.elevationGained.aggregateSum(
           startTime: startTime,
