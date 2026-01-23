@@ -54,8 +54,7 @@ final class InhalerUsageRecord extends IntervalHealthRecord {
   /// Internal factory for creating [InhalerUsageRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [InhalerUsageRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory InhalerUsageRecord.internal({
     required HealthRecordId id,

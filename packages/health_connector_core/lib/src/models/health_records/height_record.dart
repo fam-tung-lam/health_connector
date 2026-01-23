@@ -84,8 +84,7 @@ final class HeightRecord extends InstantHealthRecord {
   /// Internal factory for creating [HeightRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [HeightRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory HeightRecord.internal({
     required HealthRecordId id,

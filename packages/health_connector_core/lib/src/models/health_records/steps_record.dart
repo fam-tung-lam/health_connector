@@ -84,8 +84,7 @@ final class StepsRecord extends IntervalHealthRecord {
   /// Internal factory for creating [StepsRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [StepsRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory StepsRecord.internal({
     required HealthRecordId id,

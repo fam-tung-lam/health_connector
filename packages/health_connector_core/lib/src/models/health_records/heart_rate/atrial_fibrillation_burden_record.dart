@@ -18,10 +18,7 @@ final class AtrialFibrillationBurdenRecord extends IntervalHealthRecord {
   /// Internal factory for creating [AtrialFibrillationBurdenRecord]
   /// instances without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [AtrialFibrillationBurdenRecord] constructor, which enforces
-  /// validation. This factory is restricted to the SDK
-  /// developers and contributors.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory AtrialFibrillationBurdenRecord.internal({
     required HealthRecordId id,

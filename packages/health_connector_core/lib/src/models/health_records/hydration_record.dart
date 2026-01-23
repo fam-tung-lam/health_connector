@@ -79,8 +79,7 @@ final class HydrationRecord extends IntervalHealthRecord {
   /// Internal factory for creating [HydrationRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [HydrationRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory HydrationRecord.internal({
     required HealthRecordId id,

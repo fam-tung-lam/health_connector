@@ -79,8 +79,7 @@ final class CyclingPedalingCadenceRecord extends InstantHealthRecord {
   /// Internal factory for creating [CyclingPedalingCadenceRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CyclingPedalingCadenceRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory CyclingPedalingCadenceRecord.internal({
     required HealthRecordId id,

@@ -112,11 +112,7 @@ final class WalkingDoubleSupportPercentageRecord extends IntervalHealthRecord {
   /// Internal factory for creating [WalkingDoubleSupportPercentageRecord]
   /// instances without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WalkingDoubleSupportPercentageRecord] constructor, which enforces
-  /// validation. This factory is restricted to the SDK
-  /// developers and contributors.
-  /// Public constructor for [WalkingDoubleSupportPercentageRecord].
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory WalkingDoubleSupportPercentageRecord.internal({
     required HealthRecordId id,

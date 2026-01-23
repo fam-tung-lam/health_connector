@@ -26,9 +26,7 @@ final class CervicalMucusRecord extends InstantHealthRecord {
   /// Internal factory for creating [CervicalMucusRecord] instances without
   /// validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CervicalMucusRecord] constructor, which enforces validation and business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory CervicalMucusRecord.internal({
     required HealthRecordId id,

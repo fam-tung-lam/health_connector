@@ -70,8 +70,7 @@ final class WalkingSpeedRecord extends SpeedActivityRecord {
   /// Internal factory for creating [WalkingSpeedRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WalkingSpeedRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory WalkingSpeedRecord.internal({
     required HealthRecordId id,

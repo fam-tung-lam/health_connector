@@ -81,10 +81,7 @@ final class DietaryMagnesiumRecord extends DietaryMineralRecord {
   static const Mass maxMass = Mass.grams(100.0);
 
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DietaryMagnesiumRecord] constructor, which enforces validation and
-  /// business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DietaryMagnesiumRecord.internal({
     required Mass mass,

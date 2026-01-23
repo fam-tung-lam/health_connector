@@ -69,8 +69,7 @@ final class CyclingPowerRecord extends InstantHealthRecord {
   /// Internal factory for creating [CyclingPowerRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CyclingPowerRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory CyclingPowerRecord.internal({
     required HealthRecordId id,

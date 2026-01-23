@@ -83,8 +83,7 @@ final class BodyTemperatureRecord extends InstantHealthRecord {
   /// Internal factory for creating [BodyTemperatureRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BodyTemperatureRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory BodyTemperatureRecord.internal({
     required HealthRecordId id,

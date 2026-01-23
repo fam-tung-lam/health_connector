@@ -52,9 +52,7 @@ final class OvulationTestRecord extends InstantHealthRecord {
   /// Internal factory for creating [OvulationTestRecord] instances without
   /// validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [OvulationTestRecord] constructor, which enforces validation and business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory OvulationTestRecord.internal({
     required HealthRecordId id,

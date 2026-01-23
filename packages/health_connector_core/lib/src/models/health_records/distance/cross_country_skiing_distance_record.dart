@@ -40,8 +40,7 @@ final class CrossCountrySkiingDistanceRecord extends DistanceActivityRecord {
   /// Internal factory for creating [CrossCountrySkiingDistanceRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CrossCountrySkiingDistanceRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory CrossCountrySkiingDistanceRecord.internal({
     required HealthRecordId id,

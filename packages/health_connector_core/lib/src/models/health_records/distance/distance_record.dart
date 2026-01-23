@@ -86,8 +86,7 @@ final class DistanceRecord extends IntervalHealthRecord {
   /// Internal factory for creating [DistanceRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DistanceRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DistanceRecord.internal({
     required HealthRecordId id,

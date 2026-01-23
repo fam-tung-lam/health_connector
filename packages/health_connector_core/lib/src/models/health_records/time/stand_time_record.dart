@@ -37,8 +37,7 @@ final class StandTimeRecord extends IntervalHealthRecord {
   /// Internal factory for creating [StandTimeRecord] instances without
   /// validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [StandTimeRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory StandTimeRecord.internal({
     required HealthRecordId id,

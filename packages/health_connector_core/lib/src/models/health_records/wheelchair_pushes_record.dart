@@ -93,8 +93,7 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
   /// Internal factory for creating [WheelchairPushesRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WheelchairPushesRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory WheelchairPushesRecord.internal({
     required HealthRecordId id,

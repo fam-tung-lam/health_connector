@@ -17,8 +17,7 @@ part of '../health_record.dart';
 final class WalkingHeartRateAverageRecord extends IntervalHealthRecord {
   /// Internal factory for creating instances without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory WalkingHeartRateAverageRecord.internal({
     required HealthRecordId id,

@@ -86,8 +86,7 @@ final class WeightRecord extends InstantHealthRecord {
   /// Internal factory for creating [WeightRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WeightRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory WeightRecord.internal({
     required HealthRecordId id,

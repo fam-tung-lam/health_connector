@@ -71,8 +71,7 @@ final class RunningSpeedRecord extends SpeedActivityRecord {
   /// Internal factory for creating [RunningSpeedRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [RunningSpeedRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory RunningSpeedRecord.internal({
     required HealthRecordId id,

@@ -84,10 +84,7 @@ final class DietaryRiboflavinRecord extends DietaryVitaminRecord {
   static const Mass maxMass = Mass.grams(10.0);
 
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DietaryRiboflavinRecord] constructor, which enforces validation and
-  /// business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DietaryRiboflavinRecord.internal({
     required Mass mass,

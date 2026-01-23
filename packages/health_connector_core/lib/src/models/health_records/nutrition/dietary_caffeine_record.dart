@@ -78,10 +78,7 @@ final class DietaryCaffeineRecord extends NutrientRecord<Mass> {
   /// Internal factory for creating [DietaryCaffeineRecord] instances without
   /// validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DietaryCaffeineRecord] constructor, which enforces validation and
-  /// business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DietaryCaffeineRecord.internal({
     required Mass mass,

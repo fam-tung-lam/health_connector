@@ -41,8 +41,7 @@ final class PaddleSportsDistanceRecord extends DistanceActivityRecord {
   /// Internal factory for creating [PaddleSportsDistanceRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [PaddleSportsDistanceRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory PaddleSportsDistanceRecord.internal({
     required HealthRecordId id,

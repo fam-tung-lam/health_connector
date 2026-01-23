@@ -53,9 +53,7 @@ final class PregnancyTestRecord extends InstantHealthRecord {
   /// Internal factory for creating [PregnancyTestRecord] instances without
   /// validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [PregnancyTestRecord] constructor, which enforces validation and business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory PregnancyTestRecord.internal({
     required HealthRecordId id,

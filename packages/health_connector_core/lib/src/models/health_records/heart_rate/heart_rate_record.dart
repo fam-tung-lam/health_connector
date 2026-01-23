@@ -97,8 +97,7 @@ final class HeartRateRecord extends InstantHealthRecord {
   /// Internal factory for creating [HeartRateRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [HeartRateRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory HeartRateRecord.internal({
     required HealthRecordId id,

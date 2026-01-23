@@ -73,8 +73,7 @@ final class StepsCadenceSeriesRecord
   /// Internal factory for creating [StepsCadenceSeriesRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [StepsCadenceSeriesRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory StepsCadenceSeriesRecord.internal({
     required HealthRecordId id,

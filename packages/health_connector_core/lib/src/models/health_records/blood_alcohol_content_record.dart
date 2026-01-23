@@ -73,6 +73,8 @@ final class BloodAlcoholContentRecord extends InstantHealthRecord {
 
   /// Internal factory for creating [BloodAlcoholContentRecord] instances
   /// without validation.
+  ///
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory BloodAlcoholContentRecord.internal({
     required HealthRecordId id,

@@ -83,9 +83,7 @@ final class DietaryThiaminRecord extends DietaryVitaminRecord {
   static const Mass maxMass = Mass.grams(10.0);
 
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DietaryThiaminRecord] constructor, which enforces validation and business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DietaryThiaminRecord.internal({
     required Mass mass,

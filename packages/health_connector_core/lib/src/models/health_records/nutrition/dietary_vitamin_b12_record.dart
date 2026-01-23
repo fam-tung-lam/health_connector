@@ -83,10 +83,7 @@ final class DietaryVitaminB12Record extends DietaryVitaminRecord {
   static const Mass maxMass = Mass.grams(10.0);
 
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DietaryVitaminB12Record] constructor, which enforces validation and
-  /// business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DietaryVitaminB12Record.internal({
     required Mass mass,

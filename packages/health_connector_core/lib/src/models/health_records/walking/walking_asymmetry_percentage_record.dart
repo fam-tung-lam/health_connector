@@ -42,10 +42,7 @@ final class WalkingAsymmetryPercentageRecord extends IntervalHealthRecord {
   /// Internal factory for creating [WalkingAsymmetryPercentageRecord]
   /// instances without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WalkingAsymmetryPercentageRecord] constructor, which enforces
-  /// validation. This factory is restricted to the SDK
-  /// developers and contributors.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory WalkingAsymmetryPercentageRecord.internal({
     required HealthRecordId id,

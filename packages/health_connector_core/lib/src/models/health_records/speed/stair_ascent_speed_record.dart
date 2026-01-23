@@ -71,8 +71,7 @@ final class StairAscentSpeedRecord extends SpeedActivityRecord {
   /// Internal factory for creating [StairAscentSpeedRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [StairAscentSpeedRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory StairAscentSpeedRecord.internal({
     required HealthRecordId id,

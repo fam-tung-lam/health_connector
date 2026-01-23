@@ -63,8 +63,7 @@ final class ElectrodermalActivityRecord extends IntervalHealthRecord {
   /// Internal factory for creating [ElectrodermalActivityRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [ElectrodermalActivityRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory ElectrodermalActivityRecord.internal({
     required HealthRecordId id,

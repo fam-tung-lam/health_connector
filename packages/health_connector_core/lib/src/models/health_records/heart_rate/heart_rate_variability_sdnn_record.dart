@@ -87,8 +87,7 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
   /// Internal factory for creating [HeartRateVariabilitySDNNRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [HeartRateVariabilitySDNNRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory HeartRateVariabilitySDNNRecord.internal({
     required HealthRecordId id,

@@ -86,8 +86,7 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
   /// Internal factory for creating [BodyFatPercentageRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BodyFatPercentageRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory BodyFatPercentageRecord.internal({
     required HealthRecordId id,

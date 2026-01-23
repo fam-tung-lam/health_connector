@@ -59,8 +59,7 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
   /// Internal factory for creating [SpeedSeriesRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [SpeedSeriesRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory SpeedSeriesRecord.internal({
     required HealthRecordId id,

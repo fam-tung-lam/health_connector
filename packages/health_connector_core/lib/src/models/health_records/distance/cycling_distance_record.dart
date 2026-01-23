@@ -38,8 +38,7 @@ final class CyclingDistanceRecord extends DistanceActivityRecord {
   /// Internal factory for creating [CyclingDistanceRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CyclingDistanceRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory CyclingDistanceRecord.internal({
     required HealthRecordId id,

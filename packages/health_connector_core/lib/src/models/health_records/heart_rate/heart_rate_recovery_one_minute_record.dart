@@ -67,8 +67,7 @@ final class HeartRateRecoveryOneMinuteRecord extends IntervalHealthRecord {
   /// Internal factory for creating [HeartRateRecoveryOneMinuteRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [HeartRateRecoveryOneMinuteRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory HeartRateRecoveryOneMinuteRecord.internal({
     required HealthRecordId id,

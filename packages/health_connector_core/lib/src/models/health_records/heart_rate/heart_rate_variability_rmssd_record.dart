@@ -72,8 +72,7 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   /// Internal factory for creating [HeartRateVariabilityRMSSDRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [HeartRateVariabilityRMSSDRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory HeartRateVariabilityRMSSDRecord.internal({
     required HealthRecordId id,

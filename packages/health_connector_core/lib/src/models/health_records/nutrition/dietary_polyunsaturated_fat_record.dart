@@ -86,10 +86,7 @@ final class DietaryPolyunsaturatedFatRecord extends DietaryMacronutrientRecord {
   static const Mass maxMass = Mass.grams(1000.0);
 
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DietaryPolyunsaturatedFatRecord] constructor, which enforces validation
-  /// and business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DietaryPolyunsaturatedFatRecord.internal({
     required Mass mass,

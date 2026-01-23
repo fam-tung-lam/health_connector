@@ -65,8 +65,7 @@ final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
   /// Internal factory for creating [HeartRateSeriesRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [HeartRateSeriesRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory HeartRateSeriesRecord.internal({
     required HealthRecordId id,

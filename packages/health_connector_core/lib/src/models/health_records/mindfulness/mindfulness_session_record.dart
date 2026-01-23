@@ -57,8 +57,7 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
   /// Internal factory for creating [MindfulnessSessionRecord] instances without
   /// validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [MindfulnessSessionRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory MindfulnessSessionRecord.internal({
     required HealthRecordId id,

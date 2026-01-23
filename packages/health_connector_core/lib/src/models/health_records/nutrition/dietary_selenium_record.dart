@@ -81,10 +81,7 @@ final class DietarySeleniumRecord extends DietaryMineralRecord {
   static const Mass maxMass = Mass.grams(100.0);
 
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DietarySeleniumRecord] constructor, which enforces validation and
-  /// business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DietarySeleniumRecord.internal({
     required Mass mass,

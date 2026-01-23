@@ -39,8 +39,7 @@ final class WalkingSteadinessRecord extends IntervalHealthRecord {
   /// Internal factory for creating [WalkingSteadinessRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [WalkingSteadinessRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory WalkingSteadinessRecord.internal({
     required HealthRecordId id,

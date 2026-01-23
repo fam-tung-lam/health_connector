@@ -55,8 +55,7 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
   /// Internal factory for creating [PowerSeriesRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [PowerSeriesRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory PowerSeriesRecord.internal({
     required HealthRecordId id,

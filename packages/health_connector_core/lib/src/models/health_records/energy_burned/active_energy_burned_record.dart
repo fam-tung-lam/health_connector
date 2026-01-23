@@ -91,10 +91,7 @@ final class ActiveEnergyBurnedRecord extends IntervalHealthRecord {
   /// Internal factory for creating [ActiveEnergyBurnedRecord] instances without
   /// validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [ActiveEnergyBurnedRecord] constructor, which enforces validation and
-  /// business
-  /// rules.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory ActiveEnergyBurnedRecord.internal({
     required HealthRecordId id,

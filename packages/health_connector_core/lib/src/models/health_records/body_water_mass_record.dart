@@ -87,8 +87,7 @@ final class BodyWaterMassRecord extends InstantHealthRecord {
   /// Internal factory for creating [BodyWaterMassRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BodyWaterMassRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory BodyWaterMassRecord.internal({
     required HealthRecordId id,

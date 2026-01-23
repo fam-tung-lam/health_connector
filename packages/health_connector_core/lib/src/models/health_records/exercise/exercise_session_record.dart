@@ -64,8 +64,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
   /// Internal factory for creating [ExerciseSessionRecord] instances without
   /// validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [ExerciseSessionRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory ExerciseSessionRecord.internal({
     required HealthRecordId id,

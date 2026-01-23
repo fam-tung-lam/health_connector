@@ -86,8 +86,7 @@ final class BoneMassRecord extends InstantHealthRecord {
   /// Internal factory for creating [BoneMassRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BoneMassRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory BoneMassRecord.internal({
     required HealthRecordId id,

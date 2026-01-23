@@ -68,9 +68,7 @@ final class CyclingPedalingCadenceSeriesRecord
   /// [CyclingPedalingCadenceSeriesRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [CyclingPedalingCadenceSeriesRecord] constructor, which enforces
-  /// validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory CyclingPedalingCadenceSeriesRecord.internal({
     required HealthRecordId id,

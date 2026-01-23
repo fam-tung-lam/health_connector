@@ -40,8 +40,7 @@ final class DownhillSnowSportsDistanceRecord extends DistanceActivityRecord {
   /// Internal factory for creating [DownhillSnowSportsDistanceRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [DownhillSnowSportsDistanceRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory DownhillSnowSportsDistanceRecord.internal({
     required HealthRecordId id,

@@ -42,8 +42,7 @@ final class SleepingWristTemperatureRecord extends IntervalHealthRecord {
   /// Internal factory for creating [SleepingWristTemperatureRecord] instances
   /// without validation.
   ///
-  /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [SleepingWristTemperatureRecord] constructor, which enforces validation.
+  /// **⚠️ Warning**: Not for public use.
   @internalUse
   factory SleepingWristTemperatureRecord.internal({
     required HealthRecordId id,
