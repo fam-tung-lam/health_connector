@@ -39,7 +39,10 @@ class LactationRecord extends IntervalHealthRecord {
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
-  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   LactationRecord({
     required super.startTime,
     required super.endTime,
@@ -47,7 +50,9 @@ class LactationRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// {@macro health_record.internal}
   @internalUse

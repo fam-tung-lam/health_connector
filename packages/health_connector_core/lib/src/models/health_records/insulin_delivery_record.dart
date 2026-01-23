@@ -52,6 +52,7 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: units >= minUnits && units <= maxUnits,
       value: units,

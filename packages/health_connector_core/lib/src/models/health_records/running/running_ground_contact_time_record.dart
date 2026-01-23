@@ -55,6 +55,7 @@ final class RunningGroundContactTimeRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition:
           groundContactTime >= minGroundContactTime &&

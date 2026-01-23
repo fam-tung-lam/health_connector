@@ -58,7 +58,9 @@ final class ActivityIntensityRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
     this.title,
     this.notes,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [ActivityIntensityRecord] instances without
   /// validation.

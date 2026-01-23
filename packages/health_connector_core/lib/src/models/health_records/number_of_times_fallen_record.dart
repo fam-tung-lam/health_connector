@@ -47,6 +47,7 @@ final class NumberOfTimesFallenRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: count >= minCount && count <= maxCount,
       value: count,

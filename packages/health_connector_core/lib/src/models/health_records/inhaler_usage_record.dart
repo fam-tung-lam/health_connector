@@ -42,6 +42,7 @@ final class InhalerUsageRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: puffs >= minPuffs,
       value: puffs,

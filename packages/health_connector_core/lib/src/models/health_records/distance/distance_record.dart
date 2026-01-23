@@ -70,6 +70,7 @@ final class DistanceRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: distance >= minDistance && distance <= maxDistance,
       value: distance,

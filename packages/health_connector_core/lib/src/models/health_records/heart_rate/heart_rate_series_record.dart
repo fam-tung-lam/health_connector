@@ -46,7 +46,10 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
-  /// Creates a heart rate series record.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   HeartRateSeriesRecord({
     required super.metadata,
     required super.startTime,
@@ -55,7 +58,9 @@ final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
     super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [HeartRateSeriesRecord] instances
   /// without validation.
@@ -91,7 +96,7 @@ final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
     required super.samples,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  }) : super._();
+  });
 
   /// The average heart rate across all samples.
   Frequency get avgRate {

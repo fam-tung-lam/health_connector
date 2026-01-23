@@ -48,7 +48,10 @@ part of '../health_record.dart';
 @immutable
 final class CyclingPedalingCadenceSeriesRecord
     extends SeriesHealthRecord<CyclingPedalingCadenceSample> {
-  /// Creates a cycling pedaling cadence series record.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   CyclingPedalingCadenceSeriesRecord({
     required super.metadata,
     required super.startTime,
@@ -57,7 +60,9 @@ final class CyclingPedalingCadenceSeriesRecord
     super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating
   /// [CyclingPedalingCadenceSeriesRecord] instances
@@ -95,7 +100,7 @@ final class CyclingPedalingCadenceSeriesRecord
     required super.samples,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  }) : super._();
+  });
 
   /// The average cadence across all samples.
   Frequency get avgCadence {

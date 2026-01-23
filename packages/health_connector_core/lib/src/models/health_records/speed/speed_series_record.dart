@@ -40,17 +40,6 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
-  /// Creates a speed record with samples.
-  ///
-  /// ## Parameters
-  ///
-  /// - [id]: The unique identifier for this record.
-  /// - [startTime]: The start of the time interval (inclusive).
-  /// - [endTime]: The end of the time interval (exclusive).
-  /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
-  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
-  /// - [metadata]: Metadata about the origin and recording method.
-  /// - [samples]: The list contains timestamped speed measurements.
   ///
   /// ## Throws
   ///
@@ -63,7 +52,9 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [SpeedSeriesRecord] instances
   /// without validation.
@@ -99,7 +90,7 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
     required super.samples,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  }) : super._();
+  });
 
   /// The average speed across all samples.
   Velocity get avgSpeed {

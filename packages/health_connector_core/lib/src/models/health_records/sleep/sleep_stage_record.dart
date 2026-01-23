@@ -44,6 +44,10 @@ final class SleepStageRecord extends IntervalHealthRecord {
   ///
   /// Use [metadata] to describe the data source. Timezone offsets can be
   /// provided via [startZoneOffsetSeconds] and [endZoneOffsetSeconds].
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   SleepStageRecord({
     required super.id,
     required super.metadata,
@@ -54,7 +58,9 @@ final class SleepStageRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
     this.title,
     this.notes,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [BloodPressureRecord] instances without
   /// validation.

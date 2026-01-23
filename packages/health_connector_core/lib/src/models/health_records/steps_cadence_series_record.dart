@@ -54,6 +54,10 @@ final class StepsCadenceSeriesRecord
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
   /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   StepsCadenceSeriesRecord({
     required super.metadata,
     required super.startTime,
@@ -62,7 +66,9 @@ final class StepsCadenceSeriesRecord
     super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [StepsCadenceSeriesRecord] instances
   /// without validation.
@@ -98,7 +104,7 @@ final class StepsCadenceSeriesRecord
     required super.samples,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  }) : super._();
+  });
 
   /// The average cadence across all samples.
   Frequency get avgCadence {

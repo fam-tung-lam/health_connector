@@ -22,6 +22,10 @@ final class ForcedExpiratoryVolumeRecord extends IntervalHealthRecord {
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for the start time.
   /// - [endZoneOffsetSeconds]: Optional timezone offset for the end time.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   ForcedExpiratoryVolumeRecord({
     required super.startTime,
     required super.endTime,
@@ -30,7 +34,9 @@ final class ForcedExpiratoryVolumeRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// The volume of air exhaled.
   final Volume volume;

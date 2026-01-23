@@ -78,6 +78,7 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: count >= minPushes && count <= maxPushes,
       value: count,

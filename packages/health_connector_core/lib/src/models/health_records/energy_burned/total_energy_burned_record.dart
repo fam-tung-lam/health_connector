@@ -81,6 +81,7 @@ final class TotalEnergyBurnedRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) : super() {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: energy >= minEnergy && energy <= maxEnergy,
       value: energy,

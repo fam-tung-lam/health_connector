@@ -63,6 +63,7 @@ final class HydrationRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: volume >= minVolume && volume <= maxVolume,
       value: volume,

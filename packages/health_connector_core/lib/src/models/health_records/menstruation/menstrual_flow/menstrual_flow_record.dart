@@ -62,7 +62,9 @@ final class MenstrualFlowRecord extends IntervalHealthRecord {
   ///
   /// The [isCycleStart] flag maps to iOS HealthKit's
   /// `HKMetadataKeyMenstrualCycleStart` metadata and indicates whether this
-  /// sample marks the beginning of a menstrual cycle.
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   MenstrualFlowRecord({
     required super.startTime,
     required super.endTime,
@@ -72,7 +74,9 @@ final class MenstrualFlowRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [MenstrualFlowRecord] instances without
   /// validation.

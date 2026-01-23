@@ -62,6 +62,7 @@ final class ElevationGainedRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: elevation >= minElevation && elevation <= maxElevation,
       value: elevation,

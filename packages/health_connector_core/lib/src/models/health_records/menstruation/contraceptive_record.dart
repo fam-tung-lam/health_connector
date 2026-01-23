@@ -43,7 +43,7 @@ final class ContraceptiveRecord extends IntervalHealthRecord {
   ///
   /// ## Throws
   ///
-  /// - [InvalidArgumentException] if [startTime] is after [endTime].
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   ContraceptiveRecord({
     required super.startTime,
     required super.endTime,
@@ -52,7 +52,9 @@ final class ContraceptiveRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [ContraceptiveRecord] instances without
   /// validation.

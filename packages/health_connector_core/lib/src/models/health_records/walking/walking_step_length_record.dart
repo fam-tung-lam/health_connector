@@ -95,6 +95,7 @@ final class WalkingStepLengthRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: length >= minStepLength && length <= maxStepLength,
       value: length,

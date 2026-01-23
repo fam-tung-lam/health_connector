@@ -67,6 +67,7 @@ final class AlcoholicBeveragesRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: count >= minCount && count <= maxCount,
       value: count,

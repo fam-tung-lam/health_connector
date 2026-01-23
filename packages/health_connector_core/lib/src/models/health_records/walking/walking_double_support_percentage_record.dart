@@ -96,6 +96,7 @@ final class WalkingDoubleSupportPercentageRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: percentage >= minPercentage && percentage <= maxPercentage,
       value: percentage,

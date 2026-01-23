@@ -36,9 +36,10 @@ part of '../health_record.dart';
 final class MindfulnessSessionRecord extends IntervalHealthRecord {
   /// Creates a mindfulness session record.
   ///
-  /// The session spans from [startTime] to [endTime] and is categorized by
-  /// [sessionType]. Optional [title] and [notes] can provide additional
-  /// context.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   MindfulnessSessionRecord({
     required super.startTime,
     required super.endTime,
@@ -49,7 +50,9 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
     this.title,
     this.notes,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [MindfulnessSessionRecord] instances without
   /// validation.

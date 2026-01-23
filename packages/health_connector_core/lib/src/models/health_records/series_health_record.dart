@@ -7,27 +7,12 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 sealed class SeriesHealthRecord<T> extends IntervalHealthRecord {
-  /// Constructor for subclasses.
+  /// Creates an instance of [SeriesHealthRecord].
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   SeriesHealthRecord({
-    required DateTime startTime,
-    required DateTime endTime,
-    required Metadata metadata,
-    required List<T> samples,
-    HealthRecordId id = HealthRecordId.none,
-    int? startZoneOffsetSeconds,
-    int? endZoneOffsetSeconds,
-  }) : this._(
-         startTime: startTime,
-         endTime: endTime,
-         metadata: metadata,
-         samples: samples,
-         id: id,
-         startZoneOffsetSeconds: startZoneOffsetSeconds,
-         endZoneOffsetSeconds: endZoneOffsetSeconds,
-       );
-
-  /// Private constructor for internal use that skips validation.
-  SeriesHealthRecord._({
     required super.startTime,
     required super.endTime,
     required super.metadata,

@@ -51,6 +51,7 @@ final class HeartRateRecoveryOneMinuteRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: rate >= minHeartRateRecovery && rate <= maxHeartRateRecovery,
       value: rate,

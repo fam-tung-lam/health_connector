@@ -51,6 +51,7 @@ final class RunningStrideLengthRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition:
           strideLength >= minStrideLength && strideLength <= maxStrideLength,

@@ -69,6 +69,7 @@ final class StepsRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: count >= minSteps && count <= maxSteps,
       value: count,

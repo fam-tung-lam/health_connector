@@ -38,7 +38,10 @@ sealed class DistanceActivityRecord extends IntervalHealthRecord {
   /// Maximum valid distance.
   static const Length maxDistance = DistanceRecord.maxDistance;
 
-  /// Creates a distance activity record.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   DistanceActivityRecord({
     required super.startTime,
     required super.endTime,
@@ -48,6 +51,7 @@ sealed class DistanceActivityRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: distance >= minDistance && distance <= maxDistance,
       value: distance,

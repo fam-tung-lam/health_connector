@@ -123,6 +123,7 @@ final class NutritionRecord extends IntervalHealthRecord {
     this.zinc,
     this.caffeine,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     // Validate energy if present
     if (energy != null) {
       require(

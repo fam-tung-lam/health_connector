@@ -36,17 +36,6 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
-  /// Creates a power record with samples.
-  ///
-  /// ## Parameters
-  ///
-  /// - [id]: The unique identifier for this record.
-  /// - [startTime]: The start of the time interval (inclusive).
-  /// - [endTime]: The end of the time interval (exclusive).
-  /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
-  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
-  /// - [metadata]: Metadata about the origin and recording method.
-  /// - [samples]: The list contains timestamped power measurements.
   ///
   /// ## Throws
   ///
@@ -59,7 +48,9 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// Internal factory for creating [PowerSeriesRecord] instances
   /// without validation.
@@ -95,7 +86,7 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
     required super.samples,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  }) : super._();
+  });
 
   /// The average power across all samples.
   Power get avgPower {

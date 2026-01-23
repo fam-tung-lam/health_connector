@@ -88,6 +88,7 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
     this.title,
     this.notes,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     final duration = endTime.difference(startTime);
     require(
       condition: duration >= minDuration && duration <= maxDuration,

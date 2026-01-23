@@ -78,6 +78,7 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: count >= minFloors && count <= maxFloors,
       value: count,
