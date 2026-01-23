@@ -18,8 +18,8 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.units, validUnits);
       expect(record.metadata, metadata);
     });
@@ -110,8 +110,8 @@ void main() {
         id: newId,
       );
 
-      expect(updated.startTime, newStartTime);
-      expect(updated.endTime, newEndTime);
+      expect(updated.startTime, newStartTime.toUtc());
+      expect(updated.endTime, newEndTime.toUtc());
       expect(updated.units, newUnits);
       expect(updated.metadata, newMetadata);
       expect(updated.id, newId);
@@ -128,8 +128,8 @@ void main() {
 
       final updated = record.copyWith();
 
-      expect(updated.startTime, startTime);
-      expect(updated.endTime, endTime);
+      expect(updated.startTime, startTime.toUtc());
+      expect(updated.endTime, endTime.toUtc());
       expect(updated.units, validUnits);
       expect(updated.metadata, metadata);
     });

@@ -17,8 +17,8 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.strideLength, equals(validStrideLength));
       expect(record.metadata, metadata);
     });
@@ -65,10 +65,10 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updatedRecord.startTime, newStartTime);
+      expect(updatedRecord.startTime, newStartTime.toUtc());
       expect(updatedRecord.strideLength, newStrideLength);
       expect(updatedRecord.metadata, newMetadata);
-      expect(updatedRecord.endTime, endTime); // Unchanged
+      expect(updatedRecord.endTime, endTime.toUtc()); // Unchanged
     });
 
     test('equality works correctly', () {

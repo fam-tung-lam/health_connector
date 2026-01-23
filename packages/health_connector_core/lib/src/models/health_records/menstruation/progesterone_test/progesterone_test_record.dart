@@ -41,7 +41,7 @@ final class ProgesteroneTestRecord extends InstantHealthRecord {
   ///
   /// Use [metadata] to describe the data source. The timezone offset can be
   /// provided via [zoneOffsetSeconds].
-  const ProgesteroneTestRecord({
+  ProgesteroneTestRecord({
     required super.time,
     required super.metadata,
     required this.result,
@@ -71,7 +71,7 @@ final class ProgesteroneTestRecord extends InstantHealthRecord {
     );
   }
 
-  const ProgesteroneTestRecord._({
+  ProgesteroneTestRecord._({
     required super.id,
     required super.time,
     required super.metadata,

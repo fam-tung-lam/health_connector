@@ -16,12 +16,8 @@ extension RunningGroundContactTimeRecordToDto
       endTime: endTime.millisecondsSinceEpoch,
       seconds: groundContactTime.inSeconds,
       metadata: metadata.toDto(),
-      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
-        startZoneOffsetSeconds,
-      ),
-      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
-        endZoneOffsetSeconds,
-      ),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
     );
   }
 }

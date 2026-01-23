@@ -102,7 +102,7 @@ final class BodyTemperatureRecord extends InstantHealthRecord {
     );
   }
 
-  const BodyTemperatureRecord._({
+  BodyTemperatureRecord._({
     required super.id,
     required super.time,
     required super.metadata,

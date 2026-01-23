@@ -21,8 +21,8 @@ void main() {
         notes: notes,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.exerciseType, exerciseType);
       expect(record.metadata, metadata);
       expect(record.title, title);
@@ -67,8 +67,8 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updatedRecord.startTime, newStartTime);
-      expect(updatedRecord.endTime, newEndTime);
+      expect(updatedRecord.startTime, newStartTime.toUtc());
+      expect(updatedRecord.endTime, newEndTime.toUtc());
       expect(updatedRecord.exerciseType, newType);
       expect(updatedRecord.title, newTitle);
       expect(updatedRecord.notes, newNotes);

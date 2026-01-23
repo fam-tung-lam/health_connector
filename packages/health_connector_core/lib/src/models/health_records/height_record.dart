@@ -104,7 +104,7 @@ final class HeightRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const HeightRecord._({
+  HeightRecord._({
     required super.time,
     required super.metadata,
     required this.height,

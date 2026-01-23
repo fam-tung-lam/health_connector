@@ -14,7 +14,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(
         record.glucoseLevel,
         equals(validValue),
@@ -62,7 +62,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.time, newTime);
+      expect(updated.time, newTime.toUtc());
       expect(updated.glucoseLevel, newGlucose);
       expect(updated.metadata, newMetadata);
     });

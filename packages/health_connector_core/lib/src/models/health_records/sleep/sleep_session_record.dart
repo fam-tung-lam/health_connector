@@ -243,10 +243,11 @@ final class SleepStageSample {
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
   SleepStageSample({
-    required this.startTime,
-    required this.endTime,
+    required DateTime startTime,
+    required DateTime endTime,
     required this.stageType,
-  }) {
+  }) : startTime = startTime.toUtc(),
+       endTime = endTime.toUtc() {
     require(
       condition: endTime.isAfter(startTime),
       value: endTime,

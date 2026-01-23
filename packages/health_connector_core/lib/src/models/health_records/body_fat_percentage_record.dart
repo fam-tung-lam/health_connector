@@ -106,7 +106,7 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const BodyFatPercentageRecord._({
+  BodyFatPercentageRecord._({
     required super.id,
     required super.time,
     required super.metadata,

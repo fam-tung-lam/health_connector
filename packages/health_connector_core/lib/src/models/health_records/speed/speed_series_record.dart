@@ -224,9 +224,9 @@ final class SpeedSample {
   /// - **Maximum ([maxSpeedKmh] km/h / 93 mph)**: Extreme cycling speeds (e.g.,
   ///   downhill); allows for various sports activities.
   SpeedSample({
-    required this.time,
+    required DateTime time,
     required this.speed,
-  }) {
+  }) : time = time.toUtc() {
     final kmh = speed.inKilometersPerHour;
     require(
       condition: kmh >= minSpeedKmh && kmh <= maxSpeedKmh,

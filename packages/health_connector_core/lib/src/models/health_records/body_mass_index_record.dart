@@ -101,7 +101,7 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const BodyMassIndexRecord._({
+  BodyMassIndexRecord._({
     required super.time,
     required super.metadata,
     required this.bmi,

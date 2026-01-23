@@ -28,7 +28,7 @@ part of '../health_record.dart';
 @immutable
 sealed class SpeedActivityRecord extends InstantHealthRecord {
   /// Creates a speed activity record.
-  const SpeedActivityRecord({
+  SpeedActivityRecord({
     required super.time,
     required super.metadata,
     required this.speed,

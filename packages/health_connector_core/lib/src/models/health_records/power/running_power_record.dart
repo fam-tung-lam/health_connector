@@ -81,7 +81,7 @@ final class RunningPowerRecord extends InstantHealthRecord {
     );
   }
 
-  const RunningPowerRecord._({
+  RunningPowerRecord._({
     required super.id,
     required super.time,
     required super.metadata,

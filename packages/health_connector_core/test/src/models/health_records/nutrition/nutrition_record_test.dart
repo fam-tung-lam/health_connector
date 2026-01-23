@@ -31,8 +31,8 @@ void main() {
         calcium: calcium,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.metadata, metadata);
       expect(record.foodName, 'Chicken with Rice');
       expect(record.mealType, MealType.lunch);
@@ -158,7 +158,7 @@ void main() {
         calcium: newCalcium,
       );
 
-      expect(updatedRecord.startTime, newTime);
+      expect(updatedRecord.startTime, newTime.toUtc());
       expect(updatedRecord.energy, newEnergy);
       expect(updatedRecord.foodName, newFoodName);
       expect(updatedRecord.mealType, newMealType);

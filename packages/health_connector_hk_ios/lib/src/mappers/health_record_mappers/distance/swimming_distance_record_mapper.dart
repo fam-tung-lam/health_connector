@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show DateTimeToDto, HealthRecordId, Length, SwimmingDistanceRecord;
+    show HealthRecordId, Length, SwimmingDistanceRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -14,12 +14,8 @@ extension SwimmingDistanceRecordToDto on SwimmingDistanceRecord {
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
-        startZoneOffsetSeconds,
-      ),
-      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
-        endZoneOffsetSeconds,
-      ),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDto(),
       meters: distance.inMeters,
       activityType: DistanceActivityTypeDto.swimming,

@@ -41,7 +41,7 @@ final class OvulationTestRecord extends InstantHealthRecord {
   ///
   /// Use [metadata] to describe the data source. The timezone offset can be
   /// provided via [zoneOffsetSeconds].
-  const OvulationTestRecord({
+  OvulationTestRecord({
     required super.time,
     required super.metadata,
     required this.result,
@@ -72,7 +72,7 @@ final class OvulationTestRecord extends InstantHealthRecord {
     );
   }
 
-  const OvulationTestRecord._({
+  OvulationTestRecord._({
     required super.id,
     required super.time,
     required super.metadata,

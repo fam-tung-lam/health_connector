@@ -6,19 +6,27 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 sealed class IntervalHealthRecord extends HealthRecord {
-  /// Public constructor with validation.
+  /// Creates an [IntervalHealthRecord] from [startTime] to [endTime].
   ///
-  /// ## Throws
+  /// Both [startTime] and [endTime] are converted to UTC for storage.
   ///
-  /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// The [startZoneOffsetSeconds] and [endZoneOffsetSeconds] are optional. If
+  /// not provided, the timezone offset is inferred from [startTime] and
+  /// [endTime]. If the [DateTime] is already in UTC, the timezone
+  /// offset is not inferred.
   IntervalHealthRecord({
-    required this.startTime,
-    required this.endTime,
+    required DateTime startTime,
+    required DateTime endTime,
     required super.metadata,
-    super.id,
-    this.startZoneOffsetSeconds,
-    this.endZoneOffsetSeconds,
-  }) {
+    super.id = HealthRecordId.none,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) : startZoneOffsetSeconds =
+           startZoneOffsetSeconds ?? _inferZoneOffsetSeconds(startTime),
+       endZoneOffsetSeconds =
+           endZoneOffsetSeconds ?? _inferZoneOffsetSeconds(endTime),
+       startTime = startTime.toUtc(),
+       endTime = endTime.toUtc() {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
   }
 
@@ -27,16 +35,12 @@ sealed class IntervalHealthRecord extends HealthRecord {
   /// This is when the measurement or activity began. To interpret this value
   /// in the user's local (civil) time, use [startZoneOffsetSeconds] if
   /// available.
-  ///
-  /// Must be before [endTime].
   final DateTime startTime;
 
   /// The end time of the interval, stored as a UTC instant.
   ///
   /// This is when the measurement or activity ended. To interpret this value
   /// in the user's local (civil) time, use [endZoneOffsetSeconds] if available.
-  ///
-  /// Must be after [startTime].
   final DateTime endTime;
 
   /// The timezone offset in seconds at the start of the interval.
@@ -67,4 +71,20 @@ sealed class IntervalHealthRecord extends HealthRecord {
   /// This is automatically computed as the difference between [endTime] and
   /// [startTime].
   Duration get duration => endTime.difference(startTime);
+
+  /// Infers the timezone offset in seconds from a [DateTime].
+  ///
+  /// If the [dateTime] is in UTC, returns `null`. Otherwise, returns the
+  /// [DateTime.timeZoneOffset] in seconds.
+  ///
+  /// This is used during construction to automatically capture the local
+  /// timezone offset if it wasn't explicitly provided, provided the [DateTime]
+  /// wasn't already converted to UTC.
+  static int? _inferZoneOffsetSeconds(DateTime dateTime) {
+    if (dateTime.isUtc) {
+      return null;
+    }
+
+    return dateTime.timeZoneOffset.inSeconds;
+  }
 }

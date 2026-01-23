@@ -122,7 +122,7 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
     );
   }
 
-  const DiastolicBloodPressureRecord._({
+  DiastolicBloodPressureRecord._({
     required super.id,
     required super.time,
     required super.metadata,

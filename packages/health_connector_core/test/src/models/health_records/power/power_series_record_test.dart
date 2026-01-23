@@ -29,8 +29,8 @@ void main() {
         samples: samples,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.metadata, metadata);
       expect(record.samples, samples);
     });
@@ -93,8 +93,8 @@ void main() {
         samples: newSamples,
       );
 
-      expect(updatedRecord.startTime, newStartTime);
-      expect(updatedRecord.endTime, newEndTime);
+      expect(updatedRecord.startTime, newStartTime.toUtc());
+      expect(updatedRecord.endTime, newEndTime.toUtc());
       expect(updatedRecord.metadata, newMetadata);
       expect(updatedRecord.samples, newSamples);
     });

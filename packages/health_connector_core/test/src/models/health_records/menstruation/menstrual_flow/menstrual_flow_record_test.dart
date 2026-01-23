@@ -19,8 +19,8 @@ void main() {
         isCycleStart: isCycleStart,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.metadata, metadata);
       expect(record.flow, flow);
       expect(record.isCycleStart, isCycleStart);
@@ -43,7 +43,7 @@ void main() {
         flow: newFlow,
       );
 
-      expect(updatedRecord.startTime, newTime);
+      expect(updatedRecord.startTime, newTime.toUtc());
       expect(updatedRecord.flow, newFlow);
       expect(updatedRecord.isCycleStart, isCycleStart); // Unchanged
     });

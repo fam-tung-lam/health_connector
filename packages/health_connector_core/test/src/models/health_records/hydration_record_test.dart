@@ -17,8 +17,8 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.volume, validVolume);
       expect(record.metadata, metadata);
     });
@@ -79,8 +79,8 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.startTime, newStartTime);
-      expect(updated.endTime, newEndTime);
+      expect(updated.startTime, newStartTime.toUtc());
+      expect(updated.endTime, newEndTime.toUtc());
       expect(updated.volume, newVolume);
       expect(updated.metadata, newMetadata);
     });

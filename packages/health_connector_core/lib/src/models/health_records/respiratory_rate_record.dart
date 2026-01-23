@@ -115,7 +115,7 @@ final class RespiratoryRateRecord extends InstantHealthRecord {
     );
   }
 
-  const RespiratoryRateRecord._({
+  RespiratoryRateRecord._({
     required super.id,
     required super.time,
     required super.metadata,

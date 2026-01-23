@@ -40,7 +40,7 @@ final class SexualActivityRecord extends InstantHealthRecord {
   ///
   /// Use [metadata] to describe the data source. The timezone offset can be
   /// provided via [zoneOffsetSeconds].
-  const SexualActivityRecord({
+  SexualActivityRecord({
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -72,7 +72,7 @@ final class SexualActivityRecord extends InstantHealthRecord {
     );
   }
 
-  const SexualActivityRecord._({
+  SexualActivityRecord._({
     required super.id,
     required super.time,
     required super.metadata,

@@ -14,7 +14,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.height, equals(validHeight));
       expect(record.metadata, metadata);
     });
@@ -58,7 +58,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.time, newTime);
+      expect(updated.time, newTime.toUtc());
       expect(updated.height, newHeight);
       expect(updated.metadata, newMetadata);
     });

@@ -212,9 +212,9 @@ final class CyclingPedalingCadenceSample {
   /// - **Maximum ([maxCadence] RPM)**: Typical cadence 60-100 RPM; elite
   ///   cyclists ~120 RPM; 200 RPM allows for brief sprint peaks.
   CyclingPedalingCadenceSample({
-    required this.time,
+    required DateTime time,
     required this.cadence,
-  }) {
+  }) : time = time.toUtc() {
     require(
       condition: cadence >= minCadence && cadence <= maxCadence,
       value: cadence,

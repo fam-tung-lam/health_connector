@@ -108,7 +108,7 @@ final class LeanBodyMassRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const LeanBodyMassRecord._({
+  LeanBodyMassRecord._({
     required super.id,
     required super.time,
     required super.metadata,

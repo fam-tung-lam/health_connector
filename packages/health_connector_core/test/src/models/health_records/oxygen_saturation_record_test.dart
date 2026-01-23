@@ -14,7 +14,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.saturation, validSaturation);
       expect(record.metadata, metadata);
     });
@@ -62,7 +62,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.time, newTime);
+      expect(updated.time, newTime.toUtc());
       expect(updated.saturation, newSaturation);
       expect(updated.metadata, newMetadata);
     });

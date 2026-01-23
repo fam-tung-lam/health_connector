@@ -31,8 +31,8 @@ void main() {
         notes: 'Good sleep',
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.samples, samples);
       expect(record.metadata, metadata);
       expect(record.title, 'Night Sleep');
@@ -119,8 +119,8 @@ void main() {
         notes: newNotes,
       );
 
-      expect(updated.startTime, newStartTime);
-      expect(updated.endTime, newEndTime);
+      expect(updated.startTime, newStartTime.toUtc());
+      expect(updated.endTime, newEndTime.toUtc());
       expect(updated.samples, newSamples);
       expect(updated.title, newTitle);
       expect(updated.notes, newNotes);

@@ -37,7 +37,7 @@ final class MenstrualFlowInstantRecord extends InstantHealthRecord {
   ///
   /// Use [metadata] to describe the data source. The timezone offset can be
   /// provided via [zoneOffsetSeconds].
-  const MenstrualFlowInstantRecord({
+  MenstrualFlowInstantRecord({
     required super.time,
     required super.metadata,
     required this.flow,
@@ -67,7 +67,7 @@ final class MenstrualFlowInstantRecord extends InstantHealthRecord {
     );
   }
 
-  const MenstrualFlowInstantRecord._({
+  MenstrualFlowInstantRecord._({
     required super.id,
     required super.time,
     required super.metadata,

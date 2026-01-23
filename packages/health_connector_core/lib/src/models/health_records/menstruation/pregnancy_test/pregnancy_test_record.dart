@@ -42,7 +42,7 @@ final class PregnancyTestRecord extends InstantHealthRecord {
   ///
   /// Use [metadata] to describe the data source. The timezone offset can be
   /// provided via [zoneOffsetSeconds].
-  const PregnancyTestRecord({
+  PregnancyTestRecord({
     required super.time,
     required super.metadata,
     required this.result,
@@ -73,7 +73,7 @@ final class PregnancyTestRecord extends InstantHealthRecord {
     );
   }
 
-  const PregnancyTestRecord._({
+  PregnancyTestRecord._({
     required super.id,
     required super.time,
     required super.metadata,

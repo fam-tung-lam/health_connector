@@ -16,8 +16,8 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.startTime, now);
-      expect(record.endTime, endTime);
+      expect(record.startTime, now.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.elevation, validElevation);
       expect(record.metadata, metadata);
     });
@@ -66,8 +66,8 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.startTime, newStartTime);
-      expect(updated.endTime, newEndTime);
+      expect(updated.startTime, newStartTime.toUtc());
+      expect(updated.endTime, newEndTime.toUtc());
       expect(updated.elevation, newElevation);
       expect(updated.metadata, newMetadata);
     });

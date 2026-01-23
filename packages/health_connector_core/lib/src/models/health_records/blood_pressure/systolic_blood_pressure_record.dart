@@ -121,7 +121,7 @@ final class SystolicBloodPressureRecord extends InstantHealthRecord {
     );
   }
 
-  const SystolicBloodPressureRecord._({
+  SystolicBloodPressureRecord._({
     required super.id,
     required super.time,
     required super.metadata,

@@ -90,7 +90,7 @@ final class StairAscentSpeedRecord extends SpeedActivityRecord {
     );
   }
 
-  const StairAscentSpeedRecord._({
+  StairAscentSpeedRecord._({
     required super.id,
     required super.time,
     required super.metadata,

@@ -38,7 +38,7 @@ final class ForcedVitalCapacityRecord extends InstantHealthRecord {
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
-  const ForcedVitalCapacityRecord({
+  ForcedVitalCapacityRecord({
     required super.time,
     required super.metadata,
     required this.volume,

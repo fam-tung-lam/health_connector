@@ -80,7 +80,7 @@ final class PeripheralPerfusionIndexRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const PeripheralPerfusionIndexRecord._({
+  PeripheralPerfusionIndexRecord._({
     required super.id,
     required super.time,
     required super.metadata,

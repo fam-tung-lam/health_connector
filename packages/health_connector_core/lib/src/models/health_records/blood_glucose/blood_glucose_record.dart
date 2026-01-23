@@ -127,7 +127,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const BloodGlucoseRecord._({
+  BloodGlucoseRecord._({
     required super.time,
     required super.metadata,
     required this.glucoseLevel,

@@ -16,7 +16,7 @@ void main() {
         sensation: sensation,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.metadata, metadata);
       expect(record.appearance, appearance);
       expect(record.sensation, sensation);
@@ -48,7 +48,7 @@ void main() {
         appearance: newAppearance,
       );
 
-      expect(updatedRecord.time, newTime);
+      expect(updatedRecord.time, newTime.toUtc());
       expect(updatedRecord.appearance, newAppearance);
       expect(updatedRecord.sensation, sensation); // Unchanged
     });

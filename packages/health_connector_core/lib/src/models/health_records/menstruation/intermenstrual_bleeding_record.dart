@@ -38,7 +38,7 @@ final class IntermenstrualBleedingRecord extends InstantHealthRecord {
   ///
   /// Use [metadata] to describe the data source. The timezone offset can be
   /// provided via [zoneOffsetSeconds].
-  const IntermenstrualBleedingRecord({
+  IntermenstrualBleedingRecord({
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -65,7 +65,7 @@ final class IntermenstrualBleedingRecord extends InstantHealthRecord {
     );
   }
 
-  const IntermenstrualBleedingRecord._({
+  IntermenstrualBleedingRecord._({
     required super.id,
     required super.time,
     required super.metadata,

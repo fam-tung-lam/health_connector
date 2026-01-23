@@ -16,7 +16,7 @@ void main() {
         mealType: MealType.snack,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.metadata, metadata);
       expect(record.mass, equals(validMass));
     });
@@ -67,7 +67,7 @@ void main() {
       );
 
       expect(updatedRecord.mass, newMass);
-      expect(updatedRecord.time, newTime);
+      expect(updatedRecord.time, newTime.toUtc());
       expect(updatedRecord.metadata, newMetadata);
       expect(updatedRecord.foodName, newFoodName);
       expect(updatedRecord.mealType, newMealType);

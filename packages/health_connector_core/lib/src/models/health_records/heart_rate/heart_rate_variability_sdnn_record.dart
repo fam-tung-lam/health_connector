@@ -107,7 +107,7 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const HeartRateVariabilitySDNNRecord._({
+  HeartRateVariabilitySDNNRecord._({
     required super.time,
     required super.metadata,
     required this.sdnn,

@@ -92,8 +92,8 @@ void main() {
               final record = dto.toDomain();
 
               expect(record.id.value, FakeData.fakeId);
-              expect(record.startTime, FakeData.fakeStartTime.toLocal());
-              expect(record.endTime, FakeData.fakeEndTime.toLocal());
+              expect(record.startTime, FakeData.fakeStartTime);
+              expect(record.endTime, FakeData.fakeEndTime);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

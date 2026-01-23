@@ -12,7 +12,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.metadata, metadata);
     });
 
@@ -30,7 +30,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updatedRecord.time, newTime);
+      expect(updatedRecord.time, newTime.toUtc());
       expect(updatedRecord.metadata, newMetadata);
     });
 

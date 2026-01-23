@@ -15,12 +15,8 @@ extension RunningStrideLengthRecordToDto on RunningStrideLengthRecord {
       endTime: endTime.millisecondsSinceEpoch,
       strideLength: strideLength.inMeters,
       metadata: metadata.toDto(),
-      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
-        startZoneOffsetSeconds,
-      ),
-      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
-        endZoneOffsetSeconds,
-      ),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
     );
   }
 }

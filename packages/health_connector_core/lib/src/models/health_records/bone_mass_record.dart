@@ -106,7 +106,7 @@ final class BoneMassRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const BoneMassRecord._({
+  BoneMassRecord._({
     required super.id,
     required super.time,
     required super.metadata,

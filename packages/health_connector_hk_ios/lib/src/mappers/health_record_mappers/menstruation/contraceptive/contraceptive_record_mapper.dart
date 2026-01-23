@@ -16,12 +16,8 @@ extension ContraceptiveRecordToDto on ContraceptiveRecord {
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
       contraceptiveType: contraceptiveType.toDto(),
-      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
-        startZoneOffsetSeconds,
-      ),
-      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
-        endZoneOffsetSeconds,
-      ),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
     );
   }
 }

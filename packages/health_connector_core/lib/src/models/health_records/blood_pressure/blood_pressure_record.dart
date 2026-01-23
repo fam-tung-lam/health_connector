@@ -154,7 +154,7 @@ final class BloodPressureRecord extends InstantHealthRecord {
     );
   }
 
-  const BloodPressureRecord._({
+  BloodPressureRecord._({
     required super.id,
     required super.time,
     required super.metadata,

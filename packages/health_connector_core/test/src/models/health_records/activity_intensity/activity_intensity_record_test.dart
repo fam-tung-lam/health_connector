@@ -65,7 +65,7 @@ void main() {
       );
       expect(
         updatedRecord.startTime,
-        equals(startTime),
+        equals(startTime.toUtc()),
       ); // Should remain unchanged
     });
   });

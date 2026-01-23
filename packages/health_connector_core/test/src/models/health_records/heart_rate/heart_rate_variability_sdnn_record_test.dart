@@ -15,7 +15,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.sdnn, equals(validValue));
       expect(record.metadata, metadata);
     });
@@ -55,7 +55,7 @@ void main() {
         sdnn: TimeDuration.milliseconds(validValue.inMilliseconds + 10),
       );
 
-      expect(updatedRecord.time, newTime);
+      expect(updatedRecord.time, newTime.toUtc());
       expect(
         updatedRecord.sdnn.inMilliseconds,
         closeTo(validValue.inMilliseconds + 10, 0.1),

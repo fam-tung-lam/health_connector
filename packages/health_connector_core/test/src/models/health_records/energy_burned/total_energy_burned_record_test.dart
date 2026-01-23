@@ -17,8 +17,8 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.energy, equals(validEnergy));
       expect(record.metadata, metadata);
     });
@@ -65,7 +65,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updatedRecord.startTime, newStartTime);
+      expect(updatedRecord.startTime, newStartTime.toUtc());
       expect(updatedRecord.energy, newEnergy);
       expect(updatedRecord.metadata, newMetadata);
     });

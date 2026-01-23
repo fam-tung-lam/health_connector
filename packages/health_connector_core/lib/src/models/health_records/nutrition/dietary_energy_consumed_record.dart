@@ -148,7 +148,7 @@ final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
   @override
   int get hashCode => super.hashCode ^ energy.hashCode;
 
-  const DietaryEnergyConsumedRecord._({
+  DietaryEnergyConsumedRecord._({
     required this.energy,
     required super.time,
     required super.metadata,

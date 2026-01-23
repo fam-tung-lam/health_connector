@@ -1,10 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        FloorsClimbedRecord,
-        HealthRecordId,
-        sinceV1_0_0,
-        DateTimeToDto,
-        Number;
+    show FloorsClimbedRecord, HealthRecordId, sinceV1_0_0, Number;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
@@ -20,12 +15,8 @@ extension FloorsClimbedRecordToDto on FloorsClimbedRecord {
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
-        startZoneOffsetSeconds,
-      ),
-      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
-        endZoneOffsetSeconds,
-      ),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDto(),
       floors: count.value.toDouble(),
     );

@@ -16,7 +16,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.vo2MlPerMinPerKg, validVo2);
       expect(record.testType, testType);
       expect(record.metadata, metadata);
@@ -73,7 +73,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.time, newTime);
+      expect(updated.time, newTime.toUtc());
       expect(updated.vo2MlPerMinPerKg, newVo2);
       expect(updated.testType, newTestType);
       expect(updated.metadata, newMetadata);

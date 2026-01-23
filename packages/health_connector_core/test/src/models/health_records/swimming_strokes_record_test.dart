@@ -16,8 +16,8 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.count, count);
       expect(record.metadata, metadata);
     });
@@ -113,8 +113,8 @@ void main() {
       final updatedRecord = record.copyWith(count: newCount);
 
       expect(updatedRecord.count, newCount);
-      expect(updatedRecord.startTime, startTime);
-      expect(updatedRecord.endTime, endTime);
+      expect(updatedRecord.startTime, startTime.toUtc());
+      expect(updatedRecord.endTime, endTime.toUtc());
       expect(updatedRecord.metadata, record.metadata);
     });
   });

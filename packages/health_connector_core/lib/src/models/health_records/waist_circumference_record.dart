@@ -105,7 +105,7 @@ final class WaistCircumferenceRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const WaistCircumferenceRecord._({
+  WaistCircumferenceRecord._({
     required super.time,
     required super.metadata,
     required this.circumference,

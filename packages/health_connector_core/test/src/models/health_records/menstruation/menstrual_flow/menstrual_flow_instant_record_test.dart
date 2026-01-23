@@ -14,7 +14,7 @@ void main() {
         flow: flow,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.metadata, metadata);
       expect(record.flow, flow);
     });
@@ -34,7 +34,7 @@ void main() {
         flow: newFlow,
       );
 
-      expect(updatedRecord.time, newTime);
+      expect(updatedRecord.time, newTime.toUtc());
       expect(updatedRecord.flow, newFlow);
       expect(updatedRecord.metadata, metadata);
     });

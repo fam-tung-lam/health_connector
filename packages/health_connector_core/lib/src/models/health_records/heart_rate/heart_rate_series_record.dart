@@ -217,9 +217,9 @@ final class HeartRateSample {
   /// - **Maximum ([maxRate])**: Exceeds the theoretical maximum
   ///   (220 - age) to accommodate young individuals and measurement artifacts.
   HeartRateSample({
-    required this.time,
+    required DateTime time,
     required this.rate,
-  }) {
+  }) : time = time.toUtc() {
     require(
       condition: rate >= minRate && rate <= maxRate,
       value: rate,

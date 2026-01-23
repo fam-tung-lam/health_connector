@@ -16,7 +16,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.systolic, equals(validSystolic));
       expect(record.diastolic, equals(validDiastolic));
       expect(record.metadata, metadata);
@@ -102,7 +102,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.time, newTime);
+      expect(updated.time, newTime.toUtc());
       expect(updated.systolic, newSystolic);
       expect(updated.diastolic, newDiastolic);
       expect(updated.metadata, newMetadata);

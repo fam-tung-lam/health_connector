@@ -11,12 +11,15 @@ sealed class InstantHealthRecord extends HealthRecord {
   ///
   /// The [zoneOffsetSeconds] is optional and represents the timezone offset
   /// in seconds from UTC at the [time] of measurement.
-  const InstantHealthRecord({
-    required this.time,
+  InstantHealthRecord({
+    required DateTime time,
     required super.metadata,
     super.id = HealthRecordId.none,
-    this.zoneOffsetSeconds,
-  });
+    int? zoneOffsetSeconds,
+  }) : zoneOffsetSeconds =
+           zoneOffsetSeconds ??
+           IntervalHealthRecord._inferZoneOffsetSeconds(time),
+       time = time.toUtc();
 
   /// The time when this measurement was taken, stored as a UTC instant.
   ///

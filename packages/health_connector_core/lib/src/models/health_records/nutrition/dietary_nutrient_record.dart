@@ -34,7 +34,7 @@ sealed class NutrientRecord<U extends MeasurementUnit>
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   /// - [foodName]: Optional name of the food containing this nutrient.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  const NutrientRecord({
+  NutrientRecord({
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,

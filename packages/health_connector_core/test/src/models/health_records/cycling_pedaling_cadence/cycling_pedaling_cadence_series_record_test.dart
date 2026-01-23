@@ -12,7 +12,7 @@ void main() {
         cadence: validCadence,
       );
 
-      expect(sample.time, now);
+      expect(sample.time, now.toUtc());
       expect(sample.cadence, equals(validCadence));
     });
 

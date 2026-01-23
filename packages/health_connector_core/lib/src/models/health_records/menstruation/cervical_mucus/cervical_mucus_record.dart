@@ -14,7 +14,7 @@ part of '../../health_record.dart';
 @immutable
 final class CervicalMucusRecord extends InstantHealthRecord {
   /// Creates a cervical mucus record.
-  const CervicalMucusRecord({
+  CervicalMucusRecord({
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -48,7 +48,7 @@ final class CervicalMucusRecord extends InstantHealthRecord {
     );
   }
 
-  const CervicalMucusRecord._({
+  CervicalMucusRecord._({
     required super.id,
     required super.time,
     required super.metadata,

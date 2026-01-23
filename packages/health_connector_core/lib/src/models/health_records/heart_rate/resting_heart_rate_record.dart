@@ -112,7 +112,7 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
     );
   }
 
-  const RestingHeartRateRecord._({
+  RestingHeartRateRecord._({
     required super.id,
     required super.time,
     required super.metadata,

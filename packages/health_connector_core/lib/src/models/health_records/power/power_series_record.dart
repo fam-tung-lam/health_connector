@@ -215,9 +215,9 @@ final class PowerSample {
   /// - **Maximum ([maxPower] W)**: Elite track sprinters can peak at
   ///   ~2,500W; 3,000W provides margin for brief maximal efforts.
   PowerSample({
-    required this.time,
+    required DateTime time,
     required this.power,
-  }) {
+  }) : time = time.toUtc() {
     require(
       condition: power >= minPower && power <= maxPower,
       value: power,

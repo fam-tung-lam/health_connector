@@ -90,7 +90,7 @@ final class RunningSpeedRecord extends SpeedActivityRecord {
     );
   }
 
-  const RunningSpeedRecord._({
+  RunningSpeedRecord._({
     required super.id,
     required super.time,
     required super.metadata,

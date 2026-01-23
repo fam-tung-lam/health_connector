@@ -117,7 +117,7 @@ final class HeartRateRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const HeartRateRecord._({
+  HeartRateRecord._({
     required super.id,
     required super.time,
     required super.metadata,

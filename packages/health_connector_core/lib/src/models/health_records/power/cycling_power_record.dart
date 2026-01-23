@@ -88,7 +88,7 @@ final class CyclingPowerRecord extends InstantHealthRecord {
     );
   }
 
-  const CyclingPowerRecord._({
+  CyclingPowerRecord._({
     required super.id,
     required super.time,
     required super.metadata,

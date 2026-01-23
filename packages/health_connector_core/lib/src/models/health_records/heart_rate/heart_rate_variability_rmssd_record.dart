@@ -92,7 +92,7 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const HeartRateVariabilityRMSSDRecord._({
+  HeartRateVariabilityRMSSDRecord._({
     required super.time,
     required super.metadata,
     required this.rmssd,

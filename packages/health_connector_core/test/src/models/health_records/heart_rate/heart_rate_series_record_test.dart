@@ -31,8 +31,8 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.samples, samples);
       expect(record.metadata, metadata);
     });
@@ -95,7 +95,7 @@ void main() {
       );
 
       expect(updatedRecord.samples, newSamples);
-      expect(updatedRecord.startTime, startTime); // Unchanged
+      expect(updatedRecord.startTime, startTime.toUtc()); // Unchanged
     });
 
     test('equality works correctly', () {

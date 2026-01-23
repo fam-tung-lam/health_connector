@@ -111,7 +111,7 @@ final class Vo2MaxRecord extends InstantHealthRecord {
     );
   }
 
-  const Vo2MaxRecord._({
+  Vo2MaxRecord._({
     required super.id,
     required super.time,
     required super.metadata,

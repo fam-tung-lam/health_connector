@@ -108,7 +108,7 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const OxygenSaturationRecord._({
+  OxygenSaturationRecord._({
     required super.id,
     required super.time,
     required super.metadata,

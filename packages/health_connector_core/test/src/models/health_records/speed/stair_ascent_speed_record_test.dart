@@ -14,7 +14,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.speed, validSpeed);
       expect(record.metadata, metadata);
     });
@@ -58,7 +58,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.time, newTime);
+      expect(updated.time, newTime.toUtc());
       expect(updated.speed, newSpeed);
       expect(updated.metadata, newMetadata);
     });

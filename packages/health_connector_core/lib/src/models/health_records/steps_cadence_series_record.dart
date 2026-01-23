@@ -208,9 +208,9 @@ final class StepsCadenceSample {
   /// - [ArgumentError] if [cadence] is outside the valid range of
   ///   [minCadence]-[maxCadence].
   StepsCadenceSample({
-    required this.time,
+    required DateTime time,
     required this.cadence,
-  }) {
+  }) : time = time.toUtc() {
     require(
       condition: cadence >= minCadence && cadence <= maxCadence,
       value: cadence,

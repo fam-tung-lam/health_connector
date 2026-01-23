@@ -16,7 +16,7 @@ void main() {
         metadata: metadata,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.rate, equals(validValue));
       expect(record.metadata, metadata);
     });
@@ -76,7 +76,7 @@ void main() {
         rate: Frequency.perMinute(validValue.inPerMinute + 10),
       );
 
-      expect(updatedRecord.time, newTime);
+      expect(updatedRecord.time, newTime.toUtc());
       expect(
         updatedRecord.rate.inPerMinute,
         closeTo(validValue.inPerMinute + 10, 0.1),

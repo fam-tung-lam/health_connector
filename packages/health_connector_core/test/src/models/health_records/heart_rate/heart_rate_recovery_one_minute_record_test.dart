@@ -84,8 +84,8 @@ void main() {
         endTime: updatedEndTime,
       );
 
-      expect(copiedRecord.startTime, equals(updatedStartTime));
-      expect(copiedRecord.endTime, equals(updatedEndTime));
+      expect(copiedRecord.startTime, equals(updatedStartTime.toUtc()));
+      expect(copiedRecord.endTime, equals(updatedEndTime.toUtc()));
       expect(copiedRecord.rate, equals(beatsPerMinute));
     });
   });

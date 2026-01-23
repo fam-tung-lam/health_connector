@@ -107,7 +107,7 @@ final class BodyWaterMassRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const BodyWaterMassRecord._({
+  BodyWaterMassRecord._({
     required super.id,
     required super.time,
     required super.metadata,

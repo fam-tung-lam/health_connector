@@ -14,7 +14,7 @@ void main() {
         result: result,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.metadata, metadata);
       expect(record.result, result);
     });
@@ -34,7 +34,7 @@ void main() {
         result: newResult,
       );
 
-      expect(updatedRecord.time, newTime);
+      expect(updatedRecord.time, newTime.toUtc());
       expect(updatedRecord.result, newResult);
       expect(updatedRecord.metadata, metadata);
     });

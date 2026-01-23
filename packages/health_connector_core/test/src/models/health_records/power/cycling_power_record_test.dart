@@ -14,7 +14,7 @@ void main() {
         power: validPower,
       );
 
-      expect(record.time, now);
+      expect(record.time, now.toUtc());
       expect(record.metadata, metadata);
       expect(record.power, equals(validPower));
     });
@@ -58,7 +58,7 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updatedRecord.time, newTime);
+      expect(updatedRecord.time, newTime.toUtc());
       expect(updatedRecord.power, newPower);
       expect(updatedRecord.metadata, newMetadata);
     });

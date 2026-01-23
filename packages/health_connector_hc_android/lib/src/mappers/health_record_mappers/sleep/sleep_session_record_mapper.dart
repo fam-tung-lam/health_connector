@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show SleepSessionRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
+    show SleepSessionRecord, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show SleepStageSample, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
@@ -20,12 +20,8 @@ extension SleepSessionRecordToDto on SleepSessionRecord {
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
-        startZoneOffsetSeconds,
-      ),
-      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
-        endZoneOffsetSeconds,
-      ),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDto(),
       title: title,
       notes: notes,

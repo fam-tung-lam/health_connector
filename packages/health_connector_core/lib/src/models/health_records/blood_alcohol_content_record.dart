@@ -91,7 +91,7 @@ final class BloodAlcoholContentRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const BloodAlcoholContentRecord._({
+  BloodAlcoholContentRecord._({
     required super.id,
     required super.time,
     required super.metadata,

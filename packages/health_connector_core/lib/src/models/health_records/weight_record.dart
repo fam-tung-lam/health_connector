@@ -106,7 +106,7 @@ final class WeightRecord extends InstantHealthRecord {
   }
 
   /// Private constructor without validation.
-  const WeightRecord._({
+  WeightRecord._({
     required super.id,
     required super.time,
     required super.metadata,

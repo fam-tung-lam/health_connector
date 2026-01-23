@@ -20,8 +20,8 @@ void main() {
         notes: 'Good',
       );
 
-      expect(record.startTime, startTime);
-      expect(record.endTime, endTime);
+      expect(record.startTime, startTime.toUtc());
+      expect(record.endTime, endTime.toUtc());
       expect(record.stageType, stageType);
       expect(record.metadata, metadata);
       expect(record.title, 'Nap');
@@ -86,8 +86,8 @@ void main() {
         metadata: newMetadata,
       );
 
-      expect(updated.startTime, newStartTime);
-      expect(updated.endTime, newEndTime);
+      expect(updated.startTime, newStartTime.toUtc());
+      expect(updated.endTime, newEndTime.toUtc());
       expect(updated.stageType, newStageType);
       expect(updated.title, newTitle);
       expect(updated.notes, newNotes);

@@ -98,7 +98,7 @@ final class CyclingPedalingCadenceRecord extends InstantHealthRecord {
     );
   }
 
-  const CyclingPedalingCadenceRecord._({
+  CyclingPedalingCadenceRecord._({
     required super.id,
     required super.metadata,
     required super.time,
