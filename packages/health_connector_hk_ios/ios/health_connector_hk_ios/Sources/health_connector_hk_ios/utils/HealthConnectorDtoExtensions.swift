@@ -218,6 +218,8 @@ extension HealthRecordDto {
             record.id
         case let record as EnvironmentalAudioExposureRecordDto:
             record.id
+        case let record as HeadphoneAudioExposureRecordDto:
+            record.id
         default:
             nil
         }
@@ -457,6 +459,8 @@ extension HealthRecordDto {
                 return .environmentalAudioExposureEvent
             case is EnvironmentalAudioExposureRecordDto:
                 return .environmentalAudioExposure
+            case is HeadphoneAudioExposureRecordDto:
+                return .headphoneAudioExposure
             default:
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -678,6 +682,8 @@ extension HealthRecordDto {
         case let dto as EnvironmentalAudioExposureEventRecordDto:
             return dto.endTime
         case let dto as EnvironmentalAudioExposureRecordDto:
+            return dto.endTime
+        case let dto as HeadphoneAudioExposureRecordDto:
             return dto.endTime
         case let dto as RunningGroundContactTimeRecordDto:
             return dto.endTime

@@ -231,6 +231,8 @@ extension HKSample {
                 return .nutrition
             case HKQuantityTypeIdentifier.environmentalAudioExposure.rawValue:
                 return .environmentalAudioExposure
+            case HKQuantityTypeIdentifier.headphoneAudioExposure.rawValue:
+                return .headphoneAudioExposure
             default:
                 if #available(iOS 14.0, *) {
                     if identifier

@@ -143,6 +143,7 @@ extension HealthDataTypeUI on HealthDataType {
       EnvironmentalAudioExposureEventDataType _ =>
         AppTexts.environmentalAudioExposureEvent,
       EnvironmentalAudioExposureDataType _ => 'Environmental Audio Exposure',
+      HeadphoneAudioExposureDataType _ => AppTexts.headphoneAudioExposure,
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEvent,
       WalkingSteadinessEventDataType _ => AppTexts.walkingSteadinessEvent,
       PersistentIntermenstrualBleedingEventDataType _ =>
@@ -318,6 +319,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.environmentalAudioExposureEventDescription,
       EnvironmentalAudioExposureDataType _ =>
         'Audio exposure to sounds in the environment',
+      HeadphoneAudioExposureDataType _ =>
+        AppTexts.headphoneAudioExposureDescription,
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEventDescription,
       WalkingSteadinessEventDataType _ =>
         AppTexts.walkingSteadinessEventDescription,
@@ -471,6 +474,7 @@ extension HealthDataTypeUI on HealthDataType {
       InfrequentMenstrualCycleEventDataType _ => AppIcons.waterDrop,
       EnvironmentalAudioExposureEventDataType _ => AppIcons.volume,
       EnvironmentalAudioExposureDataType _ => AppIcons.volume,
+      HeadphoneAudioExposureDataType _ => AppIcons.volume,
       HighHeartRateEventDataType _ => AppIcons.favorite,
       WalkingSteadinessEventDataType _ => AppIcons.directionsWalk,
       PersistentIntermenstrualBleedingEventDataType _ => AppIcons.waterDrop,
@@ -506,6 +510,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (IrregularHeartRhythmEventDataType) ||
       const (EnvironmentalAudioExposureEventDataType) ||
       const (EnvironmentalAudioExposureDataType) ||
+      const (HeadphoneAudioExposureDataType) ||
       const (IrregularMenstrualCycleEventDataType) ||
       const (HighHeartRateEventDataType) ||
       const (WalkingSteadinessEventDataType) ||
@@ -573,6 +578,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.environmentalAudioExposureEvent,
       const (EnvironmentalAudioExposureDataType) =>
         'Environmental Audio Exposure',
+      const (HeadphoneAudioExposureDataType) => AppTexts.headphoneAudioExposure,
       const (HighHeartRateEventDataType) => AppTexts.valueWithUnit(
         AppTexts.highHeartRateEvent,
         AppTexts.bpm,

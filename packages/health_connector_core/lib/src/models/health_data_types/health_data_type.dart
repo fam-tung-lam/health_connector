@@ -43,6 +43,7 @@ part 'distance/walking_running_distance_data_type.dart';
 part 'distance/wheelchair_distance_data_type.dart';
 part 'electrodermal_activity_data_type.dart';
 part 'environmental_audio_exposure_data_type.dart';
+part 'headphone_audio_exposure_data_type.dart';
 part 'elevation_gained_data_type.dart';
 part 'energy_burned/active_energy_burned_data_type.dart';
 part 'energy_burned/basal_energy_burned_data_type.dart';
@@ -805,6 +806,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const environmentalAudioExposure =
       EnvironmentalAudioExposureDataType();
 
+  /// Headphone audio exposure data type.
+  ///
+  /// A quantity sample type that measures audio exposure from headphones.
+  /// These samples use sound pressure units (dB(A)) and measure discrete
+  /// values of the equivalent continuous sound pressure level.
+  @sinceV3_6_0
+  @supportedOnAppleHealth
+  static const headphoneAudioExposure = HeadphoneAudioExposureDataType();
+
   /// Infrequent menstrual cycle event data type.
   ///
   /// Represents events where infrequent menstrual cycles are detected by
@@ -1332,6 +1342,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     elevationGained,
     environmentalAudioExposure,
     environmentalAudioExposureEvent,
+    headphoneAudioExposure,
     exerciseSession,
     floorsClimbed,
     forcedExpiratoryVolume,

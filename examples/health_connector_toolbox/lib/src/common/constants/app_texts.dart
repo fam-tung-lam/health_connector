@@ -217,6 +217,7 @@ abstract final class AppTexts {
       EnvironmentalAudioExposureEventDataType() =>
         environmentalAudioExposureEvent,
       EnvironmentalAudioExposureDataType() => environmentalAudioExposure,
+      HeadphoneAudioExposureDataType() => headphoneAudioExposure,
       ProlongedMenstrualPeriodEventDataType() => prolongedMenstrualPeriodEvent,
       AtrialFibrillationBurdenDataType() => atrialFibrillationBurden,
       WalkingHeartRateAverageDataType() => walkingHeartRateAverage,
@@ -537,6 +538,9 @@ abstract final class AppTexts {
       'Environmental Audio Exposure';
   static const String environmentalAudioExposureDescription =
       'Audio exposure to sounds in the environment';
+  static const String headphoneAudioExposure = 'Headphone Audio Exposure';
+  static const String headphoneAudioExposureDescription =
+      'Audio exposure from headphones (iOS only)';
   static const String initialLow = 'Initial Low';
   static const String repeatLow = 'Repeat Low';
   static const String initialVeryLow = 'Initial Very Low';

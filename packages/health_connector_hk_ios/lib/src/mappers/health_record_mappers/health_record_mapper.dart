@@ -26,6 +26,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exerci
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_expiratory_volume_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/forced_vital_capacity_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/headphone_audio_exposure_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/atrial_fibrillation_burden_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_recovery_one_minute_record_mapper.dart';
@@ -348,6 +349,8 @@ extension HealthRecordToDto on HealthRecord {
         return NumberOfTimesFallenRecordToDto(record).toDto();
       case final EnvironmentalAudioExposureRecord record:
         return EnvironmentalAudioExposureRecordToDto(record).toDto();
+      case final HeadphoneAudioExposureRecord record:
+        return HeadphoneAudioExposureRecordToDto(record).toDto();
 
       // Not supported data types
       case final HeartRateSeriesRecord _:
@@ -502,6 +505,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return EnvironmentalAudioExposureEventRecordDtoToDomain(dto).toDomain();
       case final EnvironmentalAudioExposureRecordDto dto:
         return EnvironmentalAudioExposureRecordDtoToDomain(dto).toDomain();
+      case final HeadphoneAudioExposureRecordDto dto:
+        return HeadphoneAudioExposureRecordDtoToDomain(dto).toDomain();
       case final IrregularHeartRhythmEventRecordDto dto:
         return IrregularHeartRhythmEventRecordDtoToDomain(dto).toDomain();
       case final InfrequentMenstrualCycleEventRecordDto dto:

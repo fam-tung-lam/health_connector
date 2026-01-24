@@ -629,7 +629,6 @@ extension HealthRecordToDto on HealthRecord {
           '$EnvironmentalAudioExposureRecord is not supported on Android '
           'Health Connect.',
         );
-      // endregion
       case CrossCountrySkiingDistanceRecord():
         throw UnsupportedError(
           '$CrossCountrySkiingDistanceRecord is not supported on '
@@ -680,6 +679,13 @@ extension HealthRecordToDto on HealthRecord {
           '$WheelchairDistanceRecord is not supported on '
           'Android Health Connect. Use $DistanceDataType instead.',
         );
+      case HeadphoneAudioExposureRecord():
+        throw UnsupportedError(
+          '$HeadphoneAudioExposureRecord is not supported on '
+          'Android Health Connect.',
+        );
+
+      // endregion
     }
   }
 }

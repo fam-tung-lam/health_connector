@@ -465,6 +465,17 @@ extension HealthDataTypeDto {
                     ]
                 )
             }
+        case .headphoneAudioExposure:
+            if #available(iOS 13.0, *) {
+                try HKQuantityType.make(from: .headphoneAudioExposure)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Headphone audio exposure is only supported on iOS 13.0 and later",
+                    context: [
+                        "dataType": "headphoneAudioExposure", "minimumIOSVersion": "13.0",
+                    ]
+                )
+            }
         }
     }
 }

@@ -1,0 +1,159 @@
+part of 'health_data_type.dart';
+
+/// Represents the headphone audio exposure health data type.
+///
+/// A quantity sample type that measures audio exposure from headphones.
+/// These samples use sound pressure units (dB(A)) and measure discrete
+/// values of the equivalent continuous sound pressure level. Samples can
+/// be automatically detected by an iPhone or Apple Watch.
+///
+/// ## Platform Mapping
+///
+/// - **iOS HealthKit Only**:
+///   [`HKQuantityTypeIdentifier.headphoneAudioExposure`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/headphoneaudioexposure)
+/// - **Android Health Connect**: Not supported
+///
+/// {@category Health Records}
+@sinceV3_6_0
+@supportedOnAppleHealth
+@immutable
+final class HeadphoneAudioExposureDataType
+    extends HealthDataType<HeadphoneAudioExposureRecord, Number>
+    implements
+        ReadableByIdHealthDataType<HeadphoneAudioExposureRecord>,
+        ReadableInTimeRangeHealthDataType<HeadphoneAudioExposureRecord>,
+        WriteableHealthDataType<HeadphoneAudioExposureRecord>,
+        AvgAggregatableHealthDataType<Number>,
+        MinAggregatableHealthDataType<Number>,
+        MaxAggregatableHealthDataType<Number>,
+        DeletableByIdsHealthDataType<HeadphoneAudioExposureRecord>,
+        DeletableInTimeRangeHealthDataType<HeadphoneAudioExposureRecord> {
+  /// Creates a headphone audio exposure data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use [HealthDataType.headphoneAudioExposure].
+  @internal
+  const HeadphoneAudioExposureDataType();
+
+  @override
+  String get id => 'headphone_audio_exposure';
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.appleHealth,
+  ];
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is HeadphoneAudioExposureDataType &&
+          runtimeType == other.runtimeType;
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  List<AggregationMetric> get supportedAggregationMetrics => [
+    AggregationMetric.min,
+    AggregationMetric.max,
+    AggregationMetric.avg,
+  ];
+
+  @override
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
+
+  @override
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
+
+  @override
+  ReadRecordsInTimeRangeRequest<HeadphoneAudioExposureRecord> readInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+    List<DataOrigin> dataOrigins = const [],
+    int pageSize = HealthConnectorConfigConstants.defaultPageSize,
+    String? pageToken,
+  }) {
+    return ReadRecordsInTimeRangeRequest(
+      dataType: this,
+      dataOrigins: dataOrigins,
+      startTime: startTime,
+      endTime: endTime,
+      pageSize: pageSize,
+      pageToken: pageToken,
+    );
+  }
+
+  @override
+  List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
+
+  @override
+  AggregateRequest<Number> aggregateAvg({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return StandardAggregateRequest(
+      dataType: this,
+      aggregationMetric: AggregationMetric.avg,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  AggregateRequest<Number> aggregateMin({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return StandardAggregateRequest(
+      dataType: this,
+      aggregationMetric: AggregationMetric.min,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  AggregateRequest<Number> aggregateMax({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return StandardAggregateRequest(
+      dataType: this,
+      aggregationMetric: AggregationMetric.max,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  DeleteRecordsByIdsRequest deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  ReadRecordByIdRequest<HeadphoneAudioExposureRecord> readById(
+    HealthRecordId id,
+  ) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
+  }
+}

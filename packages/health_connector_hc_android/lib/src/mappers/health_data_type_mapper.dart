@@ -173,11 +173,12 @@ extension HealthDataTypeToDto on HealthDataType {
       case PowerSeriesDataType _:
         return HealthDataTypeDto.powerSeries;
 
-      // Not supported data types
+      // region Unsupported data types
+
       case SleepingWristTemperatureDataType _:
         throw UnsupportedError(
           '$SleepingWristTemperatureDataType is not supported on Android '
-          'Health Connect. This data type is iOS-only.',
+          'Health Connect.',
         );
       case ForcedVitalCapacityDataType _:
         throw UnsupportedError(
@@ -192,7 +193,7 @@ extension HealthDataTypeToDto on HealthDataType {
       case PregnancyTestDataType _:
         throw UnsupportedError(
           '$PregnancyTestDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
+          'This data type is iOS-only.',
         );
       case ProgesteroneTestDataType _:
         throw UnsupportedError(
@@ -202,17 +203,17 @@ extension HealthDataTypeToDto on HealthDataType {
       case ContraceptiveDataType _:
         throw UnsupportedError(
           '$ContraceptiveDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 14.3+).',
+          'This data type is iOS-only.',
         );
       case LactationDataType _:
         throw UnsupportedError(
           '$LactationDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
+          'This data type is iOS-only.',
         );
       case PregnancyDataType _:
         throw UnsupportedError(
           '$PregnancyDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only (requires iOS 15.0+).',
+          'This data type is iOS-only.',
         );
       case PeripheralPerfusionIndexDataType _:
         throw UnsupportedError(
@@ -222,32 +223,32 @@ extension HealthDataTypeToDto on HealthDataType {
       case AlcoholicBeveragesDataType _:
         throw UnsupportedError(
           '$AlcoholicBeveragesDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case ExerciseTimeDataType _:
         throw UnsupportedError(
           '$ExerciseTimeDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case MoveTimeDataType _:
         throw UnsupportedError(
           '$MoveTimeDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case StandTimeDataType _:
         throw UnsupportedError(
           '$StandTimeDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case WalkingSteadinessDataType _:
         throw UnsupportedError(
           '$WalkingSteadinessDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case BloodAlcoholContentDataType _:
         throw UnsupportedError(
           '$BloodAlcoholContentDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case DietaryEnergyConsumedDataType _:
       case DietaryCaffeineDataType _:
@@ -391,104 +392,111 @@ extension HealthDataTypeToDto on HealthDataType {
       case LowHeartRateEventDataType():
         throw UnsupportedError(
           '$LowHeartRateEventDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case IrregularHeartRhythmEventDataType():
         throw UnsupportedError(
           '$IrregularHeartRhythmEventDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case IrregularMenstrualCycleEventDataType():
         throw UnsupportedError(
           '$IrregularMenstrualCycleEventDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
 
       case InfrequentMenstrualCycleEventDataType():
         throw UnsupportedError(
           '$InfrequentMenstrualCycleEventDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case HighHeartRateEventDataType():
         throw UnsupportedError(
           '$HighHeartRateEventDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case WalkingSteadinessEventDataType():
         throw UnsupportedError(
           '$WalkingSteadinessEventDataType is not supported on Android Health '
-          'Connect. This data type is iOS-only.',
+          'Connect.',
         );
       case PersistentIntermenstrualBleedingEventDataType():
         throw UnsupportedError(
           '$PersistentIntermenstrualBleedingEventDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case ProlongedMenstrualPeriodEventDataType():
         throw UnsupportedError(
           '$ProlongedMenstrualPeriodEventDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case AtrialFibrillationBurdenDataType():
         throw UnsupportedError(
           '$AtrialFibrillationBurdenDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case HeartRateRecoveryOneMinuteDataType():
         throw UnsupportedError(
           '$HeartRateRecoveryOneMinuteDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case WalkingHeartRateAverageDataType():
         throw UnsupportedError(
           '$WalkingHeartRateAverageDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case NumberOfTimesFallenDataType():
         throw UnsupportedError(
           '$NumberOfTimesFallenDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case ElectrodermalActivityDataType():
         throw UnsupportedError(
           '$ElectrodermalActivityDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case InsulinDeliveryDataType():
         throw UnsupportedError(
           '$InsulinDeliveryDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case InhalerUsageDataType():
         throw UnsupportedError(
           '$InhalerUsageDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case RunningStrideLengthDataType():
         throw UnsupportedError(
           '$RunningStrideLengthDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case RunningGroundContactTimeDataType():
         throw UnsupportedError(
           '$RunningGroundContactTimeDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case LowCardioFitnessEventDataType():
         throw UnsupportedError(
           '$LowCardioFitnessEventDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case EnvironmentalAudioExposureEventDataType():
         throw UnsupportedError(
           '$EnvironmentalAudioExposureEventDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
       case EnvironmentalAudioExposureDataType():
         throw UnsupportedError(
           '$EnvironmentalAudioExposureDataType is not supported on '
-          'Android Health Connect. This data type is iOS-only.',
+          'Android Health Connect.',
         );
+      case HeadphoneAudioExposureDataType():
+        throw UnsupportedError(
+          '$HeadphoneAudioExposureDataType is not supported on '
+          'Android Health Connect.',
+        );
+
+      // endregion
     }
   }
 }

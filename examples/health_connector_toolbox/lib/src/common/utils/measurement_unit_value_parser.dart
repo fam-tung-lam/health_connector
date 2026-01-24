@@ -159,7 +159,8 @@ abstract class MeasurementUnitValueParser {
 
       // Electrodermal activity (conductance in microsiemens)
       ElectrodermalActivityDataType() ||
-      EnvironmentalAudioExposureDataType() => _parseDoubleNumber(value),
+      EnvironmentalAudioExposureDataType() ||
+      HeadphoneAudioExposureDataType() => _parseDoubleNumber(value),
 
       // Insulin delivery (international units)
       InsulinDeliveryDataType() => _parseDoubleNumber(value),

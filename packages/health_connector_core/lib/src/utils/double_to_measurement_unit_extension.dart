@@ -110,6 +110,7 @@ extension DoubleToMeasurementUnit on double {
       case Vo2MaxDataType _:
       case WheelchairPushesDataType _:
       case EnvironmentalAudioExposureDataType _:
+      case HeadphoneAudioExposureDataType _:
         return Number(this);
 
       // Percentage
