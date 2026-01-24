@@ -172,6 +172,7 @@ abstract final class AppTexts {
       NutritionDataType() => nutrition,
       RestingHeartRateDataType() => restingHeartRate,
       LowHeartRateEventDataType() => lowHeartRateEvent,
+      LowCardioFitnessEventDataType() => lowCardioFitnessEvent,
       HighHeartRateEventDataType() => highHeartRateEvent,
       InfrequentMenstrualCycleEventDataType() => infrequentMenstrualCycleEvent,
       OxygenSaturationDataType() => oxygenSaturation,
@@ -503,6 +504,11 @@ abstract final class AppTexts {
   static const String walkingSteadinessEventDescription =
       'Records an incident where the user showed a reduced score '
       'for their gait’s steadiness (iOS only)';
+  static const String lowCardioFitnessEvent = 'Low Cardio Fitness Event';
+  static const String lowCardioFitnessEventDescription =
+      'Recorded when cardio fitness (VO2 Max) drops below a certain threshold '
+      '(iOS 14.3+)';
+  static const String threshold = 'Threshold';
   static const String atrialFibrillationBurden = 'AFib Burden';
   static const String walkingHeartRateAverage = 'Walking Heart Rate Average';
   static const String walkingHeartRateAverageDescription =

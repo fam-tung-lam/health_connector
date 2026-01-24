@@ -923,6 +923,7 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         'Prolonged menstrual period event does not support aggregation',
       ),
       LowHeartRateEventDataType() ||
+      LowCardioFitnessEventDataType() ||
       IrregularHeartRhythmEventDataType() ||
       InfrequentMenstrualCycleEventDataType() ||
       IrregularMenstrualCycleEventDataType() ||

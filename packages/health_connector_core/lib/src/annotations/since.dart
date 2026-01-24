@@ -186,3 +186,9 @@ const sinceV3_4_0 = _Since('3.4.0');
 /// {@category Annotations}
 @internalUse
 const sinceV3_5_0 = _Since('3.5.0');
+
+/// Marks APIs added in version 3.6.0 of the SDK.
+///
+/// {@category Annotations}
+@internalUse
+const sinceV3_6_0 = _Since('3.6.0');

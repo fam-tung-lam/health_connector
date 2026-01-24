@@ -1,4 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/activity/low_cardio_fitness_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/alcoholic_beverages_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_alcohol_content_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_record_mapper.dart';
@@ -433,6 +434,10 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$LowHeartRateEventRecord is read-only data type.',
         );
+      case final LowCardioFitnessEventRecord _:
+        throw UnsupportedError(
+          '$LowCardioFitnessEventRecord is read-only data type.',
+        );
       case final IrregularHeartRhythmEventRecord _:
         throw UnsupportedError(
           '$IrregularHeartRhythmEventRecord is read-only data type.',
@@ -483,6 +488,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
     switch (this) {
       case final LowHeartRateEventRecordDto dto:
         return LowHeartRateEventRecordDtoToDomain(dto).toDomain();
+      case final LowCardioFitnessEventRecordDto dto:
+        return LowCardioFitnessEventRecordDtoToDomain(dto).toDomain();
       case final IrregularHeartRhythmEventRecordDto dto:
         return IrregularHeartRhythmEventRecordDtoToDomain(dto).toDomain();
       case final InfrequentMenstrualCycleEventRecordDto dto:

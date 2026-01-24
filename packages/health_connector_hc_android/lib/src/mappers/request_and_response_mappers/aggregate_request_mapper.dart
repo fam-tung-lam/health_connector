@@ -155,6 +155,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case WalkingDoubleSupportPercentageDataType _:
           case WalkingStepLengthDataType _:
           case ActivityIntensityDataType _:
+          case LowCardioFitnessEventDataType _:
           case LowHeartRateEventDataType _:
           case IrregularHeartRhythmEventDataType _:
           case InfrequentMenstrualCycleEventDataType _:

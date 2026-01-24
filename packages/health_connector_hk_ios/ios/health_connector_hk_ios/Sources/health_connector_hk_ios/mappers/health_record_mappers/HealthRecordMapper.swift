@@ -204,6 +204,8 @@ extension HealthRecordDto {
              is IrregularHeartRhythmEventRecordDto,
              is WalkingSteadinessEventRecordDto,
              is PersistentIntermenstrualBleedingEventRecordDto,
+             .persistentIntermenstrualBleedingEventRecordDto,
+             is LowCardioFitnessEventRecordDto,
              is LowHeartRateEventRecordDto,
              is WalkingHeartRateAverageRecordDto:
             throw HealthConnectorError.invalidArgument(
@@ -337,6 +339,19 @@ extension HKCategorySample {
             }
         case .highHeartRateEvent:
             try toHighHeartRateEventRecordDto()
+        case .lowCardioFitnessEvent:
+            if #available(iOS 14.3, *) {
+                try toLowCardioFitnessEventRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Low cardio fitness event is only supported on iOS 14.3 and later",
+                    context: [
+                        "dataType": "lowCardioFitnessEvent",
+                        "minimumIOSVersion": "14.3",
+                    ]
+                )
+            }
         case .walkingSteadinessEvent:
             if #available(iOS 15.0, *) {
                 try toWalkingSteadinessEventRecordDto()

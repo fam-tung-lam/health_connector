@@ -474,6 +474,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$RunningGroundContactTimeDataType is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case LowCardioFitnessEventDataType():
+        throw UnsupportedError(
+          '$LowCardioFitnessEventDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

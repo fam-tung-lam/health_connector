@@ -37,6 +37,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/irregular_heart_rhythm_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/irregular_menstrual_cycle_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/lactation_record_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/low_cardio_fitness_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/low_heart_rate_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/menstrual_flow_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/mindfulness_session_list_tile.dart';
@@ -122,6 +123,10 @@ final class HealthRecordListTile extends StatelessWidget {
       final LowHeartRateEventRecord r => LowHeartRateEventRecordListTile(
         record: r,
       ),
+      final LowCardioFitnessEventRecord r =>
+        LowCardioFitnessEventRecordListTile(
+          record: r,
+        ),
       final IrregularHeartRhythmEventRecord r =>
         IrregularHeartRhythmEventRecordListTile(
           record: r,

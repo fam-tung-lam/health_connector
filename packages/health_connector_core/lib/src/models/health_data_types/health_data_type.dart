@@ -51,6 +51,7 @@ part 'events/infrequent_menstrual_cycle_event_data_type.dart';
 part 'events/irregular_heart_rhythm_event_data_type.dart';
 part 'events/irregular_menstrual_cycle_event_data_type.dart';
 part 'events/low_heart_rate_event_data_type.dart';
+part 'events/low_cardio_fitness_event_data_type.dart';
 part 'events/persistent_intermenstrual_bleeding_event_data_type.dart';
 part 'events/prolonged_menstrual_period_event_data_type.dart';
 part 'exercise_session_data_type.dart';
@@ -771,6 +772,17 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @readOnly
   static const highHeartRateEvent = HighHeartRateEventDataType();
 
+  /// Low cardio fitness event data type.
+  ///
+  /// Represents events where the user's VO2 max values consistently fall below
+  /// a particular aerobic fitness threshold.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_6_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const lowCardioFitnessEvent = LowCardioFitnessEventDataType();
+
   /// Infrequent menstrual cycle event data type.
   ///
   /// Represents events where infrequent menstrual cycles are detected by
@@ -1317,6 +1329,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     lactation,
     leanBodyMass,
     lowHeartRateEvent,
+    lowCardioFitnessEvent,
     menstrualFlow,
     menstrualFlowInstant,
     mindfulnessSession,

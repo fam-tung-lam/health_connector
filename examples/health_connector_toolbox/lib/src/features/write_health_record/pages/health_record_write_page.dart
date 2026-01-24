@@ -648,6 +648,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       LowHeartRateEventDataType _ => throw UnsupportedError(
         'Low Heart Rate Event is read-only',
       ),
+      LowCardioFitnessEventDataType _ => throw UnsupportedError(
+        'Low Cardio Fitness Event is read-only',
+      ),
       IrregularHeartRhythmEventDataType _ => throw UnsupportedError(
         'Irregular Heart Rhythm Event is read-only',
       ),

@@ -28,6 +28,7 @@ abstract final class AppIcons {
   static const IconData readMore = Icons.read_more;
   static const IconData calculate = Icons.calculate;
   static const IconData favorite = Icons.favorite;
+  static const IconData heartBroken = Icons.heart_broken;
   static const IconData science = Icons.science;
   static const IconData medication = Icons.medication;
   static const IconData bedtime = Icons.bedtime;

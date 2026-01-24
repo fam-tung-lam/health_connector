@@ -208,6 +208,8 @@ extension HealthRecordDto {
             record.id
         case let record as HeartRateRecoveryOneMinuteRecordDto:
             record.id
+        case let record as LowCardioFitnessEventRecordDto:
+            record.id
         case let record as NumberOfTimesFallenRecordDto:
             record.id
         case let record as RunningStrideLengthRecordDto:
@@ -441,6 +443,8 @@ extension HealthRecordDto {
                 return .heartRateRecoveryOneMinute
             case is NumberOfTimesFallenRecordDto:
                 return .numberOfTimesFallen
+            case is LowCardioFitnessEventRecordDto:
+                return .lowCardioFitnessEvent
             case is RunningGroundContactTimeRecordDto:
                 return .runningGroundContactTime
             case is RunningStrideLengthRecordDto:
@@ -656,6 +660,8 @@ extension HealthRecordDto {
         case let dto as WalkingHeartRateAverageRecordDto:
             return dto.endTime
         case let dto as HeartRateRecoveryOneMinuteRecordDto:
+            return dto.endTime
+        case let dto as LowCardioFitnessEventRecordDto:
             return dto.endTime
         case let dto as NumberOfTimesFallenRecordDto:
             return dto.endTime

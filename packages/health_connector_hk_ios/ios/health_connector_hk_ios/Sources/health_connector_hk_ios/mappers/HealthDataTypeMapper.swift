@@ -430,6 +430,17 @@ extension HealthDataTypeDto {
                     context: ["dataType": "runningStrideLength", "minimumIOSVersion": "16.0"]
                 )
             }
+        case .lowCardioFitnessEvent:
+            if #available(iOS 14.3, *) {
+                try HKCategoryType.make(from: .lowCardioFitnessEvent)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Low cardio fitness event is only supported on iOS 14.3 and later",
+                    context: [
+                        "dataType": "lowCardioFitnessEvent", "minimumIOSVersion": "14.3",
+                    ]
+                )
+            }
         }
     }
 }

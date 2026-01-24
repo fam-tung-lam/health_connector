@@ -134,6 +134,7 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.walkingDoubleSupportPercentage,
       WalkingStepLengthDataType _ => AppTexts.walkingStepLength,
       LowHeartRateEventDataType _ => AppTexts.lowHeartRateEvent,
+      LowCardioFitnessEventDataType _ => AppTexts.lowCardioFitnessEvent,
       IrregularHeartRhythmEventDataType _ => 'Irregular Heart Rhythm Event',
       IrregularMenstrualCycleEventDataType _ =>
         AppTexts.irregularMenstrualCycleEvent,
@@ -302,6 +303,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.walkingDoubleSupportPercentageDescription,
       WalkingStepLengthDataType _ => AppTexts.walkingStepLengthDescription,
       LowHeartRateEventDataType _ => AppTexts.lowHeartRateEventDescription,
+      LowCardioFitnessEventDataType _ =>
+        AppTexts.lowCardioFitnessEventDescription,
       IrregularHeartRhythmEventDataType _ =>
         'Detected irregular heart rhythm notification (iOS only)',
       IrregularMenstrualCycleEventDataType _ =>
@@ -455,6 +458,7 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingDoubleSupportPercentageDataType _ => AppIcons.directionsWalk,
       WalkingStepLengthDataType _ => AppIcons.directionsWalk,
       LowHeartRateEventDataType _ => AppIcons.favorite,
+      LowCardioFitnessEventDataType _ => AppIcons.heartBroken,
       IrregularHeartRhythmEventDataType _ => AppIcons.favorite,
       IrregularMenstrualCycleEventDataType _ => AppIcons.waterDrop,
       InfrequentMenstrualCycleEventDataType _ => AppIcons.waterDrop,
@@ -489,6 +493,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (HeartRateDataType) ||
       const (RestingHeartRateDataType) ||
       const (LowHeartRateEventDataType) ||
+      const (LowCardioFitnessEventDataType) ||
       const (IrregularHeartRhythmEventDataType) ||
       const (IrregularMenstrualCycleEventDataType) ||
       const (HighHeartRateEventDataType) ||
@@ -544,6 +549,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (LowHeartRateEventDataType) => AppTexts.valueWithUnit(
         AppTexts.lowHeartRateEvent,
         AppTexts.bpm,
+      ),
+      const (LowCardioFitnessEventDataType) => AppTexts.valueWithUnit(
+        AppTexts.lowCardioFitnessEvent,
+        AppTexts.millilitersPerKilogramPerMinute,
       ),
       const (IrregularHeartRhythmEventDataType) =>
         'Irregular Heart Rhythm Event',

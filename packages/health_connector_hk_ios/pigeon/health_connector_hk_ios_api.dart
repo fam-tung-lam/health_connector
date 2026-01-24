@@ -307,19 +307,19 @@ enum DistanceActivityTypeDto {
   downhillSnowSports,
 
   /// Rowing distance.
-  /// Maps to HKQuantityTypeIdentifier.distanceRowing (iOS 18+).
+  /// Maps to HKQuantityTypeIdentifier.distanceRowing.
   rowing,
 
   /// Paddle sports distance.
-  /// Maps to HKQuantityTypeIdentifier.distancePaddleSports (iOS 18+).
+  /// Maps to HKQuantityTypeIdentifier.distancePaddleSports.
   paddleSports,
 
   /// Cross-country skiing distance.
-  /// Maps to HKQuantityTypeIdentifier.distanceCrossCountrySkiing (iOS 18+).
+  /// Maps to HKQuantityTypeIdentifier.distanceCrossCountrySkiing.
   crossCountrySkiing,
 
   /// Skating sports distance.
-  /// Maps to HKQuantityTypeIdentifier.distanceSkatingSports (iOS 18+).
+  /// Maps to HKQuantityTypeIdentifier.distanceSkatingSports.
   skatingSports,
 
   /// Six-minute walk test distance.
@@ -441,7 +441,7 @@ enum OvulationTestResultDto {
 /// Pregnancy test result classification.
 ///
 /// Maps to iOS HealthKit HKCategoryValuePregnancyTestResult enum.
-/// iOS only (iOS 15.0+).
+
 enum PregnancyTestResultDto {
   /// Test result is positive (pregnancy detected).
   positive,
@@ -456,7 +456,6 @@ enum PregnancyTestResultDto {
 /// Progesterone test result classification.
 ///
 /// Maps to iOS HealthKit HKCategoryValueProgesteroneTestResult enum.
-/// iOS only (iOS 15.0+).
 enum ProgesteroneTestResultDto {
   /// Test result is positive (progesterone surge detected).
   positive,
@@ -471,7 +470,6 @@ enum ProgesteroneTestResultDto {
 /// Contraceptive type classification.
 ///
 /// Maps to iOS HealthKit HKCategoryValueContraceptive enum.
-/// iOS only (iOS 14.3+).
 enum ContraceptiveTypeDto {
   /// Unspecified or unknown contraceptive method.
   unknown,
@@ -743,34 +741,34 @@ enum HealthDataTypeDto {
   /// Active energy burned data.
   activeCaloriesBurned,
 
-  /// Alcoholic beverages data (iOS only).
+  /// Alcoholic beverages data.
   alcoholicBeverages,
 
-  /// Apple Exercise Time data (iOS only).
+  /// Apple Exercise Time data.
   exerciseTime,
 
-  /// Apple Move Time data (iOS only).
+  /// Apple Move Time data.
   moveTime,
 
-  /// Apple Stand Time data (iOS only).
+  /// Apple Stand Time data.
   standTime,
 
-  /// Apple Walking Steadiness data (iOS only).
+  /// Apple Walking Steadiness data.
   walkingSteadiness,
 
-  /// Forced Expiratory Volume, 1st Second data (iOS only).
+  /// Forced Expiratory Volume, 1st Second data.
   forcedExpiratoryVolume,
 
-  /// Walking Heart Rate Average data (iOS only).
+  /// Walking Heart Rate Average data.
   walkingHeartRateAverage,
 
-  /// Walking Double Support Percentage data type (iOS only).
+  /// Walking Double Support Percentage data type.
   walkingDoubleSupportPercentage,
 
-  /// Walking Step Length data type (iOS only).
+  /// Walking Step Length data type.
   walkingStepLength,
 
-  /// Blood alcohol content data (iOS only).
+  /// Blood alcohol content data.
   bloodAlcoholContent,
 
   /// Distance traveled data (generic).
@@ -779,7 +777,7 @@ enum HealthDataTypeDto {
   /// Cycling distance.
   cyclingDistance,
 
-  /// Cycling power data (iOS 16+).
+  /// Cycling power data.
   cyclingPower,
 
   /// Swimming distance.
@@ -788,7 +786,7 @@ enum HealthDataTypeDto {
   /// Swimming stroke count data.
   swimmingStrokes,
 
-  /// Running power data (iOS 16+).
+  /// Running power data.
   runningPower,
 
   /// Basal energy burned data.
@@ -803,30 +801,30 @@ enum HealthDataTypeDto {
   /// Downhill snow sports distance.
   downhillSnowSportsDistance,
 
-  /// Rowing distance (iOS 18+).
+  /// Rowing distance.
   rowingDistance,
 
-  /// Paddle sports distance (iOS 18+).
+  /// Paddle sports distance.
   paddleSportsDistance,
 
-  /// Running ground contact time (iOS 16+).
+  /// Running ground contact time.
   runningGroundContactTime,
 
-  /// Running stride length (iOS 16+).
+  /// Running stride length.
   runningStrideLength,
 
   /// Number of times fallen.
   numberOfTimesFallen,
 
-  /// Heart Rate Recovery (1 minute) data (iOS only).
+  /// Heart Rate Recovery (1 minute) data.
   heartRateRecoveryOneMinute,
 
-  /// Cross-country skiing distance (iOS 18+).
+  /// Cross-country skiing distance.
 
-  /// Cross-country skiing distance (iOS 18+).
+  /// Cross-country skiing distance.
   crossCountrySkiingDistance,
 
-  /// Skating sports distance (iOS 18+).
+  /// Skating sports distance.
   skatingSportsDistance,
 
   /// Six-minute walk test distance.
@@ -862,16 +860,16 @@ enum HealthDataTypeDto {
   /// Wheelchair pushes data.
   wheelchairPushes,
 
-  /// Electrodermal activity data (iOS only).
+  /// Electrodermal activity data.
   electrodermalActivity,
 
-  /// Inhaler usage data (iOS only).
+  /// Inhaler usage data.
   inhalerUsage,
 
   /// Hydration (water intake) data.
   hydration,
 
-  /// Insulin delivery data (iOS only).
+  /// Insulin delivery data.
   insulinDelivery,
 
   /// Heart rate measurement record data.
@@ -1023,25 +1021,25 @@ enum HealthDataTypeDto {
   /// Ovulation test data.
   ovulationTest,
 
-  /// Pregnancy test data (iOS only).
+  /// Pregnancy test data.
   pregnancyTest,
 
-  /// Pregnancy data (iOS only).
+  /// Pregnancy data.
   pregnancy,
 
-  /// Contraceptive data (iOS only).
+  /// Contraceptive data.
   contraceptive,
 
-  /// Progesterone test data (iOS only).
+  /// Progesterone test data.
   progesteroneTest,
 
-  /// Lactation data (iOS only).
+  /// Lactation data.
   lactation,
 
   /// Ovulation test result.
   ovulationTestResult,
 
-  /// Progesterone test result (iOS only).
+  /// Progesterone test result.
   progesteroneTestResult,
 
   /// Sleep stage type.
@@ -1050,7 +1048,7 @@ enum HealthDataTypeDto {
   /// Intermenstrual bleeding data.
   intermenstrualBleeding,
 
-  /// Menstrual flow data (iOS HealthKit only).
+  /// Menstrual flow data.
   menstrualFlow,
 
   /// Oxygen saturation data.
@@ -1077,7 +1075,7 @@ enum HealthDataTypeDto {
   /// Waist circumference data.
   waistCircumference,
 
-  /// Walking asymmetry percentage data (iOS only).
+  /// Walking asymmetry percentage data.
   walkingAsymmetryPercentage,
 
   /// The forced vital capacity (FVC) data.
@@ -1092,10 +1090,10 @@ enum HealthDataTypeDto {
   /// High heart rate event data.
   highHeartRateEvent,
 
-  /// Infrequent menstrual cycle event data (iOS 16+).
+  /// Infrequent menstrual cycle event data.
   infrequentMenstrualCycleEvent,
 
-  /// Irregular menstrual cycle event data (iOS 16+).
+  /// Irregular menstrual cycle event data.
   irregularMenstrualCycleEvent,
 
   /// Irregular heart rhythm event data.
@@ -1110,11 +1108,14 @@ enum HealthDataTypeDto {
   /// Persistent Intermenstrual Bleeding Event.
   persistentIntermenstrualBleedingEvent,
 
-  /// Prolonged Menstrual Period event data type (iOS only).
+  /// Prolonged Menstrual Period event data type.
   prolongedMenstrualPeriodEvent,
 
   /// Atrial Fibrillation Burden data.
   atrialFibrillationBurden,
+
+  /// Low cardio fitness event data.
+  lowCardioFitnessEvent,
 }
 
 /// Sealed class for all health record DTOs.
@@ -1172,6 +1173,44 @@ class WalkingHeartRateAverageRecordDto extends HealthRecordDto {
 
   /// Average heart rate in beats per minute.
   final double beatsPerMinute;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a low cardio fitness event record for platform transfer.
+class LowCardioFitnessEventRecordDto extends HealthRecordDto {
+  LowCardioFitnessEventRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.vo2MlPerMinPerKg,
+    this.vo2MlPerMinPerKgThreshold,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The VO2 max value in mL/kg/min.
+  final double? vo2MlPerMinPerKg;
+
+  /// The VO2 max threshold in mL/kg/min.
+  final double? vo2MlPerMinPerKgThreshold;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;
@@ -1995,7 +2034,7 @@ class WalkingStepLengthRecordDto extends HealthRecordDto {
 }
 
 /// Represents a running stride length record for platform transfer.
-/// Running ground contact time record DTO (iOS 16+).
+/// Running ground contact time record DTO.
 class RunningGroundContactTimeRecordDto extends HealthRecordDto {
   RunningGroundContactTimeRecordDto({
     required this.id,
@@ -3105,7 +3144,7 @@ class HeartRateMeasurementDto {
 }
 
 /// Represents a heart rate measurement record for platform
-/// transfer (iOS HealthKit only).
+/// transfer.
 class HeartRateRecordDto extends HealthRecordDto {
   HeartRateRecordDto({
     required this.id,
@@ -3616,7 +3655,7 @@ class DietaryVitaminERecordDto extends HealthRecordDto {
   final MealTypeDto? mealType;
 }
 
-/// Represents lactation data for platform transfer (iOS only).
+/// Represents lactation data for platform transfer.
 class LactationRecordDto extends HealthRecordDto {
   LactationRecordDto({
     required this.id,
@@ -4677,7 +4716,6 @@ class ProlongedMenstrualPeriodEventRecordDto extends HealthRecordDto {
 }
 
 /// Represents an Atrial Fibrillation Burden record for platform transfer
-/// (iOS HealthKit only, iOS 16.0+).
 class AtrialFibrillationBurdenRecordDto extends HealthRecordDto {
   AtrialFibrillationBurdenRecordDto({
     required this.id,
@@ -4711,7 +4749,7 @@ class AtrialFibrillationBurdenRecordDto extends HealthRecordDto {
   final int? endZoneOffsetSeconds;
 }
 
-/// Represents a number of times fallen record for platform transfer (iOS Only).
+/// Represents a number of times fallen record for platform transfer.
 class NumberOfTimesFallenRecordDto extends HealthRecordDto {
   NumberOfTimesFallenRecordDto({
     required this.id,

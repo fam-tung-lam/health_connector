@@ -260,6 +260,8 @@ extension HKSample {
                         return .runningGroundContactTime
                     case HKQuantityTypeIdentifier.runningStrideLength.rawValue:
                         return .runningStrideLength
+                    case HKCategoryTypeIdentifier.lowCardioFitnessEvent.rawValue:
+                        return .lowCardioFitnessEvent
                     default:
                         break
                     }

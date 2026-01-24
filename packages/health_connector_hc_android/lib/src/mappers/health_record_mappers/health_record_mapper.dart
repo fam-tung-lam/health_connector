@@ -533,6 +533,11 @@ extension HealthRecordToDto on HealthRecord {
           '$LowHeartRateEventRecord is not supported on Android '
           'Health Connect.',
         );
+      case LowCardioFitnessEventRecord():
+        throw UnsupportedError(
+          '$LowCardioFitnessEventRecord is not supported on Android '
+          'Health Connect.',
+        );
       case IrregularHeartRhythmEventRecord():
         throw UnsupportedError(
           '$IrregularHeartRhythmEventRecord is not supported on Android '

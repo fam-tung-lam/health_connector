@@ -131,7 +131,8 @@ abstract class MeasurementUnitValueParser {
       RespiratoryRateDataType() => _parseFrequency(value),
 
       // VO2 Max
-      Vo2MaxDataType() => _parseVo2Max(value),
+      Vo2MaxDataType() ||
+      LowCardioFitnessEventDataType() => _parseVo2Max(value),
 
       // Double Number types
       BodyMassIndexDataType() => _parseDoubleNumber(value),

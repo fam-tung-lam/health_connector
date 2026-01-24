@@ -68,6 +68,7 @@ part 'events/infrequent_menstrual_cycle_event_record.dart';
 part 'events/irregular_menstrual_cycle_event_record.dart';
 part 'events/persistent_intermenstrual_bleeding_event_record.dart';
 part 'events/low_heart_rate_event_record.dart';
+part 'activity/low_cardio_fitness_event_record.dart';
 part 'events/irregular_heart_rhythm_event_record.dart';
 part 'events/prolonged_menstrual_period_event_record.dart';
 part 'electrodermal_activity_record.dart';
