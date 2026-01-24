@@ -51,7 +51,6 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.sleepSession;
       case HealthDataTypeDto.exerciseSession:
         return HealthDataType.exerciseSession;
-
       case HealthDataTypeDto.nutrition:
         return HealthDataType.nutrition;
       case HealthDataTypeDto.restingHeartRate:
@@ -173,83 +172,8 @@ extension HealthDataTypeToDto on HealthDataType {
       case PowerSeriesDataType _:
         return HealthDataTypeDto.powerSeries;
 
-      // region Unsupported data types
+      // region Unsupported data types with alternative
 
-      case SleepingWristTemperatureDataType _:
-        throw UnsupportedError(
-          '$SleepingWristTemperatureDataType is not supported on Android '
-          'Health Connect.',
-        );
-      case ForcedVitalCapacityDataType _:
-        throw UnsupportedError(
-          '$ForcedVitalCapacityDataType is not supported on Android '
-          'Health Connect.',
-        );
-      case ForcedExpiratoryVolumeDataType _:
-        throw UnsupportedError(
-          '$ForcedExpiratoryVolumeDataType is not supported on Android '
-          'Health Connect.',
-        );
-      case PregnancyTestDataType _:
-        throw UnsupportedError(
-          '$PregnancyTestDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only.',
-        );
-      case ProgesteroneTestDataType _:
-        throw UnsupportedError(
-          '$ProgesteroneTestDataType is not supported on Android Health '
-          'Connect.',
-        );
-      case ContraceptiveDataType _:
-        throw UnsupportedError(
-          '$ContraceptiveDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only.',
-        );
-      case LactationDataType _:
-        throw UnsupportedError(
-          '$LactationDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only.',
-        );
-      case PregnancyDataType _:
-        throw UnsupportedError(
-          '$PregnancyDataType is not supported on Android Health Connect. '
-          'This data type is iOS-only.',
-        );
-      case PeripheralPerfusionIndexDataType _:
-        throw UnsupportedError(
-          '$PeripheralPerfusionIndexDataType is not supported on '
-          'Android Health Connect.',
-        );
-      case AlcoholicBeveragesDataType _:
-        throw UnsupportedError(
-          '$AlcoholicBeveragesDataType is not supported on Android Health '
-          'Connect.',
-        );
-      case ExerciseTimeDataType _:
-        throw UnsupportedError(
-          '$ExerciseTimeDataType is not supported on Android Health '
-          'Connect.',
-        );
-      case MoveTimeDataType _:
-        throw UnsupportedError(
-          '$MoveTimeDataType is not supported on Android Health '
-          'Connect.',
-        );
-      case StandTimeDataType _:
-        throw UnsupportedError(
-          '$StandTimeDataType is not supported on Android Health '
-          'Connect.',
-        );
-      case WalkingSteadinessDataType _:
-        throw UnsupportedError(
-          '$WalkingSteadinessDataType is not supported on Android Health '
-          'Connect.',
-        );
-      case BloodAlcoholContentDataType _:
-        throw UnsupportedError(
-          '$BloodAlcoholContentDataType is not supported on Android Health '
-          'Connect.',
-        );
       case DietaryEnergyConsumedDataType _:
       case DietaryCaffeineDataType _:
       case DietaryProteinDataType _:
@@ -352,21 +276,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$this is not supported on Android Health Connect. '
           'Use general $SpeedSeriesDataType instead.',
         );
-      case SwimmingStrokesDataType _:
-        throw UnsupportedError(
-          '$SwimmingStrokesDataType is not supported on Android '
-          'Health Connect.',
-        );
       case BodyMassIndexDataType _:
         throw UnsupportedError(
           '$BodyMassIndexDataType is not supported on Android '
           'Health Connect. Use $WeightDataType and '
           '$HeightDataType for calculation instead',
-        );
-      case WaistCircumferenceDataType _:
-        throw UnsupportedError(
-          '$WaistCircumferenceDataType is not supported on '
-          'Android Health Connect.',
         );
       case HeartRateVariabilitySDNNDataType _:
         throw UnsupportedError(
@@ -380,120 +294,55 @@ extension HealthDataTypeToDto on HealthDataType {
           '$MenstrualFlowDataType is not supported on Android Health Connect. '
           'Use $MenstrualFlowInstantDataType instead.',
         );
+
+      // endregion
+
+      // region Unsupported data type without alternative
+
+      case SleepingWristTemperatureDataType _:
+      case ForcedVitalCapacityDataType _:
+      case ForcedExpiratoryVolumeDataType _:
+      case PregnancyTestDataType _:
+      case ProgesteroneTestDataType _:
+      case ContraceptiveDataType _:
+      case LactationDataType _:
+      case PregnancyDataType _:
+      case PeripheralPerfusionIndexDataType _:
+      case AlcoholicBeveragesDataType _:
+      case ExerciseTimeDataType _:
+      case MoveTimeDataType _:
+      case StandTimeDataType _:
+      case WalkingSteadinessDataType _:
+      case BloodAlcoholContentDataType _:
+      case SwimmingStrokesDataType _:
+      case WaistCircumferenceDataType _:
       case WalkingAsymmetryPercentageDataType _:
       case WalkingDoubleSupportPercentageDataType _:
       case WalkingStepLengthDataType _:
-        throw UnsupportedError(
-          '$WalkingAsymmetryPercentageDataType, '
-          '$WalkingDoubleSupportPercentageDataType and '
-          '$WalkingStepLengthDataType are not supported on Android '
-          'Health Connect. These data types are iOS-only.',
-        );
       case LowHeartRateEventDataType():
-        throw UnsupportedError(
-          '$LowHeartRateEventDataType is not supported on Android Health '
-          'Connect.',
-        );
       case IrregularHeartRhythmEventDataType():
-        throw UnsupportedError(
-          '$IrregularHeartRhythmEventDataType is not supported on '
-          'Android Health Connect.',
-        );
       case IrregularMenstrualCycleEventDataType():
-        throw UnsupportedError(
-          '$IrregularMenstrualCycleEventDataType is not supported on '
-          'Android Health Connect.',
-        );
-
       case InfrequentMenstrualCycleEventDataType():
-        throw UnsupportedError(
-          '$InfrequentMenstrualCycleEventDataType is not supported on '
-          'Android Health Connect.',
-        );
       case HighHeartRateEventDataType():
-        throw UnsupportedError(
-          '$HighHeartRateEventDataType is not supported on Android Health '
-          'Connect.',
-        );
       case WalkingSteadinessEventDataType():
-        throw UnsupportedError(
-          '$WalkingSteadinessEventDataType is not supported on Android Health '
-          'Connect.',
-        );
       case PersistentIntermenstrualBleedingEventDataType():
-        throw UnsupportedError(
-          '$PersistentIntermenstrualBleedingEventDataType is not supported on '
-          'Android Health Connect.',
-        );
       case ProlongedMenstrualPeriodEventDataType():
-        throw UnsupportedError(
-          '$ProlongedMenstrualPeriodEventDataType is not supported on '
-          'Android Health Connect.',
-        );
       case AtrialFibrillationBurdenDataType():
-        throw UnsupportedError(
-          '$AtrialFibrillationBurdenDataType is not supported on '
-          'Android Health Connect.',
-        );
       case HeartRateRecoveryOneMinuteDataType():
-        throw UnsupportedError(
-          '$HeartRateRecoveryOneMinuteDataType is not supported on '
-          'Android Health Connect.',
-        );
       case WalkingHeartRateAverageDataType():
-        throw UnsupportedError(
-          '$WalkingHeartRateAverageDataType is not supported on '
-          'Android Health Connect.',
-        );
       case NumberOfTimesFallenDataType():
-        throw UnsupportedError(
-          '$NumberOfTimesFallenDataType is not supported on '
-          'Android Health Connect.',
-        );
       case ElectrodermalActivityDataType():
-        throw UnsupportedError(
-          '$ElectrodermalActivityDataType is not supported on '
-          'Android Health Connect.',
-        );
       case InsulinDeliveryDataType():
-        throw UnsupportedError(
-          '$InsulinDeliveryDataType is not supported on '
-          'Android Health Connect.',
-        );
       case InhalerUsageDataType():
-        throw UnsupportedError(
-          '$InhalerUsageDataType is not supported on '
-          'Android Health Connect.',
-        );
       case RunningStrideLengthDataType():
-        throw UnsupportedError(
-          '$RunningStrideLengthDataType is not supported on '
-          'Android Health Connect.',
-        );
       case RunningGroundContactTimeDataType():
-        throw UnsupportedError(
-          '$RunningGroundContactTimeDataType is not supported on '
-          'Android Health Connect.',
-        );
       case LowCardioFitnessEventDataType():
-        throw UnsupportedError(
-          '$LowCardioFitnessEventDataType is not supported on '
-          'Android Health Connect.',
-        );
       case EnvironmentalAudioExposureEventDataType():
-        throw UnsupportedError(
-          '$EnvironmentalAudioExposureEventDataType is not supported on '
-          'Android Health Connect.',
-        );
       case EnvironmentalAudioExposureDataType():
-        throw UnsupportedError(
-          '$EnvironmentalAudioExposureDataType is not supported on '
-          'Android Health Connect.',
-        );
       case HeadphoneAudioExposureDataType():
+      case HeadphoneAudioExposureEventDataType():
         throw UnsupportedError(
-          '$HeadphoneAudioExposureDataType is not supported on '
-          'Android Health Connect.',
+          '$this is not supported on Android Health Connect.',
         );
 
       // endregion

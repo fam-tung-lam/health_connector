@@ -459,6 +459,8 @@ extension HealthRecordDto {
                 return .environmentalAudioExposureEvent
             case is EnvironmentalAudioExposureRecordDto:
                 return .environmentalAudioExposure
+            case is HeadphoneAudioExposureEventRecordDto:
+                return .headphoneAudioExposureEvent
             case is HeadphoneAudioExposureRecordDto:
                 return .headphoneAudioExposure
             default:

@@ -665,6 +665,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       EnvironmentalAudioExposureEventDataType _ => throw UnsupportedError(
         'Environmental Audio Exposure Event is read-only',
       ),
+      HeadphoneAudioExposureEventDataType _ => throw UnsupportedError(
+        'Headphone Audio Exposure Event is read-only',
+      ),
       EnvironmentalAudioExposureDataType _ =>
         EnvironmentalAudioExposureWriteForm(
           healthPlatform: _notifier.healthPlatform,

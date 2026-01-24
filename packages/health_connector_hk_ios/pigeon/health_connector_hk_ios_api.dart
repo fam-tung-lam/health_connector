@@ -1125,6 +1125,9 @@ enum HealthDataTypeDto {
 
   /// Headphone audio exposure data.
   headphoneAudioExposure,
+
+  /// Headphone audio exposure event data.
+  headphoneAudioExposureEvent,
 }
 
 /// Sealed class for all health record DTOs.
@@ -1261,6 +1264,36 @@ class EnvironmentalAudioExposureEventRecordDto extends HealthRecordDto {
 
   /// The audio level associated with the event.
   final double? aWeightedDecibel;
+}
+
+/// Represents a headphone audio exposure event record for platform transfer.
+class HeadphoneAudioExposureEventRecordDto extends HealthRecordDto {
+  HeadphoneAudioExposureEventRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents an environmental audio exposure record for platform transfer.

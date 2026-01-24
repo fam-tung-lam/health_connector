@@ -195,6 +195,7 @@ extension DoubleToMeasurementUnit on double {
       case ProlongedMenstrualPeriodEventDataType _:
       case SexualActivityDataType _:
       case WalkingSteadinessEventDataType _:
+      case HeadphoneAudioExposureEventDataType _:
         throw ArgumentError(
           '$dataType is not aggregatable and is not supported for '
           'conversion to MeasurementUnit.',

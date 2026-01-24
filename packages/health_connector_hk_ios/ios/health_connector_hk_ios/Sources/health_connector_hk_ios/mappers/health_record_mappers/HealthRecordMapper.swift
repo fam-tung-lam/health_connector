@@ -210,6 +210,7 @@ extension HealthRecordDto {
              is PersistentIntermenstrualBleedingEventRecordDto,
              is LowCardioFitnessEventRecordDto,
              is EnvironmentalAudioExposureEventRecordDto,
+             is HeadphoneAudioExposureEventRecordDto,
              is LowHeartRateEventRecordDto,
              is WalkingHeartRateAverageRecordDto:
             throw HealthConnectorError.invalidArgument(
@@ -365,6 +366,19 @@ extension HKCategorySample {
                     "Environmental audio exposure event is only supported on iOS 14.0 and later",
                     context: [
                         "dataType": "environmentalAudioExposureEvent",
+                        "minimumIOSVersion": "14.0",
+                    ]
+                )
+            }
+        case .headphoneAudioExposureEvent:
+            if #available(iOS 14.0, *) {
+                try toHeadphoneAudioExposureEventRecordDto()
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Headphone audio exposure event is only supported on iOS 14.0 and later",
+                    context: [
+                        "dataType": "headphoneAudioExposureEvent",
                         "minimumIOSVersion": "14.0",
                     ]
                 )

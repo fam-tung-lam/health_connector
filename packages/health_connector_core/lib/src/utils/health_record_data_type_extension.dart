@@ -192,6 +192,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
         HealthDataType.environmentalAudioExposureEvent,
       EnvironmentalAudioExposureRecord _ =>
         HealthDataType.environmentalAudioExposure,
+      HeadphoneAudioExposureEventRecord _ =>
+        HealthDataType.headphoneAudioExposureEvent,
       HeadphoneAudioExposureRecord _ => HealthDataType.headphoneAudioExposure,
     };
   }

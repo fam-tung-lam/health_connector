@@ -236,6 +236,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.environmentalAudioExposureEvent;
       case HealthDataTypeDto.environmentalAudioExposure:
         return HealthDataType.environmentalAudioExposure;
+      case HealthDataTypeDto.headphoneAudioExposureEvent:
+        return HealthDataType.headphoneAudioExposureEvent;
       case HealthDataTypeDto.headphoneAudioExposure:
         return HealthDataType.headphoneAudioExposure;
       case HealthDataTypeDto.irregularHeartRhythmEvent:
@@ -515,6 +517,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.inhalerUsage;
       case PeripheralPerfusionIndexDataType _:
         return HealthDataTypeDto.peripheralPerfusionIndex;
+      case HeadphoneAudioExposureEventDataType _:
+        return HealthDataTypeDto.headphoneAudioExposureEvent;
 
       // Region Unsupported data types
 

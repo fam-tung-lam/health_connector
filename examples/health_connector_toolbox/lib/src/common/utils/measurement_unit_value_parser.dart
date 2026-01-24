@@ -255,6 +255,10 @@ abstract class MeasurementUnitValueParser {
         '$EnvironmentalAudioExposureEventDataType is a read-only event record, '
         'cannot be parsed from a single string input.',
       ),
+      HeadphoneAudioExposureEventDataType() => throw UnsupportedError(
+        '$HeadphoneAudioExposureEventDataType is a read-only event record, '
+        'cannot be parsed from a single string input.',
+      ),
       IrregularMenstrualCycleEventDataType() => throw UnsupportedError(
         '$IrregularMenstrualCycleEventDataType is a read-only event record, '
         'cannot be parsed from a single string input.',

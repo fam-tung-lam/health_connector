@@ -50,6 +50,7 @@ part 'energy_burned/basal_energy_burned_data_type.dart';
 part 'energy_burned/total_energy_burned_data_type.dart';
 part 'events/high_heart_rate_event_data_type.dart';
 part 'events/environmental_audio_exposure_event_data_type.dart';
+part 'events/headphone_audio_exposure_event_data_type.dart';
 part 'events/infrequent_menstrual_cycle_event_data_type.dart';
 part 'events/irregular_heart_rhythm_event_data_type.dart';
 part 'events/irregular_menstrual_cycle_event_data_type.dart';
@@ -806,6 +807,18 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const environmentalAudioExposure =
       EnvironmentalAudioExposureDataType();
 
+  /// Headphone audio exposure event data type.
+  ///
+  /// Represents events where the user was exposed to potentially damaging
+  /// sounds from headphones.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_6_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const headphoneAudioExposureEvent =
+      HeadphoneAudioExposureEventDataType();
+
   /// Headphone audio exposure data type.
   ///
   /// A quantity sample type that measures audio exposure from headphones.
@@ -1343,6 +1356,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     environmentalAudioExposure,
     environmentalAudioExposureEvent,
     headphoneAudioExposure,
+    headphoneAudioExposureEvent,
     exerciseSession,
     floorsClimbed,
     forcedExpiratoryVolume,

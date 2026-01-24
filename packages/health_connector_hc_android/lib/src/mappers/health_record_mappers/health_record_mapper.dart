@@ -684,6 +684,11 @@ extension HealthRecordToDto on HealthRecord {
           '$HeadphoneAudioExposureRecord is not supported on '
           'Android Health Connect.',
         );
+      case HeadphoneAudioExposureEventRecord():
+        throw UnsupportedError(
+          '$HeadphoneAudioExposureEventRecord is not supported on '
+          'Android Health Connect.',
+        );
 
       // endregion
     }

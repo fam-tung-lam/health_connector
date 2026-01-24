@@ -240,6 +240,11 @@ extension HKSample {
                     {
                         return .environmentalAudioExposureEvent
                     }
+                    if identifier
+                        == HKCategoryTypeIdentifier.headphoneAudioExposureEvent.rawValue
+                    {
+                        return .headphoneAudioExposureEvent
+                    }
                 }
 
                 if #available(iOS 16.0, *) {

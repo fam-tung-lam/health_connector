@@ -176,6 +176,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case RunningGroundContactTimeDataType _:
           case EnvironmentalAudioExposureDataType _:
           case HeadphoneAudioExposureDataType _:
+          case HeadphoneAudioExposureEventDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

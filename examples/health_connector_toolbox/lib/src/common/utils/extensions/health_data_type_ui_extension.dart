@@ -142,6 +142,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.infrequentMenstrualCycleEvent,
       EnvironmentalAudioExposureEventDataType _ =>
         AppTexts.environmentalAudioExposureEvent,
+      HeadphoneAudioExposureEventDataType _ =>
+        AppTexts.headphoneAudioExposureEvent,
       EnvironmentalAudioExposureDataType _ => 'Environmental Audio Exposure',
       HeadphoneAudioExposureDataType _ => AppTexts.headphoneAudioExposure,
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEvent,
@@ -317,6 +319,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.infrequentMenstrualCycleEventDescription,
       EnvironmentalAudioExposureEventDataType _ =>
         AppTexts.environmentalAudioExposureEventDescription,
+      HeadphoneAudioExposureEventDataType _ =>
+        AppTexts.headphoneAudioExposureEventDescription,
       EnvironmentalAudioExposureDataType _ =>
         'Audio exposure to sounds in the environment',
       HeadphoneAudioExposureDataType _ =>
@@ -474,6 +478,7 @@ extension HealthDataTypeUI on HealthDataType {
       InfrequentMenstrualCycleEventDataType _ => AppIcons.waterDrop,
       EnvironmentalAudioExposureEventDataType _ => AppIcons.volume,
       EnvironmentalAudioExposureDataType _ => AppIcons.volume,
+      HeadphoneAudioExposureEventDataType _ => AppIcons.volume,
       HeadphoneAudioExposureDataType _ => AppIcons.volume,
       HighHeartRateEventDataType _ => AppIcons.favorite,
       WalkingSteadinessEventDataType _ => AppIcons.directionsWalk,
@@ -510,6 +515,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (IrregularHeartRhythmEventDataType) ||
       const (EnvironmentalAudioExposureEventDataType) ||
       const (EnvironmentalAudioExposureDataType) ||
+      const (HeadphoneAudioExposureEventDataType) ||
       const (HeadphoneAudioExposureDataType) ||
       const (IrregularMenstrualCycleEventDataType) ||
       const (HighHeartRateEventDataType) ||
@@ -576,6 +582,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.irregularMenstrualCycleEvent,
       const (EnvironmentalAudioExposureEventDataType) =>
         AppTexts.environmentalAudioExposureEvent,
+      const (HeadphoneAudioExposureEventDataType) =>
+        AppTexts.headphoneAudioExposureEvent,
       const (EnvironmentalAudioExposureDataType) =>
         'Environmental Audio Exposure',
       const (HeadphoneAudioExposureDataType) => AppTexts.headphoneAudioExposure,

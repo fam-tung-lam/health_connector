@@ -147,6 +147,14 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.aWeightedDecibel ?? Number.zero,
           onDelete: onDelete,
         ),
+      final HeadphoneAudioExposureEventRecord r =>
+        SimpleIntervalMeasurementListTile<HeadphoneAudioExposureEventRecord>(
+          record: r,
+          icon: AppIcons.volume,
+          titleBuilder: (_) => 'Headphone Audio Exposure Event',
+          valueExtractor: (_) => Number.zero,
+          onDelete: onDelete,
+        ),
       final EnvironmentalAudioExposureRecord r =>
         SimpleIntervalMeasurementListTile<EnvironmentalAudioExposureRecord>(
           record: r,

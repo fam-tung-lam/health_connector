@@ -281,6 +281,9 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       EnvironmentalAudioExposureEventDataType() => throw UnsupportedError(
         'Environmental Audio Exposure Event is not supported for aggregation',
       ),
+      HeadphoneAudioExposureEventDataType() => throw UnsupportedError(
+        'Headphone Audio Exposure Event is not supported for aggregation',
+      ),
       EnvironmentalAudioExposureDataType() => _buildAvgMinMax(
         () => HealthDataType.environmentalAudioExposure.aggregateAvg(
           startTime: startTime,

@@ -137,7 +137,8 @@ extension HealthDataPermissionDto {
              .lowCardioFitnessEvent,
              .environmentalAudioExposureEvent,
              .environmentalAudioExposure,
-             .headphoneAudioExposure:
+             .headphoneAudioExposure,
+             .headphoneAudioExposureEvent:
             try [healthDataType.toHKSampleType()]
 
         // For correlation types HealthKit requires requesting permissions for
