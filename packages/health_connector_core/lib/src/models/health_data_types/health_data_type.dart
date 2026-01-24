@@ -47,6 +47,7 @@ part 'energy_burned/active_energy_burned_data_type.dart';
 part 'energy_burned/basal_energy_burned_data_type.dart';
 part 'energy_burned/total_energy_burned_data_type.dart';
 part 'events/high_heart_rate_event_data_type.dart';
+part 'events/environmental_audio_exposure_event_data_type.dart';
 part 'events/infrequent_menstrual_cycle_event_data_type.dart';
 part 'events/irregular_heart_rhythm_event_data_type.dart';
 part 'events/irregular_menstrual_cycle_event_data_type.dart';
@@ -783,6 +784,17 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @readOnly
   static const lowCardioFitnessEvent = LowCardioFitnessEventDataType();
 
+  /// Environmental audio exposure event data type.
+  ///
+  /// Represents events where the sound level exposure limit is exceeded.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_6_0
+  @supportedOnAppleHealth
+  @readOnly
+  static const environmentalAudioExposureEvent =
+      EnvironmentalAudioExposureEventDataType();
+
   /// Infrequent menstrual cycle event data type.
   ///
   /// Represents events where infrequent menstrual cycles are detected by
@@ -1308,6 +1320,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     distance,
     downhillSnowSportsDistance,
     elevationGained,
+    environmentalAudioExposureEvent,
     exerciseSession,
     floorsClimbed,
     forcedExpiratoryVolume,

@@ -230,6 +230,14 @@ extension HKSample {
             case HKCorrelationTypeIdentifier.food.rawValue:
                 return .nutrition
             default:
+                if #available(iOS 14.0, *) {
+                    if identifier
+                        == HKCategoryTypeIdentifier.environmentalAudioExposureEvent.rawValue
+                    {
+                        return .environmentalAudioExposureEvent
+                    }
+                }
+
                 if #available(iOS 16.0, *) {
                     switch identifier {
                     case HKQuantityTypeIdentifier.walkingSpeed.rawValue:

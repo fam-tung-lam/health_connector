@@ -188,6 +188,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       ProlongedMenstrualPeriodEventRecord _ =>
         HealthDataType.prolongedMenstrualPeriodEvent,
       LowCardioFitnessEventRecord _ => HealthDataType.lowCardioFitnessEvent,
+      EnvironmentalAudioExposureEventRecord _ =>
+        HealthDataType.environmentalAudioExposureEvent,
     };
   }
 }

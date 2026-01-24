@@ -140,6 +140,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.irregularMenstrualCycleEvent,
       InfrequentMenstrualCycleEventDataType _ =>
         AppTexts.infrequentMenstrualCycleEvent,
+      EnvironmentalAudioExposureEventDataType _ =>
+        AppTexts.environmentalAudioExposureEvent,
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEvent,
       WalkingSteadinessEventDataType _ => AppTexts.walkingSteadinessEvent,
       PersistentIntermenstrualBleedingEventDataType _ =>
@@ -311,6 +313,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.irregularMenstrualCycleEventDescription,
       InfrequentMenstrualCycleEventDataType _ =>
         AppTexts.infrequentMenstrualCycleEventDescription,
+      EnvironmentalAudioExposureEventDataType _ =>
+        AppTexts.environmentalAudioExposureEventDescription,
       HighHeartRateEventDataType _ => AppTexts.highHeartRateEventDescription,
       WalkingSteadinessEventDataType _ =>
         AppTexts.walkingSteadinessEventDescription,
@@ -462,6 +466,7 @@ extension HealthDataTypeUI on HealthDataType {
       IrregularHeartRhythmEventDataType _ => AppIcons.favorite,
       IrregularMenstrualCycleEventDataType _ => AppIcons.waterDrop,
       InfrequentMenstrualCycleEventDataType _ => AppIcons.waterDrop,
+      EnvironmentalAudioExposureEventDataType _ => AppIcons.volume,
       HighHeartRateEventDataType _ => AppIcons.favorite,
       WalkingSteadinessEventDataType _ => AppIcons.directionsWalk,
       PersistentIntermenstrualBleedingEventDataType _ => AppIcons.waterDrop,
@@ -495,6 +500,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (LowHeartRateEventDataType) ||
       const (LowCardioFitnessEventDataType) ||
       const (IrregularHeartRhythmEventDataType) ||
+      const (EnvironmentalAudioExposureEventDataType) ||
       const (IrregularMenstrualCycleEventDataType) ||
       const (HighHeartRateEventDataType) ||
       const (WalkingSteadinessEventDataType) ||
@@ -558,6 +564,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         'Irregular Heart Rhythm Event',
       const (IrregularMenstrualCycleEventDataType) =>
         AppTexts.irregularMenstrualCycleEvent,
+      const (EnvironmentalAudioExposureEventDataType) =>
+        AppTexts.environmentalAudioExposureEvent,
       const (HighHeartRateEventDataType) => AppTexts.valueWithUnit(
         AppTexts.highHeartRateEvent,
         AppTexts.bpm,

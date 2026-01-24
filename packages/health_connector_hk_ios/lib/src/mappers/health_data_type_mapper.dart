@@ -232,6 +232,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.lowHeartRateEvent;
       case HealthDataTypeDto.lowCardioFitnessEvent:
         return HealthDataType.lowCardioFitnessEvent;
+      case HealthDataTypeDto.environmentalAudioExposureEvent:
+        return HealthDataType.environmentalAudioExposureEvent;
       case HealthDataTypeDto.irregularHeartRhythmEvent:
         return HealthDataType.irregularHeartRhythmEvent;
       case HealthDataTypeDto.infrequentMenstrualCycleEvent:
@@ -297,6 +299,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.lowHeartRateEvent;
       case LowCardioFitnessEventDataType _:
         return HealthDataTypeDto.lowCardioFitnessEvent;
+      case EnvironmentalAudioExposureEventDataType _:
+        return HealthDataTypeDto.environmentalAudioExposureEvent;
       case CervicalMucusDataType _:
         return HealthDataTypeDto.cervicalMucus;
       case StepsDataType _:

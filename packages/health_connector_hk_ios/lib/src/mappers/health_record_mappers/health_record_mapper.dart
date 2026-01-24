@@ -14,6 +14,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/electr
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/active_energy_burned_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/basal_energy_burned_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/high_heart_rate_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/environmental_audio_exposure_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/infrequent_menstrual_cycle_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_heart_rhythm_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_menstrual_cycle_event_record_mapper.dart';
@@ -438,6 +439,10 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$LowCardioFitnessEventRecord is read-only data type.',
         );
+      case final EnvironmentalAudioExposureEventRecord _:
+        throw UnsupportedError(
+          '$EnvironmentalAudioExposureEventRecord is read-only data type.',
+        );
       case final IrregularHeartRhythmEventRecord _:
         throw UnsupportedError(
           '$IrregularHeartRhythmEventRecord is read-only data type.',
@@ -490,6 +495,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return LowHeartRateEventRecordDtoToDomain(dto).toDomain();
       case final LowCardioFitnessEventRecordDto dto:
         return LowCardioFitnessEventRecordDtoToDomain(dto).toDomain();
+      case final EnvironmentalAudioExposureEventRecordDto dto:
+        return EnvironmentalAudioExposureEventRecordDtoToDomain(dto).toDomain();
       case final IrregularHeartRhythmEventRecordDto dto:
         return IrregularHeartRhythmEventRecordDtoToDomain(dto).toDomain();
       case final InfrequentMenstrualCycleEventRecordDto dto:

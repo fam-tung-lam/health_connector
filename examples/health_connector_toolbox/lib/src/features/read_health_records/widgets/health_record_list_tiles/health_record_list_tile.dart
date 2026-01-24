@@ -135,6 +135,18 @@ final class HealthRecordListTile extends StatelessWidget {
         WalkingSteadinessEventRecordListTile(
           record: r,
         ),
+      final EnvironmentalAudioExposureEventRecord r =>
+        SimpleIntervalMeasurementListTile<
+          EnvironmentalAudioExposureEventRecord
+        >(
+          record: r,
+          icon: AppIcons.volume,
+          titleBuilder: (r) => r.aWeightedDecibel != null
+              ? '${r.aWeightedDecibel!.value.toStringAsFixed(1)} dB'
+              : 'Unknown level',
+          valueExtractor: (r) => r.aWeightedDecibel ?? Number.zero,
+          onDelete: onDelete,
+        ),
       final IrregularMenstrualCycleEventRecord r =>
         IrregularMenstrualCycleEventRecordListTile(
           record: r,

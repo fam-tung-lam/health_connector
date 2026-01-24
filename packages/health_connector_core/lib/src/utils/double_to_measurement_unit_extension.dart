@@ -174,6 +174,7 @@ extension DoubleToMeasurementUnit on double {
       case HeartRateVariabilityRMSSDDataType _:
       case ContraceptiveDataType _:
       case HighHeartRateEventDataType _:
+      case EnvironmentalAudioExposureEventDataType _:
       case InfrequentMenstrualCycleEventDataType _:
       case IntermenstrualBleedingDataType _:
       case IrregularHeartRhythmEventDataType _:

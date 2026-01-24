@@ -441,6 +441,19 @@ extension HealthDataTypeDto {
                     ]
                 )
             }
+        case .environmentalAudioExposureEvent:
+            if #available(iOS 14.0, *) {
+                try HKCategoryType.make(from: .environmentalAudioExposureEvent)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Environmental audio exposure event is only supported on iOS 14.0 and later",
+                    context: [
+                        "dataType": "environmentalAudioExposureEvent",
+                        "minimumIOSVersion": "14.0",
+                    ]
+                )
+            }
         }
     }
 }
