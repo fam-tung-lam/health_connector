@@ -216,6 +216,7 @@ abstract final class AppTexts {
         persistentIntermenstrualBleedingEvent,
       EnvironmentalAudioExposureEventDataType() =>
         environmentalAudioExposureEvent,
+      EnvironmentalAudioExposureDataType() => environmentalAudioExposure,
       ProlongedMenstrualPeriodEventDataType() => prolongedMenstrualPeriodEvent,
       AtrialFibrillationBurdenDataType() => atrialFibrillationBurden,
       WalkingHeartRateAverageDataType() => walkingHeartRateAverage,
@@ -532,6 +533,10 @@ abstract final class AppTexts {
       'Environmental Audio Exposure Event';
   static const String environmentalAudioExposureEventDescription =
       'Detected when environmental audio levels exceeds safety limits.';
+  static const String environmentalAudioExposure =
+      'Environmental Audio Exposure';
+  static const String environmentalAudioExposureDescription =
+      'Audio exposure to sounds in the environment';
   static const String initialLow = 'Initial Low';
   static const String repeatLow = 'Repeat Low';
   static const String initialVeryLow = 'Initial Very Low';

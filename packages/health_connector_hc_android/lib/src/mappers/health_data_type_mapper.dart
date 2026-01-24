@@ -484,6 +484,11 @@ extension HealthDataTypeToDto on HealthDataType {
           '$EnvironmentalAudioExposureEventDataType is not supported on '
           'Android Health Connect. This data type is iOS-only.',
         );
+      case EnvironmentalAudioExposureDataType():
+        throw UnsupportedError(
+          '$EnvironmentalAudioExposureDataType is not supported on '
+          'Android Health Connect. This data type is iOS-only.',
+        );
     }
   }
 }

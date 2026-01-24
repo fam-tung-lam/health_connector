@@ -13,8 +13,9 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distan
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/electrodermal_activity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/active_energy_burned_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/basal_energy_burned_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/high_heart_rate_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/environmental_audio_exposure_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/environmental_audio_exposure_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/high_heart_rate_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/infrequent_menstrual_cycle_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_heart_rhythm_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/irregular_menstrual_cycle_event_record_mapper.dart';
@@ -345,6 +346,8 @@ extension HealthRecordToDto on HealthRecord {
         return RunningStrideLengthRecordToDto(record).toDto();
       case final NumberOfTimesFallenRecord record:
         return NumberOfTimesFallenRecordToDto(record).toDto();
+      case final EnvironmentalAudioExposureRecord record:
+        return EnvironmentalAudioExposureRecordToDto(record).toDto();
 
       // Not supported data types
       case final HeartRateSeriesRecord _:
@@ -497,6 +500,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return LowCardioFitnessEventRecordDtoToDomain(dto).toDomain();
       case final EnvironmentalAudioExposureEventRecordDto dto:
         return EnvironmentalAudioExposureEventRecordDtoToDomain(dto).toDomain();
+      case final EnvironmentalAudioExposureRecordDto dto:
+        return EnvironmentalAudioExposureRecordDtoToDomain(dto).toDomain();
       case final IrregularHeartRhythmEventRecordDto dto:
         return IrregularHeartRhythmEventRecordDtoToDomain(dto).toDomain();
       case final InfrequentMenstrualCycleEventRecordDto dto:

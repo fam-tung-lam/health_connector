@@ -624,6 +624,11 @@ extension HealthRecordToDto on HealthRecord {
           '$RunningGroundContactTimeRecord is not supported on Android '
           'Health Connect.',
         );
+      case EnvironmentalAudioExposureRecord():
+        throw UnsupportedError(
+          '$EnvironmentalAudioExposureRecord is not supported on Android '
+          'Health Connect.',
+        );
       // endregion
       case CrossCountrySkiingDistanceRecord():
         throw UnsupportedError(

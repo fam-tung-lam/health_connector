@@ -193,6 +193,8 @@ extension HealthRecordDto {
             return try dto.toHKQuantitySample()
         case let dto as RunningGroundContactTimeRecordDto:
             return try dto.toHKQuantitySample()
+        case let dto as EnvironmentalAudioExposureRecordDto:
+            return try dto.toHKQuantitySample()
         // Read-only records
         case is ExerciseTimeRecordDto,
              is MoveTimeRecordDto,
@@ -624,6 +626,8 @@ extension HKQuantitySample {
             try toRunningGroundContactTimeRecordDto()
         case .runningStrideLength:
             try toRunningStrideLengthRecordDto()
+        case .environmentalAudioExposure:
+            try toEnvironmentalAudioExposureRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

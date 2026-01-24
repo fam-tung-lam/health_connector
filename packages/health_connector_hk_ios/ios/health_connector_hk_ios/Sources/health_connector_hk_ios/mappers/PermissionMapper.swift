@@ -135,7 +135,8 @@ extension HealthDataPermissionDto {
              .runningStrideLength,
              .runningStrideLength,
              .lowCardioFitnessEvent,
-             .environmentalAudioExposureEvent:
+             .environmentalAudioExposureEvent,
+             .environmentalAudioExposure:
             try [healthDataType.toHKSampleType()]
 
         // For correlation types HealthKit requires requesting permissions for

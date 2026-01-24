@@ -147,6 +147,15 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.aWeightedDecibel ?? Number.zero,
           onDelete: onDelete,
         ),
+      final EnvironmentalAudioExposureRecord r =>
+        SimpleIntervalMeasurementListTile<EnvironmentalAudioExposureRecord>(
+          record: r,
+          icon: AppIcons.volume,
+          titleBuilder: (r) =>
+              '${r.aWeightedDecibel.value.toStringAsFixed(1)} dB',
+          valueExtractor: (r) => r.aWeightedDecibel,
+          onDelete: onDelete,
+        ),
       final IrregularMenstrualCycleEventRecord r =>
         IrregularMenstrualCycleEventRecordListTile(
           record: r,

@@ -190,6 +190,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       LowCardioFitnessEventRecord _ => HealthDataType.lowCardioFitnessEvent,
       EnvironmentalAudioExposureEventRecord _ =>
         HealthDataType.environmentalAudioExposureEvent,
+      EnvironmentalAudioExposureRecord _ =>
+        HealthDataType.environmentalAudioExposure,
     };
   }
 }

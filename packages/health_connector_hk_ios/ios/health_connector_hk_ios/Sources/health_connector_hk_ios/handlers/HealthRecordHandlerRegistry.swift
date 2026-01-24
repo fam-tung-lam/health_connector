@@ -199,6 +199,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(RunningStrideLengthHandler(healthStore: healthStore))
         register(LowCardioFitnessEventRecordHandler(healthStore: healthStore))
         register(EnvironmentalAudioExposureEventRecordHandler(healthStore: healthStore))
+        register(EnvironmentalAudioExposureHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

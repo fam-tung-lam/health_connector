@@ -56,6 +56,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/downhill_snow_sports_distance_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/electrodermal_activity_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/elevation_gained_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/environmental_audio_exposure_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/exercise_session_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/floors_climbed_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_forms/forced_expiratory_volume_write_form.dart';
@@ -663,6 +664,11 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       EnvironmentalAudioExposureEventDataType _ => throw UnsupportedError(
         'Environmental Audio Exposure Event is read-only',
       ),
+      EnvironmentalAudioExposureDataType _ =>
+        EnvironmentalAudioExposureWriteForm(
+          healthPlatform: _notifier.healthPlatform,
+          onSubmit: _onSubmit,
+        ),
       IrregularMenstrualCycleEventDataType _ => throw UnsupportedError(
         'Irregular Menstrual Cycle Event is read-only',
       ),

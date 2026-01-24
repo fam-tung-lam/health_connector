@@ -109,6 +109,7 @@ extension DoubleToMeasurementUnit on double {
       case SwimmingStrokesDataType _:
       case Vo2MaxDataType _:
       case WheelchairPushesDataType _:
+      case EnvironmentalAudioExposureDataType _:
         return Number(this);
 
       // Percentage

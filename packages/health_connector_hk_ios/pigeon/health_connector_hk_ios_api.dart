@@ -1119,6 +1119,9 @@ enum HealthDataTypeDto {
 
   /// Environmental audio exposure event data.
   environmentalAudioExposureEvent,
+
+  /// Environmental audio exposure data.
+  environmentalAudioExposure,
 }
 
 /// Sealed class for all health record DTOs.
@@ -1222,7 +1225,8 @@ class LowCardioFitnessEventRecordDto extends HealthRecordDto {
   final int? endZoneOffsetSeconds;
 }
 
-/// Represents an environmental audio exposure event record for platform transfer.
+/// Represents an environmental audio exposure event record for platform
+/// transfer.
 class EnvironmentalAudioExposureEventRecordDto extends HealthRecordDto {
   EnvironmentalAudioExposureEventRecordDto({
     required this.id,
@@ -1254,6 +1258,40 @@ class EnvironmentalAudioExposureEventRecordDto extends HealthRecordDto {
 
   /// The audio level associated with the event.
   final double? aWeightedDecibel;
+}
+
+/// Represents an environmental audio exposure record for platform transfer.
+class EnvironmentalAudioExposureRecordDto extends HealthRecordDto {
+  EnvironmentalAudioExposureRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.aWeightedDecibel,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The audio level.
+  final double aWeightedDecibel;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a low heart rate event record for platform transfer.

@@ -229,6 +229,8 @@ extension HKSample {
                 return .bloodPressure
             case HKCorrelationTypeIdentifier.food.rawValue:
                 return .nutrition
+            case HKQuantityTypeIdentifier.environmentalAudioExposure.rawValue:
+                return .environmentalAudioExposure
             default:
                 if #available(iOS 14.0, *) {
                     if identifier
