@@ -26,9 +26,7 @@ sealed class IntervalHealthRecord extends HealthRecord {
        endZoneOffsetSeconds =
            endZoneOffsetSeconds ?? _inferZoneOffsetSeconds(endTime),
        startTime = startTime.toUtc(),
-       endTime = endTime.toUtc() {
-    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
-  }
+       endTime = endTime.toUtc();
 
   /// The start time of the interval, stored as a UTC instant.
   ///
