@@ -24,6 +24,12 @@
 
 ## 3.4.0
 
+> **RETRACTED**: This release added new data types but depended on an outdated `health_connector_hc_android` version that didn’t yet handle them. This could lead to build failures.
+> 
+> Please upgrade to `health_connector` v3.5.0.
+>
+> See: [Issue #120](https://github.com/fam-tung-lam/health_connector/issues/120)
+
 - **FEAT**(health_connector_hk_ios): Add support for forced expiratory volume data type. ([4abcf879](https://github.com/fam-tung-lam/health_connector/commit/4abcf8791ff0dc6d32f07fab5db55c9550fbdd88))
 - **FEAT**(health_connector_hk_ios): Add support for walking heart rate average data type. ([bf3d2e26](https://github.com/fam-tung-lam/health_connector/commit/bf3d2e261bf72e4500d27775423bb429a879a41f))
 - **FEAT**(health_connector_hk_ios): Add support for atrial fibrillation burden data type. ([9c9048c8](https://github.com/fam-tung-lam/health_connector/commit/9c9048c883bdb1d3d72ca931256273ed21391b65))
@@ -34,6 +40,12 @@
 - **FEAT**(health_connector_hk_ios): Add support for walking steadiness event data types. ([6e140efb](https://github.com/fam-tung-lam/health_connector/commit/6e140efb85d128ce6c36e7054ffc1d592ef4aa02))
 
 ## 3.3.0
+
+> **RETRACTED**: This release added new data types but depended on an outdated `health_connector_hc_android` version that didn’t yet handle them. This could lead to build failures.
+> 
+> Please upgrade to `health_connector` v3.5.0.
+>
+> See: [Issue #120](https://github.com/fam-tung-lam/health_connector/issues/120)
 
 - **FEAT**(health_connector_hk_ios): Add support for high heart event data type. ([8125ab49](https://github.com/fam-tung-lam/health_connector/commit/8125ab4987d062aa8eceebeb392999aa7e1542a2))
 - **FEAT**(health_connector_hk_ios): Add support for low heart event data type. ([8125ab49](https://github.com/fam-tung-lam/health_connector/commit/8125ab4987d062aa8eceebeb392999aa7e1542a2))

@@ -20,29 +20,29 @@ architecture.
 - [🎮 See It In Action](#-see-it-in-action--interactive-toolbox-demo)
 
 - [🚀 Quick Start](#-quick-start)
-    - [📋 Requirements](#-requirements)
-    - [📦 Installation](#-installation)
-    - [🔧 Platform Setup](#-platform-setup)
-    - [⚡ Quick Demo](#-quick-demo)
+  - [📋 Requirements](#-requirements)
+  - [📦 Installation](#-installation)
+  - [🔧 Platform Setup](#-platform-setup)
+  - [⚡ Quick Demo](#-quick-demo)
 
 - [📘 Developer Guide](#-developer-guide)
-    - [🔐 Manage Permissions](#-manage-permissions)
-    - [📖 Read Data](#-read-data)
-    - [💾 Write Data](#-write-data)
-    - [🗑️ Delete Data](#-delete-data)
-    - [🔄 Update Data](#-update-data)
-    - [➕ Aggregate Data](#-aggregate-data)
-    - [🔁 Synchronize Data](#-synchronize-data)
-    - [⚙️ Manage Features](#-manage-features)
-    - [⚠️ Error Handling](#-error-handling)
-    - [📝 Logging](#-logging)
+  - [🔐 Manage Permissions](#-manage-permissions)
+  - [📖 Read Data](#-read-data)
+  - [💾 Write Data](#-write-data)
+  - [🗑️ Delete Data](#-delete-data)
+  - [🔄 Update Data](#-update-data)
+  - [➕ Aggregate Data](#-aggregate-data)
+  - [🔁 Synchronize Data](#-synchronize-data)
+  - [⚙️ Manage Features](#-manage-features)
+  - [⚠️ Error Handling](#-error-handling)
+  - [📝 Logging](#-logging)
 
 - [📋 Supported Health Data Types](#-supported-health-data-types)
 
 - [📚 References](#-references)
-    - [⬆️ Migration Guides](#-migration-guides)
-    - [🤝 Contributing](#-contributing)
-    - [📄 License](#-license)
+  - [⬆️ Migration Guides](#-migration-guides)
+  - [🤝 Contributing](#-contributing)
+  - [📄 License](#-license)
 
 ---
 
@@ -327,7 +327,9 @@ Future<void> quickStart() async {
 
   print('Found ${response.records.length} records:');
   for (final record in response.records) {
-    print('  → ${record.count.value} steps (${record.startTime}-${record.endTime})');
+    print(
+      '  → ${record.count.value} steps (${record.startTime}-${record.endTime})',
+    );
   }
 
   // 7. Aggregate health data
@@ -340,9 +342,7 @@ Future<void> quickStart() async {
   print('Total steps: ${totalSteps.value.value}');
 
   // 8. Delete health data
-  await connector.deleteRecords(
-    HealthDataType.steps.deleteByIds(recordIds),
-  );
+  await connector.deleteRecords(HealthDataType.steps.deleteByIds(recordIds));
   print('Deleted ${recordIds.length} records');
 }
 ```
@@ -366,22 +366,17 @@ Future<void> quickStart() async {
 > read permissions. This is a native privacy feature, not an SDK limitation.
 
 ```dart
-
-final status = await
-connector.getPermissionStatus
-(
-HealthDataType.steps.readPermission,
+final status = await connector.getPermissionStatus(
+  HealthDataType.steps.readPermission,
 );
 
-switch
-(
-status) {
-case PermissionStatus.granted:
-print('Steps read permission granted');
-case PermissionStatus.denied:
-print('Steps read permission denied');
-case PermissionStatus.unknown:
-print('Steps read permission unknown (iOS read)');
+switch (status) {
+  case PermissionStatus.granted:
+    print('Steps read permission granted');
+  case PermissionStatus.denied:
+    print('Steps read permission denied');
+  case PermissionStatus.unknown:
+    print('Steps read permission unknown (iOS read)');
 }
 ```
 
@@ -423,21 +418,18 @@ final permissions = [
 ];
 
 // 2. Request permissions
-final results = await
-connector.requestPermissions
-(
-permissions);
+final results = await connector.requestPermissions(permissions);
 
 // 3. Process results
 for (final result in results) {
-switch (result.status) {
-case PermissionStatus.granted:
-print('Granted: ${result.permission}');
-case PermissionStatus.denied:
-print('Denied: ${result.permission}');
-case PermissionStatus.unknown:
-print('Unknown: ${result.permission} (iOS read permission)');
-}
+  switch (result.status) {
+    case PermissionStatus.granted:
+      print('Granted: ${result.permission}');
+    case PermissionStatus.denied:
+      print('Denied: ${result.permission}');
+    case PermissionStatus.unknown:
+      print('Unknown: ${result.permission} (iOS read permission)');
+  }
 }
 ```
 
@@ -448,12 +440,14 @@ print('Unknown: ${result.permission} (iOS read permission)');
 
 ```dart
 try {
-final grantedPermissions = await connector.getGrantedPermissions();
-for (final permission in grantedPermissions) {
-print('Granted: ${permission.dataType} (${permission.accessType})'); // Example: ✅ Granted: HealthDataType.steps (read)
-}
+  final grantedPermissions = await connector.getGrantedPermissions();
+  for (final permission in grantedPermissions) {
+    print(
+      'Granted: ${permission.dataType} (${permission.accessType})',
+    ); // Example: ✅ Granted: HealthDataType.steps (read)
+  }
 } on UnsupportedOperationException {
-print('Listing granted permissions is not supported on iOS');
+  print('Listing granted permissions is not supported on iOS');
 }
 ```
 
@@ -464,10 +458,10 @@ print('Listing granted permissions is not supported on iOS');
 
 ```dart
 try {
-await connector.revokeAllPermissions();
-print('Permissions revoked');
+  await connector.revokeAllPermissions();
+  print('Permissions revoked');
 } on UnsupportedOperationException {
-print('Programmatic revocation is not supported on iOS');
+  print('Programmatic revocation is not supported on iOS');
 }
 ```
 
@@ -483,19 +477,18 @@ print('Programmatic revocation is not supported on iOS');
 
 ```dart
 // 1. Define read request
-final readRequest = HealthDataType.steps.readById(HealthRecordId('record-id'));
+final readRequest = HealthDataType.steps.readById(
+  HealthRecordId('record-id'),
+);
 
 // 2. Process read request
-final record = await
-connector.readRecord
-(
-readRequest);
+final record = await connector.readRecord(readRequest);
 
 // 3. Process result
 if (record != null) {
-print('Found: ${record.count.value} steps');
+  print('Found: ${record.count.value} steps');
 } else {
-print('No record found.');
+  print('No record found.');
 }
 ```
 
@@ -509,15 +502,12 @@ final readRequest = HealthDataType.steps.readInTimeRange(
 );
 
 // 2. Process read request
-final response = await
-connector.readRecords
-(
-readRequest);
+final response = await connector.readRecords(readRequest);
 
 // 3. Process result
 print('Found ${response.records.length} records');
 for (final record in response.records) {
-print('${record.count.value} steps on ${record.startTime}');
+  print('${record.count.value} steps on ${record.startTime}');
 }
 ```
 
@@ -525,23 +515,21 @@ print('${record.count.value} steps on ${record.startTime}');
 
 ```dart
 // Sort oldest first (ascending)
-final oldestFirst = await
-connector.readRecords
-(
-HealthDataType.steps.readInTimeRange(
-startTime: DateTime.now().subtract(Duration(days: 7)),
-endTime: DateTime.now(),
-sortDescriptor: SortDescriptor.timeAscending,
-),
+final oldestFirst = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+    sortDescriptor: SortDescriptor.timeAscending,
+  ),
 );
 
 // Sort newest first (descending) - default behavior
 final newestFirst = await connector.readRecords(
-HealthDataType.steps.readInTimeRange(
-startTime: DateTime.now().subtract(Duration(days: 7)),
-endTime: DateTime.now(),
-sortDescriptor: SortDescriptor.timeDescending, // Default
-),
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+    sortDescriptor: SortDescriptor.timeDescending, // Default
+  ),
 );
 ```
 
@@ -556,19 +544,20 @@ var request = HealthDataType.steps.readInTimeRange(
 );
 
 // 2. Fetch all pages
-final allRecords = <StepsRecord>[];while (true) {
-final response = await connector.readRecords(request);
-allRecords.addAll(response.records.cast<StepsRecord>());
+final allRecords = <StepsRecord>[];
+while (true) {
+  final response = await connector.readRecords(request);
+  allRecords.addAll(response.records.cast<StepsRecord>());
 
-// Check if there are more pages
-if (response.nextPageRequest == null) {
-print('No more pages');
+  // Check if there are more pages
+  if (response.nextPageRequest == null) {
+    print('No more pages');
 
-break;
-}
+    break;
+  }
 
-print('Fetching next page...');
-request = response.nextPageRequest!;
+  print('Fetching next page...');
+  request = response.nextPageRequest!;
 }
 
 // 3. Print total records
@@ -593,17 +582,13 @@ final record = StepsRecord(
 );
 
 // 2. Write record
-final recordId = await
-connector.writeRecord
-(
-record);
+final recordId = await connector.writeRecord(record);
 print('Saved: $recordId');
 ```
 
 #### Batch Write Multiple Records
 
 ```dart
-
 final now = DateTime.now();
 
 // 1. Create records
@@ -636,14 +621,8 @@ final records = [
 ];
 
 // 2. Write records (atomic operation—all succeed or all fail)
-final ids = await
-connector.writeRecords
-(
-records);
-print('Wrote ${ids.length}
- records
-'
-);
+final ids = await connector.writeRecords(records);
+print('Wrote ${ids.length} records');
 ```
 
 ### 🗑️ Delete Data
@@ -661,17 +640,8 @@ final request = HealthDataType.steps.deleteByIds([
 ]);
 
 // 2. Delete specific steps records by IDs (atomic operation—all succeed or all fail)
-await
-connector.deleteRecords
-(
-request
-);
-print
-(
-'
-Deleted
-'
-);
+await connector.deleteRecords(request);
+print('Deleted');
 ```
 
 #### Delete by Time Range
@@ -684,11 +654,7 @@ final request = HealthDataType.steps.deleteInTimeRange(
 );
 
 // 2. Delete all steps records created in the past week (atomic operation—all succeed or all fail)
-await
-connector.deleteRecords
-(
-request
-);
+await connector.deleteRecords(request);
 ```
 
 ### 🔄 Update Data
@@ -700,46 +666,34 @@ request
 
 ```dart
 // 1. Fetch record to update
-final record = await
-connector.readRecord
-(
-HealthDataType.steps.readById(HealthRecordId('record-id')),
+final record = await connector.readRecord(
+  HealthDataType.steps.readById(HealthRecordId('record-id')),
 );
 
 // 2. Update record value
 await connector.updateRecord(
-record.copyWith(count: Number(record.count.value + 500)),
+  record.copyWith(count: Number(record.count.value + 500)),
 );
-print
-(
-'
-Record updated
-'
-);
+print('Record updated');
 ```
 
 #### iOS Workaround: Delete + Recreate
 
 ```dart
 // 1. Delete existing record
-await
-connector.deleteRecords
-(
-HealthDataType.steps.deleteByIds([existingRecord.id]),
+await connector.deleteRecords(
+  HealthDataType.steps.deleteByIds([existingRecord.id]),
 );
 
 // 2. Change record value
 final newRecord = existingRecord.copyWith(
-id: HealthRecordId.none,
-count: Number(newValue),
+  id: HealthRecordId.none,
+  count: Number(newValue),
 );
 
 // 3. Write new record with updated value
-final newId = await connector
-.
-writeRecord
-(
-newRecord
+final newId = await connector.writeRecord(
+  newRecord,
 ); // ⚠️ Note: ID changes after recreation
 ```
 
@@ -747,19 +701,17 @@ newRecord
 
 ```dart
 // 1. Fetch records to update
-final response = await
-connector.readRecords
-(
-HealthDataType.steps.readInTimeRange(
-startTime: DateTime.now().subtract(Duration(days: 7)),
-endTime: DateTime.now(),
-),
+final response = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+  ),
 );
 
 // 2. Apply changes
-final updated = response.records.map((r) =>
-r.copyWith(count: Number(r.count.value + 100))
-).toList();
+final updated = response.records
+    .map((r) => r.copyWith(count: Number(r.count.value + 100)))
+    .toList();
 
 // 3. Update records (atomic operation—all succeed or all fail)
 await connector.updateRecords(updated);
@@ -769,51 +721,44 @@ print('Updated ${updated.length} records');
 ### ➕ Aggregate Data
 
 ```dart
-
 final now = DateTime.now();
 final thirtyDaysAgo = now.subtract(Duration(days: 30));
 
 // Calculate total steps for the past 30 days
-final sumResult = await
-connector.aggregate
-(
-HealthDataType.steps.aggregateSum(
-startTime: thirtyDaysAgo,
-endTime: now,
-),
+final sumResult = await connector.aggregate(
+  HealthDataType.steps.aggregateSum(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 print('Total steps: ${sumResult.value}');
 
 // Calculate average weight for the past 30 days
 final avgResult = await connector.aggregate(
-HealthDataType.weight.aggregateAvg(
-startTime: thirtyDaysAgo,
-endTime: now,
-),
+  HealthDataType.weight.aggregateAvg(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 print('Average weight: ${avgResult.inKilograms} kg');
 
 // Calculate minimum weight for the past 30 days
 final minResult = await connector.aggregate(
-HealthDataType.weight.aggregateMin(
-startTime: thirtyDaysAgo,
-endTime: now,
-),
+  HealthDataType.weight.aggregateMin(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 print('Minimum weight: ${minResult.inKilograms} kg');
 
 // Calculate maximum weight for the past 30 days
 final maxResult = await connector.aggregate(
-HealthDataType.weight.aggregateMax(
-startTime: thirtyDaysAgo,
-endTime: now,
-),
+  HealthDataType.weight.aggregateMax(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
-print('Maximum weight: ${maxResult.inKilograms
-}
- kg
-'
-);
+print('Maximum weight: ${maxResult.inKilograms} kg');
 ```
 
 ### 🔁 Synchronize Data
@@ -856,30 +801,22 @@ import 'package:health_connector/health_connector.dart';
 // Use SharedPreferences, secure storage, or your preferred persistence layer
 final storage = LocalTokenStorage();
 
-// ────────────────────────────────────────────────────────────
-// Step 1: Set Initial Checkpoint (run once per user/device)
-// ────────────────────────────────────────────────────────────
+// Step 1: Set Initial Checkpoint
 Future<void> setupSyncCheckpoint() async {
   final connector = await HealthConnector.create();
 
-  // Pass null to establish "now" as the starting point
+  // Pass null to establish "now" as the starting synchronization point
   final result = await connector.synchronize(
     dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
-    syncToken: null, // null = initialize synchronization checkpoint
+    syncToken: null,
   );
-
-  // No data returned at this stage
-  assert(result.upsertedRecords.isEmpty);
-  assert(result.deletedRecordIds.isEmpty);
 
   // Save token for future syncs
   await storage.saveToken(result.nextSyncToken.toJson());
   print('Sync checkpoint established');
 }
 
-// ────────────────────────────────────────────────────────────
-// Step 2: Fetch Changes Since Last Sync (run periodically)
-// ────────────────────────────────────────────────────────────
+// Step 2: Fetch Changes Since Last Sync
 Future<void> syncHealthData() async {
   final connector = await HealthConnector.create();
 
@@ -904,15 +841,15 @@ Future<void> syncHealthData() async {
 
   // Process upserted records (new or modified)
   for (final record in result.upsertedRecords) {
-    await database.upsert(record); // Update your local database
+    print('Upserted record: $record');
   }
 
   // Process deletions
   for (final id in result.deletedRecordIds) {
-    await database.delete(id); // Remove from your local database
+    print('Deleted record ID: $id');
   }
 
-  // IMPORTANT: Always save the new token immediately
+  // IMPORTANT: Always save the new token for the next sync
   await storage.saveToken(result.nextSyncToken.toJson());
   print('Sync complete');
 }
@@ -926,7 +863,8 @@ pagination and fetch all pages in a loop:
 ```dart
 Future<void> syncAllPages() async {
   final connector = await HealthConnector.create();
-
+  
+  // Load sync token from storage
   final tokenJson = await storage.loadToken();
   if (tokenJson == null) {
     print('No checkpoint found');
@@ -970,22 +908,17 @@ Future<void> syncAllPages() async {
 #### Check Feature Availability
 
 ```dart
-
-final status = await
-connector.getFeatureStatus
-(
-HealthPlatformFeature.readHealthDataInBackground,
+final status = await connector.getFeatureStatus(
+  HealthPlatformFeature.readHealthDataInBackground,
 );
 
-if
-(
-status == HealthPlatformFeatureStatus.available) {
-await connector.requestPermissions([
-HealthPlatformFeature.readHealthDataInBackground.permission,
-]);
-print('Feature available and requested');
+if (status == HealthPlatformFeatureStatus.available) {
+  await connector.requestPermissions([
+    HealthPlatformFeature.readHealthDataInBackground.permission,
+  ]);
+  print('Feature available and requested');
 } else {
-print('Feature not available—implement fallback');
+  print('Feature not available—implement fallback');
 }
 ```
 
@@ -1018,34 +951,34 @@ provides specific details about what went wrong. Use this code to handle errors 
 
 ```dart
 try {
-await connector.writeRecord(record);
+  await connector.writeRecord(record);
 } on AuthorizationException catch (e) {
-print('Authorization failed: ${e.message}');
+  print('Authorization failed: ${e.message}');
 } on HealthServiceUnavailableException catch (e) {
-print('Health service unavailable: ${e.code}');
+  print('Health service unavailable: ${e.code}');
 } on HealthServiceException catch (e) {
-switch (e.code) {
-case HealthConnectorErrorCode.rateLimitExceeded:
-print('Rate limit exceeded. Retrying in 5s...');
-break;
+  switch (e.code) {
+    case HealthConnectorErrorCode.rateLimitExceeded:
+      print('Rate limit exceeded. Retrying in 5s...');
+      break;
 
-case HealthConnectorErrorCode.dataSyncInProgress:
-print('Health Connect is busy syncing... Retrying later...');
-break;
+    case HealthConnectorErrorCode.dataSyncInProgress:
+      print('Health Connect is busy syncing... Retrying later...');
+      break;
 
-case HealthConnectorErrorCode.remoteError:
-case HealthConnectorErrorCode.ioError:
-print('Temporary system glitches. Retrying later...');
-break;
+    case HealthConnectorErrorCode.remoteError:
+    case HealthConnectorErrorCode.ioError:
+      print('Temporary system glitches. Retrying later...');
+      break;
 
-default:
-print('Health Service Warning: ${e.message}');
-break;
-}
+    default:
+      print('Health Service Warning: ${e.message}');
+      break;
+  }
 } on InvalidArgumentException catch (e) {
-print('Invalid data or expired token: ${e.message}');
+  print('Invalid data or expired token: ${e.message}');
 } catch (e, stack) {
-print('Unexpected system error: $e');
+  print('Unexpected system error: $e');
 }
 ```
 
@@ -1068,31 +1001,26 @@ The system is configured via `HealthConnectorLoggerConfig`, where you define a l
 
 ```dart
 // Configure logging with built-in processors
-final connector = await
-HealthConnector.create
-(
-const HealthConnectorConfig(
-loggerConfig: HealthConnectorLoggerConfig(
-enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
-logProcessors: [
-// Print warnings and errors to console
-PrintLogProcessor(
-levels: [
-HealthConnectorLogLevel.warning,
-HealthConnectorLogLevel.error,
-],
-),
+final connector = await HealthConnector.create(
+  const HealthConnectorConfig(
+    loggerConfig: HealthConnectorLoggerConfig(
+      enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
+      logProcessors: [
+        // Print warnings and errors to console
+        PrintLogProcessor(
+          levels: [
+            HealthConnectorLogLevel.warning,
+            HealthConnectorLogLevel.error,
+          ],
+        ),
 
-// Send all logs to dart:developer (integrates with DevTools)
-DeveloperLogProcessor(
-levels: HealthConnectorLogLevel.values,
-),
-]
-,
-)
-,
-)
-,
+        // Send all logs to dart:developer (integrates with DevTools)
+        DeveloperLogProcessor(
+          levels: HealthConnectorLogLevel.values,
+        ),
+      ],
+    ),
+  ),
 );
 ```
 
@@ -1131,19 +1059,14 @@ class FileLogProcessor extends HealthConnectorLogProcessor {
 }
 
 // Use custom processor
-final connector = await
-HealthConnector.create
-(
-HealthConnectorConfig(
-loggerConfig: HealthConnectorLoggerConfig(
-logProcessors: [
-FileLogProcessor(logFile: File('/path/to/app.log')),
-]
-,
-)
-,
-)
-,
+final connector = await HealthConnector.create(
+  HealthConnectorConfig(
+    loggerConfig: HealthConnectorLoggerConfig(
+      logProcessors: [
+        FileLogProcessor(logFile: File('/path/to/app.log')),
+      ],
+    ),
+  ),
 );
 ```
 
