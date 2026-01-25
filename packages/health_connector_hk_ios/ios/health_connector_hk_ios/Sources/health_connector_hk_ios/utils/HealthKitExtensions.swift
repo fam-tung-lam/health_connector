@@ -234,17 +234,15 @@ extension HKSample {
             case HKQuantityTypeIdentifier.headphoneAudioExposure.rawValue:
                 return .headphoneAudioExposure
             default:
-                if #available(iOS 14.0, *) {
-                    if identifier
-                        == HKCategoryTypeIdentifier.environmentalAudioExposureEvent.rawValue
-                    {
-                        return .environmentalAudioExposureEvent
-                    }
-                    if identifier
-                        == HKCategoryTypeIdentifier.headphoneAudioExposureEvent.rawValue
-                    {
-                        return .headphoneAudioExposureEvent
-                    }
+                if identifier
+                    == HKCategoryTypeIdentifier.environmentalAudioExposureEvent.rawValue
+                {
+                    return .environmentalAudioExposureEvent
+                }
+                if identifier
+                    == HKCategoryTypeIdentifier.headphoneAudioExposureEvent.rawValue
+                {
+                    return .headphoneAudioExposureEvent
                 }
 
                 if #available(iOS 16.0, *) {

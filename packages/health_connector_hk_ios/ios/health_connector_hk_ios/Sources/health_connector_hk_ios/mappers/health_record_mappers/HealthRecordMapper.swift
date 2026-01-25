@@ -345,57 +345,13 @@ extension HKCategorySample {
         case .highHeartRateEvent:
             try toHighHeartRateEventRecordDto()
         case .lowCardioFitnessEvent:
-            if #available(iOS 14.3, *) {
-                try toLowCardioFitnessEventRecordDto()
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message:
-                    "Low cardio fitness event is only supported on iOS 14.3 and later",
-                    context: [
-                        "dataType": "lowCardioFitnessEvent",
-                        "minimumIOSVersion": "14.3",
-                    ]
-                )
-            }
+            try toLowCardioFitnessEventRecordDto()
         case .environmentalAudioExposureEvent:
-            if #available(iOS 14.0, *) {
-                try toEnvironmentalAudioExposureEventRecordDto()
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message:
-                    "Environmental audio exposure event is only supported on iOS 14.0 and later",
-                    context: [
-                        "dataType": "environmentalAudioExposureEvent",
-                        "minimumIOSVersion": "14.0",
-                    ]
-                )
-            }
+            try toEnvironmentalAudioExposureEventRecordDto()
         case .headphoneAudioExposureEvent:
-            if #available(iOS 14.0, *) {
-                try toHeadphoneAudioExposureEventRecordDto()
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message:
-                    "Headphone audio exposure event is only supported on iOS 14.0 and later",
-                    context: [
-                        "dataType": "headphoneAudioExposureEvent",
-                        "minimumIOSVersion": "14.0",
-                    ]
-                )
-            }
+            try toHeadphoneAudioExposureEventRecordDto()
         case .walkingSteadinessEvent:
-            if #available(iOS 15.0, *) {
-                try toWalkingSteadinessEventRecordDto()
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message:
-                    "Walking steadiness event is only supported on iOS 15.0 and later",
-                    context: [
-                        "dataType": "walkingSteadinessEvent",
-                        "minimumIOSVersion": "15.0",
-                    ]
-                )
-            }
+            try toWalkingSteadinessEventRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

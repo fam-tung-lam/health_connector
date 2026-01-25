@@ -359,18 +359,7 @@ extension HealthDataTypeDto {
         case .highHeartRateEvent:
             try HKCategoryType.make(from: .highHeartRateEvent)
         case .walkingSteadinessEvent:
-            if #available(iOS 15.0, *) {
-                try HKCategoryType.make(from: .appleWalkingSteadinessEvent)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message:
-                    "Walking steadiness event is only supported on iOS 15.0 and later",
-                    context: [
-                        "dataType": "walkingSteadinessEvent",
-                        "minimumIOSVersion": "15.0",
-                    ]
-                )
-            }
+            try HKCategoryType.make(from: .appleWalkingSteadinessEvent)
         case .persistentIntermenstrualBleedingEvent:
             if #available(iOS 16.0, *) {
                 try HKCategoryType.make(from: .persistentIntermenstrualBleeding)
@@ -431,64 +420,15 @@ extension HealthDataTypeDto {
                 )
             }
         case .lowCardioFitnessEvent:
-            if #available(iOS 14.3, *) {
-                try HKCategoryType.make(from: .lowCardioFitnessEvent)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Low cardio fitness event is only supported on iOS 14.3 and later",
-                    context: [
-                        "dataType": "lowCardioFitnessEvent", "minimumIOSVersion": "14.3",
-                    ]
-                )
-            }
+            try HKCategoryType.make(from: .lowCardioFitnessEvent)
         case .environmentalAudioExposureEvent:
-            if #available(iOS 14.0, *) {
-                try HKCategoryType.make(from: .environmentalAudioExposureEvent)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message:
-                    "Environmental audio exposure event is only supported on iOS 14.0 and later",
-                    context: [
-                        "dataType": "environmentalAudioExposureEvent",
-                        "minimumIOSVersion": "14.0",
-                    ]
-                )
-            }
+            try HKCategoryType.make(from: .environmentalAudioExposureEvent)
         case .headphoneAudioExposureEvent:
-            if #available(iOS 14.0, *) {
-                try HKCategoryType.make(from: .headphoneAudioExposureEvent)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message:
-                    "Headphone audio exposure event is only supported on iOS 14.0 and later",
-                    context: [
-                        "dataType": "headphoneAudioExposureEvent",
-                        "minimumIOSVersion": "14.0",
-                    ]
-                )
-            }
+            try HKCategoryType.make(from: .headphoneAudioExposureEvent)
         case .environmentalAudioExposure:
-            if #available(iOS 13.0, *) {
-                try HKQuantityType.make(from: .environmentalAudioExposure)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Environmental audio exposure is only supported on iOS 13.0 and later",
-                    context: [
-                        "dataType": "environmentalAudioExposure", "minimumIOSVersion": "13.0",
-                    ]
-                )
-            }
+            try HKQuantityType.make(from: .environmentalAudioExposure)
         case .headphoneAudioExposure:
-            if #available(iOS 13.0, *) {
-                try HKQuantityType.make(from: .headphoneAudioExposure)
-            } else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Headphone audio exposure is only supported on iOS 13.0 and later",
-                    context: [
-                        "dataType": "headphoneAudioExposure", "minimumIOSVersion": "13.0",
-                    ]
-                )
-            }
+            try HKQuantityType.make(from: .headphoneAudioExposure)
         }
     }
 }
