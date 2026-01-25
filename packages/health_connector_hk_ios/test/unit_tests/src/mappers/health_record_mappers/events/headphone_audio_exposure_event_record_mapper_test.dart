@@ -1,0 +1,55 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/events/headphone_audio_exposure_event_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+
+import '../../../../utils/fake_data.dart';
+
+void main() {
+  group(
+    'HeadphoneAudioExposureEventRecordMapper',
+    () {
+      group(
+        'HeadphoneAudioExposureEventRecordDtoToDomain',
+        () {
+          test(
+            'converts HeadphoneAudioExposureEventRecordDto to HeadphoneAudioExposureEventRecord',
+            () {
+              final time = FakeData.fakeTime;
+
+              final dto = HeadphoneAudioExposureEventRecordDto(
+                id: FakeData.fakeId,
+                startTime: time.millisecondsSinceEpoch,
+                endTime: time
+                    .add(const Duration(minutes: 5))
+                    .millisecondsSinceEpoch,
+                startZoneOffsetSeconds:
+                    FakeData.fakeTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeTime.timeZoneOffset.inSeconds,
+                metadata: MetadataDto(
+                  dataOrigin: FakeData.fakeDataOrigin,
+                  recordingMethod: RecordingMethodDto.activelyRecorded,
+                  clientRecordVersion: 1,
+                  deviceType: DeviceTypeDto.watch,
+                ),
+              );
+
+              final record = dto.toDomain();
+
+              expect(record.id.value, FakeData.fakeId);
+              expect(record.startTime, time);
+              expect(
+                record.endTime,
+                time.add(const Duration(minutes: 5)),
+              );
+              expect(
+                record.metadata.dataOrigin?.packageName,
+                FakeData.fakeDataOrigin,
+              );
+            },
+          );
+        },
+      );
+    },
+  );
+}

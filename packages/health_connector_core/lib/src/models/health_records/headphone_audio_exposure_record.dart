@@ -3,15 +3,16 @@ part of 'health_record.dart';
 /// A health record representing headphone audio exposure.
 ///
 /// A quantity sample type that measures audio exposure from headphones.
-/// These samples use sound pressure units (dB(A)) and measure discrete
-/// values of the equivalent continuous sound pressure level. Samples can
-/// be automatically detected by an iPhone or Apple Watch.
 ///
-/// ## Platform Mapping
+/// ## See also
 ///
-/// - **iOS HealthKit Only**:
-///   [`HKQuantityTypeIdentifier.headphoneAudioExposure`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/headphoneaudioexposure)
-/// - **Android Health Connect**: Not supported
+/// - [HeadphoneAudioExposureDataType]
+/// - [EnvironmentalAudioExposureEventDataType]
+/// - [EnvironmentalAudioExposureEventRecord]
+/// - [EnvironmentalAudioExposureDataType]
+/// - [EnvironmentalAudioExposureRecord]
+/// - [HeadphoneAudioExposureEventDataType]
+/// - [HeadphoneAudioExposureEventRecord]
 ///
 /// {@category Health Records}
 @sinceV3_6_0

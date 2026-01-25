@@ -2,8 +2,13 @@ part of '../health_record.dart';
 
 /// Represents a low cardio fitness event.
 ///
+/// ## See also
+///
+/// - [LowCardioFitnessEventDataType]
+///
 /// {@category Health Records}
 @sinceV3_6_0
+@supportedOnAppleHealth
 @immutable
 final class LowCardioFitnessEventRecord extends IntervalHealthRecord {
   /// Internal factory for creating [LowCardioFitnessEventRecord] instances

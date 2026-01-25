@@ -11,6 +11,16 @@ part of 'health_data_type.dart';
 ///   [`HKQuantityTypeIdentifier.environmentalAudioExposure`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/environmentalaudioexposure)
 /// - **Android Health Connect**: Not supported
 ///
+/// ## See also
+///
+/// - [EnvironmentalAudioExposureRecord]
+/// - [EnvironmentalAudioExposureEventDataType]
+/// - [EnvironmentalAudioExposureEventRecord]
+/// - [HeadphoneAudioExposureDataType]
+/// - [HeadphoneAudioExposureRecord]
+/// - [HeadphoneAudioExposureEventDataType]
+/// - [HeadphoneAudioExposureEventRecord]
+///
 /// {@category Health Records}
 @sinceV3_6_0
 @supportedOnAppleHealth

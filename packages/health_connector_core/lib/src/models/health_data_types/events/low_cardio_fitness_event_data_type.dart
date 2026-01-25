@@ -22,6 +22,10 @@ part of '../health_data_type.dart';
 ///   [`HKCategoryTypeIdentifier.lowCardioFitnessEvent`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/lowcardiofitnessevent)
 /// - **Android Health Connect**: Not supported
 ///
+/// ## See also
+///
+/// - [LowCardioFitnessEventRecord]
+///
 /// {@category Health Records}
 @sinceV3_6_0
 @supportedOnAppleHealth

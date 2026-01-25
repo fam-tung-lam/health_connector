@@ -2,8 +2,20 @@ part of '../health_record.dart';
 
 /// A health record representing an environmental audio exposure event.
 ///
+/// ## See also
+///
+/// - [EnvironmentalAudioExposureEventDataType]
+/// - [EnvironmentalAudioExposureDataType]
+/// - [EnvironmentalAudioExposureRecord]
+/// - [HeadphoneAudioExposureDataType]
+/// - [HeadphoneAudioExposureRecord]
+/// - [HeadphoneAudioExposureEventDataType]
+/// - [HeadphoneAudioExposureEventRecord]
+///
 /// {@category Health Records}
 @sinceV3_6_0
+@supportedOnAppleHealth
+@readOnly
 @immutable
 final class EnvironmentalAudioExposureEventRecord extends IntervalHealthRecord {
   /// Internal factory for creating [EnvironmentalAudioExposureEventRecord]

@@ -832,11 +832,12 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents events where infrequent menstrual cycles are detected by
   /// HealthKit. An infrequent period is defined as having a period one or
+  /// HealthKit. An infrequent period is defined as having a period one or
   /// two times in the last six months.
   ///
-  /// **Note**: This is a read-only data type. Available on iOS 16.0+.
+  /// **Note**: This is a read-only data type.
   @sinceV3_4_0
-  @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   @readOnly
   static const infrequentMenstrualCycleEvent =
       InfrequentMenstrualCycleEventDataType();
@@ -859,9 +860,9 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// seventeen-day difference between a person’s shortest and longest cycles
   /// over the last six months.
   ///
-  /// **Note**: This is a read-only data type. Available on iOS 16.0+.
+  /// **Note**: This is a read-only data type.
   @sinceV3_4_0
-  @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   @readOnly
   static const irregularMenstrualCycleEvent =
       IrregularMenstrualCycleEventDataType();
@@ -872,9 +873,9 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// HealthKit. Persistent spotting is defined as spotting that occurs in at
   /// least two of your cycles in the last six months.
   ///
-  /// **Note**: This is a read-only data type. Available on iOS 16.0+.
+  /// **Note**: This is a read-only data type.
   @sinceV3_4_0
-  @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   @readOnly
   static const persistentIntermenstrualBleedingEvent =
       PersistentIntermenstrualBleedingEventDataType();
@@ -886,9 +887,9 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// for ten or more days, and this has happened at least two times in the
   /// last six months.
   ///
-  /// **Note**: This is a read-only data type. Available on iOS 16.0+.
+  /// **Note**: This is a read-only data type.
   @sinceV3_4_0
-  @supportedOnAppleHealth
+  @supportedOnAppleHealthIOS16Plus
   @readOnly
   static const prolongedMenstrualPeriodEvent =
       ProlongedMenstrualPeriodEventDataType();
