@@ -56,6 +56,7 @@ part 'exercise/exercise_type.dart';
 part 'floors_climbed_record.dart';
 part 'forced_vital_capacity_record.dart';
 part 'forced_expiratory_volume_record.dart';
+part 'peak_expiratory_flow_rate_record.dart';
 part 'heart_rate/atrial_fibrillation_burden_record.dart';
 part 'heart_rate/heart_rate_record.dart';
 part 'heart_rate/heart_rate_recovery_one_minute_record.dart';

@@ -103,6 +103,7 @@ extension HealthDataTypeUI on HealthDataType {
       RespiratoryRateDataType _ => AppTexts.respiratoryRate,
       ForcedVitalCapacityDataType _ => AppTexts.forcedVitalCapacity,
       ForcedExpiratoryVolumeDataType _ => AppTexts.forcedExpiratoryVolume,
+      PeakExpiratoryFlowRateDataType _ => AppTexts.peakExpiratoryFlowRate,
       Vo2MaxDataType _ => AppTexts.vo2Max,
       BloodGlucoseDataType _ => AppTexts.bloodGlucose,
       SpeedSeriesDataType _ => AppTexts.speed,
@@ -269,6 +270,8 @@ extension HealthDataTypeUI on HealthDataType {
       ForcedVitalCapacityDataType _ => AppTexts.forcedVitalCapacityDescription,
       ForcedExpiratoryVolumeDataType _ =>
         AppTexts.forcedExpiratoryVolumeDescription,
+      PeakExpiratoryFlowRateDataType _ =>
+        AppTexts.peakExpiratoryFlowRateDescription,
       Vo2MaxDataType _ => AppTexts.vo2MaxDescription,
       BloodGlucoseDataType _ => AppTexts.bloodGlucoseDescription,
       SpeedSeriesDataType _ => AppTexts.speedDescription,
@@ -444,6 +447,7 @@ extension HealthDataTypeUI on HealthDataType {
       RespiratoryRateDataType _ => AppIcons.air,
       ForcedVitalCapacityDataType _ => AppIcons.air,
       ForcedExpiratoryVolumeDataType _ => AppIcons.air,
+      PeakExpiratoryFlowRateDataType _ => AppIcons.air,
       Vo2MaxDataType _ => AppIcons.vo2Max,
       BloodGlucoseDataType _ => AppIcons.bloodGlucose,
       SpeedSeriesDataType _ => AppIcons.speed,
@@ -754,6 +758,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.forcedExpiratoryVolume,
         AppTexts.liter,
       ),
+      const (PeakExpiratoryFlowRateDataType) => AppTexts.valueWithUnit(
+        AppTexts.peakExpiratoryFlowRate,
+        AppTexts.literPerSecond,
+      ),
       const (Vo2MaxDataType) => AppTexts.withUnit(
         AppTexts.vo2Max,
         AppTexts.millilitersPerKilogramPerMinute,
@@ -1018,6 +1026,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (RespiratoryRateDataType) => AppTexts.breathsPerMinute,
       const (ForcedVitalCapacityDataType) ||
       const (ForcedExpiratoryVolumeDataType) => AppTexts.liter,
+      const (PeakExpiratoryFlowRateDataType) => AppTexts.literPerSecond,
       const (Vo2MaxDataType) => AppTexts.millilitersPerKilogramPerMinute,
       const (HeartRateVariabilityRMSSDDataType) ||
       const (HeartRateVariabilitySDNNDataType) ||

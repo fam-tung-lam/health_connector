@@ -63,6 +63,7 @@ part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
 part 'forced_expiratory_volume_data_type.dart';
 part 'forced_vital_capacity_data_type.dart';
+part 'peak_expiratory_flow_rate_data_type.dart';
 part 'health_data_type_category.dart';
 part 'heart_rate/atrial_fibrillation_burden_data_type.dart';
 part 'heart_rate/heart_rate_data_type.dart';
@@ -637,6 +638,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV3_4_0
   @supportedOnAppleHealth
   static const forcedExpiratoryVolume = ForcedExpiratoryVolumeDataType();
+
+  /// Peak expiratory flow rate data type.
+  ///
+  /// Represents the user's peak expiratory flow rate (PEFR) measurements.
+  /// Peak expiratory flow rate is the maximum flow rate generated during a
+  /// forceful exhalation.
+  @sinceV3_6_0
+  @supportedOnAppleHealth
+  static const peakExpiratoryFlowRate = PeakExpiratoryFlowRateDataType();
 
   /// Elevation gained data type.
   ///
@@ -1419,6 +1429,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     ovulationTest,
     oxygenSaturation,
     paddleSportsDistance,
+    peakExpiratoryFlowRate,
     peripheralPerfusionIndex,
     persistentIntermenstrualBleedingEvent,
     powerSeries,

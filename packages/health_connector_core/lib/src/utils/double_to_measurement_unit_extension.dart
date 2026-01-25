@@ -166,6 +166,7 @@ extension DoubleToMeasurementUnit on double {
       case ForcedExpiratoryVolumeDataType _:
       case ForcedVitalCapacityDataType _:
       case HydrationDataType _:
+      case PeakExpiratoryFlowRateDataType _:
         return Volume.liters(this);
 
       // region Not aggregatable data types

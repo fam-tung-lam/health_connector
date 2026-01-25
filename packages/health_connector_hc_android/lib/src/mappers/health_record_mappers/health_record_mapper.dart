@@ -605,6 +605,11 @@ extension HealthRecordToDto on HealthRecord {
           '$ForcedExpiratoryVolumeRecord is not supported on '
           'Android Health Connect.',
         );
+      case PeakExpiratoryFlowRateRecord():
+        throw UnsupportedError(
+          '$PeakExpiratoryFlowRateRecord is not supported on '
+          'Android Health Connect.',
+        );
       case NumberOfTimesFallenRecord():
         throw UnsupportedError(
           '$NumberOfTimesFallenRecord is not supported on '

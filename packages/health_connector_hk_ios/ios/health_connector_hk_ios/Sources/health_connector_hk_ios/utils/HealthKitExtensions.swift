@@ -177,6 +177,8 @@ extension HKSample {
                 return .forcedVitalCapacity
             case HKQuantityTypeIdentifier.forcedExpiratoryVolume1.rawValue:
                 return .forcedExpiratoryVolume
+            case HKQuantityTypeIdentifier.peakExpiratoryFlowRate.rawValue:
+                return .peakExpiratoryFlowRate
             case HKQuantityTypeIdentifier.appleExerciseTime.rawValue:
                 return .exerciseTime
             case HKQuantityTypeIdentifier.appleMoveTime.rawValue:

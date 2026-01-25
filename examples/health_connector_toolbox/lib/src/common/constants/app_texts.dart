@@ -181,6 +181,7 @@ abstract final class AppTexts {
       OxygenSaturationDataType() => oxygenSaturation,
       ForcedVitalCapacityDataType() => forcedVitalCapacity,
       ForcedExpiratoryVolumeDataType() => forcedExpiratoryVolume,
+      PeakExpiratoryFlowRateDataType() => peakExpiratoryFlowRate,
       RespiratoryRateDataType() => respiratoryRate,
       Vo2MaxDataType() => vo2Max,
       BloodGlucoseDataType() => bloodGlucose,
@@ -478,6 +479,9 @@ abstract final class AppTexts {
   static const String forcedExpiratoryVolumeDescription =
       'The amount of air that can be forcibly exhaled from the lungs in the '
       'first second of a forced exhalation.';
+  static const String peakExpiratoryFlowRate = 'Peak Expiratory Flow Rate';
+  static const String peakExpiratoryFlowRateDescription =
+      'The maximum flow rate generated during a forceful exhalation.';
   static const String respiratoryRate = 'Respiratory Rate';
   static const String vo2Max = 'VO2 Max';
   static const String vo2MaxTestType = 'Test $type';
@@ -661,6 +665,7 @@ abstract final class AppTexts {
   static const String percent = '%';
   static const String celsius = '°C';
   static const String liter = 'L';
+  static const String literPerSecond = 'L/s';
   static const String millimetersOfMercury = 'mmHg';
   static const String breathsPerMinute = 'breaths/min';
   static const String millilitersPerKilogramPerMinute = 'mL/kg/min';

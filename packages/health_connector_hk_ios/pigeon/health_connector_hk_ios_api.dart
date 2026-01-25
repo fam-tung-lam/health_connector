@@ -759,6 +759,9 @@ enum HealthDataTypeDto {
   /// Forced Expiratory Volume, 1st Second data.
   forcedExpiratoryVolume,
 
+  /// Peak Expiratory Flow Rate data.
+  peakExpiratoryFlowRate,
+
   /// Walking Heart Rate Average data.
   walkingHeartRateAverage,
 
@@ -1643,6 +1646,40 @@ class ForcedExpiratoryVolumeRecordDto extends HealthRecordDto {
 
   /// Forced expiratory volume in liters.
   final double liters;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a peak expiratory flow rate record for platform transfer (iOS).
+class PeakExpiratoryFlowRateRecordDto extends HealthRecordDto {
+  PeakExpiratoryFlowRateRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.litersPerSecond,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Peak expiratory flow rate in liters per second.
+  final double litersPerSecond;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;

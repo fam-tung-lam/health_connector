@@ -160,6 +160,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.forcedVitalCapacity;
       case HealthDataTypeDto.forcedExpiratoryVolume:
         return HealthDataType.forcedExpiratoryVolume;
+      case HealthDataTypeDto.peakExpiratoryFlowRate:
+        return HealthDataType.peakExpiratoryFlowRate;
       case HealthDataTypeDto.cyclingDistance:
         return HealthDataType.cyclingDistance;
       case HealthDataTypeDto.cyclingPower:
@@ -436,6 +438,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.forcedVitalCapacity;
       case ForcedExpiratoryVolumeDataType _:
         return HealthDataTypeDto.forcedExpiratoryVolume;
+      case PeakExpiratoryFlowRateDataType _:
+        return HealthDataTypeDto.peakExpiratoryFlowRate;
       case BloodGlucoseDataType _:
         return HealthDataTypeDto.bloodGlucose;
       case CyclingDistanceDataType _:

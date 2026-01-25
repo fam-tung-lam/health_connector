@@ -186,6 +186,8 @@ extension HealthRecordDto {
             record.id
         case let record as ForcedExpiratoryVolumeRecordDto:
             record.id
+        case let record as PeakExpiratoryFlowRateRecordDto:
+            record.id
         case let record as WalkingDoubleSupportPercentageRecordDto:
             record.id
         case let record as WalkingStepLengthRecordDto:
@@ -423,6 +425,8 @@ extension HealthRecordDto {
                 return .forcedVitalCapacity
             case is ForcedExpiratoryVolumeRecordDto:
                 return .forcedExpiratoryVolume
+            case is PeakExpiratoryFlowRateRecordDto:
+                return .peakExpiratoryFlowRate
             case is WalkingDoubleSupportPercentageRecordDto:
                 return .walkingDoubleSupportPercentage
             case is WalkingStepLengthRecordDto:
@@ -652,6 +656,8 @@ extension HealthRecordDto {
         case let dto as ForcedVitalCapacityRecordDto:
             return dto.time
         case let dto as ForcedExpiratoryVolumeRecordDto:
+            return dto.endTime
+        case let dto as PeakExpiratoryFlowRateRecordDto:
             return dto.endTime
         case let dto as WalkingDoubleSupportPercentageRecordDto:
             return dto.endTime

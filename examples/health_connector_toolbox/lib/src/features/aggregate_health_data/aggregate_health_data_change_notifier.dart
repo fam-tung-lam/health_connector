@@ -361,6 +361,21 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      PeakExpiratoryFlowRateDataType() => _buildAvgMinMax(
+        () => HealthDataType.peakExpiratoryFlowRate.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.peakExpiratoryFlowRate.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.peakExpiratoryFlowRate.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       HeightDataType() => _buildAvgMinMax(
         () => HealthDataType.height.aggregateAvg(
           startTime: startTime,

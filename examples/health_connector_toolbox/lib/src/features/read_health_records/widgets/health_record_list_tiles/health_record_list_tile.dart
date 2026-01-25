@@ -243,6 +243,15 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.volume,
           onDelete: onDelete,
         ),
+      final PeakExpiratoryFlowRateRecord r =>
+        SimpleIntervalMeasurementListTile<PeakExpiratoryFlowRateRecord>(
+          record: r,
+          icon: AppIcons.air,
+          titleBuilder: (r) =>
+              '${r.volumePerSecond.inLiters.toStringAsFixed(2)} L/s',
+          valueExtractor: (r) => r.volumePerSecond,
+          onDelete: onDelete,
+        ),
       final ExerciseTimeRecord r =>
         SimpleIntervalMeasurementListTile<ExerciseTimeRecord>(
           record: r,

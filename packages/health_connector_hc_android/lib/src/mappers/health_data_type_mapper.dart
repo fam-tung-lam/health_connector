@@ -314,6 +314,7 @@ extension HealthDataTypeToDto on HealthDataType {
       case SleepingWristTemperatureDataType _:
       case ForcedVitalCapacityDataType _:
       case ForcedExpiratoryVolumeDataType _:
+      case PeakExpiratoryFlowRateDataType _:
       case PregnancyTestDataType _:
       case ProgesteroneTestDataType _:
       case ContraceptiveDataType _:

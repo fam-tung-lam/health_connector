@@ -105,6 +105,7 @@ extension HealthDataPermissionDto {
              .peripheralPerfusionIndex,
              .forcedVitalCapacity,
              .forcedExpiratoryVolume,
+             .peakExpiratoryFlowRate,
              .sexualActivity,
              .cervicalMucus,
              .intermenstrualBleeding,

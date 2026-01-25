@@ -159,7 +159,8 @@ abstract class MeasurementUnitValueParser {
       // Volume
       HydrationDataType() ||
       ForcedVitalCapacityDataType() ||
-      ForcedExpiratoryVolumeDataType() => _parseVolume(value),
+      ForcedExpiratoryVolumeDataType() ||
+      PeakExpiratoryFlowRateDataType() => _parseVolume(value),
 
       // Electrodermal activity (conductance in microsiemens)
       ElectrodermalActivityDataType() ||

@@ -185,6 +185,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(PeripheralPerfusionIndexHandler(healthStore: healthStore))
         register(ForcedVitalCapacityHandler(healthStore: healthStore))
         register(ForcedExpiratoryVolumeHandler(healthStore: healthStore))
+        register(PeakExpiratoryFlowRateHandler(healthStore: healthStore))
         register(HighHeartRateEventRecordHandler(healthStore: healthStore))
         register(IrregularHeartRhythmEventRecordHandler(healthStore: healthStore))
         register(LowHeartRateEventRecordHandler(healthStore: healthStore))

@@ -85,6 +85,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrit
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_zinc_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/nutrition_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen_saturation_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/peak_expiratory_flow_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/peripheral_perfusion_index_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/cycling_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/running_power_record_mapper.dart';
@@ -343,6 +344,8 @@ extension HealthRecordToDto on HealthRecord {
         return ForcedVitalCapacityRecordToDto(record).toDto();
       case final ForcedExpiratoryVolumeRecord record:
         return ForcedExpiratoryVolumeRecordToDto(record).toDto();
+      case final PeakExpiratoryFlowRateRecord record:
+        return PeakExpiratoryFlowRateRecordToDto(record).toDto();
       case final WalkingDoubleSupportPercentageRecord record:
         return WalkingDoubleSupportPercentageRecordToDto(record).toDto();
       case final WalkingStepLengthRecord record:
@@ -719,6 +722,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return ForcedVitalCapacityRecordDtoToDomain(dto).toDomain();
       case final ForcedExpiratoryVolumeRecordDto dto:
         return ForcedExpiratoryVolumeRecordDtoToDomain(dto).toDomain();
+      case final PeakExpiratoryFlowRateRecordDto dto:
+        return PeakExpiratoryFlowRateRecordDtoToDomain(dto).toDomain();
       case final ExerciseTimeRecordDto dto:
         return ExerciseTimeRecordDtoToDomain(dto).toDomain();
       case final MoveTimeRecordDto dto:
