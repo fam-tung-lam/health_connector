@@ -966,6 +966,9 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       MenstrualFlowInstantDataType() => throw UnsupportedError(
         'Menstrual flow does not support aggregation',
       ),
+      MenstruationPeriodDataType() => throw UnsupportedError(
+        'Menstruation period does not support aggregation',
+      ),
       LactationDataType() => throw UnsupportedError(
         'Lactation does not support aggregation',
       ),

@@ -235,6 +235,10 @@ abstract class MeasurementUnitValueParser {
         '$MenstrualFlowInstantDataType is a complex type with flow intensity, '
         'cannot be parsed from a single string input.',
       ),
+      MenstruationPeriodDataType() => throw UnsupportedError(
+        '$MenstruationPeriodDataType is an interval record without a value, '
+        'cannot be parsed from a single string input.',
+      ),
       LactationDataType() => throw UnsupportedError(
         '$LactationDataType is a record of lactation events, '
         'cannot be parsed from a single string input.',

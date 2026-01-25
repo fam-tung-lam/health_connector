@@ -578,6 +578,9 @@ enum HealthDataTypeDto {
   /// Menstrual flow instant data.
   menstrualFlowInstant,
 
+  /// Menstruation period data.
+  menstruationPeriod,
+
   /// Oxygen saturation data.
   oxygenSaturation,
 
@@ -783,6 +786,36 @@ class MenstrualFlowInstantRecordDto extends HealthRecordDto {
 
   /// The menstrual flow intensity.
   final MenstrualFlowDto flow;
+}
+
+/// Represents a menstruation period record for platform transfer.
+class MenstruationPeriodRecordDto extends HealthRecordDto {
+  MenstruationPeriodRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a respiratory rate record for platform transfer.

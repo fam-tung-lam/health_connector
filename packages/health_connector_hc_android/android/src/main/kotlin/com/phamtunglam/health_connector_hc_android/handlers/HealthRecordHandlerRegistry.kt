@@ -26,6 +26,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.IntermenstrualBleedingHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.LeanBodyMassHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.MenstrualFlowInstantHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.MenstruationPeriodHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.MindfulnessSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.NutritionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.OvulationTestHandler
@@ -216,6 +217,12 @@ internal class HealthRecordHandlerRegistry(
             )
             register(
                 MenstrualFlowInstantHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                MenstruationPeriodHandler(
                     dispatcher = dispatchers.io,
                     client = client,
                 ),

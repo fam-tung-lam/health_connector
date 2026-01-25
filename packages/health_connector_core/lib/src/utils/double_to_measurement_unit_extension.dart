@@ -188,6 +188,7 @@ extension DoubleToMeasurementUnit on double {
       case LowHeartRateEventDataType _:
       case MenstrualFlowDataType _:
       case MenstrualFlowInstantDataType _:
+      case MenstruationPeriodDataType _:
       case NutritionDataType _:
       case OvulationTestDataType _:
       case PersistentIntermenstrualBleedingEventDataType _:

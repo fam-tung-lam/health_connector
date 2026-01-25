@@ -92,6 +92,7 @@ part 'menstruation/contraceptive_type.dart';
 part 'menstruation/intermenstrual_bleeding_record.dart';
 part 'menstruation/lactation_record.dart';
 part 'menstruation/menstrual_flow/menstrual_flow.dart';
+part 'menstruation/menstruation_period_record.dart';
 part 'menstruation/menstrual_flow/menstrual_flow_instant_record.dart';
 part 'menstruation/menstrual_flow/menstrual_flow_record.dart';
 part 'menstruation/ovulation_test/ovulation_test_record.dart';

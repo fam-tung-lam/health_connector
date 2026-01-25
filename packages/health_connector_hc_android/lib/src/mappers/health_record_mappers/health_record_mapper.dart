@@ -22,6 +22,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/le
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/cervical_mucus/cervical_mucus_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/intermenstrual_bleeding_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/menstrual_flow/menstrual_flow_instant_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/menstruation_period_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/ovulation_test_result/ovulation_test_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition/nutrition_record_mapper.dart';
@@ -63,6 +64,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         NutritionRecordDto,
         IntermenstrualBleedingRecordDto,
         MenstrualFlowInstantRecordDto,
+        MenstruationPeriodRecordDto,
         OvulationTestRecordDto,
         OxygenSaturationRecordDto,
         PowerSeriesRecordDto,
@@ -191,6 +193,8 @@ extension HealthRecordToDto on HealthRecord {
         return IntermenstrualBleedingRecordToDto(record).toDto();
       case final MenstrualFlowInstantRecord record:
         return MenstrualFlowInstantRecordToDto(record).toDto();
+      case final MenstruationPeriodRecord record:
+        return MenstruationPeriodRecordToDto(record).toDto();
       case final OxygenSaturationRecord record:
         return OxygenSaturationRecordToDto(record).toDto();
       case final BloodPressureRecord record:
@@ -765,6 +769,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return IntermenstrualBleedingRecordDtoToDomain(dto).toDomain();
       case final MenstrualFlowInstantRecordDto dto:
         return MenstrualFlowInstantRecordDtoToDomain(dto).toDomain();
+      case final MenstruationPeriodRecordDto dto:
+        return MenstruationPeriodRecordDtoToDomain(dto).toDomain();
       case final OxygenSaturationRecordDto dto:
         return OxygenSaturationRecordDtoToDomain(dto).toDomain();
       case final BloodPressureRecordDto dto:

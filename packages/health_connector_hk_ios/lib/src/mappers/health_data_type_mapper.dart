@@ -417,6 +417,11 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.pregnancy;
       case ContraceptiveDataType _:
         return HealthDataTypeDto.contraceptive;
+      case MenstruationPeriodDataType _:
+        throw UnsupportedError(
+          '$MenstruationPeriodDataType is not supported on iOS HealthKit. '
+          'It is only available on Android Health Connect.',
+        );
       case IntermenstrualBleedingDataType _:
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowDataType _:

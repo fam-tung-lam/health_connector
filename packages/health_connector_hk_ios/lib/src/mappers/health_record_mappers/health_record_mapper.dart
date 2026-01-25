@@ -330,6 +330,11 @@ extension HealthRecordToDto on HealthRecord {
         return PregnancyRecordToDto(record).toDto();
       case final ContraceptiveRecord record:
         return ContraceptiveRecordToDto(record).toDto();
+      case final MenstruationPeriodRecord _:
+        throw UnsupportedError(
+          '$MenstruationPeriodRecord is not supported on iOS HealthKit. '
+          'It is only available on Android Health Connect.',
+        );
       case final SwimmingStrokesRecord record:
         return SwimmingStrokesRecordToDto(record).toDto();
       case final PeripheralPerfusionIndexRecord record:

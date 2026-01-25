@@ -65,6 +65,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.intermenstrualBleeding;
       case HealthDataTypeDto.menstrualFlowInstant:
         return HealthDataType.menstrualFlowInstant;
+      case HealthDataTypeDto.menstruationPeriod:
+        return HealthDataType.menstruationPeriod;
       case HealthDataTypeDto.oxygenSaturation:
         return HealthDataType.oxygenSaturation;
       case HealthDataTypeDto.respiratoryRate:
@@ -159,6 +161,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowInstantDataType _:
         return HealthDataTypeDto.menstrualFlowInstant;
+      case MenstruationPeriodDataType _:
+        return HealthDataTypeDto.menstruationPeriod;
       case OxygenSaturationDataType _:
         return HealthDataTypeDto.oxygenSaturation;
       case RespiratoryRateDataType _:

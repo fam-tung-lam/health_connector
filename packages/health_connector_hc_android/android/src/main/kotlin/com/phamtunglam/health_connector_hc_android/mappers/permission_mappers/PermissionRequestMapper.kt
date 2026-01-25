@@ -24,6 +24,7 @@ import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.IntermenstrualBleedingRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.MenstruationFlowRecord
+import androidx.health.connect.client.records.MenstruationPeriodRecord
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.OvulationTestRecord
@@ -330,6 +331,18 @@ private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (hea
 
             PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
                 MenstruationFlowRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.MENSTRUATION_PERIOD -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                MenstruationPeriodRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                MenstruationPeriodRecord::class,
             )
         }
     }

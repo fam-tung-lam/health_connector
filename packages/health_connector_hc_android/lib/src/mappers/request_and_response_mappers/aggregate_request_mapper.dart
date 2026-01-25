@@ -83,6 +83,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case ProgesteroneTestDataType _:
           case IntermenstrualBleedingDataType _:
           case MenstrualFlowInstantDataType _:
+          case MenstruationPeriodDataType _:
           case SexualActivityDataType _:
           case SleepSessionDataType _:
           case SleepStageDataType _:

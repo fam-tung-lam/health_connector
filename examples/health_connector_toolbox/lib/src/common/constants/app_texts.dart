@@ -136,6 +136,7 @@ abstract final class AppTexts {
       PregnancyDataType() => pregnancy,
       PeripheralPerfusionIndexDataType() => peripheralPerfusionIndex,
       ContraceptiveDataType() => contraceptive,
+      MenstruationPeriodDataType() => menstruationPeriod,
       PregnancyTestDataType() => pregnancyTest,
       ProgesteroneTestDataType() => progesteroneTest,
       DietaryEnergyConsumedDataType() => energy,
@@ -581,6 +582,7 @@ abstract final class AppTexts {
       'Measurement of the blood flow to the peripheral tissues';
   static const String contraceptive = 'Contraceptive';
   static const String contraceptiveType = 'Contraceptive Type';
+  static const String menstruationPeriod = 'Menstruation Period';
   static const String selectContraceptiveType = 'Select contraceptive type';
   static const String progesteroneTest = 'Progesterone Test';
   static const String testResult = 'Test Result';

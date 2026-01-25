@@ -40,6 +40,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/low_cardio_fitness_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/low_heart_rate_event_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/menstrual_flow_record_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/menstruation_period_record_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/mindfulness_session_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/persistent_intermenstrual_bleeding_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/pregnancy_record_list_tile.dart';
@@ -620,6 +621,10 @@ final class HealthRecordListTile extends StatelessWidget {
         onDelete: onDelete,
       ),
       final ContraceptiveRecord r => ContraceptiveRecordListTile(
+        record: r,
+        onDelete: onDelete,
+      ),
+      final MenstruationPeriodRecord r => MenstruationPeriodRecordListTile(
         record: r,
         onDelete: onDelete,
       ),

@@ -83,6 +83,7 @@ part 'menstruation/intermenstrual_bleeding_data_type.dart';
 part 'menstruation/lactation_data_type.dart';
 part 'menstruation/menstrual_flow_data_type.dart';
 part 'menstruation/menstrual_flow_instant_data_type.dart';
+part 'menstruation/menstruation_period_data_type.dart';
 part 'menstruation/ovulation_test_data_type.dart';
 part 'menstruation/pregnancy_data_type.dart';
 part 'menstruation/pregnancy_test_data_type.dart';
@@ -973,6 +974,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const menstrualFlow = MenstrualFlowDataType();
 
+  /// Menstruation period data type.
+  @sinceV3_6_0
+  @supportedOnHealthConnect
+  static const menstruationPeriod = MenstruationPeriodDataType();
+
   /// Lactation data type.
   ///
   /// Represents the act of breastfeeding or expressing breast milk.
@@ -1407,6 +1413,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     lowCardioFitnessEvent,
     menstrualFlow,
     menstrualFlowInstant,
+    menstruationPeriod,
     mindfulnessSession,
     nutrition,
     ovulationTest,
