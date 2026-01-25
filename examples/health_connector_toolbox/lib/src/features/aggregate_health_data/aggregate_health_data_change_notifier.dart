@@ -852,16 +852,16 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         metric,
       ),
       // Skin Temperature types - avg/min/max
-      SkinTemperatureDataType() => _buildAvgMinMax(
-        () => HealthDataType.skinTemperature.aggregateAvg(
+      SkinTemperatureDeltaSeriesDataType() => _buildAvgMinMax(
+        () => HealthDataType.skinTemperatureDeltaSeries.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
         ),
-        () => HealthDataType.skinTemperature.aggregateMin(
+        () => HealthDataType.skinTemperatureDeltaSeries.aggregateMin(
           startTime: startTime,
           endTime: endTime,
         ),
-        () => HealthDataType.skinTemperature.aggregateMax(
+        () => HealthDataType.skinTemperatureDeltaSeries.aggregateMax(
           startTime: startTime,
           endTime: endTime,
         ),

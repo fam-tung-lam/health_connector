@@ -563,7 +563,7 @@ private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (hea
         }
     }
 
-    HealthDataTypeDto.SKIN_TEMPERATURE -> {
+    HealthDataTypeDto.SKIN_TEMPERATURE_DELTA_SERIES -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
                 SkinTemperatureRecord::class,
@@ -663,7 +663,7 @@ private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
         "BODY_WATER_MASS" -> HealthDataTypeDto.BODY_WATER_MASS
         "HEART_RATE_VARIABILITY" -> HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
         "ACTIVITY_INTENSITY" -> HealthDataTypeDto.ACTIVITY_INTENSITY
-        "SKIN_TEMPERATURE" -> HealthDataTypeDto.SKIN_TEMPERATURE
+        "SKIN_TEMPERATURE" -> HealthDataTypeDto.SKIN_TEMPERATURE_DELTA_SERIES
         else -> throw IllegalArgumentException(
             "Invalid/unsupported/unimplemented Health Connect data type: $dataTypeStr.",
         )

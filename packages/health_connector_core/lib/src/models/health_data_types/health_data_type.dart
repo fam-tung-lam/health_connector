@@ -17,153 +17,301 @@ import 'package:health_connector_core/src/models/requests/read_requests/read_rec
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'activity_intensity_data_type.dart';
+
 part 'alcoholic_beverages_data_type.dart';
+
 part 'blood_alcohol_content_data_type.dart';
+
 part 'blood_glucose_data_type.dart';
+
 part 'blood_pressure/blood_pressure_data_type.dart';
+
 part 'blood_pressure/diastolic_blood_pressure_data_type.dart';
+
 part 'blood_pressure/systolic_blood_pressure_data_type.dart';
+
 part 'body_fat_percentage_data_type.dart';
+
 part 'body_mass_index_data_type.dart';
+
 part 'body_water_mass_data_type.dart';
+
 part 'bone_mass_data_type.dart';
+
 part 'cycling_pedaling_cadence/cycling_pedaling_cadence_data_type.dart';
+
 part 'cycling_pedaling_cadence/cycling_pedaling_cadence_series_data_type.dart';
+
 part 'distance/cross_country_skiing_distance_data_type.dart';
+
 part 'distance/cycling_distance_data_type.dart';
+
 part 'distance/distance_activity_data_type.dart';
+
 part 'distance/distance_data_type.dart';
+
 part 'distance/downhill_snow_sports_distance_data_type.dart';
+
 part 'distance/paddle_sports_distance_data_type.dart';
+
 part 'distance/rowing_distance_data_type.dart';
+
 part 'distance/six_minute_walk_test_distance_data_type.dart';
+
 part 'distance/skating_sports_distance_data_type.dart';
+
 part 'distance/swimming_distance_data_type.dart';
+
 part 'distance/walking_running_distance_data_type.dart';
+
 part 'distance/wheelchair_distance_data_type.dart';
+
 part 'electrodermal_activity_data_type.dart';
+
 part 'environmental_audio_exposure_data_type.dart';
+
 part 'headphone_audio_exposure_data_type.dart';
+
 part 'elevation_gained_data_type.dart';
+
 part 'energy_burned/active_energy_burned_data_type.dart';
+
 part 'energy_burned/basal_energy_burned_data_type.dart';
+
 part 'energy_burned/basal_metabolic_rate_data_type.dart';
+
 part 'energy_burned/total_energy_burned_data_type.dart';
+
 part 'events/high_heart_rate_event_data_type.dart';
+
 part 'events/environmental_audio_exposure_event_data_type.dart';
+
 part 'events/headphone_audio_exposure_event_data_type.dart';
+
 part 'events/infrequent_menstrual_cycle_event_data_type.dart';
+
 part 'events/irregular_heart_rhythm_event_data_type.dart';
+
 part 'events/irregular_menstrual_cycle_event_data_type.dart';
+
 part 'events/low_heart_rate_event_data_type.dart';
+
 part 'events/low_cardio_fitness_event_data_type.dart';
+
 part 'events/persistent_intermenstrual_bleeding_event_data_type.dart';
+
 part 'events/prolonged_menstrual_period_event_data_type.dart';
+
 part 'exercise_session_data_type.dart';
+
 part 'floors_climbed_data_type.dart';
+
 part 'forced_expiratory_volume_data_type.dart';
+
 part 'forced_vital_capacity_data_type.dart';
+
 part 'peak_expiratory_flow_rate_data_type.dart';
+
 part 'health_data_type_category.dart';
+
 part 'heart_rate/atrial_fibrillation_burden_data_type.dart';
+
 part 'heart_rate/heart_rate_data_type.dart';
+
 part 'heart_rate/heart_rate_recovery_one_minute_data_type.dart';
+
 part 'heart_rate/heart_rate_series_data_type.dart';
+
 part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
+
 part 'heart_rate/heart_rate_variability_sdnn_data_type.dart';
+
 part 'heart_rate/resting_heart_rate_data_type.dart';
+
 part 'heart_rate/walking_heart_rate_average_data_type.dart';
+
 part 'height_data_type.dart';
+
 part 'hydration_data_type.dart';
+
 part 'inhaler_usage_data_type.dart';
+
 part 'insulin_delivery_data_type.dart';
+
 part 'lean_body_mass_data_type.dart';
+
 part 'menstruation/cervical_mucus_data_type.dart';
+
 part 'menstruation/contraceptive_data_type.dart';
+
 part 'menstruation/intermenstrual_bleeding_data_type.dart';
+
 part 'menstruation/lactation_data_type.dart';
+
 part 'menstruation/menstrual_flow_data_type.dart';
+
 part 'menstruation/menstrual_flow_instant_data_type.dart';
+
 part 'menstruation/menstruation_period_data_type.dart';
+
 part 'menstruation/ovulation_test_data_type.dart';
+
 part 'menstruation/pregnancy_data_type.dart';
+
 part 'menstruation/pregnancy_test_data_type.dart';
+
 part 'menstruation/progesterone_test_data_type.dart';
+
 part 'mindfulness_session_data_type.dart';
+
 part 'number_of_times_fallen_data_type.dart';
+
 part 'nutrition/dietary_biotin_data_type.dart';
+
 part 'nutrition/dietary_caffeine_data_type.dart';
+
 part 'nutrition/dietary_calcium_data_type.dart';
+
 part 'nutrition/dietary_cholesterol_data_type.dart';
+
 part 'nutrition/dietary_energy_consumed_data_type.dart';
+
 part 'nutrition/dietary_fiber_nutrient_data_type.dart';
+
 part 'nutrition/dietary_folate_data_type.dart';
+
 part 'nutrition/dietary_iron_data_type.dart';
+
 part 'nutrition/dietary_macronutrient_data_type.dart';
+
 part 'nutrition/dietary_magnesium_data_type.dart';
+
 part 'nutrition/dietary_manganese_data_type.dart';
+
 part 'nutrition/dietary_mineral_data_type.dart';
+
 part 'nutrition/dietary_monounsaturated_fat_data_type.dart';
+
 part 'nutrition/dietary_niacin_data_type.dart';
+
 part 'nutrition/dietary_nutrient_data_type.dart';
+
 part 'nutrition/dietary_pantothenic_acid_data_type.dart';
+
 part 'nutrition/dietary_phosphorus_data_type.dart';
+
 part 'nutrition/dietary_polyunsaturated_fat_data_type.dart';
+
 part 'nutrition/dietary_potassium_data_type.dart';
+
 part 'nutrition/dietary_protein_data_type.dart';
+
 part 'nutrition/dietary_riboflavin_data_type.dart';
+
 part 'nutrition/dietary_saturated_fat_data_type.dart';
+
 part 'nutrition/dietary_selenium_data_type.dart';
+
 part 'nutrition/dietary_sodium_data_type.dart';
+
 part 'nutrition/dietary_sugar_data_type.dart';
+
 part 'nutrition/dietary_thiamin_data_type.dart';
+
 part 'nutrition/dietary_total_carbohydrate_data_type.dart';
+
 part 'nutrition/dietary_total_fat_data_type.dart';
+
 part 'nutrition/dietary_vitamin_a_data_type.dart';
+
 part 'nutrition/dietary_vitamin_b12_data_type.dart';
+
 part 'nutrition/dietary_vitamin_b6_data_type.dart';
+
 part 'nutrition/dietary_vitamin_c_data_type.dart';
+
 part 'nutrition/dietary_vitamin_d_data_type.dart';
+
 part 'nutrition/dietary_vitamin_data_type.dart';
+
 part 'nutrition/dietary_vitamin_e_data_type.dart';
+
 part 'nutrition/dietary_vitamin_k_data_type.dart';
+
 part 'nutrition/dietary_zinc_data_type.dart';
+
 part 'nutrition/nutrition_data_type.dart';
+
 part 'oxygen_saturation_data_type.dart';
+
 part 'peripheral_perfusion_index_data_type.dart';
+
 part 'power/cycling_power_data_type.dart';
+
 part 'power/power_series_data_type.dart';
+
 part 'power/running_power_health_data_type.dart';
+
 part 'respiratory_rate_data_type.dart';
+
 part 'sexual_activity_data_type.dart';
+
 part 'sleep/sleep_session_data_type.dart';
+
 part 'sleep/sleep_stage_record_data_type.dart';
+
 part 'speed/running_speed_data_type.dart';
+
 part 'running/running_ground_contact_time_data_type.dart';
+
 part 'running/running_stride_length_data_type.dart';
+
 part 'speed/speed_activity_data_type.dart';
+
 part 'speed/speed_series_data_type.dart';
+
 part 'speed/stair_ascent_speed_data_type.dart';
+
 part 'speed/stair_descent_speed_data_type.dart';
+
 part 'speed/walking_speed_data_type.dart';
+
 part 'steps_cadence_series_data_type.dart';
+
 part 'steps_data_type.dart';
+
 part 'swimming_strokes_data_type.dart';
+
 part 'temperature/basal_body_temperature_data_type.dart';
+
 part 'temperature/body_temperature_data_type.dart';
-part 'temperature/skin_temperature_data_type.dart';
+
+part 'temperature/skin_temperature_delta_series_data_type.dart';
+
 part 'temperature/sleeping_wrist_temperature_data_type.dart';
+
 part 'time/exercise_time_data_type.dart';
+
 part 'time/move_time_data_type.dart';
+
 part 'time/stand_time_data_type.dart';
+
 part 'vo2_max_data_type.dart';
+
 part 'waist_circumference_data_type.dart';
+
 part 'walking/walking_asymmetry_percentage_data_type.dart';
+
 part 'walking/walking_double_support_percentage_data_type.dart';
+
 part 'walking/walking_steadiness_data_type.dart';
+
 part 'walking/walking_steadiness_event_data_type.dart';
+
 part 'walking/walking_step_length_data_type.dart';
+
 part 'weight_data_type.dart';
+
 part 'wheelchair_pushes_data_type.dart';
 
 /// [HealthDataType] represents different kinds of health and fitness data
@@ -450,14 +598,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_2_0
   static const basalBodyTemperature = BasalBodyTemperatureDataType();
 
-  /// Skin temperature data type.
+  /// Skin temperature delta series data type.
   ///
   /// Represents skin temperature measurements as a series of temperature
   /// deltas. Each record can represent a series of measurements of temperature
   /// differences.
   @sinceV3_6_0
   @supportedOnHealthConnect
-  static const skinTemperature = SkinTemperatureDataType();
+  static const skinTemperatureDeltaSeries =
+      SkinTemperatureDeltaSeriesDataType();
 
   /// Bone mass data type.
   ///
@@ -1448,7 +1597,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     sixMinuteWalkTestDistance,
     skatingSportsDistance,
     sleepingWristTemperature,
-    skinTemperature,
+    skinTemperatureDeltaSeries,
     sleepSession,
     sleepStageRecord,
     speedSeries,

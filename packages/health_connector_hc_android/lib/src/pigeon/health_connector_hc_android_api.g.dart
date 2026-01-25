@@ -598,7 +598,7 @@ enum HealthDataTypeDto {
   stepsCadenceSeriesRecord,
 
   /// Skin temperature delta series record data.
-  skinTemperature,
+  skinTemperatureDeltaSeries,
 }
 
 /// Sleep stage type enum.

@@ -89,8 +89,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.bodyWaterMass;
       case HealthDataTypeDto.heartRateVariabilityRMSSD:
         return HealthDataType.heartRateVariabilityRMSSD;
-      case HealthDataTypeDto.skinTemperature:
-        return HealthDataType.skinTemperature;
+      case HealthDataTypeDto.skinTemperatureDeltaSeries:
+        return HealthDataType.skinTemperatureDeltaSeries;
     }
   }
 }
@@ -181,8 +181,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.speedSeries;
       case PowerSeriesDataType _:
         return HealthDataTypeDto.powerSeries;
-      case SkinTemperatureDataType _:
-        return HealthDataTypeDto.skinTemperature;
+      case SkinTemperatureDeltaSeriesDataType _:
+        return HealthDataTypeDto.skinTemperatureDeltaSeries;
 
       // region Unsupported data types with alternative
 

@@ -42,7 +42,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [SkinTemperatureDataType]
+/// - [SkinTemperatureDeltaSeriesDataType]
 ///
 /// {@category Health Records}
 @sinceV3_6_0

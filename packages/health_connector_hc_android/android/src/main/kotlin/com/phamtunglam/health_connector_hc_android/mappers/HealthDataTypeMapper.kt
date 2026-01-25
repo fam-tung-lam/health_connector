@@ -92,5 +92,5 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.BODY_WATER_MASS -> BodyWaterMassRecord::class
     HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD -> HeartRateVariabilityRmssdRecord::class
     HealthDataTypeDto.ACTIVITY_INTENSITY -> ActivityIntensityRecord::class
-    HealthDataTypeDto.SKIN_TEMPERATURE -> SkinTemperatureRecord::class
+    HealthDataTypeDto.SKIN_TEMPERATURE_DELTA_SERIES -> SkinTemperatureRecord::class
 }

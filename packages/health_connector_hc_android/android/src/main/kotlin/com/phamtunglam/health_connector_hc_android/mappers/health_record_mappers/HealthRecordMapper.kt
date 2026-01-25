@@ -137,7 +137,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is BodyWaterMassRecordDto -> HealthDataTypeDto.BODY_WATER_MASS
         is HeartRateVariabilityRMSSDRecordDto ->
             HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
-        is SkinTemperatureDeltaSeriesRecordDto -> HealthDataTypeDto.SKIN_TEMPERATURE
+        is SkinTemperatureDeltaSeriesRecordDto -> HealthDataTypeDto.SKIN_TEMPERATURE_DELTA_SERIES
     }
 
 /**

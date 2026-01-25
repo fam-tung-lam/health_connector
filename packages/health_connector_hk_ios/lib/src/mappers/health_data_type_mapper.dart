@@ -535,10 +535,10 @@ extension HealthDataTypeToDto on HealthDataType {
           '$BasalMetabolicRateDataType is not supported on iOS HealthKit. '
           'Use $BasalEnergyBurnedDataType instead.',
         );
-      case SkinTemperatureDataType _:
+      case SkinTemperatureDeltaSeriesDataType _:
         throw UnsupportedError(
-          '$SkinTemperatureDataType is not supported on iOS HealthKit. '
-          'Use $BodyTemperatureDataType or '
+          '$SkinTemperatureDeltaSeriesDataType is not supported on iOS '
+          'HealthKit. Use $BodyTemperatureDataType or '
           '$SleepingWristTemperatureDataType instead.',
         );
       case ElevationGainedDataType _:

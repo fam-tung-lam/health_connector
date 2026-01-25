@@ -614,7 +614,7 @@ enum class HealthDataTypeDto(val raw: Int) {
   /** Steps cadence series record data. */
   STEPS_CADENCE_SERIES_RECORD(39),
   /** Skin temperature delta series record data. */
-  SKIN_TEMPERATURE(40);
+  SKIN_TEMPERATURE_DELTA_SERIES(40);
 
   companion object {
     fun ofRaw(raw: Int): HealthDataTypeDto? {

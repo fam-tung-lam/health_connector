@@ -156,7 +156,7 @@ class HealthDataTypeMapperTest {
                 CyclingPedalingCadenceRecord::class,
             ),
             Arguments.of(
-                HealthDataTypeDto.SKIN_TEMPERATURE,
+                HealthDataTypeDto.SKIN_TEMPERATURE_DELTA_SERIES,
                 SkinTemperatureRecord::class,
             ),
         )

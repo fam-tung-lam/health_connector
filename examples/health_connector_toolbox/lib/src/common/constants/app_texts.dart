@@ -94,7 +94,7 @@ abstract final class AppTexts {
       BodyTemperatureDataType() => bodyTemperature,
       BasalBodyTemperatureDataType() => basalBodyTemperature,
       SleepingWristTemperatureDataType() => sleepingWristTemperature,
-      SkinTemperatureDataType() => 'Skin Temperature',
+      SkinTemperatureDeltaSeriesDataType() => 'Skin Temperature Delta Series',
       CervicalMucusDataType() => cervicalMucus,
       BloodPressureDataType() => bloodPressure,
       SystolicBloodPressureDataType() => systolic,

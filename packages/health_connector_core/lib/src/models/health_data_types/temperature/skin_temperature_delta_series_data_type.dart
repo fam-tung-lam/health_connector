@@ -25,7 +25,7 @@ part of '../health_data_type.dart';
 @sinceV3_6_0
 @supportedOnHealthConnect
 @immutable
-final class SkinTemperatureDataType
+final class SkinTemperatureDeltaSeriesDataType
     extends HealthDataType<SkinTemperatureDeltaSeriesRecord, Temperature>
     implements
         ReadableByIdHealthDataType<SkinTemperatureDeltaSeriesRecord>,
@@ -41,7 +41,7 @@ final class SkinTemperatureDataType
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const SkinTemperatureDataType();
+  const SkinTemperatureDeltaSeriesDataType();
 
   @override
   String get id => 'skin_temperature';
@@ -49,7 +49,8 @@ final class SkinTemperatureDataType
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SkinTemperatureDataType && runtimeType == other.runtimeType;
+      other is SkinTemperatureDeltaSeriesDataType &&
+          runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;

@@ -621,7 +621,7 @@ enum HealthDataTypeDto {
   stepsCadenceSeriesRecord,
 
   /// Skin temperature delta series record data.
-  skinTemperature,
+  skinTemperatureDeltaSeries,
 }
 
 /// Represents a blood glucose record for platform transfer.

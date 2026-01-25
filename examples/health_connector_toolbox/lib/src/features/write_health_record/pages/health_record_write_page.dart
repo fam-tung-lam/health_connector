@@ -529,10 +529,11 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      SkinTemperatureDataType _ => SkinTemperatureDeltaSeriesWriteForm(
-        healthPlatform: _notifier.healthPlatform,
-        onSubmit: _onSubmit,
-      ),
+      SkinTemperatureDeltaSeriesDataType _ =>
+        SkinTemperatureDeltaSeriesWriteForm(
+          healthPlatform: _notifier.healthPlatform,
+          onSubmit: _onSubmit,
+        ),
       SleepSessionDataType _ => SleepSessionWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,

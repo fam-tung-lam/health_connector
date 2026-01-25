@@ -25,7 +25,7 @@ internal class SkinTemperatureDeltaSeriesHandler(
     DeletableHealthRecordHandler,
     HealthConnectAggregatableHealthRecordHandler {
 
-    override val dataType = HealthDataTypeDto.SKIN_TEMPERATURE
+    override val dataType = HealthDataTypeDto.SKIN_TEMPERATURE_DELTA_SERIES
 
     override val tag = "SkinTemperatureDeltaSeriesHandler"
 
