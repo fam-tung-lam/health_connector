@@ -13,7 +13,8 @@ void main() {
         'HeadphoneAudioExposureRecordToDto',
         () {
           test(
-            'converts HeadphoneAudioExposureRecord to HeadphoneAudioExposureRecordDto',
+            'converts HeadphoneAudioExposureRecord to '
+            'HeadphoneAudioExposureRecordDto',
             () {
               final time = FakeData.fakeTime;
 
@@ -53,7 +54,8 @@ void main() {
         'HeadphoneAudioExposureRecordDtoToDomain',
         () {
           test(
-            'converts HeadphoneAudioExposureRecordDto to HeadphoneAudioExposureRecord',
+            'converts HeadphoneAudioExposureRecordDto to '
+            'HeadphoneAudioExposureRecord',
             () {
               final time = FakeData.fakeTime;
 

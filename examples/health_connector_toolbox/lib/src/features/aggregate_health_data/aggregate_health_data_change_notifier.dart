@@ -505,6 +505,13 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      BasalMetabolicRateDataType() => _buildSum(
+        () => HealthDataType.basalMetabolicRate.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       TotalEnergyBurnedDataType() => _buildSum(
         () => HealthDataType.totalEnergyBurned.aggregateSum(
           startTime: startTime,

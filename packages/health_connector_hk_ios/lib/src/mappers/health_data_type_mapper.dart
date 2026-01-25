@@ -279,6 +279,11 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.bloodAlcoholContent;
       case BasalEnergyBurnedDataType _:
         return HealthDataTypeDto.basalEnergyBurned;
+      case BasalMetabolicRateDataType _:
+        throw UnsupportedError(
+          '$BasalMetabolicRateDataType is not supported on iOS HealthKit. '
+          'This data type is only available on Android Health Connect.',
+        );
       case FloorsClimbedDataType _:
         return HealthDataTypeDto.floorsClimbed;
       case HeightDataType _:

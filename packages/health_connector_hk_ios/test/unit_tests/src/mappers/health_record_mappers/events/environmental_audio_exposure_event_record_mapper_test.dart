@@ -12,7 +12,8 @@ void main() {
         'EnvironmentalAudioExposureEventRecordDtoToDomain',
         () {
           test(
-            'converts EnvironmentalAudioExposureEventRecordDto to EnvironmentalAudioExposureEventRecord',
+            'converts EnvironmentalAudioExposureEventRecordDto to '
+            'EnvironmentalAudioExposureEventRecord',
             () {
               final time = FakeData.fakeTime;
 
@@ -52,7 +53,8 @@ void main() {
           );
 
           test(
-            'converts EnvironmentalAudioExposureEventRecordDto with null aWeightedDecibel to EnvironmentalAudioExposureEventRecord',
+            'converts EnvironmentalAudioExposureEventRecordDto with '
+            'null aWeightedDecibel to EnvironmentalAudioExposureEventRecord',
             () {
               final time = FakeData.fakeTime;
 
@@ -72,7 +74,6 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                aWeightedDecibel: null,
               );
 
               final record = dto.toDomain();

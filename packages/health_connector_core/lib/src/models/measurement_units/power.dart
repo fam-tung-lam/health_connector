@@ -39,6 +39,25 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
   /// ```
   const Power.kilowatts(double value) : _watts = value * _wattsPerKilowatt;
 
+  /// Creates a power value from kilocalories per day.
+  ///
+  /// This is used for basal metabolic rate (BMR) measurements, which represent
+  /// the energy a user would burn if at rest all day.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The power value in kilocalories per day.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final power = Power.kilocaloriesPerDay(2000);
+  /// print(power.inKilocaloriesPerDay); // 2000.0
+  /// ```
+  @sinceV3_6_0
+  const Power.kilocaloriesPerDay(double value)
+    : _watts = value * _wattsPerKilocaloriePerDay;
+
   /// A power of zero watts.
   static const Power zero = Power._(0.0);
 
@@ -47,6 +66,11 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
 
   /// Conversion factor from watts to kilowatts.
   static const double _wattsPerKilowatt = 1000;
+
+  /// Conversion factor from kilocalories per day to watts.
+  ///
+  /// 1 kcal/day = 1 kcal / 86400 s = 4184 J / 86400 s ≈ 0.0484259259 W
+  static const double _wattsPerKilocaloriePerDay = 4184 / 86400;
 
   /// The power value stored in watts (base unit).
   final double _watts;
@@ -70,6 +94,19 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
   /// print(power.inKilowatts); // 0.25
   /// ```
   double get inKilowatts => _watts / _wattsPerKilowatt;
+
+  /// Returns the power in kilocalories per day.
+  ///
+  /// This is used for basal metabolic rate (BMR) measurements.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final power = Power.kilocaloriesPerDay(2000);
+  /// print(power.inKilocaloriesPerDay); // 2000.0
+  /// ```
+  @sinceV3_6_0
+  double get inKilocaloriesPerDay => _watts / _wattsPerKilocaloriePerDay;
 
   /// Adds two power values together.
   Power operator +(Power other) => Power._(_watts + other._watts);

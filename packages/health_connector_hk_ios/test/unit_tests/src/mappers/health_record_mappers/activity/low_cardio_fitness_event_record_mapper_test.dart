@@ -12,7 +12,8 @@ void main() {
         'LowCardioFitnessEventRecordDtoToDomain',
         () {
           test(
-            'converts LowCardioFitnessEventRecordDto to LowCardioFitnessEventRecord',
+            'converts LowCardioFitnessEventRecordDto to '
+            'LowCardioFitnessEventRecord',
             () {
               final time = FakeData.fakeTime;
 
@@ -54,7 +55,8 @@ void main() {
           );
 
           test(
-            'converts LowCardioFitnessEventRecordDto with null values to LowCardioFitnessEventRecord',
+            'converts LowCardioFitnessEventRecordDto with null values to '
+            'LowCardioFitnessEventRecord',
             () {
               final time = FakeData.fakeTime;
 
@@ -74,8 +76,6 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                vo2MlPerMinPerKg: null,
-                vo2MlPerMinPerKgThreshold: null,
               );
 
               final record = dto.toDomain();

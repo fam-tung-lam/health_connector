@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android.mappers
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.ActivityIntensityRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
+import androidx.health.connect.client.records.BasalMetabolicRateRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
@@ -50,6 +51,7 @@ import kotlin.reflect.KClass
  */
 internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> = when (this) {
     HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> ActiveCaloriesBurnedRecord::class
+    HealthDataTypeDto.BASAL_METABOLIC_RATE -> BasalMetabolicRateRecord::class
     HealthDataTypeDto.DISTANCE -> DistanceRecord::class
     HealthDataTypeDto.ELEVATION_GAINED -> ElevationGainedRecord::class
     HealthDataTypeDto.FLOORS_CLIMBED -> FloorsClimbedRecord::class

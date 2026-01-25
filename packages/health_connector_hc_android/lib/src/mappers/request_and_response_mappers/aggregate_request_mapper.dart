@@ -135,6 +135,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case MindfulnessSessionDataType _:
           case TotalEnergyBurnedDataType _:
           case BasalEnergyBurnedDataType _:
+          case BasalMetabolicRateDataType _:
           case BasalBodyTemperatureDataType _:
           case SleepingWristTemperatureDataType _:
           case BoneMassDataType _:

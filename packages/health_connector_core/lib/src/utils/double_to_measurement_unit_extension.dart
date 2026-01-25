@@ -21,6 +21,7 @@ extension DoubleToMeasurementUnit on double {
       // Energy
       case ActiveEnergyBurnedDataType _:
       case BasalEnergyBurnedDataType _:
+      case BasalMetabolicRateDataType _:
       case DietaryEnergyConsumedDataType _:
       case TotalEnergyBurnedDataType _:
         return Energy.kilocalories(this);

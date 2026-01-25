@@ -4,6 +4,7 @@ import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.ActivityIntensityRecord
 import androidx.health.connect.client.records.BasalBodyTemperatureRecord
+import androidx.health.connect.client.records.BasalMetabolicRateRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
@@ -100,6 +101,18 @@ private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (hea
 
             PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
                 TotalCaloriesBurnedRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.BASAL_METABOLIC_RATE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                BasalMetabolicRateRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                BasalMetabolicRateRecord::class,
             )
         }
     }

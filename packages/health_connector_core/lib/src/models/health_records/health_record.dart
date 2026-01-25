@@ -49,6 +49,7 @@ part 'distance/wheelchair_distance_record.dart';
 part 'elevation_gained_record.dart';
 part 'energy_burned/active_energy_burned_record.dart';
 part 'energy_burned/basal_energy_burned_record.dart';
+part 'energy_burned/basal_metabolic_rate_record.dart';
 part 'energy_burned/total_energy_burned_record.dart';
 part 'exercise/exercise_session_record.dart';
 part 'exercise/exercise_type.dart';

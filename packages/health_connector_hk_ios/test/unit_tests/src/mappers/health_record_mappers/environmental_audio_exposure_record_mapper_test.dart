@@ -13,7 +13,8 @@ void main() {
         'EnvironmentalAudioExposureRecordToDto',
         () {
           test(
-            'converts EnvironmentalAudioExposureRecord to EnvironmentalAudioExposureRecordDto',
+            'converts EnvironmentalAudioExposureRecord to '
+            'EnvironmentalAudioExposureRecordDto',
             () {
               final time = FakeData.fakeTime;
 
@@ -53,7 +54,8 @@ void main() {
         'EnvironmentalAudioExposureRecordDtoToDomain',
         () {
           test(
-            'converts EnvironmentalAudioExposureRecordDto to EnvironmentalAudioExposureRecord',
+            'converts EnvironmentalAudioExposureRecordDto to '
+            'EnvironmentalAudioExposureRecord',
             () {
               final time = FakeData.fakeTime;
 

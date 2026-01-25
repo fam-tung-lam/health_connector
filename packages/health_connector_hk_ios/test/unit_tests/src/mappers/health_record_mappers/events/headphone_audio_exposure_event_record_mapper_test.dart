@@ -12,7 +12,8 @@ void main() {
         'HeadphoneAudioExposureEventRecordDtoToDomain',
         () {
           test(
-            'converts HeadphoneAudioExposureEventRecordDto to HeadphoneAudioExposureEventRecord',
+            'converts HeadphoneAudioExposureEventRecordDto to '
+            'HeadphoneAudioExposureEventRecord',
             () {
               final time = FakeData.fakeTime;
 

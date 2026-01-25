@@ -9,6 +9,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cy
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/elevation_gained_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/active_energy_burned_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/basal_metabolic_rate_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/total_energy_burned_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
@@ -41,6 +42,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
     show
         ActiveEnergyBurnedRecordDto,
         ActivityIntensityRecordDto,
+        BasalMetabolicRateRecordDto,
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
         BodyTemperatureRecordDto,
@@ -133,6 +135,8 @@ extension HealthRecordToDto on HealthRecord {
     switch (this) {
       case final ActiveEnergyBurnedRecord record:
         return ActiveEnergyBurnedRecordToDto(record).toDto();
+      case final BasalMetabolicRateRecord record:
+        return BasalMetabolicRateRecordToDto(record).toDto();
       case final ActivityIntensityRecord record:
         return ActivityIntensityRecordToDto(record).toDto();
       case final DistanceRecord record:
@@ -703,6 +707,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
     switch (this) {
       case final ActiveEnergyBurnedRecordDto dto:
         return ActiveEnergyBurnedRecordDtoToDomain(dto).toDomain();
+      case final BasalMetabolicRateRecordDto dto:
+        return BasalMetabolicRateRecordDtoToDomain(dto).toDomain();
       case final ActivityIntensityRecordDto dto:
         return ActivityIntensityRecordDtoToDomain(dto).toDomain();
       case final DistanceRecordDto dto:

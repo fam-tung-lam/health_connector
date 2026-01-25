@@ -113,6 +113,7 @@ abstract final class AppTexts {
       AlcoholicBeveragesDataType() => alcoholicBeverages,
       BloodAlcoholContentDataType() => bloodAlcoholContent,
       BasalEnergyBurnedDataType() => basalEnergyBurned,
+      BasalMetabolicRateDataType() => 'Basal Metabolic Rate',
       TotalEnergyBurnedDataType() => totalEnergyBurned,
       FloorsClimbedDataType() => floorsClimbed,
       ElevationGainedDataType() => elevationGained,

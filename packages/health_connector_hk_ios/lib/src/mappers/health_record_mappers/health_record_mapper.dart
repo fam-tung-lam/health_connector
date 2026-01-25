@@ -353,7 +353,11 @@ extension HealthRecordToDto on HealthRecord {
       case final HeadphoneAudioExposureRecord record:
         return HeadphoneAudioExposureRecordToDto(record).toDto();
 
-      // Not supported data types
+      // region Not supported data types
+      case final BasalMetabolicRateRecord _:
+        throw UnsupportedError(
+          '$BasalMetabolicRateRecord is not supported on iOS HealthKit.',
+        );
       case final HeartRateSeriesRecord _:
         throw UnsupportedError(
           '$HeartRateSeriesRecord is not supported on iOS HealthKit. '
@@ -419,7 +423,10 @@ extension HealthRecordToDto on HealthRecord {
           '$ActivityIntensityRecord is not supported on iOS HealthKit.',
         );
 
-      // Read-only data types
+      // endregion
+
+      // region Read-only data types
+
       case final ExerciseTimeRecord _:
         throw UnsupportedError('$ExerciseTimeRecord is read-only data type.');
       case final MoveTimeRecord _:
@@ -493,6 +500,8 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$WalkingHeartRateAverageRecord is read-only data type.',
         );
+
+      // endregion
     }
   }
 }

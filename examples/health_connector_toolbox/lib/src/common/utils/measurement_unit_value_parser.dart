@@ -124,8 +124,11 @@ abstract class MeasurementUnitValueParser {
       StairAscentSpeedDataType() ||
       StairDescentSpeedDataType() => _parseVelocity(value),
 
-      // Power
+      // Power (watts)
       CyclingPowerDataType() || RunningPowerDataType() => _parsePower(value),
+
+      // Power (kilocalories per day for BMR)
+      BasalMetabolicRateDataType() => _parsePowerKilocaloriesPerDay(value),
 
       // Respiratory Rate
       RespiratoryRateDataType() => _parseFrequency(value),
@@ -437,6 +440,18 @@ abstract class MeasurementUnitValueParser {
       throw const FormatException('Power must be positive');
     }
     return Power.watts(watts);
+  }
+
+  /// Parse power value in kilocalories per day (for basal metabolic rate).
+  static Power _parsePowerKilocaloriesPerDay(String value) {
+    final kcalPerDay = double.tryParse(value);
+    if (kcalPerDay == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (kcalPerDay < 0) {
+      throw const FormatException('Basal metabolic rate must be non-negative');
+    }
+    return Power.kilocaloriesPerDay(kcalPerDay);
   }
 
   /// Parse double number value.

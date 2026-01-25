@@ -6,6 +6,7 @@ import com.phamtunglam.health_connector_hc_android.DispatcherProvider
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActivityIntensityHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BasalBodyTemperatureHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BasalMetabolicRateHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodGlucoseHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodPressureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyFatPercentageHandler
@@ -118,6 +119,12 @@ internal class HealthRecordHandlerRegistry(
             )
             register(
                 TotalEnergyBurnedHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                BasalMetabolicRateHandler(
                     dispatcher = dispatchers.io,
                     client = client,
                 ),

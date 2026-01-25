@@ -796,6 +796,15 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.energy,
           onDelete: onDelete,
         ),
+      final BasalMetabolicRateRecord r =>
+        SimpleInstantMeasurementListTile<BasalMetabolicRateRecord>(
+          record: r,
+          icon: AppIcons.localFireDepartment,
+          titleBuilder: (r) =>
+              '${r.rate.inKilocaloriesPerDay.toStringAsFixed(0)} kcal/day (BMR)',
+          valueExtractor: (r) => r.rate,
+          onDelete: onDelete,
+        ),
       final ActivityIntensityRecord r =>
         SimpleIntervalMeasurementListTile<ActivityIntensityRecord>(
           record: r,

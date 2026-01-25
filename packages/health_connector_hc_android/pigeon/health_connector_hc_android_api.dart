@@ -587,6 +587,9 @@ enum HealthDataTypeDto {
   /// Total energy burned data.
   totalCaloriesBurned,
 
+  /// Basal metabolic rate data.
+  basalMetabolicRate,
+
   /// Bone mass data.
   boneMass,
 
@@ -1961,6 +1964,32 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
 
   /// Energy burned.
   final double kilocalories;
+}
+
+/// Represents a basal metabolic rate record for platform transfer.
+class BasalMetabolicRateRecordDto extends HealthRecordDto {
+  BasalMetabolicRateRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.kilocaloriesPerDay,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for measurement time.
+  final int? zoneOffsetSeconds;
+
+  /// Basal metabolic rate in kilocalories per day.
+  final double kilocaloriesPerDay;
 }
 
 /// Represents a bone mass record for platform transfer.

@@ -47,6 +47,7 @@ part 'headphone_audio_exposure_data_type.dart';
 part 'elevation_gained_data_type.dart';
 part 'energy_burned/active_energy_burned_data_type.dart';
 part 'energy_burned/basal_energy_burned_data_type.dart';
+part 'energy_burned/basal_metabolic_rate_data_type.dart';
 part 'energy_burned/total_energy_burned_data_type.dart';
 part 'events/high_heart_rate_event_data_type.dart';
 part 'events/environmental_audio_exposure_event_data_type.dart';
@@ -1086,6 +1087,19 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const basalEnergyBurned = BasalEnergyBurnedDataType();
 
+  /// Basal metabolic rate data type.
+  ///
+  /// Represents the BMR of a user. Each record represents the energy a user
+  /// would burn if at rest all day, based on their height and weight.
+  ///
+  /// ## Platform Mapping
+  ///
+  /// - **Android Health Connect**: [`BasalMetabolicRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BasalMetabolicRateRecord)
+  /// - **iOS HealthKit**: Not supported
+  @sinceV3_6_0
+  @supportedOnHealthConnect
+  static const basalMetabolicRate = BasalMetabolicRateDataType();
+
   /// Caffeine data type.
   ///
   /// Represents caffeine intake.
@@ -1303,6 +1317,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     walkingSteadiness,
     basalBodyTemperature,
     basalEnergyBurned,
+    basalMetabolicRate,
     dietaryBiotin,
     dietaryCaffeine,
     dietaryCalcium,

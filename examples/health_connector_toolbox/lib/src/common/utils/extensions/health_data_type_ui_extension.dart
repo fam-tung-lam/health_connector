@@ -37,6 +37,7 @@ extension HealthDataTypeUI on HealthDataType {
       AlcoholicBeveragesDataType _ => AppTexts.alcoholicBeverages,
       BloodAlcoholContentDataType _ => AppTexts.bloodAlcoholContent,
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurned,
+      BasalMetabolicRateDataType _ => 'Basal Metabolic Rate',
       TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurned,
       FloorsClimbedDataType _ => AppTexts.floorsClimbed,
       ElevationGainedDataType _ => AppTexts.elevationGained,
@@ -196,6 +197,8 @@ extension HealthDataTypeUI on HealthDataType {
       AlcoholicBeveragesDataType _ => AppTexts.alcoholicBeveragesDescription,
       BloodAlcoholContentDataType _ => AppTexts.bloodAlcoholContentDescription,
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurnedDescription,
+      BasalMetabolicRateDataType _ =>
+        'Basal metabolic rate (BMR) in kilocalories per day (Android only)',
       TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurnedDescription,
       FloorsClimbedDataType _ => AppTexts.floorsClimbedDescription,
       ElevationGainedDataType _ => 'Accumulated elevation gain',
@@ -378,6 +381,7 @@ extension HealthDataTypeUI on HealthDataType {
       AlcoholicBeveragesDataType _ => Icons.local_bar,
       BloodAlcoholContentDataType _ => Icons.bloodtype,
       BasalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
+      BasalMetabolicRateDataType _ => AppIcons.localFireDepartment,
       TotalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
       FloorsClimbedDataType _ => AppIcons.stairs,
       ElevationGainedDataType _ => AppIcons.terrain,
@@ -761,6 +765,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.activeEnergyBurned,
         AppTexts.kilocalories,
       ),
+      const (BasalMetabolicRateDataType) => AppTexts.withUnit(
+        'Basal Metabolic Rate',
+        'kcal/day',
+      ),
       const (DietaryEnergyConsumedDataType) => AppTexts.withUnit(
         AppTexts.energy,
         AppTexts.kilocalories,
@@ -1010,6 +1018,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
 
       // Power
       const (CyclingPowerDataType) || const (RunningPowerDataType) => 'W',
+      const (BasalMetabolicRateDataType) => 'kcal/day',
 
       // Insulin
       const (InsulinDeliveryDataType) => 'IU',
@@ -1143,6 +1152,9 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (RunningPowerDataType) => AppTexts.getPleaseEnterText(
         AppTexts.runningPower,
+      ),
+      const (BasalMetabolicRateDataType) => AppTexts.getPleaseEnterText(
+        'Basal Metabolic Rate',
       ),
       const (ActiveEnergyBurnedDataType) => AppTexts.getPleaseEnterText(
         AppTexts.activeEnergyBurned,
