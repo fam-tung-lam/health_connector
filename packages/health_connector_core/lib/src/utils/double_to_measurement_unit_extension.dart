@@ -138,6 +138,7 @@ extension DoubleToMeasurementUnit on double {
 
       // Temperature
       case SleepingWristTemperatureDataType _:
+      case SkinTemperatureDataType _:
         return Temperature.celsius(this);
 
       // TimeDuration

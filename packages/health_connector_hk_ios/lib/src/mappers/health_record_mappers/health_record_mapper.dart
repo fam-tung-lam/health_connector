@@ -354,9 +354,16 @@ extension HealthRecordToDto on HealthRecord {
         return HeadphoneAudioExposureRecordToDto(record).toDto();
 
       // region Not supported data types
+      case SkinTemperatureDeltaSeriesRecord _:
+        throw UnsupportedError(
+          '$SkinTemperatureDeltaSeriesRecord is not supported on '
+          'iOS HealthKit. Use $BodyTemperatureRecord or '
+          '$SleepingWristTemperatureRecord instead.',
+        );
       case final BasalMetabolicRateRecord _:
         throw UnsupportedError(
-          '$BasalMetabolicRateRecord is not supported on iOS HealthKit.',
+          '$BasalMetabolicRateRecord is not supported on iOS HealthKit. '
+          'Use $BasalEnergyBurnedRecord instead.',
         );
       case final HeartRateSeriesRecord _:
         throw UnsupportedError(

@@ -167,6 +167,8 @@ part 'steps_record.dart';
 part 'swimming_strokes_record.dart';
 part 'temperature/basal_body_temperature_record.dart';
 part 'temperature/body_temperature_record.dart';
+part 'temperature/skin_temperature_delta_series_record.dart';
+part 'temperature/skin_temperature_measurement_location.dart';
 part 'temperature/sleeping_wrist_temperature_record.dart';
 part 'vo2_max_record.dart';
 part 'waist_circumference_record.dart';

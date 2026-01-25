@@ -149,6 +149,7 @@ part 'steps_data_type.dart';
 part 'swimming_strokes_data_type.dart';
 part 'temperature/basal_body_temperature_data_type.dart';
 part 'temperature/body_temperature_data_type.dart';
+part 'temperature/skin_temperature_data_type.dart';
 part 'temperature/sleeping_wrist_temperature_data_type.dart';
 part 'time/exercise_time_data_type.dart';
 part 'time/move_time_data_type.dart';
@@ -446,6 +447,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// tracking and menstrual cycle monitoring.
   @sinceV2_2_0
   static const basalBodyTemperature = BasalBodyTemperatureDataType();
+
+  /// Skin temperature data type.
+  ///
+  /// Represents skin temperature measurements as a series of temperature
+  /// deltas. Each record can represent a series of measurements of temperature
+  /// differences.
+  @sinceV3_6_0
+  @supportedOnHealthConnect
+  static const skinTemperature = SkinTemperatureDataType();
 
   /// Bone mass data type.
   ///
@@ -1420,6 +1430,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     sixMinuteWalkTestDistance,
     skatingSportsDistance,
     sleepingWristTemperature,
+    skinTemperature,
     sleepSession,
     sleepStageRecord,
     speedSeries,

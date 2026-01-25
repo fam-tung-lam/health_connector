@@ -279,11 +279,6 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.bloodAlcoholContent;
       case BasalEnergyBurnedDataType _:
         return HealthDataTypeDto.basalEnergyBurned;
-      case BasalMetabolicRateDataType _:
-        throw UnsupportedError(
-          '$BasalMetabolicRateDataType is not supported on iOS HealthKit. '
-          'This data type is only available on Android Health Connect.',
-        );
       case FloorsClimbedDataType _:
         return HealthDataTypeDto.floorsClimbed;
       case HeightDataType _:
@@ -526,7 +521,17 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.headphoneAudioExposureEvent;
 
       // Region Unsupported data types
-
+      case BasalMetabolicRateDataType _:
+        throw UnsupportedError(
+          '$BasalMetabolicRateDataType is not supported on iOS HealthKit. '
+          'Use $BasalEnergyBurnedDataType instead.',
+        );
+      case SkinTemperatureDataType _:
+        throw UnsupportedError(
+          '$SkinTemperatureDataType is not supported on iOS HealthKit. '
+          'Use $BodyTemperatureDataType or '
+          '$SleepingWristTemperatureDataType instead.',
+        );
       case ElevationGainedDataType _:
         throw UnsupportedError(
           '$ElevationGainedDataType is not supported on iOS '

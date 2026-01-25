@@ -55,6 +55,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/cycling_pedaling_cadence_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/heart_rate_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/power_series_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/skin_temperature_delta_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/speed_activity_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/speed_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/steps_cadence_series_list_tile.dart';
@@ -342,6 +343,13 @@ final class HealthRecordListTile extends StatelessWidget {
         record: r,
         onDelete: onDelete,
       ),
+
+      // Skin temperature records
+      final SkinTemperatureDeltaSeriesRecord r =>
+        SkinTemperatureDeltaSeriesTile(
+          record: r,
+          onDelete: onDelete,
+        ),
       final CyclingPowerRecord r => SimpleInstantMeasurementListTile(
         record: r,
         icon: AppIcons.power,

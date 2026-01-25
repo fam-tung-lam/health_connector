@@ -21,6 +21,7 @@ extension HealthDataTypeUI on HealthDataType {
       BodyTemperatureDataType _ => AppTexts.bodyTemperature,
       BasalBodyTemperatureDataType _ => AppTexts.basalBodyTemperature,
       SleepingWristTemperatureDataType _ => 'Sleeping Wrist Temperature',
+      SkinTemperatureDataType _ => 'Skin Temperature',
       DistanceDataType _ => AppTexts.distance,
       CrossCountrySkiingDistanceDataType _ => AppTexts.crossCountrySkiing,
       CyclingDistanceDataType _ => AppTexts.cyclingDistance,
@@ -180,6 +181,8 @@ extension HealthDataTypeUI on HealthDataType {
       BodyTemperatureDataType _ => AppTexts.bodyTemperatureDescription,
       BasalBodyTemperatureDataType _ =>
         AppTexts.basalBodyTemperatureDescription,
+      SkinTemperatureDataType _ =>
+        'Skin temperature delta measurements over time (Android only)',
       SleepingWristTemperatureDataType _ =>
         'Temperature measured while sleeping (iOS only)',
       DistanceDataType _ => AppTexts.distanceDescription,
@@ -366,6 +369,7 @@ extension HealthDataTypeUI on HealthDataType {
       BodyTemperatureDataType _ => AppIcons.temperature,
       BasalBodyTemperatureDataType _ => AppIcons.temperature,
       SleepingWristTemperatureDataType _ => AppIcons.temperature,
+      SkinTemperatureDataType _ => AppIcons.temperature,
       DistanceDataType _ => AppIcons.straighten,
       CrossCountrySkiingDistanceDataType _ => AppIcons.straighten,
       CyclingDistanceDataType _ => AppIcons.straighten,

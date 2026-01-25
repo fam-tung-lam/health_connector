@@ -35,6 +35,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/st
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/basal_body_temperature_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/body_temperature_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/skin_temperature_delta_series_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/vo2_max_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/weight_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/wheelchair_pushes_record_mapper.dart';
@@ -79,7 +80,8 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         TotalEnergyBurnedRecordDto,
         SpeedSeriesRecordDto,
         StepsCadenceSeriesRecordDto,
-        ElevationGainedRecordDto;
+        ElevationGainedRecordDto,
+        SkinTemperatureDeltaSeriesRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// ## ⚠️ CRITICAL: Infinite Recursion Prevention
@@ -211,6 +213,8 @@ extension HealthRecordToDto on HealthRecord {
         return PowerSeriesRecordToDto(record).toDto();
       case final SpeedSeriesRecord record:
         return SpeedSeriesRecordToDto(record).toDto();
+      case final SkinTemperatureDeltaSeriesRecord record:
+        return SkinTemperatureDeltaSeriesRecordToDto(record).toDto();
 
       // region Unsupported records
       case SleepingWristTemperatureRecord():
@@ -775,6 +779,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return PowerSeriesRecordDtoToDomain(dto).toDomain();
       case final SpeedSeriesRecordDto dto:
         return SpeedSeriesRecordDtoToDomain(dto).toDomain();
+      case final SkinTemperatureDeltaSeriesRecordDto dto:
+        return SkinTemperatureDeltaSeriesRecordDtoToDomain(dto).toDomain();
       case final TotalEnergyBurnedRecordDto dto:
         return TotalEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final BoneMassRecordDto dto:

@@ -32,6 +32,7 @@ import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SexualActivityRecord
+import androidx.health.connect.client.records.SkinTemperatureRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsCadenceRecord
@@ -548,6 +549,18 @@ private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (hea
             )
         }
     }
+
+    HealthDataTypeDto.SKIN_TEMPERATURE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                SkinTemperatureRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                SkinTemperatureRecord::class,
+            )
+        }
+    }
 }
 
 /**
@@ -637,6 +650,7 @@ private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
         "BODY_WATER_MASS" -> HealthDataTypeDto.BODY_WATER_MASS
         "HEART_RATE_VARIABILITY" -> HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
         "ACTIVITY_INTENSITY" -> HealthDataTypeDto.ACTIVITY_INTENSITY
+        "SKIN_TEMPERATURE" -> HealthDataTypeDto.SKIN_TEMPERATURE
         else -> throw IllegalArgumentException(
             "Invalid/unsupported/unimplemented Health Connect data type: $dataTypeStr.",
         )

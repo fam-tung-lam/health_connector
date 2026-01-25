@@ -34,6 +34,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.RespiratoryRateHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.RestingHeartRateHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SexualActivityHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SkinTemperatureDeltaSeriesHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SleepSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SpeedSeriesHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsCadenceSeriesHandler
@@ -287,6 +288,12 @@ internal class HealthRecordHandlerRegistry(
             )
             register(
                 ActivityIntensityHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                SkinTemperatureDeltaSeriesHandler(
                     dispatcher = dispatchers.io,
                     client = client,
                 ),

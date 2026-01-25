@@ -32,6 +32,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SkinTemperatureDeltaSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsCadenceSeriesRecordDto
@@ -93,4 +94,5 @@ internal val HealthRecordDto.id: String?
         is BoneMassRecordDto -> id
         is BodyWaterMassRecordDto -> id
         is HeartRateVariabilityRMSSDRecordDto -> id
+        is SkinTemperatureDeltaSeriesRecordDto -> id
     }

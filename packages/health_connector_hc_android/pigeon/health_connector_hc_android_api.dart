@@ -228,6 +228,21 @@ enum BasalBodyTemperatureMeasurementLocationDto {
   wrist,
 }
 
+/// Represents the measurement location for a skin temperature reading.
+enum SkinTemperatureMeasurementLocationDto {
+  /// Unknown measurement location (default).
+  unknown,
+
+  /// Finger measurement.
+  finger,
+
+  /// Toe measurement.
+  toe,
+
+  /// Wrist measurement.
+  wrist,
+}
+
 /// Menstrual flow intensity classification.
 enum MenstrualFlowDto {
   /// Flow is unknown or unspecified.
@@ -601,6 +616,9 @@ enum HealthDataTypeDto {
 
   /// Steps cadence series record data.
   stepsCadenceSeriesRecord,
+
+  /// Skin temperature delta series record data.
+  skinTemperature,
 }
 
 /// Represents a blood glucose record for platform transfer.
@@ -1532,6 +1550,64 @@ class PowerSeriesRecordDto extends HealthRecordDto {
 
   /// List of power measurements within this time interval.
   final List<PowerSampleDto> samples;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a single skin temperature delta measurement within a
+/// [SkinTemperatureDeltaSeriesRecordDto].
+class SkinTemperatureDeltaSampleDto {
+  SkinTemperatureDeltaSampleDto({
+    required this.time,
+    required this.temperatureDeltaCelsius,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Temperature delta measurement in Celsius.
+  final double temperatureDeltaCelsius;
+}
+
+/// Represents a skin temperature delta series record for platform transfer.
+class SkinTemperatureDeltaSeriesRecordDto extends HealthRecordDto {
+  SkinTemperatureDeltaSeriesRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.samples,
+    this.baselineCelsius,
+    this.measurementLocation,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// List of skin temperature delta measurements within this time interval.
+  final List<SkinTemperatureDeltaSampleDto> samples;
+
+  /// Optional baseline temperature in Celsius.
+  final double? baselineCelsius;
+
+  /// Indicates the location on the body from which the temperature
+  /// reading was taken.
+  final SkinTemperatureMeasurementLocationDto? measurementLocation;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;

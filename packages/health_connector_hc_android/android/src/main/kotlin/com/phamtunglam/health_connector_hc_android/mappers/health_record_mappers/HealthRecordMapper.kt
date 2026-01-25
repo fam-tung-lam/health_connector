@@ -32,6 +32,7 @@ import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SexualActivityRecord
+import androidx.health.connect.client.records.SkinTemperatureRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsCadenceRecord
@@ -73,6 +74,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SkinTemperatureDeltaSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsCadenceSeriesRecordDto
@@ -132,6 +134,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is BodyWaterMassRecordDto -> HealthDataTypeDto.BODY_WATER_MASS
         is HeartRateVariabilityRMSSDRecordDto ->
             HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
+        is SkinTemperatureDeltaSeriesRecordDto -> HealthDataTypeDto.SKIN_TEMPERATURE
     }
 
 /**
@@ -180,6 +183,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is BoneMassRecordDto -> toHealthConnect()
     is BodyWaterMassRecordDto -> toHealthConnect()
     is HeartRateVariabilityRMSSDRecordDto -> toHealthConnect()
+    is SkinTemperatureDeltaSeriesRecordDto -> toHealthConnect()
 }
 
 /**
@@ -234,5 +238,6 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is BoneMassRecord -> toDto()
     is BodyWaterMassRecord -> toDto()
     is HeartRateVariabilityRmssdRecord -> toDto()
+    is SkinTemperatureRecord -> toDto()
     else -> throw IllegalArgumentException("Unsupported record type: ${this::class.simpleName}")
 }

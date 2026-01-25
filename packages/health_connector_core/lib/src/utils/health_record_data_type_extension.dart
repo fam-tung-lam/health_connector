@@ -66,6 +66,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       BodyTemperatureRecord _ => HealthDataType.bodyTemperature,
       SleepingWristTemperatureRecord _ =>
         HealthDataType.sleepingWristTemperature,
+      SkinTemperatureDeltaSeriesRecord _ => HealthDataType.skinTemperature,
       CervicalMucusRecord _ => HealthDataType.cervicalMucus,
       ActiveEnergyBurnedRecord _ => HealthDataType.activeEnergyBurned,
       ActivityIntensityRecord _ => HealthDataType.activityIntensity,

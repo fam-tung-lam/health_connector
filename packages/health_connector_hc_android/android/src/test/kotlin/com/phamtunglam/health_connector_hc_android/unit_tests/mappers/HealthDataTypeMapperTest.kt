@@ -30,6 +30,7 @@ import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SexualActivityRecord
+import androidx.health.connect.client.records.SkinTemperatureRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -153,6 +154,10 @@ class HealthDataTypeMapperTest {
             Arguments.of(
                 HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES,
                 CyclingPedalingCadenceRecord::class,
+            ),
+            Arguments.of(
+                HealthDataTypeDto.SKIN_TEMPERATURE,
+                SkinTemperatureRecord::class,
             ),
         )
     }
