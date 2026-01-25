@@ -9,9 +9,15 @@ A unified, type-safe Flutter plugin for accessing health data across Android and
 </p>
 
 <p align="center">
-  <a title="Pub" href="https://pub.dev/packages/health_connector"><img src="https://img.shields.io/pub/v/health_connector.svg?style=popout"/></a>
-  <a title="Pub Points" href="https://pub.dev/packages/health_connector/score"><img src="https://img.shields.io/pub/points/health_connector?color=2E8B57&label=pub%20points"/></a>
-  <a title="License" href="https://github.com/fam-tung-lam/health_connector/blob/main/LICENSE"><img src="https://img.shields.io/github/license/fam-tung-lam/health_connector"/></a>
+  <a title="Pub" href="https://pub.dev/packages/health_connector">
+    <img alt="Pub Dev" src="https://img.shields.io/pub/v/health_connector.svg?style=popout"/>
+  </a>
+  <a title="Pub Points" href="https://pub.dev/packages/health_connector/score">
+    <img alt="Pub Dev Points" src="https://img.shields.io/pub/points/health_connector?color=2E8B57&label=pub%20points"/>
+  </a>
+  <a title="License" href="https://github.com/fam-tung-lam/health_connector/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/fam-tung-lam/health_connector"/>
+  </a>
 </p>
 
 ---
@@ -51,10 +57,10 @@ Health Connector is organized as a monorepo containing multiple packages:
 Contributions are welcome! To contribute:
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Create a feature branch (`git checkout -b feature/amazing-feature`)
+1. Commit your changes (`git commit -m 'Add amazing feature'`)
+1. Push to the branch (`git push origin feature/amazing-feature`)
+1. Open a Pull Request
 
 Before submitting:
 

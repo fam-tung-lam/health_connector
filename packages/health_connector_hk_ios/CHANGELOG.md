@@ -1,22 +1,41 @@
+# Changelog
+
 ## 3.5.0
 
-- **FEAT**: Add support for running stride length and ground contact data types. ([204aa90b](https://github.com/fam-tung-lam/health_connector/commit/204aa90b7c5abc48e722accd4b137e9cf605ef89)) ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**: Add support for heart rate recovery one minute data type. ([6659d324](https://github.com/fam-tung-lam/health_connector/commit/6659d324405690a73938a47c595f7ff85455ac0a)) ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**: Add support for inhaler usage data type. ([85b48b3e](https://github.com/fam-tung-lam/health_connector/commit/85b48b3e444dfc4c0609682fb7214d409b1ec35f)) ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**: Add support for electrodermal activity data type. ([01287c2e](https://github.com/fam-tung-lam/health_connector/commit/01287c2e2ffbb5beaa8a7df327389a7b84b96b20)) ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**: Add support for insulin delivery data type. ([18970e7b](https://github.com/fam-tung-lam/health_connector/commit/18970e7b82ca32a27e1bd5dd42820fb673bcd196)) ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**: Add support for number of times fallen data type. ([1dcfc1ca](https://github.com/fam-tung-lam/health_connector/commit/1dcfc1ca5db255c76b0835e876da526394f4032a)) ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
+- **FEAT**: Add support for running stride length and ground contact data
+  types.
+  ([204aa90b](https://github.com/fam-tung-lam/health_connector/commit/204aa90b7c5abc48e722accd4b137e9cf605ef89))
+  ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
+- **FEAT**: Add support for heart rate recovery one minute data type. ([6659d324](https://github.com/fam-tung-lam/health_connector/commit/6659d324405690a73938a47c595f7ff85455ac0a))
+  ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
+- **FEAT**: Add support for inhaler usage data type. ([85b48b3e](https://github.com/fam-tung-lam/health_connector/commit/85b48b3e444dfc4c0609682fb7214d409b1ec35f))
+  ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
+- **FEAT**: Add support for electrodermal activity data type. ([01287c2e](https://github.com/fam-tung-lam/health_connector/commit/01287c2e2ffbb5beaa8a7df327389a7b84b96b20))
+  ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
+- **FEAT**: Add support for insulin delivery data type. ([18970e7b](https://github.com/fam-tung-lam/health_connector/commit/18970e7b82ca32a27e1bd5dd42820fb673bcd196))
+  ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
+- **FEAT**: Add support for number of times fallen data type. ([1dcfc1ca](https://github.com/fam-tung-lam/health_connector/commit/1dcfc1ca5db255c76b0835e876da526394f4032a))
+  ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
 
 ## 3.4.0
 
-- **FEAT**: Add support for forced expiratory volume data type. ([4abcf879](https://github.com/fam-tung-lam/health_connector/commit/4abcf8791ff0dc6d32f07fab5db55c9550fbdd88))
-- **FEAT**: Add support for walking heart rate average data type. ([bf3d2e26](https://github.com/fam-tung-lam/health_connector/commit/bf3d2e261bf72e4500d27775423bb429a879a41f))
-- **FEAT**: Add support for atrial fibrillation burden data type. ([9c9048c8](https://github.com/fam-tung-lam/health_connector/commit/9c9048c883bdb1d3d72ca931256273ed21391b65))
-- **FEAT**: Add support for prolonged menstrual period event data type. ([419d825c](https://github.com/fam-tung-lam/health_connector/commit/419d825c02e09880f2ba726c76ba33d4790dea49))
-- **FEAT**: Add support for persistent intermenstrual bleeding event data type. ([125df1d2](https://github.com/fam-tung-lam/health_connector/commit/125df1d247ab22c6e447afb7c46cede4d227bd4b))
-- **FEAT**: Add support for irregular menstrual cycle event data type. ([ff15998d](https://github.com/fam-tung-lam/health_connector/commit/ff15998d0c40b7b02fc65cc1cd3e6f7c3e1d6bda))
-- **FEAT**: Add support for infrequent menstrual cycle event data type. ([e4f533fe](https://github.com/fam-tung-lam/health_connector/commit/e4f533fe1709730ad4402d79904cd9564e866380))
-- **FEAT**: Add support for walking steadiness event data types. ([6e140efb](https://github.com/fam-tung-lam/health_connector/commit/6e140efb85d128ce6c36e7054ffc1d592ef4aa02))
+- **FEAT**: Add support for forced expiratory volume data type.
+  ([4abcf879](https://github.com/fam-tung-lam/health_connector/commit/4abcf8791ff0dc6d32f07fab5db55c9550fbdd88))
+- **FEAT**: Add support for walking heart rate average data type.
+  ([bf3d2e26](https://github.com/fam-tung-lam/health_connector/commit/bf3d2e261bf72e4500d27775423bb429a879a41f))
+- **FEAT**: Add support for atrial fibrillation burden data type.
+  ([9c9048c8](https://github.com/fam-tung-lam/health_connector/commit/9c9048c883bdb1d3d72ca931256273ed21391b65))
+- **FEAT**: Add support for prolonged menstrual period event data type.
+  ([419d825c](https://github.com/fam-tung-lam/health_connector/commit/419d825c02e09880f2ba726c76ba33d4790dea49))
+- **FEAT**: Add support for persistent intermenstrual bleeding event data
+  type.
+  ([125df1d2](https://github.com/fam-tung-lam/health_connector/commit/125df1d247ab22c6e447afb7c46cede4d227bd4b))
+- **FEAT**: Add support for irregular menstrual cycle event data type.
+  ([ff15998d](https://github.com/fam-tung-lam/health_connector/commit/ff15998d0c40b7b02fc65cc1cd3e6f7c3e1d6bda))
+- **FEAT**: Add support for infrequent menstrual cycle event data type.
+  ([e4f533fe](https://github.com/fam-tung-lam/health_connector/commit/e4f533fe1709730ad4402d79904cd9564e866380))
+- **FEAT**: Add support for walking steadiness event data types.
+  ([6e140efb](https://github.com/fam-tung-lam/health_connector/commit/6e140efb85d128ce6c36e7054ffc1d592ef4aa02))
 
 ## 3.3.0
 
@@ -28,12 +47,15 @@
 
 - **FEAT**: Add support for sleeping wrist temperature data type. ([db9b4993](https://github.com/fam-tung-lam/health_connector/commit/db9b4993dcfdc16e922e5e96a5628b9aaf1230e9))
 - **FEAT**: Add support for walking step length data type. ([f3f9bfac](https://github.com/fam-tung-lam/health_connector/commit/f3f9bfacb2343c37fa727c577ffe246d8b498866))
-- **FEAT**: Add support for apple walking double support percentage data type. ([fafc83d0](https://github.com/fam-tung-lam/health_connector/commit/fafc83d0b395eb9f979dca28f19e42c16ec79715))
-- **FEAT**: Add support for apple walking asymmetry percentage data type. ([bd6592ea](https://github.com/fam-tung-lam/health_connector/commit/bd6592ea3d8312a1084ada140bbbe979cb8a91e0))
-- **FEAT**: Add support for apple walking steadiness data type. ([11147080](https://github.com/fam-tung-lam/health_connector/commit/11147080babf700748dc495c3929c074074859b9))
-- **FEAT**: Add support for apple stand time data type. ([bd654375](https://github.com/fam-tung-lam/health_connector/commit/bd6543759e179d43efae470e61b4c93576c15447))
-- **FEAT**: Add support for apple move time data type. ([72fa7772](https://github.com/fam-tung-lam/health_connector/commit/72fa7772bf559fe3caf0a75669702ab7be597885))
-- **FEAT**: Add support for apple exercise time data type. ([11bf1067](https://github.com/fam-tung-lam/health_connector/commit/11bf1067b0f2ecbd03a55fff1b41eaed45c82408))
+- **FEAT**: Add support for Apple walking double support percentage data
+  type.
+  ([fafc83d0](https://github.com/fam-tung-lam/health_connector/commit/fafc83d0b395eb9f979dca28f19e42c16ec79715))
+- **FEAT**: Add support for Apple walking asymmetry percentage data type.
+  ([bd6592ea](https://github.com/fam-tung-lam/health_connector/commit/bd6592ea3d8312a1084ada140bbbe979cb8a91e0))
+- **FEAT**: Add support for Apple walking steadiness data type. ([11147080](https://github.com/fam-tung-lam/health_connector/commit/11147080babf700748dc495c3929c074074859b9))
+- **FEAT**: Add support for Apple stand time data type. ([bd654375](https://github.com/fam-tung-lam/health_connector/commit/bd6543759e179d43efae470e61b4c93576c15447))
+- **FEAT**: Add support for Apple move time data type. ([72fa7772](https://github.com/fam-tung-lam/health_connector/commit/72fa7772bf559fe3caf0a75669702ab7be597885))
+- **FEAT**: Add support for Apple exercise time data type. ([11bf1067](https://github.com/fam-tung-lam/health_connector/commit/11bf1067b0f2ecbd03a55fff1b41eaed45c82408))
 
 ## 3.1.0
 
@@ -51,30 +73,57 @@
 
 ## 3.0.1
 
-- **PERF**: Flatten Pigeon DTO to improve communication performance between Flutter and native layers. ([cca96c1d](https://github.com/fam-tung-lam/health_connector/commit/cca96c1da60ecf51f097941c25aeb1c7b00d94cb))
+- **PERF**: Flatten Pigeon DTO to improve communication performance between
+  Flutter and native layers.
+  ([cca96c1d](https://github.com/fam-tung-lam/health_connector/commit/cca96c1da60ecf51f097941c25aeb1c7b00d94cb))
 
 ## 3.0.0
 
 > Note: This release has breaking changes.
 
-- **FIX**: Add missing nutrient and health record DTOs to mappers and extensions. ([c74fdfa5](https://github.com/fam-tung-lam/health_connector/commit/c74fdfa5652cff62c021f2e7b443de6ffd2615ab))
-- **FEAT**: Add incremental sync API. ([b6c8e67b](https://github.com/fam-tung-lam/health_connector/commit/b6c8e67b4055a0168b35ad26a29c553732e24193)) ([966312be](https://github.com/fam-tung-lam/health_connector/commit/966312be8ac848d56224dc85ad404e51e77d896e))
-- **FEAT**: Introduce sorting capability for read-records API. ([c2d82fa1](https://github.com/fam-tung-lam/health_connector/commit/c2d82fa160c0ea4fd4b4d623fadbce1ea731b05f))
-- **BREAKING** **REFACTOR**: Standardize naming conventions across health data models and APIs. ([aa824f72](https://github.com/fam-tung-lam/health_connector/commit/aa824f72c79fc6aac717c40c0dbbf784c2da9136), [ce45f8dc](https://github.com/fam-tung-lam/health_connector/commit/ce45f8dc884305bcddfa38ef1a5b785448fb0b6b), [1ba99856](https://github.com/fam-tung-lam/health_connector/commit/1ba99856a29f11f59fa04548da83d7fdd536ced1), [059c9ea0](https://github.com/fam-tung-lam/health_connector/commit/059c9ea071c9f122e8450f098703ea4b124288db), [399ebbe5](https://github.com/fam-tung-lam/health_connector/commit/399ebbe54f68fc27dd684ba1cf0df7002344a712), [6dd617fa](https://github.com/fam-tung-lam/health_connector/commit/6dd617fa02038900ab6bdcb42b2461b9d5b55c91), [50cbe79b](https://github.com/fam-tung-lam/health_connector/commit/50cbe79baf89d00edaa1de6d7368e0bee17e6818), [d83fc055](https://github.com/fam-tung-lam/health_connector/commit/d83fc055410d7780a33b4c5195a0bef223712062), [371d3679](https://github.com/fam-tung-lam/health_connector/commit/371d367926ffc5807e8aefe57df018ec7c29d63c), [29d9faac](https://github.com/fam-tung-lam/health_connector/commit/29d9faac930b1a4d52390551b45fb4e99f1274c1))
+- **FIX**: Add missing nutrient and health record DTOs to mappers and
+  extensions.
+  ([c74fdfa5](https://github.com/fam-tung-lam/health_connector/commit/c74fdfa5652cff62c021f2e7b443de6ffd2615ab))
+- **FEAT**: Add incremental sync API.
+  ([b6c8e67b](https://github.com/fam-tung-lam/health_connector/commit/b6c8e67b4055a0168b35ad26a29c553732e24193))
+  ([966312be](https://github.com/fam-tung-lam/health_connector/commit/966312be8ac848d56224dc85ad404e51e77d896e))
+- **FEAT**: Introduce sorting capability for read-records API.
+  ([c2d82fa1](https://github.com/fam-tung-lam/health_connector/commit/c2d82fa160c0ea4fd4b4d623fadbce1ea731b05f))
+- **BREAKING** **REFACTOR**: Standardize naming conventions across health
+  data models and APIs.
+  ([aa824f72](https://github.com/fam-tung-lam/health_connector/commit/aa824f72c79fc6aac717c40c0dbbf784c2da9136),
+  [ce45f8dc](https://github.com/fam-tung-lam/health_connector/commit/ce45f8dc884305bcddfa38ef1a5b785448fb0b6b),
+  [1ba99856](https://github.com/fam-tung-lam/health_connector/commit/1ba99856a29f11f59fa04548da83d7fdd536ced1),
+  [059c9ea0](https://github.com/fam-tung-lam/health_connector/commit/059c9ea071c9f122e8450f098703ea4b124288db),
+  [399ebbe5](https://github.com/fam-tung-lam/health_connector/commit/399ebbe54f68fc27dd684ba1cf0df7002344a712),
+  [6dd617fa](https://github.com/fam-tung-lam/health_connector/commit/6dd617fa02038900ab6bdcb42b2461b9d5b55c91),
+  [50cbe79b](https://github.com/fam-tung-lam/health_connector/commit/50cbe79baf89d00edaa1de6d7368e0bee17e6818),
+  [d83fc055](https://github.com/fam-tung-lam/health_connector/commit/d83fc055410d7780a33b4c5195a0bef223712062),
+  [371d3679](https://github.com/fam-tung-lam/health_connector/commit/371d367926ffc5807e8aefe57df018ec7c29d63c),
+  [29d9faac](https://github.com/fam-tung-lam/health_connector/commit/29d9faac930b1a4d52390551b45fb4e99f1274c1))
 - **BREAKING** **REFACTOR**: Unify meal type enums across records. ([c70c336c](https://github.com/fam-tung-lam/health_connector/commit/c70c336c2021b9c19e26ac1e8902c28bfe70333c))
 - **BREAKING** **REFACTOR**: Flatten `HeartRateMeasurementRecord` structure. ([4e0b5a7f](https://github.com/fam-tung-lam/health_connector/commit/4e0b5a7ffdfdd577234ba3750d9742ce76ffe9bc))
-- **BREAKING** **FIX**: Remove non-functional `dataOrigin` parameters from `Metadata` constructors. ([1c90b4f5](https://github.com/fam-tung-lam/health_connector/commit/1c90b4f5caec9c6964ef3f856b17ec39de9b6fad))
-- **BREAKING** **FEAT**: Enhance exception hierarchy. ([ddb4b8ae](https://github.com/fam-tung-lam/health_connector/commit/ddb4b8ae96008fdb5900e106fcb48e1d758619fd))
-- **BREAKING** **FEAT**: Introduce `Frequency` measurement unit for heart/respiratory rates. ([80092ba3](https://github.com/fam-tung-lam/health_connector/commit/80092ba370fd989d150f9e62cafd54d5338ac8d3))
+- **BREAKING** **FIX**: Remove non-functional `dataOrigin` parameters from
+  `Metadata` constructors.
+  ([1c90b4f5](https://github.com/fam-tung-lam/health_connector/commit/1c90b4f5caec9c6964ef3f856b17ec39de9b6fad))
+- **BREAKING** **FEAT**: Enhance exception hierarchy.
+  ([ddb4b8ae](https://github.com/fam-tung-lam/health_connector/commit/ddb4b8ae96008fdb5900e106fcb48e1d758619fd))
+- **BREAKING** **FEAT**: Introduce `Frequency` measurement unit for
+  heart/respiratory rates.
+  ([80092ba3](https://github.com/fam-tung-lam/health_connector/commit/80092ba370fd989d150f9e62cafd54d5338ac8d3))
 
 ## 2.2.3
 
 - **REFACTOR**: Remove sensitive data from logs. ([bbde572c](https://github.com/fam-tung-lam/health_connector/commit/bbde572c3f1abcb42c43c98d675ad91029a797ee))
-- **FIX**: Fix infinite mapping loop when convert measurement unit DTO to domain model. ([93cce205](https://github.com/fam-tung-lam/health_connector/commit/93cce2059b0cbdd94212772071a029c131343c79))
+- **FIX**: Fix infinite mapping loop when convert measurement unit DTO to
+  domain model.
+  ([93cce205](https://github.com/fam-tung-lam/health_connector/commit/93cce2059b0cbdd94212772071a029c131343c79))
 
 ## 2.2.2
 
-- **FIX**: Add missing time zone offset DTO fields and correct offset mapping logic. ([26b1253c](https://github.com/fam-tung-lam/health_connector/commit/26b1253c8f22f9286a6a9b8fff620dbafd086789))
+- **FIX**: Add missing time zone offset DTO fields and correct offset
+  mapping logic.
+  ([26b1253c](https://github.com/fam-tung-lam/health_connector/commit/26b1253c8f22f9286a6a9b8fff620dbafd086789))
 
 ## 2.2.1
 
@@ -83,7 +132,9 @@
 ## 2.2.0
 
 - **FEAT**: Add support for menstrual flow data types. ([178f272f](https://github.com/fam-tung-lam/health_connector/commit/178f272fdcfd5a13abefd4c751d42f595ee57058))
-- **FEAT**: Add support for body mass index, waist circumference, and heart rate variability SDNN data types. ([1d3244c5](https://github.com/fam-tung-lam/health_connector/commit/1d3244c5050f8a058d996dfdd9728ff85f602e87))
+- **FEAT**: Add support for body mass index, waist circumference, and
+  heart rate variability SDNN data types.
+  ([1d3244c5](https://github.com/fam-tung-lam/health_connector/commit/1d3244c5050f8a058d996dfdd9728ff85f602e87))
 - **FEAT**: Add support for intermenstrual bleeding data type. ([d629f8d1](https://github.com/fam-tung-lam/health_connector/commit/d629f8d141617145d9baca1fa02afd61735ca3b3))
 - **FEAT**: Add support for basal body temperature data type. ([4b0120c6](https://github.com/fam-tung-lam/health_connector/commit/4b0120c636af47a6ebd4f427fd9a23d669e2d4b9))
 - **FEAT**: Add support for basal energy burned data types. ([e2ecc6b9](https://github.com/fam-tung-lam/health_connector/commit/e2ecc6b9d8b17c80639d4774643b0b2f98e47484))
@@ -96,7 +147,9 @@
 - **FEAT**: Add support for mindfulness session type and record. ([d0490c9d](https://github.com/fam-tung-lam/health_connector/commit/d0490c9dba99ff77ef0b3b4f999810c9e1db0bbc))
 - **FEAT**: Add support for power data types. ([af790b23](https://github.com/fam-tung-lam/health_connector/commit/af790b237e1e8a3771b579bf0fcb62698d8b69d1))
 - **REFACTOR**: Centralize metadata mapping handling. ([1ce8daca](https://github.com/fam-tung-lam/health_connector/commit/1ce8dacabfb3b04cb34f632fe0b70e7aae39993e))
-- **FIX**: Persist blood pressure body position and measurement location data in custom metadata keys. ([32ae4e7e](https://github.com/fam-tung-lam/health_connector/commit/32ae4e7ebe1a07b0bc99a88df62aa8418b0f94e0))
+- **FIX**: Persist blood pressure body position and measurement location
+  data in custom metadata keys.
+  ([32ae4e7e](https://github.com/fam-tung-lam/health_connector/commit/32ae4e7ebe1a07b0bc99a88df62aa8418b0f94e0))
 - **FIX**: Ensure health record timestamps are stored as UTC. ([7f981fc2](https://github.com/fam-tung-lam/health_connector/commit/7f981fc2868062fead0b5fa7a4ad512adf4c8f24))
 
 ## 2.0.0
@@ -110,7 +163,9 @@
 - **FEAT**: Implement atomic batch writes on iOS HealthKit. ([9dbbd181](https://github.com/fam-tung-lam/health_connector/commit/9dbbd181792039140a704ebe404a4d03d6191f95))
 - **FEAT**: Add support for exercise session data type. ([d36b528c](https://github.com/fam-tung-lam/health_connector/commit/d36b528c7f6ec5b7ae3a33e0e8137c557c870e46))
 - **FEAT**: Add `updateRecords` API for batch record updates. ([04e5463e](https://github.com/fam-tung-lam/health_connector/commit/04e5463e96552c04c331b8025d6e5d831e28953e))
-- **FEAT**: Implement `HealthConnectorInfiPListService` for validating the application's Info.plist configuration. ([7846492f](https://github.com/fam-tung-lam/health_connector/commit/7846492fd7ad77c1da66ed3f9a08d1bf6361a59d))
+- **FEAT**: Implement `HealthConnectorInfiPListService` for validating the
+  application's Info.plist configuration.
+  ([7846492f](https://github.com/fam-tung-lam/health_connector/commit/7846492fd7ad77c1da66ed3f9a08d1bf6361a59d))
 - **FEAT**: Add full support for distance records and data types. ([84e27c08](https://github.com/fam-tung-lam/health_connector/commit/84e27c0821bad311aaf7bf6f1d2b577b50365700))
 - **FEAT**: Add full support for speed records and data types. ([f07714db](https://github.com/fam-tung-lam/health_connector/commit/f07714db7b9302eea65e19aabab9e036bafbcab6))
 - **PERF**: Use HealthKit batch delete API instead of for-loop deletion. ([b4159af1](https://github.com/fam-tung-lam/health_connector/commit/b4159af1ff015cf9890feab2418a22bc1e034b99))

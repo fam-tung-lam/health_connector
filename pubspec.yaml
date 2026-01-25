@@ -124,6 +124,10 @@ melos:
       description: Generate Detekt baseline
       run: cd packages/health_connector_hc_android/android && ./gradlew detektBaseline
 
+    analyze:md:
+      description: Runs the markdown linting check.
+      run: markdownlint . --ignore-path .markdownlintignore --config .markdownlint.yaml
+
     # Code formatting
     format:
       description: Format all code (Dart, Swift, Kotlin)
@@ -171,6 +175,10 @@ melos:
     format:kotlin:check:
       description: Check Kotlin code formatting without making changes
       run: cd packages/health_connector_hc_android/android && ./gradlew ktlintCheck
+
+    format:md:
+      description: Fixes the markdown linting errors.
+      run: markdownlint . --fix --ignore-path .markdownlintignore --config .markdownlint.yaml
 
     # Testing
     test:kotlin:

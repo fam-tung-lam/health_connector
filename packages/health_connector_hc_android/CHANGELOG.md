@@ -1,3 +1,5 @@
+# Changelog
+
 ## 3.2.1
 
 - **DEPS**: Update `health_connector_core` to `v3.5.0`.
@@ -13,20 +15,40 @@
 
 ## 3.0.1
 
-- **PERF**: Flatten Pigeon DTO to improve communication performance between Flutter and native layers. ([cca96c1d](https://github.com/fam-tung-lam/health_connector/commit/cca96c1da60ecf51f097941c25aeb1c7b00d94cb))
+- **PERF**: Flatten Pigeon DTO to improve communication performance between
+  Flutter and native layers.
+  ([cca96c1d](https://github.com/fam-tung-lam/health_connector/commit/cca96c1da60ecf51f097941c25aeb1c7b00d94cb))
 
 ## 3.0.0
 
 > Note: This release has breaking changes.
 
-- **FEAT**: Add incremental sync API. ([b6c8e67b](https://github.com/fam-tung-lam/health_connector/commit/b6c8e67b4055a0168b35ad26a29c553732e24193)) ([966312be](https://github.com/fam-tung-lam/health_connector/commit/966312be8ac848d56224dc85ad404e51e77d896e))
-- **FEAT**: Introduce sorting capability for read-records API. ([c2d82fa1](https://github.com/fam-tung-lam/health_connector/commit/c2d82fa160c0ea4fd4b4d623fadbce1ea731b05f))
-- **BREAKING** **REFACTOR**: Standardize naming conventions across health data models and APIs. ([aa824f72](https://github.com/fam-tung-lam/health_connector/commit/aa824f72c79fc6aac717c40c0dbbf784c2da9136), [ce45f8dc](https://github.com/fam-tung-lam/health_connector/commit/ce45f8dc884305bcddfa38ef1a5b785448fb0b6b), [1ba99856](https://github.com/fam-tung-lam/health_connector/commit/1ba99856a29f11f59fa04548da83d7fdd536ced1), [059c9ea0](https://github.com/fam-tung-lam/health_connector/commit/059c9ea071c9f122e8450f098703ea4b124288db), [399ebbe5](https://github.com/fam-tung-lam/health_connector/commit/399ebbe54f68fc27dd684ba1cf0df7002344a712), [6dd617fa](https://github.com/fam-tung-lam/health_connector/commit/6dd617fa02038900ab6bdcb42b2461b9d5b55c91), [50cbe79b](https://github.com/fam-tung-lam/health_connector/commit/50cbe79baf89d00edaa1de6d7368e0bee17e6818), [d83fc055](https://github.com/fam-tung-lam/health_connector/commit/d83fc055410d7780a33b4c5195a0bef223712062), [371d3679](https://github.com/fam-tung-lam/health_connector/commit/371d367926ffc5807e8aefe57df018ec7c29d63c), [29d9faac](https://github.com/fam-tung-lam/health_connector/commit/29d9faac930b1a4d52390551b45fb4e99f1274c1))
+- **FEAT**: Add incremental sync API. ([b6c8e67b](https://github.com/fam-tung-lam/health_connector/commit/b6c8e67b4055a0168b35ad26a29c553732e24193))
+  ([966312be](https://github.com/fam-tung-lam/health_connector/commit/966312be8ac848d56224dc85ad404e51e77d896e))
+- **FEAT**: Introduce sorting capability for read-records API.
+  ([c2d82fa1](https://github.com/fam-tung-lam/health_connector/commit/c2d82fa160c0ea4fd4b4d623fadbce1ea731b05f))
+- **BREAKING** **REFACTOR**: Standardize naming conventions across health
+  data models and APIs.
+  ([aa824f72](https://github.com/fam-tung-lam/health_connector/commit/aa824f72c79fc6aac717c40c0dbbf784c2da9136),
+  [ce45f8dc](https://github.com/fam-tung-lam/health_connector/commit/ce45f8dc884305bcddfa38ef1a5b785448fb0b6b),
+  [1ba99856](https://github.com/fam-tung-lam/health_connector/commit/1ba99856a29f11f59fa04548da83d7fdd536ced1),
+  [059c9ea0](https://github.com/fam-tung-lam/health_connector/commit/059c9ea071c9f122e8450f098703ea4b124288db),
+  [399ebbe5](https://github.com/fam-tung-lam/health_connector/commit/399ebbe54f68fc27dd684ba1cf0df7002344a712),
+  [6dd617fa](https://github.com/fam-tung-lam/health_connector/commit/6dd617fa02038900ab6bdcb42b2461b9d5b55c91),
+  [50cbe79b](https://github.com/fam-tung-lam/health_connector/commit/50cbe79baf89d00edaa1de6d7368e0bee17e6818),
+  [d83fc055](https://github.com/fam-tung-lam/health_connector/commit/d83fc055410d7780a33b4c5195a0bef223712062),
+  [371d3679](https://github.com/fam-tung-lam/health_connector/commit/371d367926ffc5807e8aefe57df018ec7c29d63c),
+  [29d9faac](https://github.com/fam-tung-lam/health_connector/commit/29d9faac930b1a4d52390551b45fb4e99f1274c1))
 - **BREAKING** **REFACTOR**: Unify meal type enums across records. ([c70c336c](https://github.com/fam-tung-lam/health_connector/commit/c70c336c2021b9c19e26ac1e8902c28bfe70333c))
 - **BREAKING** **REFACTOR**: Flatten `HeartRateMeasurementRecord` structure. ([4e0b5a7f](https://github.com/fam-tung-lam/health_connector/commit/4e0b5a7ffdfdd577234ba3750d9742ce76ffe9bc))
-- **BREAKING** **FIX**: Remove non-functional `dataOrigin` parameters from `Metadata` constructors. ([1c90b4f5](https://github.com/fam-tung-lam/health_connector/commit/1c90b4f5caec9c6964ef3f856b17ec39de9b6fad))
-- **BREAKING** **FEAT**: Enhance exception hierarchy. ([ddb4b8ae](https://github.com/fam-tung-lam/health_connector/commit/ddb4b8ae96008fdb5900e106fcb48e1d758619fd))
-- **BREAKING** **FEAT**: Introduce `Frequency` measurement unit for heart/respiratory rates. ([80092ba3](https://github.com/fam-tung-lam/health_connector/commit/80092ba370fd989d150f9e62cafd54d5338ac8d3))
+- **BREAKING** **FIX**: Remove non-functional `dataOrigin` parameters from
+  `Metadata` constructors.
+  ([1c90b4f5](https://github.com/fam-tung-lam/health_connector/commit/1c90b4f5caec9c6964ef3f856b17ec39de9b6fad))
+- **BREAKING** **FEAT**: Enhance exception hierarchy.
+  ([ddb4b8ae](https://github.com/fam-tung-lam/health_connector/commit/ddb4b8ae96008fdb5900e106fcb48e1d758619fd))
+- **BREAKING** **FEAT**: Introduce `Frequency` measurement unit for
+  heart/respiratory rates.
+  ([80092ba3](https://github.com/fam-tung-lam/health_connector/commit/80092ba370fd989d150f9e62cafd54d5338ac8d3))
 
 ## 2.3.2
 
@@ -34,16 +56,21 @@
 
 ## 2.3.1
 
-- **FIX**: Add missing time zone offset DTO fields and correct offset mapping logic. ([26b1253c](https://github.com/fam-tung-lam/health_connector/commit/26b1253c8f22f9286a6a9b8fff620dbafd086789))
+- **FIX**: Add missing time zone offset DTO fields and correct offset
+  mapping logic.
+  ([26b1253c](https://github.com/fam-tung-lam/health_connector/commit/26b1253c8f22f9286a6a9b8fff620dbafd086789))
 
 ## 2.3.0
 
-- **FEAT**: Implement launching health app page in platform's app store. ([fcc93efc](https://github.com/fam-tung-lam/health_connector/commit/fcc93efca89874e7e023789e2d4e0cfddd1213f0))
+- **FEAT**: Implement launching health app page in platform's app store.
+  ([fcc93efc](https://github.com/fam-tung-lam/health_connector/commit/fcc93efca89874e7e023789e2d4e0cfddd1213f0))
 
 ## 2.2.0
 
 - **FEAT**: Add support for menstrual flow data types. ([178f272f](https://github.com/fam-tung-lam/health_connector/commit/178f272fdcfd5a13abefd4c751d42f595ee57058))
-- **FEAT**: Add support for body water mass, bone mass, and heart rate variability RMSSD data types. ([321d4811](https://github.com/fam-tung-lam/health_connector/commit/321d48111704d149e659c96d89773b07f025a73d))
+- **FEAT**: Add support for body water mass, bone mass, and heart rate
+  variability RMSSD data types.
+  ([321d4811](https://github.com/fam-tung-lam/health_connector/commit/321d48111704d149e659c96d89773b07f025a73d))
 - **FEAT**: Add support for intermenstrual bleeding data type. ([d629f8d1](https://github.com/fam-tung-lam/health_connector/commit/d629f8d141617145d9baca1fa02afd61735ca3b3))
 - **FEAT**: Add support for basal body temperature data type. ([4b0120c6](https://github.com/fam-tung-lam/health_connector/commit/4b0120c636af47a6ebd4f427fd9a23d669e2d4b9))
 - **FEAT**: Add support for total energy burned data type. ([e2ecc6b9](https://github.com/fam-tung-lam/health_connector/commit/e2ecc6b9d8b17c80639d4774643b0b2f98e47484))
@@ -100,7 +127,8 @@
 
 ## 1.1.0
 
-- **FEAT**: Add support for nutrient and nutrition health data types. ([be34f9ed](https://github.com/fam-tung-lam/health_connector/commit/be34f9eda6adb25341b1f4c4b6f0513fad97d237)) ([77e3a8d0](https://github.com/fam-tung-lam/health_connector/commit/77e3a8d00e6afaf43f56a24eb7c55621d82f63ad))
+- **FEAT**: Add support for nutrient and nutrition health data types. ([be34f9ed](https://github.com/fam-tung-lam/health_connector/commit/be34f9eda6adb25341b1f4c4b6f0513fad97d237))
+  ([77e3a8d0](https://github.com/fam-tung-lam/health_connector/commit/77e3a8d00e6afaf43f56a24eb7c55621d82f63ad))
 
 ## 1.0.0
 

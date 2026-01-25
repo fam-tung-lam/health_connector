@@ -1,0 +1,23 @@
+# Platform-specific code
+**/ios/**
+**/android/**
+
+# Generated/cached content
+**/build/**
+**/node_modules/**
+**/.dart_tool/**
+
+# Auto-generated API Dartdoc documentation
+**/doc/api/**
+
+# Assets (images, videos, etc.)
+**/doc/assets/**
+
+# Source code (Dart libraries)
+**/lib/**
+
+# Test files
+**/test/**
+
+# Example apps
+**/packages/**/example/**

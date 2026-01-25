@@ -1,6 +1,6 @@
 # Example
 
-Example app demonstrating the unified `HealthConnector` API that works across both 
+Example app demonstrating the unified `HealthConnector` API that works across both
 Android Health Connect and iOS HealthKit.
 
 ## What It Demonstrates
@@ -26,4 +26,3 @@ flutter run
 ## Learn More
 
 For detailed documentation, see the [main package README](../../README.md).
-

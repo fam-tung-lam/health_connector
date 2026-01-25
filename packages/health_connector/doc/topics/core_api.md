@@ -1,11 +1,12 @@
 # Core API
 
-The main SDK interface for health data operations across iOS HealthKit and Android Health Connect.
+The main SDK interface for health data operations across iOS HealthKit and
+Android Health Connect.
 
 ## HealthConnector
 
-The `HealthConnector` class is the central entry point for all health data operations. It provides a
-unified interface for:
+The `HealthConnector` class is the central entry point for all health data
+operations. It provides a unified interface for:
 
 - **Feature Management**: Check platform capability availability
 - **Permission Management**: Request and check data access permissions
@@ -18,9 +19,10 @@ unified interface for:
 
 ## Type Safety and Generics
 
-The SDK leverages Dart generics to provide **compile-time type safety**. Each `HealthDataType` is
-parameterized with its corresponding `HealthRecord` type and `MeasurementUnit`, ensuring the correct
-types flow through all operations automatically.
+The SDK leverages Dart generics to provide **compile-time type safety**.
+Each `HealthDataType` is parameterized with its corresponding `HealthRecord`
+type and `MeasurementUnit`, ensuring the correct types flow through all
+operations automatically.
 
 ### Automatic Type Inference
 
@@ -29,7 +31,8 @@ The compiler automatically infers the correct record and measurement unit types:
 ```dart
 // Step 1: Create request via `HealthDataType`
 
-// Compiler infers `ReadRecordsInTimeRangeRequest<WeightRecord>` for `request` automatically.
+// Compiler infers `ReadRecordsInTimeRangeRequest<WeightRecord>` for
+// `request` automatically.
 final request = HealthDataType.weight.readInTimeRange(
   startTime: start,
   endTime: end,
@@ -61,13 +64,13 @@ for (final record in response.records) {
 
 ## Request-Response Pattern
 
-The Health Connector SDK uses a strongly-typed request-response pattern for read, delete, and
-aggregate data operations.
+The Health Connector SDK uses a strongly-typed request-response pattern for
+read, delete, and aggregate data operations.
 
 ### Why This Pattern?
 
-Health Connect and HealthKit have fundamentally different APIs. The request-response pattern solves
-this by:
+Health Connect and HealthKit have fundamentally different APIs. The
+request-response pattern solves this by:
 
 1. **Encapsulating platform logic** — The SDK translates your request into the appropriate
    platform-specific API calls
@@ -112,12 +115,13 @@ for (final record in records) {
 
 ### Write and Update Operations
 
-Write and update operations **do not** use the request-response pattern because:
+Write and update operations **do not** use the request-response pattern
+because:
 
-- **Write operations** have consistent APIs across both platforms—both accept health record objects
-  directly
-- **Update operations** are only supported on Android Health Connect (iOS HealthKit uses an
-  immutable data model)
+- **Write operations** have consistent APIs across both platforms—both
+  accept health record objects directly
+- **Update operations** are only supported on Android Health Connect (iOS
+  HealthKit uses an immutable data model)
 
 ```dart
 // Writing: Direct record → ID

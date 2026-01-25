@@ -7,12 +7,14 @@ The Health Connector data model is built on three pillars:
 3. **Health Data Types**: Descriptors that define the properties and capabilities of each record
    type.
 
-This design ensures that your code is compile-time type-safe, preventing common errors like using
-the wrong unit or trying to aggregate unsupported data types.
+This design ensures that your code is compile-time type-safe, preventing
+common errors like using the wrong unit or trying to aggregate unsupported
+data types.
 
-## Health Records
+## Record Hierarchy
 
-Health records are organized into a clear hierarchy based on their temporal characteristics:
+Health records are organized into a clear hierarchy based on their temporal
+characteristics:
 
 1. **Instant Records**: Measurements taken at a single point in time (e.g., `WeightRecord`,
    `BloodGlucoseRecord`).
@@ -120,9 +122,9 @@ final nutritionRecord = NutritionRecord(
 
 ## Measurement Units
 
-The SDK uses immutable, type-safe measurement unit classes that handle automatic conversions. This
-prevents mixing incompatible units (e.g., adding meters to kilograms) and eliminates conversion
-errors.
+The SDK uses immutable, type-safe measurement unit classes that handle
+automatic conversions. This prevents mixing incompatible units (e.g.,
+adding meters to kilograms) and eliminates conversion errors.
 
 ### Quick Reference
 
@@ -160,8 +162,9 @@ print(energy.inKilojoules); // ~8368.0
 
 ## Health Data Types
 
-Health Connector provides strongly-typed access to health data. Each `HealthDataType` is a constant
-that links a specific record class to its measurement unit and platform capabilities.
+Health Connector provides strongly-typed access to health data. Each
+`HealthDataType` is a constant that links a specific record class to its
+measurement unit and platform capabilities.
 
 ### Type Safety
 
@@ -187,8 +190,8 @@ This design prevents runtime errors by ensuring:
 
 ### Capabilities
 
-Each data type declares its capabilities through interface implementation. This allows you to check
-what operations are supported at compile time.
+Each data type declares its capabilities through interface implementation.
+This allows you to check what operations are supported at compile time.
 
 - **Readable**: Can be read using `readById` or `readInTimeRange`.
 - **Writeable**: Can be written; exposes a `writePermission`.
@@ -197,9 +200,10 @@ what operations are supported at compile time.
 
 ### Platform Support
 
-- **iOS HealthKit**: Maps to native types like `HKQuantityType`, `HKCategoryType`,
-  `HKCorrelationType`, and `HKWorkoutType`.
-- **Android Health Connect**: Maps to native Health Connect record types (Instant, Interval,
+- **iOS HealthKit**: Maps to native types like `HKQuantityType`,
+  `HKCategoryType`, `HKCorrelationType`, and `HKWorkoutType`.
+- **Android Health Connect**: Maps to native Health Connect record types
+  (Instant, Interval,
   Series).
 
 ---

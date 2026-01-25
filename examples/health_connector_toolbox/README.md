@@ -6,9 +6,10 @@
 
 ## 📖 Overview
 
-A comprehensive demonstration and testing application for the [
-`health_connector`](../../packages/health_connector) plugin, showcasing all major features and
-capabilities across Android and iOS platforms
+A comprehensive demonstration and testing application for the
+[`health_connector`](../../packages/health_connector) plugin, showcasing all
+major features and capabilities across Android and iOS platforms.
+
 ---
 
 ## 🚀 Getting Started
@@ -18,12 +19,12 @@ capabilities across Android and iOS platforms
 - Flutter >=3.3.0
 - Dart >=3.9.2
 - **Android**:
-    - Android SDK API 26+ (Android 8.0)
-    - Health Connect app installed (or built-in on Android 14+)
+  - Android SDK API 26+ (Android 8.0)
+  - Health Connect app installed (or built-in on Android 14+)
 - **iOS**:
-    - iOS 15.0+
-    - Xcode 14.0+
-    - HealthKit capability enabled
+  - iOS 15.0+
+  - Xcode 14.0+
+  - HealthKit capability enabled
 
 ### Installation
 
@@ -56,7 +57,7 @@ capabilities across Android and iOS platforms
 
 ## 🗃️ Project Structure
 
-```
+```shell
 lib/
 ├── main.dart                              # App entry point
 ├── src/

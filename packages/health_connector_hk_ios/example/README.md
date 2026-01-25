@@ -15,13 +15,14 @@ This example showcases all public API methods of the `HealthConnectorHKClient` c
 - **Aggregation** - Aggregate health data over time ranges
 - **Delete Operations** - Delete records by time range or IDs
 
-#### Health Platform Features
+### Health Platform Features
 
-On iOS HealthKit, all health platform features are available and granted by default. Unlike Android 
-Health Connect, HealthKit does not require separate feature permissions for capabilities like 
+On iOS HealthKit, all health platform features are available and granted by default. Unlike Android
+Health Connect, HealthKit does not require separate feature permissions for capabilities like
 background data reading or historical data access.
 
 When using the plugin:
+
 - `getFeatureStatus()` always returns `HealthPlatformFeatureStatus.available` for all features
 - Requesting feature permissions always returns `PermissionStatus.granted`
 
@@ -40,7 +41,7 @@ final results = await client.requestPermissions([
 // All results have PermissionStatus.granted
 ```
 
-> **Note:** This behavior differs from Android Health Connect, where these features require 
+> **Note:** This behavior differs from Android Health Connect, where these features require
 > explicit user consent and may not be available on all devices.
 
 ## Running the Example

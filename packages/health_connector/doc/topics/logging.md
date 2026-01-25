@@ -1,24 +1,26 @@
 # Logging API
 
-The Health Connector SDK provides a flexible, secure-by-default logging system designed to protect
-sensitive health data while giving developers full visibility during development.
+The Health Connector SDK provides a flexible, secure-by-default logging
+system designed to protect sensitive health data while giving developers
+full visibility during development.
 
 ## Zero-Logging Policy
 
-Health data is highly sensitive. To ensure privacy and compliance (GDPR, HIPAA), the SDK adopts a **strict zero-logging policy by default**.
+Health data is highly sensitive. To ensure privacy and compliance (GDPR, HIPAA),
+the SDK adopts a **strict zero-logging policy by default**.
 
-- **No Internal Logging**: The SDK never writes to `print`, `stdout`, or platform logs (
-  Logcat/Console) unless explicitly configured.
+- **No Internal Logging**: The SDK never writes to `print`, `stdout`, or
+  platform logs (Logcat/Console) unless explicitly configured.
 - **Full Control**: You define exactly where logs go.
-- **Unified Control Plane**: Native logs from Android (Kotlin) and iOS (Swift) are forwarded to
-  Dart, giving you a single place to manage all SDK activity.
+- **Unified Control Plane**: Native logs from Android (Kotlin) and iOS (Swift)
+  are forwarded to Dart, giving you a single place to manage all SDK activity.
 
 ## Configuration
 
-Logging is configured via the `HealthConnectorLoggerConfig` object passed to `HealthConnectorConfig`
-during initialization.
+Logging is configured via the `HealthConnectorLoggerConfig` object passed to
+`HealthConnectorConfig` during initialization.
 
-### Basic Setup
+## Basic Setup
 
 To enable logging, provide a list of `logProcessors`.
 
@@ -35,10 +37,27 @@ final connector = await HealthConnector.create(
 );
 ```
 
-### Native Logging
+### Log Levels
 
-By default, the SDK forwards logs from native platform code to your Dart processors. This allows you
-to see what's happening deep inside the Health Connect or HealthKit integrations.
+The SDK uses `HealthConnectorLogLevel` to categorize events:
+
+| Level     | Usage                                   |
+|:----------|:----------------------------------------|
+| `debug`   | Detailed diagnostic info (payloads,     |
+|           | internal state changes)                 |
+| `info`    | General operational events (setup       |
+|           | success, sync started)                  |
+| `warning` | Potential issues that don't stop        |
+|           | execution (unsupported types, partial   |
+|           | failures)                               |
+| `error`   | Serious failures (auth denied, database |
+|           | errors)                                 |
+
+## Native Logging
+
+By default, the SDK forwards logs from native platform code to your Dart
+processors. This allows you to see what's happening deep inside the
+Health Connect or HealthKit integrations.
 
 To disable this (e.g., for performance in production), set `enableNativeLogging` to `false`:
 
@@ -53,10 +72,10 @@ const HealthConnectorLoggerConfig(
 
 The SDK comes with two standard processors:
 
-### 1. PrintLogProcessor
+### PrintLogProcessor
 
-Writes logs to the console using `print()`. This is useful for simple debugging and CI environments
-where you want visible output.
+Writes logs to the console using `print()`. This is useful for simple debugging
+and CI environments where you want visible output.
 
 ```dart
 PrintLogProcessor(
@@ -64,10 +83,10 @@ PrintLogProcessor(
 )
 ```
 
-### 2. DeveloperLogProcessor
+### DeveloperLogProcessor
 
-Uses `dart:developer.log()` to integrate
-with [Flutter DevTools](https://docs.flutter.dev/tools/devtools/logging).
+Uses `Dart:developer.log()` to integrate with
+[Flutter DevTools](https://docs.flutter.dev/tools/devtools/logging).
 
 - **Structure**: Logs appear with proper severity colors, timestamps, and metadata.
 - **Performance**: minimal overhead in release builds (calls are stripped).
@@ -79,14 +98,14 @@ DeveloperLogProcessor(
 )
 ```
 
-## Custom Processors
+### Custom Processors
 
-You can create custom processors to route logs to files, analytics services, or crash reporting
-tools (like Sentry or Firebase Crashlytics).
+You can create custom processors to route logs to files, analytics services,
+or crash reporting tools (like Sentry or Firebase Crashlytics).
 
 Extend `HealthConnectorLogProcessor` and implement the `process` method.
 
-### Example: File Logger
+#### Example: File Logger
 
 ```dart
 class FileLogProcessor extends HealthConnectorLogProcessor {
@@ -112,7 +131,7 @@ class FileLogProcessor extends HealthConnectorLogProcessor {
 }
 ```
 
-### Example: Filtering
+#### Example: Filtering
 
 Override `shouldProcess` for advanced filtering logic beyond just log levels.
 
@@ -123,23 +142,3 @@ bool shouldProcess(HealthConnectorLog log) {
   return super.shouldProcess(log) && log.context?['critical'] == true;
 }
 ```
-
-## Log Levels
-
-The SDK uses `HealthConnectorLogLevel` to categorize events:
-
-| Level     | Usage                                                                            |
-|:----------|:---------------------------------------------------------------------------------|
-| `debug`   | Detailed diagnostic info (payloads, internal state changes)                      |
-| `info`    | General operational events (setup success, sync started)                         |
-| `warning` | Potential issues that don't stop execution (unsupported types, partial failures) |
-| `error`   | Serious failures (auth denied, database errors)                                  |
-
-## Best Practices
-
-1. **Development**: Use `DeveloperLogProcessor` with all levels enabled.
-2. **Production**: Use a custom processor (e.g., for Crashlytics) filtering for `warning` and
-   `error` levels only.
-3. **Privacy**: Never log raw health data values in production custom processors unless strictly
-   necessary and compliant with your privacy policy. The SDK internal logs avoid including sensitive
-   user data in default messages.

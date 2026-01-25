@@ -1,3 +1,5 @@
+# Changelog
+
 ## 1.2.0
 
 - **FEAT**: Enable `package_api_docs` and `public_member_api_docs` rules. ([5dbf47b1](https://github.com/fam-tung-lam/health_connector/commit/5dbf47b1b57502cf388128460d1867a5a6ec5fd1))

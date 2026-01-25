@@ -1,16 +1,20 @@
 # health_connector_core
 
 <p align="center">
-  <a title="Pub" href="https://pub.dev/packages/health_connector_core"><img src="https://img.shields.io/pub/v/health_connector_core.svg?style=popout"/></a>
-  <a title="Pub Points" href="https://pub.dev/packages/health_connector_core/score"><img src="https://img.shields.io/pub/points/health_connector_core?color=2E8B57&label=pub%20points"/></a>
+  <a title="Pub" href="https://pub.dev/packages/health_connector_core">
+    <img src="https://img.shields.io/pub/v/health_connector_core.svg?style=popout" alt="Pub"/>
+  </a>
+  <a title="Pub Points" href="https://pub.dev/packages/health_connector_core/score">
+    <img src="https://img.shields.io/pub/points/health_connector_core?color=2E8B57&label=pub%20points" alt="Pub Points"/>
+  </a>
 </p>
 
 ---
 
 ## 📖 Overview
 
-`health_connector_core` provides the foundational types and abstractions used across the Health
-Connector plugin ecosystem:
+`health_connector_core` provides the foundational types and abstractions
+used across the Health Connector plugin ecosystem:
 
 - [health_connector](../health_connector) is the main facade package
 - [health_connector_hc_android](../health_connector_hc_android) is a wrapper for Android Health
@@ -25,8 +29,9 @@ Connector plugin ecosystem:
 
 ### Acknowledgments: Android Health Connect SDK
 
-The health record and measurement unit hierarchy in this project is inspired by the architectural
-structure of the [Android Health Connect SDK](https://developer.android.com/jetpack/androidx/releases/health-connect).
+The health record and measurement unit hierarchy in this project is
+inspired by the architectural structure of the
+[Android Health Connect SDK](https://developer.android.com/jetpack/androidx/releases/health-connect).
 
 All code presented here is an **original Dart implementation** developed specifically for Flutter
 and is not a direct port of the Android source.

@@ -1,42 +1,48 @@
 # Permissions
 
-The Health Connector SDK provides a unified, secure-by-default API for managing user permissions
-across iOS HealthKit and Android Health Connect.
+The Health Connector SDK provides a unified, secure-by-default API for
+managing user permissions across iOS HealthKit and Android Health Connect.
 
 Accessing health data requires two types of permissions:
 
-1. **Data Permissions**: Access to read or write specific types of health records (e.g., Steps,
-   Weight).
-2. **Feature Permissions**: Access to special platform capabilities (e.g., Background Updates,
-   History).
+1. **Data Permissions**: Access to read or write specific types of health records (e.g., Steps, Weight).
+2. **Feature Permissions**: Access to special platform capabilities (e.g., Background Updates, History).
 
-### Permission Types
+## Permission Types
 
-| Type                   | Description                                                                 | Usage Example                                                 |
-|:-----------------------|:----------------------------------------------------------------------------|:--------------------------------------------------------------|
-| **Read Permission**    | Grants access to read existing data from the health store.                  | `HealthDataType.steps.readPermission`                         |
-| **Write Permission**   | Grants access to save new data to the health store.                         | `HealthDataType.steps.writePermission`                        |
-| **Feature Permission** | Grants access to specific platform capabilities like background processing. | `HealthPlatformFeature.readHealthDataInBackground.permission` |
+| Type                   | Description                                  | Usage Example                                                 |
+|:-----------------------|:---------------------------------------------|:--------------------------------------------------------------|
+| **Read Permission**    | Grants access to read existing data from the | `HealthDataType.steps.readPermission`                         |
+|                        | health store.                                |                                                               |
+| **Write Permission**   | Grants access to save new data to the health | `HealthDataType.steps.writePermission`                        |
+|                        | store.                                       |                                                               |
+| **Feature Permission** | Grants access to specific platform           | `HealthPlatformFeature.readHealthDataInBackground.permission` |
+|                        | capabilities like background processing.     |                                                               |
 
 ## Platform Behaviors
 
-iOS and Android have fundamental differences in how they handle health permissions, particularly
-regarding privacy.
+iOS and Android have fundamental differences in how they handle health
+permissions, particularly regarding privacy.
 
-| Feature                     | iOS HealthKit                                                                                                                                | Android Health Connect                                                                                              |
-|:----------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------|
-| **Read Permission Status**  | **Hidden**. Always returns `PermissionStatus.unknown` to prevent unrelated apps from inferring health conditions based on permission grants. | **Visible**. Returns `granted` or `denied`.                                                                         |
-| **Write Permission Status** | **Visible**. Returns `granted` or `denied`.                                                                                                  | **Visible**. Returns `granted` or `denied`.                                                                         |
-| **Revocation**              | **User Only**. Users must manually revoke permissions in iOS Settings. Apps cannot programmatically revoke permissions.                      | **App & User**. Apps can revoke their own permissions via `revokeAllPermissions()`, or users can do it in settings. |
-| **Enumeration**             | **Restricted**. You cannot get a list of all granted permissions.                                                                            | **Available**. You can use `getGrantedPermissions()` to see everything your app has access to.                      |
+| Feature              | iOS HealthKit                                         | Android Health Connect                               |
+|:---------------------|:------------------------------------------------------|:-----------------------------------------------------|
+| **Read Permission**  | **Hidden**. Always returns `PermissionStatus.unknown` | **Visible**. Returns `granted` or `denied`.          |
+| Status               | to prevent unrelated apps from inferring health       |                                                      |
+|                      | conditions based on permission grants.                |                                                      |
+| **Write Permission** | **Visible**. Returns `granted` or `denied`.           | **Visible**. Returns `granted` or `denied`.          |
+| Status               |                                                       |                                                      |
+| **Revocation**       | **User Only**. Users must manually revoke             | **App & User**. Apps can revoke their own            |
+|                      | permissions in iOS Settings. Apps cannot              | permissions via `revokeAllPermissions()`, or         |
+|                      | programmatically revoke permissions.                  | users can do it in settings.                         |
+| **Enumeration**      | **Restricted**. You cannot get a list of all          | **Available**. You can use `getGrantedPermissions()` |
+|                      | granted permissions.                                  | to see everything your app has access to.            |
 
 ## The Permission Workflow
 
 A robust health app follows this pattern:
 
 1. **Check Status**: See if you already have the permissions you need.
-2. **Educate**: Show a custom UI explaining *why* you need these permissions before triggering the
-   system dialog.
+2. **Educate**: Show a custom UI explaining *why* you need these permissions before triggering the system dialog.
 3. **Request**: Launch the system permission sheet.
 4. **Handle**: Process the results and update your UI.
 

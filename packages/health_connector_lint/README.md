@@ -1,12 +1,16 @@
 # health_connector_lint
 
 <p align="center">
-  <a title="Pub" href="https://pub.dev/packages/health_connector_lint"><img src="https://img.shields.io/pub/v/health_connector_lint.svg?style=popout"/></a>
-  <a title="Pub Points" href="https://pub.dev/packages/health_connector_lint/score"><img src="https://img.shields.io/pub/points/health_connector_lint?color=2E8B57&label=pub%20points"/></a>
+  <a title="Pub" href="https://pub.dev/packages/health_connector_lint">
+    <img src="https://img.shields.io/pub/v/health_connector_lint.svg?style=popout" alt="Pub"/>
+  </a>
+  <a title="Pub Points" href="https://pub.dev/packages/health_connector_lint/score">
+    <img src="https://img.shields.io/pub/points/health_connector_lint?color=2E8B57&label=pub%20points" alt="Pub Points"/>
+  </a>
 </p>
 
-Shared lint rules and analysis options for all `health_connector` packages, enforcing consistent
-code quality across the monorepo.
+Shared lint rules and analysis options for all `health_connector`
+packages, enforcing consistent code quality across the monorepo.
 
 ---
 

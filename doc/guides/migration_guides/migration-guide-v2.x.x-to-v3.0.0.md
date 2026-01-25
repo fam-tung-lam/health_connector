@@ -1,7 +1,7 @@
 # Migration Guide: `v2.x.x` → `v3.0.0`
 
-This guide helps you migrate your Flutter health data integration from health_connector `v2.x.x` to
-`v3.0.0`.
+This guide helps you migrate your Flutter health data integration from
+health_connector `v2.x.x` to `v3.0.0`.
 
 ---
 
@@ -23,9 +23,10 @@ This guide helps you migrate your Flutter health data integration from health_co
 
 **Difficulty**: Moderate
 
-`v3.0.0` represents a major release focused on API consistency, scientific accuracy, and developer
-experience. The release includes a complete logging system overhaul, extensive naming
-standardization, and new validation enforcement for data integrity.
+`v3.0.0` represents a major release focused on API consistency, scientific
+accuracy, and developer experience. The release includes a complete logging
+system overhaul, extensive naming standardization, and new validation
+enforcement for data integrity.
 
 **Estimated migration time**: 30 minutes for typical applications
 
@@ -37,16 +38,19 @@ standardization, and new validation enforcement for data integrity.
 
 **Difficulty**: Moderate
 
-The logging system has been completely redesigned from a stream-based architecture to a
-processor-based pattern. This provides better performance, more flexibility, and a cleaner API.
+The logging system has been completely redesigned from a stream-based
+architecture to a processor-based pattern. This provides better performance,
+more flexibility, and a cleaner API.
 
 #### What Changed
 
-| `v2.x.x` API                              | `v3.0.0` API                          | Change Type           |
-|-------------------------------------------|---------------------------------------|-----------------------|
-| `HealthConnectorConfig.isLoggerEnabled`   | `HealthConnectorConfig.loggerConfig`  | Config parameter      |
-| `HealthConnectorLogger.logs` (Stream)     | `HealthConnectorLogProcessor` pattern | Architecture redesign |
-| `HealthConnectorLogger.instance` (public) | `HealthConnectorLogger` (internal)    | API visibility        |
+| `v2.x.x` API                            | `v3.0.0` API                    | Change Type           |
+|-----------------------------------------|----------------------------------|-----------------------|
+| `HealthConnectorConfig.isLoggerEnabled`| `HealthConnectorConfig.loggerConfig`| Config parameter      |
+| `HealthConnectorLogger.logs` (Stream)  | `HealthConnectorLogProcessor`    | Architecture redesign |
+|                                        | pattern                          |                       |
+| `HealthConnectorLogger.instance`       | `HealthConnectorLogger`          | API visibility        |
+| (public)                               | (internal)                       |                       |
 
 #### Migration Steps
 
@@ -85,7 +89,7 @@ const config = HealthConnectorConfig(
         ],
       ),
 
-      // Built-in processor using dart:developer
+      // Built-in processor using Dart:developer
       DeveloperLogProcessor(
         levels: HealthConnectorLogLevel.values, // All levels
       ),
@@ -145,20 +149,24 @@ const config = HealthConnectorConfig(
 
 #### Why This Change?
 
-- **Zero-Cost Abstraction**: No stream overhead when logging is disabled or no processors registered
-- **Multiple Destinations**: Route logs to console, files, analytics, remote services simultaneously
-- **Flexible Filtering**: Each processor has its own level-based and custom filtering
-- **Better Performance**: No stream controller, no broadcast overhead, no subscription management
-- **Simpler API**: Configure once at initialization vs managing subscriptions throughout app
-  lifecycle
+- **Zero-Cost Abstraction**: No stream overhead when logging is disabled or
+  no processors registered
+- **Multiple Destinations**: Route logs to console, files, analytics, remote
+  services simultaneously
+- **Flexible Filtering**: Each processor has its own level-based and custom
+  filtering
+- **Better Performance**: No stream controller, no broadcast overhead, no
+  subscription management
+- **Simpler API**: Configure once at initialization vs managing subscriptions
+  throughout app lifecycle
 - **No Memory Leaks**: No forgotten subscription cancellations
 
 ---
 
 ### 2. API Renaming
 
-`v3.0.0` includes extensive API renaming for consistency, scientific accuracy, and platform
-alignment. All renaming changes are grouped in this section.
+`v3.0.0` includes extensive API renaming for consistency, scientific accuracy,
+and platform alignment. All renaming changes are grouped in this section.
 
 ---
 
@@ -166,11 +174,11 @@ alignment. All renaming changes are grouped in this section.
 
 **Difficulty**: Simple
 
-Property names have been standardized to eliminate "stuttering" (class name repetition in
-properties) and unit coupling (units baked into property names). This improves API ergonomics and
-enables natural reading patterns.
+Property names have been standardized to eliminate "stuttering" (class name
+repetition in properties) and unit coupling (units baked into property names).
+This improves API ergonomics and enables natural reading patterns.
 
-##### What Changed
+##### What Changed (Property Naming)
 
 **Property Naming Patterns:**
 
@@ -181,31 +189,24 @@ enables natural reading patterns.
 
 ##### Complete Rename Table
 
-| Record Type                       | `v2.x.x` Property            | `v3.0.0` Property  | Rationale            |
-|-----------------------------------|------------------------------|--------------------|----------------------|
-| **Body Measurements**             |
-| `BodyMassIndexRecord`             | `bodyMassIndex`              | `bmi`              | Eliminate stuttering |
-| **Heart & Respiratory**           |
-| `HeartRateRecord`                 | `beatsPerMinute`             | `rate`             | Remove unit coupling |
-| `RestingHeartRateRecord`          | `beatsPerMinute`             | `rate`             | Remove unit coupling |
-| `RespiratoryRateRecord`           | `breathsPerMinute`           | `rate`             | Remove unit coupling |
-| `HeartRateVariabilityRMSSDRecord` | `heartRateVariabilityMillis` | `rmssd`            | Eliminate stuttering |
-| `HeartRateVariabilitySDNNRecord`  | `heartRateVariabilitySDNN`   | `sdnn`             | Eliminate stuttering |
-| **Activity & Movement**           |
-| `FloorsClimbedRecord`             | `floors`                     | `count`            | Consistent naming    |
-| `WheelchairPushesRecord`          | `pushes`                     | `count`            | Consistent naming    |
-| `CyclingPedalingCadenceRecord`    | `revolutionsPerMinute`       | `cadence`          | Remove unit coupling |
-| **Vitals**                        |
-| `BloodGlucoseRecord`              | `bloodGlucose`               | `glucoseLevel`     | Domain-natural name  |
-| `OxygenSaturationRecord`          | `percentage`                 | `saturation`       | Remove unit coupling |
-| `Vo2MaxRecord`                    | `mLPerKgPerMin`              | `vo2MlPerMinPerKg` | Clearer abbreviation |
-| **Nutrition**                     |
+| Record Type                    | `v2.x.x` Property      | `v3.0.0` Property | Rationale            |
+|-------------------------------|------------------------|-------------------|----------------------|
+| `Vo2MaxRecord`               | `mLPerKgPerMin`        | `vo2MlPerMinPerKg`| Clearer abbreviation |
+| **Activity & Movement**       |                        |                   |                      |
+| `FloorsClimbedRecord`         | `floors`               | `count`           | Consistent naming    |
+| `WheelchairPushesRecord`     | `pushes`               | `count`           | Consistent naming    |
+| `CyclingPedalingCadenceRecord`| `revolutionsPerMinute` | `cadence`         | Remove unit coupling |
+| **Vitals**                    |                        |                   |                      |
+| `BloodGlucoseRecord`         | `bloodGlucose`         | `glucoseLevel`    | Domain-natural name  |
+| `OxygenSaturationRecord`      | `percentage`           | `saturation`      | Remove unit coupling |
+| `Vo2MaxRecord`               | `mLPerKgPerMin`        | `vo2MlPerMinPerKg`| Clearer abbreviation |
+| **Nutrition**                     |                              |                    |                      |
 | All nutrient records              | `nutritionValue`             | `value`            | Eliminate stuttering |
 | `DietaryEnergyConsumedRecord`     | `nutritionValue`             | `energy`           | Domain-natural name  |
 
 ##### Migration Examples
 
-**Example 1: Heart Rate**
+###### Example 1: Heart Rate
 
 ```dart
 // `v2.x.x`
@@ -225,7 +226,7 @@ final record = HeartRateRecord(
 print('Heart rate: ${record.rate.inPerMinute} bpm'); // Natural reading
 ```
 
-**Example 2: Body Mass Index**
+###### Example 2: Body Mass Index
 
 ```dart
 // `v2.x.x`
@@ -243,7 +244,7 @@ final record = BodyMassIndexRecord(
 );
 ```
 
-##### Why This Change?
+##### Why This Change? (Property Naming)
 
 - **Improved Readability**: `record.rate.inPerMinute` is more natural than
   `record.beatsPerMinute.inPerMinute`
@@ -261,7 +262,7 @@ final record = BodyMassIndexRecord(
 "Calories" has been renamed to "Energy" for scientific accuracy and platform alignment. Calories are
 a unit of energy measurement, not the physical quantity itself.
 
-##### What Changed
+##### What Changed (Energy Terminology)
 
 | `v2.x.x` Type                         | `v3.0.0` Type                       |
 |---------------------------------------|-------------------------------------|
@@ -272,7 +273,7 @@ a unit of energy measurement, not the physical quantity itself.
 | `HealthDataType.activeCaloriesBurned` | `HealthDataType.activeEnergyBurned` |
 | `HealthDataType.totalCaloriesBurned`  | `HealthDataType.totalEnergyBurned`  |
 
-##### Migration Steps
+##### Migration Steps (Energy Terminology)
 
 **Before (`v2.x.x`):**
 
@@ -318,7 +319,7 @@ final request = HealthDataType.activeEnergyBurned.readInTimeRange( // Renamed ac
 );
 ```
 
-##### Why This Change?
+##### Why This Change? (Energy Terminology)
 
 - **Scientific Accuracy**: Energy is the correct physical quantity; calories are just one unit
 - **Platform Alignment**: Matches iOS HealthKit terminology (`activeEnergyBurned`)
@@ -335,13 +336,13 @@ All individual nutrient record types have been renamed from `*Nutrient*` to `Die
 health platform naming conventions (both iOS HealthKit and Android Health Connect use "Dietary"
 prefix).
 
-##### What Changed
+##### What Changed (Dietary Terminology)
 
 **Pattern**: `{Nutrient}NutrientRecord` → `Dietary{Nutrient}Record`
 
 | `v2.x.x` Type                      | `v3.0.0` Type                     |
 |------------------------------------|-----------------------------------|
-| **Macronutrients**                 |
+| **Macronutrients**                 |                                   |
 | `ProteinNutrientRecord`            | `DietaryProteinRecord`            |
 | `TotalCarbohydrateNutrientRecord`  | `DietaryTotalCarbohydrateRecord`  |
 | `TotalFatNutrientRecord`           | `DietaryTotalFatRecord`           |
@@ -351,7 +352,7 @@ prefix).
 | `MonounsaturatedFatNutrientRecord` | `DietaryMonounsaturatedFatRecord` |
 | `PolyunsaturatedFatNutrientRecord` | `DietaryPolyunsaturatedFatRecord` |
 | `CholesterolNutrientRecord`        | `DietaryCholesterolRecord`        |
-| **Vitamins**                       |
+| **Vitamins**                       |                                   |
 | `VitaminANutrientRecord`           | `DietaryVitaminARecord`           |
 | `VitaminB6NutrientRecord`          | `DietaryVitaminB6Record`          |
 | `VitaminB12NutrientRecord`         | `DietaryVitaminB12Record`         |
@@ -365,7 +366,7 @@ prefix).
 | `PantothenicAcidNutrientRecord`    | `DietaryPantothenicAcidRecord`    |
 | `BiotinNutrientRecord`             | `DietaryBiotinRecord`             |
 | `FolateNutrientRecord`             | `DietaryFolateRecord`             |
-| **Minerals**                       |
+| **Minerals**                       |                                   |
 | `CalciumNutrientRecord`            | `DietaryCalciumRecord`            |
 | `IronNutrientRecord`               | `DietaryIronRecord`               |
 | `MagnesiumNutrientRecord`          | `DietaryMagnesiumRecord`          |
@@ -375,7 +376,7 @@ prefix).
 | `ZincNutrientRecord`               | `DietaryZincRecord`               |
 | `SeleniumNutrientRecord`           | `DietarySeleniumRecord`           |
 | `ManganeseNutrientRecord`          | `DietaryManganeseRecord`          |
-| **Other**                          |
+| **Other**                          |                                   |
 | `CaffeineNutrientRecord`           | `DietaryCaffeineRecord`           |
 | `EnergyNutrientRecord`             | `DietaryEnergyConsumedRecord`     |
 
@@ -384,7 +385,7 @@ prefix).
 - `ProteinNutrientDataType` → `DietaryProteinDataType`
 - `HealthDataType.proteinNutrient` → `HealthDataType.dietaryProtein`
 
-##### Migration Steps
+##### Migration Steps (Dietary Terminology)
 
 **Before (`v2.x.x`):**
 
@@ -424,7 +425,7 @@ final request = HealthDataType.dietaryProtein.readInTimeRange( // Renamed
 );
 ```
 
-##### Why This Change?
+##### Why This Change? (Dietary Terminology)
 
 - **Platform Alignment**: Both iOS HealthKit and Android Health Connect use "Dietary" prefix
 - **Consistency**: Unified terminology across platforms
@@ -440,7 +441,7 @@ final request = HealthDataType.dietaryProtein.readInTimeRange( // Renamed
 The heart rate API has been simplified by removing redundant "Measurement" suffix and standardizing
 property names.
 
-##### What Changed
+##### What Changed (Heart Rate API)
 
 | `v2.x.x`                                    | `v3.0.0`                         |
 |---------------------------------------------|----------------------------------|
@@ -477,7 +478,7 @@ final record = HeartRateRecord(
 
 Removed redundant "Health" prefix from data type names.
 
-##### What Changed
+##### What Changed (Health Data Type Renaming)
 
 **Pattern**: `*HealthDataType` → `*DataType`
 
@@ -501,7 +502,7 @@ BloodGlucoseDataType
 
 Removed redundant "Type" suffix from enum names following Dart naming conventions.
 
-##### What Changed
+##### What Changed (Enum Renaming)
 
 | `v2.x.x`                           | `v3.0.0`                       |
 |------------------------------------|--------------------------------|
@@ -511,7 +512,7 @@ Removed redundant "Type" suffix from enum names following Dart naming convention
 | `OvulationTestResultType`          | `OvulationTestResult`          |
 | `SexualActivityProtectionUsedType` | `SexualActivityProtectionUsed` |
 
-##### Migration
+##### Migration (Enum Renaming)
 
 ```dart
 // `v2.x.x`
@@ -530,7 +531,7 @@ record.appearance == CervicalMucusAppearance.watery
 Renamed "Measurement" suffix to "Sample" for time-series data, and "SleepStage" to
 "SleepStageSample".
 
-##### What Changed
+##### What Changed (Series Sample Renaming)
 
 | `v2.x.x`                | `v3.0.0`           |
 |-------------------------|--------------------|
@@ -602,7 +603,7 @@ HeartRateVariabilityRMSSDRecord(
 
 Unified all meal type enums into single `MealType` enum across all records.
 
-#### What Changed
+#### What Changed (Meal Type Unification)
 
 Previously, different health records used separate meal type enums:
 
@@ -611,7 +612,7 @@ Previously, different health records used separate meal type enums:
 
 In `v3.0.0`, all records now use a single unified `MealType` enum.
 
-#### Migration Steps
+#### Migration Steps (Meal Type Unification)
 
 **Before (`v2.x.x`) - Separate meal type enums:**
 
@@ -657,7 +658,7 @@ final proteinRecord = DietaryProteinRecord(
 );
 ```
 
-#### Why This Change?
+#### Why This Change? (Meal Type Unification)
 
 - **Consistency**: Single enum for meal types across all health records
 - **Simplified API**: No need to remember which enum to use for which record type
@@ -671,7 +672,7 @@ final proteinRecord = DietaryProteinRecord(
 
 Removed non-functional `dataOrigin` parameter from `Metadata` constructors.
 
-#### What Changed
+#### What Changed (Metadata Constructor)
 
 The `dataOrigin` parameter has been removed from all `Metadata` constructor methods:
 
@@ -679,7 +680,7 @@ The `dataOrigin` parameter has been removed from all `Metadata` constructor meth
 - `Metadata.automaticallyRecorded()`
 - `metadata.copyWith()`
 
-#### Migration Steps
+#### Migration Steps (Metadata Constructor)
 
 **Before (`v2.x.x`):**
 
@@ -720,7 +721,7 @@ final retrievedRecords = await connector.readRecords(...);
 final origin = retrievedRecords.first.metadata.dataOrigin; // Nullable, set by platform
 ```
 
-#### Why This Change?
+#### Why This Change? (Metadata Constructor)
 
 - **Platform Behavior**: Both iOS HealthKit and Android Health Connect SDKs automatically assign
   `dataOrigin` internally based on the app's bundle identifier (iOS) or package name (Android).
@@ -756,7 +757,8 @@ The `HealthConnectorErrorCode` enum has been updated to use more descriptive and
 
 #### 6.2 Removed & Replaced Exceptions
 
-Several specific exception classes have been removed and replaced with more general, categorized exceptions. You can identify the specific error using the `code` property.
+Several specific exception classes have been removed and replaced with more general, Categorized exceptions.
+You can identify the specific error using the `code` property.
 
 | `v2.x.x` Exception                                    | `v3.0.0` Replacement                | Identification (`e.code`)                                                   |
 |-------------------------------------------------------|-------------------------------------|-----------------------------------------------------------------------------|
@@ -769,7 +771,7 @@ Several specific exception classes have been removed and replaced with more gene
 
 #### 6.3 Migration Examples
 
-**Example 1: Handling Permissions**
+##### Example 1: Handling Permissions
 
 ```dart
 // `v2.x.x`
@@ -787,7 +789,7 @@ try {
 }
 ```
 
-**Example 2: Handling Service Availability**
+##### Example 2: Handling Service Availability
 
 ```dart
 // `v2.x.x`
@@ -811,7 +813,7 @@ try {
 }
 ```
 
-**Example 3: Handling Remote/IO Errors**
+##### Example 3: Handling Remote/IO Errors
 
 ```dart
 // `v2.x.x`
@@ -837,12 +839,15 @@ try {
 
 **The most significant addition in v3.0.0.**
 
-The new Incremental Sync API transforms how your app synchronizes health data. Instead of inefficiently querying time ranges and manually deduplicating data, you can now simply ask for *"what changed since last time"*.
+The new Incremental Sync API transforms how your app synchronizes health data. Instead of inefficiently querying
+time ranges and manually deduplicating data, you can now simply ask for *"what changed since last time"*.
 
 **Why it's a game changer:**
 
-- **Maximum Efficiency**: Drastically reduces bandwidth and processing power by fetching **only** deltas (new, modified, or deleted records).
-- **Data Integrity**: Automatically tracks deleted records so you can remove them from your local database—a feature previously difficult to implement reliably.
+- **Maximum Efficiency**: Drastically reduces bandwidth and processing power by fetching **only** deltas (new, modified,
+  or deleted records).
+- **Data Integrity**: Automatically tracks deleted records so you can remove them from your local database—a feature
+  previously difficult to implement reliably.
 - **Better UX**: Faster syncs mean a more responsive app and less battery impact.
 
 Efficient delta syncing with change tokens:
@@ -892,7 +897,8 @@ Future<void> syncHealthData() async {
 
 ### 2. Record Sorting
 
-You can now sort records by time when reading from the health store. This is useful for UI display (e.g., showing most recent records first) and processing logic.
+You can now sort records by time when reading from the health store. This is useful for UI display (e.g., showing
+most recent records first) and processing logic.
 
 ```dart
 final request = HealthDataType.steps.readInTimeRange(
@@ -904,7 +910,8 @@ final request = HealthDataType.steps.readInTimeRange(
 
 ### 3. HealthDataTypeCategory
 
-Data types are now organized into 9 distinct semantic categories (e.g., Activity, Vitals, Nutrition). This metadata is helpful for building categorized UIs or filtering data types dynamically.
+Data types are now organized into 9 distinct semantic categories (e.g., Activity, Vitals, Nutrition). This metadata
+is helpful for building categorized UIs or filtering data types dynamically.
 
 Organize data types into 9 categories:
 

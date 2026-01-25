@@ -1,18 +1,17 @@
 # Migration Guide: v1.x.x → v2.0.0
 
-This guide helps you migrate your Flutter health data integration from HealthConnect SDK v1.x.x to
-v2.0.0.
+This guide helps you migrate your Flutter health data integration from
+HealthConnect SDK v1.x.x to v2.0.0.
 
 > [!IMPORTANT]
-> **v2.0.0 contains breaking changes** that require code modifications. Review this guide carefully
-> before upgrading.
+> **v2.0.0 contains breaking changes** that require code modifications.
+> Review this guide carefully before upgrading.
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Quick Migration Checklist](#quick-migration-checklist)
 - [Breaking Changes](#breaking-changes)
   - [1. Delete Records API Redesign](#1-delete-records-api-redesign)
   - [2. Read Records Method Rename](#2-read-records-method-rename)
@@ -27,9 +26,10 @@ v2.0.0.
 
 **Difficulty**: Moderate
 
-v2.0.0 introduces a more type-safe and developer-friendly API design with improved error handling
-and platform consistency. Most changes require simple find-and-replace updates, while a few require
-understanding new patterns.
+v2.0.0 introduces a more type-safe and developer-friendly API design with
+improved error handling and platform consistency. Most changes require
+simple find-and-replace updates, while a few require understanding new
+patterns.
 
 **Estimated migration time**: 15-30 minutes for typical applications
 
@@ -45,10 +45,12 @@ The delete API has been completely redesigned for better type safety and consist
 
 #### API Changes
 
-| v1.x.x Method                  | v2.0.0 Replacement                                           | Complexity |
-|--------------------------------|--------------------------------------------------------------|------------|
-| `deleteRecordsByIds()`         | `deleteRecords()` that accepts `deleteByIds()` request       | Moderate   |
-| `deleteRecords()` (time range) | `deleteRecords()` that accepts `deleteInTimeRange()` request | Moderate   |
+| v1.x.x Method            | v2.0.0 Replacement                          | Complexity |
+|--------------------------|----------------------------------------------|------------|
+| `deleteRecordsByIds()`   | `deleteRecords()` that accepts              | Moderate   |
+|                          | `deleteByIds()` request                      |            |
+| `deleteRecords()`        | `deleteRecords()` that accepts              | Moderate   |
+|              | `deleteInTimeRange()` request               |            |
 
 #### Migration Steps
 
@@ -99,10 +101,14 @@ await connector.deleteRecords(request);
 
 #### Why This Change?
 
-- **Type Safety**: Request objects provide compile-time safety and proper type inference
-- **Consistency**: Deletion API now matches the pattern used by read and aggregate operations
-- **Future-Proof**: Easier to extend with additional deletion filters or options
-- **Capability-Based**: Leverages `DeletableHealthDataType` interface for better discoverability
+- **Type Safety**: Request objects provide compile-time safety and proper
+  type inference
+- **Consistency**: Deletion API now matches the pattern used by read and
+  aggregate operations
+- **Future-Proof**: Easier to extend with additional deletion filters or
+  options
+- **Capability-Based**: Leverages `DeletableHealthDataType` interface for
+  better discoverability
 
 ---
 
@@ -110,15 +116,16 @@ await connector.deleteRecords(request);
 
 **Difficulty**: Simple
 
-The method for creating read requests from `HealthDataType` has been renamed for clarity.
+The method for creating read requests from `HealthDataType` has been renamed
+for clarity.
 
-#### API Changes
+#### API Changes (Read Records)
 
 | v1.x.x Method                  | v2.0.0 Method                      | Type          |
 |--------------------------------|------------------------------------|---------------|
 | `HealthDataType.readRecords()` | `HealthDataType.readInTimeRange()` | Method rename |
 
-#### Migration Steps
+#### Migration Steps (Read Records)
 
 **Before (v1.x.x):**
 
@@ -155,14 +162,14 @@ Several error codes have been renamed for better clarity and platform consistenc
 
 #### Error Code Mapping
 
-| v1.x.x Error Code              | v2.0.0 Error Code                            | Usage Context                |
-|--------------------------------|----------------------------------------------|------------------------------|
-| `securityError`                | `notAuthorized`                              | Permission denied errors     |
-| `invalidPlatformConfiguration` | `invalidConfiguration`                       | Configuration errors         |
+| v1.x.x Error Code              | v2.0.0 Error Code                          | Usage Context                |
+|--------------------------------|--------------------------------------------|------------------------------|
+| `securityError`                | `notAuthorized`                            | Permission denied errors     |
+| `invalidPlatformConfiguration` | `invalidConfiguration`                     | Configuration errors         |
 | `installationOrUpdateRequired` | `healthPlatformNotInstalledOrUpdateRequired` | Health platform setup errors |
-| `unsupportedHealthPlatformApi` | `unsupportedOperation`                       | Platform API not available   |
+| `unsupportedHealthPlatformApi` | `unsupportedOperation`                     | Platform API not available  |
 
-#### Migration Steps
+#### Migration Steps (Error Codes)
 
 **Before (v1.x.x):**
 
@@ -196,9 +203,10 @@ try {
 
 **Difficulty**: Simple
 
-The aggregate method now returns the measurement unit directly instead of wrapping it in `AggregateResponse`.
+The aggregate method now returns the measurement unit directly instead of
+wrapping it in `AggregateResponse`.
 
-#### API Changes
+#### API Changes (Aggregate Response Type)
 
 | v1.x.x Return Type                | v2.0.0 Return Type |
 |-----------------------------------|--------------------|
@@ -206,7 +214,7 @@ The aggregate method now returns the measurement unit directly instead of wrappi
 
 Where `U extends MeasurementUnit` (e.g., `Numeric`, `Energy`, `Length`)
 
-#### Migration Steps
+#### Migration Steps (Aggregate Response Type)
 
 **Before (v1.x.x):**
 
@@ -233,7 +241,8 @@ print('Total steps: ${totalSteps.value}'); // totalSteps is Numeric directly
 ```
 
 > [!TIP]
-> The response is now the `MeasurementUnit` directly, eliminating the need to unwrap `.value`.
+> The response is now the `MeasurementUnit` directly, eliminating the need
+> to unwrap `.value`.
 
 ---
 
@@ -243,13 +252,13 @@ print('Total steps: ${totalSteps.value}'); // totalSteps is Numeric directly
 
 The `updateRecord()` method now returns `void` instead of `HealthRecordId`.
 
-#### API Changes
+#### API Changes (Update Record Return Type)
 
 | v1.x.x Return Type       | v2.0.0 Return Type |
 |--------------------------|--------------------|
 | `Future<HealthRecordId>` | `Future<void>`     |
 
-#### Migration Steps
+#### Migration Steps (Update Record Return Type)
 
 **Before (v1.x.x):**
 
@@ -282,7 +291,7 @@ Take advantage of these new capabilities after migrating:
 
 ### 1. Individual Permission Status Check
 
-**NEW in v2.0.0**
+#### NEW in v2.0.0 (Individual Permission Status Check)
 
 ```dart
 final permission = HealthDataType.steps.readPermission;
@@ -300,7 +309,7 @@ switch (status) {
 
 ### 2. Batch Update Records (Android Only)
 
-**NEW in v2.0.0**
+#### NEW in v2.0.0 (Batch Update Records)
 
 ```dart
 // Update multiple records atomically
@@ -330,7 +339,7 @@ New speed metrics supported on both platforms:
 
 ### 5. Exercise Session & Workout Support
 
-**NEW in v2.0.0**
+#### NEW in v2.0.0 (Exercise Session & Workout Support)
 
 Track workouts and exercise sessions with comprehensive exercise type support:
 
@@ -370,11 +379,14 @@ final totalDuration = await connector.aggregate(
 
 v2.0.0 includes **100+ exercise types** across both platforms:
 
-- **~50 cross-platform types**: running, walking, cycling, swimming, basketball, tennis, yoga, HIIT, and more
+- **~50 cross-platform types**: running, walking, cycling, swimming,
+  basketball, tennis, yoga, HIIT, and more
 - **iOS-only types** (annotated with `@supportedOnAppleHealth`):
-  - Swimming (generic), kickboxing, pickleball, cross-country skiing, tai chi, etc.
+  - Swimming (generic), kickboxing, pickleball, cross-country skiing, tai
+    chi, etc.
 - **Android-only types** (annotated with `@supportedOnHealthConnect`):
-  - Running treadmill, cycling stationary, weightlifting, ice hockey, guided breathing, etc.
+  - Running treadmill, cycling stationary, weightlifting, ice hockey,
+    guided breathing, etc.
 
 **Platform-Specific Validation**:
 
@@ -395,10 +407,12 @@ final iosOnlyTypes = ExerciseType.other.getExerciseTypesForPlatform(
 ```
 
 > [!WARNING]
-> Attempting to use a platform-specific exercise type on an unsupported platform will throw `UnsupportedOperationException`.
+> Attempting to use a platform-specific exercise type on an unsupported
+> platform will throw `UnsupportedOperationException`.
 
 ---
 
-**Happy migrating! 🚀**
+### Happy migrating! 🚀
 
-For the latest updates and detailed API docs, visit the [HealthConnector documentation](https://pub.dev/packages/health_connector).
+For the latest updates and detailed API docs, visit the
+[HealthConnector documentation](https://pub.dev/packages/health_connector).
