@@ -24,7 +24,7 @@ final class WalkingSteadinessDataType extends HealthDataType
 }
 
 // iOS version-specific health data type
-@supportedOnIOS16Plus
+@supportedOnAppleHealthIOS16Plus
 final class SleepingWristTemperatureDataType extends HealthDataType
     implements ReadableHealthDataType<SleepingWristTemperatureRecord> {
   // Only available on iOS 16.0 and later
@@ -50,16 +50,16 @@ Future<void> syncWithGoogleFit() async {
 
 ### Platform and Version-Specific Annotations
 
-| Annotation                  | Platform | Min OS Version | Description                                  |
-|:----------------------------|:---------|:---------------|:---------------------------------------------|
-| `@supportedOnHealthConnect` | Android  | N/A            | Features exclusive to Android Health Connect |
-| `@supportedOnAppleHealth`   | iOS      | N/A            | Features exclusive to iOS HealthKit          |
-| `@supportedOnIOS16Plus`     | iOS      | 16.0+          | Requires iOS 16.0 or later (e.g., Sleeping   |
-|                             |          |                | Wrist Temperature, Running Power)            |
-| `@supportedOnIOS17Plus`     | iOS      | 17.0+          | Requires iOS 17.0 or later (e.g., Cycling    |
-|                             |          |                | Power, Cycling Pedaling Cadence)             |
-| `@supportedOnIOS18Plus`     | iOS      | 18.0+          | Requires iOS 18.0 or later (e.g., Rowing     |
-|                             |          |                | Distance, Paddle Sports Distance)            |
+| Annotation                         | Platform | Min OS Version | Description                                  |
+|:-----------------------------------|:---------|:---------------|:---------------------------------------------|
+| `@supportedOnHealthConnect`        | Android  | N/A            | Features exclusive to Android Health Connect |
+| `@supportedOnAppleHealth`          | iOS      | N/A            | Features exclusive to iOS HealthKit          |
+| `@supportedOnAppleHealthIOS16Plus` | iOS      | 16.0+          | Requires iOS 16.0 or later (e.g., Sleeping   |
+|                                    |          |                | Wrist Temperature, Running Power)            |
+| `@supportedOnAppleHealthIOS17Plus` | iOS      | 17.0+          | Requires iOS 17.0 or later (e.g., Cycling    |
+|                                    |          |                | Power, Cycling Pedaling Cadence)             |
+| `@supportedOnAppleHealthIOS18Plus` | iOS      | 18.0+          | Requires iOS 18.0 or later (e.g., Rowing     |
+|                                    |          |                | Distance, Paddle Sports Distance)            |
 
 **When you see this annotation**:
 
@@ -192,7 +192,7 @@ Annotations can be combined to provide comprehensive API metadata:
 ```dart
 // Platform-specific + Versioning
 @sinceV3_2_0
-@supportedOnIOS16Plus
+@supportedOnAppleHealthIOS16Plus
 final class SleepingWristTemperatureDataType extends HealthDataType {
   // This API:
   // - Was added in SDK version 3.2.0
@@ -213,7 +213,7 @@ Future<void> advancedAndroidFeature() {
 // Read-only + Platform + Version
 @readOnly
 @supportedOnAppleHealth
-@supportedOnIOS16Plus
+@supportedOnAppleHealthIOS16Plus
 @sinceV3_2_0
 final class RunningPowerDataType extends HealthDataType {
   // This API:

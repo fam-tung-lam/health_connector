@@ -11,7 +11,8 @@ void main() {
         'SkinTemperatureDeltaToDto',
         () {
           test(
-            'converts SkinTemperatureDeltaSample to SkinTemperatureDeltaSampleDto',
+            'converts SkinTemperatureDeltaSample to '
+            'SkinTemperatureDeltaSampleDto',
             () {
               final time = DateTime(2025, 1, 15, 10).toUtc();
               final sample = SkinTemperatureDeltaSample(
@@ -32,7 +33,8 @@ void main() {
         'SkinTemperatureDeltaDtoToDomain',
         () {
           test(
-            'converts SkinTemperatureDeltaSampleDto to SkinTemperatureDeltaSample',
+            'converts SkinTemperatureDeltaSampleDto to '
+            'SkinTemperatureDeltaSample',
             () {
               final time = DateTime(2025, 1, 15, 10).toUtc();
               final dto = SkinTemperatureDeltaSampleDto(

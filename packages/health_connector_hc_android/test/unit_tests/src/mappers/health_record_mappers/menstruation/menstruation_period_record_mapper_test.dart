@@ -83,7 +83,8 @@ void main() {
           );
 
           test(
-            'converts MenstruationPeriodRecordDto with null id to domain with none id',
+            'converts MenstruationPeriodRecordDto with null id to domain '
+            'with none id',
             () {
               final dto = MenstruationPeriodRecordDto(
                 startTime: FakeData.fakeLocalStartTime.millisecondsSinceEpoch,

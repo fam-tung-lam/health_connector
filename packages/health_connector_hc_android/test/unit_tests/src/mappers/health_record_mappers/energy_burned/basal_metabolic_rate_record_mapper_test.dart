@@ -25,7 +25,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                rate: Power.kilocaloriesPerDay(1800.0),
+                rate: const Power.kilocaloriesPerDay(1800.0),
               );
 
               final dto = record.toDto();
@@ -74,7 +74,8 @@ void main() {
           );
 
           test(
-            'converts BasalMetabolicRateRecordDto with null id to domain with none id',
+            'converts BasalMetabolicRateRecordDto with null id to domain '
+            'with none id',
             () {
               final dto = BasalMetabolicRateRecordDto(
                 time: FakeData.fakeLocalTime.millisecondsSinceEpoch,
