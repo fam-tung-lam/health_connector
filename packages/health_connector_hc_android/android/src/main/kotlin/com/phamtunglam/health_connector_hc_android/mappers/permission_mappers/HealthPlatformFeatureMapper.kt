@@ -17,7 +17,7 @@ private const val PERMISSION_READ_HEALTH_DATA_HISTORY =
  * @receiver The [HealthPlatformFeatureDto] to convert
  * @return The Health Connect permission string corresponding to the feature
  */
-internal fun HealthPlatformFeatureDto.toHealthConnect(): String = when (this) {
+internal fun HealthPlatformFeatureDto.toHealthConnectPermissionString(): String = when (this) {
     HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND ->
         PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND
 

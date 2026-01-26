@@ -35,7 +35,8 @@ internal class MindfulnessSessionHandler(
     override fun convertAggregatedValue(aggregatedValue: Any): Double {
         val javaDuration = aggregatedValue as? java.time.Duration
             ?: throw IllegalArgumentException(
-                "Aggregated value is not java.time.Duration type: ${aggregatedValue::class.qualifiedName}",
+                "Aggregated value is not java.time.Duration type: " +
+                    "${aggregatedValue::class.qualifiedName}",
             )
         return javaDuration.toSeconds().toDouble()
     }

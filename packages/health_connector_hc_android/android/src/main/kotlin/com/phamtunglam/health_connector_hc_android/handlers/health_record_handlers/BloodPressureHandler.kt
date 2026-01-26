@@ -40,10 +40,8 @@ internal class BloodPressureHandler(
         operation = "aggregate",
         context = mapOf("request" to request),
     ) {
-        if (request !is BloodPressureAggregateRequestDto) {
-            throw IllegalArgumentException(
-                "Expected BloodPressureAggregateRequestDto for BloodPressureHandler",
-            )
+        require(request is BloodPressureAggregateRequestDto) {
+            "Expected BloodPressureAggregateRequestDto for BloodPressureHandler"
         }
 
         require(request.startTime < request.endTime) {

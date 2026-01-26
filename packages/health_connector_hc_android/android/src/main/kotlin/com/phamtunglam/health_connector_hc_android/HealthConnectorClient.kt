@@ -18,7 +18,7 @@ import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnectPermissionString
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
@@ -45,13 +45,15 @@ import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermi
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import java.time.Instant
-import kotlinx.coroutines.CancellationException
+import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.withContext
 import org.jetbrains.annotations.ApiStatus
 
 /**
  * Internal client wrapper for the Android Health Connect SDK.
  */
+// Suppress "TooManyFunctions" as `HealthConnectorClient` is a facade for multiple services.
+@Suppress("TooManyFunctions")
 internal class HealthConnectorClient @VisibleForTesting internal constructor(
     private val dispatchers: DispatcherProvider,
     private val client: HealthConnectClient,
@@ -214,11 +216,11 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                         message = "Play Store app not found, falling back to web browser",
                     )
 
+                    val playStoreUrl =
+                        "https://play.google.com/store/apps/details?id=$healthConnectPackage"
                     val webIntent =
                         android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
-                            data = android.net.Uri.parse(
-                                "https://play.google.com/store/apps/details?id=$healthConnectPackage",
-                            )
+                            data = android.net.Uri.parse(playStoreUrl)
                             flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK
                         }
 
@@ -255,7 +257,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = operation,
-                    message = "Unexpected error while $operation",
+                    message = "Unsupported operation exception while $operation",
                     exception = e,
                 )
 
@@ -297,7 +299,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
 
         return@withContext process(operation) {
             val permissionStrings = request.permissionRequests.map {
-                it.toHealthConnect()
+                it.toHealthConnectPermissionString()
             }
 
             manifestService.checkPermissionsDeclared(permissionStrings.toSet())
@@ -348,7 +350,6 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     /**
      * Gets the status of a specific feature on the current platform.
      *
-     * @param context The Android application context
      * @param feature The feature to check availability for
      * @return [HealthPlatformFeatureStatusDto.AVAILABLE] if the feature is available,
      *         [HealthPlatformFeatureStatusDto.UNAVAILABLE] otherwise
@@ -358,10 +359,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException.Unknown if an unexpected error occurs
      */
     @Throws(HealthConnectorException::class)
-    fun getFeatureStatus(
-        context: Context,
-        feature: HealthPlatformFeatureDto,
-    ): HealthPlatformFeatureStatusDto {
+    fun getFeatureStatus(feature: HealthPlatformFeatureDto): HealthPlatformFeatureStatusDto {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "get_feature_status",
@@ -370,7 +368,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
         )
 
         try {
-            val featurePermissionString = feature.toHealthConnect()
+            val featurePermissionString = feature.toHealthConnectPermissionString()
             manifestService.checkPermissionsDeclared(setOf(featurePermissionString))
 
             val featureStatus = featureService.getFeatureStatus(feature)
@@ -398,19 +396,28 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 message = e.message ?: "Invalid configuration",
                 cause = e,
             )
-        } catch (e: RuntimeException) {
+        } catch (e: IllegalArgumentException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "get_feature_status",
-                message = "Failed to get Health Connect feature status",
+                message = "Invalid argument for feature status",
                 context = mapOf("feature" to feature),
                 exception = e,
             )
             throw HealthConnectorException.Unknown(
-                message = "Failed to get feature status for $feature: " + (
-                    e.message
-                        ?: "Unknown error"
-                    ),
+                message = "Failed to get feature status for $feature: ${e.message}",
+                cause = e,
+            )
+        } catch (e: UnsupportedOperationException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "get_feature_status",
+                message = "Unsupported operation for feature status",
+                context = mapOf("feature" to feature),
+                exception = e,
+            )
+            throw HealthConnectorException.Unknown(
+                message = "Failed to get feature status for $feature: ${e.message}",
                 cause = e,
             )
         }
@@ -935,10 +942,9 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @param syncToken The token from the previous sync, or null for initial sync
      * @return [HealthDataSyncResultDto] containing changes since last sync
      *
-     * @throws HealthConnectorException.SyncTokenExpired if the token has expired
-     * @throws HealthConnectorException.InvalidArgument if parameters are invalid
-     * @throws HealthConnectorException.RemoteError for IPC or I/O issues
-     * @throws HealthConnectorException.HealthPlatformUnavailable if service is unavailable
+     * @throws HealthConnectorException.InvalidArgument if parameters are invalid or the token has expired
+     * @throws HealthConnectorException.HealthService for IPC or I/O issues
+     * @throws HealthConnectorException.HealthServiceUnavailable if service is unavailable
      */
     @Throws(HealthConnectorException::class)
     @ApiStatus.Experimental

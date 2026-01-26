@@ -3,62 +3,26 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>CognitiveComplexMethod:AggregatableHealthRecordHandler.kt$CustomAggregatableHealthRecordHandler$private suspend fun paginateAndAggregate( startTime: Instant, endTime: Instant, context: Map&lt;String, Any?&gt;, ): PaginatedAggregationResult</ID>
-    <ID>CognitiveComplexMethod:HealthRecordMapper.kt$internal fun HealthRecordDto.toHealthConnect(): Record</ID>
-    <ID>CognitiveComplexMethod:HealthRecordMapper.kt$internal fun Record.toDto(): HealthRecordDto</ID>
-    <ID>CognitiveComplexMethod:PermissionRequestMapper.kt$private fun HealthDataPermissionRequestDto.toHealthConnect(): String</ID>
-    <ID>CyclomaticComplexMethod:ExerciseTypeMapper.kt$internal fun ExerciseTypeDto.toHealthConnectExerciseType(): Int</ID>
-    <ID>CyclomaticComplexMethod:ExerciseTypeMapper.kt$internal fun Int.toExerciseTypeDto(): ExerciseTypeDto</ID>
-    <ID>CyclomaticComplexMethod:HealthDataTypeMapper.kt$internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass&lt;out Record&gt;</ID>
-    <ID>CyclomaticComplexMethod:HealthRecordMapper.kt$internal fun HealthRecordDto.toHealthConnect(): Record</ID>
-    <ID>CyclomaticComplexMethod:HealthRecordMapper.kt$internal fun Record.toDto(): HealthRecordDto</ID>
-    <ID>CyclomaticComplexMethod:MetadataMapper.kt$internal fun MetadataDto.toHealthConnect(id: String? = null): Metadata</ID>
     <ID>CyclomaticComplexMethod:NutritionRecordMapper.kt$internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord</ID>
-    <ID>CyclomaticComplexMethod:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class, UnsupportedOperationException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
-    <ID>CyclomaticComplexMethod:PermissionRequestMapper.kt$private fun HealthDataPermissionRequestDto.toHealthConnect(): String</ID>
+    <ID>CyclomaticComplexMethod:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
     <ID>InstanceOfCheckForException:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$e is HealthConnectException</ID>
     <ID>LargeClass:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin : FlutterPluginActivityAwareHealthConnectorHCAndroidApi</ID>
-    <ID>LongMethod:ExerciseTypeMapper.kt$internal fun ExerciseTypeDto.toHealthConnectExerciseType(): Int</ID>
-    <ID>LongMethod:ExerciseTypeMapper.kt$internal fun Int.toExerciseTypeDto(): ExerciseTypeDto</ID>
     <ID>LongMethod:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$@Throws(HealthConnectorException::class) private suspend fun performIncrementalSync( dataTypes: List&lt;HealthDataTypeDto&gt;, syncToken: HealthDataSyncTokenDto, ): HealthDataSyncResultDto</ID>
-    <ID>LongMethod:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin$@Throws(HealthConnectorErrorDto::class) override fun requestPermissions( request: PermissionRequestsDto, callback: (Result&lt;List&lt;PermissionRequestResultDto&gt;&gt;) -&gt; Unit, )</ID>
     <ID>LongMethod:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin$override fun initialize(config: HealthConnectorConfigDto, callback: (Result&lt;Unit&gt;) -&gt; Unit)</ID>
     <ID>LongMethod:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin$override fun launchHealthConnectPageInGooglePlay(callback: (Result&lt;Unit&gt;) -&gt; Unit)</ID>
-    <ID>LongMethod:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class, UnsupportedOperationException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
-    <ID>LongMethod:PermissionRequestMapper.kt$private fun HealthDataPermissionRequestDto.toHealthConnect(): String</ID>
+    <ID>LongMethod:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
     <ID>LongParameterList:HealthConnectorClient.kt$HealthConnectorClient$( private val dispatchers: DispatcherProvider, private val client: HealthConnectClient, private val manifestService: HealthConnectorManifestService, private val featureService: HealthConnectorFeatureService, private val permissionService: HealthConnectorPermissionService, private val syncService: HealthConnectorDataSyncService, private val recordHandlerRegistry: HealthRecordHandlerRegistry, )</ID>
     <ID>LongParameterList:HealthConnectorLogger.kt$HealthConnectorLogger$( level: LogLevel, tag: String, message: String, operation: String? = null, context: Map&lt;String, Any?&gt;? = null, exception: Throwable? = null, )</ID>
     <ID>LongParameterList:ReadableHealthRecordHandler.kt$ReadableHealthRecordHandler$( startTime: Instant, endTime: Instant, pageSize: Int = DEFAULT_PAGE_SIZE, pageToken: String? = null, dataOrigins: Set&lt;DataOrigin&gt; = emptySet(), sortOrder: SortOrderDto = SortOrderDto.TIME_ASCENDING, )</ID>
-    <ID>MagicNumber:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$1000</ID>
-    <ID>MagicNumber:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$24</ID>
-    <ID>MagicNumber:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$60</ID>
-    <ID>MaxLineLength:AggregatableHealthRecordHandler.kt$HealthConnectAggregatableHealthRecordHandler$"Handler does not support data type: ${request.dataType}. Supported data type: $dataType"</ID>
-    <ID>MaxLineLength:ExerciseSessionHandler.kt$ExerciseSessionHandler$"Aggregated value is not java.time.Duration type: ${aggregatedValue::class.qualifiedName}"</ID>
-    <ID>MaxLineLength:HealthConnectorClient.kt$HealthConnectorClient.Companion$"https://play.google.com/store/apps/details?id=$healthConnectPackage"</ID>
     <ID>MaxLineLength:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$"Perform a full backfill using readRecords() and reset sync with syncToken=null."</ID>
-    <ID>MaxLineLength:HealthConnectorExceptionMapper.kt$" at ${frame.className}.${frame.methodName}(${frame.fileName ?: "Unknown"}:${frame.lineNumber})"</ID>
-    <ID>MaxLineLength:MindfulnessSessionHandler.kt$MindfulnessSessionHandler$"Aggregated value is not java.time.Duration type: ${aggregatedValue::class.qualifiedName}"</ID>
-    <ID>MaxLineLength:SkinTemperatureDeltaSeriesHandler.kt$SkinTemperatureDeltaSeriesHandler$"Aggregated value is not TemperatureDelta type: ${aggregatedValue::class.simpleName}"</ID>
-    <ID>MaxLineLength:StepsCadenceSeriesHandler.kt$StepsCadenceSeriesHandler$"Expected Double for aggregated steps cadence value, got ${aggregatedValue::class.simpleName}"</ID>
-    <ID>MaxLineLength:UpdatableHealthRecordHandler.kt$UpdatableHealthRecordHandler$"Record ID must be provided for update operations. Use `writeRecord()` for new records."</ID>
     <ID>NestedBlockDepth:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$@Throws(HealthConnectorException::class) private suspend fun performIncrementalSync( dataTypes: List&lt;HealthDataTypeDto&gt;, syncToken: HealthDataSyncTokenDto, ): HealthDataSyncResultDto</ID>
-    <ID>RethrowCaughtException:HealthConnectorPermissionService.kt$HealthConnectorPermissionService$throw e</ID>
+    <ID>RethrowCaughtException:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin$throw e</ID>
+    <ID>ThrowsCount:HealthConnectorClient.kt$HealthConnectorClient$@Throws(HealthConnectorException::class) fun getFeatureStatus(feature: HealthPlatformFeatureDto): HealthPlatformFeatureStatusDto</ID>
     <ID>ThrowsCount:HealthConnectorClient.kt$HealthConnectorClient.Companion$private inline fun &lt;T&gt; process(operation: String, block: () -&gt; T): T</ID>
     <ID>ThrowsCount:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$@Throws(HealthConnectorException::class) private suspend fun performIncrementalSync( dataTypes: List&lt;HealthDataTypeDto&gt;, syncToken: HealthDataSyncTokenDto, ): HealthDataSyncResultDto</ID>
-    <ID>ThrowsCount:HealthConnectorPermissionService.kt$HealthConnectorPermissionService$private suspend fun getGrantedPermissionStrings(): Set&lt;String&gt;</ID>
-    <ID>ThrowsCount:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class, UnsupportedOperationException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
-    <ID>TooGenericExceptionCaught:HealthConnectorClient.kt$HealthConnectorClient$e: RuntimeException</ID>
+    <ID>ThrowsCount:HealthConnectorPermissionService.kt$HealthConnectorPermissionService$@Throws(HealthConnectorException::class) private suspend fun getGrantedPermissionStrings(): Set&lt;String&gt;</ID>
+    <ID>ThrowsCount:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
     <ID>TooGenericExceptionCaught:HealthConnectorClient.kt$HealthConnectorClient.Companion$e: Exception</ID>
     <ID>TooGenericExceptionCaught:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin.Companion$e: Exception</ID>
-    <ID>TooManyFunctions:HealthConnectorClient.kt$HealthConnectorClient</ID>
-    <ID>TooManyFunctions:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin : FlutterPluginActivityAwareHealthConnectorHCAndroidApi</ID>
-    <ID>UnusedParameter:HealthConnectorClient.kt$HealthConnectorClient$context: Context</ID>
-    <ID>UseRequire:ActivityIntensityHandler.kt$ActivityIntensityHandler$throw IllegalArgumentException( "Expected ActivityIntensityAggregateRequestDto for ActivityIntensityHandler", )</ID>
-    <ID>UseRequire:BloodPressureHandler.kt$BloodPressureHandler$throw IllegalArgumentException( "Expected BloodPressureAggregateRequestDto for BloodPressureHandler", )</ID>
-    <ID>UseRequire:HeartRateHandler.kt$HeartRateHandler$throw IllegalArgumentException( "Aggregated value is not Long type: ${aggregatedValue::class.simpleName}", )</ID>
-    <ID>UseRequire:RestingHeartRateHandler.kt$RestingHeartRateHandler$throw IllegalArgumentException( "Aggregated value is not numeric value: ${aggregatedValue::class.simpleName}", )</ID>
-    <ID>UseRequire:StepsHandler.kt$StepsHandler$throw IllegalArgumentException( "Aggregated value is not numeric value: ${aggregatedValue::class.simpleName}", )</ID>
-    <ID>UseRequire:WheelchairPushesHandler.kt$WheelchairPushesHandler$throw IllegalArgumentException( "Aggregated value is not numeric value: ${aggregatedValue::class.simpleName}", )</ID>
   </CurrentIssues>
 </SmellBaseline>

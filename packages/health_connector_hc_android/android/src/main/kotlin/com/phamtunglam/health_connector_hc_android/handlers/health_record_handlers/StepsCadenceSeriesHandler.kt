@@ -38,7 +38,8 @@ internal class StepsCadenceSeriesHandler(
 
     override fun convertAggregatedValue(aggregatedValue: Any): Double {
         require(aggregatedValue is Double) {
-            "Expected Double for aggregated steps cadence value, got ${aggregatedValue::class.simpleName}"
+            "Expected Double for aggregated steps cadence value, " +
+                "got ${aggregatedValue::class.simpleName}"
         }
         return aggregatedValue
     }

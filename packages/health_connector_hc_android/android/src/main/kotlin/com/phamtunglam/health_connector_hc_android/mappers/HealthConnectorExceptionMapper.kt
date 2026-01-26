@@ -69,7 +69,8 @@ private fun formatStackTrace(stackTrace: Array<StackTraceElement>): String? {
     val formatted = stackTrace
         .take(MAX_STACK_TRACE_FRAMES)
         .joinToString("\n") { frame ->
-            "  at ${frame.className}.${frame.methodName}(${frame.fileName ?: "Unknown"}:${frame.lineNumber})"
+            "  at ${frame.className}.${frame.methodName}(" +
+                "${frame.fileName ?: "Unknown"}:${frame.lineNumber})"
         }
     return formatted.ifEmpty { null }
 }

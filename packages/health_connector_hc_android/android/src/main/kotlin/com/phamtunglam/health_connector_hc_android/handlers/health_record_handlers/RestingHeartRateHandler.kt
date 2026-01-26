@@ -35,10 +35,8 @@ internal class RestingHeartRateHandler(
     )
 
     override fun convertAggregatedValue(aggregatedValue: Any): Double {
-        if (aggregatedValue !is Number) {
-            throw IllegalArgumentException(
-                "Aggregated value is not numeric value: ${aggregatedValue::class.simpleName}",
-            )
+        require(aggregatedValue is Number) {
+            "Aggregated value is not numeric value: ${aggregatedValue::class.simpleName}"
         }
         return aggregatedValue.toDouble()
     }

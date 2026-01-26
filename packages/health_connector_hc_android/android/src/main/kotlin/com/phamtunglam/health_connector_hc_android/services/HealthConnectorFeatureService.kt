@@ -4,7 +4,6 @@ import androidx.health.connect.client.HealthConnectFeatures
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectFeature
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureStatusDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 
@@ -26,9 +25,7 @@ internal class HealthConnectorFeatureService(private val client: HealthConnectFe
      *
      * @param feature The requested feature to check (e.g., background reads).
      * @return A [HealthPlatformFeatureStatusDto] indicating if the feature is available, unavailable, or unsupported.
-     * @throws HealthConnectorErrorDto If the [feature] cannot be mapped to a native constant or if an underlying error occurs.
      */
-    @Throws(HealthConnectorErrorDto::class)
     fun getFeatureStatus(feature: HealthPlatformFeatureDto): HealthPlatformFeatureStatusDto {
         val context = mapOf(
             "feature" to feature.name,

@@ -1,9 +1,9 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
-import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.time.TimeRangeFilter
+import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
@@ -43,9 +43,10 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
      *
      * @param request The aggregation request containing data type, metric, and time range
      * @return The aggregation response with the computed value
-     * @throws HealthConnectorErrorDto if [startTime] > [endTime] or exception by [HealthConnectClient.aggregate]
+     * @throws IllegalArgumentException if [startTime] > [endTime]
+     * @throws HealthConnectorException by [process] operation
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(IllegalArgumentException::class, HealthConnectorException::class)
     override suspend fun aggregate(request: AggregateRequestDto): Double = process(
         operation = "aggregate",
         context = mapOf("request" to request),
@@ -55,7 +56,8 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
         }
 
         require(request.dataType == dataType) {
-            "Handler does not support data type: ${request.dataType}. Supported data type: $dataType"
+            "Handler does not support data type: ${request.dataType}. " +
+                "Supported data type: $dataType"
         }
 
         val metric = aggregateMetricMappings[request.aggregationMetric]

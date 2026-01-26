@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
-import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnectPermissionString
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
@@ -70,13 +70,13 @@ internal class HealthConnectorPermissionService(
         )
 
         val permissionStrings = request.permissionRequests.map {
-            it.toHealthConnect()
+            it.toHealthConnectPermissionString()
         }.toSet()
 
         val grantedPermissionStrings = launchPermissionRequest(activity, permissionStrings)
 
         val results = request.permissionRequests.map { permissionRequest ->
-            val permissionString = permissionRequest.toHealthConnect()
+            val permissionString = permissionRequest.toHealthConnectPermissionString()
             val isGranted = permissionString in grantedPermissionStrings
             val status = if (isGranted) PermissionStatusDto.GRANTED else PermissionStatusDto.DENIED
 
@@ -172,7 +172,7 @@ internal class HealthConnectorPermissionService(
     @Throws(HealthConnectorException::class)
     suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto =
         withContext(dispatcher) {
-            val permissionString = request.toHealthConnect()
+            val permissionString = request.toHealthConnectPermissionString()
             val context = mapOf(
                 "permission" to permissionString,
             )
@@ -183,26 +183,22 @@ internal class HealthConnectorPermissionService(
                 context = context,
             )
 
-            try {
-                val grantedPermissions = getGrantedPermissionStrings()
+            val grantedPermissions = getGrantedPermissionStrings()
 
-                val status = if (grantedPermissions.contains(permissionString)) {
-                    PermissionStatusDto.GRANTED
-                } else {
-                    PermissionStatusDto.DENIED
-                }
-
-                HealthConnectorLogger.info(
-                    tag = TAG,
-                    operation = "getPermissionStatus",
-                    message = "Permission status retrieved",
-                    context = context + mapOf("status" to status.name),
-                )
-
-                return@withContext status
-            } catch (e: HealthConnectorException) {
-                throw e
+            val status = if (grantedPermissions.contains(permissionString)) {
+                PermissionStatusDto.GRANTED
+            } else {
+                PermissionStatusDto.DENIED
             }
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = "getPermissionStatus",
+                message = "Permission status retrieved",
+                context = context + mapOf("status" to status.name),
+            )
+
+            return@withContext status
         }
 
     /**
@@ -221,24 +217,20 @@ internal class HealthConnectorPermissionService(
                 message = "Retrieving granted permissions",
             )
 
-            try {
-                val grantedPermissionStrings = getGrantedPermissionStrings()
+            val grantedPermissionStrings = getGrantedPermissionStrings()
 
-                val grantedPermissions = grantedPermissionStrings.map { permissionString ->
-                    permissionString.toPermissionRequestResultDto()
-                }
-
-                HealthConnectorLogger.info(
-                    tag = TAG,
-                    operation = "getGrantedPermissions",
-                    message = "Retrieved granted permissions",
-                    context = mapOf("granted_count" to grantedPermissions.size),
-                )
-
-                return@withContext grantedPermissions
-            } catch (e: HealthConnectorException) {
-                throw e
+            val grantedPermissions = grantedPermissionStrings.map { permissionString ->
+                permissionString.toPermissionRequestResultDto()
             }
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = "getGrantedPermissions",
+                message = "Retrieved granted permissions",
+                context = mapOf("granted_count" to grantedPermissions.size),
+            )
+
+            return@withContext grantedPermissions
         }
 
     /**
@@ -309,6 +301,7 @@ internal class HealthConnectorPermissionService(
      * @throws HealthConnectorException.HealthService for IPC transportation and disk I/O issues.
      * @throws HealthConnectorException.HealthServiceUnavailable if service is not available.
      */
+    @Throws(HealthConnectorException::class)
     private suspend fun getGrantedPermissionStrings(): Set<String> {
         try {
             return permissionClient.getGrantedPermissions()

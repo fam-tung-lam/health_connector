@@ -61,6 +61,8 @@ import kotlinx.coroutines.sync.withLock
  * plugin.setClient(mockClient)
  * ```
  */
+// Suppress "TooManyFunctions" as `HealthConnectorHCAndroidPlugin` is a facade for Flutter layer.
+@Suppress("TooManyFunctions")
 class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     private val dispatchers: DispatcherProvider = StandardDispatcherProvider,
 ) : FlutterPlugin,
@@ -214,14 +216,18 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         val logContext = mapOf("is_logger_enabled" to config.isLoggerEnabled)
 
         scope.launch {
-            HealthConnectorLogger.debug(
-                TAG,
+            process(
                 operation = operation,
-                message = "Initializing Health Connector Android plugin...",
                 context = logContext,
-            )
+                callback = callback,
+            ) {
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Initializing Health Connector Android plugin...",
+                    context = logContext,
+                )
 
-            try {
                 clientInitMutex.withLock {
                     if (client == null) {
                         client = HealthConnectorClient.getOrCreate(
@@ -238,40 +244,6 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     operation = operation,
                     message = "Initialized Health Connector Android plugin.",
                     context = logContext,
-                )
-
-                callback(Result.success(Unit))
-            } catch (e: HealthConnectorException) {
-                HealthConnectorLogger.error(
-                    TAG,
-                    operation = operation,
-                    message = "Failed to initialize Health Connector Android plugin.",
-                    context = logContext + mapOf(
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    TAG,
-                    operation = operation,
-                    message = "Unexpected error during initialization Health Connector " +
-                        "Android plugin.",
-                    context = logContext,
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorException.Unknown(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                            cause = e,
-                        ).toDto(),
-                    ),
                 )
             }
         }
@@ -291,72 +263,31 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     override fun launchHealthConnectPageInGooglePlay(callback: (Result<Unit>) -> Unit) {
         val operation = "launch_health_connect_page_in_google_play"
 
-        try {
-            val currentActivity = activity
-            if (currentActivity == null) {
-                HealthConnectorLogger.error(
+        scope.launch {
+            process(operation = operation, callback = callback) {
+                val currentActivity = activity
+                if (currentActivity == null) {
+                    throw HealthConnectorException.Configuration(
+                        message = "Activity is unavailable. " +
+                            "The app may be in the background or " +
+                            "activity has been destroyed.",
+                    )
+                }
+
+                HealthConnectorLogger.debug(
                     TAG,
                     operation = operation,
-                    message = "Cannot launch Play Store without activity context",
+                    message = "Launching Health Connect page in Google Play...",
                 )
 
-                callback(
-                    Result.failure(
-                        HealthConnectorException.Configuration(
-                            message = "Activity is unavailable. " +
-                                "The app may be in the background or " +
-                                "activity has been destroyed.",
-                        ).toDto(),
-                    ),
-                )
+                HealthConnectorClient.launchHealthConnectPageInGooglePlay(currentActivity)
 
-                return
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Launched Health Connect page in Google Play.",
+                )
             }
-
-            HealthConnectorLogger.debug(
-                TAG,
-                operation = operation,
-                message = "Launching Health Connect page in Google Play...",
-            )
-
-            HealthConnectorClient.launchHealthConnectPageInGooglePlay(currentActivity)
-
-            HealthConnectorLogger.info(
-                TAG,
-                operation = operation,
-                message = "Launched Health Connect page in Google Play.",
-            )
-
-            callback(Result.success(Unit))
-        } catch (e: HealthConnectorException) {
-            HealthConnectorLogger.error(
-                TAG,
-                operation = operation,
-                message = "Failed to launch Health Connect page in Google Play",
-                context = mapOf(
-                    "error_code" to e.code,
-                    "error_message" to (e.message ?: "Unknown error"),
-                ),
-                exception = e,
-            )
-
-            callback(Result.failure(e))
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                "HealthConnectorHCAndroidPlugin",
-                operation = "launch_health_connect_page_in_google_play",
-                message = "Unexpected error while launching Play Store",
-                exception = e,
-            )
-
-            callback(
-                Result.failure(
-                    HealthConnectorException.Unknown(
-                        message = "Failed to launch Play Store: ${e.message ?: "Unknown error"}",
-                        cause = e,
-                    ).toDto(),
-                ),
-            )
         }
     }
 
@@ -369,7 +300,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         val operation = "get_health_platform_status"
 
         scope.launch {
-            try {
+            process(operation = operation, callback = callback) {
                 HealthConnectorLogger.debug(
                     TAG,
                     operation = operation,
@@ -384,24 +315,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     message = "Got health platform status.",
                 )
 
-                callback(Result.success(statusDto))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    TAG,
-                    operation = operation,
-                    message = "Unexpected error while getting platform status",
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorException.Unknown(
-                            message = "Unexpected error: ${e.message ?: "Unknown error"}",
-                            cause = e,
-                        ).toDto(),
-                    ),
-                )
+                statusDto
             }
         }
     }
@@ -423,28 +337,18 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         val logContext = mapOf("permission_count" to request.permissionRequests.size)
 
         scope.launch {
-            try {
+            process(
+                operation = operation,
+                context = logContext,
+                callback = callback,
+            ) {
                 val currentActivity = activity
                 if (currentActivity == null) {
-                    HealthConnectorLogger.error(
-                        TAG,
-                        operation = operation,
-                        message = "Activity is null. " +
-                            "Cannot request permissions without activity context",
-                        context = logContext,
+                    throw HealthConnectorException.Configuration(
+                        message = "Activity is unavailable. " +
+                            "The app may be in the background or " +
+                            "activity has been destroyed.",
                     )
-
-                    callback(
-                        Result.failure(
-                            HealthConnectorException.Configuration(
-                                message = "Activity is unavailable. " +
-                                    "The app may be in the background or " +
-                                    "activity has been destroyed.",
-                            ).toDto(),
-                        ),
-                    )
-
-                    return@launch
                 }
 
                 HealthConnectorLogger.debug(
@@ -466,38 +370,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     context = logContext,
                 )
 
-                callback(Result.success(responseDto))
-            } catch (e: HealthConnectorException) {
-                HealthConnectorLogger.error(
-                    TAG,
-                    operation = operation,
-                    message = "Failed to request Health Connect permissions",
-                    context = logContext + mapOf(
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    TAG,
-                    operation = operation,
-                    message = "Unexpected error while requesting permissions",
-                    context = logContext,
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorException.Unknown(
-                            message = "Unexpected error: ${e.message ?: "Unknown error"}",
-                            cause = e,
-                        ).toDto(),
-                    ),
-                )
+                responseDto
             }
         }
     }
@@ -636,7 +509,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     context = logContext,
                 )
 
-                val result = requireClient().getFeatureStatus(context, feature)
+                val result = requireClient().getFeatureStatus(feature)
 
                 HealthConnectorLogger.info(
                     TAG,
@@ -1078,6 +951,13 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
          * @param callback The callback to invoke with the result
          * @param block The suspendable operation to execute
          */
+        // Suppress "TooGenericExceptionCaught" because this is a Flutter plugin boundary layer
+        // that must defensively catch all exceptions. Any unhandled exception would crash the
+        // Flutter app, so we catch generic Exception to ensure all unexpected errors are:
+        // 1. Logged for debugging purposes
+        // 2. Converted to a proper DTO format for Flutter communication
+        // 3. Returned as a Result.failure instead of propagating as an unhandled exception
+        @Suppress("TooGenericExceptionCaught")
         private suspend fun <T> process(
             operation: String,
             context: Map<String, Any> = emptyMap(),

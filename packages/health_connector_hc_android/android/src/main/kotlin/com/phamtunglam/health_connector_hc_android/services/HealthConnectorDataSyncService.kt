@@ -35,6 +35,13 @@ internal class HealthConnectorDataSyncService(
 ) {
     companion object {
         private const val TAG = "HealthConnectorDataSyncService"
+
+        private const val MILLIS_PER_SECOND = 1000L
+        private const val SECONDS_PER_MINUTE = 60
+        private const val MINUTES_PER_HOUR = 60
+        private const val HOURS_PER_DAY = 24
+        private const val MILLIS_PER_DAY =
+            HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
     }
 
     /**
@@ -159,7 +166,7 @@ internal class HealthConnectorDataSyncService(
         syncToken: HealthDataSyncTokenDto,
     ): HealthDataSyncResultDto {
         val tokenAgeDays =
-            (System.currentTimeMillis() - syncToken.createdAtMillis) / (24 * 60 * 60 * 1000)
+            (System.currentTimeMillis() - syncToken.createdAtMillis) / MILLIS_PER_DAY
         val context = mapOf(
             "data_type_count" to dataTypes.size,
             "has_sync_token" to true,

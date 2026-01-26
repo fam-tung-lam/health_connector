@@ -44,10 +44,8 @@ internal class ActivityIntensityHandler(
         operation = "aggregate",
         context = mapOf("request" to request),
     ) {
-        if (request !is ActivityIntensityAggregateRequestDto) {
-            throw IllegalArgumentException(
-                "Expected ActivityIntensityAggregateRequestDto for ActivityIntensityHandler",
-            )
+        require(request is ActivityIntensityAggregateRequestDto) {
+            "Expected ActivityIntensityAggregateRequestDto for ActivityIntensityHandler"
         }
 
         require(request.startTime < request.endTime) {

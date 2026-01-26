@@ -8,6 +8,11 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseTypeDto
  *
  * @throws IllegalArgumentException if the exercise type is not supported on Android Health Connect
  */
+// Suppressed because handles 50+ exercise types in a single `when` expression
+// to leverage Kotlin's exhaustiveness checking, ensuring compile-time safety when new data types
+// are added. Splitting into smaller methods would scatter the mapping logic without improving
+// readability or maintainability.
+@Suppress("LongMethod", "CognitiveComplexMethod", "CyclomaticComplexMethod")
 internal fun ExerciseTypeDto.toHealthConnectExerciseType(): Int = when (this) {
     // Cardio & Walking/Running
     ExerciseTypeDto.RUNNING -> ExerciseSessionRecord.EXERCISE_TYPE_RUNNING
@@ -103,6 +108,11 @@ internal fun ExerciseTypeDto.toHealthConnectExerciseType(): Int = when (this) {
  *
  * @return The corresponding ExerciseTypeDto, or UNKNOWN for unrecognized types
  */
+// Suppressed because handles 50+ exercise types in a single `when` expression
+// to leverage Kotlin's exhaustiveness checking, ensuring compile-time safety when new data types
+// are added. Splitting into smaller methods would scatter the mapping logic without improving
+// readability or maintainability.
+@Suppress("LongMethod", "CognitiveComplexMethod", "CyclomaticComplexMethod")
 internal fun Int.toExerciseTypeDto(): ExerciseTypeDto = when (this) {
     // Cardio & Walking/Running
     ExerciseSessionRecord.EXERCISE_TYPE_RUNNING -> ExerciseTypeDto.RUNNING

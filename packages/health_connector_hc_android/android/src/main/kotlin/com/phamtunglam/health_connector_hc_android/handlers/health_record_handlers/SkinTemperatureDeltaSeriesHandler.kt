@@ -38,7 +38,8 @@ internal class SkinTemperatureDeltaSeriesHandler(
     override fun convertAggregatedValue(aggregatedValue: Any): Double {
         val temperatureDelta = aggregatedValue as? TemperatureDelta
             ?: throw IllegalArgumentException(
-                "Aggregated value is not TemperatureDelta type: ${aggregatedValue::class.simpleName}",
+                "Aggregated value is not TemperatureDelta type: " +
+                    "${aggregatedValue::class.simpleName}",
             )
         return temperatureDelta.inCelsius
     }

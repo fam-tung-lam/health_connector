@@ -51,6 +51,11 @@ import kotlin.reflect.KClass
  * @receiver The [HealthDataTypeDto] to convert
  * @return The Health Connect record class [KClass] corresponding to the DTO
  */
+// Suppressed because handles 50+ health data types in a single `when` expression
+// to leverage Kotlin's exhaustiveness checking, ensuring compile-time safety when new data types
+// are added. Splitting into smaller methods would scatter the mapping logic without improving
+// readability or maintainability.
+@Suppress("LongMethod", "CognitiveComplexMethod", "CyclomaticComplexMethod")
 internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> = when (this) {
     HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> ActiveCaloriesBurnedRecord::class
     HealthDataTypeDto.BASAL_METABOLIC_RATE -> BasalMetabolicRateRecord::class

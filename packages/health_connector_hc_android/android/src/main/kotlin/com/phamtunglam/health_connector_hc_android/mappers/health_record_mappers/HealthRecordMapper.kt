@@ -146,6 +146,11 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
  * This extension uses pattern matching on the sealed class to convert
  * each record type to its corresponding Health Connect record.
  */
+// Suppressed because handles 50+ health data types in a single `when` expression
+// to leverage Kotlin's exhaustiveness checking, ensuring compile-time safety when new data types
+// are added. Splitting into smaller methods would scatter the mapping logic without improving
+// readability or maintainability.
+@Suppress("LongMethod", "CognitiveComplexMethod", "CyclomaticComplexMethod")
 internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is ActiveEnergyBurnedRecordDto -> toHealthConnect()
     is BasalMetabolicRateRecordDto -> toHealthConnect()
@@ -202,6 +207,12 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
  * @return The [HealthRecordDto] corresponding to the record type
  * @throws IllegalArgumentException if the record type is not supported
  */
+// Suppressed because handles 50+ health data types in a single `when` expression
+// to leverage Kotlin's exhaustiveness checking, ensuring compile-time safety when new data types
+// are added. Splitting into smaller methods would scatter the mapping logic without improving
+// readability or maintainability.
+@Suppress("LongMethod", "CognitiveComplexMethod", "CyclomaticComplexMethod")
+@Throws(IllegalArgumentException::class)
 internal fun Record.toDto(): HealthRecordDto = when (this) {
     is ActiveCaloriesBurnedRecord -> toDto()
     is BasalMetabolicRateRecord -> toDto()

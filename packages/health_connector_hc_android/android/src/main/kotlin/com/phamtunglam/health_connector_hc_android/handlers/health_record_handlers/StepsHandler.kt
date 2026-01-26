@@ -33,10 +33,8 @@ internal class StepsHandler(
     )
 
     override fun convertAggregatedValue(aggregatedValue: Any): Double {
-        if (aggregatedValue !is Long) {
-            throw IllegalArgumentException(
-                "Aggregated value is not numeric value: ${aggregatedValue::class.simpleName}",
-            )
+        require(aggregatedValue is Long) {
+            "Aggregated value is not numeric value: ${aggregatedValue::class.simpleName}"
         }
         return aggregatedValue.toDouble()
     }

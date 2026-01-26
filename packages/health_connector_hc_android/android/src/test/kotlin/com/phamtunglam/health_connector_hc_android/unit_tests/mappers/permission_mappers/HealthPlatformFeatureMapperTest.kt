@@ -1,7 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.unit_tests.mappers.permission_mappers
 
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.isFeaturePermission
-import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnectPermissionString
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import io.kotest.assertions.throwables.shouldThrow
@@ -54,7 +54,7 @@ class HealthPlatformFeatureMapperTest {
             expectedPermission: String,
         ) {
             // When
-            val result = feature.toHealthConnect()
+            val result = feature.toHealthConnectPermissionString()
 
             // Then
             result shouldBe expectedPermission

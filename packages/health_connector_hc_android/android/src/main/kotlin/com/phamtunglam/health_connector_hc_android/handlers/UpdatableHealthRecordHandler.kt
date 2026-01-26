@@ -61,7 +61,8 @@ internal interface UpdatableHealthRecordHandler : HealthRecordHandler {
             )
 
             require(!dto.id.isNullOrEmpty()) {
-                "Record ID must be provided for update operations. Use `writeRecord()` for new records."
+                "Record ID must be provided for update operations. " +
+                    "Use `writeRecord()` for new records."
             }
 
             val record = dto.toHealthConnect()
