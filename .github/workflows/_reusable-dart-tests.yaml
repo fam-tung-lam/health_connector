@@ -1,0 +1,48 @@
+name: Reusable Dart Tests
+
+on:
+  workflow_call:
+    inputs:
+      package-scope:
+        description: 'Melos package scope (e.g., health_connector_core)'
+        type: string
+        required: true
+      should-upload-coverage:
+        description: 'Upload coverage artifacts'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  dart-tests:
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 15
+
+    env:
+      PACKAGE_PATH: packages/${{ inputs.package-scope }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Setup Melos
+        uses: ./.github/actions/setup-melos
+
+      - name: Run Dart tests
+        run: |
+          melos exec --scope="${{ inputs.package-scope }}" --dir-exists=test -- \
+            flutter test --coverage
+
+      - name: Upload coverage artifacts
+        if: inputs.should-upload-coverage && always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: coverage-${{ inputs.package-scope }}
+          path: ${{ env.PACKAGE_PATH }}/coverage/
+          retention-days: 7
+          if-no-files-found: ignore

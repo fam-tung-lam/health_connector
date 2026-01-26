@@ -1,0 +1,27 @@
+name: Reusable Publish to pub.dev
+
+on:
+  workflow_call:
+    inputs:
+      package-path:
+        description: 'Path to the package to publish'
+        type: string
+        required: true
+
+jobs:
+  publish:
+    name: Publish to pub.dev
+    permissions:
+      # Required for OIDC-based authentication to pub.dev
+      # NOTE: This declaration alone is NOT sufficient - the caller workflow
+      # must also explicitly grant 'id-token: write' at the top level.
+      # 
+      # Why both are needed:
+      # - Effective permissions = intersection of caller's grants AND callee's declarations
+      # - The caller must explicitly grant id-token: write (repository identity permission)
+      # - This job-level declaration specifies what this specific job needs
+      # - If the caller doesn't grant it, this job cannot obtain the OIDC token
+      id-token: write
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@631075bc7d06a1ef11a42118142ba9148e41727c
+    with:
+      working-directory: ${{ inputs.package-path }}

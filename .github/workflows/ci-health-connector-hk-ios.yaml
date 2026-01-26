@@ -1,0 +1,45 @@
+name: CI - health_connector_hk_ios
+
+on:
+  push:
+    branches: [ main ]
+    paths: &main_paths
+      - 'packages/health_connector_core/**'
+      - 'packages/health_connector_hk_ios/**'
+      - 'packages/health_connector_logger/**'
+      - '.github/workflows/**'
+  pull_request:
+    types: [ opened, reopened, synchronize, ready_for_review ]
+    paths: *main_paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dart-quality:
+    uses: ./.github/workflows/_reusable-dart-quality.yaml
+    with:
+      package-scope: health_connector_hk_ios
+
+  swift-quality:
+    uses: ./.github/workflows/_reusable-swift-quality.yaml
+    with:
+      package-path: packages/health_connector_hk_ios
+
+  dart-tests:
+    needs: [ dart-quality ]
+    uses: ./.github/workflows/_reusable-dart-tests.yaml
+    with:
+      package-scope: health_connector_hk_ios
+
+  build-ios:
+    needs: [ dart-tests, swift-quality ]
+    uses: ./.github/workflows/_reusable-build-ios.yaml
+    with:
+      package-path: packages/health_connector_hk_ios

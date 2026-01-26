@@ -1,0 +1,32 @@
+name: CI - health_connector_logger
+
+on:
+  push:
+    branches: [ main ]
+    paths: &main_paths
+      - 'packages/health_connector_logger/**'
+      - '.github/workflows/**'
+  pull_request:
+    types: [ opened, reopened, synchronize, ready_for_review ]
+    paths: *main_paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dart-quality:
+    uses: ./.github/workflows/_reusable-dart-quality.yaml
+    with:
+      package-scope: health_connector_logger
+
+  dart-tests:
+    needs: [ dart-quality ]
+    uses: ./.github/workflows/_reusable-dart-tests.yaml
+    with:
+      package-scope: health_connector_logger

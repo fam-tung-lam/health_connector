@@ -23,7 +23,6 @@ dev_dependencies:
 melos:
   name: health_connector
   repository: https://github.com/fam-tung-lam/health_connector
-  sdkPath: .fvm/flutter_sdk
 
   command:
     bootstrap:

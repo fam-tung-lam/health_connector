@@ -1,0 +1,82 @@
+name: Reusable iOS Build
+
+on:
+  workflow_call:
+    inputs:
+      package-path:
+        description: 'Path to the package with example app'
+        type: string
+        required: true
+      macos-version:
+        description: 'macOS runner version (e.g. macos-14, macos-15)'
+        type: string
+        required: false
+        default: 'macos-15'
+      xcode-version:
+        description: 'Xcode version'
+        type: string
+        required: false
+        default: '26'
+
+permissions:
+  contents: read
+
+jobs:
+  build-ios:
+    runs-on: ${{ inputs.macos-version }}
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd
+        with:
+          xcode-version: ${{ inputs.xcode-version }}
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Setup Melos
+        uses: ./.github/actions/setup-melos
+
+      - name: Setup CocoaPods cache
+        uses: ./.github/actions/setup-cocoapods
+        with:
+          podfile-path: ${{ inputs.package-path }}/example/ios/Podfile.lock
+
+      - name: Install CocoaPods dependencies
+        working-directory: ${{ inputs.package-path }}/example/ios
+        run: |
+          # Use --deployment when Podfile.lock exists for reproducible CI; otherwise --repo-update.
+          # Commit Podfile.lock for iOS example apps that use CocoaPods so CI uses deterministic installs.
+          if [[ -f "Podfile.lock" ]]; then
+            pod install --deployment
+          else
+            pod install --repo-update
+          fi
+
+      - name: Build iOS example app
+        working-directory: ${{ inputs.package-path }}/example
+
+        # Use debug build because:
+        # 1. This is a Flutter plugin, not a production app, so the example app is only used for
+        #    testing/validation purposes and doesn't need release optimizations.
+        # 2. Debug builds are significantly faster (skip code obfuscation, minification, and signing)
+        #    which reduces CI execution time and costs.
+        # 3. Debug builds provide better error messages for catching plugin integration issues
+        #    during CI validation.
+        run: flutter build ios --no-codesign --debug
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ios-build-logs-${{ github.run_id }}
+          path: |
+            ${{ inputs.package-path }}/example/ios/Pods/Pods.xcodeproj
+            ${{ inputs.package-path }}/example/build/ios/**/*.log
+            ~/Library/Logs/CoreSimulator/**/*.log
+          retention-days: 7
+          if-no-files-found: ignore

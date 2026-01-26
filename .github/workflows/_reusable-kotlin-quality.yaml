@@ -1,0 +1,47 @@
+name: Reusable Kotlin Quality
+
+on:
+  workflow_call:
+    inputs:
+      package-path:
+        description: 'Path to the package (e.g., packages/health_connector_hc_android)'
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  kotlin-quality:
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 30
+
+    env:
+      GRADLE_OPTS: -Xmx6g -Xms2G -Dorg.gradle.daemon=false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Setup Java
+        uses: ./.github/actions/setup-java
+
+      - name: Setup Gradle
+        uses: ./.github/actions/setup-gradle
+
+      - name: Run Detekt
+        working-directory: ${{ inputs.package-path }}/android
+        run: ./gradlew detekt
+
+      - name: Run ktlint
+        working-directory: ${{ inputs.package-path }}/android
+        run: ./gradlew ktlintCheck
+
+      - name: Upload Detekt SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@fbcef3fba75224ed6476919775448de80b23cb15
+        with:
+          sarif_file: ${{ inputs.package-path }}/android/build/reports/detekt/detekt.sarif
+          category: detekt-${{ inputs.package-path }}
+        continue-on-error: true

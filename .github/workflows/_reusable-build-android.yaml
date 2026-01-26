@@ -1,0 +1,60 @@
+name: Reusable Android Build
+
+on:
+  workflow_call:
+    inputs:
+      package-path:
+        description: 'Path to the package with example app'
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-android:
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 30
+
+    env:
+      GRADLE_OPTS: -Xmx6g -Dorg.gradle.daemon=false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Setup Java
+        uses: ./.github/actions/setup-java
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Setup Melos
+        uses: ./.github/actions/setup-melos
+
+      - name: Setup Gradle
+        uses: ./.github/actions/setup-gradle
+
+      - name: Build Android example app
+        working-directory: ${{ inputs.package-path }}/example
+
+        # Use debug build because:
+        # 1. This is a Flutter plugin, not a production app, so the example app is only used for
+        #    testing/validation purposes and doesn't need release optimizations.
+        # 2. Debug builds are significantly faster (skip code obfuscation, minification, and signing)
+        #    which reduces CI execution time and costs.
+        # 3. Debug builds provide better error messages for catching plugin integration issues
+        #    during CI validation.
+        run: flutter build apk --debug
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: android-build-logs-${{ github.run_id }}
+          path: |
+            ${{ inputs.package-path }}/example/build/**/*.log
+            ${{ inputs.package-path }}/android/build/**/*.log
+            ~/.gradle/daemon/*/*.log
+          retention-days: 7
+          if-no-files-found: ignore

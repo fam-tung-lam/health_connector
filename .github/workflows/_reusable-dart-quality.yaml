@@ -1,0 +1,37 @@
+name: Reusable Dart Quality
+
+on:
+  workflow_call:
+    inputs:
+      package-scope:
+        description: 'Melos package scope (e.g., health_connector_core)'
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  dart-quality:
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Setup Melos
+        uses: ./.github/actions/setup-melos
+
+      - name: Check Dart formatting
+        run: |
+          melos exec --scope="${{ inputs.package-scope }}" -- \
+            dart format --set-exit-if-changed .
+
+      - name: Run Dart analysis
+        run: |
+          melos exec --scope="${{ inputs.package-scope }}" -- \
+            dart analyze --fatal-infos --fatal-warnings

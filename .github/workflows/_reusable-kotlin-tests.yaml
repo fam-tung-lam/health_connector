@@ -1,0 +1,54 @@
+name: Reusable Kotlin Tests
+
+on:
+  workflow_call:
+    inputs:
+      package-path:
+        description: 'Path to the package (e.g., packages/health_connector_hc_android)'
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  kotlin-tests:
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 30
+
+    env:
+      GRADLE_OPTS: -Xmx6g -Xms2G -Dorg.gradle.daemon=false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Setup Java
+        uses: ./.github/actions/setup-java
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Setup Melos
+        uses: ./.github/actions/setup-melos
+
+      - name: Setup Gradle
+        uses: ./.github/actions/setup-gradle
+
+      - name: Run Kotlin unit tests
+        working-directory: ${{ inputs.package-path }}/example/android
+        run: ./gradlew testDebugUnitTest
+
+      # NOTE: Test coverage reports are not generated or uploaded for the following reasons:
+      #
+      # 1. Flutter plugin testing requirement: Kotlin unit tests for `health_connector_hc_android` must be run
+      #    in the /example app directory (not the plugin's android directory) because Flutter plugins require
+      #    an app context to properly test native code integration. See: https://docs.flutter.dev/testing/testing-plugins#native-unit-tests
+      #
+      # 2. Technical limitation: When tests are run from the /example directory, Gradle's test coverage tools
+      #    (including `org.jetbrains.kotlinx.kover`) do not generate coverage reports for the plugin's Kotlin code,
+      #    even when explicitly invoked with commands like `./gradlew testDebugUnitTest koverHtmlReport`.
+      #    This is because the coverage tools are scoped to the example app's module, not the plugin module.
+      #
+      # 3. No artifacts to upload: Since no test coverage reports are generated, there are no artifacts to
+      #    upload..

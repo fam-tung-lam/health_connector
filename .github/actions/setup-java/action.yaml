@@ -1,0 +1,19 @@
+name: 'Setup Java'
+description: 'Setup Java JDK for Android builds'
+
+inputs:
+  java-version:
+    description: 'Java version to use'
+    default: '17'
+  distribution:
+    description: 'Java distribution'
+    default: 'temurin'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Java
+      uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4.8.0
+      with:
+        distribution: ${{ inputs.distribution }}
+        java-version: ${{ inputs.java-version }}

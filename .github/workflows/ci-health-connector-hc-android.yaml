@@ -1,0 +1,51 @@
+name: CI - health_connector_hc_android
+
+on:
+  push:
+    branches: [ main ]
+    paths: &main_paths
+      - 'packages/health_connector_core/**'
+      - 'packages/health_connector_hc_android/**'
+      - 'packages/health_connector_logger/**'
+      - '.github/workflows/**'
+  pull_request:
+    types: [ opened, reopened, synchronize, ready_for_review ]
+    paths: *main_paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dart-quality:
+    uses: ./.github/workflows/_reusable-dart-quality.yaml
+    with:
+      package-scope: health_connector_hc_android
+
+  kotlin-quality:
+    uses: ./.github/workflows/_reusable-kotlin-quality.yaml
+    with:
+      package-path: packages/health_connector_hc_android
+
+  dart-tests:
+    needs: [ dart-quality ]
+    uses: ./.github/workflows/_reusable-dart-tests.yaml
+    with:
+      package-scope: health_connector_hc_android
+
+  kotlin-tests:
+    needs: [ kotlin-quality ]
+    uses: ./.github/workflows/_reusable-kotlin-tests.yaml
+    with:
+      package-path: packages/health_connector_hc_android
+
+  build-android:
+    needs: [ dart-tests, kotlin-tests ]
+    uses: ./.github/workflows/_reusable-build-android.yaml
+    with:
+      package-path: packages/health_connector_hc_android

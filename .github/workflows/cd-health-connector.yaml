@@ -1,0 +1,47 @@
+name: CD - health_connector
+
+on:
+  push:
+    tags:
+      - 'health_connector-v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+  security-events: write
+  # Required for OIDC-based authentication to pub.dev (see _reusable-publish.yaml)
+  # Must be explicitly granted at caller level even though reusable workflow declares it
+  id-token: write
+
+concurrency:
+  group: cd-health_connector-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  dart-quality:
+    uses: ./.github/workflows/_reusable-dart-quality.yaml
+    with:
+      package-scope: health_connector
+
+  dart-tests:
+    needs: dart-quality
+    uses: ./.github/workflows/_reusable-dart-tests.yaml
+    with:
+      package-scope: health_connector
+
+  build-android:
+    needs: dart-tests
+    uses: ./.github/workflows/_reusable-build-android.yaml
+    with:
+      package-path: packages/health_connector
+
+  build-ios:
+    needs: dart-tests
+    uses: ./.github/workflows/_reusable-build-ios.yaml
+    with:
+      package-path: packages/health_connector
+
+  publish:
+    needs: [build-android, build-ios]
+    uses: ./.github/workflows/_reusable-publish.yaml
+    with:
+      package-path: packages/health_connector
