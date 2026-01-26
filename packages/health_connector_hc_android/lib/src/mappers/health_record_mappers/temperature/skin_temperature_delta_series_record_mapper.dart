@@ -5,7 +5,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SkinTemperatureMeasurementLocation,
         Temperature;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/skin_temperature_delta_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/skin_temperature_delta_sample_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/temperature/skin_temperature_measurement_location_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'

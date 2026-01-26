@@ -277,6 +277,53 @@ void main() {
                 ),
                 HealthDataType.waistCircumference,
               ],
+
+              // Energy burned records
+              [
+                BasalMetabolicRateRecord(
+                  time: createTestTime(),
+                  rate: const Power.kilocaloriesPerDay(1800),
+                  metadata: createTestMetadata(),
+                ),
+                HealthDataType.basalMetabolicRate,
+              ],
+
+              // Vital signs - respiratory
+              [
+                PeakExpiratoryFlowRateRecord(
+                  startTime: createTestTime(),
+                  endTime: createTestTime().add(const Duration(minutes: 1)),
+                  volumePerSecond: const Volume.liters(6.0),
+                  metadata: createTestMetadata(),
+                ),
+                HealthDataType.peakExpiratoryFlowRate,
+              ],
+
+              // Vital signs - temperature
+              [
+                SkinTemperatureDeltaSeriesRecord(
+                  startTime: createTestTime(),
+                  endTime: createTestTime().add(const Duration(minutes: 10)),
+                  samples: [
+                    SkinTemperatureDeltaSample(
+                      time: createTestTime(),
+                      temperatureDelta: const Temperature.celsius(0.2),
+                    ),
+                  ],
+                  metadata: createTestMetadata(),
+                ),
+                HealthDataType.skinTemperatureDeltaSeries,
+              ],
+
+              // Reproductive health
+              [
+                MenstruationPeriodRecord(
+                  startTime: createTestTime(),
+                  endTime: createTestTime().add(const Duration(days: 5)),
+                  metadata: createTestMetadata(),
+                ),
+                HealthDataType.menstruationPeriod,
+              ],
             ],
             (HealthRecord record, HealthDataType expectedDataType) {
               // WHEN
