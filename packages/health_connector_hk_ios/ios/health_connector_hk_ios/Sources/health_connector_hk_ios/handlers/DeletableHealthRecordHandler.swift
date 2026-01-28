@@ -3,6 +3,22 @@ import HealthKit
 
 /// Capability for handlers that support deleting health records.
 protocol DeletableHealthRecordHandler: HealthRecordHandler {
+    /// Deletes records by IDs using HealthKit's predicate-based batch deletion.
+    ///
+    /// - Parameter ids: Array of record UUIDs to delete.
+    /// - Throws: `HealthConnectorError` if deletion fails.
+    func deleteRecords(ids: [String]) async throws
+
+    /// Deletes all records within a time range.
+    ///
+    /// - Parameters:
+    ///   - startTime: Start of time range.
+    ///   - endTime: End of time range.
+    /// - Throws: `HealthConnectorError` if deletion fails.
+    func deleteRecords(
+        startTime: Date,
+        endTime: Date
+    ) async throws
 }
 
 extension DeletableHealthRecordHandler {

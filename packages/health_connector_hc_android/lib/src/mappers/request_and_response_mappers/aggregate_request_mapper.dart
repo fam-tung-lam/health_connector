@@ -143,6 +143,7 @@ extension AggregateRequestDtoMapper<U extends MeasurementUnit>
           case BodyWaterMassDataType _:
           case HeartRateVariabilityRMSSDDataType _:
           case HeartRateVariabilitySDNNDataType _:
+          case HeartbeatSeriesDataType _:
           case BodyMassIndexDataType _:
           case WaistCircumferenceDataType _:
           case MenstrualFlowDataType _:

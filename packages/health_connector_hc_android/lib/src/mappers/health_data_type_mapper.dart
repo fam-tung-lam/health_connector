@@ -186,6 +186,11 @@ extension HealthDataTypeToDto on HealthDataType {
 
       // region Unsupported data types with alternative
 
+      case HeartbeatSeriesDataType _:
+        throw UnsupportedError(
+          '$HeartbeatSeriesDataType is not supported on '
+          'Android Health Connect. Use $HeartRateSeriesDataType instead.',
+        );
       case DietaryEnergyConsumedDataType _:
       case DietaryCaffeineDataType _:
       case DietaryProteinDataType _:

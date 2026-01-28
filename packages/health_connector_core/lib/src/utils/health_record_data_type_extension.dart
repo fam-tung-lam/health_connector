@@ -89,6 +89,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       SystolicBloodPressureRecord _ => HealthDataType.systolicBloodPressure,
       DiastolicBloodPressureRecord _ => HealthDataType.diastolicBloodPressure,
       HeartRateSeriesRecord _ => HealthDataType.heartRateSeries,
+      HeartbeatSeriesRecord _ => HealthDataType.heartbeatSeries,
       HeartRateRecord _ => HealthDataType.heartRate,
       HeartRateRecoveryOneMinuteRecord _ =>
         HealthDataType.heartRateRecoveryOneMinute,

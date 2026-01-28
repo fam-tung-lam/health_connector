@@ -22,6 +22,8 @@ extension HKSample {
                 // HKWorkout doesn't have a type identifier like other samples
                 // Return exerciseSession directly
                 return .exerciseSession
+            } else if let seriesSample = self as? HKHeartbeatSeriesSample {
+                identifier = HKDataTypeIdentifierHeartbeatSeries
             } else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported HKSample type: \(type(of: self))",
@@ -69,6 +71,8 @@ extension HKSample {
                 return .leanBodyMass
             case HKQuantityTypeIdentifier.heartRate.rawValue:
                 return .heartRateMeasurementRecord
+            case HKDataTypeIdentifierHeartbeatSeries:
+                return .heartbeatSeries
             case HKQuantityTypeIdentifier.restingHeartRate.rawValue:
                 return .restingHeartRate
             case HKQuantityTypeIdentifier.walkingHeartRateAverage.rawValue:
@@ -387,4 +391,17 @@ enum iOS16SleepStage: Int {
     case deep = 3
     case rem = 4
     case light = 5 // HealthKit calls this "core" sleep
+}
+
+extension HKSeriesType {
+    /// Creates an instance for the given identifier, throwing an error if unavailable.
+    static func make(from identifier: String) throws -> HKSeriesType {
+        guard let type = HKObjectType.seriesType(forIdentifier: identifier) else {
+            throw HealthConnectorError.invalidArgument(
+                message: "HealthKit series type unavailable: \(identifier)",
+                context: ["identifier": identifier]
+            )
+        }
+        return type
+    }
 }

@@ -199,6 +199,13 @@ extension HealthRecordDto {
             return try dto.toHKQuantitySample()
         case let dto as HeadphoneAudioExposureRecordDto:
             return try dto.toHKQuantitySample()
+        case let dto as HeartbeatSeriesRecordDto:
+            // HeartbeatSeriesRecordDto cannot be converted via toHKSample()
+            // because it requires HKHeartbeatSeriesBuilder. The handler overrides
+            // writeRecord() to handle this special case.
+            throw HealthConnectorError.invalidArgument(
+                message: "HeartbeatSeriesRecordDto must be written using HeartbeatSeriesHandler.writeRecord()"
+            )
         // Read-only records
         case is ExerciseTimeRecordDto,
              is MoveTimeRecordDto,
@@ -246,6 +253,14 @@ extension HKSample {
             return try quantitySample.toHKQuantitySampleDto(for: dataType)
         } else if let workout = self as? HKWorkout {
             return try workout.toHKWorkoutDto()
+        } else if let heartbeatSeriesSample = self as? HKHeartbeatSeriesSample {
+            // HeartbeatSeriesSample requires beats to be extracted separately
+            // This case should not be reached in normal flow - the handler
+            // overrides readRecord/readRecords to handle this special case.
+            throw HealthConnectorError.invalidArgument(
+                message:
+                "HKHeartbeatSeriesSample.toDto() requires beats to be extracted separately. Use HeartbeatSeriesHandler.readRecord() or readRecords() instead."
+            )
         }
 
         throw HealthConnectorError.invalidArgument(

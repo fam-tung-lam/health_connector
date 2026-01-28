@@ -123,6 +123,7 @@ abstract final class AppTexts {
       SwimmingStrokesDataType() => swimmingStrokes,
       HydrationDataType() => hydration,
       HeartRateDataType() || HeartRateSeriesDataType() => heartRate,
+      HeartbeatSeriesDataType() => heartbeatSamples,
       CyclingPedalingCadenceDataType() ||
       CyclingPedalingCadenceSeriesDataType() => cyclingPedalingCadence,
       SleepSessionDataType() => sleepSession,
@@ -560,6 +561,9 @@ abstract final class AppTexts {
   static const String numberOfTimesFallen = 'Number of Times Fallen';
   static const String restingHeartRate = 'Resting Heart Rate';
   static const String heartRateSamples = '$heartRate Samples';
+  static const String heartbeatSamples = 'Heartbeat Samples';
+  static const String offsetSeconds = 'Offset (seconds)';
+  static const String precededByGap = 'Preceded by Gap';
   static const String addSample = 'Add Sample';
   static const String removeSample = 'Remove Sample';
   static const String sampleBpm = 'Sample BPM';

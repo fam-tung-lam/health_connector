@@ -50,6 +50,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.wheelchairPushes;
       case HealthDataTypeDto.heartRateMeasurementRecord:
         return HealthDataType.heartRate;
+      case HealthDataTypeDto.heartbeatSeries:
+        return HealthDataType.heartbeatSeries;
       case HealthDataTypeDto.heartRateRecoveryOneMinute:
         return HealthDataType.heartRateRecoveryOneMinute;
       case HealthDataTypeDto.heartRateVariabilitySDNN:
@@ -325,6 +327,8 @@ extension HealthDataTypeToDto on HealthDataType {
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateDataType _:
         return HealthDataTypeDto.heartRateMeasurementRecord;
+      case HeartbeatSeriesDataType _:
+        return HealthDataTypeDto.heartbeatSeries;
       case HeartRateRecoveryOneMinuteDataType _:
         return HealthDataTypeDto.heartRateRecoveryOneMinute;
       case CyclingPedalingCadenceDataType _:

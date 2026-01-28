@@ -177,6 +177,7 @@ extension DoubleToMeasurementUnit on double {
       case BoneMassDataType _:
       case CervicalMucusDataType _:
       case HeartRateVariabilityRMSSDDataType _:
+      case HeartbeatSeriesDataType _:
       case ContraceptiveDataType _:
       case HighHeartRateEventDataType _:
       case EnvironmentalAudioExposureEventDataType _:

@@ -51,6 +51,7 @@ extension HealthDataTypeUI on HealthDataType {
       InsulinDeliveryDataType _ => 'Insulin Delivery',
       HeartRateDataType _ => AppTexts.heartRate,
       HeartRateSeriesDataType _ => AppTexts.heartRate,
+      HeartbeatSeriesDataType _ => AppTexts.heartbeatSamples,
       StepsCadenceSeriesDataType _ => AppTexts.stepsCadence,
       CyclingPedalingCadenceDataType _ => AppTexts.cyclingPedalingCadence,
       CyclingPedalingCadenceSeriesDataType _ => AppTexts.cyclingPedalingCadence,
@@ -218,6 +219,8 @@ extension HealthDataTypeUI on HealthDataType {
         'Amount of insulin delivered in international units (iOS only)',
       HeartRateDataType _ => AppTexts.heartRateRecordDescription,
       HeartRateSeriesDataType _ => AppTexts.heartRateSeriesDescription,
+      HeartbeatSeriesDataType _ =>
+        'Heartbeat series measurements over a period of time (iOS only)',
       StepsCadenceSeriesDataType _ =>
         AppTexts.stepsCadenceSeriesRecordDescription,
       CyclingPedalingCadenceDataType _ =>
@@ -402,6 +405,7 @@ extension HealthDataTypeUI on HealthDataType {
       InsulinDeliveryDataType _ => AppIcons.medication,
       HeartRateDataType _ => AppIcons.favorite,
       HeartRateSeriesDataType _ => AppIcons.favorite,
+      HeartbeatSeriesDataType _ => AppIcons.favorite,
       StepsCadenceSeriesDataType _ => AppIcons.speed,
       CyclingPedalingCadenceDataType _ => AppIcons.speed,
       CyclingPedalingCadenceSeriesDataType _ => AppIcons.speed,

@@ -221,6 +221,12 @@ extension HealthRecordToDto on HealthRecord {
         return SkinTemperatureDeltaSeriesRecordToDto(record).toDto();
 
       // region Unsupported records
+
+      case final HeartbeatSeriesRecord _:
+        throw UnsupportedError(
+          '$HeartbeatSeriesRecord is not supported on Android Health '
+          'Connect. Use $HeartRateSeriesRecord instead',
+        );
       case SleepingWristTemperatureRecord():
         throw UnsupportedError(
           '$SleepingWristTemperatureRecord is not supported on Android Health '

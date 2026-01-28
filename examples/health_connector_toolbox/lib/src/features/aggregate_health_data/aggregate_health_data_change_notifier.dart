@@ -573,6 +573,9 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      HeartbeatSeriesDataType() => throw UnsupportedError(
+        'Heartbeat series does not support aggregation',
+      ),
       WalkingHeartRateAverageDataType() => _buildAvgMinMax(
         () => HealthDataType.walkingHeartRateAverage.aggregateAvg(
           startTime: startTime,

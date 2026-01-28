@@ -56,6 +56,8 @@ extension HealthRecordDto {
             record.id
         case let record as HeartRateRecordDto:
             record.id
+        case let record as HeartbeatSeriesRecordDto:
+            record.id
         case let record as RestingHeartRateRecordDto:
             record.id
         case let record as SleepStageRecordDto:
@@ -291,6 +293,8 @@ extension HealthRecordDto {
                 return .leanBodyMass
             case is HeartRateRecordDto:
                 return .heartRateMeasurementRecord
+            case is HeartbeatSeriesRecordDto:
+                return .heartbeatSeries
             case is RestingHeartRateRecordDto:
                 return .restingHeartRate
             case is BloodPressureRecordDto:
@@ -537,6 +541,8 @@ extension HealthRecordDto {
             return dto.time
         case let dto as HeartRateRecordDto:
             return dto.time
+        case let dto as HeartbeatSeriesRecordDto:
+            return dto.endTime
         case let dto as RestingHeartRateRecordDto:
             return dto.time
         case let dto as OxygenSaturationRecordDto:

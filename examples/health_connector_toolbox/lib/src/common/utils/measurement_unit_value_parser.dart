@@ -179,6 +179,10 @@ abstract class MeasurementUnitValueParser {
         '$HeartRateSeriesDataType is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
+      HeartbeatSeriesDataType() => throw UnsupportedError(
+        '$HeartbeatSeriesDataType is a time series data type, '
+        'cannot be parsed from a single string input.',
+      ),
       NutritionDataType() => throw UnsupportedError(
         '$NutritionDataType requires multiple nutrient values, '
         'cannot be parsed from a single string input.',

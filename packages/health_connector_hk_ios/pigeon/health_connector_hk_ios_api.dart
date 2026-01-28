@@ -878,6 +878,9 @@ enum HealthDataTypeDto {
   /// Heart rate measurement record data.
   heartRateMeasurementRecord,
 
+  /// Heartbeat series data.
+  heartbeatSeries,
+
   /// Cycling pedaling cadence measurement record data.
   cyclingPedalingCadence,
 
@@ -3397,6 +3400,54 @@ class HeartRateRecoveryOneMinuteRecordDto extends HealthRecordDto {
   final int? endZoneOffsetSeconds;
   final MetadataDto metadata;
   final double beatsPerMinute;
+}
+
+/// Represents a single heartbeat event in a heartbeat series.
+class HeartbeatSampleDto {
+  HeartbeatSampleDto({
+    required this.offsetMilliseconds,
+    required this.precededByGap,
+  });
+
+  /// Time elapsed since series start in milliseconds.
+  final int offsetMilliseconds;
+
+  /// Whether there was a data gap before this heartbeat.
+  final bool precededByGap;
+}
+
+/// Represents a heartbeat series record for platform transfer.
+class HeartbeatSeriesRecordDto extends HealthRecordDto {
+  HeartbeatSeriesRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.samples,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Series start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// Series end time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// List of heartbeat events within this series.
+  final List<HeartbeatSampleDto> samples;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a sleep stage record for platform transfer.
