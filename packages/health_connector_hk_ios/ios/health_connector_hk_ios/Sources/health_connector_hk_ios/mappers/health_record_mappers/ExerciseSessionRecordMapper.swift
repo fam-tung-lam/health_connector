@@ -22,6 +22,9 @@ extension HKWorkout {
         let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict) ?? startZoneOffset
 
+        // Convert workout events to DTOs
+        let eventDtos = (workoutEvents ?? []).compactMap { $0.toEventDto() }
+
         return try ExerciseSessionRecordDto(
             id: uuid.uuidString,
             startTime: startDate.millisecondsSince1970,
@@ -31,7 +34,8 @@ extension HKWorkout {
             title: title,
             notes: notes,
             startZoneOffsetSeconds: startZoneOffset,
-            endZoneOffsetSeconds: endZoneOffset
+            endZoneOffsetSeconds: endZoneOffset,
+            events: eventDtos
         )
     }
 }
@@ -46,7 +50,6 @@ extension ExerciseSessionRecordDto {
         let activityType = try HKWorkoutActivityType.from(dto: exerciseType)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
-        let duration = endDate.timeIntervalSince(startDate)
 
         // Build metadata using centralized builder
         var builder = try MetadataBuilder(
@@ -76,16 +79,23 @@ extension ExerciseSessionRecordDto {
             builder.set(EndTimeZoneOffsetKey.self, value: endOffset)
         }
 
-        // Create the workout
+        // Convert event DTOs to HKWorkoutEvent objects
+        let hkWorkoutEvents = try events.map { try $0.toHKWorkoutEvent() }
+
+        // Note: We use the deprecated initializer for both iOS 17+ and 17- because:
+        // 1. We're creating historical workouts from DTOs, not live workout sessions
+        // 2. HKWorkoutBuilder is designed for HKWorkoutSession (live workouts)
+        // 3. The deprecated initializer remains functional and appropriate for this use case
+        //
+        // Version check: iOS 17+ deprecates this initializer in favor of HKWorkoutBuilder,
+        // but HKWorkoutBuilder is designed for live workout sessions via HKWorkoutSession.
+        // For historical workouts created from DTOs, the deprecated initializer is still
+        // the appropriate choice.
         return HKWorkout(
             activityType: activityType,
             start: startDate,
             end: endDate,
-            duration: duration,
-
-            // We're not setting `totalEnergyBurned` or `totalDistance` as these
-            // are typically calculated by HealthKit from the workout data, not
-            // stored explicitly by the SDK. Future enhancement could add these fields.
+            workoutEvents: hkWorkoutEvents,
             totalEnergyBurned: nil,
             totalDistance: nil,
             device: builder.healthDevice,

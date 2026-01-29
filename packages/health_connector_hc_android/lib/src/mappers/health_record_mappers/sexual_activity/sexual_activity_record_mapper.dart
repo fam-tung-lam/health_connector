@@ -1,4 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity/sexual_activity_protection_used_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
@@ -27,7 +28,7 @@ extension SexualActivityRecordDtoToDomain on SexualActivityRecordDto {
   /// Converts [SexualActivityRecordDto] to [SexualActivityRecord].
   SexualActivityRecord toDomain() {
     return SexualActivityRecord.internal(
-      id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
+      id: id.toDomain(),
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

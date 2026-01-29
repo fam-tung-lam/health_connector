@@ -5,7 +5,7 @@ part of '../health_record.dart';
 /// This enum represents the physical placement position of a health
 /// monitoring device or sensor on the body.
 ///
-/// ## Platform Support
+/// ## Platform Mapping
 ///
 /// - **iOS HealthKit**: Maps to `HKDevicePlacementSide`
 /// - **Android Health Connect**: Not applicable (iOS-specific metadata)

@@ -4,7 +4,7 @@ part of '../../health_record.dart';
 ///
 /// It captures the intensity of menstrual flow at a single timestamp.
 ///
-/// ## Platform Support
+/// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`MenstruationFlowRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MenstruationFlowRecord)
 /// - **iOS HealthKit**: Not supported. Use [MenstrualFlowRecord] instead.

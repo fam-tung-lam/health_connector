@@ -1,6 +1,6 @@
 part of '../health_data_type.dart';
 
-/// Menstrual flow data type (iOS only).
+/// Menstrual flow data type.
 ///
 /// Menstrual flow records track the intensity of menstrual flow over a time
 /// interval and include metadata about whether the sample marks the start of

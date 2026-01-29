@@ -129,7 +129,7 @@ final class BasalBodyTemperatureRecord extends InstantHealthRecord {
 
   /// The location on the body where the measurement was taken.
   ///
-  /// ## Platform Support
+  /// ## Platform Mapping
   /// - **Android Health Connect**: Natively supported
   /// - **iOS HealthKit**: Stored as custom metadata
   final BasalBodyTemperatureMeasurementLocation measurementLocation;

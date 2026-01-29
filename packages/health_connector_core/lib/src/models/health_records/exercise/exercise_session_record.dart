@@ -23,12 +23,20 @@ part of '../health_record.dart';
 ///   metadata: Metadata.automaticallyRecorded(
 ///     device: Device.fromType(DeviceType.watch),
 ///   ),
+///   events: [
+///     ExerciseSessionLapEvent(
+///       startTime: DateTime(2024, 1, 15, 7, 0),
+///       endTime: DateTime(2024, 1, 15, 7, 2),
+///       distance: Length.meters(400),
+///     ),
+///   ],
 /// );
 /// ```
 ///
 /// ## See also
 ///
 /// - [ExerciseSessionDataType]
+/// - [ExerciseSessionEvent]
 ///
 /// {@category Health Records}
 @sinceV2_0_0
@@ -44,9 +52,19 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
   /// via [startZoneOffsetSeconds] and [endZoneOffsetSeconds] to handle
   /// exercises that span timezone changes (e.g., DST transitions).
   ///
+  /// The [events] list contains workout events such as laps, segments,
+  /// pause/resume transitions, and markers.
+  ///
   /// ## Throws
   ///
-  /// - [InvalidArgumentException] if [startTime] is after [endTime].
+  /// - [ArgumentError] if [startTime] is after [endTime].
+  /// - [ArgumentError] if any event is outside the session time range.
+  /// - [ArgumentError] if lap events overlap.
+  /// - [ArgumentError] if segment events overlap.
+  /// - [ArgumentError] if marker events have the same time.
+  /// - [ArgumentError] if state transition events have the same time.
+  /// - [ArgumentError] if any segment event's segment type is not compatible
+  ///   with the session's exercise type.
   ExerciseSessionRecord({
     required super.startTime,
     required super.endTime,
@@ -57,8 +75,36 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
     this.title,
     this.notes,
+    this.events = const [],
   }) {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+    if (events.isNotEmpty) {
+      _requireEventsWithinSessionTimeRange(
+        events: events,
+        sessionStartTime: startTime,
+        sessionEndTime: endTime,
+      );
+      _requireLapEventsDoNotOverlap(
+        laps: events.whereType<ExerciseSessionLapEvent>().toList(),
+        sessionStartTime: startTime,
+        sessionEndTime: endTime,
+      );
+      _requireSegmentEventsDoNotOverlap(
+        segments: events.whereType<ExerciseSessionSegmentEvent>().toList(),
+        sessionStartTime: startTime,
+        sessionEndTime: endTime,
+      );
+      _requireMarkerEventsHaveUniqueTimes(
+        events.whereType<ExerciseSessionMarkerEvent>().toList(),
+      );
+      _requireStateTransitionEventsHaveUniqueTimes(
+        events.whereType<ExerciseSessionStateTransitionEvent>().toList(),
+      );
+      _requireSegmentTypesCompatibleWithSessionType(
+        segments: events.whereType<ExerciseSessionSegmentEvent>().toList(),
+        sessionType: exerciseType,
+      );
+    }
   }
 
   /// Internal factory for creating [ExerciseSessionRecord] instances without
@@ -76,6 +122,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     int? endZoneOffsetSeconds,
     String? title,
     String? notes,
+    List<ExerciseSessionEvent> events = const [],
   }) {
     return ExerciseSessionRecord._(
       id: id,
@@ -87,6 +134,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       title: title,
       notes: notes,
+      events: events,
     );
   }
 
@@ -100,6 +148,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
     this.title,
     this.notes,
+    this.events = const [],
   });
 
   /// The type of exercise performed during this session.
@@ -119,6 +168,31 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
   /// "Need to improve form"
   final String? notes;
 
+  /// Events and segments within this exercise session.
+  ///
+  /// Contains a mix of event types:
+  /// - [ExerciseSessionStateTransitionEvent] - pause/resume
+  /// - [ExerciseSessionMarkerEvent] - arbitrary markers
+  /// - [ExerciseSessionLapEvent] - lap timing
+  /// - [ExerciseSessionSegmentEvent] - exercise segments
+  final List<ExerciseSessionEvent> events;
+
+  /// Convenience getter for state transition events only.
+  List<ExerciseSessionStateTransitionEvent> get stateTransitionEvents =>
+      events.whereType<ExerciseSessionStateTransitionEvent>().toList();
+
+  /// Convenience getter for marker events only.
+  List<ExerciseSessionMarkerEvent> get markerEvents =>
+      events.whereType<ExerciseSessionMarkerEvent>().toList();
+
+  /// Convenience getter for lap events only.
+  List<ExerciseSessionLapEvent> get lapEvents =>
+      events.whereType<ExerciseSessionLapEvent>().toList();
+
+  /// Convenience getter for segment events only.
+  List<ExerciseSessionSegmentEvent> get segmentEvents =>
+      events.whereType<ExerciseSessionSegmentEvent>().toList();
+
   /// Creates a copy with the given fields replaced with the new values.
   ExerciseSessionRecord copyWith({
     HealthRecordId? id,
@@ -130,6 +204,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     ExerciseType? exerciseType,
     String? title,
     String? notes,
+    List<ExerciseSessionEvent>? events,
   }) {
     return ExerciseSessionRecord(
       id: id ?? this.id,
@@ -142,6 +217,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
       exerciseType: exerciseType ?? this.exerciseType,
       title: title ?? this.title,
       notes: notes ?? this.notes,
+      events: events ?? this.events,
     );
   }
 
@@ -158,7 +234,11 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
           exerciseType == other.exerciseType &&
           title == other.title &&
-          notes == other.notes;
+          notes == other.notes &&
+          const ListEquality<ExerciseSessionEvent>().equals(
+            events,
+            other.events,
+          );
 
   @override
   int get hashCode =>
@@ -170,5 +250,242 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
       endZoneOffsetSeconds.hashCode ^
       exerciseType.hashCode ^
       title.hashCode ^
-      notes.hashCode;
+      notes.hashCode ^
+      const ListEquality<ExerciseSessionEvent>().hash(events);
+
+  /// Validates that all [events] fall within [sessionStartTime] and
+  /// [sessionEndTime]:
+  ///
+  /// - Interval events must have [ExerciseSessionIntervalEvent.startTime] ≥
+  ///   [sessionStartTime] and [endTime] ≤ [sessionEndTime].
+  /// - Instant events must have [ExerciseSessionInstantEvent.time] within
+  ///   the same range.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if any event is outside the session time range.
+  static void _requireEventsWithinSessionTimeRange({
+    required List<ExerciseSessionEvent> events,
+    required DateTime sessionStartTime,
+    required DateTime sessionEndTime,
+  }) {
+    for (final event in events) {
+      switch (event) {
+        case final ExerciseSessionIntervalEvent e:
+          require(
+            condition:
+                !e.startTime.isBefore(sessionStartTime) &&
+                !e.endTime.isAfter(sessionEndTime),
+            value: events,
+            name: 'events',
+            message:
+                'Events must be within the session time range. '
+                'Got event with startTime=${e.startTime}, endTime=${e.endTime} '
+                'outside session $sessionStartTime–$sessionEndTime.',
+          );
+        case final ExerciseSessionInstantEvent e:
+          require(
+            condition:
+                !e.time.isBefore(sessionStartTime) &&
+                !e.time.isAfter(sessionEndTime),
+            value: events,
+            name: 'events',
+            message:
+                'Events must be within the session time range. '
+                'Got event with time=${e.time} '
+                'outside session $sessionStartTime–$sessionEndTime.',
+          );
+      }
+    }
+  }
+
+  /// Validates that [laps] are within the session time range and do not
+  /// overlap.
+  ///
+  /// Laps are sorted by start time; the first lap must start at or after
+  /// [sessionStartTime], the last lap must end at or before [sessionEndTime],
+  /// and each lap's end time must not be after the next lap's start time.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if any lap is outside the session time range.
+  /// - [ArgumentError] if lap events overlap.
+  static void _requireLapEventsDoNotOverlap({
+    required List<ExerciseSessionLapEvent> laps,
+    required DateTime sessionStartTime,
+    required DateTime sessionEndTime,
+  }) {
+    if (laps.isEmpty) {
+      return;
+    }
+
+    final sorted = List<ExerciseSessionLapEvent>.from(laps)
+      ..sort((a, b) => a.startTime.compareTo(b.startTime));
+    require(
+      condition: !sorted.first.startTime.isBefore(sessionStartTime),
+      value: laps,
+      name: 'events',
+      message:
+          'Lap events must be within the session time range. '
+          'First lap startTime=${sorted.first.startTime} is before '
+          'session startTime=$sessionStartTime.',
+    );
+    require(
+      condition: !sorted.last.endTime.isAfter(sessionEndTime),
+      value: laps,
+      name: 'events',
+      message:
+          'Lap events must be within the session time range. '
+          'Last lap endTime=${sorted.last.endTime} is after '
+          'session endTime=$sessionEndTime.',
+    );
+    for (var i = 0; i < sorted.length - 1; i++) {
+      require(
+        condition: !sorted[i].endTime.isAfter(sorted[i + 1].startTime),
+        value: laps,
+        name: 'events',
+        message:
+            'Lap events cannot overlap. '
+            'Got lap endTime=${sorted[i].endTime} after '
+            'next lap startTime=${sorted[i + 1].startTime}.',
+      );
+    }
+  }
+
+  /// Validates that [segments] are within the session time range and do not
+  /// overlap.
+  ///
+  /// Segments are sorted by start time; the first segment must start at or
+  /// after [sessionStartTime], the last segment must end at or before
+  /// [sessionEndTime], and each segment's end time must not be after the next
+  /// segment's start time.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if any segment is outside the session time range.
+  /// - [ArgumentError] if segment events overlap.
+  static void _requireSegmentEventsDoNotOverlap({
+    required List<ExerciseSessionSegmentEvent> segments,
+    required DateTime sessionStartTime,
+    required DateTime sessionEndTime,
+  }) {
+    if (segments.isEmpty) {
+      return;
+    }
+    final sorted = List<ExerciseSessionSegmentEvent>.from(segments)
+      ..sort((a, b) => a.startTime.compareTo(b.startTime));
+    require(
+      condition: !sorted.first.startTime.isBefore(sessionStartTime),
+      value: segments,
+      name: 'events',
+      message:
+          'Segment events must be within the session time range. '
+          'First segment startTime=${sorted.first.startTime} is before '
+          'session startTime=$sessionStartTime.',
+    );
+    require(
+      condition: !sorted.last.endTime.isAfter(sessionEndTime),
+      value: segments,
+      name: 'events',
+      message:
+          'Segment events must be within the session time range. '
+          'Last segment endTime=${sorted.last.endTime} is after '
+          'session endTime=$sessionEndTime.',
+    );
+    for (var i = 0; i < sorted.length - 1; i++) {
+      require(
+        condition: !sorted[i].endTime.isAfter(sorted[i + 1].startTime),
+        value: segments,
+        name: 'events',
+        message:
+            'Segment events cannot overlap. '
+            'Got segment endTime=${sorted[i].endTime} after '
+            'next segment startTime=${sorted[i + 1].startTime}.',
+      );
+    }
+  }
+
+  /// Validates that [markers] have distinct
+  /// [ExerciseSessionInstantEvent.time] values.
+  ///
+  /// No two marker events may share the same timestamp.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if two or more marker events have the same time.
+  static void _requireMarkerEventsHaveUniqueTimes(
+    List<ExerciseSessionMarkerEvent> markers,
+  ) {
+    if (markers.length < 2) {
+      return;
+    }
+    final times = markers.map((e) => e.time).toList();
+    final seen = <DateTime>{};
+    for (final time in times) {
+      require(
+        condition: seen.add(time),
+        value: markers,
+        name: 'events',
+        message:
+            'Marker events cannot have the same time. '
+            'Got duplicate time $time.',
+      );
+    }
+  }
+
+  /// Validates that [transitions] have distinct
+  /// [ExerciseSessionInstantEvent.time] values.
+  ///
+  /// No two state transition events may share the same timestamp.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if state transition events have the same time.
+  static void _requireStateTransitionEventsHaveUniqueTimes(
+    List<ExerciseSessionStateTransitionEvent> transitions,
+  ) {
+    if (transitions.length < 2) {
+      return;
+    }
+    final times = transitions.map((e) => e.time).toList();
+    final seen = <DateTime>{};
+    for (final time in times) {
+      require(
+        condition: seen.add(time),
+        value: transitions,
+        name: 'events',
+        message:
+            'State transition events cannot have the same time. '
+            'Got duplicate time $time.',
+      );
+    }
+  }
+
+  /// Validates that every segment's type is compatible with [sessionType].
+  ///
+  /// ## Parameters
+  ///
+  /// - [segments]: The segment events to validate (e.g. from [events]).
+  /// - [sessionType]: The session's [exerciseType].
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if any segment type is not compatible with the session
+  ///   type.
+  static void _requireSegmentTypesCompatibleWithSessionType({
+    required List<ExerciseSessionSegmentEvent> segments,
+    required ExerciseType sessionType,
+  }) {
+    final allowed = sessionType.supportedSegmentTypes;
+    for (final segment in segments) {
+      require(
+        condition: allowed.contains(segment.segmentType),
+        value: segments,
+        name: 'events',
+        message:
+            'Segment type ${segment.segmentType} is not compatible with '
+            'session type $sessionType.',
+      );
+    }
+  }
 }

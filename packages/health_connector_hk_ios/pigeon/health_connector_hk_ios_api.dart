@@ -1804,6 +1804,164 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
+/// Types of exercise state transitions.
+enum ExerciseSessionStateTransitionTypeDto {
+  /// User manually paused the workout.
+  pause,
+
+  /// User manually resumed the workout.
+  resume,
+
+  /// System auto-paused due to no motion detected.
+  motionPaused,
+
+  /// System auto-resumed after motion detected.
+  motionResumed,
+
+  /// User requested pause/resume toggle.
+  pauseOrResumeRequest,
+}
+
+/// Types of exercise segments within an excercise session.
+enum ExerciseSegmentTypeDto {
+  unknown,
+  armCurl,
+  backExtension,
+  ballSlam,
+  barbellShoulderPress,
+  benchPress,
+  benchSitUp,
+  biking,
+  bikingStationary,
+  burpee,
+  crunch,
+  deadlift,
+  doubleArmTricepsExtension,
+  dumbbellCurlLeftArm,
+  dumbbellCurlRightArm,
+  dumbbellFrontRaise,
+  dumbbellLateralRaise,
+  dumbbellRow,
+  dumbbellTricepsExtensionLeftArm,
+  dumbbellTricepsExtensionRightArm,
+  dumbbellTricepsExtensionTwoArm,
+  elliptical,
+  forwardTwist,
+  frontRaise,
+  highIntensityIntervalTraining,
+  hipThrust,
+  hulaHoop,
+  jumpingJack,
+  jumpRope,
+  kettlebellSwing,
+  lateralRaise,
+  latPullDown,
+  legCurl,
+  legExtension,
+  legPress,
+  legRaise,
+  lunge,
+  mountainClimber,
+  otherWorkout,
+  pause,
+  pilates,
+  plank,
+  pullUp,
+  punch,
+  rest,
+  rowingMachine,
+  running,
+  runningTreadmill,
+  shoulderPress,
+  singleArmTricepsExtension,
+  sitUp,
+  squat,
+  stairClimbing,
+  stairClimbingMachine,
+  stretching,
+  swimmingBackstroke,
+  swimmingBreaststroke,
+  swimmingButterfly,
+  swimmingFreestyle,
+  swimmingMixed,
+  swimmingOpenWater,
+  swimmingOther,
+  swimmingPool,
+  upperTwist,
+  walking,
+  weightlifting,
+  wheelchair,
+  yoga,
+}
+
+/// Sealed class for all exercise session events.
+sealed class ExerciseSessionEventDto {}
+
+/// Exercise state transition event.
+class ExerciseSessionStateTransitionEventDto extends ExerciseSessionEventDto {
+  ExerciseSessionStateTransitionEventDto({
+    required this.time,
+    required this.type,
+  });
+
+  /// Time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// The type of state transition.
+  final ExerciseSessionStateTransitionTypeDto type;
+}
+
+/// Exercise marker event.
+class ExerciseSessionMarkerEventDto extends ExerciseSessionEventDto {
+  ExerciseSessionMarkerEventDto({
+    required this.time,
+  });
+
+  /// Time in milliseconds since epoch (UTC).
+  final int time;
+}
+
+/// Exercise lap event (cross-platform).
+class ExerciseSessionLapEventDto extends ExerciseSessionEventDto {
+  ExerciseSessionLapEventDto({
+    required this.startTime,
+    required this.endTime,
+    this.distanceMeters,
+  });
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Distance covered during this lap in meters.
+  /// Valid range: 0-1,000,000 meters.
+  final double? distanceMeters;
+}
+
+/// Exercise segment event (cross-platform).
+class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
+  ExerciseSessionSegmentEventDto({
+    required this.startTime,
+    required this.endTime,
+    required this.segmentType,
+    this.repetitions,
+  });
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// The type of exercise segment.
+  final ExerciseSegmentTypeDto segmentType;
+
+  /// Number of repetitions in this segment.
+  final int? repetitions;
+}
+
 /// Represents an exercise session record for platform transfer.
 ///
 /// Maps to iOS HealthKit HKWorkout.
@@ -1818,6 +1976,7 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
     this.notes,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
+    this.events = const [],
   });
 
   /// Platform-assigned unique identifier.
@@ -1846,6 +2005,9 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for end time.
   final int? endZoneOffsetSeconds;
+
+  /// Events and segments within this exercise session.
+  final List<ExerciseSessionEventDto> events;
 }
 
 /// Represents a mindfulness session record for platform transfer.

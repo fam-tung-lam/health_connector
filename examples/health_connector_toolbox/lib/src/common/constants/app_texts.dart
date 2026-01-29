@@ -1341,6 +1341,112 @@ abstract final class AppTexts {
   static const String exerciseWheelchairWalkPace = 'Wheelchair Walk Pace';
   static const String exerciseWheelchairRunPace = 'Wheelchair Run Pace';
 
+  // Exercise Session Events
+  static const String events = 'Events';
+  static const String event = 'Event';
+  static const String addEvent = 'Add Event';
+  static const String removeEvent = 'Remove Event';
+  static const String eventType = 'Event Type';
+  static const String noEventsAvailable = 'No events available yet';
+  static const String eventCount = '$event Count';
+  static const String stateTransitionEvent = 'State Transition';
+  static const String markerEvent = 'Marker';
+  static const String lapEvent = 'Lap';
+  static const String segmentEvent = 'Segment';
+  static const String transitionType = 'Transition Type';
+  static const String segmentType = 'Segment Type';
+  static const String lapDistance = 'Lap Distance';
+  static const String lapDistanceOptional = '$lapDistance (optional)';
+  static const String lapDistanceHelper = 'Optional distance in meters';
+  static const String repetitions = 'Repetitions';
+  static const String repetitionsOptional = '$repetitions (optional)';
+  static const String segmentRepetitionsHelper =
+      'Optional number of repetitions';
+  static const String meters = 'meters';
+  static const String metersAbbr = 'm';
+
+  // Exercise State Transition Types
+  static const String transitionPause = 'Pause';
+  static const String transitionResume = 'Resume';
+  static const String transitionMotionPaused = 'Motion Paused';
+  static const String transitionMotionResumed = 'Motion Resumed';
+  static const String transitionPauseOrResumeRequest = 'Pause/Resume Request';
+
+  // Exercise Segment Types (68 types)
+  static const String segmentUnknown = 'Unknown';
+  static const String segmentArmCurl = 'Arm Curl';
+  static const String segmentBackExtension = 'Back Extension';
+  static const String segmentBallSlam = 'Ball Slam';
+  static const String segmentBarbellShoulderPress = 'Barbell Shoulder Press';
+  static const String segmentBenchPress = 'Bench Press';
+  static const String segmentBenchSitUp = 'Bench Sit Up';
+  static const String segmentBiking = 'Biking';
+  static const String segmentBikingStationary = 'Stationary Biking';
+  static const String segmentBurpee = 'Burpee';
+  static const String segmentCrunch = 'Crunch';
+  static const String segmentDeadlift = 'Deadlift';
+  static const String segmentDoubleArmTricepsExtension =
+      'Double Arm Triceps Extension';
+  static const String segmentDumbbellCurlLeftArm = 'Dumbbell Curl (Left Arm)';
+  static const String segmentDumbbellCurlRightArm = 'Dumbbell Curl (Right Arm)';
+  static const String segmentDumbbellFrontRaise = 'Dumbbell Front Raise';
+  static const String segmentDumbbellLateralRaise = 'Dumbbell Lateral Raise';
+  static const String segmentDumbbellRow = 'Dumbbell Row';
+  static const String segmentDumbbellTricepsExtensionLeftArm =
+      'Dumbbell Triceps Extension (Left Arm)';
+  static const String segmentDumbbellTricepsExtensionRightArm =
+      'Dumbbell Triceps Extension (Right Arm)';
+  static const String segmentDumbbellTricepsExtensionTwoArm =
+      'Dumbbell Triceps Extension (Two Arm)';
+  static const String segmentElliptical = 'Elliptical';
+  static const String segmentForwardTwist = 'Forward Twist';
+  static const String segmentFrontRaise = 'Front Raise';
+  static const String segmentHighIntensityIntervalTraining = 'HIIT';
+  static const String segmentHipThrust = 'Hip Thrust';
+  static const String segmentHulaHoop = 'Hula Hoop';
+  static const String segmentJumpingJack = 'Jumping Jack';
+  static const String segmentJumpRope = 'Jump Rope';
+  static const String segmentKettlebellSwing = 'Kettlebell Swing';
+  static const String segmentLateralRaise = 'Lateral Raise';
+  static const String segmentLatPullDown = 'Lat Pull Down';
+  static const String segmentLegCurl = 'Leg Curl';
+  static const String segmentLegExtension = 'Leg Extension';
+  static const String segmentLegPress = 'Leg Press';
+  static const String segmentLegRaise = 'Leg Raise';
+  static const String segmentLunge = 'Lunge';
+  static const String segmentMountainClimber = 'Mountain Climber';
+  static const String segmentOtherWorkout = 'Other Workout';
+  static const String segmentPause = 'Pause';
+  static const String segmentPilates = 'Pilates';
+  static const String segmentPlank = 'Plank';
+  static const String segmentPullUp = 'Pull Up';
+  static const String segmentPunch = 'Punch';
+  static const String segmentRest = 'Rest';
+  static const String segmentRowingMachine = 'Rowing Machine';
+  static const String segmentRunning = 'Running';
+  static const String segmentRunningTreadmill = 'Treadmill Running';
+  static const String segmentShoulderPress = 'Shoulder Press';
+  static const String segmentSingleArmTricepsExtension =
+      'Single Arm Triceps Extension';
+  static const String segmentSitUp = 'Sit Up';
+  static const String segmentSquat = 'Squat';
+  static const String segmentStairClimbing = 'Stair Climbing';
+  static const String segmentStairClimbingMachine = 'Stair Climbing Machine';
+  static const String segmentStretching = 'Stretching';
+  static const String segmentSwimmingBackstroke = 'Swimming (Backstroke)';
+  static const String segmentSwimmingBreaststroke = 'Swimming (Breaststroke)';
+  static const String segmentSwimmingButterfly = 'Swimming (Butterfly)';
+  static const String segmentSwimmingFreestyle = 'Swimming (Freestyle)';
+  static const String segmentSwimmingMixed = 'Swimming (Mixed)';
+  static const String segmentSwimmingOpenWater = 'Swimming (Open Water)';
+  static const String segmentSwimmingOther = 'Swimming (Other)';
+  static const String segmentSwimmingPool = 'Swimming (Pool)';
+  static const String segmentUpperTwist = 'Upper Twist';
+  static const String segmentWalking = 'Walking';
+  static const String segmentWeightlifting = 'Weightlifting';
+  static const String segmentWheelchair = 'Wheelchair';
+  static const String segmentYoga = 'Yoga';
+
   // endregion
 
   // region Activity Intensity

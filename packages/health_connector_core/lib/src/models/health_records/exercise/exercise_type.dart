@@ -1093,4 +1093,236 @@ extension ExerciseTypeExtension on ExerciseType {
     ExerciseType.socialDance,
     ExerciseType.coreTraining,
   };
+
+  // region Segment-type compatibility
+
+  static const Set<ExerciseType> _universalSessionTypes = {
+    ExerciseType.bootCamp,
+    ExerciseType.highIntensityIntervalTraining,
+    ExerciseType.other,
+  };
+
+  static const Set<ExerciseSegmentType> _universalSegments = {
+    ExerciseSegmentType.otherWorkout,
+    ExerciseSegmentType.pause,
+    ExerciseSegmentType.rest,
+    ExerciseSegmentType.stretching,
+    ExerciseSegmentType.unknown,
+  };
+
+  static const Set<ExerciseSegmentType> _exerciseSegments = {
+    ExerciseSegmentType.armCurl,
+    ExerciseSegmentType.backExtension,
+    ExerciseSegmentType.ballSlam,
+    ExerciseSegmentType.barbellShoulderPress,
+    ExerciseSegmentType.benchPress,
+    ExerciseSegmentType.benchSitUp,
+    ExerciseSegmentType.burpee,
+    ExerciseSegmentType.crunch,
+    ExerciseSegmentType.deadlift,
+    ExerciseSegmentType.doubleArmTricepsExtension,
+    ExerciseSegmentType.dumbbellCurlLeftArm,
+    ExerciseSegmentType.dumbbellCurlRightArm,
+    ExerciseSegmentType.dumbbellFrontRaise,
+    ExerciseSegmentType.dumbbellLateralRaise,
+    ExerciseSegmentType.dumbbellRow,
+    ExerciseSegmentType.dumbbellTricepsExtensionLeftArm,
+    ExerciseSegmentType.dumbbellTricepsExtensionRightArm,
+    ExerciseSegmentType.dumbbellTricepsExtensionTwoArm,
+    ExerciseSegmentType.forwardTwist,
+    ExerciseSegmentType.frontRaise,
+    ExerciseSegmentType.hipThrust,
+    ExerciseSegmentType.hulaHoop,
+    ExerciseSegmentType.jumpRope,
+    ExerciseSegmentType.jumpingJack,
+    ExerciseSegmentType.kettlebellSwing,
+    ExerciseSegmentType.lateralRaise,
+    ExerciseSegmentType.latPullDown,
+    ExerciseSegmentType.legCurl,
+    ExerciseSegmentType.legExtension,
+    ExerciseSegmentType.legPress,
+    ExerciseSegmentType.legRaise,
+    ExerciseSegmentType.lunge,
+    ExerciseSegmentType.mountainClimber,
+    ExerciseSegmentType.plank,
+    ExerciseSegmentType.pullUp,
+    ExerciseSegmentType.punch,
+    ExerciseSegmentType.shoulderPress,
+    ExerciseSegmentType.singleArmTricepsExtension,
+    ExerciseSegmentType.sitUp,
+    ExerciseSegmentType.squat,
+    ExerciseSegmentType.upperTwist,
+    ExerciseSegmentType.weightlifting,
+  };
+
+  static const Set<ExerciseSegmentType> _swimmingSegments = {
+    ExerciseSegmentType.swimmingBackstroke,
+    ExerciseSegmentType.swimmingBreaststroke,
+    ExerciseSegmentType.swimmingFreestyle,
+    ExerciseSegmentType.swimmingButterfly,
+    ExerciseSegmentType.swimmingMixed,
+    ExerciseSegmentType.swimmingOther,
+  };
+
+  static final Map<ExerciseType, Set<ExerciseSegmentType>> _sessionToSegments =
+      {
+        // Cardio & Walking/Running
+        ExerciseType.cycling: {ExerciseSegmentType.biking},
+        ExerciseType.cyclingStationary: {ExerciseSegmentType.bikingStationary},
+        ExerciseType.handCycling: {ExerciseSegmentType.biking},
+        ExerciseType.hiking: {
+          ExerciseSegmentType.walking,
+          ExerciseSegmentType.wheelchair,
+        },
+        ExerciseType.running: {
+          ExerciseSegmentType.running,
+          ExerciseSegmentType.walking,
+        },
+        ExerciseType.runningTreadmill: {ExerciseSegmentType.runningTreadmill},
+        ExerciseType.snowshoeing: {ExerciseSegmentType.walking},
+        ExerciseType.trackAndField: {
+          ExerciseSegmentType.running,
+          ExerciseSegmentType.walking,
+        },
+        ExerciseType.walking: {ExerciseSegmentType.walking},
+        ExerciseType.wheelchair: {ExerciseSegmentType.wheelchair},
+        ExerciseType.wheelchairRunPace: {ExerciseSegmentType.wheelchair},
+        ExerciseType.wheelchairWalkPace: {ExerciseSegmentType.wheelchair},
+
+        // Water Sports
+        ExerciseType.diving: const {},
+        ExerciseType.paddling: const {},
+        ExerciseType.rowing: {ExerciseSegmentType.rowingMachine},
+        ExerciseType.sailing: const {},
+        ExerciseType.surfing: const {},
+        ExerciseType.swimming: {
+          ExerciseSegmentType.swimmingPool,
+          ..._swimmingSegments,
+        },
+        ExerciseType.swimmingOpenWater: {
+          ExerciseSegmentType.swimmingOpenWater,
+          ..._swimmingSegments,
+        },
+        ExerciseType.swimmingPool: {
+          ExerciseSegmentType.swimmingPool,
+          ..._swimmingSegments,
+        },
+        ExerciseType.waterFitness: _swimmingSegments,
+        ExerciseType.waterPolo: _swimmingSegments,
+        ExerciseType.waterSports: _swimmingSegments,
+
+        // Strength Training
+        ExerciseType.calisthenics: _exerciseSegments,
+        ExerciseType.strengthTraining: _exerciseSegments,
+        ExerciseType.weightlifting: _exerciseSegments,
+
+        // Team Sports
+        ExerciseType.americanFootball: const {},
+        ExerciseType.australianFootball: const {},
+        ExerciseType.baseball: const {},
+        ExerciseType.basketball: const {},
+        ExerciseType.cricket: const {},
+        ExerciseType.discSports: const {},
+        ExerciseType.frisbeeDisc: const {},
+        ExerciseType.handball: const {},
+        ExerciseType.hockey: const {},
+        ExerciseType.iceHockey: const {},
+        ExerciseType.lacrosse: const {},
+        ExerciseType.rollerHockey: const {},
+        ExerciseType.rugby: const {},
+        ExerciseType.soccer: const {},
+        ExerciseType.softball: const {},
+        ExerciseType.volleyball: const {},
+
+        // Racquet Sports
+        ExerciseType.badminton: const {},
+        ExerciseType.pickleball: const {},
+        ExerciseType.racquetball: const {},
+        ExerciseType.squash: const {},
+        ExerciseType.tableTennis: const {},
+        ExerciseType.tennis: const {},
+
+        // Winter Sports
+        ExerciseType.crossCountrySkiing: const {},
+        ExerciseType.curling: const {},
+        ExerciseType.downhillSkiing: const {},
+        ExerciseType.skiing: const {},
+        ExerciseType.skating: const {},
+        ExerciseType.snowboarding: const {},
+        ExerciseType.snowSports: const {},
+
+        // Martial Arts & Combat Sports
+        ExerciseType.boxing: _exerciseSegments,
+        ExerciseType.fencing: const {},
+        ExerciseType.kickboxing: _exerciseSegments,
+        ExerciseType.martialArts: _exerciseSegments,
+        ExerciseType.taiChi: const {},
+        ExerciseType.wrestling: _exerciseSegments,
+
+        // Dance & Gymnastics
+        ExerciseType.barre: _exerciseSegments,
+        ExerciseType.cardioDance: const {},
+        ExerciseType.dancing: const {},
+        ExerciseType.gymnastics: _exerciseSegments,
+        ExerciseType.socialDance: const {},
+
+        // Fitness & Conditioning
+        ExerciseType.cooldown: const {},
+        ExerciseType.coreTraining: _exerciseSegments,
+        ExerciseType.elliptical: {ExerciseSegmentType.elliptical},
+        ExerciseType.exerciseClass: {
+          ExerciseSegmentType.yoga,
+          ExerciseSegmentType.bikingStationary,
+          ExerciseSegmentType.pilates,
+          ExerciseSegmentType.highIntensityIntervalTraining,
+        },
+        ExerciseType.flexibility: const {},
+        ExerciseType.fitnessGaming: const {},
+        ExerciseType.guidedBreathing: const {},
+        ExerciseType.jumpRope: {ExerciseSegmentType.jumpRope},
+        ExerciseType.mindAndBody: {ExerciseSegmentType.yoga},
+        ExerciseType.mixedCardio: const {},
+        ExerciseType.pilates: {ExerciseSegmentType.pilates},
+        ExerciseType.preparationAndRecovery: {
+          ExerciseSegmentType.stretching,
+        },
+        ExerciseType.stairClimbing: {ExerciseSegmentType.stairClimbing},
+        ExerciseType.stepTraining: {ExerciseSegmentType.stairClimbing},
+        ExerciseType.crossTraining: const {},
+        ExerciseType.yoga: {ExerciseSegmentType.yoga},
+
+        // Golf & Precision Sports
+        ExerciseType.archery: const {},
+        ExerciseType.bowling: const {},
+        ExerciseType.golf: const {},
+
+        // Outdoor & Adventure
+        ExerciseType.climbing: const {},
+        ExerciseType.equestrianSports: const {},
+        ExerciseType.fishing: const {},
+        ExerciseType.hunting: const {},
+        ExerciseType.paragliding: const {},
+        ExerciseType.play: const {},
+
+        // Multisport
+        ExerciseType.swimBikeRun: {
+          ExerciseSegmentType.biking,
+          ExerciseSegmentType.running,
+          ..._swimmingSegments,
+        },
+        ExerciseType.transition: const {},
+      };
+
+  /// The set of [ExerciseSegmentType] values allowed in an exercise session
+  /// of this type.
+  ///
+  /// Mirrors Android Health Connect's segment/session compatibility rules.
+  Set<ExerciseSegmentType> get supportedSegmentTypes {
+    if (_universalSessionTypes.contains(this)) {
+      return Set<ExerciseSegmentType>.from(ExerciseSegmentType.values);
+    }
+    return _universalSegments.union(_sessionToSegments[this] ?? const {});
+  }
+
+  // endregion
 }

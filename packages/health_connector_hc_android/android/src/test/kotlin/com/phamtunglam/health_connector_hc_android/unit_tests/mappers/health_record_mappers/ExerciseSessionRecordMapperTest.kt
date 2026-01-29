@@ -73,6 +73,7 @@ class ExerciseSessionRecordMapperTest {
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,
                 deviceType = DeviceTypeDto.PHONE,
             ),
+            events = emptyList(),
         )
 
         // When

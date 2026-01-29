@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, OxygenSaturationRecord, sinceV1_3_0, Percentage;
+    show OxygenSaturationRecord, sinceV1_3_0, Percentage;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
@@ -28,7 +28,7 @@ extension OxygenSaturationRecordDtoToDomain on OxygenSaturationRecordDto {
   /// Converts [OxygenSaturationRecordDto] to its domain representation.
   OxygenSaturationRecord toDomain() {
     return OxygenSaturationRecord.internal(
-      id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
+      id: id.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
