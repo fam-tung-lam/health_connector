@@ -840,13 +840,25 @@ final class HealthConnectorImpl implements HealthConnector {
       message: '${record.dataType} is not supported on $healthPlatform.',
     );
 
-    if (record is ExerciseSessionRecord) {
-      // Validate exercise type support
-      if (!record.exerciseType.isSupportedOnPlatform(healthPlatform)) {
-        throw UnsupportedError(
-          '${record.exerciseType} is not supported on $healthPlatform.',
-        );
-      }
+    switch (record) {
+      case ExerciseSessionRecord():
+        // Validate exercise type support
+        if (!record.exerciseType.isSupportedOnPlatform(healthPlatform)) {
+          throw UnsupportedError(
+            '${record.exerciseType} is not supported on $healthPlatform.',
+          );
+        }
+
+        // Validate event type support
+        record.events.forEach((event) {
+          if (!event.supportedHealthPlatforms.contains(healthPlatform)) {
+            throw UnsupportedError(
+              '$event is not supported on $healthPlatform.',
+            );
+          }
+        });
+      default:
+        return;
     }
   }
 

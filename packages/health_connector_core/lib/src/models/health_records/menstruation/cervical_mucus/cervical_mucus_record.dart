@@ -3,11 +3,8 @@ part of '../../health_record.dart';
 /// Represents cervical mucus observation at a specific point in time.
 ///
 /// ## Platform Mapping
-/// - **Android**: [`CervicalMucusRecord`](https://developer.android.com/referen
-/// ce/kotlin/androidx/health/connect/client/records/CervicalMucusRecord)
-/// - **iOS**: [`HKCategoryTypeIdentifier.cervicalMucusQuality`](https://develop
-/// er.apple.com/documentation/healthkit/hkcategorytypeidentifier/cervicalMucusQ
-/// uality)
+/// - **Android Health Connect**: [`CervicalMucusRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CervicalMucusRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.cervicalMucusQuality`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/cervicalMucusQuality)
 ///
 /// {@category Health Records}
 @sinceV2_1_0

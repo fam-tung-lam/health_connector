@@ -15,8 +15,8 @@ import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
 ///
 /// ## Supported Health Platforms
 ///
-/// - **iOS**: Uses Apple HealthKit Framework
-/// - **Android**: Uses Google Health Connect SDK
+/// - **iOS HealthKit**: Uses Apple HealthKit Framework
+/// - **Android Health Connect**: Uses Google Health Connect SDK
 ///
 /// ## Core Capabilities
 ///

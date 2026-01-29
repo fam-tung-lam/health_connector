@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show RespiratoryRateRecord, HealthRecordId, sinceV1_3_0, Frequency;
+    show RespiratoryRateRecord, sinceV1_3_0, Frequency;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
@@ -28,7 +28,7 @@ extension RespiratoryRateRecordDtoToDomain on RespiratoryRateRecordDto {
   /// Converts [RespiratoryRateRecordDto] to its domain representation.
   RespiratoryRateRecord toDomain() {
     return RespiratoryRateRecord.internal(
-      id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
+      id: id.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),

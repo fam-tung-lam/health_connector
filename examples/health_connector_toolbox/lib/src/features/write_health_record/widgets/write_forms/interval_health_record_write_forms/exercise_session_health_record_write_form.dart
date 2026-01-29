@@ -4,6 +4,7 @@ import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/exercise_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/widgets/searchable_dropdown_menu_form_field.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/exercise_session_event_form_field_group.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_form.dart';
 
 /// Form widget for exercise session records.
@@ -31,6 +32,9 @@ final class ExerciseSessionFormState
   /// Optional notes for the exercise session.
   String? notes;
 
+  /// List of events within this exercise session.
+  List<ExerciseSessionEvent> events = [];
+
   @override
   List<Widget> buildFields(BuildContext context) {
     return [
@@ -38,7 +42,9 @@ final class ExerciseSessionFormState
       const SizedBox(height: 16),
       SearchableDropdownMenuFormField<ExerciseType>(
         labelText: AppTexts.exerciseType,
-        values: ExerciseType.values,
+        values: ExerciseType.values
+            .where((type) => type.isSupportedOnPlatform(widget.healthPlatform))
+            .toList(),
         initialValue: exerciseType,
         onChanged: (type) => setState(() => exerciseType = type),
         validator: (type) => type == null
@@ -71,6 +77,18 @@ final class ExerciseSessionFormState
         }),
         maxLines: 3,
       ),
+      const SizedBox(height: 16),
+      ExerciseSessionEventFormFieldGroup(
+        startDateTime: startDateTime,
+        endDateTime: endDateTime,
+        healthPlatform: widget.healthPlatform,
+        initialEvents: events.isEmpty ? null : events,
+        onChanged: (newEvents) {
+          setState(() {
+            events = newEvents ?? [];
+          });
+        },
+      ),
     ];
   }
 
@@ -92,6 +110,7 @@ final class ExerciseSessionFormState
       metadata: metadata,
       title: title,
       notes: notes,
+      events: events,
     );
   }
 }

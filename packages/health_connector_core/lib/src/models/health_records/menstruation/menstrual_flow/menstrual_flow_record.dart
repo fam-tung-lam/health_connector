@@ -6,7 +6,7 @@ part of '../../health_record.dart';
 /// and includes metadata about whether this sample marks the start of a
 /// menstrual cycle.
 ///
-/// ## Platform Support
+/// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported. [MenstrualFlowInstantRecord]
 ///   should be used instead.

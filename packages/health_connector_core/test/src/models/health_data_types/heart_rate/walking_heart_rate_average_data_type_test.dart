@@ -39,7 +39,7 @@ void main() {
             dataType.supportedHealthPlatforms,
             contains(HealthPlatform.appleHealth),
           );
-          // Not supported on Health Connect (iOS only)
+          // Not supported on Health Connect
           expect(
             dataType.supportedHealthPlatforms,
             isNot(contains(HealthPlatform.healthConnect)),

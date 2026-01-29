@@ -2,7 +2,7 @@
 
 The Health Connector data model is built on three pillars:
 
-1. **Health Records**: The actual data points (e.g., a weight measurement, a workout session).
+1. **Health Records**: The actual data points (e.g., a weight measurement, an excercise session).
 2. **Measurement Units**: Type-safe values that handle unit conversions automatically.
 3. **Health Data Types**: Descriptors that define the properties and capabilities of each record
    type.

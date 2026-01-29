@@ -1731,6 +1731,122 @@ class SexualActivityRecordDto extends HealthRecordDto {
   final SexualActivityProtectionUsedDto protectionUsed;
 }
 
+/// Types of exercise segments within an excercise session.
+enum ExerciseSegmentTypeDto {
+  unknown,
+  armCurl,
+  backExtension,
+  ballSlam,
+  barbellShoulderPress,
+  benchPress,
+  benchSitUp,
+  biking,
+  bikingStationary,
+  burpee,
+  crunch,
+  deadlift,
+  doubleArmTricepsExtension,
+  dumbbellCurlLeftArm,
+  dumbbellCurlRightArm,
+  dumbbellFrontRaise,
+  dumbbellLateralRaise,
+  dumbbellRow,
+  dumbbellTricepsExtensionLeftArm,
+  dumbbellTricepsExtensionRightArm,
+  dumbbellTricepsExtensionTwoArm,
+  elliptical,
+  forwardTwist,
+  frontRaise,
+  highIntensityIntervalTraining,
+  hipThrust,
+  hulaHoop,
+  jumpingJack,
+  jumpRope,
+  kettlebellSwing,
+  lateralRaise,
+  latPullDown,
+  legCurl,
+  legExtension,
+  legPress,
+  legRaise,
+  lunge,
+  mountainClimber,
+  otherWorkout,
+  pause,
+  pilates,
+  plank,
+  pullUp,
+  punch,
+  rest,
+  rowingMachine,
+  running,
+  runningTreadmill,
+  shoulderPress,
+  singleArmTricepsExtension,
+  sitUp,
+  squat,
+  stairClimbing,
+  stairClimbingMachine,
+  stretching,
+  swimmingBackstroke,
+  swimmingBreaststroke,
+  swimmingButterfly,
+  swimmingFreestyle,
+  swimmingMixed,
+  swimmingOpenWater,
+  swimmingOther,
+  swimmingPool,
+  upperTwist,
+  walking,
+  weightlifting,
+  wheelchair,
+  yoga,
+}
+
+/// Sealed class for all exercise session events.
+sealed class ExerciseSessionEventDto {}
+
+/// Exercise lap event (cross-platform).
+class ExerciseSessionLapEventDto extends ExerciseSessionEventDto {
+  ExerciseSessionLapEventDto({
+    required this.startTime,
+    required this.endTime,
+    this.distanceMeters,
+  });
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Distance covered during this lap in meters.
+  /// Valid range: 0-1,000,000 meters.
+  final double? distanceMeters;
+}
+
+/// Exercise segment event (cross-platform).
+class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
+  ExerciseSessionSegmentEventDto({
+    required this.startTime,
+    required this.endTime,
+    required this.segmentType,
+    this.repetitions,
+  });
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// The type of exercise segment.
+  final ExerciseSegmentTypeDto segmentType;
+
+  /// Number of repetitions in this segment.
+  final int? repetitions;
+}
+
 /// Represents an exercise session record for platform transfer.
 class ExerciseSessionRecordDto extends HealthRecordDto {
   ExerciseSessionRecordDto({
@@ -1743,6 +1859,7 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
     this.endZoneOffsetSeconds,
     this.title,
     this.notes,
+    this.events = const [],
   });
 
   /// Platform-assigned unique identifier.
@@ -1771,6 +1888,9 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
 
   /// Optional notes about the exercise session.
   final String? notes;
+
+  /// Events and segments within this exercise session.
+  final List<ExerciseSessionEventDto> events;
 }
 
 /// Represents an activity intensity record for platform transfer.

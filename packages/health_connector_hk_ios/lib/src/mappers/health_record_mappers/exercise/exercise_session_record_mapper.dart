@@ -1,5 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show ExerciseSessionRecord, HealthRecordId;
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_session_event_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -21,6 +22,7 @@ extension ExerciseSessionRecordToDto on ExerciseSessionRecord {
       notes: notes,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
+      events: events.map((e) => e.toDto()).toList(),
     );
   }
 }
@@ -39,6 +41,7 @@ extension ExerciseSessionRecordDtoToDomain on ExerciseSessionRecordDto {
       notes: notes,
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
+      events: events.map((e) => e.toDomain()).toList(),
     );
   }
 }

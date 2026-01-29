@@ -4,8 +4,8 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Full 1:1 mapping via `CervicalMucusRecord.SENSATION_*`
-/// - **iOS**: No native support - uses custom metadata
+/// - **Android Health Connect**: `CervicalMucusRecord.SENSATION_*`.
+/// - **iOS HealthKit**: No native support - uses custom metadata.
 ///
 /// ## iOS HealthKit Limitation
 ///

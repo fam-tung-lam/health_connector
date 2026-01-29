@@ -1,4 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/cervical_mucus/cervical_mucus_appearance_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/cervical_mucus/cervical_mucus_sensation_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -29,7 +30,7 @@ extension CervicalMucusRecordDtoToDomain on CervicalMucusRecordDto {
   /// Converts this [CervicalMucusRecordDto] to [CervicalMucusRecord].
   CervicalMucusRecord toDomain() {
     return CervicalMucusRecord.internal(
-      id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
+      id: id.toDomain(),
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

@@ -1,5 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise/exercise_session_event_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise/exercise_type_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 
@@ -17,6 +19,7 @@ extension ExerciseSessionRecordToDto on ExerciseSessionRecord {
       exerciseType: exerciseType.toDto(),
       title: title,
       notes: notes,
+      events: events.map((e) => e.toDto()).toList(),
     );
   }
 }
@@ -26,7 +29,7 @@ extension ExerciseSessionRecordFromDto on ExerciseSessionRecordDto {
   /// Converts [ExerciseSessionRecordDto] to [ExerciseSessionRecord].
   ExerciseSessionRecord fromDto() {
     return ExerciseSessionRecord.internal(
-      id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
+      id: id.toDomain(),
       metadata: metadata.toDomain(),
       startTime: DateTime.fromMillisecondsSinceEpoch(
         startTime,
@@ -39,6 +42,7 @@ extension ExerciseSessionRecordFromDto on ExerciseSessionRecordDto {
       exerciseType: exerciseType.fromDto(),
       title: title,
       notes: notes,
+      events: events.map((e) => e.toDomain()).toList(),
     );
   }
 }
