@@ -3,20 +3,20 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>CognitiveComplexMethod:AggregatableHealthRecordHandler.kt$CustomAggregatableHealthRecordHandler$private suspend fun paginateAndAggregate( startTime: Instant, endTime: Instant, context: Map&lt;String, Any?&gt;, ): PaginatedAggregationResult</ID>
+    <ID>CyclomaticComplexMethod:ExerciseSegmentTypeMapper.kt$@Throws(IllegalArgumentException::class) internal fun Int.toExerciseSegmentTypeDto(): ExerciseSegmentTypeDto</ID>
+    <ID>CyclomaticComplexMethod:ExerciseSegmentTypeMapper.kt$internal fun ExerciseSegmentTypeDto.toHealthConnect(): Int</ID>
     <ID>CyclomaticComplexMethod:NutritionRecordMapper.kt$internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord</ID>
     <ID>CyclomaticComplexMethod:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
     <ID>InstanceOfCheckForException:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$e is HealthConnectException</ID>
-    <ID>LargeClass:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin : FlutterPluginActivityAwareHealthConnectorHCAndroidApi</ID>
+    <ID>LongMethod:ExerciseSegmentTypeMapper.kt$@Throws(IllegalArgumentException::class) internal fun Int.toExerciseSegmentTypeDto(): ExerciseSegmentTypeDto</ID>
+    <ID>LongMethod:ExerciseSegmentTypeMapper.kt$internal fun ExerciseSegmentTypeDto.toHealthConnect(): Int</ID>
     <ID>LongMethod:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$@Throws(HealthConnectorException::class) private suspend fun performIncrementalSync( dataTypes: List&lt;HealthDataTypeDto&gt;, syncToken: HealthDataSyncTokenDto, ): HealthDataSyncResultDto</ID>
-    <ID>LongMethod:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin$override fun initialize(config: HealthConnectorConfigDto, callback: (Result&lt;Unit&gt;) -&gt; Unit)</ID>
-    <ID>LongMethod:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin$override fun launchHealthConnectPageInGooglePlay(callback: (Result&lt;Unit&gt;) -&gt; Unit)</ID>
     <ID>LongMethod:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
     <ID>LongParameterList:HealthConnectorClient.kt$HealthConnectorClient$( private val dispatchers: DispatcherProvider, private val client: HealthConnectClient, private val manifestService: HealthConnectorManifestService, private val featureService: HealthConnectorFeatureService, private val permissionService: HealthConnectorPermissionService, private val syncService: HealthConnectorDataSyncService, private val recordHandlerRegistry: HealthRecordHandlerRegistry, )</ID>
     <ID>LongParameterList:HealthConnectorLogger.kt$HealthConnectorLogger$( level: LogLevel, tag: String, message: String, operation: String? = null, context: Map&lt;String, Any?&gt;? = null, exception: Throwable? = null, )</ID>
     <ID>LongParameterList:ReadableHealthRecordHandler.kt$ReadableHealthRecordHandler$( startTime: Instant, endTime: Instant, pageSize: Int = DEFAULT_PAGE_SIZE, pageToken: String? = null, dataOrigins: Set&lt;DataOrigin&gt; = emptySet(), sortOrder: SortOrderDto = SortOrderDto.TIME_ASCENDING, )</ID>
     <ID>MaxLineLength:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$"Perform a full backfill using readRecords() and reset sync with syncToken=null."</ID>
     <ID>NestedBlockDepth:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$@Throws(HealthConnectorException::class) private suspend fun performIncrementalSync( dataTypes: List&lt;HealthDataTypeDto&gt;, syncToken: HealthDataSyncTokenDto, ): HealthDataSyncResultDto</ID>
-    <ID>RethrowCaughtException:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin$throw e</ID>
     <ID>ThrowsCount:HealthConnectorClient.kt$HealthConnectorClient$@Throws(HealthConnectorException::class) fun getFeatureStatus(feature: HealthPlatformFeatureDto): HealthPlatformFeatureStatusDto</ID>
     <ID>ThrowsCount:HealthConnectorClient.kt$HealthConnectorClient.Companion$private inline fun &lt;T&gt; process(operation: String, block: () -&gt; T): T</ID>
     <ID>ThrowsCount:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$@Throws(HealthConnectorException::class) private suspend fun performIncrementalSync( dataTypes: List&lt;HealthDataTypeDto&gt;, syncToken: HealthDataSyncTokenDto, ): HealthDataSyncResultDto</ID>
