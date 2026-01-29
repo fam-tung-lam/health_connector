@@ -1,7 +1,7 @@
 name: health_connector_core
 resolution: workspace
 description: Core models, utilities, and platform interface for Health Connector
-version: 3.6.0
+version: 3.7.0
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_core
 
 environment:

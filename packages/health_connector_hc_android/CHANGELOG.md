@@ -1,3 +1,7 @@
+## 3.4.0
+
+- **FEAT**: Add support for exercise session events. ([3feda513](https://github.com/fam-tung-lam/health_connector/commit/3feda5132980266c72fd3ba4a26b6330532bd8ff))
+
 ## 3.3.0
 
 - **FEAT**: Add support for menstruation period data type. ([d45c46b9](https://github.com/fam-tung-lam/health_connector/commit/d45c46b94a2ce306feb14571225de8a1489912f8))

@@ -1,3 +1,7 @@
+## 3.7.0
+
+- **FEAT**: Add support for exercise session events. ([3feda513](https://github.com/fam-tung-lam/health_connector/commit/3feda5132980266c72fd3ba4a26b6330532bd8ff))
+
 ## 3.6.0
 
 - **FEAT**(health_connector_hk_iOS): Add support for peak expiratory flow rate data type. ([4e6c7145](https://github.com/fam-tung-lam/health_connector/commit/4e6c7145962598a4e89fb704413dd52e3ea302ac))
