@@ -61,8 +61,8 @@ melos:
           melos run pigeon
           melos run format
 
+  # Scripts: https://melos.invertase.dev/configuration/scripts
   scripts:
-    # Analysis
     analyze:
       description: Run all static analysis (Dart, Swift, Kotlin)
       steps:
@@ -99,18 +99,6 @@ melos:
       description: Analyze Swift code for the health_connector_hk_ios package
       run: cd packages/health_connector_hk_ios/ios && swiftlint lint .
 
-    analyze:swift:deep:
-      description: Deep Swift analysis with type-checked AST analyzer rules (slower)
-      run: |
-        cd packages/health_connector_hk_ios/ios/health_connector_hk_ios && \
-        xcodebuild build-for-testing \
-          -scheme health_connector_hk_ios \
-          -sdk iphonesimulator \
-          -destination 'platform=iOS Simulator,name=iPhone 15' \
-          2>&1 | tee /tmp/xcodebuild.log && \
-        cd .. && \
-        swiftlint analyze --compiler-log-path /tmp/xcodebuild.log
-
     baseline:swift:
       description: Generate SwiftLint baseline
       run: cd packages/health_connector_hk_ios/ios && swiftlint lint --write-baseline swiftlint-baseline.json
@@ -127,7 +115,6 @@ melos:
       description: Runs the markdown linting check.
       run: markdownlint . --ignore-path .markdownlintignore --config .markdownlint.yaml
 
-    # Code formatting
     format:
       description: Format all code (Dart, Swift, Kotlin)
       steps:
@@ -136,14 +123,14 @@ melos:
         - melos run format:kotlin
 
     format:check:
-      description: Check all code formatting (Dart, Swift, Kotlin)
+      description: Check Dart/Swift/Kotlin code formatting without making changes.
       steps:
         - melos run format:dart:check
         - melos run format:swift:check
         - melos run format:kotlin:check
 
     format:dart:
-      description: Format all Dart code in the workspace
+      description: Format Dart code.
       run: dart format .
       exec:
         concurrency: 5
@@ -151,7 +138,7 @@ melos:
         dirExists: lib
 
     format:dart:check:
-      description: Check Dart code formatting without making changes
+      description: Check Dart code formatting without making changes.
       run: dart format --set-exit-if-changed .
       exec:
         concurrency: 5
@@ -160,15 +147,15 @@ melos:
         dirExists: lib
 
     format:swift:
-      description: Format Swift code for the health_connector_hk_ios package
+      description: Format Swift code for the health_connector_hk_ios plugin.
       run: swiftformat packages/health_connector_hk_ios/ios
 
     format:swift:check:
-      description: Check Swift code formatting without making changes
+      description: Check Swift code formatting without making changes.
       run: swiftformat --lint packages/health_connector_hk_ios/ios
 
     format:kotlin:
-      description: Format Kotlin code for the health_connector_hc_android package
+      description: Format Kotlin code for the health_connector_hc_android plugin.
       run: cd packages/health_connector_hc_android/android && ./gradlew ktlintFormat
 
     format:kotlin:check:
@@ -179,23 +166,13 @@ melos:
       description: Fixes the markdown linting errors.
       run: markdownlint . --fix --ignore-path .markdownlintignore --config .markdownlint.yaml
 
-    # Testing
     test:kotlin:
-      description: Run all Android/Kotlin tests for the `health_connector_hc_android`.
+      description: Run all Kotlin tests for the `health_connector_hc_android` plugin.
       run: cd packages/health_connector_hc_android/example/android && ./gradlew testDebugUnitTest
 
     test:dart:
       description: Run all Flutter tests in this project.
       run: melos run test:dart:select --no-select
-      packageFilters:
-        dirExists: test
-
-    test:dart:select:
-      description: Run Flutter tests for selected packages with test directories.
-      run: flutter test
-      exec:
-        concurrency: 1
-        failFast: false
       packageFilters:
         dirExists: test
 
@@ -207,44 +184,24 @@ melos:
       packageFilters:
         dirExists: test
 
-    # Versioning and Publishing
     publish:dry-run:
-      description: Test publishing packages without actually publishing to pub.dev
+      description: Test publishing packages without actually publishing to pub.dev.
       run: melos publish --dry-run --no-private
 
     version:dry-run:
-      description: Preview version changes and changelog updates without committing
+      description: Preview version changes and changelog updates without committing.
       run: melos version --dry-run --no-private
 
-    # Quality Checks
-    pre-commit:
-      description: Run all checks before committing (format, analyze, test)
-      steps:
-        - melos run format:check
-        - melos run analyze:strict
-        - melos run test
-
-    # Build
-    build:toolbox:
-      description: Build the health_connector_toolbox app
-      run: flutter build apk
-      exec:
-        concurrency: 1
-      packageFilters:
-        scope: "health_connector_toolbox"
-
-    # Code generation
     pigeon:
-      description: Generate Pigeon platform channel code for Android and iOS packages
+      description: Generate Pigeon platform channel code for health_connector_hc_android and health_connector_hk_ios plugins.
       steps:
         - melos exec --scope="health_connector_hc_android" -- dart run pigeon --input pigeon/health_connector_hc_android_api.dart
         - melos exec --scope="health_connector_hk_ios" -- dart run pigeon --input pigeon/health_connector_hk_ios_api.dart
         - python3 packages/health_connector_hk_ios/scripts/add_public_keyword_to_swift_code.py packages/health_connector_hk_ios/ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorHKIOSApi.g.swift
         - melos format
 
-    # Clean
     clean:
-      description: Clean build artifacts for all packages
+      description: Clean build artifacts for all packages.
       run: flutter clean
       exec:
         concurrency: 5
@@ -252,7 +209,7 @@ melos:
         flutter: true
 
     clean:deep:
-      description: Deep clean including build artifacts and generated files
+      description: Deep clean including build artifacts and generated files.
       steps:
         - melos clean
         - rm -rf **/.dart_tool
@@ -260,26 +217,17 @@ melos:
         - rm -rf **/.flutter-plugins
         - rm -rf **/.flutter-plugins-dependencies
 
-    # Dependencies
     get:
-      description: Run `flutter pub get` for all packages
+      description: Run `flutter pub get` for all packages.
       run: flutter pub get
       exec:
-        # Run sequentially to ensure deterministic resolution of inter-dependent packages.
+        # IMPORTANT: Run sequentially to ensure deterministic resolution of inter-dependent packages.
         concurrency: 1
       packageFilters:
         dirExists: lib
 
-    upgrade:
-      description: Upgrade dependencies for all packages
-      run: flutter pub upgrade
-      exec:
-        concurrency: 5
-      packageFilters:
-        dirExists: lib
-
     doc:
-      description: Generate and serve docs for health_connector
+      description: Generate and serve docs for health_connector.
       run: |
         melos doc:generate
         echo "Serving docs at http://localhost:8000"
@@ -290,7 +238,7 @@ melos:
         scope: "health_connector"
 
     doc:generate:
-      description: Generate docs for health_connector
+      description: Generate docs for health_connector.
       run: |
         dart doc .
       exec:
@@ -298,28 +246,7 @@ melos:
       packageFilters:
         scope: "health_connector"
 
-    doc:validate:
-      description: Validate documentation links
-      run: dart doc . --validate-links
-      exec:
-        concurrency: 2
-        failFast: true
-      packageFilters:
-        dirExists: lib
-        private: false
-
-    doc:ci:
-      description: CI documentation validation (outputs to temp, validates links)
-      run: dart doc . --validate-links --output=/tmp/dartdoc_ci
-      exec:
-        concurrency: 5
-        failFast: true
-      packageFilters:
-        dirExists: lib
-        private: false
-
-
-  # IDE configuration
+  # IntelliJ IDE configuration: https://melos.invertase.dev/configuration/overview#ideintellij
   ide:
     intellij:
       enabled: true
