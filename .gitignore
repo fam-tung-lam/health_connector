@@ -34,7 +34,9 @@ migrate_working_dir/
 
 # FVM
 .fvm/
-.fvmrc
 
 # Local secrets
 /.env
+
+# AI
+/.mcp.local.json
