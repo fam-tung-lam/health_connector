@@ -131,4 +131,5 @@ abstract final class AppIcons {
   static const IconData displaySettings = Icons.settings_outlined;
   static const IconData clipboard = Icons.assignment_outlined;
   static const IconData dataOrigins = Icons.dataset;
+  static const IconData route = Icons.route;
 }

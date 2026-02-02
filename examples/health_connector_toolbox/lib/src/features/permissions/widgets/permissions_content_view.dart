@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
     show
+        ExerciseRoutePermission,
         HealthConnector,
         HealthDataPermission,
         HealthDataType,
@@ -63,6 +64,15 @@ final class PermissionsContentView extends StatelessWidget {
                 _buildDataTypePermissions(context, healthConnector),
                 const SizedBox(height: 32),
 
+                // Exercise Route Permissions Section
+                _buildSectionHeader(
+                  context,
+                  AppTexts.exerciseRoutePermissions,
+                ),
+                const SizedBox(height: 16),
+                _buildExerciseRoutePermissions(),
+                const SizedBox(height: 32),
+
                 // Feature Permissions Section
                 _buildSectionHeader(
                   context,
@@ -113,6 +123,44 @@ final class PermissionsContentView extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
+    );
+  }
+
+  /// Builds the exercise route permissions list.
+  Widget _buildExerciseRoutePermissions() {
+    return Column(
+      children: [
+        PermissionListTile(
+          title: const Text(
+            '${AppTexts.exerciseRoute} (${AppTexts.read})',
+          ),
+          isSelected: notifier.isPermissionSelected(
+            ExerciseRoutePermission.read,
+          ),
+          permissionStatus: notifier.getPermissionStatus(
+            ExerciseRoutePermission.read,
+          ),
+          onChanged: (bool value) => notifier.togglePermissionSelection(
+            ExerciseRoutePermission.read,
+            isSelected: value,
+          ),
+        ),
+        PermissionListTile(
+          title: const Text(
+            '${AppTexts.exerciseRoute} (${AppTexts.write})',
+          ),
+          isSelected: notifier.isPermissionSelected(
+            ExerciseRoutePermission.write,
+          ),
+          permissionStatus: notifier.getPermissionStatus(
+            ExerciseRoutePermission.write,
+          ),
+          onChanged: (bool value) => notifier.togglePermissionSelection(
+            ExerciseRoutePermission.write,
+            isSelected: value,
+          ),
+        ),
+      ],
     );
   }
 

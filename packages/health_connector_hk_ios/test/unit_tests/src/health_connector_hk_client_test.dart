@@ -24,14 +24,14 @@ void main() {
         HealthConnectorConfigDto(isLoggerEnabled: false),
       );
       registerFallbackValue(
-        HealthDataPermissionDto(
+        HealthDataPermissionRequestDto(
           healthDataType: HealthDataTypeDto.steps,
           accessType: PermissionAccessTypeDto.read,
         ),
       );
       registerFallbackValue(
         PermissionsRequestDto(
-          healthDataPermissions: [],
+          permissionRequests: [],
         ),
       );
       registerFallbackValue(
@@ -199,7 +199,7 @@ void main() {
                   when(() => mockApi.requestPermissions(any())).thenAnswer(
                     (_) async => [
                       HealthDataPermissionRequestResultDto(
-                        permission: HealthDataPermissionDto(
+                        permission: HealthDataPermissionRequestDto(
                           healthDataType: HealthDataTypeDto.steps,
                           accessType: PermissionAccessTypeDto.read,
                         ),
@@ -241,7 +241,7 @@ void main() {
                   when(() => mockApi.requestPermissions(any())).thenAnswer(
                     (_) async => [
                       HealthDataPermissionRequestResultDto(
-                        permission: HealthDataPermissionDto(
+                        permission: HealthDataPermissionRequestDto(
                           healthDataType: HealthDataTypeDto.steps,
                           accessType: PermissionAccessTypeDto.read,
                         ),

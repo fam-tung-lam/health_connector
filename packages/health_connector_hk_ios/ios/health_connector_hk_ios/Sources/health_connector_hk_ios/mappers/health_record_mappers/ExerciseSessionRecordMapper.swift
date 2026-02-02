@@ -46,7 +46,7 @@ extension ExerciseSessionRecordDto {
     ///
     /// - Returns: An `HKWorkout` instance
     /// - Throws: `HealthConnectorError` if the exercise type cannot be converted
-    func toHKWorkout() throws -> HKSample {
+    func toHKWorkout() throws -> HKWorkout {
         let activityType = try HKWorkoutActivityType.from(dto: exerciseType)
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)

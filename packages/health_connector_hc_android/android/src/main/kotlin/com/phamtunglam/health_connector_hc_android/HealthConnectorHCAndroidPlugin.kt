@@ -10,6 +10,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRouteDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorConfigDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorHCAndroidApi
@@ -872,6 +873,51 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     operation = operation,
                     message = "Synchronized data.",
                     context = logContext,
+                )
+
+                result
+            }
+        }
+    }
+
+    override fun readExerciseRoute(
+        exerciseSessionId: String,
+        callback: (Result<ExerciseRouteDto?>) -> Unit,
+    ) {
+        val operation = "read_exercise_route"
+        val logContext = mapOf(
+            "exercise_session_id" to exerciseSessionId,
+        )
+
+        scope.launch {
+            process(
+                operation = operation,
+                context = logContext,
+                callback = callback,
+            ) {
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Reading exercise route...",
+                    context = logContext,
+                )
+
+                val currentActivity = activity ?: throw HealthConnectorException.Configuration(
+                    message = "No activity available. Ensure plugin is attached to an activity.",
+                )
+
+                val result = requireClient().readExerciseRoute(
+                    activity = currentActivity,
+                    exerciseSessionId = exerciseSessionId,
+                )
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Read exercise route.",
+                    context = logContext + mapOf(
+                        "has_route" to (result != null),
+                    ),
                 )
 
                 result

@@ -62,6 +62,11 @@ final class ExerciseSessionDataType
   @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
+  /// Permission to read exercise route data for sessions.
+  @sinceV3_8_0
+  ExerciseRoutePermission get readExerciseRoutePermission =>
+      ExerciseRoutePermission.read;
+
   @override
   ReadRecordByIdRequest<ExerciseSessionRecord> readById(HealthRecordId id) {
     return ReadRecordByIdRequest(dataType: this, id: id);
@@ -87,6 +92,11 @@ final class ExerciseSessionDataType
 
   @override
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
+
+  /// Permission to write exercise route data with sessions.
+  @sinceV3_8_0
+  ExerciseRoutePermission get writeExerciseRoutePermission =>
+      ExerciseRoutePermission.write;
 
   @override
   AggregateRequest<TimeDuration> aggregateSum({

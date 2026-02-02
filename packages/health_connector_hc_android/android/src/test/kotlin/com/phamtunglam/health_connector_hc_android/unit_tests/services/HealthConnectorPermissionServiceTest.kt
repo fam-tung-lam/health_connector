@@ -5,8 +5,13 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.health.connect.client.contracts.ExerciseRouteRequestContract
+import androidx.health.connect.client.records.ExerciseRoute
 import androidx.health.connect.client.testing.FakePermissionController
+import androidx.health.connect.client.units.Length
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRoutePermissionRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRoutePermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -86,6 +91,16 @@ class HealthConnectorPermissionServiceTest {
             feature = feature,
             status = status,
         )
+
+        // Route consent request test constants
+        const val TEST_EXERCISE_SESSION_ID = "exercise-session-123"
+        const val TEST_ROUTE_TIME_1 = 1609459200000L
+        const val TEST_ROUTE_TIME_2 = 1609459260000L
+        const val TEST_ROUTE_LATITUDE_1 = 37.7749
+        const val TEST_ROUTE_LONGITUDE_1 = -122.4194
+        const val TEST_ROUTE_LATITUDE_2 = 37.7849
+        const val TEST_ROUTE_LONGITUDE_2 = -122.4094
+        const val TEST_ROUTE_ALTITUDE_METERS = 100.5
     }
 
     private lateinit var fakePermissionController: FakePermissionController
@@ -100,6 +115,9 @@ class HealthConnectorPermissionServiceTest {
     @MockK
     private lateinit var activityResultLauncher: ActivityResultLauncher<Set<String>>
 
+    @MockK
+    private lateinit var routeConsentLauncher: ActivityResultLauncher<String>
+
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
@@ -113,6 +131,7 @@ class HealthConnectorPermissionServiceTest {
 
         every { activity.activityResultRegistry } returns activityResultRegistry
         every { activityResultLauncher.unregister() } returns Unit
+        every { routeConsentLauncher.unregister() } returns Unit
     }
 
     @AfterEach
@@ -184,6 +203,14 @@ class HealthConnectorPermissionServiceTest {
                             permissionRequest as HealthPlatformFeaturePermissionRequest
                         permissionRequestResult.status shouldBe expectedPermissionStatus
                         permissionRequestResult.feature shouldBe featurePermissionRequest.feature
+                    }
+
+                    is ExerciseRoutePermissionRequestResultDto -> {
+                        val exerciseRoutePermissionRequest =
+                            permissionRequest as ExerciseRoutePermissionRequestDto
+                        permissionRequestResult.status shouldBe expectedPermissionStatus
+                        permissionRequestResult.permission.accessType shouldBe
+                            exerciseRoutePermissionRequest.accessType
                     }
                 }
             }
@@ -536,6 +563,130 @@ class HealthConnectorPermissionServiceTest {
             // Then
             result.shouldBeEmpty()
             verify { activityResultLauncher.unregister() }
+        }
+    }
+
+    @Nested
+    @DisplayName("launchRouteConsentRequest")
+    inner class LaunchRouteConsentRequest {
+
+        @Test
+        @DisplayName(
+            "GIVEN route consent granted → " +
+                "WHEN launchRouteConsentRequest called → " +
+                "THEN returns ExerciseRoute",
+        )
+        fun whenRouteConsentGranted_thenReturnsExerciseRoute() = runTest {
+            // Given
+            val expectedRoute = ExerciseRoute(
+                route = listOf(
+                    ExerciseRoute.Location(
+                        time = java.time.Instant.ofEpochMilli(TEST_ROUTE_TIME_1),
+                        latitude = TEST_ROUTE_LATITUDE_1,
+                        longitude = TEST_ROUTE_LONGITUDE_1,
+                        altitude = Length.meters(TEST_ROUTE_ALTITUDE_METERS),
+                    ),
+                    ExerciseRoute.Location(
+                        time = java.time.Instant.ofEpochMilli(TEST_ROUTE_TIME_2),
+                        latitude = TEST_ROUTE_LATITUDE_2,
+                        longitude = TEST_ROUTE_LONGITUDE_2,
+                    ),
+                ),
+            )
+            val callbackSlot = slot<ActivityResultCallback<ExerciseRoute?>>()
+
+            every {
+                activityResultRegistry.register(
+                    any(),
+                    any<ExerciseRouteRequestContract>(),
+                    capture(callbackSlot),
+                )
+            } returns routeConsentLauncher
+            every { routeConsentLauncher.launch(any()) } answers {
+                // Simulate user granting consent
+                callbackSlot.captured.onActivityResult(expectedRoute)
+            }
+
+            // When
+            val result = systemUnderTest.launchRouteConsentRequest(
+                activity,
+                TEST_EXERCISE_SESSION_ID,
+            )
+
+            // Then
+            result shouldBe expectedRoute
+            result?.route?.size shouldBe 2
+            result?.route?.get(0)?.latitude shouldBe TEST_ROUTE_LATITUDE_1
+            result?.route?.get(0)?.longitude shouldBe TEST_ROUTE_LONGITUDE_1
+            result?.route?.get(1)?.latitude shouldBe TEST_ROUTE_LATITUDE_2
+            result?.route?.get(1)?.longitude shouldBe TEST_ROUTE_LONGITUDE_2
+            verify { routeConsentLauncher.unregister() }
+        }
+
+        @Test
+        @DisplayName(
+            "GIVEN route consent denied → " +
+                "WHEN launchRouteConsentRequest called → " +
+                "THEN returns null",
+        )
+        fun whenRouteConsentDenied_thenReturnsNull() = runTest {
+            // Given
+            val callbackSlot = slot<ActivityResultCallback<ExerciseRoute?>>()
+
+            every {
+                activityResultRegistry.register(
+                    any(),
+                    any<ExerciseRouteRequestContract>(),
+                    capture(callbackSlot),
+                )
+            } returns routeConsentLauncher
+            every { routeConsentLauncher.launch(any()) } answers {
+                // Simulate user denying consent
+                callbackSlot.captured.onActivityResult(null)
+            }
+
+            // When
+            val result = systemUnderTest.launchRouteConsentRequest(
+                activity,
+                TEST_EXERCISE_SESSION_ID,
+            )
+
+            // Then
+            result shouldBe null
+            verify { routeConsentLauncher.unregister() }
+        }
+
+        @Test
+        @DisplayName(
+            "GIVEN ActivityNotFoundException occurs → " +
+                "WHEN launchRouteConsentRequest called → " +
+                "THEN throws HealthConnectorException.Unknown",
+        )
+        fun whenActivityNotFound_thenThrowsUnknownError() = runTest {
+            // Given
+            val callbackSlot = slot<ActivityResultCallback<ExerciseRoute?>>()
+
+            every {
+                activityResultRegistry.register(
+                    any(),
+                    any<ExerciseRouteRequestContract>(),
+                    capture(callbackSlot),
+                )
+            } returns routeConsentLauncher
+
+            every { routeConsentLauncher.launch(any()) } throws
+                android.content.ActivityNotFoundException("Health Connect not found")
+
+            // When & Then
+            shouldThrow<HealthConnectorException.Unknown> {
+                systemUnderTest.launchRouteConsentRequest(
+                    activity,
+                    TEST_EXERCISE_SESSION_ID,
+                )
+            }
+
+            // Verify cleanup still happens
+            verify { routeConsentLauncher.unregister() }
         }
     }
 }

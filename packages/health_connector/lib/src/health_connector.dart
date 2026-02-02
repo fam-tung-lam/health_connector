@@ -1144,4 +1144,95 @@ abstract interface class HealthConnector {
     required List<HealthDataType> dataTypes,
     required HealthDataSyncToken? syncToken,
   });
+
+  /// Reads the exercise route for a given exercise session.
+  ///
+  /// Exercise routes contain GPS location data recorded during exercise
+  /// sessions. Due to the sensitive nature of location data, reading routes
+  /// requires separate permissions from reading exercise session records.
+  ///
+  /// ## Permissions Required
+  ///
+  /// Before calling this method, request [ExerciseRoutePermission.read]:
+  ///
+  /// ```dart
+  /// await connector.requestPermissions([
+  ///   ExerciseRoutePermission.read,
+  /// ]);
+  /// ```
+  ///
+  /// ## Parameters
+  ///
+  /// - [exerciseSessionId]: The ID of the exercise session to read the route
+  ///   for. This should be an ID obtained from reading exercise session
+  ///   records.
+  ///
+  /// ## Returns
+  ///
+  /// - The [ExerciseRoute] containing GPS location points if the session has
+  ///   route data.
+  /// - `null` if the session has no associated route data or doesn't exist.
+  ///
+  /// ## Platform Differences
+  ///
+  /// ### Android Health Connect
+  ///
+  /// - If route data was recorded by a third-party app, a system consent
+  ///   dialog is shown automatically during this call.
+  /// - If user grants consent, returns the route data.
+  /// - If user denies consent, throws [AuthorizationException].
+  /// - Routes recorded by your own app return directly without consent.
+  ///
+  /// ### iOS HealthKit
+  ///
+  /// - Returns the most recent route associated with the workout.
+  /// - If multiple routes exist for a workout, only the latest is returned.
+  /// - No per-route consent is required (all-or-nothing authorization).
+  ///
+  /// ## Throws
+  ///
+  /// - [AuthorizationException] if:
+  ///   - [ExerciseRoutePermission.read] has not been granted
+  ///   - User denies consent for third-party route data (Android only)
+  /// - [HealthConnectorException] if the platform request fails
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// // First, read exercise sessions
+  /// final sessions = await connector.readRecords(
+  ///   HealthDataType.exerciseSession.readInTimeRange(
+  ///     startTime: DateTime.now().subtract(Duration(days: 7)),
+  ///     endTime: DateTime.now(),
+  ///   ),
+  /// );
+  ///
+  /// // Then, load route for a specific session
+  /// for (final session in sessions.records) {
+  ///   try {
+  ///     final route = await connector.readExerciseRoute(session.id);
+  ///     if (route != null) {
+  ///       print('Route has ${route.length} GPS points');
+  ///       print('Duration: ${route.duration}');
+  ///
+  ///       // Display route on a map
+  ///       for (final location in route.locations) {
+  ///         print('${location.latitude}, ${location.longitude}');
+  ///       }
+  ///     } else {
+  ///       print('No route data for this session');
+  ///     }
+  ///   } on AuthorizationException {
+  ///     print('Route permission denied or consent not granted');
+  ///   }
+  /// }
+  /// ```
+  ///
+  /// ## See Also
+  ///
+  /// - [ExerciseRoutePermission] for route-specific permissions
+  /// - [ExerciseRoute] for route data structure
+  /// - [ExerciseRouteLocation] for individual GPS points
+  @sinceV3_8_0
+  Future<ExerciseRoute?> readExerciseRoute(HealthRecordId exerciseSessionId);
 }

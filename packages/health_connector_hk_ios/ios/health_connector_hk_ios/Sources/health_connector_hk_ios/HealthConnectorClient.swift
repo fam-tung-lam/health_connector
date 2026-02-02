@@ -1,3 +1,4 @@
+import CoreLocation
 import Foundation
 import HealthKit
 
@@ -96,23 +97,23 @@ actor HealthConnectorClient: Taggable {
         return statusDto
     }
 
-    /// Requests the specified health data permissions from the user.
+    /// Requests the specified permissions from the user.
     ///
     /// - Parameters:
-    ///   - healthDataPermissions: List of health data permissions to request.
+    ///   - permissions: List of polymorphic permission requests (health data or exercise route).
     ///
-    /// - Returns: A list of `HealthDataPermissionRequestResultDto` containing the status for each requested permission.
+    /// - Returns: A list of `PermissionRequestResultDto` containing the status for each requested permission.
     ///
     /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if invalid permission parameters are provided
     /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit is unavailable
     /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
-    func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws
-        -> [HealthDataPermissionRequestResultDto]
+    func requestPermissions(permissions: [PermissionRequestDto]) async throws
+        -> [PermissionRequestResultDto]
     {
         let operation = "requestPermissions"
         let context: [String: Any] = [
-            "health_data_permission_count": healthDataPermissions.count,
+            "permission_count": permissions.count,
         ]
 
         HealthConnectorLogger.debug(
@@ -123,7 +124,7 @@ actor HealthConnectorClient: Taggable {
         )
 
         // Delegate to permission service
-        let result = try await permissionService.requestAuthorization(for: healthDataPermissions)
+        let result = try await permissionService.requestAuthorization(for: permissions)
 
         HealthConnectorLogger.info(
             tag: HealthConnectorClient.tag,
@@ -137,7 +138,7 @@ actor HealthConnectorClient: Taggable {
 
     /// Gets the current permission status for a specific permission.
     ///
-    /// - Parameter permission: The health data permission to check
+    /// - Parameter permission: The polymorphic permission to check (health data or exercise route)
     /// - Returns: PermissionStatusDto with the current status
     ///
     /// - Note: Read permissions always return `.unknown` due to HealthKit privacy restrictions.
@@ -145,7 +146,7 @@ actor HealthConnectorClient: Taggable {
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if invalid permission is provided
     /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
-    func getPermissionStatus(permission: HealthDataPermissionDto) async throws
+    func getPermissionStatus(permission: PermissionRequestDto) async throws
         -> PermissionStatusDto
     {
         let operation = "getPermissionStatus"
@@ -417,7 +418,7 @@ actor HealthConnectorClient: Taggable {
         try await process(operation: "writeRecords", context: ["totalRecords": records.count]) {
             let operation = "writeRecords"
             let context: [String: Any] = [
-                "totalRecords": records.count,
+                "total_records": records.count,
             ]
 
             HealthConnectorLogger.debug(
@@ -440,7 +441,10 @@ actor HealthConnectorClient: Taggable {
             var samples: [HKSample] = []
             samples.reserveCapacity(records.count)
 
-            for (index, record) in records.enumerated() {
+            // Track exercise sessions with routes for post-save attachment
+            var exerciseSessionsWithRoutes: [(workout: HKWorkout, route: ExerciseRouteDto)] = []
+
+            for record in records {
                 let dataType = try record.dataType
 
                 // Validate: Handler exists and supports writes
@@ -451,6 +455,15 @@ actor HealthConnectorClient: Taggable {
 
                 let sample = try record.toHKSample()
                 samples.append(sample)
+
+                // Track exercise sessions with routes
+                if let exerciseDto = record as? ExerciseSessionRecordDto,
+                   let routeDto = exerciseDto.exerciseRoute,
+                   !routeDto.locations.isEmpty,
+                   let workout = sample as? HKWorkout
+                {
+                    exerciseSessionsWithRoutes.append((workout: workout, route: routeDto))
+                }
             }
 
             HealthConnectorLogger.debug(
@@ -458,9 +471,15 @@ actor HealthConnectorClient: Taggable {
                 operation: operation,
                 message: "All records validated and converted to samples",
                 context: [
-                    "sampleCount": samples.count,
+                    "sample_count": samples.count,
+                    "exercise_sessions_with_routes": exerciseSessionsWithRoutes.count,
                 ]
             )
+
+            // Validate route write permissions if any exercise sessions have routes
+            if !exerciseSessionsWithRoutes.isEmpty {
+                try validateRouteWritePermissions()
+            }
 
             try await healthStore.save(samples)
 
@@ -470,6 +489,11 @@ actor HealthConnectorClient: Taggable {
                 message: "Atomic save completed successfully"
             )
 
+            // Attach routes to exercise sessions (failures logged but don't fail batch)
+            if !exerciseSessionsWithRoutes.isEmpty {
+                await self.attachRoutesToWorkouts(exerciseSessionsWithRoutes)
+            }
+
             let recordIds = samples.map(\.uuid.uuidString)
 
             HealthConnectorLogger.info(
@@ -477,12 +501,120 @@ actor HealthConnectorClient: Taggable {
                 operation: operation,
                 message: "Health Connect records written successfully",
                 context: [
-                    "recordCount": recordIds.count,
+                    "record_count": recordIds.count,
                 ]
             )
 
             return recordIds
         }
+    }
+
+    /// Attaches GPS routes to saved workouts.
+    ///
+    /// This method processes workout routes after the atomic batch save completes.
+    /// Route failures are logged but do not fail the overall batch operation,
+    /// since workouts are the primary entities.
+    ///
+    /// - Parameter workoutsWithRoutes: Array of tuples containing saved workouts and their routes
+    private func attachRoutesToWorkouts(
+        _ workoutsWithRoutes: [(workout: HKWorkout, route: ExerciseRouteDto)]
+    ) async {
+        let operation = "attach_routes"
+
+        HealthConnectorLogger.debug(
+            tag: Self.tag,
+            operation: operation,
+            message: "Attaching routes to workouts",
+            context: ["count": workoutsWithRoutes.count]
+        )
+
+        for (workout, routeDto) in workoutsWithRoutes {
+            let context: [String: Any] = [
+                "workout_id": workout.uuid.uuidString,
+                "location_count": routeDto.locations.count,
+            ]
+
+            do {
+                let routeBuilder = HKWorkoutRouteBuilder(
+                    healthStore: healthStore,
+                    device: .local()
+                )
+
+                // Sort by timestamp (HealthKit requires strictly increasing)
+                let locations = routeDto.toCLLocations()
+                let sortedLocations = locations.sorted { $0.timestamp < $1.timestamp }
+
+                try await routeBuilder.insertRouteData(sortedLocations)
+                try await routeBuilder.finishRoute(with: workout, metadata: nil)
+
+                HealthConnectorLogger.info(
+                    tag: Self.tag,
+                    operation: operation,
+                    message: "Route attached successfully",
+                    context: context
+                )
+            } catch {
+                HealthConnectorLogger.error(
+                    tag: Self.tag,
+                    operation: operation,
+                    message: "Failed to attach route - workout saved but route was not",
+                    context: context.merging(["error": error.localizedDescription]) { _, new in new },
+                    exception: error
+                )
+            }
+        }
+    }
+
+    /// Validates that write permissions are granted for workout routes.
+    ///
+    /// This method checks authorization status for both workout type and workout route type.
+    /// If either permission is denied, it throws an authorization error immediately.
+    ///
+    /// - Throws: `HealthConnectorError.permissionNotGranted` if route write permission is denied
+    private func validateRouteWritePermissions() throws {
+        let workoutType = HKObjectType.workoutType()
+        let routeType = HKSeriesType.workoutRoute()
+
+        let workoutStatus = healthStore.authorizationStatus(for: workoutType)
+        let routeStatus = healthStore.authorizationStatus(for: routeType)
+
+        // Check if workout write permission is denied
+        if workoutStatus == .sharingDenied {
+            HealthConnectorLogger.warning(
+                tag: Self.tag,
+                operation: "validate_route_permissions",
+                message: "Workout write permission denied",
+                context: ["permission_type": "workout"]
+            )
+            throw HealthConnectorError.permissionNotGranted(
+                message: "Write permission for exercise sessions is denied",
+                context: ["permission_type": "exerciseSession"]
+            )
+        }
+
+        // Check if route write permission is denied
+        if routeStatus == .sharingDenied {
+            HealthConnectorLogger.warning(
+                tag: Self.tag,
+                operation: "validate_route_permissions",
+                message: "Workout route write permission denied",
+                context: ["permission_type": "workoutRoute"]
+            )
+            throw HealthConnectorError.permissionNotGranted(
+                message: "Write permission for exercise routes is denied",
+                context: ["permission_type": "exerciseRoute"]
+            )
+        }
+
+        HealthConnectorLogger.debug(
+            tag: Self.tag,
+            operation: "validate_route_permissions",
+            message: "Route write permissions validated",
+            context: [
+                "workout_status": String(describing: workoutStatus),
+                "route_status": String(describing: routeStatus),
+            ]
+        )
     }
 
     /// Performs an aggregation query on health records.
@@ -761,6 +893,139 @@ actor HealthConnectorClient: Taggable {
                 cause: error,
                 context: ["details": error.localizedDescription]
             )
+        }
+    }
+
+    // MARK: - Exercise Route
+
+    /// Reads the exercise route associated with a workout session.
+    ///
+    /// On iOS HealthKit, workout routes are stored as `HKWorkoutRoute` samples
+    /// associated with an `HKWorkout`. This method queries for the most recent
+    /// route associated with the specified workout.
+    ///
+    /// - Parameter exerciseSessionId: The UUID of the workout (HKWorkout)
+    /// - Returns: The exercise route as `ExerciseRouteDto`, or `nil` if no route exists
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if the session ID is invalid
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit is unavailable
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
+    func readExerciseRoute(exerciseSessionId: String) async throws -> ExerciseRouteDto? {
+        try await process(
+            operation: "readExerciseRoute",
+            context: ["exerciseSessionId": exerciseSessionId]
+        ) {
+            let operation = "readExerciseRoute"
+            let context: [String: Any] = ["exerciseSessionId": exerciseSessionId]
+
+            HealthConnectorLogger.debug(
+                tag: Self.tag,
+                operation: operation,
+                message: "Reading exercise route for workout",
+                context: context
+            )
+
+            // Parse the workout UUID
+            guard let workoutUUID = UUID(uuidString: exerciseSessionId) else {
+                throw HealthConnectorError.invalidArgument(
+                    message: "Invalid exercise session ID format: \(exerciseSessionId)"
+                )
+            }
+
+            // Query for the workout first to get its HKWorkout reference
+            let workoutType = HKObjectType.workoutType()
+            let workoutPredicate = HKQuery.predicateForObject(with: workoutUUID)
+
+            let workout: HKWorkout? = try await withCheckedThrowingContinuation { continuation in
+                let query = HKSampleQuery(
+                    sampleType: workoutType,
+                    predicate: workoutPredicate,
+                    limit: 1,
+                    sortDescriptors: nil
+                ) { _, samples, error in
+                    if let error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume(returning: samples?.first as? HKWorkout)
+                    }
+                }
+                healthStore.execute(query)
+            }
+
+            guard let workout else {
+                HealthConnectorLogger.warning(
+                    tag: Self.tag,
+                    operation: operation,
+                    message: "Workout not found",
+                    context: context
+                )
+                return nil
+            }
+
+            // Query for workout routes associated with this workout
+            let routeType = HKSeriesType.workoutRoute()
+
+            let routePredicate = HKQuery.predicateForObjects(from: workout)
+
+            let routes: [HKWorkoutRoute] = try await withCheckedThrowingContinuation { continuation in
+                let query = HKSampleQuery(
+                    sampleType: routeType,
+                    predicate: routePredicate,
+                    limit: HKObjectQueryNoLimit,
+                    sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)]
+                ) { _, samples, error in
+                    if let error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume(returning: (samples as? [HKWorkoutRoute]) ?? [])
+                    }
+                }
+                healthStore.execute(query)
+            }
+
+            guard let latestRoute = routes.first else {
+                HealthConnectorLogger.info(
+                    tag: Self.tag,
+                    operation: operation,
+                    message: "No route found for workout",
+                    context: context
+                )
+                return nil
+            }
+
+            // Extract location data from the route
+            let locations: [CLLocation] = try await withCheckedThrowingContinuation { continuation in
+                var allLocations: [CLLocation] = []
+
+                let routeQuery = HKWorkoutRouteQuery(route: latestRoute) { _, locations, done, error in
+                    if let error {
+                        continuation.resume(throwing: error)
+                        return
+                    }
+
+                    if let locations {
+                        allLocations.append(contentsOf: locations)
+                    }
+
+                    if done {
+                        continuation.resume(returning: allLocations)
+                    }
+                }
+                healthStore.execute(routeQuery)
+            }
+
+            let routeDto = locations.toExerciseRouteDto()
+
+            HealthConnectorLogger.info(
+                tag: Self.tag,
+                operation: operation,
+                message: "Exercise route read successfully",
+                context: context.merging([
+                    "location_count": routeDto.locations.count,
+                ]) { _, new in new }
+            )
+
+            return routeDto
         }
     }
 }

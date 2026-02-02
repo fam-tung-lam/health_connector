@@ -280,4 +280,44 @@ abstract interface class HealthConnectorPlatformClient {
     required List<HealthDataType> dataTypes,
     required HealthDataSyncToken? syncToken,
   });
+
+  /// Reads the exercise route for a given exercise session.
+  ///
+  /// Exercise routes contain GPS location data recorded during exercise
+  /// sessions. Due to the sensitive nature of location data, reading routes
+  /// requires separate permissions from reading exercise session records.
+  ///
+  /// ## Parameters
+  ///
+  /// - [exerciseSessionId]: The ID of the exercise session to read the route
+  ///   for. Must be a valid ID of an existing exercise session record.
+  ///
+  /// ## Returns
+  ///
+  /// - The [ExerciseRoute] if the session has route data, or `null` if:
+  ///   - The session exists but has no associated route data
+  ///   - The session does not exist
+  ///
+  /// ## Platform Differences
+  ///
+  /// ### Android Health Connect
+  ///
+  /// - If route exists but requires consent (third-party data), the system
+  ///   consent dialog is shown automatically during this call.
+  /// - If user grants consent, returns the route.
+  /// - If user denies consent, throws [AuthorizationException].
+  ///
+  /// ### iOS HealthKit
+  ///
+  /// - Returns the most recent route associated with the workout.
+  /// - If multiple routes exist, only the latest is returned.
+  ///
+  /// ## Throws
+  ///
+  /// - [AuthorizationException] if:
+  ///   - Route permission has not been granted
+  ///   - User denies consent for third-party route data (Android)
+  /// - [HealthConnectorException] if the platform request fails
+  @sinceV3_8_0
+  Future<ExerciseRoute?> readExerciseRoute(HealthRecordId exerciseSessionId);
 }

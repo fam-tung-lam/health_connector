@@ -80,6 +80,7 @@ internal fun ExerciseSessionRecordDto.toHealthConnect(): ExerciseSessionRecord {
         notes = notes?.takeIf { it.isNotBlank() },
         segments = segments,
         laps = laps,
+        exerciseRoute = exerciseRoute?.toHealthConnect(),
         metadata = metadata.toHealthConnect(id),
     )
 }

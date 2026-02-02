@@ -1,16 +1,19 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
+        ExerciseRoutePermission,
         HealthDataPermission,
         HealthDataPermissionAccessType,
         HealthPlatformFeaturePermission,
         PermissionRequestResult,
         sinceV1_0_0,
-        sinceV2_3_2;
+        sinceV2_3_2,
+        sinceV3_8_0;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permission_status_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
+        ExerciseRoutePermissionRequestResultDto,
         HealthDataPermissionRequestResultDto,
         HealthPlatformFeaturePermissionRequestResultDto,
         PermissionAccessTypeDto,
@@ -30,6 +33,7 @@ extension PermissionsRequestResponseDtoToDomain
           final HealthDataPermissionRequestResultDto _ => result.toDomain(),
           final HealthPlatformFeaturePermissionRequestResultDto _ =>
             result.toDomain(),
+          final ExerciseRoutePermissionRequestResultDto _ => result.toDomain(),
         };
       },
     ).toList();
@@ -66,6 +70,22 @@ extension HealthPlatformFeaturePermissionRequestResultDtoToDomain
       permission: HealthPlatformFeaturePermission(
         feature.toDomain(),
       ),
+      status: status.toDomain(),
+    );
+  }
+}
+
+/// Converts [ExerciseRoutePermissionRequestResultDto] to
+/// [PermissionRequestResult].
+@sinceV3_8_0
+@internal
+extension ExerciseRoutePermissionRequestResultDtoToDomain
+    on ExerciseRoutePermissionRequestResultDto {
+  PermissionRequestResult toDomain() {
+    return PermissionRequestResult(
+      permission: permission.accessType == PermissionAccessTypeDto.read
+          ? ExerciseRoutePermission.read
+          : ExerciseRoutePermission.write,
       status: status.toDomain(),
     );
   }

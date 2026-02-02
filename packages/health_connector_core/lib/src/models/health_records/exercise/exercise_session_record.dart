@@ -55,6 +55,10 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
   /// The [events] list contains workout events such as laps, segments,
   /// pause/resume transitions, and markers.
   ///
+  /// The optional [exerciseRoute] contains GPS location data recorded during
+  /// the session. This is a **write-only** parameter - to read an exercise
+  /// route, use `HealthConnector.readExerciseRoute()` instead.
+  ///
   /// ## Throws
   ///
   /// - [ArgumentError] if [startTime] is after [endTime].
@@ -65,6 +69,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
   /// - [ArgumentError] if state transition events have the same time.
   /// - [ArgumentError] if any segment event's segment type is not compatible
   ///   with the session's exercise type.
+  /// - [ArgumentError] if any route location is outside the session time range.
   ExerciseSessionRecord({
     required super.startTime,
     required super.endTime,
@@ -76,7 +81,8 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     this.title,
     this.notes,
     this.events = const [],
-  }) {
+    ExerciseRoute? exerciseRoute,
+  }) : _exerciseRoute = exerciseRoute {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     if (events.isNotEmpty) {
       _requireEventsWithinSessionTimeRange(
@@ -105,6 +111,13 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
         sessionType: exerciseType,
       );
     }
+    if (exerciseRoute != null && exerciseRoute.isNotEmpty) {
+      _requireRouteLocationsWithinSessionTimeRange(
+        route: exerciseRoute,
+        sessionStartTime: startTime,
+        sessionEndTime: endTime,
+      );
+    }
   }
 
   /// Internal factory for creating [ExerciseSessionRecord] instances without
@@ -123,6 +136,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     String? title,
     String? notes,
     List<ExerciseSessionEvent> events = const [],
+    ExerciseRoute? exerciseRoute,
   }) {
     return ExerciseSessionRecord._(
       id: id,
@@ -135,6 +149,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
       title: title,
       notes: notes,
       events: events,
+      exerciseRoute: exerciseRoute,
     );
   }
 
@@ -149,7 +164,8 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     this.title,
     this.notes,
     this.events = const [],
-  });
+    ExerciseRoute? exerciseRoute,
+  }) : _exerciseRoute = exerciseRoute;
 
   /// The type of exercise performed during this session.
   ///
@@ -176,6 +192,16 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
   /// - [ExerciseSessionLapEvent] - lap timing
   /// - [ExerciseSessionSegmentEvent] - exercise segments
   final List<ExerciseSessionEvent> events;
+
+  /// GPS route data for this exercise session (write-only).
+  ///
+  /// This field is only used when writing records to the platform. To read
+  /// an exercise route, use `HealthConnector.readExerciseRoute()` instead.
+  ///
+  /// **⚠️ Warning**: Not for public use.
+  @internalUse
+  ExerciseRoute? get exerciseRoute => _exerciseRoute;
+  final ExerciseRoute? _exerciseRoute;
 
   /// Convenience getter for state transition events only.
   List<ExerciseSessionStateTransitionEvent> get stateTransitionEvents =>
@@ -205,6 +231,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     String? title,
     String? notes,
     List<ExerciseSessionEvent>? events,
+    ExerciseRoute? exerciseRoute,
   }) {
     return ExerciseSessionRecord(
       id: id ?? this.id,
@@ -218,6 +245,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
       title: title ?? this.title,
       notes: notes ?? this.notes,
       events: events ?? this.events,
+      exerciseRoute: exerciseRoute ?? _exerciseRoute,
     );
   }
 
@@ -238,7 +266,8 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
           const ListEquality<ExerciseSessionEvent>().equals(
             events,
             other.events,
-          );
+          ) &&
+          _exerciseRoute == other._exerciseRoute;
 
   @override
   int get hashCode =>
@@ -251,7 +280,8 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
       exerciseType.hashCode ^
       title.hashCode ^
       notes.hashCode ^
-      const ListEquality<ExerciseSessionEvent>().hash(events);
+      const ListEquality<ExerciseSessionEvent>().hash(events) ^
+      _exerciseRoute.hashCode;
 
   /// Validates that all [events] fall within [sessionStartTime] and
   /// [sessionEndTime]:
@@ -485,6 +515,31 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
         message:
             'Segment type ${segment.segmentType} is not compatible with '
             'session type $sessionType.',
+      );
+    }
+  }
+
+  /// Validates that all route locations fall within the session time range.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if any route location is outside the session time range.
+  static void _requireRouteLocationsWithinSessionTimeRange({
+    required ExerciseRoute route,
+    required DateTime sessionStartTime,
+    required DateTime sessionEndTime,
+  }) {
+    for (final location in route.locations) {
+      require(
+        condition:
+            !location.time.isBefore(sessionStartTime) &&
+            !location.time.isAfter(sessionEndTime),
+        value: route,
+        name: 'exerciseRoute',
+        message:
+            'Route locations must be within the session time range. '
+            'Got location with time=${location.time} '
+            'outside session $sessionStartTime–$sessionEndTime.',
       );
     }
   }

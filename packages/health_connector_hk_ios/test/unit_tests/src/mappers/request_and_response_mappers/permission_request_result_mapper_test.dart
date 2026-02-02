@@ -11,20 +11,20 @@ void main() {
         'PermissionRequestResultDtoListToDomain',
         () {
           test(
-            'maps List<HealthDataPermissionRequestResultDto> to list of '
+            'maps List<PermissionRequestResultDto> to list of '
             'PermissionRequestResult',
             () {
               // Given
-              final dto = [
+              final dto = <PermissionRequestResultDto>[
                 HealthDataPermissionRequestResultDto(
-                  permission: HealthDataPermissionDto(
+                  permission: HealthDataPermissionRequestDto(
                     healthDataType: HealthDataTypeDto.steps,
                     accessType: PermissionAccessTypeDto.read,
                   ),
                   status: PermissionStatusDto.granted,
                 ),
                 HealthDataPermissionRequestResultDto(
-                  permission: HealthDataPermissionDto(
+                  permission: HealthDataPermissionRequestDto(
                     healthDataType: HealthDataTypeDto.weight,
                     accessType: PermissionAccessTypeDto.write,
                   ),
@@ -61,9 +61,9 @@ void main() {
             'maps permission with read access type',
             () {
               // Given
-              final dto = [
+              final dto = <PermissionRequestResultDto>[
                 HealthDataPermissionRequestResultDto(
-                  permission: HealthDataPermissionDto(
+                  permission: HealthDataPermissionRequestDto(
                     healthDataType: HealthDataTypeDto.heartRateVariabilitySDNN,
                     accessType: PermissionAccessTypeDto.read,
                   ),
@@ -87,9 +87,9 @@ void main() {
             'maps permission with write access type',
             () {
               // Given
-              final dto = [
+              final dto = <PermissionRequestResultDto>[
                 HealthDataPermissionRequestResultDto(
-                  permission: HealthDataPermissionDto(
+                  permission: HealthDataPermissionRequestDto(
                     healthDataType: HealthDataTypeDto.height,
                     accessType: PermissionAccessTypeDto.write,
                   ),
@@ -113,13 +113,75 @@ void main() {
             'maps empty permission results list',
             () {
               // Given
-              final dto = <HealthDataPermissionRequestResultDto>[];
+              final dto = <PermissionRequestResultDto>[];
 
               // When
               final results = dto.toDomain();
 
               // Then
               expect(results, isEmpty);
+            },
+          );
+
+          test(
+            'maps ExerciseRoutePermissionRequestResultDto to '
+            'PermissionRequestResult',
+            () {
+              // Given
+              final dto = <PermissionRequestResultDto>[
+                ExerciseRoutePermissionRequestResultDto(
+                  permission: ExerciseRoutePermissionRequestDto(
+                    accessType: PermissionAccessTypeDto.read,
+                  ),
+                  status: PermissionStatusDto.granted,
+                ),
+                ExerciseRoutePermissionRequestResultDto(
+                  permission: ExerciseRoutePermissionRequestDto(
+                    accessType: PermissionAccessTypeDto.write,
+                  ),
+                  status: PermissionStatusDto.denied,
+                ),
+              ];
+
+              // When
+              final results = dto.toDomain();
+
+              // Then
+              expect(results, hasLength(2));
+              expect(results[0].permission, ExerciseRoutePermission.read);
+              expect(results[0].status, PermissionStatus.granted);
+              expect(results[1].permission, ExerciseRoutePermission.write);
+              expect(results[1].status, PermissionStatus.denied);
+            },
+          );
+
+          test(
+            'maps mixed health data and exercise route permissions',
+            () {
+              // Given
+              final dto = <PermissionRequestResultDto>[
+                HealthDataPermissionRequestResultDto(
+                  permission: HealthDataPermissionRequestDto(
+                    healthDataType: HealthDataTypeDto.steps,
+                    accessType: PermissionAccessTypeDto.read,
+                  ),
+                  status: PermissionStatusDto.granted,
+                ),
+                ExerciseRoutePermissionRequestResultDto(
+                  permission: ExerciseRoutePermissionRequestDto(
+                    accessType: PermissionAccessTypeDto.read,
+                  ),
+                  status: PermissionStatusDto.granted,
+                ),
+              ];
+
+              // When
+              final results = dto.toDomain();
+
+              // Then
+              expect(results, hasLength(2));
+              expect(results[0].permission, isA<HealthDataPermission>());
+              expect(results[1].permission, isA<ExerciseRoutePermission>());
             },
           );
         },

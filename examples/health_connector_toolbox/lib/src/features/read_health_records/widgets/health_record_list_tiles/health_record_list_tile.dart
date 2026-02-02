@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/read_health_records_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/basal_body_temperature_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/blood_glucose_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/blood_pressure_list_tile.dart';
@@ -69,6 +70,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 @immutable
 final class HealthRecordListTile extends StatelessWidget {
   const HealthRecordListTile({
+    required this.notifier,
     required this.record,
     required this.onDelete,
     super.key,
@@ -76,6 +78,7 @@ final class HealthRecordListTile extends StatelessWidget {
 
   final HealthRecord record;
   final VoidCallback onDelete;
+  final ReadHealthRecordsChangeNotifier notifier;
 
   @override
   Widget build(BuildContext context) {
@@ -334,6 +337,7 @@ final class HealthRecordListTile extends StatelessWidget {
 
       // Exercise records
       final ExerciseSessionRecord r => ExerciseSessionTile(
+        notifier: notifier,
         record: r,
         onDelete: onDelete,
       ),

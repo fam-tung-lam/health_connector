@@ -6,6 +6,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_
 import 'package:health_connector_hk_ios/src/mappers/health_data_sync/health_data_sync_result_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_sync/health_data_sync_token_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_route_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mapper.dart';
@@ -128,16 +129,19 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   ///
   /// HealthKit doesn't have a separate permission system for features, so
   /// [HealthPlatformFeaturePermission] instances are automatically granted.
-  /// Health data permissions are processed through the native permission flow.
+  /// Health data and exercise route permissions are processed through the
+  /// native permission flow.
   @override
   Future<List<PermissionRequestResult>> requestPermissions(
     List<Permission> permissions,
   ) async {
     final healthDataPermissions = permissions.healthDataPermissions;
+    final exerciseRoutePermissions = permissions.exerciseRoutePermissions;
     final featurePermissions = permissions.featurePermissions;
     final featureCount = featurePermissions.length;
     final context = {
       'health_data_count': healthDataPermissions.length,
+      'exercise_route_count': exerciseRoutePermissions.length,
       'feature_count': featureCount,
       'total_permissions': permissions.length,
     };
@@ -161,17 +165,21 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
     final results = <PermissionRequestResult>[];
 
-    // Process health data permissions through the native iOS permission dialog
-    if (healthDataPermissions.isNotEmpty) {
+    final hasNativePermissions =
+        healthDataPermissions.isNotEmpty || exerciseRoutePermissions.isNotEmpty;
+    if (hasNativePermissions) {
       try {
-        final requestDto = healthDataPermissions.toDto();
+        final requestDto = createPermissionsRequestDto(
+          healthDataPermissions: healthDataPermissions,
+          exerciseRoutePermissions: exerciseRoutePermissions,
+        );
 
         final responseDto = await _platformClient.requestPermissions(
           requestDto,
         );
 
-        final healthDataResults = responseDto.toDomain();
-        results.addAll(healthDataResults);
+        final nativeResults = responseDto.toDomain();
+        results.addAll(nativeResults);
       } on PlatformException catch (e, st) {
         HealthConnectorLogger.error(
           tag,
@@ -258,14 +266,9 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return PermissionStatus.granted;
     }
 
-    // Cast to HealthDataPermission
-    final healthDataPermission = permission as HealthDataPermission;
-
     try {
-      final permissionDto = healthDataPermission.toDto();
-
       final statusDto = await _platformClient.getPermissionStatus(
-        permissionDto,
+        permission.toDto(),
       );
 
       final status = statusDto.toDomain();
@@ -710,6 +713,72 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       throw HealthConnectorException.fromCode(
         e.code.toErrorCode(),
         'Failed to synchronize: ${e.message ?? 'Unknown error'}',
+        cause: e,
+        stackTrace: st,
+      );
+    }
+  }
+
+  @override
+  Future<ExerciseRoute?> readExerciseRoute(
+    HealthRecordId exerciseSessionId,
+  ) async {
+    final context = {
+      'exercise_session_id': exerciseSessionId.value,
+    };
+
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'readExerciseRoute',
+      message: 'Reading exercise route from HealthKit',
+      context: context,
+    );
+
+    try {
+      final routeDto = await _platformClient.readExerciseRoute(
+        exerciseSessionId.value,
+      );
+
+      if (routeDto == null) {
+        HealthConnectorLogger.info(
+          tag,
+          operation: 'readExerciseRoute',
+          message: 'No exercise route found for session',
+          context: {
+            ...context,
+            'route_found': false,
+          },
+        );
+        return null;
+      }
+
+      final route = routeDto.toDomain();
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'readExerciseRoute',
+        message: 'Exercise route read successfully',
+        context: {
+          ...context,
+          'route_found': true,
+          'location_count': route.length,
+        },
+      );
+
+      return route;
+    } on PlatformException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'readExerciseRoute',
+        message: 'Failed to read exercise route from HealthKit',
+        context: context,
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
+        'Failed to read exercise route: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
       );

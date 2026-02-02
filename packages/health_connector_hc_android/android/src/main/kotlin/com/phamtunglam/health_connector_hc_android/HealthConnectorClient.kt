@@ -5,6 +5,8 @@ import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.annotation.VisibleForTesting
 import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.records.ExerciseRouteResult
+import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.metadata.DataOrigin
 import com.phamtunglam.health_connector_hc_android.HealthConnectorClient.Companion.getHealthPlatformStatus
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
@@ -17,12 +19,14 @@ import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecord
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnectPermissionString
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRouteDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncTokenDto
@@ -1043,6 +1047,119 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 operation = operation,
                 message = "All Health Connect permissions revoked successfully",
             )
+        }
+    }
+
+    /**
+     * Reads the exercise route for a given exercise session.
+     *
+     * On Android Health Connect:
+     * - If route exists and user has granted consent: returns route
+     * - If route exists but requires consent: automatically launches consent dialog
+     * - If user grants consent: returns route
+     * - If user denies consent: throws [HealthConnectorException.Authorization]
+     * - If no route exists: returns null
+     *
+     * @param activity The ComponentActivity required for consent dialog
+     * @param exerciseSessionId The ID of the exercise session to read the route for
+     * @return The exercise route if it exists and is accessible, null otherwise
+     * @throws HealthConnectorException.Authorization if user denies consent
+     * @throws HealthConnectorException otherwise for any errors
+     */
+    @Throws(HealthConnectorException::class)
+    suspend fun readExerciseRoute(
+        activity: ComponentActivity,
+        exerciseSessionId: String,
+    ): ExerciseRouteDto? = withContext(dispatchers.io) {
+        val operation = "read_exercise_route"
+        val context = mapOf(
+            "exercise_session_id" to exerciseSessionId,
+        )
+
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = operation,
+            message = "Reading exercise route",
+            context = context,
+        )
+
+        return@withContext process(operation) {
+            // Read the exercise session record
+            val readResponse = client.readRecord(
+                ExerciseSessionRecord::class,
+                exerciseSessionId,
+            )
+            val exerciseSession = readResponse.record
+
+            // Check the exercise route result
+            when (val routeResult = exerciseSession.exerciseRouteResult) {
+                is ExerciseRouteResult.Data -> {
+                    HealthConnectorLogger.info(
+                        tag = TAG,
+                        operation = operation,
+                        message = "Exercise route data retrieved successfully",
+                        context = context + mapOf(
+                            "location_count" to routeResult.exerciseRoute.route.size,
+                        ),
+                    )
+                    routeResult.exerciseRoute.toDto()
+                }
+                is ExerciseRouteResult.NoData -> {
+                    HealthConnectorLogger.info(
+                        tag = TAG,
+                        operation = operation,
+                        message = "No exercise route data available",
+                        context = context,
+                    )
+                    null
+                }
+                is ExerciseRouteResult.ConsentRequired -> {
+                    HealthConnectorLogger.debug(
+                        tag = TAG,
+                        operation = operation,
+                        message = "Exercise route consent required, launching consent dialog",
+                        context = context,
+                    )
+
+                    // Launch consent dialog and wait for result
+                    val route = permissionService.launchRouteConsentRequest(
+                        activity,
+                        exerciseSessionId,
+                    )
+
+                    if (route != null) {
+                        HealthConnectorLogger.info(
+                            tag = TAG,
+                            operation = operation,
+                            message = "Exercise route consent granted, route retrieved",
+                            context = context + mapOf(
+                                "location_count" to route.route.size,
+                            ),
+                        )
+                        route.toDto()
+                    } else {
+                        HealthConnectorLogger.warning(
+                            tag = TAG,
+                            operation = operation,
+                            message = "Exercise route consent denied by user",
+                            context = context,
+                        )
+                        throw HealthConnectorException.Authorization(
+                            code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
+                            message = "User denied consent to read exercise route",
+                        )
+                    }
+                }
+                else -> {
+                    HealthConnectorLogger.warning(
+                        tag = TAG,
+                        operation = operation,
+                        message = "Unknown exercise route result type",
+                        context = context,
+                    )
+                    null
+                }
+            }
         }
     }
 }

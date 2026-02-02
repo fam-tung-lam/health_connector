@@ -9,6 +9,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
     show MeasurementUnit;
 import 'package:meta/meta.dart' show immutable;
 
+part 'exercise_route_permission.dart';
 part 'health_data_permission.dart';
 part 'health_platform_feature_permission.dart';
 

@@ -3,6 +3,32 @@ import HealthKit
 
 /// Capability for handlers that support reading health records.
 protocol ReadableHealthRecordHandler: HealthRecordHandler {
+    /// Reads a single record by ID.
+    ///
+    /// - Parameter id: The UUID of the record to read.
+    /// - Returns: The health record DTO.
+    /// - Throws: `HealthConnectorError` if the record is not found or read fails.
+    func readRecord(id: String) async throws -> HealthRecordDto
+
+    /// Reads multiple records within a time range with pagination.
+    ///
+    /// - Parameters:
+    ///   - startTime: Start of time range.
+    ///   - endTime: End of time range.
+    ///   - pageToken: Pagination token for fetching next page, nil for first page.
+    ///   - pageSize: Maximum number of records to return.
+    ///   - dataOriginPackageNames: Optional list of bundle identifiers to filter by data source.
+    ///   - sortOrder: Sort order for the query results.
+    /// - Returns: Tuple of (records array, next page token).
+    /// - Throws: `HealthConnectorError` if read fails.
+    func readRecords(
+        startTime: Date,
+        endTime: Date,
+        pageToken: PaginationToken?,
+        pageSize: Int,
+        dataOriginPackageNames: [String],
+        sortOrder: SortOrderDto
+    ) async throws -> (records: [HealthRecordDto], pageToken: PaginationToken?)
 }
 
 /// Type-safe wrapper for pagination tokens

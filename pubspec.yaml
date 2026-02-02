@@ -176,6 +176,15 @@ melos:
       packageFilters:
         dirExists: test
 
+    test:dart:select:
+      description: Run Flutter tests for selected packages with test directories.
+      run: flutter test
+      exec:
+        concurrency: 2
+        failFast: false
+      packageFilters:
+        dirExists: test
+
     test:dart:coverage:
       description: Generate coverage for the selected package.
       steps:

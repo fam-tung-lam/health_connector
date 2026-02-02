@@ -1962,6 +1962,53 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
   final int? repetitions;
 }
 
+// region Exercise Route
+
+/// Represents a single location point in an exercise route.
+///
+/// Contains GPS coordinates, optional altitude, and accuracy information.
+class ExerciseRouteLocationDto {
+  ExerciseRouteLocationDto({
+    required this.time,
+    required this.latitude,
+    required this.longitude,
+    this.altitudeMeters,
+    this.horizontalAccuracyMeters,
+    this.verticalAccuracyMeters,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Latitude in degrees. Valid range: -90 to 90.
+  final double latitude;
+
+  /// Longitude in degrees. Valid range: -180 to 180.
+  final double longitude;
+
+  /// Optional altitude above sea level in meters.
+  final double? altitudeMeters;
+
+  /// Optional horizontal accuracy in meters.
+  final double? horizontalAccuracyMeters;
+
+  /// Optional vertical accuracy in meters.
+  final double? verticalAccuracyMeters;
+}
+
+/// Represents a GPS route recorded during an exercise session.
+///
+/// Contains an ordered list of location points captured during physical
+/// activity.
+class ExerciseRouteDto {
+  ExerciseRouteDto(this.locations);
+
+  /// The GPS location points that make up this route.
+  final List<ExerciseRouteLocationDto> locations;
+}
+
+// endregion
+
 /// Represents an exercise session record for platform transfer.
 ///
 /// Maps to iOS HealthKit HKWorkout.
@@ -1977,6 +2024,7 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
     this.events = const [],
+    this.exerciseRoute,
   });
 
   /// Platform-assigned unique identifier.
@@ -2008,6 +2056,12 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
 
   /// Events and segments within this exercise session.
   final List<ExerciseSessionEventDto> events;
+
+  /// GPS route recorded during this exercise session (write-only).
+  ///
+  /// This field is only used when writing records. To read a route,
+  /// use the `readExerciseRoute` API method.
+  final ExerciseRouteDto? exerciseRoute;
 }
 
 /// Represents a mindfulness session record for platform transfer.
@@ -4645,20 +4699,6 @@ enum HealthPlatformStatusDto {
   notAvailable,
 }
 
-/// Represents a permission request for accessing specific health data.
-class HealthDataPermissionDto {
-  HealthDataPermissionDto({
-    required this.healthDataType,
-    required this.accessType,
-  });
-
-  /// The type of access being requested (read or write).
-  final PermissionAccessTypeDto accessType;
-
-  /// The type of health data for which permission is requested.
-  final HealthDataTypeDto healthDataType;
-}
-
 /// Represents the type of access requested for health data.
 enum PermissionAccessTypeDto {
   /// Read access to health data.
@@ -4680,28 +4720,71 @@ enum PermissionStatusDto {
   unknown,
 }
 
+/// Base sealed class for permission request DTOs.
+sealed class PermissionRequestDto {}
+
+/// Represents a permission request for accessing specific health data.
+class HealthDataPermissionRequestDto extends PermissionRequestDto {
+  HealthDataPermissionRequestDto({
+    required this.healthDataType,
+    required this.accessType,
+  });
+
+  /// The type of access being requested (read or write).
+  final PermissionAccessTypeDto accessType;
+
+  /// The type of health data for which permission is requested.
+  final HealthDataTypeDto healthDataType;
+}
+
+/// Represents a permission request for accessing exercise route data.
+class ExerciseRoutePermissionRequestDto extends PermissionRequestDto {
+  ExerciseRoutePermissionRequestDto({
+    required this.accessType,
+  });
+
+  /// The type of access being requested (read or write).
+  final PermissionAccessTypeDto accessType;
+}
+
+/// Represents a permissions request.
+class PermissionsRequestDto {
+  PermissionsRequestDto(this.permissionRequests);
+
+  /// List of permission requests (health data or exercise route).
+  final List<PermissionRequestDto> permissionRequests;
+}
+
+/// Base sealed class for permission request result DTOs.
+sealed class PermissionRequestResultDto {}
+
 /// Represents the result of a health data permission request.
-class HealthDataPermissionRequestResultDto {
+class HealthDataPermissionRequestResultDto extends PermissionRequestResultDto {
   HealthDataPermissionRequestResultDto({
     required this.permission,
     required this.status,
   });
 
   /// The health data permission that was requested.
-  final HealthDataPermissionDto permission;
+  final HealthDataPermissionRequestDto permission;
 
   /// The status of the permission after the request.
   final PermissionStatusDto status;
 }
 
-/// Represents a permissions request.
-class PermissionsRequestDto {
-  PermissionsRequestDto({
-    required this.healthDataPermissions,
+/// Represents the result of an exercise route permission request.
+class ExerciseRoutePermissionRequestResultDto
+    extends PermissionRequestResultDto {
+  ExerciseRoutePermissionRequestResultDto({
+    required this.permission,
+    required this.status,
   });
 
-  /// List of health data permissions to request.
-  final List<HealthDataPermissionDto> healthDataPermissions;
+  /// The exercise route permission that was requested.
+  final ExerciseRoutePermissionRequestDto permission;
+
+  /// The status of the permission after the request.
+  final PermissionStatusDto status;
 }
 
 /// Aggregation metric types for health data queries.
@@ -4968,12 +5051,12 @@ abstract class HealthConnectorHKIOSApi {
   HealthPlatformStatusDto getHealthPlatformStatus();
 
   @async
-  List<HealthDataPermissionRequestResultDto> requestPermissions(
+  List<PermissionRequestResultDto> requestPermissions(
     PermissionsRequestDto request,
   );
 
   @async
-  PermissionStatusDto getPermissionStatus(HealthDataPermissionDto permission);
+  PermissionStatusDto getPermissionStatus(PermissionRequestDto permission);
 
   @async
   HealthRecordDto? readRecord(ReadRecordRequestDto request);
@@ -4992,6 +5075,9 @@ abstract class HealthConnectorHKIOSApi {
     List<HealthDataTypeDto> dataTypes,
     HealthDataSyncTokenDto? syncToken,
   );
+
+  @async
+  ExerciseRouteDto? readExerciseRoute(String exerciseSessionId);
 }
 
 /// Represents a peripheral perfusion index record.

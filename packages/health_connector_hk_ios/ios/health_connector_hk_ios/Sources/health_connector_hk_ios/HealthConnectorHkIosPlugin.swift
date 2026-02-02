@@ -95,41 +95,40 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// Requests permissions from the user.
     ///
     /// - Parameters:
-    ///   - request: Contains lists of health data permissions and feature permissions to request.
+    ///   - request: Contains list of polymorphic permission requests (health data or exercise route).
     ///   - completion: Called with a `Result` containing the permission request results.
     ///
     /// - Throws: `HealthConnectorError.healthServiceUnavailable` if HealthKit is unavailable
     /// - Throws: `HealthConnectorError.unknownError` for unexpected errors
     func requestPermissions(
         request: PermissionsRequestDto,
-        completion: @escaping (Result<[HealthDataPermissionRequestResultDto], Error>) -> Void
+        completion: @escaping (Result<[PermissionRequestResultDto], Error>) -> Void
     ) {
         let operation = "requestPermissions"
         let context: [String: Any] = [
-            "permission_count": request.healthDataPermissions.count,
+            "permission_count": request.permissionRequests.count,
         ]
 
         process(operation: operation, context: context, completion: completion) {
             try await self.healthClient
-                .requestPermissions(healthDataPermissions: request.healthDataPermissions)
+                .requestPermissions(permissions: request.permissionRequests)
         }
     }
 
     /// Gets the current permission status for a specific permission.
     ///
     /// - Parameters:
-    ///   - permission: The health data permission to check
+    ///   - permission: The polymorphic permission to check (health data or exercise route)
     ///   - completion: Called with a `Result` containing the permission status
     ///
     /// - Note: Read permissions always return `.unknown` due to HealthKit privacy restrictions
     func getPermissionStatus(
-        permission: HealthDataPermissionDto,
+        permission: PermissionRequestDto,
         completion: @escaping (Result<PermissionStatusDto, Error>) -> Void
     ) {
         let operation = "getPermissionStatus"
         let context: [String: Any] = [
             "permission_type": String(describing: type(of: permission)),
-            "data_type": permission.healthDataType.rawValue,
         ]
 
         process(operation: operation, context: context, completion: completion) {
@@ -290,6 +289,25 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 dataTypes: dataTypes,
                 syncToken: syncToken
             )
+        }
+    }
+
+    /// Reads the exercise route for a workout session.
+    ///
+    /// - Parameters:
+    ///   - exerciseSessionId: The UUID of the workout
+    ///   - completion: Called with a `Result` containing the exercise route or nil
+    func readExerciseRoute(
+        exerciseSessionId: String,
+        completion: @escaping (Result<ExerciseRouteDto?, Error>) -> Void
+    ) {
+        let operation = "readExerciseRoute"
+        let context: [String: Any] = [
+            "exerciseSessionId": exerciseSessionId,
+        ]
+
+        process(operation: operation, context: context, completion: completion) {
+            try await self.healthClient.readExerciseRoute(exerciseSessionId: exerciseSessionId)
         }
     }
 
