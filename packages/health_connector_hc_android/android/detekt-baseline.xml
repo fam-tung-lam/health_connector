@@ -8,8 +8,11 @@
     <ID>CyclomaticComplexMethod:NutritionRecordMapper.kt$internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord</ID>
     <ID>CyclomaticComplexMethod:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
     <ID>InstanceOfCheckForException:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$e is HealthConnectException</ID>
+    <ID>LargeClass:HealthConnectorClient.kt$HealthConnectorClient</ID>
+    <ID>LargeClass:HealthConnectorHCAndroidPlugin.kt$HealthConnectorHCAndroidPlugin : FlutterPluginActivityAwareHealthConnectorHCAndroidApi</ID>
     <ID>LongMethod:ExerciseSegmentTypeMapper.kt$@Throws(IllegalArgumentException::class) internal fun Int.toExerciseSegmentTypeDto(): ExerciseSegmentTypeDto</ID>
     <ID>LongMethod:ExerciseSegmentTypeMapper.kt$internal fun ExerciseSegmentTypeDto.toHealthConnect(): Int</ID>
+    <ID>LongMethod:HealthConnectorClient.kt$HealthConnectorClient$@Throws(HealthConnectorException::class) suspend fun readExerciseRoute( activity: ComponentActivity, exerciseSessionId: String, ): ExerciseRouteDto?</ID>
     <ID>LongMethod:HealthConnectorDataSyncService.kt$HealthConnectorDataSyncService$@Throws(HealthConnectorException::class) private suspend fun performIncrementalSync( dataTypes: List&lt;HealthDataTypeDto&gt;, syncToken: HealthDataSyncTokenDto, ): HealthDataSyncResultDto</ID>
     <ID>LongMethod:PermissionRequestMapper.kt$@Throws(IllegalArgumentException::class) private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto</ID>
     <ID>LongParameterList:HealthConnectorClient.kt$HealthConnectorClient$( private val dispatchers: DispatcherProvider, private val client: HealthConnectClient, private val manifestService: HealthConnectorManifestService, private val featureService: HealthConnectorFeatureService, private val permissionService: HealthConnectorPermissionService, private val syncService: HealthConnectorDataSyncService, private val recordHandlerRegistry: HealthRecordHandlerRegistry, )</ID>
