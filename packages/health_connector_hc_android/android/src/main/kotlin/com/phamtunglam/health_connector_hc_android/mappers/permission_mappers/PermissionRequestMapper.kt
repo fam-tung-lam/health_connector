@@ -42,6 +42,7 @@ import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRoutePermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -62,6 +63,13 @@ internal fun PermissionRequestDto.toHealthConnectPermissionString(): String = wh
     is HealthDataPermissionRequestDto -> toHealthConnectPermissionString()
 
     is HealthPlatformFeaturePermissionRequest -> feature.toHealthConnectPermissionString()
+
+    is ExerciseRoutePermissionRequestDto -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.PERMISSION_READ_EXERCISE_ROUTES
+            PermissionAccessTypeDto.WRITE -> HealthPermission.PERMISSION_WRITE_EXERCISE_ROUTE
+        }
+    }
 }
 
 /**

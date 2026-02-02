@@ -72,6 +72,22 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
     }
   }
 
+  Future<ExerciseRoute?> readExerciseRoute(
+    HealthRecordId exerciseSessionId,
+  ) {
+    notify(() {
+      _isLoading = true;
+    });
+
+    try {
+      return _healthConnector.readExerciseRoute(exerciseSessionId);
+    } finally {
+      notify(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   /// Loads the next page of health records if available.
   ///
   /// Appends the new records to the existing [healthRecords] list.

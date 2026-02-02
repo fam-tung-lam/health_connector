@@ -22,6 +22,7 @@ final class IntervalHealthRecordTile<T extends IntervalHealthRecord>
     required this.title,
     required this.subtitleBuilder,
     required this.detailRowsBuilder,
+    this.actions,
     this.onDelete,
     super.key,
   });
@@ -31,6 +32,9 @@ final class IntervalHealthRecordTile<T extends IntervalHealthRecord>
   final String title;
   final RecordSubtitleBuilder<T> subtitleBuilder;
   final RecordDetailRowsBuilder<T> detailRowsBuilder;
+
+  /// Optional action widgets to display in the trailing section.
+  final List<Widget>? actions;
   final VoidCallback? onDelete;
 
   @override
@@ -57,6 +61,7 @@ final class IntervalHealthRecordTile<T extends IntervalHealthRecord>
       subtitle: subtitleBuilder(record, context),
       detailRows: detailRows,
       metadata: record.metadata,
+      actions: actions,
     );
   }
 }

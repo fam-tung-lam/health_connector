@@ -293,6 +293,7 @@ abstract final class AppTexts {
   static const String pleaseEnter = 'Please enter';
   static const String delete = 'Delete';
   static const String cancel = 'Cancel';
+  static const String close = 'Close';
   static const String deleteRecordQuestion = 'Delete Record?';
   static const String actionCannotBeUndone = 'This action cannot be undone.';
   static const String sample = 'Sample';
@@ -730,6 +731,7 @@ abstract final class AppTexts {
   static const String write = 'Write';
   static const String requestPermissions = 'Request $permissions';
   static const String dataTypePermissions = 'Data $type $permissions';
+  static const String exerciseRoutePermissions = '$exerciseRoute $permissions';
   static const String featurePermissions = 'Feature $permissions';
   static const String feature = 'Feature';
   static const String interval = 'Interval';
@@ -1364,6 +1366,39 @@ abstract final class AppTexts {
       'Optional number of repetitions';
   static const String meters = 'meters';
   static const String metersAbbr = 'm';
+
+  // Exercise Route
+  static const String exerciseRoute = 'Exercise Route';
+  static const String routeLocations = 'Route Locations';
+  static const String routeLocation = 'Route Location';
+  static const String addRouteLocation = 'Add Route Location';
+  static const String noRouteLocations = 'No route locations added';
+  static const String latitude = 'Latitude';
+  static const String longitude = 'Longitude';
+  static const String latitudeHint = '-90 to 90';
+  static const String longitudeHint = '-180 to 180';
+  static const String altitudeOptional = 'Altitude (optional)';
+  static const String horizontalAccuracyOptional =
+      'Horizontal Accuracy (optional)';
+  static const String verticalAccuracyOptional = 'Vertical Accuracy (optional)';
+  static const String generateSampleRoute = 'Generate Sample';
+  static const String latitudeMustBeBetween =
+      'Latitude must be between -90 and 90';
+  static const String longitudeMustBeBetween =
+      'Longitude must be between -180 and 180';
+  static const String routeTimeMustBeWithinSession =
+      'Time must be within session range';
+  static const String accuracyMustBeNonNegative = 'Must be non-negative';
+  static const String routeAvailable = 'Route available';
+  static const String loadRoute = 'Load Route';
+  static const String noRouteFound = 'No route found for this session';
+  static const String routeDetails = 'Route Details';
+  static const String totalPoints = 'Total Points';
+  static const String altitude = 'Altitude';
+  static const String horizontalAccuracy = 'H. Accuracy';
+  static const String verticalAccuracy = 'V. Accuracy';
+  static const String locationPoints = 'location point(s)';
+  static const String fieldRequired = 'This field is required';
 
   // Exercise State Transition Types
   static const String transitionPause = 'Pause';

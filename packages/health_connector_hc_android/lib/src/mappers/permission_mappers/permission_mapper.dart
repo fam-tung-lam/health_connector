@@ -1,14 +1,16 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
-        Permission,
+        ExerciseRoutePermission,
         HealthDataPermission,
         HealthDataPermissionAccessType,
         HealthPlatformFeaturePermission,
+        Permission,
         sinceV2_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
+        ExerciseRoutePermissionRequestDto,
         HealthDataPermissionRequestDto,
         HealthPlatformFeaturePermissionRequest,
         PermissionAccessTypeDto,
@@ -31,6 +33,11 @@ extension PermissionToDto on Permission {
         HealthPlatformFeaturePermissionRequest(
           feature: p.feature.toDto(),
         ),
+      final ExerciseRoutePermission p => ExerciseRoutePermissionRequestDto(
+        accessType: p.accessType == HealthDataPermissionAccessType.read
+            ? PermissionAccessTypeDto.read
+            : PermissionAccessTypeDto.write,
+      ),
     };
   }
 }

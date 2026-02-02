@@ -1,5 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.utils
 
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRoutePermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResultDto
@@ -14,4 +15,5 @@ internal val PermissionRequestResultDto.status: PermissionStatusDto
     get() = when (this) {
         is HealthDataPermissionRequestResultDto -> status
         is HealthPlatformFeaturePermissionRequestResultDto -> status
+        is ExerciseRoutePermissionRequestResultDto -> status
     }

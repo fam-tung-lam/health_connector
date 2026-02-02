@@ -22,13 +22,15 @@ void main() {
 
               final dto = permissions.toDto();
 
-              expect(dto.healthDataPermissions, hasLength(1));
+              expect(dto.permissionRequests, hasLength(1));
+              final request =
+                  dto.permissionRequests[0] as HealthDataPermissionRequestDto;
               expect(
-                dto.healthDataPermissions[0].healthDataType,
+                request.healthDataType,
                 HealthDataTypeDto.steps,
               );
               expect(
-                dto.healthDataPermissions[0].accessType,
+                request.accessType,
                 PermissionAccessTypeDto.read,
               );
             },
@@ -50,13 +52,17 @@ void main() {
 
               final dto = permissions.toDto();
 
-              expect(dto.healthDataPermissions, hasLength(2));
+              expect(dto.permissionRequests, hasLength(2));
+              final request0 =
+                  dto.permissionRequests[0] as HealthDataPermissionRequestDto;
+              final request1 =
+                  dto.permissionRequests[1] as HealthDataPermissionRequestDto;
               expect(
-                dto.healthDataPermissions[0].healthDataType,
+                request0.healthDataType,
                 HealthDataTypeDto.steps,
               );
               expect(
-                dto.healthDataPermissions[1].healthDataType,
+                request1.healthDataType,
                 HealthDataTypeDto.weight,
               );
             },
@@ -73,14 +79,16 @@ void main() {
               ];
 
               final dto = permissions.toDto();
+              final healthDataRequests = dto.permissionRequests
+                  .whereType<HealthDataPermissionRequestDto>();
 
               // Nutrition should expand to 30 nutrient types
               expect(
-                dto.healthDataPermissions,
+                healthDataRequests,
                 hasLength(HealthDataType.nutrientTypes.length),
               );
               expect(
-                dto.healthDataPermissions
+                healthDataRequests
                     .where(
                       (p) =>
                           p.accessType == PermissionAccessTypeDto.read &&
@@ -91,7 +99,7 @@ void main() {
                 1,
               );
               expect(
-                dto.healthDataPermissions
+                healthDataRequests
                     .where(
                       (p) =>
                           p.accessType == PermissionAccessTypeDto.read &&
@@ -120,7 +128,7 @@ void main() {
               final dto = permissions.toDto();
 
               expect(
-                dto.healthDataPermissions,
+                dto.permissionRequests,
                 hasLength(HealthDataType.nutrientTypes.length + 1),
               );
             },

@@ -3856,6 +3856,129 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Represents a single location point in an exercise route.
+///
+/// Contains GPS coordinates, optional altitude, and accuracy information.
+class ExerciseRouteLocationDto {
+  ExerciseRouteLocationDto({
+    required this.time,
+    required this.latitude,
+    required this.longitude,
+    this.altitudeMeters,
+    this.horizontalAccuracyMeters,
+    this.verticalAccuracyMeters,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  int time;
+
+  /// Latitude in degrees. Valid range: -90 to 90.
+  double latitude;
+
+  /// Longitude in degrees. Valid range: -180 to 180.
+  double longitude;
+
+  /// Optional altitude above sea level in meters.
+  double? altitudeMeters;
+
+  /// Optional horizontal accuracy in meters.
+  double? horizontalAccuracyMeters;
+
+  /// Optional vertical accuracy in meters.
+  double? verticalAccuracyMeters;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      time,
+      latitude,
+      longitude,
+      altitudeMeters,
+      horizontalAccuracyMeters,
+      verticalAccuracyMeters,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static ExerciseRouteLocationDto decode(Object result) {
+    result as List<Object?>;
+    return ExerciseRouteLocationDto(
+      time: result[0]! as int,
+      latitude: result[1]! as double,
+      longitude: result[2]! as double,
+      altitudeMeters: result[3] as double?,
+      horizontalAccuracyMeters: result[4] as double?,
+      verticalAccuracyMeters: result[5] as double?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ExerciseRouteLocationDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
+/// Represents a GPS route recorded during an exercise session.
+///
+/// Contains an ordered list of location points captured during physical
+/// activity.
+class ExerciseRouteDto {
+  ExerciseRouteDto({
+    required this.locations,
+  });
+
+  /// The GPS location points that make up this route.
+  List<ExerciseRouteLocationDto> locations;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      locations,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static ExerciseRouteDto decode(Object result) {
+    result as List<Object?>;
+    return ExerciseRouteDto(
+      locations: (result[0] as List<Object?>?)!
+          .cast<ExerciseRouteLocationDto>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ExerciseRouteDto || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 /// Represents an exercise session record for platform transfer.
 class ExerciseSessionRecordDto extends HealthRecordDto {
   ExerciseSessionRecordDto({
@@ -3869,6 +3992,7 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
     this.title,
     this.notes,
     this.events = const [],
+    this.exerciseRoute,
   });
 
   /// Platform-assigned unique identifier.
@@ -3901,6 +4025,12 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
   /// Events and segments within this exercise session.
   List<ExerciseSessionEventDto> events;
 
+  /// GPS route recorded during this exercise session (write-only).
+  ///
+  /// This field is only used when writing records. To read a route,
+  /// use the `readExerciseRoute` API method.
+  ExerciseRouteDto? exerciseRoute;
+
   List<Object?> _toList() {
     return <Object?>[
       id,
@@ -3913,6 +4043,7 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
       title,
       notes,
       events,
+      exerciseRoute,
     ];
   }
 
@@ -3933,6 +4064,7 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
       title: result[7] as String?,
       notes: result[8] as String?,
       events: (result[9] as List<Object?>?)!.cast<ExerciseSessionEventDto>(),
+      exerciseRoute: result[10] as ExerciseRouteDto?,
     );
   }
 
@@ -5092,6 +5224,104 @@ class HealthPlatformFeaturePermissionRequest extends PermissionRequestDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Represents a permission request for accessing exercise route data.
+///
+/// Route permissions are separate from exercise session permissions due to
+/// the sensitive nature of GPS location data.
+class ExerciseRoutePermissionRequestDto extends PermissionRequestDto {
+  ExerciseRoutePermissionRequestDto({
+    required this.accessType,
+  });
+
+  /// The type of access being requested (read or write).
+  PermissionAccessTypeDto accessType;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      accessType,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static ExerciseRoutePermissionRequestDto decode(Object result) {
+    result as List<Object?>;
+    return ExerciseRoutePermissionRequestDto(
+      accessType: result[0]! as PermissionAccessTypeDto,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ExerciseRoutePermissionRequestDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
+/// Represents the result of an exercise route permission request.
+class ExerciseRoutePermissionRequestResultDto
+    extends PermissionRequestResultDto {
+  ExerciseRoutePermissionRequestResultDto({
+    required this.permission,
+    required this.status,
+  });
+
+  /// The exercise route permission that was requested.
+  ExerciseRoutePermissionRequestDto permission;
+
+  /// The status of the permission after the request.
+  PermissionStatusDto status;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      permission,
+      status,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static ExerciseRoutePermissionRequestResultDto decode(Object result) {
+    result as List<Object?>;
+    return ExerciseRoutePermissionRequestResultDto(
+      permission: result[0]! as ExerciseRoutePermissionRequestDto,
+      status: result[1]! as PermissionStatusDto,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ExerciseRoutePermissionRequestResultDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 /// Represents a permission requests.
 class PermissionRequestsDto {
   PermissionRequestsDto({
@@ -5989,83 +6219,95 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is ExerciseSessionSegmentEventDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseSessionRecordDto) {
+    } else if (value is ExerciseRouteLocationDto) {
       buffer.putUint8(203);
       writeValue(buffer, value.encode());
-    } else if (value is ActivityIntensityRecordDto) {
+    } else if (value is ExerciseRouteDto) {
       buffer.putUint8(204);
       writeValue(buffer, value.encode());
-    } else if (value is MindfulnessSessionRecordDto) {
+    } else if (value is ExerciseSessionRecordDto) {
       buffer.putUint8(205);
       writeValue(buffer, value.encode());
-    } else if (value is NutritionRecordDto) {
+    } else if (value is ActivityIntensityRecordDto) {
       buffer.putUint8(206);
       writeValue(buffer, value.encode());
-    } else if (value is TotalEnergyBurnedRecordDto) {
+    } else if (value is MindfulnessSessionRecordDto) {
       buffer.putUint8(207);
       writeValue(buffer, value.encode());
-    } else if (value is BasalMetabolicRateRecordDto) {
+    } else if (value is NutritionRecordDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
-    } else if (value is BoneMassRecordDto) {
+    } else if (value is TotalEnergyBurnedRecordDto) {
       buffer.putUint8(209);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateVariabilityRMSSDRecordDto) {
+    } else if (value is BasalMetabolicRateRecordDto) {
       buffer.putUint8(210);
       writeValue(buffer, value.encode());
-    } else if (value is BodyWaterMassRecordDto) {
+    } else if (value is BoneMassRecordDto) {
       buffer.putUint8(211);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataSyncTokenDto) {
+    } else if (value is HeartRateVariabilityRMSSDRecordDto) {
       buffer.putUint8(212);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataSyncResultDto) {
+    } else if (value is BodyWaterMassRecordDto) {
       buffer.putUint8(213);
       writeValue(buffer, value.encode());
-    } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
+    } else if (value is HealthDataSyncTokenDto) {
       buffer.putUint8(214);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestDto) {
+    } else if (value is HealthDataSyncResultDto) {
       buffer.putUint8(215);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestResultDto) {
+    } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
       buffer.putUint8(216);
       writeValue(buffer, value.encode());
-    } else if (value is HealthPlatformFeaturePermissionRequest) {
+    } else if (value is HealthDataPermissionRequestDto) {
       buffer.putUint8(217);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionRequestsDto) {
+    } else if (value is HealthDataPermissionRequestResultDto) {
       buffer.putUint8(218);
       writeValue(buffer, value.encode());
-    } else if (value is StandardAggregateRequestDto) {
+    } else if (value is HealthPlatformFeaturePermissionRequest) {
       buffer.putUint8(219);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureAggregateRequestDto) {
+    } else if (value is ExerciseRoutePermissionRequestDto) {
       buffer.putUint8(220);
       writeValue(buffer, value.encode());
-    } else if (value is ActivityIntensityAggregateRequestDto) {
+    } else if (value is ExerciseRoutePermissionRequestResultDto) {
       buffer.putUint8(221);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    } else if (value is PermissionRequestsDto) {
       buffer.putUint8(222);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    } else if (value is StandardAggregateRequestDto) {
       buffer.putUint8(223);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    } else if (value is BloodPressureAggregateRequestDto) {
       buffer.putUint8(224);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
+    } else if (value is ActivityIntensityAggregateRequestDto) {
       buffer.putUint8(225);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(226);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorExceptionDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(227);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorLogDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(228);
+      writeValue(buffer, value.encode());
+    } else if (value is ReadRecordsRequestDto) {
+      buffer.putUint8(229);
+      writeValue(buffer, value.encode());
+    } else if (value is ReadRecordsResponseDto) {
+      buffer.putUint8(230);
+      writeValue(buffer, value.encode());
+    } else if (value is HealthConnectorExceptionDto) {
+      buffer.putUint8(231);
+      writeValue(buffer, value.encode());
+    } else if (value is HealthConnectorLogDto) {
+      buffer.putUint8(232);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -6267,60 +6509,70 @@ class _PigeonCodec extends StandardMessageCodec {
       case 202:
         return ExerciseSessionSegmentEventDto.decode(readValue(buffer)!);
       case 203:
-        return ExerciseSessionRecordDto.decode(readValue(buffer)!);
+        return ExerciseRouteLocationDto.decode(readValue(buffer)!);
       case 204:
-        return ActivityIntensityRecordDto.decode(readValue(buffer)!);
+        return ExerciseRouteDto.decode(readValue(buffer)!);
       case 205:
-        return MindfulnessSessionRecordDto.decode(readValue(buffer)!);
+        return ExerciseSessionRecordDto.decode(readValue(buffer)!);
       case 206:
-        return NutritionRecordDto.decode(readValue(buffer)!);
+        return ActivityIntensityRecordDto.decode(readValue(buffer)!);
       case 207:
-        return TotalEnergyBurnedRecordDto.decode(readValue(buffer)!);
+        return MindfulnessSessionRecordDto.decode(readValue(buffer)!);
       case 208:
-        return BasalMetabolicRateRecordDto.decode(readValue(buffer)!);
+        return NutritionRecordDto.decode(readValue(buffer)!);
       case 209:
-        return BoneMassRecordDto.decode(readValue(buffer)!);
+        return TotalEnergyBurnedRecordDto.decode(readValue(buffer)!);
       case 210:
-        return HeartRateVariabilityRMSSDRecordDto.decode(readValue(buffer)!);
+        return BasalMetabolicRateRecordDto.decode(readValue(buffer)!);
       case 211:
-        return BodyWaterMassRecordDto.decode(readValue(buffer)!);
+        return BoneMassRecordDto.decode(readValue(buffer)!);
       case 212:
-        return HealthDataSyncTokenDto.decode(readValue(buffer)!);
+        return HeartRateVariabilityRMSSDRecordDto.decode(readValue(buffer)!);
       case 213:
-        return HealthDataSyncResultDto.decode(readValue(buffer)!);
+        return BodyWaterMassRecordDto.decode(readValue(buffer)!);
       case 214:
+        return HealthDataSyncTokenDto.decode(readValue(buffer)!);
+      case 215:
+        return HealthDataSyncResultDto.decode(readValue(buffer)!);
+      case 216:
         return HealthPlatformFeaturePermissionRequestResultDto.decode(
           readValue(buffer)!,
         );
-      case 215:
-        return HealthDataPermissionRequestDto.decode(readValue(buffer)!);
-      case 216:
-        return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
       case 217:
+        return HealthDataPermissionRequestDto.decode(readValue(buffer)!);
+      case 218:
+        return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
+      case 219:
         return HealthPlatformFeaturePermissionRequest.decode(
           readValue(buffer)!,
         );
-      case 218:
-        return PermissionRequestsDto.decode(readValue(buffer)!);
-      case 219:
-        return StandardAggregateRequestDto.decode(readValue(buffer)!);
       case 220:
-        return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
+        return ExerciseRoutePermissionRequestDto.decode(readValue(buffer)!);
       case 221:
-        return ActivityIntensityAggregateRequestDto.decode(readValue(buffer)!);
+        return ExerciseRoutePermissionRequestResultDto.decode(
+          readValue(buffer)!,
+        );
       case 222:
-        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
+        return PermissionRequestsDto.decode(readValue(buffer)!);
       case 223:
-        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
+        return StandardAggregateRequestDto.decode(readValue(buffer)!);
       case 224:
-        return ReadRecordRequestDto.decode(readValue(buffer)!);
+        return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
       case 225:
-        return ReadRecordsRequestDto.decode(readValue(buffer)!);
+        return ActivityIntensityAggregateRequestDto.decode(readValue(buffer)!);
       case 226:
-        return ReadRecordsResponseDto.decode(readValue(buffer)!);
+        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
       case 227:
-        return HealthConnectorExceptionDto.decode(readValue(buffer)!);
+        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
       case 228:
+        return ReadRecordRequestDto.decode(readValue(buffer)!);
+      case 229:
+        return ReadRecordsRequestDto.decode(readValue(buffer)!);
+      case 230:
+        return ReadRecordsResponseDto.decode(readValue(buffer)!);
+      case 231:
+        return HealthConnectorExceptionDto.decode(readValue(buffer)!);
+      case 232:
         return HealthConnectorLogDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -6928,6 +7180,33 @@ class HealthConnectorHCAndroidApi {
       );
     } else {
       return (pigeonVar_replyList[0] as HealthDataSyncResultDto?)!;
+    }
+  }
+
+  Future<ExerciseRouteDto?> readExerciseRoute(String exerciseSessionId) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readExerciseRoute$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[exerciseSessionId],
+    );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_sendFuture as List<Object?>?;
+    if (pigeonVar_replyList == null) {
+      throw _createConnectionError(pigeonVar_channelName);
+    } else if (pigeonVar_replyList.length > 1) {
+      throw PlatformException(
+        code: pigeonVar_replyList[0]! as String,
+        message: pigeonVar_replyList[1] as String?,
+        details: pigeonVar_replyList[2],
+      );
+    } else {
+      return (pigeonVar_replyList[0] as ExerciseRouteDto?);
     }
   }
 }

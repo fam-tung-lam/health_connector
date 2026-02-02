@@ -17,4 +17,11 @@ abstract class FakeData {
   // Fake time data for `InstantHealthRecord`
   static final fakeLocalTime = fakeLocalStartTime;
   static final fakeTime = fakeStartTime;
+
+  // Fake GPS location data for exercise routes
+  static const fakeLatitude = 37.7749;
+  static const fakeLongitude = -122.4194;
+  static const fakeAltitudeInMeters = 10.0;
+  static const fakeHorizontalAccuracyInMeters = 5.0;
+  static const fakeVerticalAccuracyInMeters = 3.0;
 }

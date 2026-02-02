@@ -3120,6 +3120,97 @@ data class ExerciseSessionSegmentEventDto (
 }
 
 /**
+ * Represents a single location point in an exercise route.
+ *
+ * Contains GPS coordinates, optional altitude, and accuracy information.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ExerciseRouteLocationDto (
+  /** Timestamp in milliseconds since epoch (UTC). */
+  val time: Long,
+  /** Latitude in degrees. Valid range: -90 to 90. */
+  val latitude: Double,
+  /** Longitude in degrees. Valid range: -180 to 180. */
+  val longitude: Double,
+  /** Optional altitude above sea level in meters. */
+  val altitudeMeters: Double? = null,
+  /** Optional horizontal accuracy in meters. */
+  val horizontalAccuracyMeters: Double? = null,
+  /** Optional vertical accuracy in meters. */
+  val verticalAccuracyMeters: Double? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ExerciseRouteLocationDto {
+      val time = pigeonVar_list[0] as Long
+      val latitude = pigeonVar_list[1] as Double
+      val longitude = pigeonVar_list[2] as Double
+      val altitudeMeters = pigeonVar_list[3] as Double?
+      val horizontalAccuracyMeters = pigeonVar_list[4] as Double?
+      val verticalAccuracyMeters = pigeonVar_list[5] as Double?
+      return ExerciseRouteLocationDto(time, latitude, longitude, altitudeMeters, horizontalAccuracyMeters, verticalAccuracyMeters)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      time,
+      latitude,
+      longitude,
+      altitudeMeters,
+      horizontalAccuracyMeters,
+      verticalAccuracyMeters,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is ExerciseRouteLocationDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
+ * Represents a GPS route recorded during an exercise session.
+ *
+ * Contains an ordered list of location points captured during physical
+ * activity.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ExerciseRouteDto (
+  /** The GPS location points that make up this route. */
+  val locations: List<ExerciseRouteLocationDto>
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ExerciseRouteDto {
+      val locations = pigeonVar_list[0] as List<ExerciseRouteLocationDto>
+      return ExerciseRouteDto(locations)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      locations,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is ExerciseRouteDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
  * Represents an exercise session record for platform transfer.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -3144,7 +3235,14 @@ data class ExerciseSessionRecordDto (
   /** Optional notes about the exercise session. */
   val notes: String? = null,
   /** Events and segments within this exercise session. */
-  val events: List<ExerciseSessionEventDto>
+  val events: List<ExerciseSessionEventDto>,
+  /**
+   * GPS route recorded during this exercise session (write-only).
+   *
+   * This field is only used when writing records. To read a route,
+   * use the `readExerciseRoute` API method.
+   */
+  val exerciseRoute: ExerciseRouteDto? = null
 ) : HealthRecordDto()
  {
   companion object {
@@ -3159,7 +3257,8 @@ data class ExerciseSessionRecordDto (
       val title = pigeonVar_list[7] as String?
       val notes = pigeonVar_list[8] as String?
       val events = pigeonVar_list[9] as List<ExerciseSessionEventDto>
-      return ExerciseSessionRecordDto(id, metadata, startTime, endTime, startZoneOffsetSeconds, endZoneOffsetSeconds, exerciseType, title, notes, events)
+      val exerciseRoute = pigeonVar_list[10] as ExerciseRouteDto?
+      return ExerciseSessionRecordDto(id, metadata, startTime, endTime, startZoneOffsetSeconds, endZoneOffsetSeconds, exerciseType, title, notes, events, exerciseRoute)
     }
   }
   fun toList(): List<Any?> {
@@ -3174,6 +3273,7 @@ data class ExerciseSessionRecordDto (
       title,
       notes,
       events,
+      exerciseRoute,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -3993,6 +4093,79 @@ data class HealthPlatformFeaturePermissionRequest (
   }
   override fun equals(other: Any?): Boolean {
     if (other !is HealthPlatformFeaturePermissionRequest) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
+ * Represents a permission request for accessing exercise route data.
+ *
+ * Route permissions are separate from exercise session permissions due to
+ * the sensitive nature of GPS location data.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ExerciseRoutePermissionRequestDto (
+  /** The type of access being requested (read or write). */
+  val accessType: PermissionAccessTypeDto
+) : PermissionRequestDto()
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ExerciseRoutePermissionRequestDto {
+      val accessType = pigeonVar_list[0] as PermissionAccessTypeDto
+      return ExerciseRoutePermissionRequestDto(accessType)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      accessType,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is ExerciseRoutePermissionRequestDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
+ * Represents the result of an exercise route permission request.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ExerciseRoutePermissionRequestResultDto (
+  /** The exercise route permission that was requested. */
+  val permission: ExerciseRoutePermissionRequestDto,
+  /** The status of the permission after the request. */
+  val status: PermissionStatusDto
+) : PermissionRequestResultDto()
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ExerciseRoutePermissionRequestResultDto {
+      val permission = pigeonVar_list[0] as ExerciseRoutePermissionRequestDto
+      val status = pigeonVar_list[1] as PermissionStatusDto
+      return ExerciseRoutePermissionRequestResultDto(permission, status)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      permission,
+      status,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is ExerciseRoutePermissionRequestResultDto) {
       return false
     }
     if (this === other) {
@@ -4884,130 +5057,150 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       203.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ExerciseSessionRecordDto.fromList(it)
+          ExerciseRouteLocationDto.fromList(it)
         }
       }
       204.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ActivityIntensityRecordDto.fromList(it)
+          ExerciseRouteDto.fromList(it)
         }
       }
       205.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          MindfulnessSessionRecordDto.fromList(it)
+          ExerciseSessionRecordDto.fromList(it)
         }
       }
       206.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          NutritionRecordDto.fromList(it)
+          ActivityIntensityRecordDto.fromList(it)
         }
       }
       207.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          TotalEnergyBurnedRecordDto.fromList(it)
+          MindfulnessSessionRecordDto.fromList(it)
         }
       }
       208.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BasalMetabolicRateRecordDto.fromList(it)
+          NutritionRecordDto.fromList(it)
         }
       }
       209.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BoneMassRecordDto.fromList(it)
+          TotalEnergyBurnedRecordDto.fromList(it)
         }
       }
       210.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HeartRateVariabilityRMSSDRecordDto.fromList(it)
+          BasalMetabolicRateRecordDto.fromList(it)
         }
       }
       211.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BodyWaterMassRecordDto.fromList(it)
+          BoneMassRecordDto.fromList(it)
         }
       }
       212.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataSyncTokenDto.fromList(it)
+          HeartRateVariabilityRMSSDRecordDto.fromList(it)
         }
       }
       213.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataSyncResultDto.fromList(it)
+          BodyWaterMassRecordDto.fromList(it)
         }
       }
       214.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthPlatformFeaturePermissionRequestResultDto.fromList(it)
+          HealthDataSyncTokenDto.fromList(it)
         }
       }
       215.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionRequestDto.fromList(it)
+          HealthDataSyncResultDto.fromList(it)
         }
       }
       216.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionRequestResultDto.fromList(it)
+          HealthPlatformFeaturePermissionRequestResultDto.fromList(it)
         }
       }
       217.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthPlatformFeaturePermissionRequest.fromList(it)
+          HealthDataPermissionRequestDto.fromList(it)
         }
       }
       218.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionRequestsDto.fromList(it)
+          HealthDataPermissionRequestResultDto.fromList(it)
         }
       }
       219.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          StandardAggregateRequestDto.fromList(it)
+          HealthPlatformFeaturePermissionRequest.fromList(it)
         }
       }
       220.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BloodPressureAggregateRequestDto.fromList(it)
+          ExerciseRoutePermissionRequestDto.fromList(it)
         }
       }
       221.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ActivityIntensityAggregateRequestDto.fromList(it)
+          ExerciseRoutePermissionRequestResultDto.fromList(it)
         }
       }
       222.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          PermissionRequestsDto.fromList(it)
         }
       }
       223.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          StandardAggregateRequestDto.fromList(it)
         }
       }
       224.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
+          BloodPressureAggregateRequestDto.fromList(it)
         }
       }
       225.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsRequestDto.fromList(it)
+          ActivityIntensityAggregateRequestDto.fromList(it)
         }
       }
       226.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsResponseDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       227.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthConnectorExceptionDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       228.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReadRecordRequestDto.fromList(it)
+        }
+      }
+      229.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReadRecordsRequestDto.fromList(it)
+        }
+      }
+      230.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReadRecordsResponseDto.fromList(it)
+        }
+      }
+      231.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          HealthConnectorExceptionDto.fromList(it)
+        }
+      }
+      232.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           HealthConnectorLogDto.fromList(it)
         }
@@ -5313,108 +5506,124 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(202)
         writeValue(stream, value.toList())
       }
-      is ExerciseSessionRecordDto -> {
+      is ExerciseRouteLocationDto -> {
         stream.write(203)
         writeValue(stream, value.toList())
       }
-      is ActivityIntensityRecordDto -> {
+      is ExerciseRouteDto -> {
         stream.write(204)
         writeValue(stream, value.toList())
       }
-      is MindfulnessSessionRecordDto -> {
+      is ExerciseSessionRecordDto -> {
         stream.write(205)
         writeValue(stream, value.toList())
       }
-      is NutritionRecordDto -> {
+      is ActivityIntensityRecordDto -> {
         stream.write(206)
         writeValue(stream, value.toList())
       }
-      is TotalEnergyBurnedRecordDto -> {
+      is MindfulnessSessionRecordDto -> {
         stream.write(207)
         writeValue(stream, value.toList())
       }
-      is BasalMetabolicRateRecordDto -> {
+      is NutritionRecordDto -> {
         stream.write(208)
         writeValue(stream, value.toList())
       }
-      is BoneMassRecordDto -> {
+      is TotalEnergyBurnedRecordDto -> {
         stream.write(209)
         writeValue(stream, value.toList())
       }
-      is HeartRateVariabilityRMSSDRecordDto -> {
+      is BasalMetabolicRateRecordDto -> {
         stream.write(210)
         writeValue(stream, value.toList())
       }
-      is BodyWaterMassRecordDto -> {
+      is BoneMassRecordDto -> {
         stream.write(211)
         writeValue(stream, value.toList())
       }
-      is HealthDataSyncTokenDto -> {
+      is HeartRateVariabilityRMSSDRecordDto -> {
         stream.write(212)
         writeValue(stream, value.toList())
       }
-      is HealthDataSyncResultDto -> {
+      is BodyWaterMassRecordDto -> {
         stream.write(213)
         writeValue(stream, value.toList())
       }
-      is HealthPlatformFeaturePermissionRequestResultDto -> {
+      is HealthDataSyncTokenDto -> {
         stream.write(214)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionRequestDto -> {
+      is HealthDataSyncResultDto -> {
         stream.write(215)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionRequestResultDto -> {
+      is HealthPlatformFeaturePermissionRequestResultDto -> {
         stream.write(216)
         writeValue(stream, value.toList())
       }
-      is HealthPlatformFeaturePermissionRequest -> {
+      is HealthDataPermissionRequestDto -> {
         stream.write(217)
         writeValue(stream, value.toList())
       }
-      is PermissionRequestsDto -> {
+      is HealthDataPermissionRequestResultDto -> {
         stream.write(218)
         writeValue(stream, value.toList())
       }
-      is StandardAggregateRequestDto -> {
+      is HealthPlatformFeaturePermissionRequest -> {
         stream.write(219)
         writeValue(stream, value.toList())
       }
-      is BloodPressureAggregateRequestDto -> {
+      is ExerciseRoutePermissionRequestDto -> {
         stream.write(220)
         writeValue(stream, value.toList())
       }
-      is ActivityIntensityAggregateRequestDto -> {
+      is ExerciseRoutePermissionRequestResultDto -> {
         stream.write(221)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is PermissionRequestsDto -> {
         stream.write(222)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is StandardAggregateRequestDto -> {
         stream.write(223)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is BloodPressureAggregateRequestDto -> {
         stream.write(224)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
+      is ActivityIntensityAggregateRequestDto -> {
         stream.write(225)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsResponseDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(226)
         writeValue(stream, value.toList())
       }
-      is HealthConnectorExceptionDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(227)
         writeValue(stream, value.toList())
       }
-      is HealthConnectorLogDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(228)
+        writeValue(stream, value.toList())
+      }
+      is ReadRecordsRequestDto -> {
+        stream.write(229)
+        writeValue(stream, value.toList())
+      }
+      is ReadRecordsResponseDto -> {
+        stream.write(230)
+        writeValue(stream, value.toList())
+      }
+      is HealthConnectorExceptionDto -> {
+        stream.write(231)
+        writeValue(stream, value.toList())
+      }
+      is HealthConnectorLogDto -> {
+        stream.write(232)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -5496,6 +5705,7 @@ interface HealthConnectorHCAndroidApi {
   fun updateRecord(record: HealthRecordDto, callback: (Result<Unit>) -> Unit)
   fun updateRecords(records: List<HealthRecordDto>, callback: (Result<Unit>) -> Unit)
   fun synchronize(dataTypes: List<HealthDataTypeDto>, syncToken: HealthDataSyncTokenDto?, callback: (Result<HealthDataSyncResultDto>) -> Unit)
+  fun readExerciseRoute(exerciseSessionId: String, callback: (Result<ExerciseRouteDto?>) -> Unit)
 
   companion object {
     /** The codec used by HealthConnectorHCAndroidApi. */
@@ -5820,6 +6030,26 @@ interface HealthConnectorHCAndroidApi {
             val dataTypesArg = args[0] as List<HealthDataTypeDto>
             val syncTokenArg = args[1] as HealthDataSyncTokenDto?
             api.synchronize(dataTypesArg, syncTokenArg) { result: Result<HealthDataSyncResultDto> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readExerciseRoute$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val exerciseSessionIdArg = args[0] as String
+            api.readExerciseRoute(exerciseSessionIdArg) { result: Result<ExerciseRouteDto?> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

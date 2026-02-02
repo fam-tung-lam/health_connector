@@ -7,6 +7,7 @@ import 'package:health_connector_hc_android/src/mappers/health_data_sync/health_
 import 'package:health_connector_hc_android/src/mappers/health_data_sync/health_data_sync_token_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise/exercise_route_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permission_mapper.dart';
@@ -1006,6 +1007,72 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       throw HealthConnectorException.fromCode(
         e.code.toErrorCode(),
         'Failed to synchronize: ${e.message ?? 'Unknown error'}',
+        cause: e,
+        stackTrace: st,
+      );
+    }
+  }
+
+  @override
+  Future<ExerciseRoute?> readExerciseRoute(
+    HealthRecordId exerciseSessionId,
+  ) async {
+    final context = {
+      'exercise_session_id': exerciseSessionId.value,
+    };
+
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'readExerciseRoute',
+      message: 'Reading exercise route from Health Connect',
+      context: context,
+    );
+
+    try {
+      final routeDto = await _platformClient.readExerciseRoute(
+        exerciseSessionId.value,
+      );
+
+      if (routeDto == null) {
+        HealthConnectorLogger.info(
+          tag,
+          operation: 'readExerciseRoute',
+          message: 'No exercise route found for session',
+          context: {
+            ...context,
+            'route_found': false,
+          },
+        );
+        return null;
+      }
+
+      final route = routeDto.toDomain();
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'readExerciseRoute',
+        message: 'Exercise route read successfully',
+        context: {
+          ...context,
+          'route_found': true,
+          'location_count': route.length,
+        },
+      );
+
+      return route;
+    } on PlatformException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'readExerciseRoute',
+        message: 'Failed to read exercise route from Health Connect',
+        context: context,
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
+        'Failed to read exercise route: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
       );

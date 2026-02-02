@@ -22,6 +22,7 @@ final class BaseHealthRecordListTile extends StatefulWidget {
     required this.subtitle,
     required this.detailRows,
     required this.metadata,
+    this.actions,
     this.onDelete,
     super.key,
   });
@@ -31,6 +32,10 @@ final class BaseHealthRecordListTile extends StatefulWidget {
   final Widget subtitle;
   final List<Widget> detailRows;
   final Metadata metadata;
+
+  /// Optional action widgets to display in the trailing section before
+  /// the delete button.
+  final List<Widget>? actions;
   final VoidCallback? onDelete;
 
   @override
@@ -92,6 +97,7 @@ class _BaseHealthRecordListTileState extends State<BaseHealthRecordListTile> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (widget.actions != null) ...widget.actions!,
             if (widget.onDelete != null)
               IconButton(
                 icon: Icon(

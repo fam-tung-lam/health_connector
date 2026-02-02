@@ -4,10 +4,14 @@ import android.content.ActivityNotFoundException
 import android.os.RemoteException
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
+import androidx.health.connect.client.contracts.ExerciseRouteRequestContract
+import androidx.health.connect.client.records.ExerciseRoute
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnectPermissionString
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toPermissionRequestResultDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRoutePermissionRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRoutePermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
@@ -91,6 +95,13 @@ internal class HealthConnectorPermissionService(
                 is HealthPlatformFeaturePermissionRequest -> {
                     HealthPlatformFeaturePermissionRequestResultDto(
                         feature = permissionRequest.feature,
+                        status = status,
+                    )
+                }
+
+                is ExerciseRoutePermissionRequestDto -> {
+                    ExerciseRoutePermissionRequestResultDto(
+                        permission = permissionRequest,
                         status = status,
                     )
                 }
@@ -341,6 +352,53 @@ internal class HealthConnectorPermissionService(
                 message = e.message ?: "Health platform unavailable",
                 cause = e,
             )
+        }
+    }
+
+    /**
+     * Launches the exercise route consent dialog and waits for the result.
+     *
+     * On Android Health Connect, third-party exercise routes require explicit user consent
+     * before they can be read. This method launches the system consent dialog and waits
+     * for the user's response.
+     *
+     * @param activity The [ComponentActivity] for launching the consent dialog.
+     * @param exerciseSessionId The ID of the exercise session to request route consent for.
+     * @return The [ExerciseRoute] if consent was granted, null if denied.
+     * @throws HealthConnectorException.Unknown for [ActivityNotFoundException].
+     */
+    @Throws(HealthConnectorException::class)
+    suspend fun launchRouteConsentRequest(
+        activity: ComponentActivity,
+        exerciseSessionId: String,
+    ): ExerciseRoute? = withContext(Dispatchers.Main.immediate) {
+        val completer = CompletableDeferred<ExerciseRoute?>()
+
+        val uniqueKey = REGISTRY_KEY_PREFIX + "route_consent_" + UUID.randomUUID().toString()
+        val contract = ExerciseRouteRequestContract()
+        val launcher = activity.activityResultRegistry.register(
+            uniqueKey,
+            contract,
+        ) { exerciseRoute: ExerciseRoute? ->
+            completer.complete(exerciseRoute)
+        }
+
+        try {
+            launcher.launch(exerciseSessionId)
+            completer.await()
+        } catch (e: ActivityNotFoundException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "launchRouteConsentRequest",
+                message = "Route consent activity not found",
+                exception = e,
+            )
+            throw HealthConnectorException.Unknown(
+                message = e.message ?: "Activity not found",
+                cause = e,
+            )
+        } finally {
+            launcher.unregister()
         }
     }
 }

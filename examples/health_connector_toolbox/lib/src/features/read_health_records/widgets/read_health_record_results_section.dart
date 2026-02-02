@@ -56,6 +56,7 @@ class ReadHealthRecordResultsSection extends StatelessWidget {
             else
               ...notifier.healthRecords.map(
                 (record) => HealthRecordListTile(
+                  notifier: notifier,
                   record: record,
                   onDelete: () => onDeleteRecord(record),
                 ),

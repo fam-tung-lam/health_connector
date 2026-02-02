@@ -21,4 +21,12 @@ extension PermissionListExtension on List<Permission> {
   /// instances.
   List<HealthPlatformFeaturePermission> get featurePermissions =>
       whereType<HealthPlatformFeaturePermission>().toList();
+
+  /// Returns a list containing only [ExerciseRoutePermission] instances.
+  ///
+  /// Filters the list to include only permissions that are instances of
+  /// [ExerciseRoutePermission].
+  @sinceV3_8_0
+  List<ExerciseRoutePermission> get exerciseRoutePermissions =>
+      whereType<ExerciseRoutePermission>().toList();
 }

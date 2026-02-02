@@ -1847,6 +1847,53 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
   final int? repetitions;
 }
 
+// region Exercise Route
+
+/// Represents a single location point in an exercise route.
+///
+/// Contains GPS coordinates, optional altitude, and accuracy information.
+class ExerciseRouteLocationDto {
+  ExerciseRouteLocationDto({
+    required this.time,
+    required this.latitude,
+    required this.longitude,
+    this.altitudeMeters,
+    this.horizontalAccuracyMeters,
+    this.verticalAccuracyMeters,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Latitude in degrees. Valid range: -90 to 90.
+  final double latitude;
+
+  /// Longitude in degrees. Valid range: -180 to 180.
+  final double longitude;
+
+  /// Optional altitude above sea level in meters.
+  final double? altitudeMeters;
+
+  /// Optional horizontal accuracy in meters.
+  final double? horizontalAccuracyMeters;
+
+  /// Optional vertical accuracy in meters.
+  final double? verticalAccuracyMeters;
+}
+
+/// Represents a GPS route recorded during an exercise session.
+///
+/// Contains an ordered list of location points captured during physical
+/// activity.
+class ExerciseRouteDto {
+  ExerciseRouteDto(this.locations);
+
+  /// The GPS location points that make up this route.
+  final List<ExerciseRouteLocationDto> locations;
+}
+
+// endregion
+
 /// Represents an exercise session record for platform transfer.
 class ExerciseSessionRecordDto extends HealthRecordDto {
   ExerciseSessionRecordDto({
@@ -1860,6 +1907,7 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
     this.title,
     this.notes,
     this.events = const [],
+    this.exerciseRoute,
   });
 
   /// Platform-assigned unique identifier.
@@ -1891,6 +1939,12 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
 
   /// Events and segments within this exercise session.
   final List<ExerciseSessionEventDto> events;
+
+  /// GPS route recorded during this exercise session (write-only).
+  ///
+  /// This field is only used when writing records. To read a route,
+  /// use the `readExerciseRoute` API method.
+  final ExerciseRouteDto? exerciseRoute;
 }
 
 /// Represents an activity intensity record for platform transfer.
@@ -2478,6 +2532,34 @@ class HealthPlatformFeaturePermissionRequest extends PermissionRequestDto {
   final HealthPlatformFeatureDto feature;
 }
 
+/// Represents a permission request for accessing exercise route data.
+///
+/// Route permissions are separate from exercise session permissions due to
+/// the sensitive nature of GPS location data.
+class ExerciseRoutePermissionRequestDto extends PermissionRequestDto {
+  ExerciseRoutePermissionRequestDto({
+    required this.accessType,
+  });
+
+  /// The type of access being requested (read or write).
+  final PermissionAccessTypeDto accessType;
+}
+
+/// Represents the result of an exercise route permission request.
+class ExerciseRoutePermissionRequestResultDto
+    extends PermissionRequestResultDto {
+  ExerciseRoutePermissionRequestResultDto({
+    required this.permission,
+    required this.status,
+  });
+
+  /// The exercise route permission that was requested.
+  final ExerciseRoutePermissionRequestDto permission;
+
+  /// The status of the permission after the request.
+  final PermissionStatusDto status;
+}
+
 /// Represents a permission requests.
 class PermissionRequestsDto {
   PermissionRequestsDto(this.permissionRequests);
@@ -2857,4 +2939,7 @@ abstract class HealthConnectorHCAndroidApi {
     List<HealthDataTypeDto> dataTypes,
     HealthDataSyncTokenDto? syncToken,
   );
+
+  @async
+  ExerciseRouteDto? readExerciseRoute(String exerciseSessionId);
 }

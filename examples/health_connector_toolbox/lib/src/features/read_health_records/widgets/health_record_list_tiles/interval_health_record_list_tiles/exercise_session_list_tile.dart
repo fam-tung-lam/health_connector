@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector_internal.dart'
-    show
-        ExerciseSessionEvent,
-        ExerciseSessionInstantEvent,
-        ExerciseSessionIntervalEvent,
-        ExerciseSessionLapEvent,
-        ExerciseSessionMarkerEvent,
-        ExerciseSessionRecord,
-        ExerciseSessionSegmentEvent,
-        ExerciseSessionStateTransitionEvent,
-        ExerciseType;
+import 'package:health_connector/health_connector.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/exercise_segment_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/exercise_state_transition_type_extension.dart';
+import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/read_health_records_change_notifier.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/utils/show_exercise_route_dialog.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_detail_row.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/health_record_list_tile_subtitle.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/interval_health_record_list_tile.dart';
@@ -22,11 +15,13 @@ import 'package:intl/intl.dart';
 /// Widget for displaying exercise session record tiles.
 final class ExerciseSessionTile extends StatelessWidget {
   const ExerciseSessionTile({
+    required this.notifier,
     required this.record,
     required this.onDelete,
     super.key,
   });
 
+  final ReadHealthRecordsChangeNotifier notifier;
   final ExerciseSessionRecord record;
   final VoidCallback onDelete;
 
@@ -144,6 +139,18 @@ final class ExerciseSessionTile extends StatelessWidget {
       record: record,
       icon: AppIcons.fitnessCenter,
       title: title,
+      actions: [
+        IconButton(
+          icon: Icon(
+            AppIcons.route,
+            color: Theme.of(context).colorScheme.primary,
+            size: 22,
+          ),
+          tooltip: AppTexts.loadRoute,
+          onPressed: () => _onReadRoute(context),
+          visualDensity: VisualDensity.compact,
+        ),
+      ],
       subtitleBuilder: (r, ctx) {
         final baseSubtitle = HealthRecordListTileSubtitle.interval(
           startTime: r.startTime,
@@ -230,8 +237,41 @@ final class ExerciseSessionTile extends StatelessWidget {
             ),
           ),
         ],
+        const SizedBox(height: 8),
+        const HealthRecordDetailRow(
+          label: AppTexts.exerciseRoute,
+          value: 'Use readExerciseRoute() to load',
+        ),
       ],
       onDelete: onDelete,
     );
+  }
+
+  Future<void> _onReadRoute(BuildContext context) async {
+    try {
+      final route = await notifier.readExerciseRoute(record.id);
+      if (!context.mounted) {
+        return;
+      }
+
+      if (route == null) {
+        showAppSnackBar(
+          context,
+          SnackBarType.info,
+          AppTexts.noRouteFound,
+        );
+      } else {
+        await showExerciseRouteDialog(context, route: route);
+      }
+    } on HealthConnectorException catch (e) {
+      if (!context.mounted) {
+        return;
+      }
+      showAppSnackBar(
+        context,
+        SnackBarType.error,
+        e.message,
+      );
+    }
   }
 }

@@ -831,6 +831,62 @@ final class HealthConnectorImpl implements HealthConnector {
     }
   }
 
+  @override
+  Future<ExerciseRoute?> readExerciseRoute(
+    HealthRecordId exerciseSessionId,
+  ) async {
+    final context = {
+      'exercise_session_id': exerciseSessionId.toString(),
+    };
+
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'readExerciseRoute',
+      message: 'Reading exercise route',
+      context: context,
+    );
+
+    try {
+      final route = await _client.readExerciseRoute(exerciseSessionId);
+
+      if (route != null) {
+        HealthConnectorLogger.info(
+          tag,
+          operation: 'readExerciseRoute',
+          message: 'Exercise route read successfully',
+          context: {
+            ...context,
+            'route_found': true,
+            'location_count': route.length,
+          },
+        );
+      } else {
+        HealthConnectorLogger.info(
+          tag,
+          operation: 'readExerciseRoute',
+          message: 'No exercise route found for session',
+          context: {
+            ...context,
+            'route_found': false,
+          },
+        );
+      }
+
+      return route;
+    } on HealthConnectorException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'readExerciseRoute',
+        message: 'Failed to read exercise route',
+        context: context,
+        exception: e,
+        stackTrace: st,
+      );
+
+      rethrow;
+    }
+  }
+
   void _validatePlatformSupport(HealthRecord record) {
     // Validate platform support
     require(

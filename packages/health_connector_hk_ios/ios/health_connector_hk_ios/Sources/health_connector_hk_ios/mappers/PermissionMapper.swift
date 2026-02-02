@@ -1,9 +1,9 @@
 import Foundation
 import HealthKit
 
-/// Extension for mapping `HealthDataPermissionDto` → `HKSampleType`.
-extension HealthDataPermissionDto {
-    /// Converts this `HealthDataPermissionDto` to a list of corresponding `HKSampleType`s.
+/// Extension for mapping `HealthDataPermissionRequestDto` → `HKSampleType`.
+extension HealthDataPermissionRequestDto {
+    /// Converts this `HealthDataPermissionRequestDto` to a list of corresponding `HKSampleType`s.
     ///
     /// - Returns: A list of corresponding `HKSampleType`s for this health data permission.
     ///            For simple types, returns a single-element array.

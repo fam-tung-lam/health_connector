@@ -116,7 +116,7 @@ extension HealthRecordHandler {
                 message:
                 "Handler operation failed for \(Self.dataType.rawValue): \(error.localizedDescription)",
                 context: context,
-                exception: error as NSError
+                exception: error
             )
 
             throw HealthConnectorError.unknownError(
