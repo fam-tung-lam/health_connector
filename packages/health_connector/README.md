@@ -2,13 +2,22 @@
 
 <p align="center">
   <a title="Pub" href="https://pub.dev/packages/health_connector"><img alt="Pub Version" src="https://img.shields.io/pub/v/health_connector.svg?style=popout"/></a>
+  <a href="https://github.com/fam-tung-lam/health_connector/actions"><img alt="CI" src="https://github.com/fam-tung-lam/health_connector/actions/workflows/ci-health-connector.yaml/badge.svg"/></a>
   <a title="Pub Points" href="https://pub.dev/packages/health_connector/score"><img alt="Pub Points" src="https://img.shields.io/pub/points/health_connector?color=2E8B57&label=pub%20points"/></a>
-  <a title="License" href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"/></a>
+  <a href="https://github.com/fam-tung-lam/health_connector">
+    <img src="https://img.shields.io/github/stars/fam-tung-lam/health_connector.svg?style=flat&logo=github&colorB=deeppink&label=stars"
+      alt="Stars on Github">
+  </a>
+  <a href="https://github.com/Solido/awesome-flutter#standard">
+    <img src="https://img.shields.io/badge/awesome-flutter-blue.svg?longCache=true" alt="Awesome Flutter">
+  </a>
   <img alt="Platform" src="https://img.shields.io/badge/platform-iOS%20%7C%20Android-blue"/>
+  <a title="License" href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"/></a>
+  <a title="Melos" href="https://github.com/invertase/melos"><img alt="Melos" src="https://img.shields.io/badge/maintained%20with-melos-f700ff.svg"/></a>
 </p>
 
-**Production-grade Flutter SDK for iOS HealthKit and Android Health
-Connect.** Access **100+ health data types** with compile-time type safety,
+**Production-grade Flutter health SDK for iOS HealthKit and Android Health
+Connect.** Access **150+ health data types** with compile-time type safety,
 incremental data synchronization, and privacy-first architecture.
 
 ## 📖 Table of Contents
@@ -23,18 +32,24 @@ incremental data synchronization, and privacy-first architecture.
   - [🔧 Platform Setup](#-platform-setup)
   - [⚡ Quick Demo](#-quick-demo)
 
-- [📘 Developer Guide](#-developer-guide)
+- [📘 Usage](#-usage)
   - [🔐 Manage Permissions](#-manage-permissions)
   - [🔧 Manage Features](#-manage-features)
-  - [📖 Read Data](#-read-data)
-  - [💾 Write Data](#-write-data)
+  - [🔍 Read Data](#-read-data)
+  - [🖋️ Write Data](#-write-data)
   - [🗑 Delete Data](#-delete-data)
   - [🔄 Update Data](#-update-data)
   - [➕ Aggregate Data](#-aggregate-data)
-  - [🔁 Synchronize Data](#-synchronize-data)
-  - [🦺 Handle Error](#-handle-error)
+  - [🚧 Handle Error](#-handle-error)
   - [📝 Logging](#-logging)
   - [🏷 Annotations](#-annotations)
+
+- [📚 Advanced Usage](#-advanced-usage)
+  - [🗺 Exercise Session Routes](#-exercise-session-routes)
+  - [♻️ Synchronize Data](#-synchronize-data)
+  - [🔧 Custom Log Processor](#-custom-log-processor)
+
+- [📱 App Examples](#-app-examples)
 
 - [📋 Supported Health Data Types](#-supported-health-data-types)
 
@@ -107,8 +122,6 @@ flutter pub get && flutter run
 > Migration is very straightforward — simply update version in your build configuration files. *No changes to
 > your existing native code are required.*
 
----
-
 ### 📦 Installation
 
 ```bash
@@ -121,8 +134,6 @@ Or add manually to `pubspec.yaml`:
 dependencies:
   health_connector: [ latest_version ]
 ```
-
----
 
 ### 🔧 Platform Setup
 
@@ -255,8 +266,6 @@ Add to `iOS/Runner/Info.plist`:
 > **⚠️ Warning**: Vague or generic usage descriptions may result in App Store rejection.
 > Be specific about *what* data you access and *why*.
 
----
-
 ### ⚡ Quick Demo
 
 ```dart
@@ -350,10 +359,11 @@ Future<void> quickStart() async {
 
 > **🤔 What's Next?**
 >
-> - Check out the [Developer Guide](#-developer-guide) for full API documentation, error handling, and advanced features.
-> - Check out the [Supported Health Data Types](#-supported-health-data-types).
+> - [Usage](#-usage) section for API documentation.
+> - [Advanced Usage](#-advanced-usage) section for advanced features.
+> - [Supported Health Data Types](#-supported-health-data-types).
 
-## 📘 Developer Guide
+## 📘 Usage
 
 ### 🔐 Manage Permissions
 
@@ -467,8 +477,6 @@ try {
 }
 ```
 
----
-
 ### 🔧 Manage Features
 
 > **ℹ️ Platform Behavior:**
@@ -510,9 +518,7 @@ if (status == HealthPermissionsRequestStatus.granted) {
 }
 ```
 
----
-
-### 📖 Read Data
+### 🔍 Read Data
 
 > **ℹ️ Historical Data Access:**
 >
@@ -612,9 +618,7 @@ while (true) {
 print('Total: ${allRecords.length} records');
 ```
 
----
-
-### 💾 Write Data
+### 🖋️ Write Data
 
 #### Write Single Record
 
@@ -675,8 +679,6 @@ final ids = await connector.writeRecords(records);
 print('Wrote ${ids.length} records');
 ```
 
----
-
 ### 🗑 Delete Data
 
 > **ℹ️ Note:** Apps can only delete records they created—this is a platform security restriction.
@@ -709,8 +711,6 @@ final request = HealthDataType.steps.deleteInTimeRange(
 // operation—all succeed or all fail)
 await connector.deleteRecords(request);
 ```
-
----
 
 ### 🔄 Update Data
 
@@ -773,8 +773,6 @@ await connector.updateRecords(updated);
 print('Updated ${updated.length} records');
 ```
 
----
-
 ### ➕ Aggregate Data
 
 ```dart
@@ -818,9 +816,272 @@ final maxResult = await connector.aggregate(
 print('Maximum weight: ${maxResult.inKilograms} kg');
 ```
 
----
+### 🚧 Handle Error
 
-### 🔁 Synchronize Data
+Every `HealthConnectorException` thrown by the SDK includes a `HealthConnectorErrorCode` that provides specific
+details about what went wrong. Use this code to handle errors programmatically.
+
+| Error Code                                  | Exception Type                      | Platform | Description & Causes                                                                                                            | Recovery Strategy                                                             |
+|:--------------------------------------------|:------------------------------------|:---------|:--------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------|
+| `permissionNotGranted`                      | `AuthorizationException`            | Both     | Permission denied, revoked, or not determined.                                                                                  | Request permissions or guide user to settings.                                |
+| `permissionNotDeclared`                     | `ConfigurationException`            | All      | Missing required permission in `AndroidManifest.xml` or `Info.plist`.                                                           | **Developer Error:** Add missing permissions to your app configuration.       |
+| `healthServiceUnavailable`                  | `HealthServiceUnavailableException` | All      | Device doesn't support Health Connect (Android) or HealthKit (iPad).                                                            | Check `getHealthPlatformStatus()`. Gracefully disable health features.        |
+| `healthServiceRestricted`                   | `HealthServiceUnavailableException` | All      | Health data access restricted by system policy (e.g. parental controls).                                                        | Gracefully disable health features and inform the user.                       |
+| `healthServiceNotInstalledOrUpdateRequired` | `HealthServiceUnavailableException` | Android  | Health Connect app is missing or needs an update.                                                                               | Prompt user to install/update via `launchHealthAppPageInAppStore()`.          |
+| `healthServiceDatabaseInaccessible`         | `HealthServiceException`            | iOS      | Device is locked and health database is encrypted/inaccessible.                                                                 | Wait for device unlock or notify user to unlock their device.                 |
+| `ioError`                                   | `HealthServiceException`            | Android  | Device storage I/O failed while reading/writing records.                                                                        | Retry operation with exponential backoff.                                     |
+| `remoteError`                               | `HealthServiceException`            | Android  | IPC communication with the underlying health service failed.                                                                    | Retry operation; usually a temporary system glitch.                           |
+| `rateLimitExceeded`                         | `HealthServiceException`            | Android  | API request quota exhausted.                                                                                                    | Wait and retry later. Implement exponential backoff.                          |
+| `dataSyncInProgress`                        | `HealthServiceException`            | Android  | Health Connect is currently syncing data; operations locked.                                                                    | Retry after a short delay.                                                    |
+| `invalidArgument`                           | `InvalidArgumentException`          | All      | Invalid parameter, malformed record, or expired usage of a token.                                                               | Validate input. For expired sync tokens, restart sync with `syncToken: null`. |
+| `unsupportedOperation`                      | `UnsupportedOperationException`     | All      | The requested operation is not supported on the current platform or OS version (e.g. accessing Android-only data types on iOS). | Check `@supportedOn` annotations in documentation before using the API.       |
+| `unknownError`                              | `UnknownException`                  | All      | An unclassified internal system error occurred.                                                                                 | Log the error details for debugging.                                          |
+
+#### Error Handling Example
+
+```dart
+try {
+  await connector.writeRecord(record);
+} on AuthorizationException catch (e) {
+  print('Authorization failed: ${e.message}');
+} on HealthServiceUnavailableException catch (e) {
+  print('Health service unavailable: ${e.code}');
+} on HealthServiceException catch (e) {
+  switch (e.code) {
+    case HealthConnectorErrorCode.rateLimitExceeded:
+      print('Rate limit exceeded. Retrying in 5s...');
+      break;
+
+    case HealthConnectorErrorCode.dataSyncInProgress:
+      print('Health Connect is busy syncing... Retrying later...');
+      break;
+
+    case HealthConnectorErrorCode.remoteError:
+    case HealthConnectorErrorCode.ioError:
+      print('Temporary system glitches. Retrying later...');
+      break;
+
+    default:
+      print('Health Service Warning: ${e.message}');
+      break;
+  }
+} on InvalidArgumentException catch (e) {
+  print('Invalid data or expired token: ${e.message}');
+} catch (e, stack) {
+  print('Unexpected system error: $e');
+}
+```
+
+### 📝 Logging
+
+The Health Connector SDK adopts a **strict zero-logging policy by default**:
+
+- **No Internal Logging**: The SDK never writes to `print`, `stdout`, or platform logs on its own.
+- **Full Control**: You decide exactly where logs go. **Even low-level logs from native Swift/Kotlin code are routed
+  through to Dart**, giving you a single control plane for all SDK activity.
+- **Compliance Ready**: This architecture ensures no sensitive data is accidentally logged, making it easier to comply
+  with privacy regulations(GDPR, HIPAA) and pass security reviews.
+
+The system is configured via `HealthConnectorLoggerConfig`, where you define a list of
+`logProcessors`. Each processor handles logs independently and asynchronously.
+
+#### Setup with Built-in Processors
+
+```dart
+// Configure logging with built-in processors
+final connector = await HealthConnector.create(
+  const HealthConnectorConfig(
+    loggerConfig: HealthConnectorLoggerConfig(
+      enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
+      logProcessors: [
+        // Print warnings and errors to console
+        PrintLogProcessor(
+          levels: [
+            HealthConnectorLogLevel.warning,
+            HealthConnectorLogLevel.error,
+          ],
+        ),
+
+        // Send all logs to Dart:developer (integrates with DevTools)
+        DeveloperLogProcessor(
+          levels: HealthConnectorLogLevel.values,
+        ),
+      ],
+    ),
+  ),
+);
+```
+
+### 🏷 Annotations
+
+The Health Connector SDK uses annotations to communicate API stability, platform support, versioning, and usage
+constraints. Understanding these annotations helps you use the API correctly.
+
+| Annotation                         | Description                                                                                          | Usage                                                                                                                      |
+|:-----------------------------------|:-----------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------|
+| `@supportedOnHealthConnect`        | Android Health Connect only.                                                                         | Verify platform using `HealthConnector.healthPlatform` before use.                                                         |
+| `@supportedOnAppleHealth`          | iOS HealthKit only.                                                                                  | Verify platform using `HealthConnector.healthPlatform` before use.                                                         |
+| `@supportedOnAppleHealthIOS16Plus` | iOS HealthKit with iOS 16.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 16.0. |
+| `@supportedOnAppleHealthIOS17Plus` | iOS HealthKit with iOS 17.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 17.0. |
+| `@supportedOnAppleHealthIOS18Plus` | iOS HealthKit with iOS 18.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 18.0. |
+| `@readOnly`                        | Read-only data types representing system-calculated metrics. Cannot be written, updated, or deleted. | Use only `readRecords()` or `aggregate()`. Writing throws `UnsupportedOperationException`.                                 |
+| `@internalUse`                     | Internal SDK APIs not part of the public API surface.                                                | **Do not use in application code.** Use documented public APIs instead.                                                    |
+
+> **ℹ️ Note:** Annotations can be combined. When multiple annotations are present, all constraints apply.
+
+#### Example: Interpreting `InfrequentMenstrualCycleEventRecord` Annotations
+
+```dart
+@supportedOnAppleHealthIOS16Plus
+@readOnly
+final class InfrequentMenstrualCycleEventRecord extends IntervalHealthRecord {
+  @internalUse
+  factory InfrequentMenstrualCycleEventRecord.internal({...}) {...}
+}
+```
+
+- **`@supportedOnAppleHealthIOS16Plus`** - Only works on iOS HealthKit with iOS 16.0+. Will throw
+  `UnsupportedOperationException` on Android or iOS < 16.0.
+- **`@readOnly`** - Can only be read, not written or deleted. This represents a system-calculated metric from HealthKit.
+- **`@internalUse`** (on the factory) - The `.internal()` factory is for SDK internal use only. Do not use it in
+  your application code.
+
+**Correct usage:**
+
+```dart
+final connector = await HealthConnector.create();
+
+try {
+  // ✅ Only use read operations for read-only data types
+  final now = DateTime.now();
+  final response = await connector.readRecords(
+    HealthDataType.infrequentMenstrualCycleEvent.readInTimeRange(
+      startTime: now.subtract(Duration(days: 1)),
+      endTime: now,
+    ),
+  );
+
+  // ❌ Don't use internal APIs
+  // final record = InfrequentMenstrualCycleEventRecord.internal(...);
+
+  // ❌ Don't try to write read-only records
+  // await healthConnector.writeRecord(record); // Throws UnsupportedOperationException
+} on UnsupportedOperationException catch (e) {
+  print('HealthDataType.infrequentMenstrualCycleEvent is supported only by iOS 16+: $e');
+}
+```
+
+> **🚀 Coming Soon:** A new package `health_connector_lint` will be released in the future. This package will
+> leverage these annotations and integrate with the Dart analyzer through custom lint rules to guide developers in
+> using the SDK API correctly.
+
+## 📚 Advanced Usage
+
+### 🗺 Exercise Session Routes
+
+Exercise routes contain GPS location data recorded during workouts, enabling map
+visualization and distance tracking.
+
+#### Request Permissions
+
+> **❗IMPORTANT:** Exercise route permissions alone are NOT sufficient.
+> You must also have the corresponding exercise session permissions as a foundation.
+> Without session permissions, route operations will fail *even if route permissions are granted*.
+
+| Operation            | Required Permissions                                                                                     |
+|:---------------------|:---------------------------------------------------------------------------------------------------------|
+| **Write route data** | `HealthDataType.exerciseSession.writePermission` + `HealthDataType.exerciseSession.writeExerciseRoutePermission` |
+| **Read route data**  | `HealthDataType.exerciseSession.readPermission` + `HealthDataType.exerciseSession.readExerciseRoutePermission`   |
+
+```dart
+// Request both session permissions and route permissions
+final permissions = [
+  // Base session permissions - required foundation
+  HealthDataType.exerciseSession.readPermission,
+  HealthDataType.exerciseSession.writePermission,
+
+  // Route-specific permissions
+  HealthDataType.exerciseSession.readExerciseRoutePermission,
+  HealthDataType.exerciseSession.writeExerciseRoutePermission,
+];
+
+final results = await connector.requestPermissions(permissions);
+```
+
+#### Write Exercise Sessions with Routes
+
+```dart
+final start = DateTime.now();
+final end = start.add(Duration(hours: 1));
+
+// 1. Create a route with GPS locations
+final route = ExerciseRoute([
+  ExerciseRouteLocation(
+    time: start,
+    latitude: 37.7749,
+    longitude: -122.4194,
+    altitude: Length.meters(10),
+  ),
+  ExerciseRouteLocation(
+    time: start.add(Duration(minutes: 15)),
+    latitude: 37.7751,
+    longitude: -122.4180,
+    altitude: Length.meters(12),
+  ),
+  ExerciseRouteLocation(
+    time: start.add(Duration(minutes: 30)),
+    latitude: 37.7755,
+    longitude: -122.4165,
+    altitude: Length.meters(8),
+  ),
+]);
+
+// 2. Create the exercise session record with route data
+final session = ExerciseSessionRecord(
+  id: HealthRecordId.none,
+  startTime: start,
+  endTime: end,
+  exerciseType: ExerciseType.running,
+  exerciseRoute: route, // Attach route to session
+  metadata: Metadata.automaticallyRecorded(),
+);
+
+// 3. Write the record
+await connector.writeRecord(session);
+```
+
+#### Read Exercise Route Data
+
+Routes are read separately from exercise session records using the `HealthConnector.readExerciseRoute()` API.
+This lazy-loading pattern improves performance when you don't need route data.
+
+```dart
+// 1. Read exercise sessions
+final response = await connector.readRecords(
+  HealthDataType.exerciseSession.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+  ),
+);
+
+// 2. Load route for each session that might have GPS data
+for (final session in response.records) {
+  final route = await connector.readExerciseRoute(session.id);
+
+  if (route != null) {
+    print('Route has ${route.length} GPS points');
+    print('Duration: ${route.duration}');
+
+    for (final location in route.locations) {
+      print('  → ${location.latitude}, ${location.longitude}');
+    }
+  } else {
+    print('No route data for this session');
+  }
+}
+```
+
+### ♻️ Synchronize Data
 
 Data synchronization is an **incremental sync API** that retrieves **only
 health data that has changed since your last sync**, dramatically reducing
@@ -962,112 +1223,33 @@ Future<void> syncAllPages() async {
 }
 ```
 
----
+### 🔧 Custom Log Processor
 
-### 🦺 Handle Error
+For advanced logging needs beyond the built-in processors, you can create custom
+log processors by extending `HealthConnectorLogProcessor`. This allows integration
+with crash reporting services, remote logging systems, or specialized file logging.
 
-Every `HealthConnectorException` thrown by the SDK includes a `HealthConnectorErrorCode` that provides specific
-details about what went wrong. Use this code to handle errors programmatically.
+#### Common Use Cases
 
-| Error Code                                  | Exception Type                      | Platform | Description & Causes                                                                                                            | Recovery Strategy                                                             |
-|:--------------------------------------------|:------------------------------------|:---------|:--------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------|
-| `permissionNotGranted`                      | `AuthorizationException`            | Both     | Permission denied, revoked, or not determined.                                                                                  | Request permissions or guide user to settings.                                |
-| `permissionNotDeclared`                     | `ConfigurationException`            | All      | Missing required permission in `AndroidManifest.xml` or `Info.plist`.                                                           | **Developer Error:** Add missing permissions to your app configuration.       |
-| `healthServiceUnavailable`                  | `HealthServiceUnavailableException` | All      | Device doesn't support Health Connect (Android) or HealthKit (iPad).                                                            | Check `getHealthPlatformStatus()`. Gracefully disable health features.        |
-| `healthServiceRestricted`                   | `HealthServiceUnavailableException` | All      | Health data access restricted by system policy (e.g. parental controls).                                                        | Gracefully disable health features and inform the user.                       |
-| `healthServiceNotInstalledOrUpdateRequired` | `HealthServiceUnavailableException` | Android  | Health Connect app is missing or needs an update.                                                                               | Prompt user to install/update via `launchHealthAppPageInAppStore()`.          |
-| `healthServiceDatabaseInaccessible`         | `HealthServiceException`            | iOS      | Device is locked and health database is encrypted/inaccessible.                                                                 | Wait for device unlock or notify user to unlock their device.                 |
-| `ioError`                                   | `HealthServiceException`            | Android  | Device storage I/O failed while reading/writing records.                                                                        | Retry operation with exponential backoff.                                     |
-| `remoteError`                               | `HealthServiceException`            | Android  | IPC communication with the underlying health service failed.                                                                    | Retry operation; usually a temporary system glitch.                           |
-| `rateLimitExceeded`                         | `HealthServiceException`            | Android  | API request quota exhausted.                                                                                                    | Wait and retry later. Implement exponential backoff.                          |
-| `dataSyncInProgress`                        | `HealthServiceException`            | Android  | Health Connect is currently syncing data; operations locked.                                                                    | Retry after a short delay.                                                    |
-| `invalidArgument`                           | `InvalidArgumentException`          | All      | Invalid parameter, malformed record, or expired usage of a token.                                                               | Validate input. For expired sync tokens, restart sync with `syncToken: null`. |
-| `unsupportedOperation`                      | `UnsupportedOperationException`     | All      | The requested operation is not supported on the current platform or OS version (e.g. accessing Android-only data types on iOS). | Check `@supportedOn` annotations in documentation before using the API.       |
-| `unknownError`                              | `UnknownException`                  | All      | An unclassified internal system error occurred.                                                                                 | Log the error details for debugging.                                          |
+| Use Case                | Implementation Approach                                    |
+|:------------------------|:-----------------------------------------------------------|
+| **Crash reporting**     | Send error logs to Crashlytics/Sentry in `process()`       |
+| **Remote logging**      | POST logs to your backend API                              |
+| **Structured logging**  | Format as JSON for log aggregation services                |
+| **Conditional logging** | Override `shouldProcess()` for environment-based filtering |
 
-#### Example: Handle Error
+#### Creating a Custom Processor
+
+A custom processor must implement two key methods:
+
+- **`process(HealthConnectorLog log)`**: Handles the log entry
+- **`shouldProcess(HealthConnectorLog log)`**: Filters which logs to process
 
 ```dart
-try {
-  await connector.writeRecord(record);
-} on AuthorizationException catch (e) {
-  print('Authorization failed: ${e.message}');
-} on HealthServiceUnavailableException catch (e) {
-  print('Health service unavailable: ${e.code}');
-} on HealthServiceException catch (e) {
-  switch (e.code) {
-    case HealthConnectorErrorCode.rateLimitExceeded:
-      print('Rate limit exceeded. Retrying in 5s...');
-      break;
+import 'dart:io';
+import 'package:health_connector/health_connector.dart';
 
-    case HealthConnectorErrorCode.dataSyncInProgress:
-      print('Health Connect is busy syncing... Retrying later...');
-      break;
-
-    case HealthConnectorErrorCode.remoteError:
-    case HealthConnectorErrorCode.ioError:
-      print('Temporary system glitches. Retrying later...');
-      break;
-
-    default:
-      print('Health Service Warning: ${e.message}');
-      break;
-  }
-} on InvalidArgumentException catch (e) {
-  print('Invalid data or expired token: ${e.message}');
-} catch (e, stack) {
-  print('Unexpected system error: $e');
-}
-```
-
----
-
-### 📝 Logging
-
-The Health Connector SDK adopts a **strict zero-logging policy by default**:
-
-- **No Internal Logging**: The SDK never writes to `print`, `stdout`, or platform logs on its own.
-- **Full Control**: You decide exactly where logs go. **Even low-level logs from native Swift/Kotlin code are routed
-  through to Dart**, giving you a single control plane for all SDK activity.
-- **Compliance Ready**: This architecture ensures no sensitive data is accidentally logged, making it easier to comply
-  with privacy regulations(GDPR, HIPAA) and pass security reviews.
-
-The system is configured via `HealthConnectorLoggerConfig`, where you define a list of
-`logProcessors`. Each processor handles logs independently and asynchronously.
-
-#### Setup with Built-in Processors
-
-```dart
-// Configure logging with built-in processors
-final connector = await HealthConnector.create(
-  const HealthConnectorConfig(
-    loggerConfig: HealthConnectorLoggerConfig(
-      enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
-      logProcessors: [
-        // Print warnings and errors to console
-        PrintLogProcessor(
-          levels: [
-            HealthConnectorLogLevel.warning,
-            HealthConnectorLogLevel.error,
-          ],
-        ),
-
-        // Send all logs to Dart:developer (integrates with DevTools)
-        DeveloperLogProcessor(
-          levels: HealthConnectorLogLevel.values,
-        ),
-      ],
-    ),
-  ),
-);
-```
-
-#### Custom Processor Example
-
-Create your own processor for custom logging needs:
-
-```dart
-// Example: File logging processor
+/// Custom processor that writes logs to a file
 class FileLogProcessor extends HealthConnectorLogProcessor {
   final File logFile;
 
@@ -1083,24 +1265,32 @@ class FileLogProcessor extends HealthConnectorLogProcessor {
           '${log.message}\n';
       await logFile.writeAsString(formatted, mode: FileMode.append);
     } catch (e) {
-      // Handle errors gracefully
+      // Handle errors gracefully - avoid throwing from processors
       debugPrint('Failed to write log: $e');
     }
   }
 
   @override
   bool shouldProcess(HealthConnectorLog log) {
-    // Custom filtering logic
+    // Optional: add custom filtering logic
+    // This example only processes error-level logs
     return super.shouldProcess(log) &&
         log.level == HealthConnectorLogLevel.error;
   }
 }
+```
 
-// Use custom processor
+#### Using a Custom Processor
+
+Register your custom processor in the `HealthConnectorLoggerConfig`:
+
+```dart
 final connector = await HealthConnector.create(
   HealthConnectorConfig(
     loggerConfig: HealthConnectorLoggerConfig(
       logProcessors: [
+        // Combine built-in and custom processors
+        PrintLogProcessor(levels: [HealthConnectorLogLevel.error]),
         FileLogProcessor(logFile: File('/path/to/app.log')),
       ],
     ),
@@ -1108,70 +1298,340 @@ final connector = await HealthConnector.create(
 );
 ```
 
----
+## 📱 App Examples
 
-### 🏷 Annotations
+This section demonstrates how to integrate Health Connector into various health app categories.
 
-The Health Connector SDK uses annotations to communicate API stability, platform support, versioning, and usage
-constraints. Understanding these annotations helps you use the API correctly.
+### 🍎 Nutrition and Diet Tracking
 
-| Annotation                         | Description                                                                                          | Usage                                                                                                                      |
-|:-----------------------------------|:-----------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------|
-| `@supportedOnHealthConnect`        | Android Health Connect only.                                                                         | Verify platform using `HealthConnector.healthPlatform` before use.                                                         |
-| `@supportedOnAppleHealth`          | iOS HealthKit only.                                                                                  | Verify platform using `HealthConnector.healthPlatform` before use.                                                         |
-| `@supportedOnAppleHealthIOS16Plus` | iOS HealthKit with iOS 16.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 16.0. |
-| `@supportedOnAppleHealthIOS17Plus` | iOS HealthKit with iOS 17.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 17.0. |
-| `@supportedOnAppleHealthIOS18Plus` | iOS HealthKit with iOS 18.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 18.0. |
-| `@readOnly`                        | Read-only data types representing system-calculated metrics. Cannot be written, updated, or deleted. | Use only `readRecords()` or `aggregate()`. Writing throws `UnsupportedOperationException`.                                 |
-| `@internalUse`                     | Internal SDK APIs not part of the public API surface.                                                | **Do not use in application code.** Use documented public APIs instead.                                                    |
+Track meals, calories, macronutrients, and hydration for diet and nutrition apps.
 
-> **ℹ️ Note:** Annotations can be combined. When multiple annotations are present, all constraints apply.
-
-#### Example: Interpreting `InfrequentMenstrualCycleEventRecord` Annotations
+#### Log a Meal with Macros
 
 ```dart
-@supportedOnAppleHealthIOS16Plus
-@readOnly
-final class InfrequentMenstrualCycleEventRecord extends IntervalHealthRecord {
-  @internalUse
-  factory InfrequentMenstrualCycleEventRecord.internal({...}) {...}
+Future<void> logMeal() async {
+  // 1. Request permissions
+  final results = await connector.requestPermissions([
+    HealthDataType.nutrition.writePermission,
+  ]);
+
+  // 2. Create a nutrition record for lunch
+  final startTime = DateTime.now();
+  final endTime = startTime.add(const Duration(minutes: 30));
+  final lunchRecord = NutritionRecord(
+    startTime: startTime,
+    endTime: endTime,
+    foodName: 'Grilled Chicken Salad',
+    mealType: MealType.lunch,
+    energy: Energy.kilocalories(450),
+    protein: Mass.grams(35),
+    totalCarbohydrate: Mass.grams(25),
+    totalFat: Mass.grams(18),
+    dietaryFiber: Mass.grams(8),
+    sodium: Mass.milligrams(520),
+    metadata: Metadata.manualEntry(),
+  );
+
+  // 3. Write the record
+  await connector.writeRecord(lunchRecord);
 }
 ```
 
-- **`@supportedOnAppleHealthIOS16Plus`** - Only works on iOS HealthKit with iOS 16.0+. Will throw
-  `UnsupportedOperationException` on Android or iOS < 16.0.
-- **`@readOnly`** - Can only be read, not written or deleted. This represents a system-calculated metric from HealthKit.
-- **`@internalUse`** (on the factory) - The `.internal()` factory is for SDK internal use only. Do not use it in
-  your application code.
-
-**Correct usage:**
+#### Log Water Intake
 
 ```dart
-final connector = await HealthConnector.create();
+Future<void> logWaterIntake() async {
+  // 1. Request permissions
+  await connector.requestPermissions([
+    HealthDataType.hydration.writePermission,
+  ]);
 
-try {
-  // ✅ Only use read operations for read-only data types
+  // 2. Create a hydration record
+  final startTime = DateTime.now();
+  final endTime = startTime.add(const Duration(minutes: 30));
+  final waterRecord = HydrationRecord(
+    startTime: startTime,
+    endTime: endTime,
+    volume: Volume.milliliters(500),
+    metadata: Metadata.manualEntry(),
+  );
+
+  // 3. Write the record
+  await connector.writeRecord(waterRecord);
+}
+```
+
+#### Read Today's Meals and Aggregate Calories
+
+```dart
+Future<void> analyzeDailyNutrition() async {
+  // 1. Request read permissions
+  await connector.requestPermissions([
+    HealthDataType.nutrition.readPermission,
+    HealthDataType.hydration.readPermission,
+  ]);
+
   final now = DateTime.now();
+  final startOfDay = DateTime(now.year, now.month, now.day);
+
+  // 2. Read all nutrition records for today
   final response = await connector.readRecords(
-    HealthDataType.infrequentMenstrualCycleEvent.readInTimeRange(
-      startTime: now.subtract(Duration(days: 1)),
+    HealthDataType.nutrition.readInTimeRange(
+      startTime: startOfDay,
       endTime: now,
     ),
   );
 
-  // ❌ Don't use internal APIs
-  // final record = InfrequentMenstrualCycleEventRecord.internal(...);
+  // 3. Analyze meals by type
+  print('Today\'s meals:');
+  for (final record in response.records) {
+    print('  → ${record.mealType.name}: ${record.foodName}');
+  }
 
-  // ❌ Don't try to write read-only records
-  // await healthConnector.writeRecord(record); // Throws UnsupportedOperationException
-} on UnsupportedOperationException catch (e) {
-  print('HealthDataType.infrequentMenstrualCycleEvent is supported only by iOS 16+: $e');
+  // 4. Aggregate total calories consumed
+  final totalEnergy = await connector.aggregate(
+    HealthDataType.dietaryEnergyConsumed.aggregateSum(
+      startTime: startOfDay,
+      endTime: now,
+    ),
+  );
+  print('Total calories today: ${totalEnergy.value.inKilocalories.toStringAsFixed(0)} kcal');
+
+  // 5. Aggregate total water intake
+  final totalWater = await connector.aggregate(
+    HealthDataType.hydration.aggregateSum(
+      startTime: startOfDay,
+      endTime: now,
+    ),
+  );
+  print('Total water today: ${totalWater.value.inMilliliters.toStringAsFixed(0)} ml');
 }
 ```
 
-> **🚀 Coming Soon:** A new package `health_connector_lint` will be released in the future. This package will
-> leverage these annotations and integrate with the Dart analyzer through custom lint rules to guide developers in
-> using the SDK API correctly.
+### 🧘 Mindfulness and Behavioral Health
+
+Track meditation sessions, breathing exercises, and other mindfulness activities.
+
+#### Record a Meditation Session
+
+```dart
+Future<void> recordMeditation() async {
+  // 1. Request permissions
+  final results = await connector.requestPermissions([
+    HealthDataType.mindfulnessSession.writePermission,
+  ]);
+
+  // 2. Create a meditation session record
+  final startTime = DateTime.now();
+  final endTime = startTime.add(const Duration(minutes: 30));
+  final meditationSession = MindfulnessSessionRecord(
+    startTime: startTime,
+    endTime: endTime,
+    sessionType: MindfulnessSessionType.meditation,
+    title: 'Morning Meditation',
+    notes: 'Focused on breath awareness. Felt calm and centered.',
+    metadata: Metadata.automaticallyRecorded(
+      device: Device.fromType(DeviceType.phone),
+    ),
+  );
+
+  // 3. Write the session
+  await connector.writeRecord(meditationSession);
+}
+```
+
+#### Record a Breathing Exercise
+
+```dart
+Future<void> recordBreathingExercise() async {
+  // 1. Request permissions
+  final results = await connector.requestPermissions([
+    HealthDataType.mindfulnessSession.writePermission,
+  ]);
+
+  // 2. Create a breathing session record
+  final startTime = DateTime.now();
+  final endTime = startTime.add(const Duration(minutes: 5));
+  final breathingSession = MindfulnessSessionRecord(
+    startTime: startTime,
+    endTime: endTime,
+    sessionType: MindfulnessSessionType.breathing,
+    title: '4-7-8 Breathing',
+    notes: '5 cycles of box breathing before bed',
+    metadata: Metadata.manualEntry(),
+  );
+
+  // 3. Write the session
+  await connector.writeRecord(breathingSession);
+}
+```
+
+#### Calculate Weekly Mindfulness Minutes
+
+```dart
+Future<void> getWeeklyMindfulnessStats() async {
+  // 1. Request permissions
+  await connector.requestPermissions([
+    HealthDataType.mindfulnessSession.readPermission,
+  ]);
+
+  final now = DateTime.now();
+  final weekAgo = now.subtract(const Duration(days: 7));
+
+  // 2. Read all mindfulness sessions from the past week
+  final response = await connector.readRecords(
+    HealthDataType.mindfulnessSession.readInTimeRange(
+      startTime: weekAgo,
+      endTime: now,
+    ),
+  );
+
+  // 3. Calculate total mindfulness time
+  var totalMinutes = Duration.zero;
+  final sessionsByType = <MindfulnessSessionType, int>{};
+  for (final session in response.records) {
+    final duration = session.endTime.difference(session.startTime);
+    totalMinutes += duration;
+
+    // Count sessions by type
+    sessionsByType[session.sessionType] =
+        (sessionsByType[session.sessionType] ?? 0) + 1;
+  }
+
+  // 4. Display results
+  print('Weekly Mindfulness Summary:');
+  print('  Total sessions: ${response.records.length}');
+  print('  Total minutes: ${totalMinutes.inMinutes}');
+  print('  Sessions by type:');
+  for (final entry in sessionsByType.entries) {
+    print('    → ${entry.key.name}: ${entry.value} sessions');
+  }
+}
+```
+
+### 🏃 Fitness and Activity Tracking
+
+Track exercise sessions with laps, segments, and GPS route data.
+
+#### Record a Running Session with Laps and GPS Route
+
+```dart
+Future<void> recordRunWithRoute() async {
+  // 1. Request permissions (including route permission)
+  final results = await connector.requestPermissions([
+    HealthDataType.exerciseSession.writePermission,
+    HealthDataType.exerciseSession.writeExerciseRoutePermission,
+  ]);
+
+  // 2. Define run times
+  final startTime = DateTime.now();
+  final endTime = startTime.add(const Duration(minutes: 35));
+
+  // 3. Create lap events (400m track laps)
+  final laps = [
+    ExerciseSessionLapEvent(
+      startTime: startTime,
+      endTime: startTime.add(const Duration(minutes: 2, seconds: 5)),
+      distance: Length.meters(400),
+    ),
+    ExerciseSessionLapEvent(
+      startTime: startTime.add(const Duration(minutes: 2, seconds: 5)),
+      endTime: startTime.add(const Duration(minutes: 4, seconds: 8)),
+      distance: Length.meters(400),
+    ),
+    ExerciseSessionLapEvent(
+      startTime: startTime.add(const Duration(minutes: 4, seconds: 8)),
+      endTime: startTime.add(const Duration(minutes: 6, seconds: 15)),
+      distance: Length.meters(400),
+    ),
+    // ... more laps
+  ];
+
+  // 4. Create GPS route data
+  final route = ExerciseRoute([
+    ExerciseRouteLocation(
+      time: startTime,
+      latitude: 37.7749,
+      longitude: -122.4194,
+      altitude: Length.meters(15),
+      horizontalAccuracy: Length.meters(5),
+    ),
+    ExerciseRouteLocation(
+      time: startTime.add(const Duration(seconds: 30)),
+      latitude: 37.7752,
+      longitude: -122.4190,
+      altitude: Length.meters(16),
+      horizontalAccuracy: Length.meters(4),
+    ),
+    ExerciseRouteLocation(
+      time: startTime.add(const Duration(minutes: 1)),
+      latitude: 37.7755,
+      longitude: -122.4185,
+      altitude: Length.meters(17),
+      horizontalAccuracy: Length.meters(3),
+    ),
+    // ... more GPS points recorded during the run
+  ]);
+
+  // 5. Create the exercise session with route
+  final runSession = ExerciseSessionRecord(
+    startTime: startTime,
+    endTime: endTime,
+    exerciseType: ExerciseType.running,
+    title: 'Morning Run',
+    notes: 'Easy pace around the park. Good weather.',
+    events: laps,
+    exerciseRoute: route,
+    metadata: Metadata.automaticallyRecorded(
+      device: Device.fromType(DeviceType.watch),
+    ),
+  );
+
+  // 6. Write the session
+  await connector.writeRecord(runSession);
+}
+```
+
+#### Read Exercise History and Route Data
+
+```dart
+Future<void> getExerciseHistory() async {
+  // 1. Request permissions (including route permission)
+  await connector.requestPermissions([
+    HealthDataType.exerciseSession.readPermission,
+    HealthDataType.exerciseSession.readExerciseRoutePermission,
+  ]);
+
+  // 2. Read exercise sessions
+  final now = DateTime.now();
+  final monthAgo = now.subtract(const Duration(days: 30));
+  final response = await connector.readRecords(
+    HealthDataType.exerciseSession.readInTimeRange(
+      startTime: monthAgo,
+      endTime: now,
+    ),
+  );
+
+  print('Exercise History (Past 30 Days):');
+  print('  Total workouts: ${response.records.length}');
+
+  for (final session in response.records) {
+    final duration = session.endTime.difference(session.startTime);
+    print('\n  ${session.exerciseType.name.toUpperCase()}');
+    print('    Title: ${session.title ?? "Untitled"}');
+    print('    Duration: ${duration.inMinutes} min');
+    print('    Laps: ${session.lapEvents.length}');
+    print('    Segments: ${session.segmentEvents.length}');
+
+    // 2. Read route data if available (requires separate API call)
+    final route = await connector.readExerciseRoute(session.id);
+    if (route != null && route.isNotEmpty) {
+      print('    Route: ${route.length} GPS points');
+      print('    Route duration: ${route.duration.inMinutes} min');
+    }
+  }
+}
+```
 
 ## 📋 Supported Health Data Types
 
@@ -1352,8 +1812,6 @@ try {
 | `ExerciseType.transition`                    | ❌                      | ✅             |
 | `ExerciseType.swimBikeRun`                   | ❌                      | ✅             |
 
----
-
 ### 📏 Body Measurements
 
 | Data Type                  | Description                                    | Data Type                                   | Supported Aggregation | Supported On                          | Android Health Connect API                                                                                                           | iOS HealthKit API                                                                                                                                                    |
@@ -1369,8 +1827,6 @@ try {
 | Waist Circumference        | Waist circumference measurement                | `HealthDataType.waistCircumference`         | Avg, Min, Max         | iOS HealthKit                         | -                                                                                                                                    | [HKQuantityTypeIdentifier.waistCircumference](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/waistcircumference)                       |
 | Sleeping Wrist Temperature | Temperature measured at the wrist during sleep | `HealthDataType.sleepingWristTemperature`   | Avg, Min, Max         | iOS HealthKit (iOS 16+)               | -                                                                                                                                    | [HKQuantityTypeIdentifier.appleSleepingWristTemperature](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applesleepingwristtemperature) |
 | Skin Temperature Delta     | Skin temperature variations                    | `HealthDataType.skinTemperatureDeltaSeries` | Avg, Min, Max         | Android Health Connect                | [SkinTemperatureRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SkinTemperatureRecord) | -                                                                                                                                                                    |
-
----
 
 ### ❤️ Vitals
 
@@ -1404,16 +1860,12 @@ try {
 | Inhaler Usage                | Number of puffs from an inhaler              | `HealthDataType.inhalerUsage`               | Sum                   | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.inhalerUsage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/inhalerusage)                             |
 | Insulin Delivery             | Amount of insulin delivered                  | `HealthDataType.insulinDelivery`            | Sum                   | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.insulinDelivery](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/insulindelivery)                       |
 
----
-
 ### 😴 Sleep
 
 | Data Type          | Description                              | Data Type                         | Supported Aggregation | Supported On           | Android Health Connect API                                                                                                     | iOS HealthKit API                                                                                                                    |
 |:-------------------|:-----------------------------------------|:----------------------------------|:----------------------|:-----------------------|:-------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
 | Sleep Session      | Complete sleep session with sleep stages | `HealthDataType.sleepSession`     | -                     | Android Health Connect | [SleepSessionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord) | -                                                                                                                                    |
 | Sleep Stage Record | Individual sleep stage measurement       | `HealthDataType.sleepStageRecord` | -                     | iOS HealthKit          | -                                                                                                                              | [HKCategoryTypeIdentifier.sleepAnalysis](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis) |
-
----
 
 ### 👂 Hearing
 
@@ -1423,8 +1875,6 @@ try {
 | Headphone Audio Exposure           | Audio exposure from headphones                       | `HealthDataType.headphoneAudioExposure`          | Avg, Min, Max         | iOS HealthKit | -                          | [HKQuantityTypeIdentifier.headphoneAudioExposure](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/headphoneaudioexposure)                   |
 | Environmental Audio Exposure Event | Exposure to potentially damaging environmental sound | `HealthDataType.environmentalAudioExposureEvent` | -                     | iOS HealthKit | -                          | [HKCategoryTypeIdentifier.environmentalAudioExposureEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/environmentalaudioexposureevent) |
 | Headphone Audio Exposure Event     | Exposure to potentially damaging headphone sound     | `HealthDataType.headphoneAudioExposureEvent`     | -                     | iOS HealthKit | -                          | [HKCategoryTypeIdentifier.headphoneAudioExposureEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/headphoneaudioexposureevent)         |
-
----
 
 ### 🥗 Nutrition
 
@@ -1504,15 +1954,11 @@ try {
 |:--------------------|:--------------------------|:------------------------------------|:----------------------|:--------------|:---------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Alcoholic Beverages | Count of alcoholic drinks | `HealthDataType.alcoholicBeverages` | Sum                   | iOS HealthKit | -                          | [HKQuantityTypeIdentifier.numberOfAlcoholicBeverages](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/numberofalcoholicbeverages) |
 
----
-
 ### 🧘 Wellness
 
 | Data Type           | Description                         | Data Type                           | Supported Aggregation | Supported On                          | Android Health Connect API                                                                                                                 | iOS HealthKit API                                                                                                                      |
 |:--------------------|:------------------------------------|:------------------------------------|:----------------------|:--------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
 | Mindfulness Session | Meditation and mindfulness sessions | `HealthDataType.mindfulnessSession` | Sum                   | Android Health Connect, iOS HealthKit | [MindfulnessSessionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MindfulnessSessionRecord) | [HKCategoryTypeIdentifier.mindfulSession](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/mindfulsession) |
-
----
 
 ### 🪷 Cycle Tracking
 
@@ -1540,21 +1986,15 @@ try {
 
 - [API Documentation](https://pub.dev/documentation/health_connector/latest/)
 
----
-
 ### 🔄 Migration Guides
 
 - [Migration Guide from `v1.x.x` to`v2.0.0`](../../doc/guides/migration_guides/migration-guide-v1.x.x-to-v2.0.0.md)
 - [Migration Guide from `v2.x.x` to`v3.0.0`](../../doc/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md)
 
----
-
 ### 🤝 Contributing
 
 Contributions are welcome! See our [GitHub Issues](https://github.com/fam-tung-lam/health_connector/issues) to report
 bugs or request features.
-
----
 
 ### 📄 License
 

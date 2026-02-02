@@ -21,3 +21,6 @@
 
 # Example apps
 **/packages/**/example/**
+
+# Claude code
+**/CLAUDE.md
