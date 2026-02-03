@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & Discussions
+    url: https://github.com/fam-tung-lam/health_connector/discussions
+    about: Ask questions and discuss Health Connector usage
+  - name: Documentation
+    url: https://pub.dev/packages/health_connector
+    about: Read the package documentation on pub.dev
+  - name: Health Connector Toolbox App
+    url: https://github.com/fam-tung-lam/health_connector/tree/main/examples
+    about: See the Health Connector Toolbox example app

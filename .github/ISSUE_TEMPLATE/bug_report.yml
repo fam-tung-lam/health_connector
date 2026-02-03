@@ -1,0 +1,208 @@
+name: Report a bug
+description: Report a bug in Health Connector SDK
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug!
+
+        Before filling out this form:
+        - Search [existing issues](https://github.com/fam-tung-lam/health_connector/issues) to avoid duplicates
+        - Try reproducing the issue in the [Health Connector Toolbox example app](https://github.com/fam-tung-lam/health_connector/tree/main/examples)
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: Which version of `health_connector` are you using?
+      placeholder: "e.g., 1.2.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which platform(s) are affected?
+      options:
+        - Android (Health Connect)
+        - iOS (HealthKit)
+        - Both platforms
+    validations:
+      required: true
+
+  - type: dropdown
+    id: operation
+    attributes:
+      label: Operation type
+      description: What type of operation were you performing?
+      options:
+        - Permissions (request, check, revoke)
+        - Read records
+        - Write records
+        - Delete records
+        - Aggregate data
+        - Synchronize / Change notifications
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: health-data-category
+    attributes:
+      label: Health data category
+      description: Which category of health data is involved?
+      options:
+        - Activity (steps, distance, calories, exercise)
+        - Body measurements (weight, height, body fat)
+        - Nutrition (hydration, nutrition records)
+        - Sleep (sleep sessions, sleep stages)
+        - Vitals (heart rate, blood pressure, blood oxygen)
+        - Cycle tracking (menstruation, ovulation)
+        - Other / Not applicable
+    validations:
+      required: false
+
+  - type: input
+    id: health-data-type
+    attributes:
+      label: Specific health data type
+      description: What specific data type is involved?
+      placeholder: "e.g., Steps, HeartRate, SleepSession, Weight"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Configuration confirmations
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
+        - label: I have declared the required permissions correctly (AndroidManifest.xml / Info.plist)
+          required: false
+        - label: Health Connect app is installed and updated (Android) or HealthKit is available (iOS)
+          required: false
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Please provide detailed steps to reproduce the issue.
+        If possible, indicate how to reproduce in the Health Connector Toolbox app.
+      placeholder: |
+        1. Call HealthConnector.create()
+        2. Request permissions for Steps
+        3. Call readRecords(...)
+        4. Observe the error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-results
+    attributes:
+      label: Expected results
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-results
+    attributes:
+      label: Actual results
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: input
+    id: error-code
+    attributes:
+      label: Error code
+      description: If an error was thrown, what was the `HealthConnectorErrorCode`?
+      placeholder: "e.g., permissionDenied, unknownError"
+    validations:
+      required: false
+
+  - type: textarea
+    id: code-sample
+    attributes:
+      label: Code sample
+      description: |
+        Please provide a minimal reproducible code sample.
+
+        **Important:** Without a code sample, we may not be able to investigate the issue.
+      value: |
+        <details open><summary>Code sample</summary>
+
+        ```dart
+        // Paste your code here
+        final connector = await HealthConnector.create();
+        // ...
+        ```
+
+        </details>
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots-video
+    attributes:
+      label: Screenshots or Video
+      description: Upload any screenshots or video demonstrating the issue.
+      value: |
+        <details open>
+        <summary>Screenshots / Video demonstration</summary>
+
+        [Upload media here]
+
+        </details>
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Include relevant logs. For Flutter commands, use `--verbose` flag.
+        If logs are too large, use [pastebin.com](https://pastebin.com) or attach as a `.txt` file.
+
+        **Note:** Do not upload screenshots of text. Use code blocks instead.
+      value: |
+        <details open><summary>Logs</summary>
+
+        ```console
+        [Paste your logs here]
+        ```
+
+        </details>
+    validations:
+      required: false
+
+  - type: input
+    id: device-info
+    attributes:
+      label: Device information
+      description: What device and OS version are you testing on?
+      placeholder: "e.g., Pixel 7 Pro (Android 14) or iPhone 15 Pro (iOS 17.2)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: flutter-doctor
+    attributes:
+      label: Flutter Doctor output
+      description: Please provide the full output of `flutter doctor -v`
+      value: |
+        <details open><summary>Doctor output</summary>
+
+        ```console
+        [Paste your flutter doctor -v output here]
+        ```
+
+        </details>
+    validations:
+      required: true

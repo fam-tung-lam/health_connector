@@ -1,0 +1,113 @@
+name: Feature request
+description: Suggest a new feature for Health Connector SDK
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for your feature suggestion!
+
+        Before submitting:
+        - Search [existing issues](https://github.com/fam-tung-lam/health_connector/issues) for similar requests
+        - Check [GitHub Discussions](https://github.com/fam-tung-lam/health_connector/discussions) for ongoing conversations
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues and discussions for this feature
+          required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature category
+      description: What type of feature is this?
+      options:
+        - New health data type support
+        - New API method
+        - Permission handling
+        - Performance improvement
+        - Platform parity (bring feature to both platforms)
+        - Documentation
+        - Developer experience / Tooling
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Target platform
+      description: Which platform(s) would this feature apply to?
+      options:
+        - Both platforms
+        - Android only (Health Connect)
+        - iOS only (HealthKit)
+        - Platform-agnostic
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case / Problem
+      description: |
+        What problem are you trying to solve? What's your use case?
+
+        Please give a clear and concise description of the problem or limitation you're facing.
+      placeholder: |
+        I'm building a fitness app that needs to...
+
+        Currently, I have to work around this by...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: |
+        Describe what you'd like Health Connector SDK to do.
+
+        Consider including:
+        - API design suggestions
+        - Code examples showing desired usage
+        - Screenshots or mockups if applicable
+      placeholder: |
+        I would like a new method like:
+
+        ```dart
+        await connector.doSomething(...);
+        ```
+
+        This would allow me to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: |
+        Have you considered any alternative solutions or workarounds?
+        Are there any existing packages on pub.dev that solve this?
+      placeholder: |
+        I've tried using X, but it doesn't work because...
+
+        I also looked at package Y, but...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Impact considerations
+      description: Please indicate if any of the following apply
+      options:
+        - label: This would require breaking API changes
+        - label: This requires new platform permissions
+        - label: This involves new native code (Swift/Kotlin)
+        - label: I'm willing to contribute a pull request for this feature
