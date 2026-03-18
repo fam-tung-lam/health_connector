@@ -2907,20 +2907,5 @@
       "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
     },
     "text": "                {"
-  },
-  {
-    "violation": {
-      "ruleDescription": "Type name should only contain alphanumeric characters, start with an uppercase character and span between 3 and 40 characters in length.\nPrivate types may start with an underscore.",
-      "severity": "error",
-      "ruleIdentifier": "type_name",
-      "location": {
-        "character": 6,
-        "line": 386,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/utils\/HealthKitExtensions.swift"
-      },
-      "ruleName": "Type Name",
-      "reason": "Type name 'iOS16SleepStage' should start with an uppercase character"
-    },
-    "text": "enum iOS16SleepStage: Int {"
   }
 ]

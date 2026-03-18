@@ -89,9 +89,9 @@ extension SleepStageHandler {
             // iOS 16+ detailed sleep stages
             if #available(iOS 16.0, *) {
                 return [
-                    iOS16SleepStage.deep.rawValue,
-                    iOS16SleepStage.rem.rawValue,
-                    iOS16SleepStage.light.rawValue,
+                    IOS16SleepStageRawValue.deep.rawValue,
+                    IOS16SleepStageRawValue.rem.rawValue,
+                    IOS16SleepStageRawValue.light.rawValue,
                 ].contains(sample.value)
             }
             return false

@@ -383,8 +383,8 @@ extension HKCategoryValueSleepAnalysis {
 ///
 /// HealthKit introduced detailed sleep stages in iOS 16 with specific raw values.
 /// These constants provide type-safe access to those values.
-enum iOS16SleepStage: Int {
-    case deep = 3
-    case rem = 4
-    case light = 5 // HealthKit calls this "core" sleep
+enum IOS16SleepStageRawValue: Int {
+    case light = 3 // asleepCore — AASM stages 1-2
+    case deep = 4  // asleepDeep — AASM stage 3
+    case rem = 5   // asleepREM
 }
