@@ -1,7 +1,7 @@
 name: health_connector_hk_ios
 resolution: workspace
 description: iOS implementation of health_connector using HealthKit
-version: 3.8.0
+version: 3.8.1
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_hk_ios
 
 environment:

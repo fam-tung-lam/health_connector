@@ -1,3 +1,7 @@
+## 3.8.1
+
+- **FIX**: Correct iOS 16+ sleep stage raw value mapping. ([cb0d70f3](https://github.com/fam-tung-lam/health_connector/commit/cb0d70f3a9afe2f172725b4a2fa399ef7a78d5f4))
+
 ## 3.8.0
 
 - **FEAT**: Add support for exercise session route. ([ecbe4f0a](https://github.com/fam-tung-lam/health_connector/commit/ecbe4f0a75164d120acf644a07dc408f9cfd3d8c))
