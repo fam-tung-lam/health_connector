@@ -96,11 +96,11 @@ extension HKCategoryValueSleepAnalysis {
                 if #available(iOS 16.0, *) {
                     // iOS 16 introduced detailed sleep stages with specific raw values
                     switch rawValue {
-                    case iOS16SleepStage.deep.rawValue:
+                    case IOS16SleepStageRawValue.deep.rawValue:
                         return .deep
-                    case iOS16SleepStage.rem.rawValue:
+                    case IOS16SleepStageRawValue.rem.rawValue:
                         return .rem
-                    case iOS16SleepStage.light.rawValue:
+                    case IOS16SleepStageRawValue.light.rawValue:
                         return .light
                     default:
                         return .unknown
@@ -126,14 +126,14 @@ extension HKCategoryValueSleepAnalysis {
             // Map to awake as the closest equivalent
             .awake
         case .light:
-            // iOS 16+: Use .core for light sleep (rawValue: 5)
-            try HKCategoryValueSleepAnalysis.make(from: 5)
+            // iOS 16+: asleepCore (rawValue: 3) — AASM stages 1-2
+            try HKCategoryValueSleepAnalysis.make(from: IOS16SleepStageRawValue.light.rawValue)
         case .deep:
-            // iOS 16+: Use .deep (rawValue: 3)
-            try HKCategoryValueSleepAnalysis.make(from: 3)
+            // iOS 16+: asleepDeep (rawValue: 4) — AASM stage 3
+            try HKCategoryValueSleepAnalysis.make(from: IOS16SleepStageRawValue.deep.rawValue)
         case .rem:
-            // iOS 16+: Use .REM (rawValue: 4)
-            try HKCategoryValueSleepAnalysis.make(from: 4)
+            // iOS 16+: asleepREM (rawValue: 5)
+            try HKCategoryValueSleepAnalysis.make(from: IOS16SleepStageRawValue.rem.rawValue)
         case .unknown:
             .asleep
         }
