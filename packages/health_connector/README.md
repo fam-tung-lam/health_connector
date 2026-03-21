@@ -349,7 +349,7 @@ Future<void> quickStart() async {
       endTime: now,
     ),
   );
-  print('Total steps: ${totalSteps.value.value}');
+  print('Total steps: ${totalSteps.value}');
 
   // 8. Delete data
   await connector.deleteRecords(HealthDataType.steps.deleteByIds(recordIds));
