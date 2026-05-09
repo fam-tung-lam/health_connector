@@ -67,12 +67,14 @@ void main() {
       expect(dto.endTime, endTime.millisecondsSinceEpoch);
       expect(dto.segmentType, ExerciseSegmentTypeDto.running);
       expect(dto.repetitions, 10);
+      expect(dto.weightKg, isNull);
 
       final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
       expect(domain.startTime, startTime);
       expect(domain.endTime, endTime);
       expect(domain.segmentType, ExerciseSegmentType.running);
       expect(domain.repetitions, 10);
+      expect(domain.weight, isNull);
     });
 
     test('weight is always null on iOS for ExerciseSessionSegmentEvent', () {
