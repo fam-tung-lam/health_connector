@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 import androidx.health.connect.client.records.ExerciseLap
 import androidx.health.connect.client.records.ExerciseSegment
 import androidx.health.connect.client.units.Length
+import androidx.health.connect.client.units.Mass
 import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSessionLapEventDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSessionSegmentEventDto
 import java.time.Instant
@@ -16,6 +17,7 @@ internal fun ExerciseSegment.toDto(): ExerciseSessionSegmentEventDto =
         endTime = endTime.toEpochMilli(),
         segmentType = segmentType.toExerciseSegmentTypeDto(),
         repetitions = if (repetitions > 0) repetitions.toLong() else null,
+        weightKg = weight?.inKilograms,
     )
 
 /**
@@ -35,6 +37,7 @@ internal fun ExerciseSessionSegmentEventDto.toHealthConnect(): ExerciseSegment =
     endTime = Instant.ofEpochMilli(endTime),
     segmentType = segmentType.toHealthConnect(),
     repetitions = repetitions?.toInt() ?: 0,
+    weight = weightKg?.let { Mass.kilograms(it) },
 )
 
 /**

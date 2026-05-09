@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android.unit_tests.mappers.health_re
 import androidx.health.connect.client.records.ExerciseLap
 import androidx.health.connect.client.records.ExerciseSegment
 import androidx.health.connect.client.units.Length
+import androidx.health.connect.client.units.Mass
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSegmentTypeDto
@@ -21,6 +22,7 @@ class ExerciseSessionEventMapperTest {
         const val TEST_END_TIME = 1609459260000L // 2021-01-01 00:01:00 UTC
         const val TEST_REPETITIONS = 10
         const val TEST_DISTANCE_METERS = 100.0
+        const val TEST_WEIGHT_KG = 80.0
     }
 
     @Test
@@ -123,6 +125,85 @@ class ExerciseSessionEventMapperTest {
 
         // Then
         segment.repetitions shouldBe 0
+    }
+
+    @Test
+    @DisplayName("GIVEN ExerciseSegment with weight → WHEN toDto → THEN weightKg is set")
+    fun whenExerciseSegmentWithWeightToDto_thenWeightKgIsSet() {
+        // Given
+        val segment = ExerciseSegment(
+            startTime = Instant.ofEpochMilli(TEST_START_TIME),
+            endTime = Instant.ofEpochMilli(TEST_END_TIME),
+            segmentType = ExerciseSegment.EXERCISE_SEGMENT_TYPE_BENCH_PRESS,
+            repetitions = TEST_REPETITIONS,
+            weight = Mass.kilograms(TEST_WEIGHT_KG),
+        )
+
+        // When
+        val dto = segment.toDto()
+
+        // Then
+        dto.weightKg shouldBe TEST_WEIGHT_KG
+    }
+
+    @Test
+    @DisplayName("GIVEN ExerciseSegment without weight → WHEN toDto → THEN weightKg is null")
+    fun whenExerciseSegmentWithoutWeightToDto_thenWeightKgIsNull() {
+        // Given
+        val segment = ExerciseSegment(
+            startTime = Instant.ofEpochMilli(TEST_START_TIME),
+            endTime = Instant.ofEpochMilli(TEST_END_TIME),
+            segmentType = ExerciseSegment.EXERCISE_SEGMENT_TYPE_RUNNING,
+            repetitions = TEST_REPETITIONS,
+        )
+
+        // When
+        val dto = segment.toDto()
+
+        // Then
+        dto.weightKg shouldBe null
+    }
+
+    @Test
+    @DisplayName(
+        "GIVEN ExerciseSessionSegmentEventDto with weightKg → WHEN toHealthConnect → THEN weight is set",
+    )
+    fun whenExerciseSessionSegmentEventDtoWithWeightKgToHealthConnect_thenWeightIsSet() {
+        // Given
+        val dto = ExerciseSessionSegmentEventDto(
+            startTime = TEST_START_TIME,
+            endTime = TEST_END_TIME,
+            segmentType = ExerciseSegmentTypeDto.BENCH_PRESS,
+            repetitions = TEST_REPETITIONS.toLong(),
+            weightKg = TEST_WEIGHT_KG,
+        )
+
+        // When
+        val segment = dto.toHealthConnect()
+
+        // Then
+        segment.weight shouldBe Mass.kilograms(TEST_WEIGHT_KG)
+    }
+
+    @Test
+    @DisplayName(
+        "GIVEN ExerciseSessionSegmentEventDto with null weightKg → WHEN toHealthConnect → THEN weight is null",
+    )
+    fun whenExerciseSessionSegmentEventDtoWithNullWeightKgToHealthConnect_thenWeightIsNull() {
+        // Given
+        val dto = ExerciseSessionSegmentEventDto(
+            startTime = TEST_START_TIME,
+            endTime = TEST_END_TIME,
+            segmentType = ExerciseSegmentTypeDto.RUNNING,
+            repetitions = TEST_REPETITIONS.toLong(),
+            weightKg = null,
+        )
+
+        // When
+        val segment = dto.toHealthConnect()
+
+        // Then
+        segment.weight shouldBe null
     }
 
     @Test

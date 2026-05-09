@@ -55,12 +55,32 @@ void main() {
       expect(dto.endTime, endTime.millisecondsSinceEpoch);
       expect(dto.segmentType, ExerciseSegmentTypeDto.running);
       expect(dto.repetitions, 10);
+      expect(dto.weightKg, isNull);
 
       final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
       expect(domain.startTime, startTime);
       expect(domain.endTime, endTime);
       expect(domain.segmentType, ExerciseSegmentType.running);
       expect(domain.repetitions, 10);
+      expect(domain.weight, isNull);
+    });
+
+    test('converts ExerciseSessionSegmentEvent with weight to/from DTO', () {
+      final startTime = DateTime(2023, 1, 1, 10).toUtc();
+      final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
+      final event = ExerciseSessionSegmentEvent(
+        startTime: startTime,
+        endTime: endTime,
+        segmentType: ExerciseSegmentType.benchPress,
+        repetitions: 8,
+        weight: const Mass.kilograms(80.0),
+      );
+
+      final dto = event.toDto() as ExerciseSessionSegmentEventDto;
+      expect(dto.weightKg, 80.0);
+
+      final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
+      expect(domain.weight, const Mass.kilograms(80.0));
     });
   });
 }

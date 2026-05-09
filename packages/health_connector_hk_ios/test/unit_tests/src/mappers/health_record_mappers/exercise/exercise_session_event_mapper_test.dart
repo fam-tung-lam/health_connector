@@ -74,5 +74,23 @@ void main() {
       expect(domain.segmentType, ExerciseSegmentType.running);
       expect(domain.repetitions, 10);
     });
+
+    test('weight is always null on iOS for ExerciseSessionSegmentEvent', () {
+      final startTime = DateTime(2023, 1, 1, 10).toUtc();
+      final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
+      final event = ExerciseSessionSegmentEvent(
+        startTime: startTime,
+        endTime: endTime,
+        segmentType: ExerciseSegmentType.benchPress,
+        repetitions: 8,
+        weight: const Mass.kilograms(80.0),
+      );
+
+      final dto = event.toDto() as ExerciseSessionSegmentEventDto;
+      expect(dto.weightKg, isNull);
+
+      final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
+      expect(domain.weight, isNull);
+    });
   });
 }

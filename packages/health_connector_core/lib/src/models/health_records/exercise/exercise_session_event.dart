@@ -202,11 +202,13 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
   /// - [endTime]: End time of the segment
   /// - [segmentType]: The type of exercise segment
   /// - [repetitions]: Optional number of repetitions in this segment
+  /// - [weight]: Optional weight lifted during this segment
   const ExerciseSessionSegmentEvent({
     required super.startTime,
     required super.endTime,
     required this.segmentType,
     this.repetitions,
+    this.weight,
   });
 
   /// The type of exercise segment.
@@ -216,6 +218,13 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
   ///
   /// Must be non-negative if provided.
   final int? repetitions;
+
+  /// The weight lifted during this segment.
+  ///
+  /// **Health Connect (Android):** Mapped to and from [ExerciseSegment.getWeight()](https://developer.android.com/reference/android/health/connect/datatypes/ExerciseSegment#getWeight()).
+  /// **HealthKit (iOS):** Always `null` — HealthKit's [HKWorkoutEvent](https://developer.apple.com/documentation/healthkit/hkworkoutevent) does not
+  /// support a weight field.
+  final Mass? weight;
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
@@ -231,12 +240,14 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
           startTime == other.startTime &&
           endTime == other.endTime &&
           segmentType == other.segmentType &&
-          repetitions == other.repetitions;
+          repetitions == other.repetitions &&
+          weight == other.weight;
 
   @override
   int get hashCode => Object.hash(
     super.hashCode,
     segmentType,
     repetitions,
+    weight,
   );
 }
