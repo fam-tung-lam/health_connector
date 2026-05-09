@@ -4,6 +4,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ExerciseSessionSegmentEvent,
         ExerciseSessionEvent,
         Length,
+        Mass,
         ExerciseSessionStateTransitionEvent,
         ExerciseSessionMarkerEvent;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise/exercise_segment_type_mapper.dart';
@@ -34,12 +35,14 @@ extension ExerciseSessionEventToDto on ExerciseSessionEvent {
         :final endTime,
         :final segmentType,
         :final repetitions,
+        :final weight,
       ) =>
         ExerciseSessionSegmentEventDto(
           startTime: startTime.millisecondsSinceEpoch,
           endTime: endTime.millisecondsSinceEpoch,
           segmentType: segmentType.toDto(),
           repetitions: repetitions,
+          weightKg: weight?.inKilograms,
         ),
       ExerciseSessionStateTransitionEvent _ => throw UnsupportedError(
         '$ExerciseSessionStateTransitionEvent is not supported on '
@@ -80,6 +83,7 @@ extension ExerciseSessionEventDtoToDomain on ExerciseSessionEventDto {
         :final endTime,
         :final segmentType,
         :final repetitions,
+        :final weightKg,
       ) =>
         ExerciseSessionSegmentEvent(
           startTime: DateTime.fromMillisecondsSinceEpoch(
@@ -89,6 +93,7 @@ extension ExerciseSessionEventDtoToDomain on ExerciseSessionEventDto {
           endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
           segmentType: segmentType.toDomain(),
           repetitions: repetitions,
+          weight: weightKg != null ? Mass.kilograms(weightKg) : null,
         ),
     };
   }
