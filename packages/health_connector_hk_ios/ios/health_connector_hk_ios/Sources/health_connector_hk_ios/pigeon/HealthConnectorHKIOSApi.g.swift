@@ -2840,8 +2840,6 @@ public struct ExerciseSessionSegmentEventDto: ExerciseSessionEventDto {
   var segmentType: ExerciseSegmentTypeDto
   /// Number of repetitions in this segment.
   var repetitions: Int64? = nil
-  /// Weight lifted during this segment, in kilograms. Always null on iOS.
-  var weightKg: Double? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -2850,14 +2848,12 @@ public struct ExerciseSessionSegmentEventDto: ExerciseSessionEventDto {
     let endTime = pigeonVar_list[1] as! Int64
     let segmentType = pigeonVar_list[2] as! ExerciseSegmentTypeDto
     let repetitions: Int64? = nilOrValue(pigeonVar_list[3])
-    let weightKg: Double? = nilOrValue(pigeonVar_list[4])
 
     return ExerciseSessionSegmentEventDto(
       startTime: startTime,
       endTime: endTime,
       segmentType: segmentType,
-      repetitions: repetitions,
-      weightKg: weightKg
+      repetitions: repetitions
     )
   }
   func toList() -> [Any?] {
@@ -2866,14 +2862,13 @@ public struct ExerciseSessionSegmentEventDto: ExerciseSessionEventDto {
       endTime,
       segmentType,
       repetitions,
-      weightKg,
     ]
   }
   public static func == (lhs: ExerciseSessionSegmentEventDto, rhs: ExerciseSessionSegmentEventDto) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsHealthConnectorHKIOSApi(lhs.startTime, rhs.startTime) && deepEqualsHealthConnectorHKIOSApi(lhs.endTime, rhs.endTime) && deepEqualsHealthConnectorHKIOSApi(lhs.segmentType, rhs.segmentType) && deepEqualsHealthConnectorHKIOSApi(lhs.repetitions, rhs.repetitions) && deepEqualsHealthConnectorHKIOSApi(lhs.weightKg, rhs.weightKg)
+    return deepEqualsHealthConnectorHKIOSApi(lhs.startTime, rhs.startTime) && deepEqualsHealthConnectorHKIOSApi(lhs.endTime, rhs.endTime) && deepEqualsHealthConnectorHKIOSApi(lhs.segmentType, rhs.segmentType) && deepEqualsHealthConnectorHKIOSApi(lhs.repetitions, rhs.repetitions)
   }
 
   public func hash(into hasher: inout Hasher) {
@@ -2882,7 +2877,6 @@ public struct ExerciseSessionSegmentEventDto: ExerciseSessionEventDto {
     deepHashHealthConnectorHKIOSApi(value: endTime, hasher: &hasher)
     deepHashHealthConnectorHKIOSApi(value: segmentType, hasher: &hasher)
     deepHashHealthConnectorHKIOSApi(value: repetitions, hasher: &hasher)
-    deepHashHealthConnectorHKIOSApi(value: weightKg, hasher: &hasher)
   }
 }
 

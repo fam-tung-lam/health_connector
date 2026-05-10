@@ -67,7 +67,6 @@ void main() {
       expect(dto.endTime, endTime.millisecondsSinceEpoch);
       expect(dto.segmentType, ExerciseSegmentTypeDto.running);
       expect(dto.repetitions, 10);
-      expect(dto.weightKg, isNull);
 
       final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
       expect(domain.startTime, startTime);
@@ -89,7 +88,6 @@ void main() {
       );
 
       final dto = event.toDto() as ExerciseSessionSegmentEventDto;
-      expect(dto.weightKg, isNull);
 
       final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
       expect(domain.weight, isNull);
