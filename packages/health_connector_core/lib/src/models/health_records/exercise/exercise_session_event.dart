@@ -224,7 +224,7 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
   /// **Health Connect (Android):** Mapped to and from [`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight).
   /// **HealthKit (iOS):** Always `null` — HealthKit's [HKWorkoutEvent](https://developer.apple.com/documentation/healthkit/hkworkoutevent) does not
   /// support a weight field.
-  @supportedOnHealthConnect
+  @availableOnHealthConnect
   final Mass? weight;
 
   @override
