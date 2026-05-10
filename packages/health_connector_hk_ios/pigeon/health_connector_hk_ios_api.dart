@@ -1947,7 +1947,6 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
     required this.endTime,
     required this.segmentType,
     this.repetitions,
-    this.weightKg,
   });
 
   /// Start time in milliseconds since epoch (UTC).
@@ -1961,9 +1960,6 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
 
   /// Number of repetitions in this segment.
   final int? repetitions;
-
-  /// Weight lifted during this segment, in kilograms. Always null on iOS.
-  final double? weightKg;
 }
 
 // region Exercise Route

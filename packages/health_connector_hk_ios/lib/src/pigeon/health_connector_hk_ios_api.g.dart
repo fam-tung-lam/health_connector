@@ -3417,7 +3417,6 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
     required this.endTime,
     required this.segmentType,
     this.repetitions,
-    this.weightKg,
   });
 
   /// Start time in milliseconds since epoch (UTC).
@@ -3432,16 +3431,12 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
   /// Number of repetitions in this segment.
   int? repetitions;
 
-  /// Weight lifted during this segment, in kilograms. Always null on iOS.
-  double? weightKg;
-
   List<Object?> _toList() {
     return <Object?>[
       startTime,
       endTime,
       segmentType,
       repetitions,
-      weightKg,
     ];
   }
 
@@ -3456,7 +3451,6 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
       endTime: result[1]! as int,
       segmentType: result[2]! as ExerciseSegmentTypeDto,
       repetitions: result[3] as int?,
-      weightKg: result[4] as double?,
     );
   }
 
@@ -3473,8 +3467,7 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
     return _deepEquals(startTime, other.startTime) &&
         _deepEquals(endTime, other.endTime) &&
         _deepEquals(segmentType, other.segmentType) &&
-        _deepEquals(repetitions, other.repetitions) &&
-        _deepEquals(weightKg, other.weightKg);
+        _deepEquals(repetitions, other.repetitions);
   }
 
   @override

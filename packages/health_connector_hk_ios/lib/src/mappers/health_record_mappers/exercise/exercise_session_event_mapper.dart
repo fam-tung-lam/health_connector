@@ -44,7 +44,6 @@ extension ExerciseSessionEventToDto on ExerciseSessionEvent {
         :final endTime,
         :final segmentType,
         :final repetitions,
-        weight: _,
       ) =>
         ExerciseSessionSegmentEventDto(
           startTime: startTime.millisecondsSinceEpoch,
@@ -89,7 +88,6 @@ extension ExerciseSessionEventDtoToDomain on ExerciseSessionEventDto {
         :final endTime,
         :final segmentType,
         :final repetitions,
-        weightKg: _,
       ) =>
         ExerciseSessionSegmentEvent(
           startTime: DateTime.fromMillisecondsSinceEpoch(

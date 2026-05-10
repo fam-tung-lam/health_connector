@@ -24,9 +24,9 @@ import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show immutable, protected, visibleForTesting;
 
 Object? _extractReplyValueOrThrow(
-  List<Object?>? replyList,
-  String channelName, {
-  required bool isNullValid,
+    List<Object?>? replyList,
+    String channelName, {
+    required bool isNullValid,
 }) {
   if (replyList == null) {
     throw PlatformException(
@@ -48,11 +48,8 @@ Object? _extractReplyValueOrThrow(
   return replyList.firstOrNull;
 }
 
-List<Object?> wrapResponse({
-  Object? result,
-  PlatformException? error,
-  bool empty = false,
-}) {
+
+List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
   if (empty) {
     return <Object?>[];
   }
@@ -61,7 +58,6 @@ List<Object?> wrapResponse({
   }
   return <Object?>[error.code, error.message, error.details];
 }
-
 bool _deepEquals(Object? a, Object? b) {
   if (identical(a, b)) {
     return true;
@@ -74,9 +70,8 @@ bool _deepEquals(Object? a, Object? b) {
   }
   if (a is List && b is List) {
     return a.length == b.length &&
-        a.indexed.every(
-          ((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]),
-        );
+        a.indexed
+            .every(((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]));
   }
   if (a is Map && b is Map) {
     if (a.length != b.length) {
@@ -125,32 +120,25 @@ int _deepHash(Object? value) {
   return value.hashCode;
 }
 
+
 /// Device type for health data recording.
 enum DeviceTypeDto {
   /// Chest strap heart rate monitor.
   chestStrap,
-
   /// Fitness band or activity tracker.
   fitnessBand,
-
   /// Head-mounted device (e.g., AR/VR headset).
   headMounted,
-
   /// Mobile phone or smartphone.
   phone,
-
   /// Smart ring wearable.
   ring,
-
   /// Weight scale or body composition scale.
   scale,
-
   /// Smart display device.
   smartDisplay,
-
   /// Unknown or unspecified device type.
   unknown,
-
   /// Smartwatch or wearable watch.
   watch,
 }
@@ -159,13 +147,10 @@ enum DeviceTypeDto {
 enum RecordingMethodDto {
   /// Data was recorded during an active user-initiated session.
   activelyRecorded,
-
   /// Data was automatically recorded by a device in the background.
   automaticallyRecorded,
-
   /// Data was manually entered by the user.
   manualEntry,
-
   /// The recording method is unknown or unspecified.
   unknown,
 }
@@ -174,22 +159,16 @@ enum RecordingMethodDto {
 enum CervicalMucusAppearanceDto {
   /// Unknown appearance.
   unknown,
-
   /// Dry appearance.
   dry,
-
   /// Sticky appearance.
   sticky,
-
   /// Creamy appearance.
   creamy,
-
   /// Watery appearance.
   watery,
-
   /// Egg white appearance.
   eggWhite,
-
   /// Unusual appearance.
   unusual,
 }
@@ -198,13 +177,10 @@ enum CervicalMucusAppearanceDto {
 enum CervicalMucusSensationDto {
   /// Unknown sensation.
   unknown,
-
   /// Light sensation.
   light,
-
   /// Medium sensation.
   medium,
-
   /// Heavy sensation.
   heavy,
 }
@@ -213,10 +189,8 @@ enum CervicalMucusSensationDto {
 enum SexualActivityProtectionUsedDto {
   /// Protection was used.
   protected,
-
   /// Protection was not used.
   unprotected,
-
   /// Unknown whether protection was used.
   unknown,
 }
@@ -225,13 +199,10 @@ enum SexualActivityProtectionUsedDto {
 enum OvulationTestResultDto {
   /// Test result is negative (no hormonal surge).
   negative,
-
   /// Test result is inconclusive.
   inconclusive,
-
   /// Test result shows high estrogen levels.
   high,
-
   /// Test result is positive (LH surge detected).
   positive,
 }
@@ -240,34 +211,24 @@ enum OvulationTestResultDto {
 enum BasalBodyTemperatureMeasurementLocationDto {
   /// Unknown location.
   unknown,
-
   /// Armpit measurement.
   armpit,
-
   /// Ear measurement.
   ear,
-
   /// Finger measurement.
   finger,
-
   /// Forehead measurement.
   forehead,
-
   /// Mouth measurement.
   mouth,
-
   /// Rectum measurement.
   rectum,
-
   /// Temporal artery measurement.
   temporalArtery,
-
   /// Toe measurement.
   toe,
-
   /// Vagina measurement.
   vagina,
-
   /// Wrist measurement.
   wrist,
 }
@@ -276,13 +237,10 @@ enum BasalBodyTemperatureMeasurementLocationDto {
 enum SkinTemperatureMeasurementLocationDto {
   /// Unknown measurement location (default).
   unknown,
-
   /// Finger measurement.
   finger,
-
   /// Toe measurement.
   toe,
-
   /// Wrist measurement.
   wrist,
 }
@@ -291,13 +249,10 @@ enum SkinTemperatureMeasurementLocationDto {
 enum MenstrualFlowDto {
   /// Flow is unknown or unspecified.
   unknown,
-
   /// Light menstrual flow.
   light,
-
   /// Medium menstrual flow.
   medium,
-
   /// Heavy menstrual flow.
   heavy,
 }
@@ -306,19 +261,14 @@ enum MenstrualFlowDto {
 enum Vo2MaxMeasurementMethodDto {
   /// Other or unknown measurement method.
   other,
-
   /// Direct measurement using metabolic cart gas exchange analysis.
   metabolicCart,
-
   /// Calculated using heart rate ratio (maxHR / restingHR).
   heartRateRatio,
-
   /// Based on the Cooper 12-minute run test.
   cooperTest,
-
   /// Based on the multistage fitness test (beep test).
   multistageFitnessTest,
-
   /// Based on the Rockport 1-mile walk test.
   rockportFitnessTest,
 }
@@ -327,16 +277,12 @@ enum Vo2MaxMeasurementMethodDto {
 enum MealTypeDto {
   /// Unknown or unspecified meal type.
   unknown,
-
   /// Breakfast meal.
   breakfast,
-
   /// Lunch meal.
   lunch,
-
   /// Dinner meal.
   dinner,
-
   /// Snack or other meal type.
   snack,
 }
@@ -345,16 +291,12 @@ enum MealTypeDto {
 enum BodyPositionDto {
   /// Unknown body position.
   unknown,
-
   /// Standing up.
   standingUp,
-
   /// Sitting down.
   sittingDown,
-
   /// Lying down.
   lyingDown,
-
   /// Reclining.
   reclining,
 }
@@ -363,16 +305,12 @@ enum BodyPositionDto {
 enum MeasurementLocationDto {
   /// Unknown location.
   unknown,
-
   /// Left wrist.
   leftWrist,
-
   /// Right wrist.
   rightWrist,
-
   /// Left upper arm.
   leftUpperArm,
-
   /// Right upper arm.
   rightUpperArm,
 }
@@ -381,16 +319,12 @@ enum MeasurementLocationDto {
 enum BloodGlucoseRelationToMealDto {
   /// Unknown relationship.
   unknown,
-
   /// General relationship (not specific to a meal).
   general,
-
   /// Fasting state (no recent meal).
   fasting,
-
   /// Measurement taken before a meal.
   beforeMeal,
-
   /// Measurement taken after a meal.
   afterMeal,
 }
@@ -399,22 +333,16 @@ enum BloodGlucoseRelationToMealDto {
 enum BloodGlucoseSpecimenSourceDto {
   /// Unknown specimen source.
   unknown,
-
   /// Interstitial fluid.
   interstitialFluid,
-
   /// Capillary blood.
   capillaryBlood,
-
   /// Plasma.
   plasma,
-
   /// Serum.
   serum,
-
   /// Tears.
   tears,
-
   /// Whole blood.
   wholeBlood,
 }
@@ -423,7 +351,6 @@ enum BloodGlucoseSpecimenSourceDto {
 enum ActivityIntensityTypeDto {
   /// Moderate intensity activity.
   moderate,
-
   /// Vigorous intensity activity.
   vigorous,
 }
@@ -432,7 +359,6 @@ enum ActivityIntensityTypeDto {
 enum ExerciseTypeDto {
   /// Other or unclassified exercise type.
   other,
-
   /// Cardio & Walking/Running
   running,
   runningTreadmill,
@@ -440,7 +366,6 @@ enum ExerciseTypeDto {
   cycling,
   cyclingStationary,
   hiking,
-
   /// Water Sports
   swimmingOpenWater,
   swimmingPool,
@@ -450,12 +375,10 @@ enum ExerciseTypeDto {
   sailing,
   paddling,
   diving,
-
   /// Strength Training
   strengthTraining,
   weightlifting,
   calisthenics,
-
   /// Team Sports
   basketball,
   soccer,
@@ -471,31 +394,26 @@ enum ExerciseTypeDto {
   iceHockey,
   rollerHockey,
   hockey,
-
   /// Racquet Sports
   tennis,
   tableTennis,
   badminton,
   squash,
   racquetball,
-
   /// Winter Sports
   skiing,
   snowboarding,
   snowshoeing,
   skating,
-
   /// Martial Arts & Combat Sports
   boxing,
   kickboxing,
   martialArts,
   wrestling,
   fencing,
-
   /// Dance & Gymnastics
   dancing,
   gymnastics,
-
   /// Fitness & Conditioning
   yoga,
   pilates,
@@ -506,14 +424,11 @@ enum ExerciseTypeDto {
   guidedBreathing,
   stairClimbing,
   flexibility,
-
   /// Golf & Precision Sports
   golf,
-
   /// Outdoor & Adventure
   paragliding,
   climbing,
-
   /// Wheelchair Activities
   wheelchair,
 }
@@ -522,19 +437,14 @@ enum ExerciseTypeDto {
 enum MindfulnessSessionTypeDto {
   /// Unknown or unspecified session type.
   unknown,
-
   /// Meditation session.
   meditation,
-
   /// Breathing exercise session.
   breathing,
-
   /// Music-based mindfulness session.
   music,
-
   /// Movement-based mindfulness session.
   movement,
-
   /// Unguided mindfulness session.
   unguided,
 }
@@ -543,124 +453,84 @@ enum MindfulnessSessionTypeDto {
 enum HealthDataTypeDto {
   /// Active energy burned data.
   activeCaloriesBurned,
-
   /// Activity intensity data.
   activityIntensity,
-
   /// Distance traveled data.
   distance,
-
   /// Elevation gained data.
   elevationGained,
-
   /// Floors climbed data.
   floorsClimbed,
-
   /// Exercise session data.
   exerciseSession,
-
   /// Step count data.
   steps,
-
   /// Body weight data.
   weight,
-
   /// Body height data.
   height,
-
   /// Body fat percentage data.
   bodyFatPercentage,
-
   /// Body temperature data.
   bodyTemperature,
-
   /// Basal body temperature data.
   basalBodyTemperature,
-
   /// Cervical mucus observation data.
   cervicalMucus,
-
   /// Lean body mass data.
   leanBodyMass,
-
   /// Wheelchair pushes data.
   wheelchairPushes,
-
   /// Hydration (water intake) data.
   hydration,
-
   /// Heart rate series record data.
   heartRateSeries,
-
   /// Cycling pedaling cadence series record data.
   cyclingPedalingCadenceSeries,
-
   /// Sexual activity data.
   sexualActivity,
-
   /// Sleep session data.
   sleepSession,
-
   /// Combined nutrition record with all nutrients.
   nutrition,
-
   /// Resting heart rate data.
   restingHeartRate,
-
   /// Composite blood pressure data (systolic + diastolic).
   bloodPressure,
-
   /// Ovulation test data.
   ovulationTest,
-
   /// Intermenstrual bleeding data.
   intermenstrualBleeding,
-
   /// Menstrual flow instant data.
   menstrualFlowInstant,
-
   /// Menstruation period data.
   menstruationPeriod,
-
   /// Oxygen saturation data.
   oxygenSaturation,
-
   /// Power data.
   powerSeries,
-
   /// Respiratory rate data.
   respiratoryRate,
-
   /// VO2 max (maximal oxygen uptake) data.
   vo2Max,
-
   /// Blood glucose data.
   bloodGlucose,
-
   /// Speed data.
   speedSeries,
-
   /// Mindfulness session data.
   mindfulnessSession,
-
   /// Total energy burned data.
   totalCaloriesBurned,
-
   /// Basal metabolic rate data.
   basalMetabolicRate,
-
   /// Bone mass data.
   boneMass,
-
   /// Heart rate variability (RMSSD) data.
   heartRateVariabilityRMSSD,
-
   /// Body water mass data.
   bodyWaterMass,
-
   /// Steps cadence series record data.
   stepsCadenceSeriesRecord,
-
   /// Skin temperature delta series record data.
   skinTemperatureDeltaSeries,
 }
@@ -753,34 +623,24 @@ enum ExerciseSegmentTypeDto {
 enum HealthConnectorErrorCodeDto {
   /// Permission to access health data was not granted.
   permissionNotGranted,
-
   /// Required permission not declared in app configuration.
   permissionNotDeclared,
-
   /// Invalid parameter, malformed record, or expired change token.
   invalidArgument,
-
   /// Health service is not available on this device.
   healthServiceUnavailable,
-
   /// Health Connect app not installed or update required.
   healthServiceNotInstalledOrUpdateRequired,
-
   /// Storage read/write operation failed.
   ioError,
-
   /// IPC communication with health service failed.
   remoteError,
-
   /// API rate limit has been exhausted.
   rateLimitExceeded,
-
   /// Health service is syncing data, operations blocked.
   dataSyncInProgress,
-
   /// Operation or data type not supported on this platform.
   unsupportedOperation,
-
   /// An unclassified or internal system error occurred.
   unknownError,
 }
@@ -789,12 +649,10 @@ enum HealthConnectorErrorCodeDto {
 enum HealthPlatformStatusDto {
   /// The health platform is available and ready to use.
   available,
-
   /// The health platform is not installed or not supported.
   ///
   /// Note: Health Connect only.
   installationOrUpdateRequired,
-
   /// The health platform is not available on this device.
   notAvailable,
 }
@@ -803,7 +661,6 @@ enum HealthPlatformStatusDto {
 enum PermissionAccessTypeDto {
   /// Read access to health data.
   read,
-
   /// Write access to health data.
   write,
 }
@@ -812,10 +669,8 @@ enum PermissionAccessTypeDto {
 enum PermissionStatusDto {
   /// Permission has been explicitly denied by the user.
   denied,
-
   /// Permission has been explicitly granted by the user.
   granted,
-
   /// The permission status cannot be determined.
   unknown,
 }
@@ -824,7 +679,6 @@ enum PermissionStatusDto {
 enum HealthPlatformFeatureDto {
   /// Read health data in the background.
   readHealthDataInBackground,
-
   /// Read historical health data from the past.
   readHealthDataHistory,
 }
@@ -833,7 +687,6 @@ enum HealthPlatformFeatureDto {
 enum HealthPlatformFeatureStatusDto {
   /// The feature is available on this platform.
   available,
-
   /// The feature is not available on this platform.
   unavailable,
 }
@@ -842,13 +695,10 @@ enum HealthPlatformFeatureStatusDto {
 enum AggregationMetricDto {
   /// Average (mean) value across all data points.
   avg,
-
   /// Maximum value in the dataset.
   max,
-
   /// Minimum value in the dataset.
   min,
-
   /// Sum of all values in the time range.
   sum,
 }
@@ -863,7 +713,6 @@ enum SortOrderDto {
   /// For instant records: sorts by time field.
   /// For interval records: sorts by startTime field.
   timeAscending,
-
   /// Sort by time in descending order (newest to oldest).
   ///
   /// For instant records: sorts by time field.
@@ -880,13 +729,10 @@ enum BloodPressureDataTypeDto {
 enum HealthConnectorLogLevelDto {
   /// Debug level for detailed diagnostic information.
   debug,
-
   /// Info level for general informational messages.
   info,
-
   /// Warning level for potential problems or unexpected behavior.
   warning,
-
   /// Error level for serious problems.
   error,
 }
@@ -910,8 +756,7 @@ class HealthConnectorConfigDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthConnectorConfigDto decode(Object result) {
     result as List<Object?>;
@@ -923,8 +768,7 @@ class HealthConnectorConfigDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthConnectorConfigDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HealthConnectorConfigDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -996,8 +840,7 @@ class MetadataDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static MetadataDto decode(Object result) {
     result as List<Object?>;
@@ -1022,14 +865,7 @@ class MetadataDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(clientRecordId, other.clientRecordId) &&
-        _deepEquals(clientRecordVersion, other.clientRecordVersion) &&
-        _deepEquals(dataOrigin, other.dataOrigin) &&
-        _deepEquals(deviceType, other.deviceType) &&
-        _deepEquals(recordingMethod, other.recordingMethod) &&
-        _deepEquals(deviceManufacturer, other.deviceManufacturer) &&
-        _deepEquals(deviceModel, other.deviceModel) &&
-        _deepEquals(lastModifiedTime, other.lastModifiedTime);
+    return _deepEquals(clientRecordId, other.clientRecordId) && _deepEquals(clientRecordVersion, other.clientRecordVersion) && _deepEquals(dataOrigin, other.dataOrigin) && _deepEquals(deviceType, other.deviceType) && _deepEquals(recordingMethod, other.recordingMethod) && _deepEquals(deviceManufacturer, other.deviceManufacturer) && _deepEquals(deviceModel, other.deviceModel) && _deepEquals(lastModifiedTime, other.lastModifiedTime);
   }
 
   @override
@@ -1038,7 +874,8 @@ class MetadataDto {
 }
 
 /// Sealed class for all health record DTOs.
-sealed class HealthRecordDto {}
+sealed class HealthRecordDto {
+}
 
 /// Represents a blood glucose record for platform transfer.
 class BloodGlucoseRecordDto extends HealthRecordDto {
@@ -1091,8 +928,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BloodGlucoseRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1117,14 +953,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(millimolesPerLiter, other.millimolesPerLiter) &&
-        _deepEquals(relationToMeal, other.relationToMeal) &&
-        _deepEquals(specimenSource, other.specimenSource) &&
-        _deepEquals(mealType, other.mealType) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(time, other.time) && _deepEquals(metadata, other.metadata) && _deepEquals(millimolesPerLiter, other.millimolesPerLiter) && _deepEquals(relationToMeal, other.relationToMeal) && _deepEquals(specimenSource, other.specimenSource) && _deepEquals(mealType, other.mealType) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -1168,8 +997,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static RestingHeartRateRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1185,18 +1013,13 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! RestingHeartRateRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! RestingHeartRateRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(beatsPerMinute, other.beatsPerMinute) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(time, other.time) && _deepEquals(metadata, other.metadata) && _deepEquals(beatsPerMinute, other.beatsPerMinute) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -1240,8 +1063,7 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static OxygenSaturationRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1257,18 +1079,13 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! OxygenSaturationRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! OxygenSaturationRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(percentage, other.percentage) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(time, other.time) && _deepEquals(metadata, other.metadata) && _deepEquals(percentage, other.percentage) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -1312,8 +1129,7 @@ class OvulationTestRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static OvulationTestRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1335,11 +1151,7 @@ class OvulationTestRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) &&
-        _deepEquals(result, other.result);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) && _deepEquals(result, other.result);
   }
 
   @override
@@ -1378,8 +1190,7 @@ class IntermenstrualBleedingRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static IntermenstrualBleedingRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1394,17 +1205,13 @@ class IntermenstrualBleedingRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! IntermenstrualBleedingRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! IntermenstrualBleedingRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -1448,8 +1255,7 @@ class MenstrualFlowInstantRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static MenstrualFlowInstantRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1465,18 +1271,13 @@ class MenstrualFlowInstantRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! MenstrualFlowInstantRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! MenstrualFlowInstantRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) &&
-        _deepEquals(flow, other.flow);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) && _deepEquals(flow, other.flow);
   }
 
   @override
@@ -1525,8 +1326,7 @@ class MenstruationPeriodRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static MenstruationPeriodRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1543,19 +1343,13 @@ class MenstruationPeriodRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! MenstruationPeriodRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! MenstruationPeriodRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
   }
 
   @override
@@ -1599,8 +1393,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static RespiratoryRateRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1616,18 +1409,13 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! RespiratoryRateRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! RespiratoryRateRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(breathsPerMinute, other.breathsPerMinute) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(time, other.time) && _deepEquals(metadata, other.metadata) && _deepEquals(breathsPerMinute, other.breathsPerMinute) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -1681,8 +1469,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static Vo2MaxRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1705,15 +1492,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(
-          millilitersPerKilogramPerMinute,
-          other.millilitersPerKilogramPerMinute,
-        ) &&
-        _deepEquals(measurementMethod, other.measurementMethod) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(time, other.time) && _deepEquals(metadata, other.metadata) && _deepEquals(millilitersPerKilogramPerMinute, other.millilitersPerKilogramPerMinute) && _deepEquals(measurementMethod, other.measurementMethod) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -1766,8 +1545,7 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ActiveEnergyBurnedRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1785,20 +1563,13 @@ class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ActiveEnergyBurnedRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ActiveEnergyBurnedRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(kilocalories, other.kilocalories) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
+    return _deepEquals(kilocalories, other.kilocalories) && _deepEquals(endTime, other.endTime) && _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
   }
 
   @override
@@ -1852,8 +1623,7 @@ class DistanceRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static DistanceRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1877,13 +1647,7 @@ class DistanceRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(meters, other.meters) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
+    return _deepEquals(meters, other.meters) && _deepEquals(endTime, other.endTime) && _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
   }
 
   @override
@@ -1937,8 +1701,7 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static FloorsClimbedRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1962,13 +1725,7 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(floors, other.floors) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
+    return _deepEquals(floors, other.floors) && _deepEquals(endTime, other.endTime) && _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
   }
 
   @override
@@ -2022,8 +1779,7 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static WheelchairPushesRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2041,20 +1797,13 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! WheelchairPushesRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! WheelchairPushesRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(pushes, other.pushes) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
+    return _deepEquals(pushes, other.pushes) && _deepEquals(endTime, other.endTime) && _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
   }
 
   @override
@@ -2108,8 +1857,7 @@ class StepsRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static StepsRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2133,13 +1881,7 @@ class StepsRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(count, other.count) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
+    return _deepEquals(count, other.count) && _deepEquals(endTime, other.endTime) && _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds);
   }
 
   @override
@@ -2183,8 +1925,7 @@ class WeightRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static WeightRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2206,11 +1947,7 @@ class WeightRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(kilograms, other.kilograms) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(kilograms, other.kilograms) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -2269,8 +2006,7 @@ class BloodPressureRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BloodPressureRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2295,20 +2031,7 @@ class BloodPressureRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(
-          systolicInMillimetersOfMercury,
-          other.systolicInMillimetersOfMercury,
-        ) &&
-        _deepEquals(
-          diastolicInMillimetersOfMercury,
-          other.diastolicInMillimetersOfMercury,
-        ) &&
-        _deepEquals(bodyPosition, other.bodyPosition) &&
-        _deepEquals(measurementLocation, other.measurementLocation) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(systolicInMillimetersOfMercury, other.systolicInMillimetersOfMercury) && _deepEquals(diastolicInMillimetersOfMercury, other.diastolicInMillimetersOfMercury) && _deepEquals(bodyPosition, other.bodyPosition) && _deepEquals(measurementLocation, other.measurementLocation) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -2352,8 +2075,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static LeanBodyMassRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2375,11 +2097,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(kilograms, other.kilograms) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(kilograms, other.kilograms) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -2423,8 +2141,7 @@ class HeightRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HeightRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2446,11 +2163,7 @@ class HeightRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(meters, other.meters) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(meters, other.meters) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -2494,8 +2207,7 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BodyFatPercentageRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2511,18 +2223,13 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! BodyFatPercentageRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! BodyFatPercentageRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(percentage, other.percentage) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(percentage, other.percentage) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -2566,8 +2273,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BodyTemperatureRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2583,18 +2289,13 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! BodyTemperatureRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! BodyTemperatureRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(celsius, other.celsius) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(celsius, other.celsius) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -2643,8 +2344,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BasalBodyTemperatureRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2653,8 +2353,7 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       celsius: result[3]! as double,
-      measurementLocation:
-          result[4]! as BasalBodyTemperatureMeasurementLocationDto,
+      measurementLocation: result[4]! as BasalBodyTemperatureMeasurementLocationDto,
       zoneOffsetSeconds: result[5] as int?,
     );
   }
@@ -2662,19 +2361,13 @@ class BasalBodyTemperatureRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! BasalBodyTemperatureRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! BasalBodyTemperatureRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(celsius, other.celsius) &&
-        _deepEquals(measurementLocation, other.measurementLocation) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(celsius, other.celsius) && _deepEquals(measurementLocation, other.measurementLocation) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -2723,8 +2416,7 @@ class CervicalMucusRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static CervicalMucusRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2747,12 +2439,7 @@ class CervicalMucusRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) &&
-        _deepEquals(appearance, other.appearance) &&
-        _deepEquals(sensation, other.sensation);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) && _deepEquals(appearance, other.appearance) && _deepEquals(sensation, other.sensation);
   }
 
   @override
@@ -2806,8 +2493,7 @@ class HydrationRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HydrationRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2831,13 +2517,7 @@ class HydrationRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(liters, other.liters) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(metadata, other.metadata) && _deepEquals(liters, other.liters) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
   }
 
   @override
@@ -2869,8 +2549,7 @@ class HeartRateSampleDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HeartRateSampleDto decode(Object result) {
     result as List<Object?>;
@@ -2889,8 +2568,7 @@ class HeartRateSampleDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(time, other.time) &&
-        _deepEquals(beatsPerMinute, other.beatsPerMinute);
+    return _deepEquals(time, other.time) && _deepEquals(beatsPerMinute, other.beatsPerMinute);
   }
 
   @override
@@ -2944,8 +2622,7 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HeartRateSeriesRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2963,20 +2640,13 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HeartRateSeriesRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HeartRateSeriesRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(samples, other.samples) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(metadata, other.metadata) && _deepEquals(samples, other.samples) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
   }
 
   @override
@@ -3009,8 +2679,7 @@ class CyclingPedalingCadenceSampleDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static CyclingPedalingCadenceSampleDto decode(Object result) {
     result as List<Object?>;
@@ -3023,15 +2692,13 @@ class CyclingPedalingCadenceSampleDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CyclingPedalingCadenceSampleDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! CyclingPedalingCadenceSampleDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(time, other.time) &&
-        _deepEquals(revolutionsPerMinute, other.revolutionsPerMinute);
+    return _deepEquals(time, other.time) && _deepEquals(revolutionsPerMinute, other.revolutionsPerMinute);
   }
 
   @override
@@ -3085,8 +2752,7 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static CyclingPedalingCadenceSeriesRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3097,28 +2763,20 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
       startZoneOffsetSeconds: result[3] as int?,
       endZoneOffsetSeconds: result[4] as int?,
       metadata: result[5]! as MetadataDto,
-      samples: (result[6]! as List<Object?>)
-          .cast<CyclingPedalingCadenceSampleDto>(),
+      samples: (result[6]! as List<Object?>).cast<CyclingPedalingCadenceSampleDto>(),
     );
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CyclingPedalingCadenceSeriesRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! CyclingPedalingCadenceSeriesRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(samples, other.samples);
+    return _deepEquals(id, other.id) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(metadata, other.metadata) && _deepEquals(samples, other.samples);
   }
 
   @override
@@ -3147,8 +2805,7 @@ class StepsCadenceSampleDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static StepsCadenceSampleDto decode(Object result) {
     result as List<Object?>;
@@ -3167,8 +2824,7 @@ class StepsCadenceSampleDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(time, other.time) &&
-        _deepEquals(stepsPerMinute, other.stepsPerMinute);
+    return _deepEquals(time, other.time) && _deepEquals(stepsPerMinute, other.stepsPerMinute);
   }
 
   @override
@@ -3222,8 +2878,7 @@ class StepsCadenceSeriesRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static StepsCadenceSeriesRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3241,20 +2896,13 @@ class StepsCadenceSeriesRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! StepsCadenceSeriesRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! StepsCadenceSeriesRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(samples, other.samples);
+    return _deepEquals(id, other.id) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(metadata, other.metadata) && _deepEquals(samples, other.samples);
   }
 
   @override
@@ -3308,8 +2956,7 @@ class ElevationGainedRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ElevationGainedRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3327,20 +2974,13 @@ class ElevationGainedRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ElevationGainedRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ElevationGainedRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(meters, other.meters) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
+    return _deepEquals(meters, other.meters) && _deepEquals(endTime, other.endTime) && _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
   }
 
   @override
@@ -3369,8 +3009,7 @@ class SpeedSampleDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SpeedSampleDto decode(Object result) {
     result as List<Object?>;
@@ -3389,8 +3028,7 @@ class SpeedSampleDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(time, other.time) &&
-        _deepEquals(metersPerSecond, other.metersPerSecond);
+    return _deepEquals(time, other.time) && _deepEquals(metersPerSecond, other.metersPerSecond);
   }
 
   @override
@@ -3444,8 +3082,7 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SpeedSeriesRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3469,13 +3106,7 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(samples, other.samples) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(metadata, other.metadata) && _deepEquals(samples, other.samples) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
   }
 
   @override
@@ -3504,8 +3135,7 @@ class PowerSampleDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PowerSampleDto decode(Object result) {
     result as List<Object?>;
@@ -3578,8 +3208,7 @@ class PowerSeriesRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PowerSeriesRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3603,13 +3232,7 @@ class PowerSeriesRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(samples, other.samples) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(metadata, other.metadata) && _deepEquals(samples, other.samples) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
   }
 
   @override
@@ -3639,8 +3262,7 @@ class SkinTemperatureDeltaSampleDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SkinTemperatureDeltaSampleDto decode(Object result) {
     result as List<Object?>;
@@ -3653,15 +3275,13 @@ class SkinTemperatureDeltaSampleDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SkinTemperatureDeltaSampleDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! SkinTemperatureDeltaSampleDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(time, other.time) &&
-        _deepEquals(temperatureDeltaCelsius, other.temperatureDeltaCelsius);
+    return _deepEquals(time, other.time) && _deepEquals(temperatureDeltaCelsius, other.temperatureDeltaCelsius);
   }
 
   @override
@@ -3726,8 +3346,7 @@ class SkinTemperatureDeltaSeriesRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SkinTemperatureDeltaSeriesRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3736,8 +3355,7 @@ class SkinTemperatureDeltaSeriesRecordDto extends HealthRecordDto {
       startTime: result[1]! as int,
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
-      samples: (result[4]! as List<Object?>)
-          .cast<SkinTemperatureDeltaSampleDto>(),
+      samples: (result[4]! as List<Object?>).cast<SkinTemperatureDeltaSampleDto>(),
       baselineCelsius: result[5] as double?,
       measurementLocation: result[6] as SkinTemperatureMeasurementLocationDto?,
       startZoneOffsetSeconds: result[7] as int?,
@@ -3748,22 +3366,13 @@ class SkinTemperatureDeltaSeriesRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SkinTemperatureDeltaSeriesRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! SkinTemperatureDeltaSeriesRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(samples, other.samples) &&
-        _deepEquals(baselineCelsius, other.baselineCelsius) &&
-        _deepEquals(measurementLocation, other.measurementLocation) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(metadata, other.metadata) && _deepEquals(samples, other.samples) && _deepEquals(baselineCelsius, other.baselineCelsius) && _deepEquals(measurementLocation, other.measurementLocation) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds);
   }
 
   @override
@@ -3797,8 +3406,7 @@ class SleepStageSampleDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SleepStageSampleDto decode(Object result) {
     result as List<Object?>;
@@ -3818,9 +3426,7 @@ class SleepStageSampleDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(stage, other.stage);
+    return _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(stage, other.stage);
   }
 
   @override
@@ -3876,8 +3482,7 @@ class SleepSessionRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SleepSessionRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3903,15 +3508,7 @@ class SleepSessionRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(title, other.title) &&
-        _deepEquals(notes, other.notes) &&
-        _deepEquals(stages, other.stages);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(title, other.title) && _deepEquals(notes, other.notes) && _deepEquals(stages, other.stages);
   }
 
   @override
@@ -3955,8 +3552,7 @@ class SexualActivityRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SexualActivityRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3978,11 +3574,7 @@ class SexualActivityRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) &&
-        _deepEquals(protectionUsed, other.protectionUsed);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) && _deepEquals(protectionUsed, other.protectionUsed);
   }
 
   @override
@@ -3991,7 +3583,8 @@ class SexualActivityRecordDto extends HealthRecordDto {
 }
 
 /// Sealed class for all exercise session events.
-sealed class ExerciseSessionEventDto {}
+sealed class ExerciseSessionEventDto {
+}
 
 /// Exercise lap event (cross-platform).
 class ExerciseSessionLapEventDto extends ExerciseSessionEventDto {
@@ -4020,8 +3613,7 @@ class ExerciseSessionLapEventDto extends ExerciseSessionEventDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ExerciseSessionLapEventDto decode(Object result) {
     result as List<Object?>;
@@ -4035,16 +3627,13 @@ class ExerciseSessionLapEventDto extends ExerciseSessionEventDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ExerciseSessionLapEventDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ExerciseSessionLapEventDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(distanceMeters, other.distanceMeters);
+    return _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(distanceMeters, other.distanceMeters);
   }
 
   @override
@@ -4088,8 +3677,7 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ExerciseSessionSegmentEventDto decode(Object result) {
     result as List<Object?>;
@@ -4105,18 +3693,13 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ExerciseSessionSegmentEventDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ExerciseSessionSegmentEventDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(segmentType, other.segmentType) &&
-        _deepEquals(repetitions, other.repetitions) &&
-        _deepEquals(weightKg, other.weightKg);
+    return _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(segmentType, other.segmentType) && _deepEquals(repetitions, other.repetitions) && _deepEquals(weightKg, other.weightKg);
   }
 
   @override
@@ -4167,8 +3750,7 @@ class ExerciseRouteLocationDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ExerciseRouteLocationDto decode(Object result) {
     result as List<Object?>;
@@ -4185,19 +3767,13 @@ class ExerciseRouteLocationDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ExerciseRouteLocationDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ExerciseRouteLocationDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(time, other.time) &&
-        _deepEquals(latitude, other.latitude) &&
-        _deepEquals(longitude, other.longitude) &&
-        _deepEquals(altitudeMeters, other.altitudeMeters) &&
-        _deepEquals(horizontalAccuracyMeters, other.horizontalAccuracyMeters) &&
-        _deepEquals(verticalAccuracyMeters, other.verticalAccuracyMeters);
+    return _deepEquals(time, other.time) && _deepEquals(latitude, other.latitude) && _deepEquals(longitude, other.longitude) && _deepEquals(altitudeMeters, other.altitudeMeters) && _deepEquals(horizontalAccuracyMeters, other.horizontalAccuracyMeters) && _deepEquals(verticalAccuracyMeters, other.verticalAccuracyMeters);
   }
 
   @override
@@ -4224,8 +3800,7 @@ class ExerciseRouteDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ExerciseRouteDto decode(Object result) {
     result as List<Object?>;
@@ -4320,8 +3895,7 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ExerciseSessionRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4343,24 +3917,13 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ExerciseSessionRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ExerciseSessionRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(exerciseType, other.exerciseType) &&
-        _deepEquals(title, other.title) &&
-        _deepEquals(notes, other.notes) &&
-        _deepEquals(events, other.events) &&
-        _deepEquals(exerciseRoute, other.exerciseRoute);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(exerciseType, other.exerciseType) && _deepEquals(title, other.title) && _deepEquals(notes, other.notes) && _deepEquals(events, other.events) && _deepEquals(exerciseRoute, other.exerciseRoute);
   }
 
   @override
@@ -4424,8 +3987,7 @@ class ActivityIntensityRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ActivityIntensityRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4445,22 +4007,13 @@ class ActivityIntensityRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ActivityIntensityRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ActivityIntensityRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(activityIntensityType, other.activityIntensityType) &&
-        _deepEquals(title, other.title) &&
-        _deepEquals(notes, other.notes);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(activityIntensityType, other.activityIntensityType) && _deepEquals(title, other.title) && _deepEquals(notes, other.notes);
   }
 
   @override
@@ -4524,8 +4077,7 @@ class MindfulnessSessionRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static MindfulnessSessionRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4545,22 +4097,13 @@ class MindfulnessSessionRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! MindfulnessSessionRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! MindfulnessSessionRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(sessionType, other.sessionType) &&
-        _deepEquals(title, other.title) &&
-        _deepEquals(notes, other.notes);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(sessionType, other.sessionType) && _deepEquals(title, other.title) && _deepEquals(notes, other.notes);
   }
 
   @override
@@ -4797,8 +4340,7 @@ class NutritionRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static NutritionRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4857,54 +4399,7 @@ class NutritionRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(healthDataType, other.healthDataType) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(foodName, other.foodName) &&
-        _deepEquals(mealType, other.mealType) &&
-        _deepEquals(energyInKilocalories, other.energyInKilocalories) &&
-        _deepEquals(proteinInGrams, other.proteinInGrams) &&
-        _deepEquals(totalCarbohydrateInGrams, other.totalCarbohydrateInGrams) &&
-        _deepEquals(totalFatInGrams, other.totalFatInGrams) &&
-        _deepEquals(saturatedFatInGrams, other.saturatedFatInGrams) &&
-        _deepEquals(
-          monounsaturatedFatInGrams,
-          other.monounsaturatedFatInGrams,
-        ) &&
-        _deepEquals(
-          polyunsaturatedFatInGrams,
-          other.polyunsaturatedFatInGrams,
-        ) &&
-        _deepEquals(cholesterolInGrams, other.cholesterolInGrams) &&
-        _deepEquals(dietaryFiberInGrams, other.dietaryFiberInGrams) &&
-        _deepEquals(sugarInGrams, other.sugarInGrams) &&
-        _deepEquals(vitaminAInGrams, other.vitaminAInGrams) &&
-        _deepEquals(vitaminB6InGrams, other.vitaminB6InGrams) &&
-        _deepEquals(vitaminB12InGrams, other.vitaminB12InGrams) &&
-        _deepEquals(vitaminCInGrams, other.vitaminCInGrams) &&
-        _deepEquals(vitaminDInGrams, other.vitaminDInGrams) &&
-        _deepEquals(vitaminEInGrams, other.vitaminEInGrams) &&
-        _deepEquals(vitaminKInGrams, other.vitaminKInGrams) &&
-        _deepEquals(thiaminInGrams, other.thiaminInGrams) &&
-        _deepEquals(riboflavinInGrams, other.riboflavinInGrams) &&
-        _deepEquals(niacinInGrams, other.niacinInGrams) &&
-        _deepEquals(folateInGrams, other.folateInGrams) &&
-        _deepEquals(biotinInGrams, other.biotinInGrams) &&
-        _deepEquals(pantothenicAcidInGrams, other.pantothenicAcidInGrams) &&
-        _deepEquals(calciumInGrams, other.calciumInGrams) &&
-        _deepEquals(ironInGrams, other.ironInGrams) &&
-        _deepEquals(magnesiumInGrams, other.magnesiumInGrams) &&
-        _deepEquals(manganeseInGrams, other.manganeseInGrams) &&
-        _deepEquals(phosphorusInGrams, other.phosphorusInGrams) &&
-        _deepEquals(potassiumInGrams, other.potassiumInGrams) &&
-        _deepEquals(seleniumInGrams, other.seleniumInGrams) &&
-        _deepEquals(sodiumInGrams, other.sodiumInGrams) &&
-        _deepEquals(zincInGrams, other.zincInGrams) &&
-        _deepEquals(caffeineInGrams, other.caffeineInGrams);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(healthDataType, other.healthDataType) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(foodName, other.foodName) && _deepEquals(mealType, other.mealType) && _deepEquals(energyInKilocalories, other.energyInKilocalories) && _deepEquals(proteinInGrams, other.proteinInGrams) && _deepEquals(totalCarbohydrateInGrams, other.totalCarbohydrateInGrams) && _deepEquals(totalFatInGrams, other.totalFatInGrams) && _deepEquals(saturatedFatInGrams, other.saturatedFatInGrams) && _deepEquals(monounsaturatedFatInGrams, other.monounsaturatedFatInGrams) && _deepEquals(polyunsaturatedFatInGrams, other.polyunsaturatedFatInGrams) && _deepEquals(cholesterolInGrams, other.cholesterolInGrams) && _deepEquals(dietaryFiberInGrams, other.dietaryFiberInGrams) && _deepEquals(sugarInGrams, other.sugarInGrams) && _deepEquals(vitaminAInGrams, other.vitaminAInGrams) && _deepEquals(vitaminB6InGrams, other.vitaminB6InGrams) && _deepEquals(vitaminB12InGrams, other.vitaminB12InGrams) && _deepEquals(vitaminCInGrams, other.vitaminCInGrams) && _deepEquals(vitaminDInGrams, other.vitaminDInGrams) && _deepEquals(vitaminEInGrams, other.vitaminEInGrams) && _deepEquals(vitaminKInGrams, other.vitaminKInGrams) && _deepEquals(thiaminInGrams, other.thiaminInGrams) && _deepEquals(riboflavinInGrams, other.riboflavinInGrams) && _deepEquals(niacinInGrams, other.niacinInGrams) && _deepEquals(folateInGrams, other.folateInGrams) && _deepEquals(biotinInGrams, other.biotinInGrams) && _deepEquals(pantothenicAcidInGrams, other.pantothenicAcidInGrams) && _deepEquals(calciumInGrams, other.calciumInGrams) && _deepEquals(ironInGrams, other.ironInGrams) && _deepEquals(magnesiumInGrams, other.magnesiumInGrams) && _deepEquals(manganeseInGrams, other.manganeseInGrams) && _deepEquals(phosphorusInGrams, other.phosphorusInGrams) && _deepEquals(potassiumInGrams, other.potassiumInGrams) && _deepEquals(seleniumInGrams, other.seleniumInGrams) && _deepEquals(sodiumInGrams, other.sodiumInGrams) && _deepEquals(zincInGrams, other.zincInGrams) && _deepEquals(caffeineInGrams, other.caffeineInGrams);
   }
 
   @override
@@ -4958,8 +4453,7 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static TotalEnergyBurnedRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4977,20 +4471,13 @@ class TotalEnergyBurnedRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! TotalEnergyBurnedRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! TotalEnergyBurnedRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) &&
-        _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) &&
-        _deepEquals(kilocalories, other.kilocalories);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(startZoneOffsetSeconds, other.startZoneOffsetSeconds) && _deepEquals(endZoneOffsetSeconds, other.endZoneOffsetSeconds) && _deepEquals(kilocalories, other.kilocalories);
   }
 
   @override
@@ -5034,8 +4521,7 @@ class BasalMetabolicRateRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BasalMetabolicRateRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5051,18 +4537,13 @@ class BasalMetabolicRateRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! BasalMetabolicRateRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! BasalMetabolicRateRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) &&
-        _deepEquals(kilocaloriesPerDay, other.kilocaloriesPerDay);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds) && _deepEquals(kilocaloriesPerDay, other.kilocaloriesPerDay);
   }
 
   @override
@@ -5106,8 +4587,7 @@ class BoneMassRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BoneMassRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5129,11 +4609,7 @@ class BoneMassRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(kilograms, other.kilograms) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(kilograms, other.kilograms) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -5177,8 +4653,7 @@ class HeartRateVariabilityRMSSDRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HeartRateVariabilityRMSSDRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5194,21 +4669,13 @@ class HeartRateVariabilityRMSSDRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HeartRateVariabilityRMSSDRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HeartRateVariabilityRMSSDRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(
-          heartRateVariabilityMillis,
-          other.heartRateVariabilityMillis,
-        ) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(heartRateVariabilityMillis, other.heartRateVariabilityMillis) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -5252,8 +4719,7 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BodyWaterMassRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5275,11 +4741,7 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) &&
-        _deepEquals(metadata, other.metadata) &&
-        _deepEquals(time, other.time) &&
-        _deepEquals(kilograms, other.kilograms) &&
-        _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
+    return _deepEquals(id, other.id) && _deepEquals(metadata, other.metadata) && _deepEquals(time, other.time) && _deepEquals(kilograms, other.kilograms) && _deepEquals(zoneOffsetSeconds, other.zoneOffsetSeconds);
   }
 
   @override
@@ -5309,8 +4771,7 @@ class HealthDataSyncTokenDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthDataSyncTokenDto decode(Object result) {
     result as List<Object?>;
@@ -5330,9 +4791,7 @@ class HealthDataSyncTokenDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(token, other.token) &&
-        _deepEquals(dataTypes, other.dataTypes) &&
-        _deepEquals(createdAtMillis, other.createdAtMillis);
+    return _deepEquals(token, other.token) && _deepEquals(dataTypes, other.dataTypes) && _deepEquals(createdAtMillis, other.createdAtMillis);
   }
 
   @override
@@ -5366,8 +4825,7 @@ class HealthDataSyncResultDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthDataSyncResultDto decode(Object result) {
     result as List<Object?>;
@@ -5388,10 +4846,7 @@ class HealthDataSyncResultDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(upsertedRecords, other.upsertedRecords) &&
-        _deepEquals(deletedRecordIds, other.deletedRecordIds) &&
-        _deepEquals(hasMore, other.hasMore) &&
-        _deepEquals(nextSyncToken, other.nextSyncToken);
+    return _deepEquals(upsertedRecords, other.upsertedRecords) && _deepEquals(deletedRecordIds, other.deletedRecordIds) && _deepEquals(hasMore, other.hasMore) && _deepEquals(nextSyncToken, other.nextSyncToken);
   }
 
   @override
@@ -5400,14 +4855,15 @@ class HealthDataSyncResultDto {
 }
 
 /// Represents a permission request.
-sealed class PermissionRequestDto {}
+sealed class PermissionRequestDto {
+}
 
 /// Represents the result of a permission request.
-sealed class PermissionRequestResultDto {}
+sealed class PermissionRequestResultDto {
+}
 
 /// Represents the result of a feature permission request.
-class HealthPlatformFeaturePermissionRequestResultDto
-    extends PermissionRequestResultDto {
+class HealthPlatformFeaturePermissionRequestResultDto extends PermissionRequestResultDto {
   HealthPlatformFeaturePermissionRequestResultDto({
     required this.feature,
     required this.status,
@@ -5427,8 +4883,7 @@ class HealthPlatformFeaturePermissionRequestResultDto
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthPlatformFeaturePermissionRequestResultDto decode(Object result) {
     result as List<Object?>;
@@ -5441,15 +4896,13 @@ class HealthPlatformFeaturePermissionRequestResultDto
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthPlatformFeaturePermissionRequestResultDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HealthPlatformFeaturePermissionRequestResultDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(feature, other.feature) &&
-        _deepEquals(status, other.status);
+    return _deepEquals(feature, other.feature) && _deepEquals(status, other.status);
   }
 
   @override
@@ -5478,8 +4931,7 @@ class HealthDataPermissionRequestDto extends PermissionRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthDataPermissionRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5492,15 +4944,13 @@ class HealthDataPermissionRequestDto extends PermissionRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthDataPermissionRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HealthDataPermissionRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(accessType, other.accessType) &&
-        _deepEquals(healthDataType, other.healthDataType);
+    return _deepEquals(accessType, other.accessType) && _deepEquals(healthDataType, other.healthDataType);
   }
 
   @override
@@ -5529,8 +4979,7 @@ class HealthDataPermissionRequestResultDto extends PermissionRequestResultDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthDataPermissionRequestResultDto decode(Object result) {
     result as List<Object?>;
@@ -5543,15 +4992,13 @@ class HealthDataPermissionRequestResultDto extends PermissionRequestResultDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthDataPermissionRequestResultDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HealthDataPermissionRequestResultDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(permission, other.permission) &&
-        _deepEquals(status, other.status);
+    return _deepEquals(permission, other.permission) && _deepEquals(status, other.status);
   }
 
   @override
@@ -5574,8 +5021,7 @@ class HealthPlatformFeaturePermissionRequest extends PermissionRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthPlatformFeaturePermissionRequest decode(Object result) {
     result as List<Object?>;
@@ -5587,8 +5033,7 @@ class HealthPlatformFeaturePermissionRequest extends PermissionRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthPlatformFeaturePermissionRequest ||
-        other.runtimeType != runtimeType) {
+    if (other is! HealthPlatformFeaturePermissionRequest || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5621,8 +5066,7 @@ class ExerciseRoutePermissionRequestDto extends PermissionRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ExerciseRoutePermissionRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5634,8 +5078,7 @@ class ExerciseRoutePermissionRequestDto extends PermissionRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ExerciseRoutePermissionRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ExerciseRoutePermissionRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5650,8 +5093,7 @@ class ExerciseRoutePermissionRequestDto extends PermissionRequestDto {
 }
 
 /// Represents the result of an exercise route permission request.
-class ExerciseRoutePermissionRequestResultDto
-    extends PermissionRequestResultDto {
+class ExerciseRoutePermissionRequestResultDto extends PermissionRequestResultDto {
   ExerciseRoutePermissionRequestResultDto({
     required this.permission,
     required this.status,
@@ -5671,8 +5113,7 @@ class ExerciseRoutePermissionRequestResultDto
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ExerciseRoutePermissionRequestResultDto decode(Object result) {
     result as List<Object?>;
@@ -5685,15 +5126,13 @@ class ExerciseRoutePermissionRequestResultDto
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ExerciseRoutePermissionRequestResultDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ExerciseRoutePermissionRequestResultDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(permission, other.permission) &&
-        _deepEquals(status, other.status);
+    return _deepEquals(permission, other.permission) && _deepEquals(status, other.status);
   }
 
   @override
@@ -5717,14 +5156,12 @@ class PermissionRequestsDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PermissionRequestsDto decode(Object result) {
     result as List<Object?>;
     return PermissionRequestsDto(
-      permissionRequests: (result[0]! as List<Object?>)
-          .cast<PermissionRequestDto>(),
+      permissionRequests: (result[0]! as List<Object?>).cast<PermissionRequestDto>(),
     );
   }
 
@@ -5746,7 +5183,8 @@ class PermissionRequestsDto {
 }
 
 /// Sealed class for all aggregation request DTOs.
-sealed class AggregateRequestDto {}
+sealed class AggregateRequestDto {
+}
 
 /// Request to perform aggregation on common health records.
 class StandardAggregateRequestDto extends AggregateRequestDto {
@@ -5779,8 +5217,7 @@ class StandardAggregateRequestDto extends AggregateRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static StandardAggregateRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5795,17 +5232,13 @@ class StandardAggregateRequestDto extends AggregateRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! StandardAggregateRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! StandardAggregateRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(aggregationMetric, other.aggregationMetric) &&
-        _deepEquals(dataType, other.dataType) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startTime, other.startTime);
+    return _deepEquals(aggregationMetric, other.aggregationMetric) && _deepEquals(dataType, other.dataType) && _deepEquals(endTime, other.endTime) && _deepEquals(startTime, other.startTime);
   }
 
   @override
@@ -5844,8 +5277,7 @@ class BloodPressureAggregateRequestDto extends AggregateRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BloodPressureAggregateRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5860,17 +5292,13 @@ class BloodPressureAggregateRequestDto extends AggregateRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! BloodPressureAggregateRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! BloodPressureAggregateRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(aggregationMetric, other.aggregationMetric) &&
-        _deepEquals(bloodPressureDataType, other.bloodPressureDataType) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startTime, other.startTime);
+    return _deepEquals(aggregationMetric, other.aggregationMetric) && _deepEquals(bloodPressureDataType, other.bloodPressureDataType) && _deepEquals(endTime, other.endTime) && _deepEquals(startTime, other.startTime);
   }
 
   @override
@@ -5915,8 +5343,7 @@ class ActivityIntensityAggregateRequestDto extends AggregateRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ActivityIntensityAggregateRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5931,17 +5358,13 @@ class ActivityIntensityAggregateRequestDto extends AggregateRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ActivityIntensityAggregateRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ActivityIntensityAggregateRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(dataType, other.dataType) &&
-        _deepEquals(intensityType, other.intensityType) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startTime, other.startTime);
+    return _deepEquals(dataType, other.dataType) && _deepEquals(intensityType, other.intensityType) && _deepEquals(endTime, other.endTime) && _deepEquals(startTime, other.startTime);
   }
 
   @override
@@ -5950,7 +5373,8 @@ class ActivityIntensityAggregateRequestDto extends AggregateRequestDto {
 }
 
 /// Request to delete records.
-sealed class DeleteRecordsRequestDto {}
+sealed class DeleteRecordsRequestDto {
+}
 
 /// Request to delete specific records by their IDs.
 class DeleteRecordsByIdsRequestDto extends DeleteRecordsRequestDto {
@@ -5973,8 +5397,7 @@ class DeleteRecordsByIdsRequestDto extends DeleteRecordsRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static DeleteRecordsByIdsRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5987,15 +5410,13 @@ class DeleteRecordsByIdsRequestDto extends DeleteRecordsRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! DeleteRecordsByIdsRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DeleteRecordsByIdsRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(dataType, other.dataType) &&
-        _deepEquals(recordIds, other.recordIds);
+    return _deepEquals(dataType, other.dataType) && _deepEquals(recordIds, other.recordIds);
   }
 
   @override
@@ -6029,8 +5450,7 @@ class DeleteRecordsByTimeRangeRequestDto extends DeleteRecordsRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static DeleteRecordsByTimeRangeRequestDto decode(Object result) {
     result as List<Object?>;
@@ -6044,16 +5464,13 @@ class DeleteRecordsByTimeRangeRequestDto extends DeleteRecordsRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! DeleteRecordsByTimeRangeRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DeleteRecordsByTimeRangeRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(dataType, other.dataType) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(startTime, other.startTime);
+    return _deepEquals(dataType, other.dataType) && _deepEquals(endTime, other.endTime) && _deepEquals(startTime, other.startTime);
   }
 
   @override
@@ -6082,8 +5499,7 @@ class ReadRecordRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ReadRecordRequestDto decode(Object result) {
     result as List<Object?>;
@@ -6102,8 +5518,7 @@ class ReadRecordRequestDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(recordId, other.recordId) &&
-        _deepEquals(dataType, other.dataType);
+    return _deepEquals(recordId, other.recordId) && _deepEquals(dataType, other.dataType);
   }
 
   @override
@@ -6159,8 +5574,7 @@ class ReadRecordsRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ReadRecordsRequestDto decode(Object result) {
     result as List<Object?>;
@@ -6184,13 +5598,7 @@ class ReadRecordsRequestDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(dataType, other.dataType) &&
-        _deepEquals(pageSize, other.pageSize) &&
-        _deepEquals(pageToken, other.pageToken) &&
-        _deepEquals(startTime, other.startTime) &&
-        _deepEquals(endTime, other.endTime) &&
-        _deepEquals(dataOriginPackageNames, other.dataOriginPackageNames) &&
-        _deepEquals(sortOrder, other.sortOrder);
+    return _deepEquals(dataType, other.dataType) && _deepEquals(pageSize, other.pageSize) && _deepEquals(pageToken, other.pageToken) && _deepEquals(startTime, other.startTime) && _deepEquals(endTime, other.endTime) && _deepEquals(dataOriginPackageNames, other.dataOriginPackageNames) && _deepEquals(sortOrder, other.sortOrder);
   }
 
   @override
@@ -6219,8 +5627,7 @@ class ReadRecordsResponseDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ReadRecordsResponseDto decode(Object result) {
     result as List<Object?>;
@@ -6239,8 +5646,7 @@ class ReadRecordsResponseDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(nextPageToken, other.nextPageToken) &&
-        _deepEquals(records, other.records);
+    return _deepEquals(nextPageToken, other.nextPageToken) && _deepEquals(records, other.records);
   }
 
   @override
@@ -6274,8 +5680,7 @@ class HealthConnectorExceptionDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthConnectorExceptionDto decode(Object result) {
     result as List<Object?>;
@@ -6289,16 +5694,13 @@ class HealthConnectorExceptionDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthConnectorExceptionDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HealthConnectorExceptionDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(code, other.code) &&
-        _deepEquals(message, other.message) &&
-        _deepEquals(cause, other.cause);
+    return _deepEquals(code, other.code) && _deepEquals(message, other.message) && _deepEquals(cause, other.cause);
   }
 
   @override
@@ -6357,8 +5759,7 @@ class HealthConnectorLogDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthConnectorLogDto decode(Object result) {
     result as List<Object?>;
@@ -6383,20 +5784,14 @@ class HealthConnectorLogDto {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(level, other.level) &&
-        _deepEquals(tag, other.tag) &&
-        _deepEquals(millisecondsSinceEpoch, other.millisecondsSinceEpoch) &&
-        _deepEquals(message, other.message) &&
-        _deepEquals(operation, other.operation) &&
-        _deepEquals(exception, other.exception) &&
-        _deepEquals(stackTrace, other.stackTrace) &&
-        _deepEquals(context, other.context);
+    return _deepEquals(level, other.level) && _deepEquals(tag, other.tag) && _deepEquals(millisecondsSinceEpoch, other.millisecondsSinceEpoch) && _deepEquals(message, other.message) && _deepEquals(operation, other.operation) && _deepEquals(exception, other.exception) && _deepEquals(stackTrace, other.stackTrace) && _deepEquals(context, other.context);
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
 }
+
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -6405,316 +5800,316 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    } else if (value is DeviceTypeDto) {
+    }    else if (value is DeviceTypeDto) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    } else if (value is RecordingMethodDto) {
+    }    else if (value is RecordingMethodDto) {
       buffer.putUint8(130);
       writeValue(buffer, value.index);
-    } else if (value is CervicalMucusAppearanceDto) {
+    }    else if (value is CervicalMucusAppearanceDto) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    } else if (value is CervicalMucusSensationDto) {
+    }    else if (value is CervicalMucusSensationDto) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    } else if (value is SexualActivityProtectionUsedDto) {
+    }    else if (value is SexualActivityProtectionUsedDto) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    } else if (value is OvulationTestResultDto) {
+    }    else if (value is OvulationTestResultDto) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    } else if (value is BasalBodyTemperatureMeasurementLocationDto) {
+    }    else if (value is BasalBodyTemperatureMeasurementLocationDto) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    } else if (value is SkinTemperatureMeasurementLocationDto) {
+    }    else if (value is SkinTemperatureMeasurementLocationDto) {
       buffer.putUint8(136);
       writeValue(buffer, value.index);
-    } else if (value is MenstrualFlowDto) {
+    }    else if (value is MenstrualFlowDto) {
       buffer.putUint8(137);
       writeValue(buffer, value.index);
-    } else if (value is Vo2MaxMeasurementMethodDto) {
+    }    else if (value is Vo2MaxMeasurementMethodDto) {
       buffer.putUint8(138);
       writeValue(buffer, value.index);
-    } else if (value is MealTypeDto) {
+    }    else if (value is MealTypeDto) {
       buffer.putUint8(139);
       writeValue(buffer, value.index);
-    } else if (value is BodyPositionDto) {
+    }    else if (value is BodyPositionDto) {
       buffer.putUint8(140);
       writeValue(buffer, value.index);
-    } else if (value is MeasurementLocationDto) {
+    }    else if (value is MeasurementLocationDto) {
       buffer.putUint8(141);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseRelationToMealDto) {
+    }    else if (value is BloodGlucoseRelationToMealDto) {
       buffer.putUint8(142);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseSpecimenSourceDto) {
+    }    else if (value is BloodGlucoseSpecimenSourceDto) {
       buffer.putUint8(143);
       writeValue(buffer, value.index);
-    } else if (value is ActivityIntensityTypeDto) {
+    }    else if (value is ActivityIntensityTypeDto) {
       buffer.putUint8(144);
       writeValue(buffer, value.index);
-    } else if (value is ExerciseTypeDto) {
+    }    else if (value is ExerciseTypeDto) {
       buffer.putUint8(145);
       writeValue(buffer, value.index);
-    } else if (value is MindfulnessSessionTypeDto) {
+    }    else if (value is MindfulnessSessionTypeDto) {
       buffer.putUint8(146);
       writeValue(buffer, value.index);
-    } else if (value is HealthDataTypeDto) {
+    }    else if (value is HealthDataTypeDto) {
       buffer.putUint8(147);
       writeValue(buffer, value.index);
-    } else if (value is SleepStageDto) {
+    }    else if (value is SleepStageDto) {
       buffer.putUint8(148);
       writeValue(buffer, value.index);
-    } else if (value is ExerciseSegmentTypeDto) {
+    }    else if (value is ExerciseSegmentTypeDto) {
       buffer.putUint8(149);
       writeValue(buffer, value.index);
-    } else if (value is HealthConnectorErrorCodeDto) {
+    }    else if (value is HealthConnectorErrorCodeDto) {
       buffer.putUint8(150);
       writeValue(buffer, value.index);
-    } else if (value is HealthPlatformStatusDto) {
+    }    else if (value is HealthPlatformStatusDto) {
       buffer.putUint8(151);
       writeValue(buffer, value.index);
-    } else if (value is PermissionAccessTypeDto) {
+    }    else if (value is PermissionAccessTypeDto) {
       buffer.putUint8(152);
       writeValue(buffer, value.index);
-    } else if (value is PermissionStatusDto) {
+    }    else if (value is PermissionStatusDto) {
       buffer.putUint8(153);
       writeValue(buffer, value.index);
-    } else if (value is HealthPlatformFeatureDto) {
+    }    else if (value is HealthPlatformFeatureDto) {
       buffer.putUint8(154);
       writeValue(buffer, value.index);
-    } else if (value is HealthPlatformFeatureStatusDto) {
+    }    else if (value is HealthPlatformFeatureStatusDto) {
       buffer.putUint8(155);
       writeValue(buffer, value.index);
-    } else if (value is AggregationMetricDto) {
+    }    else if (value is AggregationMetricDto) {
       buffer.putUint8(156);
       writeValue(buffer, value.index);
-    } else if (value is SortOrderDto) {
+    }    else if (value is SortOrderDto) {
       buffer.putUint8(157);
       writeValue(buffer, value.index);
-    } else if (value is BloodPressureDataTypeDto) {
+    }    else if (value is BloodPressureDataTypeDto) {
       buffer.putUint8(158);
       writeValue(buffer, value.index);
-    } else if (value is HealthConnectorLogLevelDto) {
+    }    else if (value is HealthConnectorLogLevelDto) {
       buffer.putUint8(159);
       writeValue(buffer, value.index);
-    } else if (value is HealthConnectorConfigDto) {
+    }    else if (value is HealthConnectorConfigDto) {
       buffer.putUint8(160);
       writeValue(buffer, value.encode());
-    } else if (value is MetadataDto) {
+    }    else if (value is MetadataDto) {
       buffer.putUint8(161);
       writeValue(buffer, value.encode());
-    } else if (value is BloodGlucoseRecordDto) {
+    }    else if (value is BloodGlucoseRecordDto) {
       buffer.putUint8(162);
       writeValue(buffer, value.encode());
-    } else if (value is RestingHeartRateRecordDto) {
+    }    else if (value is RestingHeartRateRecordDto) {
       buffer.putUint8(163);
       writeValue(buffer, value.encode());
-    } else if (value is OxygenSaturationRecordDto) {
+    }    else if (value is OxygenSaturationRecordDto) {
       buffer.putUint8(164);
       writeValue(buffer, value.encode());
-    } else if (value is OvulationTestRecordDto) {
+    }    else if (value is OvulationTestRecordDto) {
       buffer.putUint8(165);
       writeValue(buffer, value.encode());
-    } else if (value is IntermenstrualBleedingRecordDto) {
+    }    else if (value is IntermenstrualBleedingRecordDto) {
       buffer.putUint8(166);
       writeValue(buffer, value.encode());
-    } else if (value is MenstrualFlowInstantRecordDto) {
+    }    else if (value is MenstrualFlowInstantRecordDto) {
       buffer.putUint8(167);
       writeValue(buffer, value.encode());
-    } else if (value is MenstruationPeriodRecordDto) {
+    }    else if (value is MenstruationPeriodRecordDto) {
       buffer.putUint8(168);
       writeValue(buffer, value.encode());
-    } else if (value is RespiratoryRateRecordDto) {
+    }    else if (value is RespiratoryRateRecordDto) {
       buffer.putUint8(169);
       writeValue(buffer, value.encode());
-    } else if (value is Vo2MaxRecordDto) {
+    }    else if (value is Vo2MaxRecordDto) {
       buffer.putUint8(170);
       writeValue(buffer, value.encode());
-    } else if (value is ActiveEnergyBurnedRecordDto) {
+    }    else if (value is ActiveEnergyBurnedRecordDto) {
       buffer.putUint8(171);
       writeValue(buffer, value.encode());
-    } else if (value is DistanceRecordDto) {
+    }    else if (value is DistanceRecordDto) {
       buffer.putUint8(172);
       writeValue(buffer, value.encode());
-    } else if (value is FloorsClimbedRecordDto) {
+    }    else if (value is FloorsClimbedRecordDto) {
       buffer.putUint8(173);
       writeValue(buffer, value.encode());
-    } else if (value is WheelchairPushesRecordDto) {
+    }    else if (value is WheelchairPushesRecordDto) {
       buffer.putUint8(174);
       writeValue(buffer, value.encode());
-    } else if (value is StepsRecordDto) {
+    }    else if (value is StepsRecordDto) {
       buffer.putUint8(175);
       writeValue(buffer, value.encode());
-    } else if (value is WeightRecordDto) {
+    }    else if (value is WeightRecordDto) {
       buffer.putUint8(176);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureRecordDto) {
+    }    else if (value is BloodPressureRecordDto) {
       buffer.putUint8(177);
       writeValue(buffer, value.encode());
-    } else if (value is LeanBodyMassRecordDto) {
+    }    else if (value is LeanBodyMassRecordDto) {
       buffer.putUint8(178);
       writeValue(buffer, value.encode());
-    } else if (value is HeightRecordDto) {
+    }    else if (value is HeightRecordDto) {
       buffer.putUint8(179);
       writeValue(buffer, value.encode());
-    } else if (value is BodyFatPercentageRecordDto) {
+    }    else if (value is BodyFatPercentageRecordDto) {
       buffer.putUint8(180);
       writeValue(buffer, value.encode());
-    } else if (value is BodyTemperatureRecordDto) {
+    }    else if (value is BodyTemperatureRecordDto) {
       buffer.putUint8(181);
       writeValue(buffer, value.encode());
-    } else if (value is BasalBodyTemperatureRecordDto) {
+    }    else if (value is BasalBodyTemperatureRecordDto) {
       buffer.putUint8(182);
       writeValue(buffer, value.encode());
-    } else if (value is CervicalMucusRecordDto) {
+    }    else if (value is CervicalMucusRecordDto) {
       buffer.putUint8(183);
       writeValue(buffer, value.encode());
-    } else if (value is HydrationRecordDto) {
+    }    else if (value is HydrationRecordDto) {
       buffer.putUint8(184);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateSampleDto) {
+    }    else if (value is HeartRateSampleDto) {
       buffer.putUint8(185);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateSeriesRecordDto) {
+    }    else if (value is HeartRateSeriesRecordDto) {
       buffer.putUint8(186);
       writeValue(buffer, value.encode());
-    } else if (value is CyclingPedalingCadenceSampleDto) {
+    }    else if (value is CyclingPedalingCadenceSampleDto) {
       buffer.putUint8(187);
       writeValue(buffer, value.encode());
-    } else if (value is CyclingPedalingCadenceSeriesRecordDto) {
+    }    else if (value is CyclingPedalingCadenceSeriesRecordDto) {
       buffer.putUint8(188);
       writeValue(buffer, value.encode());
-    } else if (value is StepsCadenceSampleDto) {
+    }    else if (value is StepsCadenceSampleDto) {
       buffer.putUint8(189);
       writeValue(buffer, value.encode());
-    } else if (value is StepsCadenceSeriesRecordDto) {
+    }    else if (value is StepsCadenceSeriesRecordDto) {
       buffer.putUint8(190);
       writeValue(buffer, value.encode());
-    } else if (value is ElevationGainedRecordDto) {
+    }    else if (value is ElevationGainedRecordDto) {
       buffer.putUint8(191);
       writeValue(buffer, value.encode());
-    } else if (value is SpeedSampleDto) {
+    }    else if (value is SpeedSampleDto) {
       buffer.putUint8(192);
       writeValue(buffer, value.encode());
-    } else if (value is SpeedSeriesRecordDto) {
+    }    else if (value is SpeedSeriesRecordDto) {
       buffer.putUint8(193);
       writeValue(buffer, value.encode());
-    } else if (value is PowerSampleDto) {
+    }    else if (value is PowerSampleDto) {
       buffer.putUint8(194);
       writeValue(buffer, value.encode());
-    } else if (value is PowerSeriesRecordDto) {
+    }    else if (value is PowerSeriesRecordDto) {
       buffer.putUint8(195);
       writeValue(buffer, value.encode());
-    } else if (value is SkinTemperatureDeltaSampleDto) {
+    }    else if (value is SkinTemperatureDeltaSampleDto) {
       buffer.putUint8(196);
       writeValue(buffer, value.encode());
-    } else if (value is SkinTemperatureDeltaSeriesRecordDto) {
+    }    else if (value is SkinTemperatureDeltaSeriesRecordDto) {
       buffer.putUint8(197);
       writeValue(buffer, value.encode());
-    } else if (value is SleepStageSampleDto) {
+    }    else if (value is SleepStageSampleDto) {
       buffer.putUint8(198);
       writeValue(buffer, value.encode());
-    } else if (value is SleepSessionRecordDto) {
+    }    else if (value is SleepSessionRecordDto) {
       buffer.putUint8(199);
       writeValue(buffer, value.encode());
-    } else if (value is SexualActivityRecordDto) {
+    }    else if (value is SexualActivityRecordDto) {
       buffer.putUint8(200);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseSessionLapEventDto) {
+    }    else if (value is ExerciseSessionLapEventDto) {
       buffer.putUint8(201);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseSessionSegmentEventDto) {
+    }    else if (value is ExerciseSessionSegmentEventDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseRouteLocationDto) {
+    }    else if (value is ExerciseRouteLocationDto) {
       buffer.putUint8(203);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseRouteDto) {
+    }    else if (value is ExerciseRouteDto) {
       buffer.putUint8(204);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseSessionRecordDto) {
+    }    else if (value is ExerciseSessionRecordDto) {
       buffer.putUint8(205);
       writeValue(buffer, value.encode());
-    } else if (value is ActivityIntensityRecordDto) {
+    }    else if (value is ActivityIntensityRecordDto) {
       buffer.putUint8(206);
       writeValue(buffer, value.encode());
-    } else if (value is MindfulnessSessionRecordDto) {
+    }    else if (value is MindfulnessSessionRecordDto) {
       buffer.putUint8(207);
       writeValue(buffer, value.encode());
-    } else if (value is NutritionRecordDto) {
+    }    else if (value is NutritionRecordDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
-    } else if (value is TotalEnergyBurnedRecordDto) {
+    }    else if (value is TotalEnergyBurnedRecordDto) {
       buffer.putUint8(209);
       writeValue(buffer, value.encode());
-    } else if (value is BasalMetabolicRateRecordDto) {
+    }    else if (value is BasalMetabolicRateRecordDto) {
       buffer.putUint8(210);
       writeValue(buffer, value.encode());
-    } else if (value is BoneMassRecordDto) {
+    }    else if (value is BoneMassRecordDto) {
       buffer.putUint8(211);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateVariabilityRMSSDRecordDto) {
+    }    else if (value is HeartRateVariabilityRMSSDRecordDto) {
       buffer.putUint8(212);
       writeValue(buffer, value.encode());
-    } else if (value is BodyWaterMassRecordDto) {
+    }    else if (value is BodyWaterMassRecordDto) {
       buffer.putUint8(213);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataSyncTokenDto) {
+    }    else if (value is HealthDataSyncTokenDto) {
       buffer.putUint8(214);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataSyncResultDto) {
+    }    else if (value is HealthDataSyncResultDto) {
       buffer.putUint8(215);
       writeValue(buffer, value.encode());
-    } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
+    }    else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
       buffer.putUint8(216);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestDto) {
+    }    else if (value is HealthDataPermissionRequestDto) {
       buffer.putUint8(217);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestResultDto) {
+    }    else if (value is HealthDataPermissionRequestResultDto) {
       buffer.putUint8(218);
       writeValue(buffer, value.encode());
-    } else if (value is HealthPlatformFeaturePermissionRequest) {
+    }    else if (value is HealthPlatformFeaturePermissionRequest) {
       buffer.putUint8(219);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseRoutePermissionRequestDto) {
+    }    else if (value is ExerciseRoutePermissionRequestDto) {
       buffer.putUint8(220);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseRoutePermissionRequestResultDto) {
+    }    else if (value is ExerciseRoutePermissionRequestResultDto) {
       buffer.putUint8(221);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionRequestsDto) {
+    }    else if (value is PermissionRequestsDto) {
       buffer.putUint8(222);
       writeValue(buffer, value.encode());
-    } else if (value is StandardAggregateRequestDto) {
+    }    else if (value is StandardAggregateRequestDto) {
       buffer.putUint8(223);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureAggregateRequestDto) {
+    }    else if (value is BloodPressureAggregateRequestDto) {
       buffer.putUint8(224);
       writeValue(buffer, value.encode());
-    } else if (value is ActivityIntensityAggregateRequestDto) {
+    }    else if (value is ActivityIntensityAggregateRequestDto) {
       buffer.putUint8(225);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    }    else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(226);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    }    else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(227);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    }    else if (value is ReadRecordRequestDto) {
       buffer.putUint8(228);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
+    }    else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(229);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
+    }    else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(230);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorExceptionDto) {
+    }    else if (value is HealthConnectorExceptionDto) {
       buffer.putUint8(231);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorLogDto) {
+    }    else if (value is HealthConnectorLogDto) {
       buffer.putUint8(232);
       writeValue(buffer, value.encode());
     } else {
@@ -6739,22 +6134,16 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : CervicalMucusSensationDto.values[value];
       case 133:
         final value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : SexualActivityProtectionUsedDto.values[value];
+        return value == null ? null : SexualActivityProtectionUsedDto.values[value];
       case 134:
         final value = readValue(buffer) as int?;
         return value == null ? null : OvulationTestResultDto.values[value];
       case 135:
         final value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : BasalBodyTemperatureMeasurementLocationDto.values[value];
+        return value == null ? null : BasalBodyTemperatureMeasurementLocationDto.values[value];
       case 136:
         final value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : SkinTemperatureMeasurementLocationDto.values[value];
+        return value == null ? null : SkinTemperatureMeasurementLocationDto.values[value];
       case 137:
         final value = readValue(buffer) as int?;
         return value == null ? null : MenstrualFlowDto.values[value];
@@ -6772,14 +6161,10 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : MeasurementLocationDto.values[value];
       case 142:
         final value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : BloodGlucoseRelationToMealDto.values[value];
+        return value == null ? null : BloodGlucoseRelationToMealDto.values[value];
       case 143:
         final value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : BloodGlucoseSpecimenSourceDto.values[value];
+        return value == null ? null : BloodGlucoseSpecimenSourceDto.values[value];
       case 144:
         final value = readValue(buffer) as int?;
         return value == null ? null : ActivityIntensityTypeDto.values[value];
@@ -6815,9 +6200,7 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : HealthPlatformFeatureDto.values[value];
       case 155:
         final value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : HealthPlatformFeatureStatusDto.values[value];
+        return value == null ? null : HealthPlatformFeatureStatusDto.values[value];
       case 156:
         final value = readValue(buffer) as int?;
         return value == null ? null : AggregationMetricDto.values[value];
@@ -6943,23 +6326,17 @@ class _PigeonCodec extends StandardMessageCodec {
       case 215:
         return HealthDataSyncResultDto.decode(readValue(buffer)!);
       case 216:
-        return HealthPlatformFeaturePermissionRequestResultDto.decode(
-          readValue(buffer)!,
-        );
+        return HealthPlatformFeaturePermissionRequestResultDto.decode(readValue(buffer)!);
       case 217:
         return HealthDataPermissionRequestDto.decode(readValue(buffer)!);
       case 218:
         return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
       case 219:
-        return HealthPlatformFeaturePermissionRequest.decode(
-          readValue(buffer)!,
-        );
+        return HealthPlatformFeaturePermissionRequest.decode(readValue(buffer)!);
       case 220:
         return ExerciseRoutePermissionRequestDto.decode(readValue(buffer)!);
       case 221:
-        return ExerciseRoutePermissionRequestResultDto.decode(
-          readValue(buffer)!,
-        );
+        return ExerciseRoutePermissionRequestResultDto.decode(readValue(buffer)!);
       case 222:
         return PermissionRequestsDto.decode(readValue(buffer)!);
       case 223:
@@ -7010,36 +6387,25 @@ abstract class HealthConnectorNativeLogApi {
   /// native platform's logging pipeline.
   void onNativeLogEvent(HealthConnectorLogDto log);
 
-  static void setUp(
-    HealthConnectorNativeLogApi? api, {
-    BinaryMessenger? binaryMessenger,
-    String messageChannelSuffix = '',
-  }) {
-    messageChannelSuffix = messageChannelSuffix.isNotEmpty
-        ? '.$messageChannelSuffix'
-        : '';
+  static void setUp(HealthConnectorNativeLogApi? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorNativeLogApi.onNativeLogEvent$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
+          'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorNativeLogApi.onNativeLogEvent$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
           final List<Object?> args = message! as List<Object?>;
-          final HealthConnectorLogDto arg_log =
-              args[0]! as HealthConnectorLogDto;
+          final HealthConnectorLogDto arg_log = args[0]! as HealthConnectorLogDto;
           try {
             api.onNativeLogEvent(arg_log);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
@@ -7051,13 +6417,9 @@ class HealthConnectorHCAndroidApi {
   /// Constructor for [HealthConnectorHCAndroidApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  HealthConnectorHCAndroidApi({
-    BinaryMessenger? binaryMessenger,
-    String messageChannelSuffix = '',
-  }) : pigeonVar_binaryMessenger = binaryMessenger,
-       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
-           ? '.$messageChannelSuffix'
-           : '';
+  HealthConnectorHCAndroidApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+      : pigeonVar_binaryMessenger = binaryMessenger,
+        pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -7069,28 +6431,25 @@ class HealthConnectorHCAndroidApi {
   /// This method must be called before any other Health Connector operations
   /// to properly configure the native platform code, including logger settings.
   Future<void> initialize(HealthConnectorConfigDto config) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.initialize$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.initialize$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[config],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[config]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: true,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
   }
 
   Future<void> launchHealthConnectPageInGooglePlay() async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.launchHealthConnectPageInGooglePlay$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.launchHealthConnectPageInGooglePlay$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
@@ -7100,79 +6459,71 @@ class HealthConnectorHCAndroidApi {
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: true,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
   }
 
   Future<double> aggregate(AggregateRequestDto request) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.aggregate$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.aggregate$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
     return pigeonVar_replyValue! as double;
   }
 
   Future<void> deleteRecords(DeleteRecordsRequestDto request) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.deleteRecords$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.deleteRecords$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: true,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
   }
 
-  Future<HealthPlatformFeatureStatusDto> getFeatureStatus(
-    HealthPlatformFeatureDto feature,
-  ) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getFeatureStatus$pigeonVar_messageChannelSuffix';
+  Future<HealthPlatformFeatureStatusDto> getFeatureStatus(HealthPlatformFeatureDto feature) async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getFeatureStatus$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[feature],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[feature]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
     return pigeonVar_replyValue! as HealthPlatformFeatureStatusDto;
   }
 
   Future<HealthPlatformStatusDto> getHealthPlatformStatus() async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getHealthPlatformStatus$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getHealthPlatformStatus$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
@@ -7182,40 +6533,35 @@ class HealthConnectorHCAndroidApi {
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
     return pigeonVar_replyValue! as HealthPlatformStatusDto;
   }
 
-  Future<List<PermissionRequestResultDto>> requestPermissions(
-    PermissionRequestsDto request,
-  ) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.requestPermissions$pigeonVar_messageChannelSuffix';
+  Future<List<PermissionRequestResultDto>> requestPermissions(PermissionRequestsDto request) async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.requestPermissions$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
-    return (pigeonVar_replyValue! as List<Object?>)
-        .cast<PermissionRequestResultDto>();
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
+    return (pigeonVar_replyValue! as List<Object?>).cast<PermissionRequestResultDto>();
   }
 
   Future<List<PermissionRequestResultDto>> getGrantedPermissions() async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getGrantedPermissions$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getGrantedPermissions$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
@@ -7225,17 +6571,16 @@ class HealthConnectorHCAndroidApi {
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
-    return (pigeonVar_replyValue! as List<Object?>)
-        .cast<PermissionRequestResultDto>();
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
+    return (pigeonVar_replyValue! as List<Object?>).cast<PermissionRequestResultDto>();
   }
 
   Future<void> revokeAllPermissions() async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.revokeAllPermissions$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.revokeAllPermissions$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
@@ -7245,203 +6590,179 @@ class HealthConnectorHCAndroidApi {
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: true,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
   }
 
-  Future<PermissionStatusDto> getPermissionStatus(
-    PermissionRequestDto permission,
-  ) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getPermissionStatus$pigeonVar_messageChannelSuffix';
+  Future<PermissionStatusDto> getPermissionStatus(PermissionRequestDto permission) async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getPermissionStatus$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[permission],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[permission]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
     return pigeonVar_replyValue! as PermissionStatusDto;
   }
 
   Future<HealthRecordDto?> readRecord(ReadRecordRequestDto request) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readRecord$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readRecord$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: true,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
     return pigeonVar_replyValue as HealthRecordDto?;
   }
 
-  Future<ReadRecordsResponseDto> readRecords(
-    ReadRecordsRequestDto request,
-  ) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readRecords$pigeonVar_messageChannelSuffix';
+  Future<ReadRecordsResponseDto> readRecords(ReadRecordsRequestDto request) async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readRecords$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
     return pigeonVar_replyValue! as ReadRecordsResponseDto;
   }
 
   Future<String> writeRecord(HealthRecordDto record) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.writeRecord$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.writeRecord$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[record],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[record]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
     return pigeonVar_replyValue! as String;
   }
 
   Future<List<String>> writeRecords(List<HealthRecordDto> records) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.writeRecords$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.writeRecords$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[records],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[records]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
     return (pigeonVar_replyValue! as List<Object?>).cast<String>();
   }
 
   Future<void> updateRecord(HealthRecordDto record) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecord$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecord$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[record],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[record]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: true,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
   }
 
   Future<void> updateRecords(List<HealthRecordDto> records) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecords$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecords$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[records],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[records]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: true,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
   }
 
-  Future<HealthDataSyncResultDto> synchronize(
-    List<HealthDataTypeDto> dataTypes,
-    HealthDataSyncTokenDto? syncToken,
-  ) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.synchronize$pigeonVar_messageChannelSuffix';
+  Future<HealthDataSyncResultDto> synchronize(List<HealthDataTypeDto> dataTypes, HealthDataSyncTokenDto? syncToken) async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.synchronize$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[dataTypes, syncToken],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[dataTypes, syncToken]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: false,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
     return pigeonVar_replyValue! as HealthDataSyncResultDto;
   }
 
   Future<ExerciseRouteDto?> readExerciseRoute(String exerciseSessionId) async {
-    final pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readExerciseRoute$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readExerciseRoute$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[exerciseSessionId],
-    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[exerciseSessionId]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-      pigeonVar_replyList,
-      pigeonVar_channelName,
-      isNullValid: true,
-    );
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: true,
+    )
+    ;
     return pigeonVar_replyValue as ExerciseRouteDto?;
   }
 }
