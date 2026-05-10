@@ -106,7 +106,10 @@ internal fun ExerciseTypeDto.toHealthConnectExerciseType(): Int = when (this) {
 /**
  * Maps Health Connect exercise type integer to [ExerciseTypeDto].
  *
- * @return The corresponding ExerciseTypeDto, or UNKNOWN for unrecognized types
+ * @return The corresponding ExerciseTypeDto, or [ExerciseTypeDto.OTHER] for the
+ * Health Connect `EXERCISE_TYPE_OTHER_WORKOUT` value as well as any unrecognized
+ * type integer (so reads degrade gracefully when the Health Connect SDK adds new
+ * exercise types).
  */
 // Suppressed because handles 50+ exercise types in a single `when` expression
 // to leverage Kotlin's exhaustiveness checking, ensuring compile-time safety when new data types
@@ -196,6 +199,9 @@ internal fun Int.toExerciseTypeDto(): ExerciseTypeDto = when (this) {
     // Wheelchair Activities
     ExerciseSessionRecord.EXERCISE_TYPE_WHEELCHAIR -> ExerciseTypeDto.WHEELCHAIR
 
-    // Fallback for unknown types
-    else -> throw IllegalArgumentException("Unsupported exercise type: $this")
+    // Other or unrecognized types fall back to OTHER so reads do not fail when
+    // Health Connect returns EXERCISE_TYPE_OTHER_WORKOUT (0) or a newer SDK-added
+    // type that we have not mapped explicitly yet.
+    ExerciseSessionRecord.EXERCISE_TYPE_OTHER_WORKOUT -> ExerciseTypeDto.OTHER
+    else -> ExerciseTypeDto.OTHER
 }
