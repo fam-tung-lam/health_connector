@@ -11,7 +11,8 @@ import 'package:health_connector/health_connector_internal.dart'
         ExerciseSessionStateTransitionType,
         ExerciseSegmentType,
         HealthPlatform,
-        Length;
+        Length,
+        Mass;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/exercise_segment_type_extension.dart';
@@ -65,6 +66,10 @@ class _ExerciseSessionEventFormFieldGroupState
   bool get _supportsIOSOnlyEvents =>
       widget.healthPlatform == HealthPlatform.appleHealth;
 
+  /// Whether Health Connect-only fields (e.g., segment weight) are supported.
+  bool get _supportsHealthConnectOnlyFields =>
+      widget.healthPlatform == HealthPlatform.healthConnect;
+
   @override
   void initState() {
     super.initState();
@@ -95,6 +100,7 @@ class _ExerciseSessionEventFormFieldGroupState
                 ExerciseSessionSegmentEvent(
                   :final segmentType,
                   :final repetitions,
+                  :final weight,
                 ) =>
                   _EventEntry(
                     type: _EventType.segment,
@@ -102,6 +108,7 @@ class _ExerciseSessionEventFormFieldGroupState
                     endTime: endTime,
                     segmentType: segmentType,
                     repetitions: repetitions,
+                    weightKg: weight?.inKilograms,
                   ),
               },
           };
@@ -169,6 +176,9 @@ class _ExerciseSessionEventFormFieldGroupState
             endTime: entry.endTime,
             segmentType: entry.segmentType!,
             repetitions: entry.repetitions,
+            weight: entry.weightKg != null
+                ? Mass.kilograms(entry.weightKg!)
+                : null,
           );
       }
 
@@ -276,6 +286,7 @@ class _ExerciseSessionEventFormFieldGroupState
         repetitions: type == _EventType.segment
             ? currentEntry.repetitions
             : null,
+        weightKg: type == _EventType.segment ? currentEntry.weightKg : null,
       );
     });
     _notifyChanged();
@@ -317,6 +328,16 @@ class _ExerciseSessionEventFormFieldGroupState
         repetitions: repetitions != null && repetitions > 0
             ? repetitions
             : null,
+      );
+    });
+    _notifyChanged();
+  }
+
+  void _updateWeight(int index, String? value) {
+    final weightKg = double.tryParse(value ?? '');
+    setState(() {
+      _events[index] = _events[index].copyWith(
+        weightKg: weightKg != null && weightKg > 0 ? weightKg : null,
       );
     });
     _notifyChanged();
@@ -612,6 +633,25 @@ class _ExerciseSessionEventFormFieldGroupState
                             onChanged: (value) =>
                                 _updateRepetitions(index, value),
                           ),
+                          if (_supportsHealthConnectOnlyFields) ...[
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              key: ValueKey('weight-$index-${event.type}'),
+                              initialValue: event.weightKg?.toString(),
+                              decoration: const InputDecoration(
+                                labelText: AppTexts.segmentWeightOptional,
+                                suffixText: AppTexts.kilogram,
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(AppIcons.fitnessCenter),
+                                helperText: AppTexts.segmentWeightHelper,
+                              ),
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                    decimal: true,
+                                  ),
+                              onChanged: (value) => _updateWeight(index, value),
+                            ),
+                          ],
                         ],
                       ],
                     ),
@@ -656,6 +696,7 @@ class _EventEntry {
     this.segmentType,
     this.distanceMeters,
     this.repetitions,
+    this.weightKg,
   });
 
   final _EventType type;
@@ -665,6 +706,7 @@ class _EventEntry {
   final ExerciseSegmentType? segmentType;
   final double? distanceMeters;
   final int? repetitions;
+  final double? weightKg;
 
   _EventEntry copyWith({
     _EventType? type,
@@ -674,6 +716,7 @@ class _EventEntry {
     ExerciseSegmentType? segmentType,
     double? distanceMeters,
     int? repetitions,
+    double? weightKg,
   }) {
     return _EventEntry(
       type: type ?? this.type,
@@ -683,6 +726,7 @@ class _EventEntry {
       segmentType: segmentType ?? this.segmentType,
       distanceMeters: distanceMeters ?? this.distanceMeters,
       repetitions: repetitions ?? this.repetitions,
+      weightKg: weightKg ?? this.weightKg,
     );
   }
 }

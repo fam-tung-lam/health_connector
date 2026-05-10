@@ -108,6 +108,7 @@ final class ExerciseSessionTile extends StatelessWidget {
           ExerciseSessionSegmentEvent(
             :final segmentType,
             :final repetitions,
+            :final weight,
           ) =>
             () {
               final duration = endTime.difference(startTime);
@@ -115,10 +116,19 @@ final class ExerciseSessionTile extends StatelessWidget {
                   '${duration.inMinutes}m ${duration.inSeconds % 60}s';
               final startTimeStr = timeFormat.format(startTime);
               final endTimeStr = timeFormat.format(endTime);
+              final weightStr =
+                  '${weight?.inKilograms.toStringAsFixed(1)} '
+                  '${AppTexts.kilogram}';
+              final details = <String>[
+                if (repetitions != null)
+                  '$repetitions ${AppTexts.repetitions.toLowerCase()}',
+                weightStr,
+              ];
+              final detailsStr = details.isNotEmpty
+                  ? ' (${details.join(", ")})'
+                  : '';
               return '${AppTexts.segmentEvent}: '
-                  '${segmentType.displayName}${repetitions != null ? " "
-                            "($repetitions "
-                            "${AppTexts.repetitions.toLowerCase()})" : ""} '
+                  '${segmentType.displayName}$detailsStr '
                   '($startTimeStr - $endTimeStr, $durationStr)';
             }(),
         },

@@ -1364,6 +1364,10 @@ abstract final class AppTexts {
   static const String repetitionsOptional = '$repetitions (optional)';
   static const String segmentRepetitionsHelper =
       'Optional number of repetitions';
+  static const String segmentWeight = 'Segment Weight';
+  static const String segmentWeightOptional = '$segmentWeight (optional)';
+  static const String segmentWeightHelper =
+      'Optional weight in kilograms (Android Health Connect only)';
   static const String meters = 'meters';
   static const String metersAbbr = 'm';
 
