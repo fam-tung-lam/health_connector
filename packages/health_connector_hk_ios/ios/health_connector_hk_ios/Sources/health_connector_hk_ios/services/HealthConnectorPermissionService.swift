@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Internal service responsible for managing HealthKit permissions.
-struct HealthConnectorPermissionService: Sendable, Taggable {
+struct HealthConnectorPermissionService: Taggable {
     private let store: HKHealthStore
 
     init(store: HKHealthStore) {

@@ -22,7 +22,7 @@ import HealthKit
 /// ```
 ///
 /// However, this pattern **does not compile** in generic classes.
-// The following would produce a compiler error:
+/// The following would produce a compiler error:
 /// ```swift
 /// // ❌ ERROR: Static stored properties not supported in generic types
 /// static let dataType: HealthDataTypeDto = T.dataType
@@ -46,15 +46,15 @@ class DistanceActivityHandler<T: DistanceActivityHandlerConfig>: Sendable,
 {
     typealias RecordDto = DistanceActivityRecordDto
     typealias SampleType = HKQuantitySample
-    // HKHealthStore is Sendable, so no @unchecked needed
+    /// HKHealthStore is Sendable, so no @unchecked needed
     nonisolated(unsafe) let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
         self.healthStore = healthStore
     }
 
-    // Note: These are computed properties (not stored) due to Swift's limitation with
-    // static stored properties in generic types. See class documentation for details.
+    /// Note: These are computed properties (not stored) due to Swift's limitation with
+    /// static stored properties in generic types. See class documentation for details.
     static var dataType: HealthDataTypeDto {
         T.dataType
     }
@@ -68,8 +68,7 @@ class DistanceActivityHandler<T: DistanceActivityHandlerConfig>: Sendable,
     }
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let meters = quantity.doubleValue(for: .meter())
-        return meters
+        quantity.doubleValue(for: .meter())
     }
 }
 

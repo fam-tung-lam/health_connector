@@ -100,7 +100,8 @@ extension CervicalMucusRecordDto {
 
         // Build metadata using centralized builder
         var builder = try MetadataBuilder(
-            from: metadata)
+            from: metadata
+        )
         builder.set(CervicalMucusAppearanceKey.self, value: appearance)
         builder.set(CervicalMucusSensationKey.self, value: sensation)
 

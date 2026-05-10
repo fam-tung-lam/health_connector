@@ -254,7 +254,9 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
                     guard let newAnchor else {
                         continuation.resume(
                             throwing: HealthConnectorError.unknownError(
-                                message: "Unified query returned nil anchor"))
+                                message: "Unified query returned nil anchor"
+                            )
+                        )
                         return
                     }
 
@@ -264,7 +266,8 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
                             samples ?? [],
                             deletedObjects ?? [],
                             newAnchor
-                        ))
+                        )
+                    )
                 }
             )
             store.execute(query)

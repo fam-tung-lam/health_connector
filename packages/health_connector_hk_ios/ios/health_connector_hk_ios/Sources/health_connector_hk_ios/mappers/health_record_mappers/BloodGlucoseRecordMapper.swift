@@ -21,7 +21,8 @@ extension BloodGlucoseRecordDto {
 
         // Build metadata using centralized builder
         var builder = try MetadataBuilder(
-            from: metadata)
+            from: metadata
+        )
 
         // Store all enum values using type-safe custom keys
         if let relation = relationToMeal {
@@ -125,7 +126,8 @@ extension HKQuantitySample {
                 for: HKUnit.moleUnit(
                     with: .milli,
                     molarMass: HKUnitMolarMassBloodGlucose
-                ).unitDivided(by: .liter())),
+                ).unitDivided(by: .liter())
+            ),
             mealType: meal,
             relationToMeal: relation,
             specimenSource: source,

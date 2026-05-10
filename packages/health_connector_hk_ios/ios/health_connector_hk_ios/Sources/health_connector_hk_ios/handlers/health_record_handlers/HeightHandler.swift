@@ -21,7 +21,6 @@ final class HeightHandler: @unchecked Sendable,
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let meters = quantity.doubleValue(for: .meter())
-        return meters
+        quantity.doubleValue(for: .meter())
     }
 }

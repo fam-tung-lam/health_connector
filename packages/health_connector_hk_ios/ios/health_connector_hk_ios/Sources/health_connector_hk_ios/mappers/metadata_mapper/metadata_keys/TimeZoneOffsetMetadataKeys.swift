@@ -16,7 +16,10 @@ enum StartTimeZoneOffsetKey: CustomMetadataKey {
 
     static let keySuffix = "start_time_zone_offset"
 
-    static func serialize(_ value: Int64) -> Any { NSNumber(value: value) }
+    static func serialize(_ value: Int64) -> Any {
+        NSNumber(value: value)
+    }
+
     static func deserialize(_ rawValue: Any?) -> Int64? {
         (rawValue as? NSNumber)?.int64Value
     }
@@ -58,7 +61,10 @@ enum EndTimeZoneOffsetKey: CustomMetadataKey {
 
     static let keySuffix = "end_time_zone_offset"
 
-    static func serialize(_ value: Int64) -> Any { NSNumber(value: value) }
+    static func serialize(_ value: Int64) -> Any {
+        NSNumber(value: value)
+    }
+
     static func deserialize(_ rawValue: Any?) -> Int64? {
         (rawValue as? NSNumber)?.int64Value
     }

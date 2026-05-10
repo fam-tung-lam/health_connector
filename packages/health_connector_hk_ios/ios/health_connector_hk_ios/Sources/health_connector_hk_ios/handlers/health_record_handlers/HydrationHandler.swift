@@ -21,7 +21,6 @@ final class HydrationHandler: @unchecked Sendable,
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let liters = quantity.doubleValue(for: .liter())
-        return liters
+        quantity.doubleValue(for: .liter())
     }
 }

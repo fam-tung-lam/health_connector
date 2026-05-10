@@ -236,8 +236,13 @@ enum ExerciseSessionTitleKey: CustomMetadataKey {
 
     static let keySuffix = "workout_title"
 
-    static func serialize(_ value: String) -> Any { value }
-    static func deserialize(_ rawValue: Any?) -> String? { rawValue as? String }
+    static func serialize(_ value: String) -> Any {
+        value
+    }
+
+    static func deserialize(_ rawValue: Any?) -> String? {
+        rawValue as? String
+    }
 }
 
 /// Custom metadata key for storing workout notes.
@@ -251,8 +256,13 @@ enum ExerciseSessionNotesKey: CustomMetadataKey {
 
     static let keySuffix = "workout_notes"
 
-    static func serialize(_ value: String) -> Any { value }
-    static func deserialize(_ rawValue: Any?) -> String? { rawValue as? String }
+    static func serialize(_ value: String) -> Any {
+        value
+    }
+
+    static func deserialize(_ rawValue: Any?) -> String? {
+        rawValue as? String
+    }
 }
 
 /// Custom metadata key for storing exercise segment type.
@@ -279,7 +289,10 @@ enum ExerciseSegmentRepetitionsKey: CustomMetadataKey {
 
     static let keySuffix = "repetitions"
 
-    static func serialize(_ value: Int) -> Any { NSNumber(value: value) }
+    static func serialize(_ value: Int) -> Any {
+        NSNumber(value: value)
+    }
+
     static func deserialize(_ rawValue: Any?) -> Int? {
         (rawValue as? NSNumber)?.intValue
     }

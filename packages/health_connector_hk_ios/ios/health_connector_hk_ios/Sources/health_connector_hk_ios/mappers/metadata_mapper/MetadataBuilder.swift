@@ -131,9 +131,11 @@ final class MetadataBuilder {
 
         // Custom keys explicitly store timezone offsets
         baseMetadata[StartTimeZoneOffsetKey.fullKey] = StartTimeZoneOffsetKey.serialize(
-            resolvedStartOffset)
+            resolvedStartOffset
+        )
         baseMetadata[EndTimeZoneOffsetKey.fullKey] = EndTimeZoneOffsetKey.serialize(
-            resolvedEndOffset)
+            resolvedEndOffset
+        )
 
         // Store device type in custom metadata
         baseMetadata[DeviceTypeKey.fullKey] = DeviceTypeKey.serialize(dto.deviceType)
