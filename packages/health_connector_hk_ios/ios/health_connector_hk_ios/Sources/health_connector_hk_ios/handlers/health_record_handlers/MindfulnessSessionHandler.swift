@@ -68,11 +68,8 @@ extension MindfulnessSessionHandler {
 
             let samples = try await readAllRecords(startTime: startTime, endTime: endTime)
 
-            let totalMindfulnessSeconds =
-                samples
-                    .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
-
-            return totalMindfulnessSeconds
+            return samples
+                .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
         }
     }
 }

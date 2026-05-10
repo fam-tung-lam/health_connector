@@ -32,8 +32,8 @@ final class ExerciseSessionHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .exerciseSession
 
-    // Exercise sessions only support sum aggregation (total duration)
-    // For counting workouts, use sum with duration as the metric
+    /// Exercise sessions only support sum aggregation (total duration)
+    /// For counting workouts, use sum with duration as the metric
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 }
 

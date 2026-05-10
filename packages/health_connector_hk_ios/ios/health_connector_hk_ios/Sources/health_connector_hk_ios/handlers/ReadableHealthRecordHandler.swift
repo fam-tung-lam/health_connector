@@ -51,7 +51,7 @@ protocol ReadableHealthRecordHandler: HealthRecordHandler {
 /// // Converting to Date for HealthKit queries
 /// let date = token.toDate()
 /// ```
-struct PaginationToken: Equatable, Sendable {
+struct PaginationToken: Equatable {
     /// The timestamp in milliseconds since epoch
     let timestamp: Int64
 
@@ -93,7 +93,9 @@ struct PaginationToken: Equatable, Sendable {
 
 extension ReadableHealthRecordHandler {
     /// Default page size for record reading
-    static var defaultPageSize: Int { 1000 }
+    static var defaultPageSize: Int {
+        1000
+    }
 
     /// Maximum number of samples to query when discovering HKSource objects
     ///
@@ -101,7 +103,9 @@ extension ReadableHealthRecordHandler {
     /// HealthKit doesn't provide direct source lookup by bundle ID, so we query
     /// a sample of records to collect sources. In most cases, 1000 samples is
     /// sufficient to find all relevant sources.
-    private static var sourceDiscoveryLimit: Int { 1000 }
+    private static var sourceDiscoveryLimit: Int {
+        1000
+    }
 
     /// Fetches all samples within a time range (no pagination)
     ///
@@ -377,7 +381,8 @@ extension ReadableHealthRecordHandler {
                             }
 
                             continuation.resume(
-                                returning: (records: dtos, pageToken: nextPageToken))
+                                returning: (records: dtos, pageToken: nextPageToken)
+                            )
                         } catch {
                             continuation.resume(throwing: error)
                         }

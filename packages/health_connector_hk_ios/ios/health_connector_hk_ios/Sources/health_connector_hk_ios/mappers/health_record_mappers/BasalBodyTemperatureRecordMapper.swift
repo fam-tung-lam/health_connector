@@ -67,7 +67,8 @@ extension HKQuantitySample {
         // Extract timezone offset and measurement location from metadata
         let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let measurementLocation = BasalBodyTemperatureMeasurementLocationKey.readOrDefault(
-            from: builder.metadataDict)
+            from: builder.metadataDict
+        )
 
         return try BasalBodyTemperatureRecordDto(
             id: uuid.uuidString,

@@ -319,7 +319,7 @@ extension HKSample {
     }
 }
 
-// Using convenience initializers or static factory methods allows for idiomatic "try HKQuantityType(...)" usage.
+/// Using convenience initializers or static factory methods allows for idiomatic "try HKQuantityType(...)" usage.
 extension HKQuantityType {
     /// Creates an instance for the given identifier, throwing an error if unavailable.
     ///
@@ -385,6 +385,6 @@ extension HKCategoryValueSleepAnalysis {
 /// These constants provide type-safe access to those values.
 enum IOS16SleepStageRawValue: Int {
     case light = 3 // asleepCore — AASM stages 1-2
-    case deep = 4  // asleepDeep — AASM stage 3
-    case rem = 5   // asleepREM
+    case deep = 4 // asleepDeep — AASM stage 3
+    case rem = 5 // asleepREM
 }

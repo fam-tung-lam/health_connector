@@ -69,7 +69,8 @@ extension HKQuantitySample {
             metadata?[HKMetadataKeyInsulinDeliveryReason] as? Int
                 ?? HKInsulinDeliveryReason.basal.rawValue
         let reason = InsulinDeliveryReasonDto.from(
-            hkInsulinDeliveryReason: HKInsulinDeliveryReason(rawValue: reasonRawValue) ?? .basal)
+            hkInsulinDeliveryReason: HKInsulinDeliveryReason(rawValue: reasonRawValue) ?? .basal
+        )
 
         // Extract timezone offsets from metadata
         let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)

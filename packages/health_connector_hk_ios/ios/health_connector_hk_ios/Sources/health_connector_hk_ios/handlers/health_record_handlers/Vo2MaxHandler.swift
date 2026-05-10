@@ -25,7 +25,6 @@ final class Vo2MaxHandler: @unchecked Sendable,
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: .gramUnit(with: .kilo))
             .unitDivided(by: .minute())
-        let vo2Max = quantity.doubleValue(for: unit)
-        return vo2Max
+        return quantity.doubleValue(for: unit)
     }
 }

@@ -19,7 +19,6 @@ final class AtrialFibrillationBurdenHandler: @unchecked Sendable,
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let percentage = quantity.doubleValue(for: .percent())
-        return percentage
+        quantity.doubleValue(for: .percent())
     }
 }

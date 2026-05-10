@@ -21,7 +21,6 @@ final class HeadphoneAudioExposureHandler: @unchecked Sendable,
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let db = quantity.doubleValue(for: .decibelAWeightedSoundPressureLevel())
-        return db
+        quantity.doubleValue(for: .decibelAWeightedSoundPressureLevel())
     }
 }

@@ -18,11 +18,10 @@ final class WaistCircumferenceHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .waistCircumference
 
-    // Supports min, max, avg, sum
+    /// Supports min, max, avg, sum
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg, .sum]
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let meters = quantity.doubleValue(for: .meter())
-        return meters
+        quantity.doubleValue(for: .meter())
     }
 }

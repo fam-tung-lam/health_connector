@@ -21,7 +21,6 @@ final class LeanBodyMassHandler: @unchecked Sendable,
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let kilograms = quantity.doubleValue(for: .gramUnit(with: .kilo))
-        return kilograms
+        quantity.doubleValue(for: .gramUnit(with: .kilo))
     }
 }

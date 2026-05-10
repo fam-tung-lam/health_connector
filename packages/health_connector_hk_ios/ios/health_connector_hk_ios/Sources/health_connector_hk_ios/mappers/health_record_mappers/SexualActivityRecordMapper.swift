@@ -49,7 +49,8 @@ extension SexualActivityRecordDto {
 
         // Build metadata using centralized builder
         var builder = try MetadataBuilder(
-            from: metadata)
+            from: metadata
+        )
 
         // Store in native key `HKMetadataKeySexualActivityProtectionUsed` for `protected` and
         // `unprotected`, remove for `unknown`

@@ -57,12 +57,9 @@ extension SleepStageHandler {
 
             let samples = try await readAllRecords(startTime: startTime, endTime: endTime)
 
-            let totalSleepSeconds =
-                samples
-                    .filter(isActualSleepStage)
-                    .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
-
-            return totalSleepSeconds
+            return samples
+                .filter(isActualSleepStage)
+                .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
         }
     }
 

@@ -6,8 +6,8 @@ import HealthKit
 ///
 /// This actor provides a thin orchestration layer that validates requests and
 /// delegates all business logic to specialized handler instances.
-//
-// The client is responsible for:
+///
+/// The client is responsible for:
 /// - Validating input parameters (time ranges, record IDs, etc.)
 /// - Looking up appropriate handlers from the registry
 /// - Delegating operations to handlers

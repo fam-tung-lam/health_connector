@@ -22,15 +22,15 @@ class SpeedActivityHandler<T: SpeedActivityHandlerConfig>: Sendable,
 {
     typealias RecordDto = SpeedActivityRecordDto
     typealias SampleType = HKQuantitySample
-    // HKHealthStore is Sendable, so no @unchecked needed
+    /// HKHealthStore is Sendable, so no @unchecked needed
     nonisolated(unsafe) let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
         self.healthStore = healthStore
     }
 
-    // Note: These are computed properties (not stored) due to Swift's limitation with
-    // static stored properties in generic types.
+    /// Note: These are computed properties (not stored) due to Swift's limitation with
+    /// static stored properties in generic types.
     static var dataType: HealthDataTypeDto {
         T.dataType
     }
@@ -44,8 +44,7 @@ class SpeedActivityHandler<T: SpeedActivityHandlerConfig>: Sendable,
     }
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let metersPerSecond = quantity.doubleValue(for: HKUnit.meter().unitDivided(by: .second()))
-        return metersPerSecond
+        quantity.doubleValue(for: HKUnit.meter().unitDivided(by: .second()))
     }
 }
 

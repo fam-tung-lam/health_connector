@@ -21,7 +21,6 @@ final class RespiratoryRateHandler: @unchecked Sendable,
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
     func convertQuantity(_ quantity: HKQuantity) throws -> Double {
-        let rpm = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
-        return rpm
+        quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
     }
 }
