@@ -237,8 +237,7 @@ Android {
 
 ##### Step 5: Set `compileSdkExtension` (Health Connector SDK v3.9.0+)
 
-From Health Connector SDK **v3.9.0**, which uses Google Health Connect **1.2.0-alpha03**,
-writing an `ExerciseSessionSegmentEvent` with a `weight` value requires SDK Extension level 19.
+Health Connector SDK **v3.9.0** requires SDK Extension level 19, as it is required by Google Health Connect SDK **1.2.0-alpha03**.
 
 Update `Android/app/build.gradle` (Groovy DSL) or `Android/app/build.gradle.kts` (Kotlin DSL):
 
