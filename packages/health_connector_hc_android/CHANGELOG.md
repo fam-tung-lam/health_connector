@@ -1,3 +1,8 @@
+## 3.6.0
+
+- **FIX**: Fix EXERCISE_TYPE_OTHER_WORKOUT mapping. ([e064cec9](https://github.com/fam-tung-lam/health_connector/commit/e064cec90cf1d35a1c32adc35cd7db64d8cf0117))
+- **FEAT**: add weight field to ExerciseSessionSegmentEvent. ([b747baab](https://github.com/fam-tung-lam/health_connector/commit/b747baabc8bc7ea71d804933796549f2ae0d09f4)) ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))
+
 ## 3.5.0
 
 - **FEAT**: Add support for exercise session route. ([ecbe4f0a](https://github.com/fam-tung-lam/health_connector/commit/ecbe4f0a75164d120acf644a07dc408f9cfd3d8c))

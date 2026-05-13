@@ -1,3 +1,8 @@
+## 3.9.0
+
+- **FIX**(health_connector_hc_android): Fix EXERCISE_TYPE_OTHER_WORKOUT mapping. ([e064cec9](https://github.com/fam-tung-lam/health_connector/commit/e064cec90cf1d35a1c32adc35cd7db64d8cf0117))
+- **FEAT**(health_connector_hc_android): Add weight field to ExerciseSessionSegmentEvent. ([b747baab](https://github.com/fam-tung-lam/health_connector/commit/b747baabc8bc7ea71d804933796549f2ae0d09f4)) ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))
+
 ## 3.8.1
 
 - **FIX**(health_connector_hk_ios): Correct iOS 16+ sleep stage raw value mapping. ([cb0d70f3](https://github.com/fam-tung-lam/health_connector/commit/cb0d70f3a9afe2f172725b4a2fa399ef7a78d5f4))
@@ -12,16 +17,16 @@
 
 ## 3.6.0
 
-- **FEAT**(health_connector_hk_iOS): Add support for peak expiratory flow rate data type. ([4e6c7145](https://github.com/fam-tung-lam/health_connector/commit/4e6c7145962598a4e89fb704413dd52e3ea302ac))
-- **FEAT**(health_connector_hk_iOS): Add support for headphone audio exposure event data type. ([9deb01f3](https://github.com/fam-tung-lam/health_connector/commit/9deb01f36f2ada8e23d79262326af85070869ba9))
-- **FEAT**(health_connector_hk_iOS): Add support for headphone audio exposure data type. ([c670cb6f](https://github.com/fam-tung-lam/health_connector/commit/c670cb6f52ab7484cd1d8d50e123a0afd9e6b970))
-- **FEAT**(health_connector_hk_iOS): Add support for environmental audio exposure data type. ([a337fb61](https://github.com/fam-tung-lam/health_connector/commit/a337fb61da83adb431cb253609754df6dcb9635e))
-- **FEAT**(health_connector_hk_iOS): Add support for low environmental audio exposure event data type. ([a629a7c1](https://github.com/fam-tung-lam/health_connector/commit/a629a7c1420536724bda801f83c9044933968ae4))
-- **FEAT**(health_connector_hk_iOS): Add support for low cardio fitness event data type. ([0ae65a47](https://github.com/fam-tung-lam/health_connector/commit/0ae65a47af55db58d9ed1aa8147adc07bb485538))
-- **FEAT**(health_connector_hc_Android): Add support for menstruation period data type. ([d45c46b9](https://github.com/fam-tung-lam/health_connector/commit/d45c46b94a2ce306feb14571225de8a1489912f8))
-- **FEAT**(health_connector_hc_Android): Add support for skin temperature data type.
+- **FEAT**(health_connector_hk_ios): Add support for peak expiratory flow rate data type. ([4e6c7145](https://github.com/fam-tung-lam/health_connector/commit/4e6c7145962598a4e89fb704413dd52e3ea302ac))
+- **FEAT**(health_connector_hk_ios): Add support for headphone audio exposure event data type. ([9deb01f3](https://github.com/fam-tung-lam/health_connector/commit/9deb01f36f2ada8e23d79262326af85070869ba9))
+- **FEAT**(health_connector_hk_ios): Add support for headphone audio exposure data type. ([c670cb6f](https://github.com/fam-tung-lam/health_connector/commit/c670cb6f52ab7484cd1d8d50e123a0afd9e6b970))
+- **FEAT**(health_connector_hk_ios): Add support for environmental audio exposure data type. ([a337fb61](https://github.com/fam-tung-lam/health_connector/commit/a337fb61da83adb431cb253609754df6dcb9635e))
+- **FEAT**(health_connector_hk_ios): Add support for low environmental audio exposure event data type. ([a629a7c1](https://github.com/fam-tung-lam/health_connector/commit/a629a7c1420536724bda801f83c9044933968ae4))
+- **FEAT**(health_connector_hk_ios): Add support for low cardio fitness event data type. ([0ae65a47](https://github.com/fam-tung-lam/health_connector/commit/0ae65a47af55db58d9ed1aa8147adc07bb485538))
+- **FEAT**(health_connector_hc_android): Add support for menstruation period data type. ([d45c46b9](https://github.com/fam-tung-lam/health_connector/commit/d45c46b94a2ce306feb14571225de8a1489912f8))
+- **FEAT**(health_connector_hc_android): Add support for skin temperature data type.
   ([d757efdc](https://github.com/fam-tung-lam/health_connector/commit/d757efdcab03c783b7865b5d8f59c3c3579f0de8)) ([f3c49796](https://github.com/fam-tung-lam/health_connector/commit/f3c49796f6ee17703dac10bc0d1fb5d3404f3a52))
-- **FEAT**(health_connector_hc_Android): Add support for basal metabolic rate data type. ([871e4cf7](https://github.com/fam-tung-lam/health_connector/commit/871e4cf766209cf23801a8acb32dd109291c1ffb))
+- **FEAT**(health_connector_hc_android): Add support for basal metabolic rate data type. ([871e4cf7](https://github.com/fam-tung-lam/health_connector/commit/871e4cf766209cf23801a8acb32dd109291c1ffb))
 
 ## 3.5.1
 
@@ -31,23 +36,23 @@
 
 > Note: This release has a minor breaking change.
 
-- **FEAT**(health_connector_hk_iOS): Add support for running stride length
+- **FEAT**(health_connector_hk_ios): Add support for running stride length
   and ground contact data types.
   ([204aa90b](https://github.com/fam-tung-lam/health_connector/commit/204aa90b7c5abc48e722accd4b137e9cf605ef89))
   ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**(health_connector_hk_iOS): Add support for heart rate recovery one minute data type.
+- **FEAT**(health_connector_hk_ios): Add support for heart rate recovery one minute data type.
   ([6659d324](https://github.com/fam-tung-lam/health_connector/commit/6659d324405690a73938a47c595f7ff85455ac0a))
   ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**(health_connector_hk_iOS): Add support for inhaler usage data type.
+- **FEAT**(health_connector_hk_ios): Add support for inhaler usage data type.
   ([85b48b3e](https://github.com/fam-tung-lam/health_connector/commit/85b48b3e444dfc4c0609682fb7214d409b1ec35f))
   ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**(health_connector_hk_iOS): Add support for electrodermal activity data type.
+- **FEAT**(health_connector_hk_ios): Add support for electrodermal activity data type.
   ([01287c2e](https://github.com/fam-tung-lam/health_connector/commit/01287c2e2ffbb5beaa8a7df327389a7b84b96b20))
   ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**(health_connector_hk_iOS): Add support for insulin delivery data type.
+- **FEAT**(health_connector_hk_ios): Add support for insulin delivery data type.
   ([18970e7b](https://github.com/fam-tung-lam/health_connector/commit/18970e7b82ca32a27e1bd5dd42820fb673bcd196))
   ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
-- **FEAT**(health_connector_hk_iOS): Add support for number of times fallen data type.
+- **FEAT**(health_connector_hk_ios): Add support for number of times fallen data type.
   ([1dcfc1ca](https://github.com/fam-tung-lam/health_connector/commit/1dcfc1ca5db255c76b0835e876da526394f4032a))
   ([e1031455](https://github.com/fam-tung-lam/health_connector/commit/e1031455b997d79d6337e573f3ecb05cb818870d))
 - **BREAKING** **FIX**: Use correct measurement unit types for health record
@@ -75,28 +80,28 @@
 >
 > See: [Issue #120](https://github.com/fam-tung-lam/health_connector/issues/120)
 
-- **FEAT**(health_connector_hk_iOS): Add support for forced expiratory
+- **FEAT**(health_connector_hk_ios): Add support for forced expiratory
   volume data type.
   ([4abcf879](https://github.com/fam-tung-lam/health_connector/commit/4abcf8791ff0dc6d32f07fab5db55c9550fbdd88))
-- **FEAT**(health_connector_hk_iOS): Add support for walking heart rate
+- **FEAT**(health_connector_hk_ios): Add support for walking heart rate
   average data type.
   ([bf3d2e26](https://github.com/fam-tung-lam/health_connector/commit/bf3d2e261bf72e4500d27775423bb429a879a41f))
-- **FEAT**(health_connector_hk_iOS): Add support for atrial fibrillation
+- **FEAT**(health_connector_hk_ios): Add support for atrial fibrillation
   burden data type.
   ([9c9048c8](https://github.com/fam-tung-lam/health_connector/commit/9c9048c883bdb1d3d72ca931256273ed21391b65))
-- **FEAT**(health_connector_hk_iOS): Add support for prolonged menstrual
+- **FEAT**(health_connector_hk_ios): Add support for prolonged menstrual
   period event data type.
   ([419d825c](https://github.com/fam-tung-lam/health_connector/commit/419d825c02e09880f2ba726c76ba33d4790dea49))
-- **FEAT**(health_connector_hk_iOS): Add support for persistent
+- **FEAT**(health_connector_hk_ios): Add support for persistent
   intermenstrual bleeding event data type.
   ([125df1d2](https://github.com/fam-tung-lam/health_connector/commit/125df1d247ab22c6e447afb7c46cede4d227bd4b))
-- **FEAT**(health_connector_hk_iOS): Add support for irregular menstrual
+- **FEAT**(health_connector_hk_ios): Add support for irregular menstrual
   cycle event data type.
   ([ff15998d](https://github.com/fam-tung-lam/health_connector/commit/ff15998d0c40b7b02fc65cc1cd3e6f7c3e1d6bda))
-- **FEAT**(health_connector_hk_iOS): Add support for infrequent menstrual
+- **FEAT**(health_connector_hk_ios): Add support for infrequent menstrual
   cycle event data type.
   ([e4f533fe](https://github.com/fam-tung-lam/health_connector/commit/e4f533fe1709730ad4402d79904cd9564e866380))
-- **FEAT**(health_connector_hk_iOS): Add support for walking steadiness
+- **FEAT**(health_connector_hk_ios): Add support for walking steadiness
   event data types.
   ([6e140efb](https://github.com/fam-tung-lam/health_connector/commit/6e140efb85d128ce6c36e7054ffc1d592ef4aa02))
 
@@ -109,13 +114,13 @@
 >
 > See: [Issue #120](https://github.com/fam-tung-lam/health_connector/issues/120)
 
-- **FEAT**(health_connector_hk_iOS): Add support for high heart event data
+- **FEAT**(health_connector_hk_ios): Add support for high heart event data
   type.
   ([8125ab49](https://github.com/fam-tung-lam/health_connector/commit/8125ab4987d062aa8eceebeb392999aa7e1542a2))
-- **FEAT**(health_connector_hk_iOS): Add support for low heart event data
+- **FEAT**(health_connector_hk_ios): Add support for low heart event data
   type.
   ([8125ab49](https://github.com/fam-tung-lam/health_connector/commit/8125ab4987d062aa8eceebeb392999aa7e1542a2))
-- **FEAT**(health_connector_hk_iOS): Add support for irregular heart rhythm
+- **FEAT**(health_connector_hk_ios): Add support for irregular heart rhythm
   event data type.
   ([8125ab49](https://github.com/fam-tung-lam/health_connector/commit/8125ab4987d062aa8eceebeb392999aa7e1542a2))
 
@@ -266,7 +271,7 @@
 
 ## 2.3.0
 
-- **FEAT**(health_connector_hc_Android): Implement launching health app
+- **FEAT**(health_connector_hc_android): Implement launching health app
   page in platform's app store.
   ([fcc93efc](https://github.com/fam-tung-lam/health_connector/commit/fcc93efca89874e7e023789e2d4e0cfddd1213f0))
 

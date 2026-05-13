@@ -1,3 +1,7 @@
+## 3.9.0
+
+- **FEAT**: add weight field to ExerciseSessionSegmentEvent. ([b747baab](https://github.com/fam-tung-lam/health_connector/commit/b747baabc8bc7ea71d804933796549f2ae0d09f4))
+
 ## 3.8.0
 
 - **FEAT**: Add support for exercise session route. ([ecbe4f0a](https://github.com/fam-tung-lam/health_connector/commit/ecbe4f0a75164d120acf644a07dc408f9cfd3d8c))
