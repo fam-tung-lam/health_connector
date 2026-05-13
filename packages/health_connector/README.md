@@ -153,7 +153,7 @@ Update `android/app/src/main/AndroidManifest.xml`:
         <!-- Health Connect intent filter for showing permissions rationale -->
         <activity-alias android:name="ViewPermissionUsageActivity" android:exported="true"
             android:targetActivity=".MainActivity"
-            android:permission="Android.permission.START_VIEW_PERMISSION_USAGE">
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE">
             <intent-filter>
                 <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
             </intent-filter>
@@ -224,7 +224,7 @@ Health Connect requires Android 8.0 (API 26) or higher.
 Update `android/app/build.gradle`:
 
 ```gradle
-Android {
+android {
     // Your existing configuration
 
     defaultConfig {
@@ -244,7 +244,7 @@ Update `android/app/build.gradle` (Groovy DSL) or `android/app/build.gradle.kts`
 **Groovy DSL (`build.gradle`)**:
 
 ```gradle
-Android {
+android {
     // Your existing configuration
 
     compileSdkExtension 19  // Required from Health Connector v3.9.0 (Health Connect 1.2.0-alpha03)
@@ -254,7 +254,7 @@ Android {
 **Kotlin DSL (`build.gradle.kts`)**:
 
 ```kotlin
-Android {
+android {
     // Your existing configuration
 
     compileSdkExtension = 19  // Required from Health Connector v3.9.0 (Health Connect 1.2.0-alpha03)
@@ -272,14 +272,14 @@ Android {
 
 ##### Step 1: Configure Xcode
 
-1. Open your project in Xcode (`iOS/Runner.xcworkspace`)
+1. Open your project in Xcode (`ios/Runner.xcworkspace`)
 2. Select your app target
 3. In **General** tab → Set **Minimum Deployments** to **15.0**
 4. In **Signing & Capabilities** tab → Click **+ Capability** → Add **HealthKit**
 
 ##### Step 2: Update Info.plist
 
-Add to `iOS/Runner/Info.plist`:
+Add to `ios/Runner/Info.plist`:
 
 ```xml
 
@@ -302,7 +302,7 @@ Add to `iOS/Runner/Info.plist`:
 ### ⚡ Quick Demo
 
 ```dart
-import 'package:health_connector/health_connector.Dart';
+import 'package:health_connector/health_connector.dart';
 
 Future<void> quickStart() async {
   // 1. Check platform availability
@@ -1192,7 +1192,7 @@ Synchronization follows a **two-phase flow**:
 #### Example: Complete Sync Flow
 
 ```dart
-import 'package:health_connector/health_connector.Dart';
+import 'package:health_connector/health_connector.dart';
 
 // Use SharedPreferences, secure storage, or your preferred persistence layer
 final storage = LocalTokenStorage();
