@@ -5,7 +5,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ExerciseSessionSegmentEvent,
         ExerciseSessionEvent,
         ExerciseSessionStateTransitionEvent,
-        Length;
+        Length,
+        UnsupportedOperationException;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_segment_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
@@ -44,13 +45,19 @@ extension ExerciseSessionEventToDto on ExerciseSessionEvent {
         :final endTime,
         :final segmentType,
         :final repetitions,
+        :final weight,
       ) =>
-        ExerciseSessionSegmentEventDto(
-          startTime: startTime.millisecondsSinceEpoch,
-          endTime: endTime.millisecondsSinceEpoch,
-          segmentType: segmentType.toDto(),
-          repetitions: repetitions,
-        ),
+        weight != null
+            ? throw const UnsupportedOperationException(
+                'ExerciseSessionSegmentEvent.weight is not supported on iOS '
+                'HealthKit. HKWorkoutEvent does not have a weight field.',
+              )
+            : ExerciseSessionSegmentEventDto(
+                startTime: startTime.millisecondsSinceEpoch,
+                endTime: endTime.millisecondsSinceEpoch,
+                segmentType: segmentType.toDto(),
+                repetitions: repetitions,
+              ),
     };
   }
 }

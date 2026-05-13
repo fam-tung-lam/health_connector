@@ -43,6 +43,7 @@ incremental data synchronization, and privacy-first architecture.
   - [🚧 Handle Error](#-handle-error)
   - [📝 Logging](#-logging)
   - [🏷 Annotations](#-annotations)
+    - [🏋 Exercise Segment Weight and SDK Extension 21](#-exercise-segment-weight-and-sdk-extension-21)
 
 - [📚 Advanced Usage](#-advanced-usage)
   - [🗺 Exercise Session Routes](#-exercise-session-routes)
@@ -261,8 +262,12 @@ Android {
 }
 ```
 
-> **❗ Important**: If `compileSdkExtension` is below 19, writing `ExerciseSessionSegmentEvent.weight`
-> will throw a descriptive runtime error with instructions on how to resolve it.
+> **❗ Important**: `compileSdkExtension 19` is a **compile-time** requirement for the Health Connect
+> SDK 1.2.0-alpha03. In addition, writing `ExerciseSessionSegmentEvent.weight` with a non-null value
+> performs a **runtime** device capability check: if the device's Health Connect Mainline module is
+> below SDK Extension 21, an `UnsupportedOperationException` is thrown with a descriptive message.
+> See [Exercise Segment Weight and SDK Extension 21](#-exercise-segment-weight-and-sdk-extension-21)
+> for details.
 
 #### 🍎 iOS HealthKit Setup
 
@@ -946,15 +951,16 @@ final connector = await HealthConnector.create(
 The Health Connector SDK uses annotations to communicate API stability, platform support, versioning, and usage
 constraints. Understanding these annotations helps you use the API correctly.
 
-| Annotation                         | Description                                                                                          | Usage                                                                                                                      |
-|:-----------------------------------|:-----------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------|
-| `@supportedOnHealthConnect`        | Android Health Connect only.                                                                         | Verify platform using `HealthConnector.healthPlatform` before use.                                                         |
-| `@supportedOnAppleHealth`          | iOS HealthKit only.                                                                                  | Verify platform using `HealthConnector.healthPlatform` before use.                                                         |
-| `@supportedOnAppleHealthIOS16Plus` | iOS HealthKit with iOS 16.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 16.0. |
-| `@supportedOnAppleHealthIOS17Plus` | iOS HealthKit with iOS 17.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 17.0. |
-| `@supportedOnAppleHealthIOS18Plus` | iOS HealthKit with iOS 18.0 or later.                                                                | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 18.0. |
-| `@readOnly`                        | Read-only data types representing system-calculated metrics. Cannot be written, updated, or deleted. | Use only `readRecords()` or `aggregate()`. Writing throws `UnsupportedOperationException`.                                 |
-| `@internalUse`                     | Internal SDK APIs not part of the public API surface.                                                | **Do not use in application code.** Use documented public APIs instead.                                                    |
+| Annotation                                    | Description                                                                                                                     | Usage                                                                                                                                                                |
+|:----------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `@supportedOnHealthConnect`                   | Android Health Connect only.                                                                                                    | Verify platform using `HealthConnector.healthPlatform` before use.                                                                                                   |
+| `@supportedOnAppleHealth`                     | iOS HealthKit only.                                                                                                             | Verify platform using `HealthConnector.healthPlatform` before use.                                                                                                   |
+| `@supportedOnAppleHealthIOS16Plus`            | iOS HealthKit with iOS 16.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 16.0.                                            |
+| `@supportedOnAppleHealthIOS17Plus`            | iOS HealthKit with iOS 17.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 17.0.                                            |
+| `@supportedOnAppleHealthIOS18Plus`            | iOS HealthKit with iOS 18.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 18.0.                                            |
+| `@supportedOnHealthConnectSdkExtension21`     | Android Health Connect with SDK Extension 21+ (Android 14+ with the Health Connect Mainline update).                           | Writing a non-null value on unsupported devices throws `UnsupportedOperationException`. The field is always `null` on iOS. See [note below](#-exercise-segment-weight-and-sdk-extension-21). |
+| `@readOnly`                                   | Read-only data types representing system-calculated metrics. Cannot be written, updated, or deleted.                            | Use only `readRecords()` or `aggregate()`. Writing throws `UnsupportedOperationException`.                                                                            |
+| `@internalUse`                                | Internal SDK APIs not part of the public API surface.                                                                           | **Do not use in application code.** Use documented public APIs instead.                                                                                               |
 
 > **ℹ️ Note:** Annotations can be combined. When multiple annotations are present, all constraints apply.
 
@@ -1003,6 +1009,48 @@ try {
 > **🚀 Coming Soon:** A new package `health_connector_lint` will be released in the future. This package will
 > leverage these annotations and integrate with the Dart analyzer through custom lint rules to guide developers in
 > using the SDK API correctly.
+
+#### 🏋 Exercise Segment Weight and SDK Extension 21
+
+`ExerciseSessionSegmentEvent.weight` is annotated with
+`@supportedOnHealthConnectSdkExtension21`. This field maps to
+[`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight)
+in the Health Connect SDK, which is only available on devices whose Health
+Connect Mainline module is at **SDK Extension 21 or higher**.
+
+**Platform behavior summary:**
+
+| Scenario                                          | Write behavior                                 | Read value |
+|:--------------------------------------------------|:-----------------------------------------------|:-----------|
+| Android 14+ with Mainline Extension 21+           | Persisted normally                             | Non-null   |
+| Android 14+ without Mainline Extension 21 update  | Throws `UnsupportedOperationException`         | `null`     |
+| Android < 14                                      | Throws `UnsupportedOperationException`         | `null`     |
+| iOS HealthKit                                     | Field is structurally absent; no error thrown  | `null`     |
+
+**Recommended pattern:**
+
+```dart
+// Always guard non-null weight writes
+final segment = ExerciseSessionSegmentEvent(
+  startTime: startTime,
+  endTime: endTime,
+  segmentType: ExerciseSegmentType.benchPress,
+  repetitions: 10,
+  weight: Mass.fromKilograms(80), // requires SDK Extension 21+ on Android
+);
+
+try {
+  await connector.writeRecord(exerciseSession);
+} on UnsupportedOperationException catch (e) {
+  // Device does not support ExerciseSessionSegmentEvent.weight.
+  // Either omit the weight field or inform the user.
+  print('Segment weight not supported on this device: $e');
+}
+```
+
+> **❗ Important**: This check is a **runtime** device capability check, not a compile-time
+> check. The same app binary may succeed on one Android 14 device and throw on another,
+> depending on whether that device has received the relevant Mainline update.
 
 ## 📚 Advanced Usage
 

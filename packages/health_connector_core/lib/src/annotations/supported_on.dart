@@ -152,6 +152,35 @@ const supportedOnHealthConnect = _SupportedOn(
   platform: HealthPlatform.healthConnect,
 );
 
+/// Convenience annotation for APIs that require Android Health Connect with
+/// SDK Extension 21 (Android 14+ with the Health Connect Mainline update).
+///
+/// Fields marked with this annotation are silently ignored on read **and** will
+/// cause an [UnsupportedOperationException] to be thrown on write when the
+/// device's Health Connect Mainline module is below Extension 21:
+///
+/// - Android versions older than Android 14 do not have Extension 21.
+/// - Android 14+ devices that have not yet received the Mainline update
+///   bundling Extension 21 also do not meet the requirement.
+/// - iOS HealthKit never supports these fields.
+///
+/// At runtime the SDK performs the check via
+/// `SdkExtensions.getExtensionVersion(UPSIDE_DOWN_CAKE) >= 21` and throws with
+/// a descriptive message when the device does not qualify.
+///
+/// ## References
+///
+/// - Health Connect SDK Extension versioning:
+///   <https://developer.android.com/health-and-fitness/guides/health-connect/plan/sdk-extensions>
+///
+/// {@category Annotations}
+@sinceV3_9_0
+@internalUse
+const supportedOnHealthConnectSdkExtension21 = _SupportedOn(
+  platform: HealthPlatform.healthConnect,
+  osVersion: 'SDK Extension 21+',
+);
+
 /// Convenience annotation for APIs supported only on iOS HealthKit.
 ///
 /// {@category Annotations}
