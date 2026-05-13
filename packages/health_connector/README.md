@@ -142,20 +142,20 @@ dependencies:
 
 ##### Step 1: Update AndroidManifest.xml
 
-Update `Android/app/src/main/AndroidManifest.xml`:
+Update `android/app/src/main/AndroidManifest.xml`:
 
 ```xml
 
-<manifest xmlns:Android="http://schemas.Android.com/apk/res/Android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
         <!-- Your existing configuration -->
 
         <!-- Health Connect intent filter for showing permissions rationale -->
-        <activity-alias Android:name="ViewPermissionUsageActivity" Android:exported="true"
-            Android:targetActivity=".MainActivity"
-            Android:permission="Android.permission.START_VIEW_PERMISSION_USAGE">
+        <activity-alias android:name="ViewPermissionUsageActivity" android:exported="true"
+            android:targetActivity=".MainActivity"
+            android:permission="Android.permission.START_VIEW_PERMISSION_USAGE">
             <intent-filter>
-                <action Android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
             </intent-filter>
         </activity-alias>
     </application>
@@ -163,20 +163,20 @@ Update `Android/app/src/main/AndroidManifest.xml`:
     <!-- Declare Health Connect permissions for each data type you use -->
 
     <!-- Read permissions -->
-    <uses-permission Android:name="Android.permission.health.READ_STEPS" />
-    <uses-permission Android:name="Android.permission.health.READ_WEIGHT" />
-    <uses-permission Android:name="Android.permission.health.READ_HEART_RATE" />
+    <uses-permission android:name="android.permission.health.READ_STEPS" />
+    <uses-permission android:name="android.permission.health.READ_WEIGHT" />
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE" />
     <!-- Add more read permissions... -->
 
     <!-- Write permissions -->
-    <uses-permission Android:name="Android.permission.health.WRITE_STEPS" />
-    <uses-permission Android:name="Android.permission.health.WRITE_WEIGHT" />
-    <uses-permission Android:name="Android.permission.health.WRITE_HEART_RATE" />
+    <uses-permission android:name="android.permission.health.WRITE_STEPS" />
+    <uses-permission android:name="android.permission.health.WRITE_WEIGHT" />
+    <uses-permission android:name="android.permission.health.WRITE_HEART_RATE" />
     <!-- Add more write permissions... -->
 
     <!-- Feature permissions -->
-    <uses-permission Android:name="Android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND" />
-    <uses-permission Android:name="Android.permission.health.READ_HEALTH_DATA_HISTORY" />
+    <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND" />
+    <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_HISTORY" />
     <!-- Add more feature permissions... -->
 </manifest>
 ```
@@ -187,17 +187,16 @@ Update `Android/app/src/main/AndroidManifest.xml`:
 
 ##### Step 2: Update MainActivity (Android 14+)
 
-This SDK uses the modern `registerForActivityResult` API when requesting
-permissions from Health Connect. For this to work correctly, your app's
-`MainActivity` must extend `FlutterFragmentActivity` instead of
-`FlutterActivity`.
+This SDK uses the modern `registerForActivityResult` API when requesting permissions from Health
+Connect. For this to work correctly, your app's `MainActivity` must extend `FlutterFragmentActivity`
+instead of `FlutterActivity`.
 
-Update `Android/app/src/main/Kotlin/.../MainActivity.kt`:
+Update `android/app/src/main/kotlin/.../MainActivity.kt`:
 
 ```kotlin
 package com.example.yourapp
 
-import io.Flutter.embedding.Android.FlutterFragmentActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
 class MainActivity : FlutterFragmentActivity() {
     // Your existing code
@@ -206,23 +205,23 @@ class MainActivity : FlutterFragmentActivity() {
 
 ##### Step 3: Enable AndroidX
 
-Health Connect is built on AndroidX libraries. `Android.useAndroidX=true`
-enables AndroidX support, and `Android.enableJetifier=true` automatically
+Health Connect is built on AndroidX libraries. `android.useAndroidX=true`
+enables AndroidX support, and `android.enableJetifier=true` automatically
 migrates third-party libraries to use AndroidX.
 
-Update `Android/gradle.properties`:
+Update `android/gradle.properties`:
 
 ```properties
 # Your existing configuration
-Android.enableJetifier=true
-Android.useAndroidX=true
+android.enableJetifier=true
+android.useAndroidX=true
 ```
 
 ##### Step 4: Set Minimum Android Version
 
 Health Connect requires Android 8.0 (API 26) or higher.
 
-Update `Android/app/build.gradle`:
+Update `android/app/build.gradle`:
 
 ```gradle
 Android {
@@ -240,7 +239,7 @@ Android {
 
 Health Connector SDK **v3.9.0** requires SDK Extension level 19, as it is required by Google Health Connect SDK **1.2.0-alpha03**.
 
-Update `Android/app/build.gradle` (Groovy DSL) or `Android/app/build.gradle.kts` (Kotlin DSL):
+Update `android/app/build.gradle` (Groovy DSL) or `android/app/build.gradle.kts` (Kotlin DSL):
 
 **Groovy DSL (`build.gradle`)**:
 
@@ -519,7 +518,7 @@ try {
 >   (`HealthPlatformFeatureStatus.available`) and permissions are always granted
 >   (`HealthPermissionsRequestStatus.granted`).
 >
-> - **Android:** Feature availability and permissions depend on the Health Connect
+> - **android:** Feature availability and permissions depend on the Health Connect
 >   app version and Android OS version. Always check before requesting permissions.
 
 #### Check Feature Availability
