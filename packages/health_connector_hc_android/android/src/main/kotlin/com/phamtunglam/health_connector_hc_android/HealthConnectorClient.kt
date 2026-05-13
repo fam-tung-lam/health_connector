@@ -27,6 +27,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRouteDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSessionRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSessionSegmentEventDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncTokenDto
@@ -46,6 +48,7 @@ import com.phamtunglam.health_connector_hc_android.services.HealthConnectorDataS
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermissionService
+import com.phamtunglam.health_connector_hc_android.utils.SdkExtensionUtils
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import java.time.Instant
@@ -57,7 +60,9 @@ import org.jetbrains.annotations.ApiStatus
  * Internal client wrapper for the Android Health Connect SDK.
  */
 // Suppress "TooManyFunctions" as `HealthConnectorClient` is a facade for multiple services.
-@Suppress("TooManyFunctions")
+// Suppress "LongParameterList" because `supportsHealthConnectSdkExtension21` is a
+// `@VisibleForTesting` injection seam intentionally exposed for test override.
+@Suppress("TooManyFunctions", "LongParameterList")
 internal class HealthConnectorClient @VisibleForTesting internal constructor(
     private val dispatchers: DispatcherProvider,
     private val client: HealthConnectClient,
@@ -66,6 +71,13 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     private val permissionService: HealthConnectorPermissionService,
     private val syncService: HealthConnectorDataSyncService,
     private val recordHandlerRegistry: HealthRecordHandlerRegistry,
+    /**
+     * Whether the device supports Health Connect SDK Extension 21.
+     *
+     * Evaluated once at client creation time and cached here to avoid repeated
+     * `SdkExtensions.getExtensionVersion()` calls across operations.
+     */
+    val supportsHealthConnectSdkExtension21: Boolean = SdkExtensionUtils.isAtLeastSdkExtension21(),
 ) {
     companion object {
         private const val TAG = "HealthConnectorClient"
@@ -83,6 +95,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             process("get_or_create") {
                 try {
                     val client = HealthConnectClient.getOrCreate(context)
+                    val supportsExt21 = SdkExtensionUtils.isAtLeastSdkExtension21()
                     val manifestService = HealthConnectorManifestService(context)
                     val featureService = HealthConnectorFeatureService(client.features)
                     val permissionService = HealthConnectorPermissionService(
@@ -106,6 +119,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                         permissionService = permissionService,
                         syncService = syncService,
                         recordHandlerRegistry = recordHandlerRegistry,
+                        supportsHealthConnectSdkExtension21 = supportsExt21,
                     )
                 } catch (e: UnsupportedOperationException) {
                     HealthConnectorLogger.error(
@@ -571,6 +585,8 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 )
             }
 
+            validateExerciseSessionSegmentWeights(listOf(record))
+
             val recordId = handler.writeRecord(record)
 
             HealthConnectorLogger.info(
@@ -645,6 +661,8 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                     context = context,
                 )
 
+                validateExerciseSessionSegmentWeights(records)
+
                 val response = client.insertRecords(
                     records.map { record -> record.toHealthConnect() },
                 )
@@ -702,6 +720,8 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                     message = "Type ${record.dataType} does not support updates",
                 )
             }
+
+            validateExerciseSessionSegmentWeights(listOf(record))
 
             handler.updateRecord(record)
 
@@ -770,6 +790,8 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                     )
                 }
             }
+
+            validateExerciseSessionSegmentWeights(records)
 
             client.updateRecords(
                 records.map { record -> record.toHealthConnect() },
@@ -1159,6 +1181,30 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                     )
                     null
                 }
+            }
+        }
+    }
+
+    /**
+     * Throws [HealthConnectorException.UnsupportedOperation] if any record in the list is an
+     * [ExerciseSessionRecordDto] containing a segment with a non-null `weightKg` while the
+     * device does not support SDK Extension 21.
+     */
+    private fun validateExerciseSessionSegmentWeights(records: List<HealthRecordDto>) {
+        if (supportsHealthConnectSdkExtension21) return
+
+        records.filterIsInstance<ExerciseSessionRecordDto>().forEach { exerciseDto ->
+            val hasSegmentWeight = exerciseDto.events
+                .filterIsInstance<ExerciseSessionSegmentEventDto>()
+                .any { it.weightKg != null }
+
+            if (hasSegmentWeight) {
+                throw HealthConnectorException.UnsupportedOperation(
+                    message = "Writing ExerciseSessionSegmentEvent.weight requires " +
+                        "Health Connect SDK Extension 21 (Android 14+ with the latest " +
+                        "Health Connect Mainline update). " +
+                        "This device does not meet the requirement.",
+                )
             }
         }
     }

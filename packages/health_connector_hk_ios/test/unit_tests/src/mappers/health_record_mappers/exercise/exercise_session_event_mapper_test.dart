@@ -76,7 +76,27 @@ void main() {
       expect(domain.weight, isNull);
     });
 
-    test('weight is always null on iOS for ExerciseSessionSegmentEvent', () {
+    test(
+      'toDto throws UnsupportedOperationException when weight is non-null',
+      () {
+        final startTime = DateTime(2023, 1, 1, 10).toUtc();
+        final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
+        final event = ExerciseSessionSegmentEvent(
+          startTime: startTime,
+          endTime: endTime,
+          segmentType: ExerciseSegmentType.benchPress,
+          repetitions: 8,
+          weight: const Mass.kilograms(80.0),
+        );
+
+        expect(
+          event.toDto,
+          throwsA(isA<UnsupportedOperationException>()),
+        );
+      },
+    );
+
+    test('toDto succeeds when weight is null', () {
       final startTime = DateTime(2023, 1, 1, 10).toUtc();
       final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
       final event = ExerciseSessionSegmentEvent(
@@ -84,13 +104,9 @@ void main() {
         endTime: endTime,
         segmentType: ExerciseSegmentType.benchPress,
         repetitions: 8,
-        weight: const Mass.kilograms(80.0),
       );
 
-      final dto = event.toDto() as ExerciseSessionSegmentEventDto;
-
-      final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
-      expect(domain.weight, isNull);
+      expect(event.toDto, returnsNormally);
     });
   });
 }
