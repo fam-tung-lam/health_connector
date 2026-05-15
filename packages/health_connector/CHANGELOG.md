@@ -1,7 +1,9 @@
 ## 3.9.0
 
 - **FIX**(health_connector_hc_android): Fix EXERCISE_TYPE_OTHER_WORKOUT mapping. ([e064cec9](https://github.com/fam-tung-lam/health_connector/commit/e064cec90cf1d35a1c32adc35cd7db64d8cf0117))
-- **FEAT**(health_connector_hc_android): Add weight field to ExerciseSessionSegmentEvent. ([b747baab](https://github.com/fam-tung-lam/health_connector/commit/b747baabc8bc7ea71d804933796549f2ae0d09f4)) ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))
+- **FEAT**(health_connector_hc_android): Add support for `ExerciseSessionSegmentEvent.weight`. ([b747baab](https://github.com/fam-tung-lam/health_connector/commit/b747baabc8bc7ea71d804933796549f2ae0d09f4)) ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))
+- **BUILD**(health_connector_hc_android): Bump Health Connect SDK to `1.2.0-alpha03` for `ExerciseSessionSegmentEvent.weight` API. ([b747baab](https://github.com/fam-tung-lam/health_connector/commit/b747baabc8bc7ea71d804933796549f2ae0d09f4)) ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))
+- **BUILD**(health_connector_hc_android): Pin `compileSdkExtension = 19` in `health_connector_hc_android` plugin for Health Connect SDK `1.2.0-alpha03`. ([b747baab](https://github.com/fam-tung-lam/health_connector/commit/b747baabc8bc7ea71d804933796549f2ae0d09f4)) ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))
 
 ## 3.8.1
 
