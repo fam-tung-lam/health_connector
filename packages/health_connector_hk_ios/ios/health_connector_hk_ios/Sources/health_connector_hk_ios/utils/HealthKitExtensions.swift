@@ -51,8 +51,6 @@ extension HKSample {
                 return .activeCaloriesBurned
             case HKQuantityTypeIdentifier.basalEnergyBurned.rawValue:
                 return .basalEnergyBurned
-            case HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue:
-                return .distance
             case HKQuantityTypeIdentifier.flightsClimbed.rawValue:
                 return .floorsClimbed
             case HKQuantityTypeIdentifier.pushCount.rawValue:
