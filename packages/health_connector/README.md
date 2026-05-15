@@ -1019,12 +1019,12 @@ Connect Mainline module is at **SDK Extension 21 or higher**.
 
 **Platform behavior summary:**
 
-| Scenario                                          | Write behavior                                 | Read value |
-|:--------------------------------------------------|:-----------------------------------------------|:-----------|
-| Android 14+ with Mainline Extension 21+           | Persisted normally                             | Non-null   |
-| Android 14+ without Mainline Extension 21 update  | Throws `UnsupportedOperationException`         | `null`     |
-| Android < 14                                      | Throws `UnsupportedOperationException`         | `null`     |
-| iOS HealthKit                                     | Field is structurally absent; no error thrown  | `null`     |
+| Scenario                                          | Write behavior                           | Read value |
+|:--------------------------------------------------|:-----------------------------------------|:-----------|
+| Android 14+ with Mainline Extension 21+           | Persisted normally                       | Non-null   |
+| Android 14+ without Mainline Extension 21 update  | Throws `UnsupportedOperationException`   | `null`     |
+| Android < 14                                      | Throws `UnsupportedOperationException`   | `null`     |
+| iOS HealthKit                                     | Throws `UnsupportedOperationException`   | `null`     |
 
 **Recommended pattern:**
 
