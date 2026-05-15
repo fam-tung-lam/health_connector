@@ -1,3 +1,8 @@
+## 3.9.1
+
+- **FIX**(health_connector): Fix casing in README Platform Setup section. ([35e3aae6](https://github.com/fam-tung-lam/health_connector/commit/35e3aae69f79f541237a8f8441f71d7be18335e7))
+- **FEAT**(health_connector_hk_ios): Throw `UnsupportedException` for non-nullable value ExerciseSessionSegmentEvent.weight on iOS. ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))
+
 ## 3.9.0
 
 - **FIX**(health_connector_hc_android): Fix EXERCISE_TYPE_OTHER_WORKOUT mapping. ([e064cec9](https://github.com/fam-tung-lam/health_connector/commit/e064cec90cf1d35a1c32adc35cd7db64d8cf0117))

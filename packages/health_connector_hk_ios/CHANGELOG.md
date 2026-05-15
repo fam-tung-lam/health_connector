@@ -1,3 +1,7 @@
+## 3.9.0
+
+- **FEAT**: Implement runtime validation for ExerciseSessionSegmentEvent.weight. ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))
+
 ## 3.8.1
 
 - **FIX**: Correct iOS 16+ sleep stage raw value mapping. ([cb0d70f3](https://github.com/fam-tung-lam/health_connector/commit/cb0d70f3a9afe2f172725b4a2fa399ef7a78d5f4))
