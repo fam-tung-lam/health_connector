@@ -19,7 +19,6 @@ extension HealthDataPermissionRequestDto {
              .walkingSteadiness,
              .bloodAlcoholContent,
              .basalEnergyBurned,
-             .distance,
              .cyclingDistance,
              .cyclingPower,
              .runningPower,

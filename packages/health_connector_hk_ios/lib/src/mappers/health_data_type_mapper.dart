@@ -16,8 +16,6 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.bloodAlcoholContent;
       case HealthDataTypeDto.basalEnergyBurned:
         return HealthDataType.basalEnergyBurned;
-      case HealthDataTypeDto.distance:
-        return HealthDataType.distance;
       case HealthDataTypeDto.floorsClimbed:
         return HealthDataType.floorsClimbed;
       case HealthDataTypeDto.height:

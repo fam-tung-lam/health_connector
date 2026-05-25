@@ -246,8 +246,6 @@ extension HealthDataTypeDto {
             }
         case .sixMinuteWalkTestDistance:
             try HKQuantityType.make(from: .sixMinuteWalkTestDistance)
-        case .distance:
-            try HKQuantityType.make(from: .distanceWalkingRunning)
         case .walkingSpeed:
             if #available(iOS 16.0, *) {
                 try HKQuantityType.make(from: .walkingSpeed)

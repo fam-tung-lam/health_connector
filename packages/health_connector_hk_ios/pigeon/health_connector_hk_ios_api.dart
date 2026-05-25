@@ -774,9 +774,6 @@ enum HealthDataTypeDto {
   /// Blood alcohol content data.
   bloodAlcoholContent,
 
-  /// Distance traveled data (generic).
-  distance,
-
   /// Cycling distance.
   cyclingDistance,
 
