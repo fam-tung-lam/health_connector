@@ -24,7 +24,7 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class WalkingRunningDistanceRecord extends DistanceActivityRecord {
-  /// Creates a swimming distance record.
+  /// Creates a walking/running distance record.
   WalkingRunningDistanceRecord({
     required super.startTime,
     required super.endTime,
