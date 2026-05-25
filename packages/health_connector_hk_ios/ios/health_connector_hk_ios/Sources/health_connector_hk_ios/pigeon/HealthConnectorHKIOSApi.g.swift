@@ -695,241 +695,239 @@ public enum HealthDataTypeDto: Int {
   case walkingStepLength = 10
   /// Blood alcohol content data.
   case bloodAlcoholContent = 11
-  /// Distance traveled data (generic).
-  case distance = 12
   /// Cycling distance.
-  case cyclingDistance = 13
+  case cyclingDistance = 12
   /// Cycling power data.
-  case cyclingPower = 14
+  case cyclingPower = 13
   /// Swimming distance.
-  case swimmingDistance = 15
+  case swimmingDistance = 14
   /// Swimming stroke count data.
-  case swimmingStrokes = 16
+  case swimmingStrokes = 15
   /// Running power data.
-  case runningPower = 17
+  case runningPower = 16
   /// Basal energy burned data.
-  case basalEnergyBurned = 18
+  case basalEnergyBurned = 17
   /// Wheelchair distance.
-  case wheelchairDistance = 19
+  case wheelchairDistance = 18
   /// Walking or running distance.
-  case walkingRunningDistance = 20
+  case walkingRunningDistance = 19
   /// Downhill snow sports distance.
-  case downhillSnowSportsDistance = 21
+  case downhillSnowSportsDistance = 20
   /// Rowing distance.
-  case rowingDistance = 22
+  case rowingDistance = 21
   /// Paddle sports distance.
-  case paddleSportsDistance = 23
+  case paddleSportsDistance = 22
   /// Running ground contact time.
-  case runningGroundContactTime = 24
+  case runningGroundContactTime = 23
   /// Running stride length.
-  case runningStrideLength = 25
+  case runningStrideLength = 24
   /// Number of times fallen.
-  case numberOfTimesFallen = 26
+  case numberOfTimesFallen = 25
   /// Heart Rate Recovery (1 minute) data.
-  case heartRateRecoveryOneMinute = 27
+  case heartRateRecoveryOneMinute = 26
   /// Cross-country skiing distance.
   /// Cross-country skiing distance.
-  case crossCountrySkiingDistance = 28
+  case crossCountrySkiingDistance = 27
   /// Skating sports distance.
-  case skatingSportsDistance = 29
+  case skatingSportsDistance = 28
   /// Six-minute walk test distance.
-  case sixMinuteWalkTestDistance = 30
+  case sixMinuteWalkTestDistance = 29
   /// Floors climbed data.
-  case floorsClimbed = 31
+  case floorsClimbed = 30
   /// Step count data.
-  case steps = 32
+  case steps = 31
   /// Body weight data.
-  case weight = 33
+  case weight = 32
   /// Body height data.
-  case height = 34
+  case height = 33
   /// Body fat percentage data.
-  case bodyFatPercentage = 35
+  case bodyFatPercentage = 34
   /// Body temperature data.
-  case bodyTemperature = 36
+  case bodyTemperature = 35
   /// Basal body temperature data.
-  case basalBodyTemperature = 37
+  case basalBodyTemperature = 36
   /// Cervical mucus observation data.
-  case cervicalMucus = 38
+  case cervicalMucus = 37
   /// Lean body mass data.
-  case leanBodyMass = 39
+  case leanBodyMass = 38
   /// Wheelchair pushes data.
-  case wheelchairPushes = 40
+  case wheelchairPushes = 39
   /// Electrodermal activity data.
-  case electrodermalActivity = 41
+  case electrodermalActivity = 40
   /// Inhaler usage data.
-  case inhalerUsage = 42
+  case inhalerUsage = 41
   /// Hydration (water intake) data.
-  case hydration = 43
+  case hydration = 42
   /// Insulin delivery data.
-  case insulinDelivery = 44
+  case insulinDelivery = 43
   /// Heart rate measurement record data.
-  case heartRateMeasurementRecord = 45
+  case heartRateMeasurementRecord = 44
   /// Cycling pedaling cadence measurement record data.
-  case cyclingPedalingCadence = 46
+  case cyclingPedalingCadence = 45
   /// Sleep stage record data.
-  case sleepStageRecord = 47
+  case sleepStageRecord = 46
   /// Sexual activity data.
-  case sexualActivity = 48
+  case sexualActivity = 47
   /// Peripheral perfusion index data.
-  case peripheralPerfusionIndex = 49
+  case peripheralPerfusionIndex = 48
   /// Walking speed data.
-  case walkingSpeed = 50
+  case walkingSpeed = 49
   /// Running speed data.
-  case runningSpeed = 51
+  case runningSpeed = 50
   /// Stair ascent speed data.
-  case stairAscentSpeed = 52
+  case stairAscentSpeed = 51
   /// Stair descent speed data.
-  case stairDescentSpeed = 53
+  case stairDescentSpeed = 52
   /// Energy nutrient data (calories consumed).
-  case dietaryEnergyConsumed = 54
+  case dietaryEnergyConsumed = 53
   /// Caffeine nutrient data.
-  case caffeine = 55
+  case caffeine = 54
   /// Protein nutrient data.
-  case protein = 56
+  case protein = 55
   /// Total carbohydrate nutrient data.
-  case totalCarbohydrate = 57
+  case totalCarbohydrate = 56
   /// Total fat nutrient data.
-  case totalFat = 58
+  case totalFat = 57
   /// Saturated fat nutrient data.
-  case saturatedFat = 59
+  case saturatedFat = 58
   /// Monounsaturated fat nutrient data.
-  case monounsaturatedFat = 60
+  case monounsaturatedFat = 59
   /// Polyunsaturated fat nutrient data.
-  case polyunsaturatedFat = 61
+  case polyunsaturatedFat = 60
   /// Cholesterol nutrient data.
-  case cholesterol = 62
+  case cholesterol = 61
   /// Dietary fiber nutrient data.
-  case dietaryFiber = 63
+  case dietaryFiber = 62
   /// Sugar nutrient data.
-  case sugar = 64
+  case sugar = 63
   /// Vitamin A nutrient data.
-  case vitaminA = 65
+  case vitaminA = 64
   /// Vitamin B6 nutrient data.
-  case vitaminB6 = 66
+  case vitaminB6 = 65
   /// Vitamin B12 nutrient data.
-  case vitaminB12 = 67
+  case vitaminB12 = 66
   /// Vitamin C nutrient data.
-  case vitaminC = 68
+  case vitaminC = 67
   /// Vitamin D nutrient data.
-  case vitaminD = 69
+  case vitaminD = 68
   /// Vitamin E nutrient data.
-  case vitaminE = 70
+  case vitaminE = 69
   /// Vitamin K nutrient data.
-  case vitaminK = 71
+  case vitaminK = 70
   /// Thiamin (Vitamin B1) nutrient data.
-  case thiamin = 72
+  case thiamin = 71
   /// Riboflavin (Vitamin B2) nutrient data.
-  case riboflavin = 73
+  case riboflavin = 72
   /// Niacin (Vitamin B3) nutrient data.
-  case niacin = 74
+  case niacin = 73
   /// Folate (Vitamin B9) nutrient data.
-  case folate = 75
+  case folate = 74
   /// Biotin (Vitamin B7) nutrient data.
-  case biotin = 76
+  case biotin = 75
   /// Pantothenic acid (Vitamin B5) nutrient data.
-  case pantothenicAcid = 77
+  case pantothenicAcid = 76
   /// Calcium nutrient data.
-  case calcium = 78
+  case calcium = 77
   /// Iron nutrient data.
-  case iron = 79
+  case iron = 78
   /// Magnesium nutrient data.
-  case magnesium = 80
+  case magnesium = 79
   /// Manganese nutrient data.
-  case manganese = 81
+  case manganese = 80
   /// Phosphorus nutrient data.
-  case phosphorus = 82
+  case phosphorus = 81
   /// Potassium nutrient data.
-  case potassium = 83
+  case potassium = 82
   /// Selenium nutrient data.
-  case selenium = 84
+  case selenium = 83
   /// Sodium nutrient data.
-  case sodium = 85
+  case sodium = 84
   /// Zinc nutrient data.
-  case zinc = 86
+  case zinc = 85
   /// Combined nutrition record (HKCorrelation.food).
-  case nutrition = 87
+  case nutrition = 86
   /// Resting heart rate data.
-  case restingHeartRate = 88
+  case restingHeartRate = 87
   /// Composite blood pressure (HKCorrelationType.bloodPressure).
-  case bloodPressure = 89
+  case bloodPressure = 88
   /// Systolic blood pressure (HKQuantityType.bloodPressureSystolic).
-  case systolicBloodPressure = 90
+  case systolicBloodPressure = 89
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
-  case diastolicBloodPressure = 91
+  case diastolicBloodPressure = 90
   /// Ovulation test data.
-  case ovulationTest = 92
+  case ovulationTest = 91
   /// Pregnancy test data.
-  case pregnancyTest = 93
+  case pregnancyTest = 92
   /// Pregnancy data.
-  case pregnancy = 94
+  case pregnancy = 93
   /// Contraceptive data.
-  case contraceptive = 95
+  case contraceptive = 94
   /// Progesterone test data.
-  case progesteroneTest = 96
+  case progesteroneTest = 95
   /// Lactation data.
-  case lactation = 97
+  case lactation = 96
   /// Ovulation test result.
-  case ovulationTestResult = 98
+  case ovulationTestResult = 97
   /// Progesterone test result.
-  case progesteroneTestResult = 99
+  case progesteroneTestResult = 98
   /// Sleep stage type.
-  case sleepStage = 100
+  case sleepStage = 99
   /// Intermenstrual bleeding data.
-  case intermenstrualBleeding = 101
+  case intermenstrualBleeding = 100
   /// Menstrual flow data.
-  case menstrualFlow = 102
+  case menstrualFlow = 101
   /// Oxygen saturation data.
-  case oxygenSaturation = 103
+  case oxygenSaturation = 102
   /// Respiratory rate data.
-  case respiratoryRate = 104
+  case respiratoryRate = 103
   /// VO2 max (maximal oxygen uptake) data.
-  case vo2Max = 105
+  case vo2Max = 104
   /// Blood glucose data.
-  case bloodGlucose = 106
+  case bloodGlucose = 105
   /// Exercise session data.
-  case exerciseSession = 107
+  case exerciseSession = 106
   /// Mindfulness session data.
-  case mindfulnessSession = 108
+  case mindfulnessSession = 107
   /// Body mass index data.
-  case bodyMassIndex = 109
+  case bodyMassIndex = 108
   /// Waist circumference data.
-  case waistCircumference = 110
+  case waistCircumference = 109
   /// Walking asymmetry percentage data.
-  case walkingAsymmetryPercentage = 111
+  case walkingAsymmetryPercentage = 110
   /// The forced vital capacity (FVC) data.
-  case forcedVitalCapacity = 112
+  case forcedVitalCapacity = 111
   /// Heart rate variability (SDNN) data.
-  case heartRateVariabilitySDNN = 113
+  case heartRateVariabilitySDNN = 112
   /// Sleeping wrist temperature data.
-  case sleepingWristTemperature = 114
+  case sleepingWristTemperature = 113
   /// High heart rate event data.
-  case highHeartRateEvent = 115
+  case highHeartRateEvent = 114
   /// Infrequent menstrual cycle event data.
-  case infrequentMenstrualCycleEvent = 116
+  case infrequentMenstrualCycleEvent = 115
   /// Irregular menstrual cycle event data.
-  case irregularMenstrualCycleEvent = 117
+  case irregularMenstrualCycleEvent = 116
   /// Irregular heart rhythm event data.
-  case irregularHeartRhythmEvent = 118
+  case irregularHeartRhythmEvent = 117
   /// Low heart rate event data.
-  case lowHeartRateEvent = 119
+  case lowHeartRateEvent = 118
   /// Walking Steadiness event data.
-  case walkingSteadinessEvent = 120
+  case walkingSteadinessEvent = 119
   /// Persistent Intermenstrual Bleeding Event.
-  case persistentIntermenstrualBleedingEvent = 121
+  case persistentIntermenstrualBleedingEvent = 120
   /// Prolonged Menstrual Period event data type.
-  case prolongedMenstrualPeriodEvent = 122
+  case prolongedMenstrualPeriodEvent = 121
   /// Atrial Fibrillation Burden data.
-  case atrialFibrillationBurden = 123
+  case atrialFibrillationBurden = 122
   /// Low cardio fitness event data.
-  case lowCardioFitnessEvent = 124
+  case lowCardioFitnessEvent = 123
   /// Environmental audio exposure event data.
-  case environmentalAudioExposureEvent = 125
+  case environmentalAudioExposureEvent = 124
   /// Environmental audio exposure data.
-  case environmentalAudioExposure = 126
+  case environmentalAudioExposure = 125
   /// Headphone audio exposure data.
-  case headphoneAudioExposure = 127
+  case headphoneAudioExposure = 126
   /// Headphone audio exposure event data.
-  case headphoneAudioExposureEvent = 128
+  case headphoneAudioExposureEvent = 127
 }
 
 /// Types of exercise state transitions.

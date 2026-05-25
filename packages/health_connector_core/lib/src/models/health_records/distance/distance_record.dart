@@ -8,7 +8,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`DistanceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/DistanceRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceWalkingRunning`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewalkingrunning)
+/// - **iOS HealthKit**: not supported. Use [WalkingRunningDistanceRecord] or
+///   another activity-specific distance record (e.g.
+///   [CyclingDistanceRecord], [SwimmingDistanceRecord]) instead.
 ///
 /// ## Example
 ///
