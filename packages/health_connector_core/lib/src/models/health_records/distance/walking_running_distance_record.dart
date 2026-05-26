@@ -24,7 +24,7 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class WalkingRunningDistanceRecord extends DistanceActivityRecord {
-  /// Creates a swimming distance record.
+  /// Creates a walking/running distance record.
   WalkingRunningDistanceRecord({
     required super.startTime,
     required super.endTime,
@@ -60,15 +60,27 @@ final class WalkingRunningDistanceRecord extends DistanceActivityRecord {
     );
   }
 
+  // Explicit `super._(...)` is required to chain to the no-validation
+  // parent constructor; `super.<field>` forwarding always targets the
+  // unnamed (validating) super constructor.
+  // ignore: use_super_parameters
   WalkingRunningDistanceRecord._({
-    required super.id,
-    required super.startTime,
-    required super.endTime,
-    required super.metadata,
-    required super.distance,
-    super.startZoneOffsetSeconds,
-    super.endZoneOffsetSeconds,
-  });
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Length distance,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) : super._(
+         id: id,
+         startTime: startTime,
+         endTime: endTime,
+         metadata: metadata,
+         distance: distance,
+         startZoneOffsetSeconds: startZoneOffsetSeconds,
+         endZoneOffsetSeconds: endZoneOffsetSeconds,
+       );
 
   /// Creates a copy with the given fields replaced with the new values.
   WalkingRunningDistanceRecord copyWith({

@@ -64,6 +64,24 @@ sealed class DistanceActivityRecord extends IntervalHealthRecord {
     );
   }
 
+  /// Internal constructor that skips all validation.
+  ///
+  /// Used by subclass `.internal` factories to map platform-sourced DTOs
+  /// (e.g. instantaneous HealthKit samples where `startTime == endTime`)
+  /// into domain models without triggering the public constructor's checks.
+  ///
+  /// **⚠️ Warning**: Not for public use.
+  @internalUse
+  DistanceActivityRecord._({
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.distance,
+    super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
   /// The distance measurement value.
   final Length distance;
 }
