@@ -22,5 +22,5 @@ A new Flutter plugin project.
   s.swift_version = '5.9'
 
   # Privacy manifest for HealthKit usage
-  s.resource_bundles = {'health_connector_privacy' => ['health_connector/Sources/health_connector/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'health_connector_hk_ios_privacy' => ['health_connector_hk_ios/Sources/health_connector_hk_ios/PrivacyInfo.xcprivacy']}
 end
