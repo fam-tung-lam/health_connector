@@ -306,7 +306,14 @@ class HealthConnectorClientTest {
     }
 
     private companion object {
-        const val FAKE_PACKAGE_NAME = "com.test"
+        // The fake client and the test records deliberately share the SAME package name.
+        // These tests verify SDK Extension 21 weight handling, not record ownership, and
+        // `MetadataMapper.toHealthConnect` cannot set `dataOrigin` (Health Connect assigns the
+        // owner package at write time), so DTO-mapped records carry an empty package name.
+        // `FakeHealthConnectClient.updateRecords` rejects a record whose
+        // `dataOrigin.packageName` differs from its own `packageName`, so the fake uses this
+        // same empty package name and the ownership check stays a no-op.
+        const val FAKE_PACKAGE_NAME = ""
         val FIXED_NOW: Instant = Instant.parse("2026-01-01T12:00:00Z")
         const val EXPECTED_ERROR_MESSAGE =
             "Writing ExerciseSessionSegmentEvent.weight requires Health Connect " +
