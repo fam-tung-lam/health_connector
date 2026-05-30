@@ -1,3 +1,8 @@
+## 3.9.1
+
+- **FIX**: Remove invalid `NSPrivacyAccessedAPICategoryHealthKit` and fix Podspec `resource_bundles` path. ([f7b6680a](https://github.com/fam-tung-lam/health_connector/commit/f7b6680aa7dba43031f697213dc12c746036f488))
+- **FIX**: Map `distanceWalkingRunning` to `walkingRunningDistance`. ([9d4047bf](https://github.com/fam-tung-lam/health_connector/commit/9d4047bf410d66b5dad86096834c80c4612b77e5))
+
 ## 3.9.0
 
 - **FEAT**: Implement runtime validation for ExerciseSessionSegmentEvent.weight. ([5021c7b5](https://github.com/fam-tung-lam/health_connector/commit/5021c7b5838673ae5a9496dafa78377ea90f968b))

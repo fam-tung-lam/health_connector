@@ -1,3 +1,7 @@
+## 3.6.1
+
+- Update a `health_connector_core` to the latest release.
+
 ## 3.6.0
 
 - **FIX**: Fix EXERCISE_TYPE_OTHER_WORKOUT mapping. ([e064cec9](https://github.com/fam-tung-lam/health_connector/commit/e064cec90cf1d35a1c32adc35cd7db64d8cf0117))

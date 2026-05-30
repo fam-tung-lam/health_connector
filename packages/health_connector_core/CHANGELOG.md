@@ -1,3 +1,7 @@
+## 3.9.1
+
+- **FIX**: Allow `DistanceActivityRecord` to have `startTime == endTime` when getting data from health platforms, accommodating instantaneous records from iOS HealthKit where a zero-duration interval is considered valid. ([250f30ec](https://github.com/fam-tung-lam/health_connector/commit/250f30ec1be148162b8fbc2a3a078ceaddfa5d88))
+
 ## 3.9.0
 
 - **FEAT**: Add support for `ExerciseSessionSegmentEvent.weight`. ([b747baab](https://github.com/fam-tung-lam/health_connector/commit/b747baabc8bc7ea71d804933796549f2ae0d09f4))

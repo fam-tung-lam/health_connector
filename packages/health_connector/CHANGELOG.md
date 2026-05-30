@@ -1,3 +1,9 @@
+## 3.9.2
+
+- **FIX**: Allow `DistanceActivityRecord` to have `startTime == endTime` when getting data from health platforms, accommodating instantaneous records from iOS HealthKit where a zero-duration interval is considered valid. ([250f30ec](https://github.com/fam-tung-lam/health_connector/commit/250f30ec1be148162b8fbc2a3a078ceaddfa5d88))
+- **FIX**(health_connector_hk_ios): remove invalid `NSPrivacyAccessedAPICategoryHealthKit` and fix Podspec `resource_bundles` path. ([f7b6680a](https://github.com/fam-tung-lam/health_connector/commit/f7b6680aa7dba43031f697213dc12c746036f488))
+- **FIX**(health_connector_hk_ios): map `distanceWalkingRunning` to `walkingRunningDistance`. ([9d4047bf](https://github.com/fam-tung-lam/health_connector/commit/9d4047bf410d66b5dad86096834c80c4612b77e5))
+
 ## 3.9.1
 
 - **FIX**(health_connector): Fix casing in README Platform Setup section. ([35e3aae6](https://github.com/fam-tung-lam/health_connector/commit/35e3aae69f79f541237a8f8441f71d7be18335e7))
