@@ -13,7 +13,11 @@ void main() {
         () {
           expect(dataType, isA<NutritionDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
+          expect(dataType, isA<ReadableByIdHealthDataType>());
+          expect(dataType, isA<ReadableInTimeRangeHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
+          expect(dataType, isA<DeletableByIdsHealthDataType>());
+          expect(dataType, isA<DeletableInTimeRangeHealthDataType>());
         },
       );
 
