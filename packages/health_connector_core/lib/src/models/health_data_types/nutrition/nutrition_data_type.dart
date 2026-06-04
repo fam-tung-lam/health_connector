@@ -14,8 +14,9 @@ part of '../health_data_type.dart';
 ///
 /// ## Capabilities
 ///
-/// - Readable: Query nutrition records
-/// - Writeable: Write nutrition records
+/// - Read: Query historical nutrition records
+/// - Write: Create new nutrition records
+/// - Deletable: Delete records by IDs or time range
 /// - Not aggregatable (use individual data types for aggregation)
 ///
 /// {@category Health Records}
@@ -26,7 +27,9 @@ final class NutritionDataType
     implements
         ReadableByIdHealthDataType<NutritionRecord>,
         ReadableInTimeRangeHealthDataType<NutritionRecord>,
-        WriteableHealthDataType<NutritionRecord> {
+        WriteableHealthDataType<NutritionRecord>,
+        DeletableByIdsHealthDataType<NutritionRecord>,
+        DeletableInTimeRangeHealthDataType<NutritionRecord> {
   /// Creates a nutrition data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -75,6 +78,23 @@ final class NutritionDataType
       endTime: endTime,
       pageSize: pageSize,
       pageToken: pageToken,
+    );
+  }
+
+  @override
+  DeleteRecordsByIdsRequest deleteByIds(List<HealthRecordId> recordIds) {
+    return DeleteRecordsByIdsRequest(dataType: this, recordIds: recordIds);
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
     );
   }
 }

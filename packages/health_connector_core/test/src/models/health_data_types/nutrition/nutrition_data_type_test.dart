@@ -20,7 +20,11 @@ void main() {
         () {
           expect(dataType, isA<NutritionDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
+          expect(dataType, isA<ReadableByIdHealthDataType>());
+          expect(dataType, isA<ReadableInTimeRangeHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
+          expect(dataType, isA<DeletableByIdsHealthDataType>());
+          expect(dataType, isA<DeletableInTimeRangeHealthDataType>());
           expect(dataType, isNot(isA<SumAggregatableHealthDataType>()));
         },
       );
@@ -78,6 +82,31 @@ void main() {
             dataType.category,
             equals(HealthDataTypeCategory.nutrition),
           );
+        },
+      );
+
+      test(
+        'deleteByIds returns correct request',
+        () {
+          final recordIds = [HealthRecordId('id1')];
+          final request = dataType.deleteByIds(recordIds);
+          expect(request.dataType, equals(dataType));
+          expect(request.recordIds, equals(recordIds));
+        },
+      );
+
+      test(
+        'deleteInTimeRange returns correct request',
+        () {
+          final startTime = DateTime(2026);
+          final endTime = DateTime(2026, 1, 2);
+          final request = dataType.deleteInTimeRange(
+            startTime: startTime,
+            endTime: endTime,
+          );
+          expect(request.dataType, equals(dataType));
+          expect(request.startTime, equals(startTime));
+          expect(request.endTime, equals(endTime));
         },
       );
     },
