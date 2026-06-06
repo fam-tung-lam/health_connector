@@ -1,3 +1,7 @@
+## 3.6.2
+
+- Update a `health_connector_core` to the latest release.
+
 ## 3.6.1
 
 - Update a `health_connector_core` to the latest release.

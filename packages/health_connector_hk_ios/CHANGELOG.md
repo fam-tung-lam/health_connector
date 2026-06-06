@@ -1,3 +1,7 @@
+## 3.9.2
+
+- Update a `health_connector_core` to the latest release.
+
 ## 3.9.1
 
 - **FIX**: Remove invalid `NSPrivacyAccessedAPICategoryHealthKit` and fix Podspec `resource_bundles` path. ([f7b6680a](https://github.com/fam-tung-lam/health_connector/commit/f7b6680aa7dba43031f697213dc12c746036f488))

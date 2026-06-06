@@ -1,12 +1,13 @@
 ## 3.9.3
 
-- **FIX**: Expose `deleteByIds` and `deleteInTimeRange` factory methods on `HealthDataType.nutrition` so callers can delete nutrition records after writing them. Both platform handlers (`HealthConnectorHCClient` on Android, `HealthConnectorHKClient` on iOS) already implement the underlying delete logic, so no native code changes were required.
+- **FIX**: Expose `deleteByIds` and `deleteInTimeRange` APIs for `NutritionDataType`. ([54afe082](https://github.com/fam-tung-lam/health_connector/commit/54afe08239f6c100bc1c833a2e00cc8ee3d2e76a))
+- Update `health_connector_*` plugins to the latest release.
 
 ## 3.9.2
 
 - **FIX**: Allow `DistanceActivityRecord` to have `startTime == endTime` when getting data from health platforms, accommodating instantaneous records from iOS HealthKit where a zero-duration interval is considered valid. ([250f30ec](https://github.com/fam-tung-lam/health_connector/commit/250f30ec1be148162b8fbc2a3a078ceaddfa5d88))
-- **FIX**(health_connector_hk_ios): remove invalid `NSPrivacyAccessedAPICategoryHealthKit` and fix Podspec `resource_bundles` path. ([f7b6680a](https://github.com/fam-tung-lam/health_connector/commit/f7b6680aa7dba43031f697213dc12c746036f488))
-- **FIX**(health_connector_hk_ios): map `distanceWalkingRunning` to `walkingRunningDistance`. ([9d4047bf](https://github.com/fam-tung-lam/health_connector/commit/9d4047bf410d66b5dad86096834c80c4612b77e5))
+- **FIX**(health_connector_hk_ios): Remove invalid `NSPrivacyAccessedAPICategoryHealthKit` and fix Podspec `resource_bundles` path. ([f7b6680a](https://github.com/fam-tung-lam/health_connector/commit/f7b6680aa7dba43031f697213dc12c746036f488))
+- **FIX**(health_connector_hk_ios): Map `distanceWalkingRunning` to `walkingRunningDistance`. ([9d4047bf](https://github.com/fam-tung-lam/health_connector/commit/9d4047bf410d66b5dad86096834c80c4612b77e5))
 
 ## 3.9.1
 

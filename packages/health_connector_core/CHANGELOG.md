@@ -1,6 +1,6 @@
 ## 3.9.2
 
-- **FIX**: Expose `deleteByIds` and `deleteInTimeRange` factory methods on `HealthDataType.nutrition` so callers can delete nutrition records after writing them. Both platform handlers (`HealthConnectorHCClient` on Android, `HealthConnectorHKClient` on iOS) already implement the underlying delete logic, so no native code changes were required.
+- **FIX**: Expose `deleteByIds` and `deleteInTimeRange` APIs for `NutritionDataType`. ([54afe082](https://github.com/fam-tung-lam/health_connector/commit/54afe08239f6c100bc1c833a2e00cc8ee3d2e76a))
 
 ## 3.9.1
 
