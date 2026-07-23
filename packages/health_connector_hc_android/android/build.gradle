@@ -121,7 +121,7 @@ tasks.register("lintAll") {
 android {
     namespace = "com.phamtunglam.health_connector_hc_android"
 
-    compileSdk = 36
+    compileSdk = 37
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
