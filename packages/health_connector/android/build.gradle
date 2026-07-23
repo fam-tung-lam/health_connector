@@ -27,7 +27,7 @@ apply plugin: "kotlin-android"
 android {
     namespace = "com.phamtunglam.health_connector"
 
-    compileSdk = 36
+    compileSdk = 37
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
