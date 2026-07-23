@@ -47,6 +47,7 @@ allprojects {
 }
 
 apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: "io.gitlab.arturbosch.detekt"
 
@@ -121,7 +122,7 @@ tasks.register("lintAll") {
 android {
     namespace = "com.phamtunglam.health_connector_hc_android"
 
-    compileSdk = 37
+    compileSdk = 36
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
