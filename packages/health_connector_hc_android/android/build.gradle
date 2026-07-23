@@ -47,7 +47,6 @@ allprojects {
 }
 
 apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: "io.gitlab.arturbosch.detekt"
 
@@ -123,7 +122,6 @@ android {
     namespace = "com.phamtunglam.health_connector_hc_android"
 
     compileSdk = 36
-    compileSdkExtension = 19
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
