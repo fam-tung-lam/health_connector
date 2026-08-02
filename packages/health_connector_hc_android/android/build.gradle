@@ -129,7 +129,6 @@ android {
     namespace = "com.phamtunglam.health_connector_hc_android"
 
     compileSdk = 37
-    compileSdkExtension = 19
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

@@ -35,11 +35,6 @@ jobs:
       - name: Setup Gradle
         uses: ./.github/actions/setup-gradle
 
-      - name: Install Android SDK platform android-37-ext19
-        run: |
-          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
-            "platforms;android-37-ext19"
-
       - name: Build Android example app
         working-directory: ${{ inputs.package-path }}/example
 
