@@ -4,6 +4,7 @@ description: The most comprehensive Flutter health SDK for seamless iOS HealthKi
 version: 3.9.4
 homepage: https://github.com/fam-tung-lam/health_connector
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector
+issue_tracker: https://github.com/fam-tung-lam/health_connector/issues?q=is%3Aissue%20is%3Aopen
 
 environment:
   sdk: ^3.9.2
@@ -27,3 +28,8 @@ dev_dependencies:
 platforms:
   android:
   ios:
+
+topics:
+  - health
+  - android-health-connect
+  - ios-healthkit

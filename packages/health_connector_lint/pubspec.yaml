@@ -3,9 +3,7 @@ resolution: workspace
 description: Lint rules for health_connector packages
 version: 1.2.0
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_lint
-
-topics:
-  - lints
+issue_tracker: https://github.com/fam-tung-lam/health_connector/issues?q=is%3Aissue%20is%3Aopen
 
 environment:
   sdk: ^3.9.2
@@ -20,3 +18,6 @@ platforms:
   macos:
   web:
   windows:
+
+topics:
+  - lints
