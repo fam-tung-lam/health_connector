@@ -41,8 +41,7 @@ melos:
 
     publish:
       hooks:
-        # pre: melos run analyze:strict // Use it when fix all native lint errors
-        pre: melos run analyze:dart:strict
+        pre: melos run analyze:strict
 
     version:
       # Only allow versioning to happen on main branch.
@@ -97,7 +96,7 @@ melos:
 
     analyze:swift:
       description: Analyze Swift code for the health_connector_hk_ios package
-      run: cd packages/health_connector_hk_ios/ios && swiftlint lint .
+      run: cd packages/health_connector_hk_ios/ios && swiftlint lint --strict --baseline swiftlint-baseline.json .
 
     baseline:swift:
       description: Generate SwiftLint baseline
