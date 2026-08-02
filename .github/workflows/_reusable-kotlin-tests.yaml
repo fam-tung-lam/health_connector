@@ -38,7 +38,6 @@ jobs:
       - name: Install Android SDK platform android-37-ext19
         run: |
           $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
-            "platforms;android-37" \
             "platforms;android-37-ext19"
 
       - name: Run Kotlin unit tests
