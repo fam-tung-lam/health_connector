@@ -1,3 +1,7 @@
+## 3.9.4
+
+- **REFACTOR**: Remove unused native Android and iOS modules from the Dart facade. Native platform registration remains owned by `health_connector_hc_android` and `health_connector_hk_ios`. ([c4eb3848](https://github.com/fam-tung-lam/health_connector/commit/c4eb3848d64ea9a6e62111179e6811cd27050dfe))
+
 ## 3.9.3
 
 - **FIX**: Expose `deleteByIds` and `deleteInTimeRange` APIs for `NutritionDataType`. ([54afe082](https://github.com/fam-tung-lam/health_connector/commit/54afe08239f6c100bc1c833a2e00cc8ee3d2e76a))
