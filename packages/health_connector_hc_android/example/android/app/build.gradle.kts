@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.phamtunglam.health_connector_hc_android_example"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     compileSdkExtension = 19
     ndkVersion = flutter.ndkVersion
 

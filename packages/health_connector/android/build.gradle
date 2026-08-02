@@ -2,14 +2,14 @@ group = "com.phamtunglam.health_connector"
 version = "1.0-SNAPSHOT"
 
 buildscript {
-    ext.kotlin_version = "2.1.0"
+    ext.kotlin_version = "2.2.20"
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:8.9.1")
+        classpath("com.android.tools.build:gradle:8.11.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
@@ -33,7 +33,7 @@ if (!project.hasProperty("android.builtInKotlin")) {
 android {
     namespace = "com.phamtunglam.health_connector"
 
-    compileSdk = 37
+    compileSdk = 36
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
