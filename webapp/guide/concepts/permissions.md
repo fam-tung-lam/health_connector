@@ -86,10 +86,10 @@ On iOS there is no per-type manifest. You request types at runtime, and the only
 
 | Operation | Android | iOS | Notes |
 |---|:---:|:---:|---|
-| Request permissions | ✓ | ✓ | Uniform API |
-| Check a single permission | ✓ | Writes only | Reads always report `unknown` |
-| List all granted permissions | ✓ | — | `UnsupportedOperationException` on iOS |
-| Revoke all permissions | ✓ | — | iOS users revoke in Settings |
+| Request permissions | Yes | Yes | Uniform API |
+| Check a single permission | Yes | Writes only | Reads always report `unknown` |
+| List all granted permissions | Yes | — | `UnsupportedOperationException` on iOS |
+| Revoke all permissions | Yes | — | iOS users revoke in Settings |
 | Re-prompt after a decision | Limited | Never | iOS asks once per data type, ever |
 
 That last row matters for onboarding design. **iOS presents the authorization sheet once per data type for the lifetime of the install.** If the user declines, calling `requestPermissions()` again does nothing visible. Ask at a moment when the value is obvious, not on first launch.

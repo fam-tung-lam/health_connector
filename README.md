@@ -30,7 +30,7 @@ A unified, type-safe Flutter plugin for accessing health data across Android and
 
 <!-- #region webapp-project -->
 
-## 📖 Overview
+## Overview
 
 **Health Connector** provides a unified interface to access health data from **Android Health
 Connect** and **iOS HealthKit**. It abstracts platform differences while preserving
@@ -39,7 +39,7 @@ and aggregating health records.
 
 ---
 
-## 📦 Packages
+## Packages
 
 Health Connector is organized as a monorepo containing multiple packages:
 
@@ -60,7 +60,7 @@ Health Connector is organized as a monorepo containing multiple packages:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! To contribute:
 
@@ -81,7 +81,7 @@ For major changes, please open an issue first to discuss what you would like to 
 
 ---
 
-## 🐛 Issues & Feature Requests
+## Issues & Feature Requests
 
 Found a bug or have a feature request? Please open an issue on
 our [GitHub Issues](https://github.com/fam-tung-lam/health_connector/issues) page.
@@ -95,7 +95,7 @@ When reporting issues, please include:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the Apache-2.0 License - see the [LICENSE](https://github.com/fam-tung-lam/health_connector/blob/main/LICENSE) file for details.
 

@@ -67,7 +67,7 @@ for (let index = 0; index < lines.length; index += 1) {
 
   const heading = line.match(/^(#{3,5})\s+(.*)$/);
   if (heading) {
-    // Strip leading emoji so the site controls its own iconography.
+    // Normalize heading text before using it as an explorer category.
     const title = heading[2].replace(/^[^\p{L}\p{N}]+/u, "").trim();
     if (heading[1].length === 3) {
       category = title;
@@ -113,8 +113,8 @@ for (let index = 0; index < lines.length; index += 1) {
           .replace(/^ExerciseType\./, "")
           .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
           .replace(/^./, (character) => character.toUpperCase()),
-        android: cells[1] === "✅",
-        ios: cells[2] === "✅",
+        android: cells[1] === "Yes",
+        ios: cells[2] === "Yes",
       });
     }
   }

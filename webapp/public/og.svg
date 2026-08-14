@@ -13,5 +13,5 @@
   <path d="M113 152h24l12-28 17 56 12-28h18" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="78" y="340" fill="#15251f" font-family="system-ui, sans-serif" font-size="82" font-weight="760" letter-spacing="-3">Health Connector</text>
   <text x="82" y="418" fill="#087f5b" font-family="ui-monospace, monospace" font-size="28" font-weight="700" letter-spacing="2">ONE FLUTTER API · TWO HEALTH PLATFORMS</text>
-  <text x="82" y="500" fill="#425c52" font-family="system-ui, sans-serif" font-size="34">Android Health Connect  ↔  iOS HealthKit</text>
+  <text x="82" y="500" fill="#425c52" font-family="system-ui, sans-serif" font-size="34">Android Health Connect and iOS HealthKit</text>
 </svg>

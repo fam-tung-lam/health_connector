@@ -13,26 +13,26 @@ What works where. For the reasoning behind each difference, see [Platform differ
 
 | Operation | Android | iOS | Notes |
 |---|:---:|:---:|---|
-| Read | ✓ | ✓ | Type and OS availability vary |
-| Write | ✓ | ✓ | Requires per-type authorization |
-| Update | ✓ | — | HealthKit records are immutable |
-| Delete | ✓ | ✓ | Only records your app created |
-| Aggregate | ✓ | ✓ | Available metrics vary by data type |
-| Incremental sync | ✓ | ✓ | Change tokens vs. anchored queries, unified |
-| Exercise routes | ✓ | ✓ | Needs both route and session permissions |
+| Read | Yes | Yes | Type and OS availability vary |
+| Write | Yes | Yes | Requires per-type authorization |
+| Update | Yes | — | HealthKit records are immutable |
+| Delete | Yes | Yes | Only records your app created |
+| Aggregate | Yes | Yes | Available metrics vary by data type |
+| Incremental sync | Yes | Yes | Change tokens vs. anchored queries, unified |
+| Exercise routes | Yes | Yes | Needs both route and session permissions |
 | Background read | Capability-based | Capability-based | Requires permission and OS scheduling |
 
 ## Permissions
 
 | Capability | Android | iOS |
 |---|:---:|:---:|
-| Request permissions | ✓ | ✓ |
-| Read write-permission status | ✓ | ✓ |
-| Read **read**-permission status | ✓ | — |
-| Enumerate granted permissions | ✓ | — |
-| Revoke programmatically | ✓ | — |
+| Request permissions | Yes | Yes |
+| Read write-permission status | Yes | Yes |
+| Read **read**-permission status | Yes | — |
+| Enumerate granted permissions | Yes | — |
+| Revoke programmatically | Yes | — |
 | Re-prompt after a decision | Limited | Never |
-| Per-type manifest declaration required | ✓ | — |
+| Per-type manifest declaration required | Yes | — |
 
 ## The four differences that change designs
 

@@ -6,6 +6,22 @@ Both platforms store the same kinds of information — steps, weight, heart rate
 
 Health Connector collapses that into a single API surface, and it does so without hiding the parts that genuinely differ.
 
+## Designed for production-scale data workflows
+
+Health Connector provides the controls needed when health data becomes a core application workflow
+rather than a one-off import:
+
+- **Record identifiers:** Write operations return platform-assigned identifiers, allowing
+  applications to retain references and use the supported update and delete workflows later.
+- **Controlled pagination:** Large histories can be read in bounded pages instead of loading every
+  matching record into memory at once.
+- **Incremental synchronization:** Sync checkpoints return only inserted, updated, and deleted
+  records since the previous successful sync.
+- **Strongly typed records:** Each health data type maps to a dedicated Dart record class with the
+  correct value and measurement types.
+- **Production diagnostics:** Structured error codes, explicit exceptions, and opt-in logging
+  processors make failures observable without logging sensitive health data by default.
+
 ## The problem it solves
 
 | Concern | Android Health Connect | Apple HealthKit | Health Connector |

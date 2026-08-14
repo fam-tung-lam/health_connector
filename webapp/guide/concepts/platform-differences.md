@@ -6,15 +6,15 @@ The SDK makes the common path uniform. This page lists everywhere it deliberatel
 
 | Operation | Android | iOS | What differs |
 |---|:---:|:---:|---|
-| Read | ✓ | ✓ | Android limits history to 30 days by default |
-| Write | ✓ | ✓ | Both require per-type authorization |
-| Update | ✓ | — | HealthKit records are immutable |
-| Delete | ✓ | ✓ | Both restrict deletion to your own records |
-| Aggregate | ✓ | ✓ | Available metrics vary by data type |
-| Incremental sync | ✓ | ✓ | Change tokens vs. anchored queries, unified |
-| List granted permissions | ✓ | — | HealthKit prevents enumeration |
-| Revoke permissions | ✓ | — | iOS users revoke in Settings |
-| Read permission status | ✓ | — | iOS always reports `unknown` |
+| Read | Yes | Yes | Android limits history to 30 days by default |
+| Write | Yes | Yes | Both require per-type authorization |
+| Update | Yes | — | HealthKit records are immutable |
+| Delete | Yes | Yes | Both restrict deletion to your own records |
+| Aggregate | Yes | Yes | Available metrics vary by data type |
+| Incremental sync | Yes | Yes | Change tokens vs. anchored queries, unified |
+| List granted permissions | Yes | — | HealthKit prevents enumeration |
+| Revoke permissions | Yes | — | iOS users revoke in Settings |
+| Read permission status | Yes | — | iOS always reports `unknown` |
 
 ## Records are immutable on iOS
 

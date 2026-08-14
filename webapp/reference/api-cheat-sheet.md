@@ -6,9 +6,9 @@ Every method on `HealthConnector`, with the platform constraint that applies. Ex
 
 | Call | Static | Platform | What it does |
 |---|:---:|---|---|
-| `HealthConnector.create(config)` | ✓ | Both | Builds the client for the current platform |
-| `HealthConnector.getHealthPlatformStatus()` | ✓ | Both | Whether a usable health store exists |
-| `HealthConnector.launchHealthAppPageInAppStore()` | ✓ | Android | Sends the user to install or update Health Connect |
+| `HealthConnector.create(config)` | Yes | Both | Builds the client for the current platform |
+| `HealthConnector.getHealthPlatformStatus()` | Yes | Both | Whether a usable health store exists |
+| `HealthConnector.launchHealthAppPageInAppStore()` | Yes | Android | Sends the user to install or update Health Connect |
 
 ```dart
 final status = await HealthConnector.getHealthPlatformStatus();
@@ -45,10 +45,10 @@ final connector = await HealthConnector.create();
 | Call | Platform | Atomic | Notes |
 |---|---|:---:|---|
 | `writeRecord(record)` | Both | — | Returns the assigned `HealthRecordId` |
-| `writeRecords(records)` | Both | ✓ | May mix record types |
+| `writeRecords(records)` | Both | Yes | May mix record types |
 | `updateRecord(record)` | Android | — | HealthKit records are immutable |
-| `updateRecords(records)` | Android | ✓ | Same constraint |
-| `deleteRecords(request)` | Both | ✓ | Only records your app wrote |
+| `updateRecords(records)` | Android | Yes | Same constraint |
+| `deleteRecords(request)` | Both | Yes | Only records your app wrote |
 
 ## Aggregating & syncing
 

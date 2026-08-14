@@ -42,7 +42,7 @@ Correct usage:
 final connector = await HealthConnector.create();
 
 try {
-  // ✅ Read-only types support reads and aggregates.
+  // Recommended: Read-only types support reads and aggregates.
   final now = DateTime.now();
   final response = await connector.readRecords(
     HealthDataType.infrequentMenstrualCycleEvent.readInTimeRange(
@@ -51,10 +51,10 @@ try {
     ),
   );
 
-  // ❌ Never call an @internalUse factory.
+  // Avoid: Never call an @internalUse factory.
   // final record = InfrequentMenstrualCycleEventRecord.internal(...);
 
-  // ❌ Never write a @readOnly type — throws UnsupportedOperationException.
+  // Avoid: Never write a @readOnly type — throws UnsupportedOperationException.
   // await connector.writeRecord(record);
 } on UnsupportedOperationException catch (e) {
   print('This type requires iOS 16 or later: $e');

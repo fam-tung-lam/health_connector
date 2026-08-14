@@ -53,11 +53,11 @@ The available methods are part of each data type's interface, so nonsensical agg
 
 | Data type | Sum | Avg / Min / Max |
 |---|:---:|:---:|
-| Steps | ✓ | — |
-| Active energy burned | ✓ | — |
-| Weight | — | ✓ |
-| Heart rate | — | ✓ |
-| Exercise session | ✓ (a `TimeDuration`) | — |
+| Steps | Yes | — |
+| Active energy burned | Yes | — |
+| Weight | — | Yes |
+| Heart rate | — | Yes |
+| Exercise session | Yes (a `TimeDuration`) | — |
 
 `HealthDataType.weight.aggregateSum(...)` is a compile error, not a runtime failure — summing body weight has no meaning. 104 of the 140 data types support at least one metric; filter by **Aggregatable only** in the [data type explorer](/reference/health-data-types) to see which, and which metrics each one offers.
 

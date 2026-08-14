@@ -20,49 +20,49 @@
 Connect.** Access **150+ health data types** with compile-time type safety,
 incremental data synchronization, and privacy-first architecture.
 
-## 📖 Table of Contents
+## Table of Contents
 
-- [⬆️ Migration Guide v2.x.x → v3.0.0](../../doc/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md)
+- [Migration Guide v2.x.x → v3.0.0](../../doc/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md)
 
-- [🎮 See It In Action](#-see-it-in-action--interactive-toolbox-demo)
+- [See It In Action](#see-it-in-action--interactive-toolbox-demo)
 
-- [🚀 Quick Start](#-quick-start)
-  - [📋 Requirements](#-requirements)
-  - [📦 Installation](#-installation)
-  - [🔧 Platform Setup](#-platform-setup)
-  - [⚡ Quick Demo](#-quick-demo)
+- [Quick Start](#quick-start)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Platform Setup](#platform-setup)
+  - [Quick Demo](#quick-demo)
 
-- [📘 Usage](#-usage)
-  - [🔐 Manage Permissions](#-manage-permissions)
-  - [🔧 Manage Features](#-manage-features)
-  - [🔍 Read Data](#-read-data)
-  - [🖋️ Write Data](#-write-data)
-  - [🗑 Delete Data](#-delete-data)
-  - [🔄 Update Data](#-update-data)
-  - [➕ Aggregate Data](#-aggregate-data)
-  - [🚧 Handle Error](#-handle-error)
-  - [📝 Logging](#-logging)
-  - [🏷 Annotations](#-annotations)
-    - [🏋 Exercise Segment Weight and SDK Extension 21](#-exercise-segment-weight-and-sdk-extension-21)
+- [Usage](#usage)
+  - [Manage Permissions](#manage-permissions)
+  - [Manage Features](#manage-features)
+  - [Read Data](#read-data)
+  - [Write Data](#write-data)
+  - [Delete Data](#delete-data)
+  - [Update Data](#update-data)
+  - [Aggregate Data](#aggregate-data)
+  - [Handle Error](#handle-error)
+  - [Logging](#logging)
+  - [Annotations](#annotations)
+    - [Exercise Segment Weight and SDK Extension 21](#exercise-segment-weight-and-sdk-extension-21)
 
-- [📚 Advanced Usage](#-advanced-usage)
-  - [🗺 Exercise Session Routes](#-exercise-session-routes)
-  - [♻️ Synchronize Data](#-synchronize-data)
-  - [🔧 Custom Log Processor](#-custom-log-processor)
+- [Advanced Usage](#advanced-usage)
+  - [Exercise Session Routes](#exercise-session-routes)
+  - [Synchronize Data](#synchronize-data)
+  - [Custom Log Processor](#custom-log-processor)
 
-- [📱 App Examples](#-app-examples)
+- [App Examples](#app-examples)
 
-- [📋 Supported Health Data Types](#-supported-health-data-types)
+- [Supported Health Data Types](#supported-health-data-types)
 
-- [📚 References](#-references)
-  - [🗃 API Documentation](#-api-documentation)
-  - [⬆️ Migration Guides](#-migration-guides)
-  - [🤝 Contributing](#-contributing)
-  - [📄 License](#-license)
+- [References](#references)
+  - [API Documentation](#api-documentation)
+  - [Migration Guides](#migration-guides)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 <!-- #region webapp-toolbox -->
 
-## 🎮 See It In Action — Interactive Toolbox Demo
+## See It In Action — Interactive Toolbox Demo
 
 **See what's possible.** The Health Connector Toolbox showcases the full
 power of the SDK with live, interactive demonstrations running on both iOS
@@ -98,7 +98,7 @@ and Android.
   </table>
 </div>
 
-### 🚀 Try It Yourself
+### Try It Yourself
 
 ```bash
 git clone https://github.com/fam-tung-lam/health_connector.git
@@ -106,16 +106,16 @@ cd health_connector/examples/health_connector_toolbox
 flutter pub get && flutter run
 ```
 
-> **ℹ️ Note:** The toolbox app is used only for demonstration purposes and as an internal tool for
+> **Note:** The toolbox app is used only for demonstration purposes and as an internal tool for
 > manually testing SDK features. It is not intended for production reference.
 
 <!-- #endregion webapp-toolbox -->
 
 <!-- #region webapp-getting-started -->
 
-## 🚀 Quick Start
+## Quick Start
 
-### 📋 Requirements
+### Requirements
 
 | Component   | Requirements                                        |
 |-------------|-----------------------------------------------------|
@@ -123,7 +123,7 @@ flutter pub get && flutter run
 | **Android** | • OS: API 26+<br>• Languages: Kotlin 2.1.0, Java 17 |
 | **iOS**     | • OS: ≥15.0<br>• Language: Swift 5.9                |
 
-> **✨ Upgrading is Easy:**
+> **Upgrading is Easy:**
 >
 > - *Flutter 3.35.7* has great backward compatibility up to *Flutter 3.32.0*, making the migration very
 > straightforward and requiring no changes to your existing code. For projects already using Material 3 UI,
@@ -133,7 +133,7 @@ flutter pub get && flutter run
 > Migration is very straightforward — simply update version in your build configuration files. *No changes to
 > your existing native code are required.*
 
-### 📦 Installation
+### Installation
 
 ```bash
 flutter pub add health_connector
@@ -146,9 +146,9 @@ dependencies:
   health_connector: [ latest_version ]
 ```
 
-### 🔧 Platform Setup
+### Platform Setup
 
-#### 🤖 Android Health Connect Setup
+#### Android Health Connect Setup
 
 ##### Step 1: Update AndroidManifest.xml
 
@@ -191,7 +191,7 @@ Update `android/app/src/main/AndroidManifest.xml`:
 </manifest>
 ```
 
-> **❗ Important**: You must declare a permission for *each* health data type and feature your app accesses.
+> **Important**: You must declare a permission for *each* health data type and feature your app accesses.
 > See the [Health Connect data types list](https://developer.android.com/health-and-fitness/guides/health-connect/plan/data-types)
 > for all available permissions.
 
@@ -271,14 +271,14 @@ android {
 }
 ```
 
-> **❗ Important**: `compileSdkExtension 19` is a **compile-time** requirement for the Health Connect
+> **Important**: `compileSdkExtension 19` is a **compile-time** requirement for the Health Connect
 > SDK 1.2.0-alpha03. In addition, writing `ExerciseSessionSegmentEvent.weight` with a non-null value
 > performs a **runtime** device capability check: if the device's Health Connect Mainline module is
 > below SDK Extension 21, an `UnsupportedOperationException` is thrown with a descriptive message.
 > See [Exercise Segment Weight and SDK Extension 21](https://health-connector.phamtunglam.com/reference/annotations#exercise-segment-weight-and-sdk-extension-21)
 > for details.
 
-#### 🍎 iOS HealthKit Setup
+#### iOS HealthKit Setup
 
 ##### Step 1: Configure Xcode
 
@@ -306,10 +306,10 @@ Add to `ios/Runner/Info.plist`:
 </dict>
 ```
 
-> **⚠️ Warning**: Vague or generic usage descriptions may result in App Store rejection.
+> **Warning**: Vague or generic usage descriptions may result in App Store rejection.
 > Be specific about *what* data you access and *why*.
 
-### ⚡ Quick Demo
+### Quick Demo
 
 ```dart
 import 'package:health_connector/health_connector.dart';
@@ -400,7 +400,7 @@ Future<void> quickStart() async {
 }
 ```
 
-> **🤔 What's Next?**
+> **What's Next?**
 >
 > - [Usage](https://health-connector.phamtunglam.com/guide/) section for API documentation.
 > - [Advanced Usage](https://health-connector.phamtunglam.com/guide/tasks/synchronize) section for advanced features.
@@ -410,13 +410,13 @@ Future<void> quickStart() async {
 
 <!-- #region webapp-core-sdk -->
 
-## 📘 Usage
+## Usage
 
-### 🔐 Manage Permissions
+### Manage Permissions
 
 #### Check Permission Status
 
-> **ℹ️ iOS Privacy:** HealthKit purposefully restricts access to read
+> **iOS Privacy:** HealthKit purposefully restricts access to read
 > authorization status to protect user privacy. The SDK explicitly exposes
 > this platform behavior by returning `unknown` for all iOS read
 > permissions. This is a native privacy feature, not an SDK limitation.
@@ -438,7 +438,7 @@ switch (status) {
 
 #### Workaround: Detecting iOS Read Status
 
-> **⚠️ Disclaimer:** This workaround attempts to infer permission status, which
+> **Disclaimer:** This workaround attempts to infer permission status, which
 > bypasses HealthKit's intended privacy design. Use only if your app
 > genuinely needs to determine read permission status.
 
@@ -493,7 +493,7 @@ for (final result in results) {
 
 #### Get All Granted Permissions (Android Health Connect only)
 
-> **ℹ️ iOS Privacy:** HealthKit does not allow apps to enumerate granted
+> **iOS Privacy:** HealthKit does not allow apps to enumerate granted
 > permissions, preventing user fingerprinting. This API throws
 > `UnsupportedOperationException` on iOS.
 
@@ -512,7 +512,7 @@ try {
 
 #### Revoke All Permissions (Android Health Connect only)
 
-> **ℹ️ iOS Privacy:** HealthKit does not support programmatic permission revocation. Users must manage
+> **iOS Privacy:** HealthKit does not support programmatic permission revocation. Users must manage
 > permissions in the iOS Settings app. This API throws `UnsupportedOperationException` on iOS.
 
 ```dart
@@ -524,9 +524,9 @@ try {
 }
 ```
 
-### 🔧 Manage Features
+### Manage Features
 
-> **ℹ️ Platform Behavior:**
+> **Platform Behavior:**
 >
 > - **iOS:** HealthKit is built into the OS. All features are always available
 >   (`HealthPlatformFeatureStatus.available`) and permissions are always granted
@@ -565,9 +565,9 @@ if (status == HealthPermissionsRequestStatus.granted) {
 }
 ```
 
-### 🔍 Read Data
+### Read Data
 
-> **ℹ️ Historical Data Access:**
+> **Historical Data Access:**
 >
 > - Android Health Connect defaults to 30 days—request `HealthPlatformFeature.readHealthDataHistory` permission
 > for older data.
@@ -665,7 +665,7 @@ while (true) {
 print('Total: ${allRecords.length} records');
 ```
 
-### 🖋️ Write Data
+### Write Data
 
 #### Write Single Record
 
@@ -726,9 +726,9 @@ final ids = await connector.writeRecords(records);
 print('Wrote ${ids.length} records');
 ```
 
-### 🗑 Delete Data
+### Delete Data
 
-> **ℹ️ Note:** Apps can only delete records they created—this is a platform security restriction.
+> **Note:** Apps can only delete records they created—this is a platform security restriction.
 > Attempting to delete records created by other apps will throw an `AuthorizationException`.
 
 #### Delete by IDs
@@ -759,9 +759,9 @@ final request = HealthDataType.steps.deleteInTimeRange(
 await connector.deleteRecords(request);
 ```
 
-### 🔄 Update Data
+### Update Data
 
-> **ℹ️ iOS Limitation:** HealthKit uses an immutable data model—records cannot be updated, only deleted
+> **iOS Limitation:** HealthKit uses an immutable data model—records cannot be updated, only deleted
 > and recreated. This is a platform security restriction.
 
 #### Update Single Record (Android Health Connect only)
@@ -796,7 +796,7 @@ final newRecord = existingRecord.copyWith(
 // 3. Write new record with updated value
 final newId = await connector.writeRecord(
   newRecord,
-); // 🦺 Note: ID changes after recreation
+); // Note: ID changes after recreation
 ```
 
 #### Batch Update (Android Health Connect only)
@@ -820,7 +820,7 @@ await connector.updateRecords(updated);
 print('Updated ${updated.length} records');
 ```
 
-### ➕ Aggregate Data
+### Aggregate Data
 
 ```dart
 final now = DateTime.now();
@@ -863,7 +863,7 @@ final maxResult = await connector.aggregate(
 print('Maximum weight: ${maxResult.inKilograms} kg');
 ```
 
-### 🚧 Handle Error
+### Handle Error
 
 Every `HealthConnectorException` thrown by the SDK includes a `HealthConnectorErrorCode` that provides specific
 details about what went wrong. Use this code to handle errors programmatically.
@@ -919,7 +919,7 @@ try {
 }
 ```
 
-### 📝 Logging
+### Logging
 
 The Health Connector SDK adopts a **strict zero-logging policy by default**:
 
@@ -959,7 +959,7 @@ final connector = await HealthConnector.create(
 );
 ```
 
-### 🏷 Annotations
+### Annotations
 
 The Health Connector SDK uses annotations to communicate API stability, platform support, versioning, and usage
 constraints. Understanding these annotations helps you use the API correctly.
@@ -971,11 +971,11 @@ constraints. Understanding these annotations helps you use the API correctly.
 | `@supportedOnAppleHealthIOS16Plus`            | iOS HealthKit with iOS 16.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 16.0.                                            |
 | `@supportedOnAppleHealthIOS17Plus`            | iOS HealthKit with iOS 17.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 17.0.                                            |
 | `@supportedOnAppleHealthIOS18Plus`            | iOS HealthKit with iOS 18.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 18.0.                                            |
-| `@supportedOnHealthConnectSdkExtension21`     | Android Health Connect with SDK Extension 21+ (Android 14+ with the Health Connect Mainline update).                           | Writing a non-null value on unsupported devices throws `UnsupportedOperationException`. The field is always `null` on iOS. See [note below](#-exercise-segment-weight-and-sdk-extension-21). |
+| `@supportedOnHealthConnectSdkExtension21`     | Android Health Connect with SDK Extension 21+ (Android 14+ with the Health Connect Mainline update).                           | Writing a non-null value on unsupported devices throws `UnsupportedOperationException`. The field is always `null` on iOS. See [note below](#exercise-segment-weight-and-sdk-extension-21). |
 | `@readOnly`                                   | Read-only data types representing system-calculated metrics. Cannot be written, updated, or deleted.                            | Use only `readRecords()` or `aggregate()`. Writing throws `UnsupportedOperationException`.                                                                            |
 | `@internalUse`                                | Internal SDK APIs not part of the public API surface.                                                                           | **Do not use in application code.** Use documented public APIs instead.                                                                                               |
 
-> **ℹ️ Note:** Annotations can be combined. When multiple annotations are present, all constraints apply.
+> **Note:** Annotations can be combined. When multiple annotations are present, all constraints apply.
 
 #### Example: Interpreting `InfrequentMenstrualCycleEventRecord` Annotations
 
@@ -1000,7 +1000,7 @@ final class InfrequentMenstrualCycleEventRecord extends IntervalHealthRecord {
 final connector = await HealthConnector.create();
 
 try {
-  // ✅ Only use read operations for read-only data types
+  // Recommended: Only use read operations for read-only data types
   final now = DateTime.now();
   final response = await connector.readRecords(
     HealthDataType.infrequentMenstrualCycleEvent.readInTimeRange(
@@ -1009,21 +1009,21 @@ try {
     ),
   );
 
-  // ❌ Don't use internal APIs
+  // Avoid: Don't use internal APIs
   // final record = InfrequentMenstrualCycleEventRecord.internal(...);
 
-  // ❌ Don't try to write read-only records
+  // Avoid: Don't try to write read-only records
   // await healthConnector.writeRecord(record); // Throws UnsupportedOperationException
 } on UnsupportedOperationException catch (e) {
   print('HealthDataType.infrequentMenstrualCycleEvent is supported only by iOS 16+: $e');
 }
 ```
 
-> **🚀 Coming Soon:** A new package `health_connector_lint` will be released in the future. This package will
+> **Coming Soon:** A new package `health_connector_lint` will be released in the future. This package will
 > leverage these annotations and integrate with the Dart analyzer through custom lint rules to guide developers in
 > using the SDK API correctly.
 
-#### 🏋 Exercise Segment Weight and SDK Extension 21
+#### Exercise Segment Weight and SDK Extension 21
 
 `ExerciseSessionSegmentEvent.weight` is annotated with
 `@supportedOnHealthConnectSdkExtension21`. This field maps to
@@ -1061,7 +1061,7 @@ try {
 }
 ```
 
-> **❗ Important**: This check is a **runtime** device capability check, not a compile-time
+> **Important**: This check is a **runtime** device capability check, not a compile-time
 > check. The same app binary may succeed on one Android 14 device and throw on another,
 > depending on whether that device has received the relevant Mainline update.
 
@@ -1069,16 +1069,16 @@ try {
 
 <!-- #region webapp-advanced-usage -->
 
-## 📚 Advanced Usage
+## Advanced Usage
 
-### 🗺 Exercise Session Routes
+### Exercise Session Routes
 
 Exercise routes contain GPS location data recorded during workouts, enabling map
 visualization and distance tracking.
 
 #### Request Permissions
 
-> **❗IMPORTANT:** Exercise route permissions alone are NOT sufficient.
+> **IMPORTANT:** Exercise route permissions alone are NOT sufficient.
 > You must also have the corresponding exercise session permissions as a foundation.
 > Without session permissions, route operations will fail *even if route permissions are granted*.
 
@@ -1175,7 +1175,7 @@ for (final session in response.records) {
 }
 ```
 
-### ♻️ Synchronize Data
+### Synchronize Data
 
 Data synchronization is an **incremental sync API** that retrieves **only
 health data that has changed since your last sync**, dramatically reducing
@@ -1186,8 +1186,8 @@ up-to-date with health data.
 
 | Use Case                                                        | Recommended Approach  |
 |:----------------------------------------------------------------|:----------------------|
-| **Periodic background sync** (e.g., daily health data updates)  | ✅ Use `synchronize()` |
-| **Real-time monitoring** of ongoing activity                    | ✅ Use `synchronize()` |
+| **Periodic background sync** (e.g., daily health data updates)  | Use `synchronize()` |
+| **Real-time monitoring** of ongoing activity                    | Use `synchronize()` |
 | **One-time data fetch** for a specific time range               | Use `readRecords()`   |
 | **User-requested historical data** (e.g., "show me last month") | Use `readRecords()`   |
 
@@ -1317,7 +1317,7 @@ Future<void> syncAllPages() async {
 }
 ```
 
-### 🔧 Custom Log Processor
+### Custom Log Processor
 
 For advanced logging needs beyond the built-in processors, you can create custom
 log processors by extending `HealthConnectorLogProcessor`. This allows integration
@@ -1396,11 +1396,11 @@ final connector = await HealthConnector.create(
 
 <!-- #region webapp-examples -->
 
-## 📱 App Examples
+## App Examples
 
 This section demonstrates how to integrate Health Connector into various health app categories.
 
-### 🍎 Nutrition and Diet Tracking
+### Nutrition and Diet Tracking
 
 Track meals, calories, macronutrients, and hydration for diet and nutrition apps.
 
@@ -1506,7 +1506,7 @@ Future<void> analyzeDailyNutrition() async {
 }
 ```
 
-### 🧘 Mindfulness and Behavioral Health
+### Mindfulness and Behavioral Health
 
 Track meditation sessions, breathing exercises, and other mindfulness activities.
 
@@ -1607,7 +1607,7 @@ Future<void> getWeeklyMindfulnessStats() async {
 }
 ```
 
-### 🏃 Fitness and Activity Tracking
+### Fitness and Activity Tracking
 
 Track exercise sessions with laps, segments, and GPS route data.
 
@@ -1735,9 +1735,9 @@ Future<void> getExerciseHistory() async {
 
 <!-- #region webapp-supported-data-types -->
 
-## 📋 Supported Health Data Types
+## Supported Health Data Types
 
-### 🏃 Activity
+### Activity
 
 #### General Activity
 
@@ -1817,104 +1817,104 @@ Future<void> getExerciseHistory() async {
 
 | Exercise Type                                | Android Health Connect | iOS HealthKit |
 |:---------------------------------------------|:-----------------------|:--------------|
-| `ExerciseType.other`                         | ✅                      | ✅             |
-| `ExerciseType.running`                       | ✅                      | ✅             |
-| `ExerciseType.runningTreadmill`              | ✅                      | ❌             |
-| `ExerciseType.walking`                       | ✅                      | ✅             |
-| `ExerciseType.cycling`                       | ✅                      | ✅             |
-| `ExerciseType.cyclingStationary`             | ✅                      | ❌             |
-| `ExerciseType.hiking`                        | ✅                      | ✅             |
-| `ExerciseType.handCycling`                   | ❌                      | ✅             |
-| `ExerciseType.trackAndField`                 | ❌                      | ✅             |
-| `ExerciseType.swimming`                      | ❌                      | ✅             |
-| `ExerciseType.swimmingOpenWater`             | ✅                      | ❌             |
-| `ExerciseType.swimmingPool`                  | ✅                      | ❌             |
-| `ExerciseType.surfing`                       | ✅                      | ✅             |
-| `ExerciseType.waterPolo`                     | ✅                      | ✅             |
-| `ExerciseType.rowing`                        | ✅                      | ✅             |
-| `ExerciseType.sailing`                       | ✅                      | ✅             |
-| `ExerciseType.paddling`                      | ✅                      | ✅             |
-| `ExerciseType.diving`                        | ✅                      | ✅             |
-| `ExerciseType.waterFitness`                  | ❌                      | ✅             |
-| `ExerciseType.waterSports`                   | ❌                      | ✅             |
-| `ExerciseType.strengthTraining`              | ✅                      | ✅             |
-| `ExerciseType.weightlifting`                 | ✅                      | ❌             |
-| `ExerciseType.calisthenics`                  | ✅                      | ❌             |
-| `ExerciseType.basketball`                    | ✅                      | ✅             |
-| `ExerciseType.soccer`                        | ✅                      | ✅             |
-| `ExerciseType.americanFootball`              | ✅                      | ✅             |
-| `ExerciseType.frisbeeDisc`                   | ✅                      | ✅             |
-| `ExerciseType.australianFootball`            | ✅                      | ✅             |
-| `ExerciseType.baseball`                      | ✅                      | ✅             |
-| `ExerciseType.softball`                      | ✅                      | ✅             |
-| `ExerciseType.volleyball`                    | ✅                      | ✅             |
-| `ExerciseType.rugby`                         | ✅                      | ✅             |
-| `ExerciseType.cricket`                       | ✅                      | ✅             |
-| `ExerciseType.handball`                      | ✅                      | ✅             |
-| `ExerciseType.iceHockey`                     | ✅                      | ❌             |
-| `ExerciseType.rollerHockey`                  | ✅                      | ❌             |
-| `ExerciseType.hockey`                        | ❌                      | ✅             |
-| `ExerciseType.lacrosse`                      | ❌                      | ✅             |
-| `ExerciseType.discSports`                    | ❌                      | ✅             |
-| `ExerciseType.tennis`                        | ✅                      | ✅             |
-| `ExerciseType.tableTennis`                   | ✅                      | ✅             |
-| `ExerciseType.badminton`                     | ✅                      | ✅             |
-| `ExerciseType.squash`                        | ✅                      | ✅             |
-| `ExerciseType.racquetball`                   | ✅                      | ✅             |
-| `ExerciseType.pickleball`                    | ❌                      | ✅             |
-| `ExerciseType.skiing`                        | ✅                      | ❌             |
-| `ExerciseType.snowboarding`                  | ✅                      | ✅             |
-| `ExerciseType.snowshoeing`                   | ✅                      | ❌             |
-| `ExerciseType.skating`                       | ✅                      | ✅             |
-| `ExerciseType.crossCountrySkiing`            | ❌                      | ✅             |
-| `ExerciseType.curling`                       | ❌                      | ✅             |
-| `ExerciseType.downhillSkiing`                | ❌                      | ✅             |
-| `ExerciseType.snowSports`                    | ❌                      | ✅             |
-| `ExerciseType.boxing`                        | ✅                      | ✅             |
-| `ExerciseType.kickboxing`                    | ❌                      | ✅             |
-| `ExerciseType.martialArts`                   | ✅                      | ✅             |
-| `ExerciseType.wrestling`                     | ❌                      | ✅             |
-| `ExerciseType.fencing`                       | ✅                      | ✅             |
-| `ExerciseType.taiChi`                        | ❌                      | ✅             |
-| `ExerciseType.dancing`                       | ✅                      | ❌             |
-| `ExerciseType.gymnastics`                    | ✅                      | ✅             |
-| `ExerciseType.barre`                         | ❌                      | ✅             |
-| `ExerciseType.cardioDance`                   | ❌                      | ✅             |
-| `ExerciseType.socialDance`                   | ❌                      | ✅             |
-| `ExerciseType.yoga`                          | ✅                      | ✅             |
-| `ExerciseType.pilates`                       | ✅                      | ✅             |
-| `ExerciseType.highIntensityIntervalTraining` | ✅                      | ✅             |
-| `ExerciseType.elliptical`                    | ✅                      | ✅             |
-| `ExerciseType.exerciseClass`                 | ✅                      | ❌             |
-| `ExerciseType.bootCamp`                      | ✅                      | ❌             |
-| `ExerciseType.guidedBreathing`               | ✅                      | ❌             |
-| `ExerciseType.stairClimbing`                 | ✅                      | ✅             |
-| `ExerciseType.crossTraining`                 | ❌                      | ✅             |
-| `ExerciseType.jumpRope`                      | ❌                      | ✅             |
-| `ExerciseType.fitnessGaming`                 | ❌                      | ✅             |
-| `ExerciseType.mixedCardio`                   | ❌                      | ✅             |
-| `ExerciseType.cooldown`                      | ❌                      | ✅             |
-| `ExerciseType.flexibility`                   | ✅                      | ✅             |
-| `ExerciseType.mindAndBody`                   | ❌                      | ✅             |
-| `ExerciseType.preparationAndRecovery`        | ❌                      | ✅             |
-| `ExerciseType.stepTraining`                  | ❌                      | ✅             |
-| `ExerciseType.coreTraining`                  | ❌                      | ✅             |
-| `ExerciseType.golf`                          | ✅                      | ✅             |
-| `ExerciseType.archery`                       | ❌                      | ✅             |
-| `ExerciseType.bowling`                       | ❌                      | ✅             |
-| `ExerciseType.paragliding`                   | ✅                      | ❌             |
-| `ExerciseType.climbing`                      | ✅                      | ✅             |
-| `ExerciseType.equestrianSports`              | ❌                      | ✅             |
-| `ExerciseType.fishing`                       | ❌                      | ✅             |
-| `ExerciseType.hunting`                       | ❌                      | ✅             |
-| `ExerciseType.play`                          | ❌                      | ✅             |
-| `ExerciseType.wheelchair`                    | ✅                      | ❌             |
-| `ExerciseType.wheelchairWalkPace`            | ❌                      | ✅             |
-| `ExerciseType.wheelchairRunPace`             | ❌                      | ✅             |
-| `ExerciseType.transition`                    | ❌                      | ✅             |
-| `ExerciseType.swimBikeRun`                   | ❌                      | ✅             |
+| `ExerciseType.other`                         | Yes                      | Yes             |
+| `ExerciseType.running`                       | Yes                      | Yes             |
+| `ExerciseType.runningTreadmill`              | Yes                      | No             |
+| `ExerciseType.walking`                       | Yes                      | Yes             |
+| `ExerciseType.cycling`                       | Yes                      | Yes             |
+| `ExerciseType.cyclingStationary`             | Yes                      | No             |
+| `ExerciseType.hiking`                        | Yes                      | Yes             |
+| `ExerciseType.handCycling`                   | No                      | Yes             |
+| `ExerciseType.trackAndField`                 | No                      | Yes             |
+| `ExerciseType.swimming`                      | No                      | Yes             |
+| `ExerciseType.swimmingOpenWater`             | Yes                      | No             |
+| `ExerciseType.swimmingPool`                  | Yes                      | No             |
+| `ExerciseType.surfing`                       | Yes                      | Yes             |
+| `ExerciseType.waterPolo`                     | Yes                      | Yes             |
+| `ExerciseType.rowing`                        | Yes                      | Yes             |
+| `ExerciseType.sailing`                       | Yes                      | Yes             |
+| `ExerciseType.paddling`                      | Yes                      | Yes             |
+| `ExerciseType.diving`                        | Yes                      | Yes             |
+| `ExerciseType.waterFitness`                  | No                      | Yes             |
+| `ExerciseType.waterSports`                   | No                      | Yes             |
+| `ExerciseType.strengthTraining`              | Yes                      | Yes             |
+| `ExerciseType.weightlifting`                 | Yes                      | No             |
+| `ExerciseType.calisthenics`                  | Yes                      | No             |
+| `ExerciseType.basketball`                    | Yes                      | Yes             |
+| `ExerciseType.soccer`                        | Yes                      | Yes             |
+| `ExerciseType.americanFootball`              | Yes                      | Yes             |
+| `ExerciseType.frisbeeDisc`                   | Yes                      | Yes             |
+| `ExerciseType.australianFootball`            | Yes                      | Yes             |
+| `ExerciseType.baseball`                      | Yes                      | Yes             |
+| `ExerciseType.softball`                      | Yes                      | Yes             |
+| `ExerciseType.volleyball`                    | Yes                      | Yes             |
+| `ExerciseType.rugby`                         | Yes                      | Yes             |
+| `ExerciseType.cricket`                       | Yes                      | Yes             |
+| `ExerciseType.handball`                      | Yes                      | Yes             |
+| `ExerciseType.iceHockey`                     | Yes                      | No             |
+| `ExerciseType.rollerHockey`                  | Yes                      | No             |
+| `ExerciseType.hockey`                        | No                      | Yes             |
+| `ExerciseType.lacrosse`                      | No                      | Yes             |
+| `ExerciseType.discSports`                    | No                      | Yes             |
+| `ExerciseType.tennis`                        | Yes                      | Yes             |
+| `ExerciseType.tableTennis`                   | Yes                      | Yes             |
+| `ExerciseType.badminton`                     | Yes                      | Yes             |
+| `ExerciseType.squash`                        | Yes                      | Yes             |
+| `ExerciseType.racquetball`                   | Yes                      | Yes             |
+| `ExerciseType.pickleball`                    | No                      | Yes             |
+| `ExerciseType.skiing`                        | Yes                      | No             |
+| `ExerciseType.snowboarding`                  | Yes                      | Yes             |
+| `ExerciseType.snowshoeing`                   | Yes                      | No             |
+| `ExerciseType.skating`                       | Yes                      | Yes             |
+| `ExerciseType.crossCountrySkiing`            | No                      | Yes             |
+| `ExerciseType.curling`                       | No                      | Yes             |
+| `ExerciseType.downhillSkiing`                | No                      | Yes             |
+| `ExerciseType.snowSports`                    | No                      | Yes             |
+| `ExerciseType.boxing`                        | Yes                      | Yes             |
+| `ExerciseType.kickboxing`                    | No                      | Yes             |
+| `ExerciseType.martialArts`                   | Yes                      | Yes             |
+| `ExerciseType.wrestling`                     | No                      | Yes             |
+| `ExerciseType.fencing`                       | Yes                      | Yes             |
+| `ExerciseType.taiChi`                        | No                      | Yes             |
+| `ExerciseType.dancing`                       | Yes                      | No             |
+| `ExerciseType.gymnastics`                    | Yes                      | Yes             |
+| `ExerciseType.barre`                         | No                      | Yes             |
+| `ExerciseType.cardioDance`                   | No                      | Yes             |
+| `ExerciseType.socialDance`                   | No                      | Yes             |
+| `ExerciseType.yoga`                          | Yes                      | Yes             |
+| `ExerciseType.pilates`                       | Yes                      | Yes             |
+| `ExerciseType.highIntensityIntervalTraining` | Yes                      | Yes             |
+| `ExerciseType.elliptical`                    | Yes                      | Yes             |
+| `ExerciseType.exerciseClass`                 | Yes                      | No             |
+| `ExerciseType.bootCamp`                      | Yes                      | No             |
+| `ExerciseType.guidedBreathing`               | Yes                      | No             |
+| `ExerciseType.stairClimbing`                 | Yes                      | Yes             |
+| `ExerciseType.crossTraining`                 | No                      | Yes             |
+| `ExerciseType.jumpRope`                      | No                      | Yes             |
+| `ExerciseType.fitnessGaming`                 | No                      | Yes             |
+| `ExerciseType.mixedCardio`                   | No                      | Yes             |
+| `ExerciseType.cooldown`                      | No                      | Yes             |
+| `ExerciseType.flexibility`                   | Yes                      | Yes             |
+| `ExerciseType.mindAndBody`                   | No                      | Yes             |
+| `ExerciseType.preparationAndRecovery`        | No                      | Yes             |
+| `ExerciseType.stepTraining`                  | No                      | Yes             |
+| `ExerciseType.coreTraining`                  | No                      | Yes             |
+| `ExerciseType.golf`                          | Yes                      | Yes             |
+| `ExerciseType.archery`                       | No                      | Yes             |
+| `ExerciseType.bowling`                       | No                      | Yes             |
+| `ExerciseType.paragliding`                   | Yes                      | No             |
+| `ExerciseType.climbing`                      | Yes                      | Yes             |
+| `ExerciseType.equestrianSports`              | No                      | Yes             |
+| `ExerciseType.fishing`                       | No                      | Yes             |
+| `ExerciseType.hunting`                       | No                      | Yes             |
+| `ExerciseType.play`                          | No                      | Yes             |
+| `ExerciseType.wheelchair`                    | Yes                      | No             |
+| `ExerciseType.wheelchairWalkPace`            | No                      | Yes             |
+| `ExerciseType.wheelchairRunPace`             | No                      | Yes             |
+| `ExerciseType.transition`                    | No                      | Yes             |
+| `ExerciseType.swimBikeRun`                   | No                      | Yes             |
 
-### 📏 Body Measurements
+### Body Measurements
 
 | Data Type                  | Description                                    | Data Type                                   | Supported Aggregation | Supported On                          | Android Health Connect API                                                                                                           | iOS HealthKit API                                                                                                                                                    |
 |:---------------------------|:-----------------------------------------------|:--------------------------------------------|:----------------------|:--------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1930,7 +1930,7 @@ Future<void> getExerciseHistory() async {
 | Sleeping Wrist Temperature | Temperature measured at the wrist during sleep | `HealthDataType.sleepingWristTemperature`   | Avg, Min, Max         | iOS HealthKit (iOS 16+)               | -                                                                                                                                    | [HKQuantityTypeIdentifier.appleSleepingWristTemperature](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applesleepingwristtemperature) |
 | Skin Temperature Delta     | Skin temperature variations                    | `HealthDataType.skinTemperatureDeltaSeries` | Avg, Min, Max         | Android Health Connect                | [SkinTemperatureRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SkinTemperatureRecord) | -                                                                                                                                                                    |
 
-### ❤️ Vitals
+### Vitals
 
 | Data Type                    | Description                                  | Data Type                                   | Supported Aggregation | Supported On                          | Android Health Connect API                                                                                                                               | iOS HealthKit API                                                                                                                                              |
 |:-----------------------------|:---------------------------------------------|:--------------------------------------------|:----------------------|:--------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1962,14 +1962,14 @@ Future<void> getExerciseHistory() async {
 | Inhaler Usage                | Number of puffs from an inhaler              | `HealthDataType.inhalerUsage`               | Sum                   | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.inhalerUsage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/inhalerusage)                             |
 | Insulin Delivery             | Amount of insulin delivered                  | `HealthDataType.insulinDelivery`            | Sum                   | iOS HealthKit                         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.insulinDelivery](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/insulindelivery)                       |
 
-### 😴 Sleep
+### Sleep
 
 | Data Type          | Description                              | Data Type                         | Supported Aggregation | Supported On           | Android Health Connect API                                                                                                     | iOS HealthKit API                                                                                                                    |
 |:-------------------|:-----------------------------------------|:----------------------------------|:----------------------|:-----------------------|:-------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
 | Sleep Session      | Complete sleep session with sleep stages | `HealthDataType.sleepSession`     | -                     | Android Health Connect | [SleepSessionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord) | -                                                                                                                                    |
 | Sleep Stage Record | Individual sleep stage measurement       | `HealthDataType.sleepStageRecord` | -                     | iOS HealthKit          | -                                                                                                                              | [HKCategoryTypeIdentifier.sleepAnalysis](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis) |
 
-### 👂 Hearing
+### Hearing
 
 | Data Type                          | Description                                          | Data Type                                        | Supported Aggregation | Supported On  | Android Health Connect API | iOS HealthKit API                                                                                                                                                        |
 |:-----------------------------------|:-----------------------------------------------------|:-------------------------------------------------|:----------------------|:--------------|:---------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1978,7 +1978,7 @@ Future<void> getExerciseHistory() async {
 | Environmental Audio Exposure Event | Exposure to potentially damaging environmental sound | `HealthDataType.environmentalAudioExposureEvent` | -                     | iOS HealthKit | -                          | [HKCategoryTypeIdentifier.environmentalAudioExposureEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/environmentalaudioexposureevent) |
 | Headphone Audio Exposure Event     | Exposure to potentially damaging headphone sound     | `HealthDataType.headphoneAudioExposureEvent`     | -                     | iOS HealthKit | -                          | [HKCategoryTypeIdentifier.headphoneAudioExposureEvent](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/headphoneaudioexposureevent)         |
 
-### 🥗 Nutrition
+### Nutrition
 
 #### Core & Hydration
 
@@ -2056,13 +2056,13 @@ Future<void> getExerciseHistory() async {
 |:--------------------|:--------------------------|:------------------------------------|:----------------------|:--------------|:---------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Alcoholic Beverages | Count of alcoholic drinks | `HealthDataType.alcoholicBeverages` | Sum                   | iOS HealthKit | -                          | [HKQuantityTypeIdentifier.numberOfAlcoholicBeverages](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/numberofalcoholicbeverages) |
 
-### 🧘 Wellness
+### Wellness
 
 | Data Type           | Description                         | Data Type                           | Supported Aggregation | Supported On                          | Android Health Connect API                                                                                                                 | iOS HealthKit API                                                                                                                      |
 |:--------------------|:------------------------------------|:------------------------------------|:----------------------|:--------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
 | Mindfulness Session | Meditation and mindfulness sessions | `HealthDataType.mindfulnessSession` | Sum                   | Android Health Connect, iOS HealthKit | [MindfulnessSessionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MindfulnessSessionRecord) | [HKCategoryTypeIdentifier.mindfulSession](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/mindfulsession) |
 
-### 🪷 Cycle Tracking
+### Cycle Tracking
 
 | Data Type                          | Description                               | Data Type                                              | Supported Aggregation | Supported On                          | Android Health Connect API                                                                                                                     | iOS HealthKit API                                                                                                                                                          |
 |:-----------------------------------|:------------------------------------------|:-------------------------------------------------------|:----------------------|:--------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -2084,22 +2084,22 @@ Future<void> getExerciseHistory() async {
 
 <!-- #endregion webapp-supported-data-types -->
 
-## 📚 References
+## References
 
-### 🗃 API Documentation
+### API Documentation
 
 - [API Documentation](https://pub.dev/documentation/health_connector/latest/)
 
-### 🔄 Migration Guides
+### Migration Guides
 
 - [Migration Guide from `v1.x.x` to`v2.0.0`](../../doc/guides/migration_guides/migration-guide-v1.x.x-to-v2.0.0.md)
 - [Migration Guide from `v2.x.x` to`v3.0.0`](../../doc/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md)
 
-### 🤝 Contributing
+### Contributing
 
 Contributions are welcome! See our [GitHub Issues](https://github.com/fam-tung-lam/health_connector/issues) to report
 bugs or request features.
 
-### 📄 License
+### License
 
 This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
