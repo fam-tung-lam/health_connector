@@ -1,6 +1,6 @@
 # Packages
 
-Health Connector is a Melos-managed monorepo. Applications depend on the facade only.
+Health Connector SDK is a Melos-managed monorepo. Applications depend on the facade only.
 
 ## Add this and nothing else
 

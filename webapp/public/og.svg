@@ -11,7 +11,7 @@
   <g opacity=".28" stroke="#087f5b"><path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200"/><path d="M90 0v630M180 0v630M270 0v630M360 0v630M450 0v630M540 0v630M630 0v630M720 0v630M810 0v630M900 0v630M990 0v630M1080 0v630"/></g>
   <rect x="78" y="78" width="148" height="148" rx="44" fill="url(#mark)"/>
   <path d="M113 152h24l12-28 17 56 12-28h18" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="78" y="340" fill="#15251f" font-family="system-ui, sans-serif" font-size="82" font-weight="760" letter-spacing="-3">Health Connector</text>
+  <text x="78" y="340" fill="#15251f" font-family="system-ui, sans-serif" font-size="82" font-weight="760" letter-spacing="-3">Health Connector SDK</text>
   <text x="82" y="418" fill="#087f5b" font-family="ui-monospace, monospace" font-size="28" font-weight="700" letter-spacing="2">ONE FLUTTER API · TWO HEALTH PLATFORMS</text>
   <text x="82" y="500" fill="#425c52" font-family="system-ui, sans-serif" font-size="34">Android Health Connect and iOS HealthKit</text>
 </svg>

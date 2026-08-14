@@ -1,7 +1,7 @@
-# Health Connector
+# Health Connector SDK
 
 <p align="center">
-  <img alt="Health Connector" width="200px" src="https://img.shields.io/badge/Health-Connector-2E8B57.svg?style=for-the-badge">
+  <img alt="Health Connector SDK" width="200px" src="https://img.shields.io/badge/Health-Connector%20SDK-2E8B57.svg?style=for-the-badge">
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@ A unified, type-safe Flutter plugin for accessing health data across Android and
 
 ## Overview
 
-**Health Connector** provides a unified interface to access health data from **Android Health
+**Health Connector SDK** provides a unified interface to access health data from **Android Health
 Connect** and **iOS HealthKit**. It abstracts platform differences while preserving
 platform-specific capabilities, offering a consistent API for reading, writing, updating, deleting,
 and aggregating health records.
@@ -41,7 +41,7 @@ and aggregating health records.
 
 ## Packages
 
-Health Connector is organized as a monorepo containing multiple packages:
+Health Connector SDK is organized as a monorepo containing multiple packages:
 
 ### Core Packages
 

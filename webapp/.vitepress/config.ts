@@ -13,7 +13,7 @@ const guideSidebar = [
   {
     text: "Start here",
     items: [
-      { text: "What is Health Connector?", link: "/guide/" },
+      { text: "What is Health Connector SDK?", link: "/guide/" },
       { text: "Install & configure", link: "/guide/installation" },
       { text: "Your first integration", link: "/guide/quickstart" },
       { text: "Setup troubleshooting", link: "/guide/troubleshooting" },
@@ -100,8 +100,8 @@ const everySidebar = [
 
 export default defineConfig({
   lang: "en-US",
-  title: "Health Connector",
-  titleTemplate: ":title | Health Connector",
+  title: "Health Connector SDK",
+  titleTemplate: ":title | Health Connector SDK",
   description:
     "A unified, type-safe Flutter SDK for Android Health Connect and iOS HealthKit.",
   base: "/",
@@ -122,7 +122,7 @@ export default defineConfig({
     ],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:url", content: productionUrl }],
-    ["meta", { property: "og:title", content: "Health Connector" }],
+    ["meta", { property: "og:title", content: "Health Connector SDK" }],
     [
       "meta",
       {
@@ -133,7 +133,7 @@ export default defineConfig({
     ],
     ["meta", { property: "og:image", content: `${productionUrl}/og.png` }],
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["meta", { name: "twitter:title", content: "Health Connector" }],
+    ["meta", { name: "twitter:title", content: "Health Connector SDK" }],
     [
       "meta",
       {
@@ -160,7 +160,7 @@ export default defineConfig({
     json: { stringify: true },
   },
   themeConfig: {
-    logo: { light: "/logo.svg", dark: "/logo.svg", alt: "Health Connector" },
+    logo: { light: "/logo.svg", dark: "/logo.svg", alt: "Health Connector SDK" },
     nav: [
       { text: "Guide", link: "/guide/", activeMatch: "^/guide/" },
       { text: "Recipes", link: "/recipes/", activeMatch: "^/recipes/" },
@@ -196,7 +196,7 @@ export default defineConfig({
       },
     },
     socialLinks: [
-      { icon: "github", link: repositoryUrl, ariaLabel: "Health Connector on GitHub" },
+      { icon: "github", link: repositoryUrl, ariaLabel: "Health Connector SDK on GitHub" },
     ],
     editLink: {
       pattern: `${repositoryUrl}/edit/main/webapp/:path`,

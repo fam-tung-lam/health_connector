@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Health Connector documentation theme
+   Health Connector SDK documentation theme
 
    Colour carries meaning here: green is the SDK and Android Health Connect,
    blue is iOS HealthKit. Those two hues are reused for every platform badge,
@@ -239,10 +239,7 @@ body { text-rendering: optimizeLegibility; }
   );
 }
 
-.hc-bridge__stage > div { display: grid; gap: 3px; min-width: 0; }
-.hc-bridge__stage span { letter-spacing: .1em; font: 760 7px/10px var(--hc-font-mono); color: var(--hc-green); }
 .hc-bridge__stage strong { font-size: 15px; color: var(--vp-c-text-1); }
-.hc-bridge__stage code { font: 700 8px/12px var(--hc-font-mono); color: var(--hc-blue); }
 .hc-bridge__stage img { flex: 0 0 auto; width: 34px; height: 34px; }
 
 .hc-bridge__stage-icon {
@@ -265,7 +262,7 @@ body { text-rendering: optimizeLegibility; }
   stroke-linecap: round;
 }
 
-.hc-bridge__exchange { display: grid; justify-items: center; gap: 2px; padding: 8px 0; }
+.hc-bridge__exchange { display: grid; justify-items: center; padding: 8px 0; }
 
 .hc-bridge__exchange svg {
   width: 22px;
@@ -277,10 +274,7 @@ body { text-rendering: optimizeLegibility; }
   stroke-linejoin: round;
 }
 
-.hc-bridge__exchange span { font: 700 7px/10px var(--hc-font-mono); color: var(--hc-green); }
-
 .hc-bridge__route { display: grid; justify-items: center; width: 100%; }
-.hc-bridge__route span { margin-top: 10px; font: 700 7px/10px var(--hc-font-mono); color: var(--hc-green); }
 
 .hc-bridge__route svg {
   overflow: visible;
@@ -290,14 +284,20 @@ body { text-rendering: optimizeLegibility; }
   stroke-width: 1.4;
 }
 
-.hc-bridge__route svg path { fill: none; stroke-dasharray: 5 5; }
-.hc-bridge__route svg circle { fill: var(--hc-green); stroke: none; }
-
-.hc-bridge__route svg marker path {
-  fill: color-mix(in srgb, var(--hc-green) 55%, var(--hc-blue));
-  stroke: none;
-  stroke-dasharray: none;
+.hc-arrow__line {
+  fill: none;
+  stroke-dasharray: 5 5;
+  animation: hc-arrow-flow 1.1s linear infinite;
 }
+
+.hc-arrow__head {
+  fill: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hc-arrow-nudge 1.1s ease-in-out infinite;
+}
+
+.hc-bridge__route svg circle { fill: var(--hc-green); stroke: none; }
 
 .hc-bridge__platforms {
   display: grid;
@@ -324,20 +324,37 @@ body { text-rendering: optimizeLegibility; }
   border-radius: 9px;
   width: 34px;
   height: 34px;
-  font: 800 10px var(--hc-font-mono);
   color: #fff;
   background: var(--hc-green);
 }
 
+.hc-platform__icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hc-platform__icon circle { fill: currentColor; stroke: none; }
 .dark .hc-platform__icon { color: #08120f; }
 .hc-platform--ios .hc-platform__icon { background: var(--hc-blue); }
-.hc-platform div { display: grid; min-width: 0; }
+.hc-platform--ios .hc-platform__icon svg { fill: currentColor; stroke: none; }
 .hc-platform strong { font-size: 11px; color: var(--vp-c-text-1); }
-.hc-platform small { font: 650 7px/12px var(--hc-font-mono); color: var(--vp-c-text-2); }
 
 @keyframes hc-pulse {
   70% { box-shadow: 0 0 0 6px transparent; }
   100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@keyframes hc-arrow-flow {
+  to { stroke-dashoffset: -20; }
+}
+
+@keyframes hc-arrow-nudge {
+  50% { transform: translateY(2px); }
 }
 
 /* ------------------------------------------------------ platform tabs ---- */
@@ -891,5 +908,7 @@ body { text-rendering: optimizeLegibility; }
 
 @media (prefers-reduced-motion: reduce) {
   .hc-bridge__status i { animation: none; }
+  .hc-arrow__line,
+  .hc-arrow__head { animation: none; }
   .hc-next a:hover { transform: none; }
 }

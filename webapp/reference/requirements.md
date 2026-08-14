@@ -25,7 +25,7 @@ Upgrading is normally cheap, though: Flutter 3.35.7 is source-compatible with ap
 | Setting | Value | Why |
 |---|---|---|
 | `minSdkVersion` | `26` | Compile floor of the Health Connect client library |
-| `compileSdkExtension` | `19` | Required by Health Connect 1.2.0-alpha03, which Health Connector v3.9.0+ builds against |
+| `compileSdkExtension` | `19` | Required by Health Connect 1.2.0-alpha03, which Health Connector SDK v3.9.0+ builds against |
 | `android.useAndroidX` | `true` | Health Connect is built on AndroidX |
 | `android.enableJetifier` | *omit* | Deprecated; only needed for legacy support-library dependencies |
 | `MainActivity` base class | `FlutterFragmentActivity` | Permission requests use `registerForActivityResult`, which needs a `FragmentActivity` host |

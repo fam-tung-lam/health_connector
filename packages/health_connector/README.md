@@ -64,7 +64,7 @@ incremental data synchronization, and privacy-first architecture.
 
 ## See It In Action — Interactive Toolbox Demo
 
-**See what's possible.** The Health Connector Toolbox showcases the full
+**See what's possible.** The Health Connector SDK Toolbox showcases the full
 power of the SDK with live, interactive demonstrations running on both iOS
 and Android.
 
@@ -257,7 +257,7 @@ Update `android/app/build.gradle` (Groovy DSL) or `android/app/build.gradle.kts`
 android {
     // Your existing configuration
 
-    compileSdkExtension 19  // Required from Health Connector v3.9.0 (Health Connect 1.2.0-alpha03)
+    compileSdkExtension 19  // Required from Health Connector SDK v3.9.0 (Health Connect 1.2.0-alpha03)
 }
 ```
 
@@ -267,7 +267,7 @@ android {
 android {
     // Your existing configuration
 
-    compileSdkExtension = 19  // Required from Health Connector v3.9.0 (Health Connect 1.2.0-alpha03)
+    compileSdkExtension = 19  // Required from Health Connector SDK v3.9.0 (Health Connect 1.2.0-alpha03)
 }
 ```
 
@@ -1398,7 +1398,7 @@ final connector = await HealthConnector.create(
 
 ## App Examples
 
-This section demonstrates how to integrate Health Connector into various health app categories.
+This section demonstrates how to integrate Health Connector SDK into various health app categories.
 
 ### Nutrition and Diet Tracking
 

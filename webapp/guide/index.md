@@ -1,14 +1,14 @@
-# What is Health Connector?
+# What is Health Connector SDK?
 
-Health Connector is a Flutter SDK that presents Android Health Connect and Apple HealthKit through one strongly typed Dart API.
+Health Connector SDK is a Flutter SDK that presents Android Health Connect and Apple HealthKit through one strongly typed Dart API.
 
 Both platforms store the same kinds of information — steps, weight, heart rate, sleep, meals — but they disagree about almost everything else: how records are shaped, how permissions are granted, which operations exist, and how much the OS is willing to tell your app. Writing against both directly means maintaining two health layers and reconciling them in your domain code.
 
-Health Connector collapses that into a single API surface, and it does so without hiding the parts that genuinely differ.
+Health Connector SDK collapses that into a single API surface, and it does so without hiding the parts that genuinely differ.
 
 ## Designed for production-scale data workflows
 
-Health Connector provides the controls needed when health data becomes a core application workflow
+Health Connector SDK provides the controls needed when health data becomes a core application workflow
 rather than a one-off import:
 
 - **Record identifiers:** Write operations return platform-assigned identifiers, allowing
@@ -24,7 +24,7 @@ rather than a one-off import:
 
 ## The problem it solves
 
-| Concern | Android Health Connect | Apple HealthKit | Health Connector |
+| Concern | Android Health Connect | Apple HealthKit | Health Connector SDK |
 |---|---|---|---|
 | Health store | Separate installable app | Built into iOS | `HealthConnector` |
 | Data model | Typed records | `HKSample` subclasses | Typed Dart records |
@@ -57,7 +57,7 @@ final records = response.records;
 
 ## What it deliberately does not hide
 
-An abstraction that pretends the platforms are identical produces bugs that only appear on one of them. Health Connector keeps the real constraints visible:
+An abstraction that pretends the platforms are identical produces bugs that only appear on one of them. Health Connector SDK keeps the real constraints visible:
 
 - HealthKit never discloses whether the user denied a **read** permission, so iOS read status is reported as `unknown` — by design, not as a gap.
 - HealthKit records are immutable, so `updateRecord()` exists on Android only and is marked `@supportedOnHealthConnect`.

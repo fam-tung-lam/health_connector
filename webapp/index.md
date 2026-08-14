@@ -3,7 +3,7 @@ layout: home
 title: Flutter health data, one typed API
 
 hero:
-  name: Health Connector
+  name: Health Connector SDK
   text: One Flutter API for every health platform.
   tagline: >-
     Read, write, aggregate, and sync health data across Android Health Connect
@@ -14,7 +14,7 @@ hero:
       text: Start integrating
       link: /guide/quickstart
     - theme: alt
-      text: What is Health Connector?
+      text: What is Health Connector SDK?
       link: /guide/
     - theme: alt
       text: Browse data types

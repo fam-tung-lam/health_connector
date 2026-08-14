@@ -137,7 +137,7 @@ Depend only on the facade. The Android and iOS implementations arrive transitive
 
    API 26 is what the Health Connect client library compiles against. It is **not** a promise that Health Connect exists on every API 26 device — the health store is a separate app, and on older devices it may be absent entirely. Always gate on `getHealthPlatformStatus()` at runtime.
 
-6. **Set `compileSdkExtension 19`** (required from Health Connector v3.9.0, which builds against Health Connect 1.2.0-alpha03):
+6. **Set `compileSdkExtension 19`** (required from Health Connector SDK v3.9.0, which builds against Health Connect 1.2.0-alpha03):
 
    ```groovy
    // android/app/build.gradle — Groovy DSL

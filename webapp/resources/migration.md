@@ -1,6 +1,6 @@
 # Migration guides
 
-Health Connector follows semantic versioning: only major releases contain breaking changes. Each has a dedicated guide with before-and-after code for every change.
+Health Connector SDK follows semantic versioning: only major releases contain breaking changes. Each has a dedicated guide with before-and-after code for every change.
 
 ## v2.x.x → v3.0.0
 

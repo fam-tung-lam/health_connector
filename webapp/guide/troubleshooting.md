@@ -98,7 +98,7 @@ Check the [annotation reference](/reference/annotations), and branch on `HealthC
 
 ## Build fails after upgrading to v3.9.0+
 
-Health Connector v3.9.0 builds against Health Connect 1.2.0-alpha03, which requires SDK Extension 19 at compile time:
+Health Connector SDK v3.9.0 builds against Health Connect 1.2.0-alpha03, which requires SDK Extension 19 at compile time:
 
 ```groovy
 android {

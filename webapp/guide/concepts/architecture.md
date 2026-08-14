@@ -1,6 +1,6 @@
 # Architecture
 
-Health Connector is a facade over two native health stores. Understanding the layers explains why some things are uniform and others are explicitly not.
+Health Connector SDK is a facade over two native health stores. Understanding the layers explains why some things are uniform and others are explicitly not.
 
 ## The layers
 
@@ -14,7 +14,7 @@ Health Connector is a facade over two native health stores. Understanding the la
 
 ## Why a facade rather than a common denominator
 
-A "lowest common denominator" API would have to drop `updateRecord()` entirely, because HealthKit cannot do it. Health Connector instead exposes the full union of capabilities and marks the platform-specific parts:
+A "lowest common denominator" API would have to drop `updateRecord()` entirely, because HealthKit cannot do it. Health Connector SDK instead exposes the full union of capabilities and marks the platform-specific parts:
 
 ```dart
 @supportedOnHealthConnect

@@ -1,6 +1,6 @@
 # Project & community
 
-Health Connector is an open-source Flutter SDK under the Apache 2.0 License, developed as a Melos-managed monorepo.
+Health Connector SDK is an open-source Flutter SDK under the Apache 2.0 License, developed as a Melos-managed monorepo.
 
 ## Report a bug or request a feature
 
@@ -10,7 +10,7 @@ Health bugs are frequently device-specific, so a reproducible report needs more 
 
 - **Device and OS version** — Health Connect capability varies by Mainline module level, and some iOS types have version floors
 - **Flutter and Dart versions**
-- **Health Connector version**
+- **Health Connector SDK version**
 - **Steps to reproduce**, and logs from a [`PrintLogProcessor`](/guide/tasks/logging)
 - **Expected versus actual behavior**
 
