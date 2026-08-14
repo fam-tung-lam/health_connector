@@ -1,11 +1,17 @@
-# Health Connector
+# Health Connector SDK
 
 <p align="center">
-  <img alt="Health Connector" width="200px" src="https://img.shields.io/badge/Health-Connector-2E8B57.svg?style=for-the-badge">
+  <img alt="Health Connector SDK" width="200px" src="https://img.shields.io/badge/Health-Connector%20SDK-2E8B57.svg?style=for-the-badge">
 </p>
 
 <p align="center">
 A unified, type-safe Flutter plugin for accessing health data across Android and iOS platforms.
+</p>
+
+<p align="center">
+  <a href="https://health-connector.phamtunglam.com">Documentation website</a>
+  ·
+  <a href="https://pub.dev/packages/health_connector">pub.dev</a>
 </p>
 
 <p align="center">
@@ -22,37 +28,39 @@ A unified, type-safe Flutter plugin for accessing health data across Android and
 
 ---
 
-## 📖 Overview
+<!-- #region webapp-project -->
 
-**Health Connector** provides a unified interface to access health data from **Android Health
+## Overview
+
+**Health Connector SDK** provides a unified interface to access health data from **Android Health
 Connect** and **iOS HealthKit**. It abstracts platform differences while preserving
 platform-specific capabilities, offering a consistent API for reading, writing, updating, deleting,
 and aggregating health records.
 
 ---
 
-## 📦 Packages
+## Packages
 
-Health Connector is organized as a monorepo containing multiple packages:
+Health Connector SDK is organized as a monorepo containing multiple packages:
 
 ### Core Packages
 
-- **[health_connector](packages/health_connector)** - Main facade package providing the unified API
-- **[health_connector_core](packages/health_connector_core)** - Core types, abstractions, and domain
+- **[health_connector](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector)** - Main facade package providing the unified API
+- **[health_connector_core](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_core)** - Core types, abstractions, and domain
   models
-- **[health_connector_hc_android](packages/health_connector_hc_android)** - Android Health Connect
+- **[health_connector_hc_android](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_hc_android)** - Android Health Connect
   implementation
-- **[health_connector_hk_ios](packages/health_connector_hk_ios)** - iOS HealthKit implementation
+- **[health_connector_hk_ios](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_hk_ios)** - iOS HealthKit implementation
 
 ### Utility Packages
 
-- **[health_connector_lint](packages/health_connector_lint)** - Shared lint rules and analysis
+- **[health_connector_lint](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_lint)** - Shared lint rules and analysis
   options
-- **[health_connector_logger](packages/health_connector_logger)** - Structured logging utilities
+- **[health_connector_logger](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_logger)** - Structured logging utilities
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! To contribute:
 
@@ -65,7 +73,7 @@ Contributions are welcome! To contribute:
 Before submitting:
 
 - Ensure code follows the lint rules defined
-  in [health_connector_lint](packages/health_connector_lint)
+  in [health_connector_lint](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_lint)
 - Add tests for new functionality
 - Update documentation as needed
 
@@ -73,7 +81,7 @@ For major changes, please open an issue first to discuss what you would like to 
 
 ---
 
-## 🐛 Issues & Feature Requests
+## Issues & Feature Requests
 
 Found a bug or have a feature request? Please open an issue on
 our [GitHub Issues](https://github.com/fam-tung-lam/health_connector/issues) page.
@@ -87,6 +95,8 @@ When reporting issues, please include:
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache-2.0 License - see the [LICENSE](https://github.com/fam-tung-lam/health_connector/blob/main/LICENSE) file for details.
+
+<!-- #endregion webapp-project -->

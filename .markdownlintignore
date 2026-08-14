@@ -24,3 +24,8 @@
 
 # Claude code
 **/CLAUDE.md
+
+# Documentation website. These are VitePress pages, not plain Markdown: they
+# embed Vue components (MD033) and their prose is wrapped by the browser, not
+# by a column limit (MD013).
+**/webapp/**

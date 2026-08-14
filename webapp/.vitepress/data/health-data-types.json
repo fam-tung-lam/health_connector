@@ -1,0 +1,3480 @@
+{
+  "generatedFrom": "packages/health_connector/README.md",
+  "packageVersion": "3.9.4",
+  "totals": {
+    "dataTypes": 140,
+    "exerciseTypes": 96,
+    "android": 38,
+    "ios": 125,
+    "aggregatable": 104
+  },
+  "categories": [
+    "Activity",
+    "Body Measurements",
+    "Vitals",
+    "Sleep",
+    "Hearing",
+    "Nutrition",
+    "Wellness",
+    "Cycle Tracking"
+  ],
+  "dataTypes": [
+    {
+      "name": "Steps",
+      "description": "Number of steps taken",
+      "constant": "HealthDataType.steps",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "StepsRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.stepCount",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Active Energy Burned",
+      "description": "Energy burned through active movement",
+      "constant": "HealthDataType.activeEnergyBurned",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "ActiveEnergyBurnedRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveEnergyBurnedRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.activeEnergyBurned",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Floors Climbed",
+      "description": "Number of floors (flights of stairs) climbed",
+      "constant": "HealthDataType.floorsClimbed",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "FloorsClimbedRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbedRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.flightsClimbed",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/flightsclimbed"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Sexual Activity",
+      "description": "Sexual activity tracking",
+      "constant": "HealthDataType.sexualActivity",
+      "aggregations": [],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "SexualActivityRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SexualActivityRecord"
+      },
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.sexualActivity",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sexualactivity"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Wheelchair Pushes",
+      "description": "Number of wheelchair pushes",
+      "constant": "HealthDataType.wheelchairPushes",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "WheelchairPushesRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WheelchairPushesRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.pushCount",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/pushcount"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Cycling Cadence",
+      "description": "Cycling pedaling cadence",
+      "constant": "HealthDataType.cyclingPedalingCadence",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 17+",
+      "androidApi": {
+        "label": "CyclingPedalingCadenceRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.cyclingCadence",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingcadence"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Total Energy Burned",
+      "description": "Total energy burned (active + basal)",
+      "constant": "HealthDataType.totalEnergyBurned",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "TotalEnergyBurnedRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/TotalEnergyBurnedRecord"
+      },
+      "iosApi": null,
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Basal Energy Burned",
+      "description": "Energy burned by basal metabolism",
+      "constant": "HealthDataType.basalEnergyBurned",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.basalEnergyBurned",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/basalenergyburned"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Steps Cadence Series",
+      "description": "Steps cadence measurements as a series",
+      "constant": "HealthDataType.stepsCadenceSeries",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "StepsCadenceRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsCadenceRecord"
+      },
+      "iosApi": null,
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Swimming Strokes",
+      "description": "Count of strokes taken during swimming",
+      "constant": "HealthDataType.swimmingStrokes",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.swimmingStrokeCount",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/swimmingStrokeCount"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Elevation Gained",
+      "description": "Elevation gained",
+      "constant": "HealthDataType.elevationGained",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "ElevationGainedRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ElevationGainedRecord"
+      },
+      "iosApi": null,
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Activity Intensity",
+      "description": "Moderate to vigorous physical activity",
+      "constant": "HealthDataType.activityIntensity",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "ActivityIntensityRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActivityIntensityRecord"
+      },
+      "iosApi": null,
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Basal Metabolic Rate",
+      "description": "Energy burned by basal metabolism (BMR)",
+      "constant": "HealthDataType.basalMetabolicRate",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "BasalMetabolicRateRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BasalMetabolicRateRecord"
+      },
+      "iosApi": null,
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Apple Exercise Time",
+      "description": "Time spent exercising",
+      "constant": "HealthDataType.exerciseTime",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.appleExerciseTime",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/appleexercisetime"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Apple Move Time",
+      "description": "Time spent moving",
+      "constant": "HealthDataType.moveTime",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.appleMoveTime",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applemovetime"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Apple Stand Time",
+      "description": "Time spent standing",
+      "constant": "HealthDataType.standTime",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.appleStandTime",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applestandtime"
+      },
+      "category": "Activity",
+      "group": "General Activity"
+    },
+    {
+      "name": "Distance (generic)",
+      "description": "Generic distance traveled",
+      "constant": "HealthDataType.distance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "DistanceRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/DistanceRecord"
+      },
+      "iosApi": null,
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Walking/Running Distance",
+      "description": "Distance covered by walking or running",
+      "constant": "HealthDataType.walkingRunningDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distanceWalkingRunning",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewalkingrunning"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Cycling Distance",
+      "description": "Distance covered by cycling",
+      "constant": "HealthDataType.cyclingDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distanceCycling",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancecycling"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Swimming Distance",
+      "description": "Distance covered by swimming",
+      "constant": "HealthDataType.swimmingDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distanceSwimming",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distanceswimming"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Wheelchair Distance",
+      "description": "Distance covered using a wheelchair",
+      "constant": "HealthDataType.wheelchairDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distanceWheelchair",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewheelchair"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Downhill Snow Sports Distance",
+      "description": "Distance covered during downhill snow sports",
+      "constant": "HealthDataType.downhillSnowSportsDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distanceDownhillSnowSports",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancedownhillsnowsports"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Cross Country Skiing Distance",
+      "description": "Distance covered during cross country skiing",
+      "constant": "HealthDataType.crossCountrySkiingDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distanceCrossCountrySkiing",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancecrosscountryskiing"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Paddle Sports Distance",
+      "description": "Distance covered during paddle sports",
+      "constant": "HealthDataType.paddleSportsDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 18+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distancePaddleSports",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancepaddlesports"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Rowing Distance",
+      "description": "Distance covered during rowing",
+      "constant": "HealthDataType.rowingDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 18+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distanceRowing",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancerowing"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Skating Sports Distance",
+      "description": "Distance covered during skating sports",
+      "constant": "HealthDataType.skatingSportsDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 18+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.distanceSkatingSports",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distanceskatingsports"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Six Minute Walk Test Distance",
+      "description": "Distance covered during 6-minute walk test",
+      "constant": "HealthDataType.sixMinuteWalkTestDistance",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.sixMinuteWalkTestDistance",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/sixminutewalktestdistance"
+      },
+      "category": "Activity",
+      "group": "Distance Types"
+    },
+    {
+      "name": "Speed Series",
+      "description": "Speed measurements over time",
+      "constant": "HealthDataType.speedSeries",
+      "aggregations": [],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "SpeedRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SpeedRecord"
+      },
+      "iosApi": null,
+      "category": "Activity",
+      "group": "Speed Types"
+    },
+    {
+      "name": "Walking Speed",
+      "description": "Walking speed measurement",
+      "constant": "HealthDataType.walkingSpeed",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.walkingSpeed",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingspeed"
+      },
+      "category": "Activity",
+      "group": "Speed Types"
+    },
+    {
+      "name": "Running Speed",
+      "description": "Running speed measurement",
+      "constant": "HealthDataType.runningSpeed",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.runningSpeed",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runningspeed"
+      },
+      "category": "Activity",
+      "group": "Speed Types"
+    },
+    {
+      "name": "Stair Ascent Speed",
+      "description": "Speed while climbing stairs",
+      "constant": "HealthDataType.stairAscentSpeed",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.stairAscentSpeed",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stairascentspeed"
+      },
+      "category": "Activity",
+      "group": "Speed Types"
+    },
+    {
+      "name": "Stair Descent Speed",
+      "description": "Speed while descending stairs",
+      "constant": "HealthDataType.stairDescentSpeed",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.stairDescentSpeed",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stairdescentspeed"
+      },
+      "category": "Activity",
+      "group": "Speed Types"
+    },
+    {
+      "name": "Power Series",
+      "description": "Power measurements over time",
+      "constant": "HealthDataType.powerSeries",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "PowerRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/PowerRecord"
+      },
+      "iosApi": null,
+      "category": "Activity",
+      "group": "Power Types"
+    },
+    {
+      "name": "Cycling Power",
+      "description": "Power output during cycling",
+      "constant": "HealthDataType.cyclingPower",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 17+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.cyclingPower",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingpower"
+      },
+      "category": "Activity",
+      "group": "Power Types"
+    },
+    {
+      "name": "Running Power",
+      "description": "Power output during running",
+      "constant": "HealthDataType.runningPower",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.runningPower",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runningpower"
+      },
+      "category": "Activity",
+      "group": "Power Types"
+    },
+    {
+      "name": "Walking Asymmetry Percentage",
+      "description": "Percentage of steps with different foot speeds",
+      "constant": "HealthDataType.walkingAsymmetryPercentage",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.walkingAsymmetryPercentage",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingasymmetrypercentage"
+      },
+      "category": "Activity",
+      "group": "Mobility"
+    },
+    {
+      "name": "Walking Double Support Percentage",
+      "description": "Percentage of steps with both feet on ground",
+      "constant": "HealthDataType.walkingDoubleSupportPercentage",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.walkingDoubleSupportPercentage",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingdoublesupportpercentage"
+      },
+      "category": "Activity",
+      "group": "Mobility"
+    },
+    {
+      "name": "Walking Step Length",
+      "description": "Distance between foot contacts",
+      "constant": "HealthDataType.walkingStepLength",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.walkingStepLength",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingsteplength"
+      },
+      "category": "Activity",
+      "group": "Mobility"
+    },
+    {
+      "name": "Walking Steadiness",
+      "description": "Stability and regularity of gait",
+      "constant": "HealthDataType.walkingSteadiness",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.appleWalkingSteadiness",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applewalkingsteadiness"
+      },
+      "category": "Activity",
+      "group": "Mobility"
+    },
+    {
+      "name": "Walking Steadiness Event",
+      "description": "Reduced gait steadiness event",
+      "constant": "HealthDataType.walkingSteadinessEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.appleWalkingSteadinessEvent",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/applewalkingsteadinessevent"
+      },
+      "category": "Activity",
+      "group": "Mobility"
+    },
+    {
+      "name": "Running Ground Contact Time",
+      "description": "Time foot is in contact with ground",
+      "constant": "HealthDataType.runningGroundContactTime",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.runningGroundContactTime",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runninggroundcontacttime"
+      },
+      "category": "Activity",
+      "group": "Mobility"
+    },
+    {
+      "name": "Running Stride Length",
+      "description": "Distance covered by a single step",
+      "constant": "HealthDataType.runningStrideLength",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.runningStrideLength",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runningstridelength"
+      },
+      "category": "Activity",
+      "group": "Mobility"
+    },
+    {
+      "name": "Number of Times Fallen",
+      "description": "Number of times the user has fallen",
+      "constant": "HealthDataType.numberOfTimesFallen",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.numberOfTimesFallen",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/numberoftimesfallen"
+      },
+      "category": "Activity",
+      "group": "Mobility"
+    },
+    {
+      "name": "Exercise Session",
+      "description": "Complete workout session with exercise type and stats",
+      "constant": "HealthDataType.exerciseSession",
+      "aggregations": [
+        "Duration"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "ExerciseSessionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSessionRecord"
+      },
+      "iosApi": {
+        "label": "HKWorkout",
+        "url": "https://developer.apple.com/documentation/healthkit/hkworkout"
+      },
+      "category": "Activity",
+      "group": "Exercise Sessions"
+    },
+    {
+      "name": "Weight",
+      "description": "Body weight measurement",
+      "constant": "HealthDataType.weight",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "WeightRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WeightRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.bodyMass",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodymass"
+      },
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Height",
+      "description": "Body height measurement",
+      "constant": "HealthDataType.height",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "HeightRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeightRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.height",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/height"
+      },
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Body Fat Percentage",
+      "description": "Percentage of body fat",
+      "constant": "HealthDataType.bodyFatPercentage",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "BodyFatRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyFatRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.bodyFatPercentage",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodyfatpercentage"
+      },
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Lean Body Mass",
+      "description": "Mass of body excluding fat",
+      "constant": "HealthDataType.leanBodyMass",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "LeanBodyMassRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/LeanBodyMassRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.leanBodyMass",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/leanbodymass"
+      },
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Body Temperature",
+      "description": "Core body temperature",
+      "constant": "HealthDataType.bodyTemperature",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "BodyTemperatureRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyTemperatureRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.bodyTemperature",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodytemperature"
+      },
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Body Water Mass",
+      "description": "Mass of body water",
+      "constant": "HealthDataType.bodyWaterMass",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "BodyWaterMassRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyWaterMassRecord"
+      },
+      "iosApi": null,
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Bone Mass",
+      "description": "Mass of bone mineral",
+      "constant": "HealthDataType.boneMass",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "BoneMassRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BoneMassRecord"
+      },
+      "iosApi": null,
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Body Mass Index",
+      "description": "Body Mass Index (BMI)",
+      "constant": "HealthDataType.bodyMassIndex",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.bodyMassIndex",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodymassindex"
+      },
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Waist Circumference",
+      "description": "Waist circumference measurement",
+      "constant": "HealthDataType.waistCircumference",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.waistCircumference",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/waistcircumference"
+      },
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Sleeping Wrist Temperature",
+      "description": "Temperature measured at the wrist during sleep",
+      "constant": "HealthDataType.sleepingWristTemperature",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.appleSleepingWristTemperature",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applesleepingwristtemperature"
+      },
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Skin Temperature Delta",
+      "description": "Skin temperature variations",
+      "constant": "HealthDataType.skinTemperatureDeltaSeries",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "SkinTemperatureRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SkinTemperatureRecord"
+      },
+      "iosApi": null,
+      "category": "Body Measurements",
+      "group": "Body Measurements"
+    },
+    {
+      "name": "Heart Rate Series",
+      "description": "Heart rate measurements over time",
+      "constant": "HealthDataType.heartRateSeries",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "HeartRateRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord"
+      },
+      "iosApi": null,
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Heart Rate Measurement",
+      "description": "Single heart rate measurement",
+      "constant": "HealthDataType.heartRate",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.heartRate",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Resting Heart Rate",
+      "description": "Heart rate while at rest",
+      "constant": "HealthDataType.restingHeartRate",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "RestingHeartRateRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.restingHeartRate",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "High Heart Rate Event",
+      "description": "High heart rate event detected",
+      "constant": "HealthDataType.highHeartRateEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.highHeartRateEvent",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/highheartrateevent/"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Low Heart Rate Event",
+      "description": "Low heart rate event detected",
+      "constant": "HealthDataType.lowHeartRateEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.lowHeartRateEvent",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/lowheartrateevent"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Irregular Heart Rhythm Event",
+      "description": "Irregular heart rhythm event detected",
+      "constant": "HealthDataType.irregularHeartRhythmEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.irregularHeartRhythmEvent",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/irregularheartrhythmevent"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Blood Pressure",
+      "description": "Systolic and diastolic blood pressure",
+      "constant": "HealthDataType.bloodPressure",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "BloodPressureRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord"
+      },
+      "iosApi": {
+        "label": "HKCorrelationTypeIdentifier.bloodPressure",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodpressure/"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Systolic Blood Pressure",
+      "description": "Upper blood pressure value",
+      "constant": "HealthDataType.systolicBloodPressure",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.bloodPressureSystolic",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressuresystolic"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Diastolic Blood Pressure",
+      "description": "Lower blood pressure value",
+      "constant": "HealthDataType.diastolicBloodPressure",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.bloodPressureDiastolic",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressurediastolic"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Oxygen Saturation",
+      "description": "Blood oxygen saturation percentage",
+      "constant": "HealthDataType.oxygenSaturation",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "OxygenSaturationRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.oxygenSaturation",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensaturation"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Respiratory Rate",
+      "description": "Breathing rate (breaths per minute)",
+      "constant": "HealthDataType.respiratoryRate",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "RespiratoryRateRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.respiratoryRate",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/respiratoryrate"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "VO₂ Max",
+      "description": "Maximum oxygen consumption",
+      "constant": "HealthDataType.vo2Max",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "Vo2MaxRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.vo2Max",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Blood Glucose",
+      "description": "Blood glucose concentration",
+      "constant": "HealthDataType.bloodGlucose",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "BloodGlucoseRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.bloodGlucose",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "HRV RMSSD",
+      "description": "Heart Rate Variability (RMSSD)",
+      "constant": "HealthDataType.heartRateVariabilityRMSSD",
+      "aggregations": [],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "HeartRateVariabilityRMSSDRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord"
+      },
+      "iosApi": null,
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "HRV SDNN",
+      "description": "Heart Rate Variability (SDNN)",
+      "constant": "HealthDataType.heartRateVariabilitySDNN",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.heartRateVariabilitySDNN",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Peripheral Perfusion Index",
+      "description": "Peripheral blood flow measurement",
+      "constant": "HealthDataType.peripheralPerfusionIndex",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.peripheralPerfusionIndex",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/peripheralperfusionindex"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Forced Vital Capacity",
+      "description": "Forced vital capacity measurement",
+      "constant": "HealthDataType.forcedVitalCapacity",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.forcedVitalCapacity",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/forcedvitalcapacity"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Blood Alcohol Content",
+      "description": "Blood alcohol content percentage",
+      "constant": "HealthDataType.bloodAlcoholContent",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.bloodAlcoholContent",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodAlcoholContent"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Forced Expiratory Volume",
+      "description": "Forced expiratory volume (1s)",
+      "constant": "HealthDataType.forcedExpiratoryVolume",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.forcedExpiratoryVolume1",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/forcedexpiratoryvolume1"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Atrial Fibrillation Burden",
+      "description": "AFib burden percentage",
+      "constant": "HealthDataType.atrialFibrillationBurden",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.atrialFibrillationBurden",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/atrialfibrillationburden"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Walking Heart Rate Average",
+      "description": "Average heart rate while walking",
+      "constant": "HealthDataType.walkingHeartRateAverage",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.walkingHeartRateAverage",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingheartrateaverage"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Peak Expiratory Flow Rate",
+      "description": "Maximum flow rate during forceful exhalation",
+      "constant": "HealthDataType.peakExpiratoryFlowRate",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.peakExpiratoryFlowRate",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/peakexpiratoryflowrate"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Heart Rate Recovery 1 min",
+      "description": "Heart rate reduction 1 min after exercise",
+      "constant": "HealthDataType.heartRateRecoveryOneMinute",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.heartRateRecoveryOneMinute",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartraterecoveryoneminute"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Low Cardio Fitness Event",
+      "description": "Low aerobic fitness detection",
+      "constant": "HealthDataType.lowCardioFitnessEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.lowCardioFitnessEvent",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/lowcardiofitnessevent"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Electrodermal Activity",
+      "description": "Skin conductance measurements",
+      "constant": "HealthDataType.electrodermalActivity",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.electrodermalActivity",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/electrodermalactivity"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Inhaler Usage",
+      "description": "Number of puffs from an inhaler",
+      "constant": "HealthDataType.inhalerUsage",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.inhalerUsage",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/inhalerusage"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Insulin Delivery",
+      "description": "Amount of insulin delivered",
+      "constant": "HealthDataType.insulinDelivery",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.insulinDelivery",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/insulindelivery"
+      },
+      "category": "Vitals",
+      "group": "Vitals"
+    },
+    {
+      "name": "Sleep Session",
+      "description": "Complete sleep session with sleep stages",
+      "constant": "HealthDataType.sleepSession",
+      "aggregations": [],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "SleepSessionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord"
+      },
+      "iosApi": null,
+      "category": "Sleep",
+      "group": "Sleep"
+    },
+    {
+      "name": "Sleep Stage Record",
+      "description": "Individual sleep stage measurement",
+      "constant": "HealthDataType.sleepStageRecord",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.sleepAnalysis",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis"
+      },
+      "category": "Sleep",
+      "group": "Sleep"
+    },
+    {
+      "name": "Environmental Audio Exposure",
+      "description": "Audio exposure to sounds in the environment",
+      "constant": "HealthDataType.environmentalAudioExposure",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.environmentalAudioExposure",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/environmentalaudioexposure"
+      },
+      "category": "Hearing",
+      "group": "Hearing"
+    },
+    {
+      "name": "Headphone Audio Exposure",
+      "description": "Audio exposure from headphones",
+      "constant": "HealthDataType.headphoneAudioExposure",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.headphoneAudioExposure",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/headphoneaudioexposure"
+      },
+      "category": "Hearing",
+      "group": "Hearing"
+    },
+    {
+      "name": "Environmental Audio Exposure Event",
+      "description": "Exposure to potentially damaging environmental sound",
+      "constant": "HealthDataType.environmentalAudioExposureEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.environmentalAudioExposureEvent",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/environmentalaudioexposureevent"
+      },
+      "category": "Hearing",
+      "group": "Hearing"
+    },
+    {
+      "name": "Headphone Audio Exposure Event",
+      "description": "Exposure to potentially damaging headphone sound",
+      "constant": "HealthDataType.headphoneAudioExposureEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.headphoneAudioExposureEvent",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/headphoneaudioexposureevent"
+      },
+      "category": "Hearing",
+      "group": "Hearing"
+    },
+    {
+      "name": "Nutrition (composite)",
+      "description": "Complete nutrition record with all nutrients",
+      "constant": "HealthDataType.nutrition",
+      "aggregations": [],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord"
+      },
+      "iosApi": {
+        "label": "HKCorrelationType.food",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/food"
+      },
+      "category": "Nutrition",
+      "group": "Core & Hydration"
+    },
+    {
+      "name": "Energy",
+      "description": "Total energy intake from food",
+      "constant": "HealthDataType.dietaryEnergyConsumed",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.energy field"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryEnergyConsumed",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryenergyconsumed"
+      },
+      "category": "Nutrition",
+      "group": "Core & Hydration"
+    },
+    {
+      "name": "Hydration/Water",
+      "description": "Water and fluid intake",
+      "constant": "HealthDataType.hydration",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "HydrationRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HydrationRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryWater",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarywater"
+      },
+      "category": "Nutrition",
+      "group": "Core & Hydration"
+    },
+    {
+      "name": "Protein",
+      "description": "Protein intake",
+      "constant": "HealthDataType.dietaryProtein",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.protein"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryProtein",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryprotein"
+      },
+      "category": "Nutrition",
+      "group": "Macronutrients"
+    },
+    {
+      "name": "Total Carbohydrate",
+      "description": "Total carbs intake",
+      "constant": "HealthDataType.dietaryTotalCarbohydrate",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.carbs"
+      },
+      "iosApi": {
+        "label": "HKQuantityType Identifier.dietaryCarbohydrates",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycarbohydrates"
+      },
+      "category": "Nutrition",
+      "group": "Macronutrients"
+    },
+    {
+      "name": "Total Fat",
+      "description": "Total fat intake",
+      "constant": "HealthDataType.dietaryTotalFat",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.totalFat"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryFatTotal",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfattotal"
+      },
+      "category": "Nutrition",
+      "group": "Macronutrients"
+    },
+    {
+      "name": "Caffeine",
+      "description": "Caffeine intake",
+      "constant": "HealthDataType.dietaryCaffeine",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.caffeine"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryCaffeine",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycaffeine"
+      },
+      "category": "Nutrition",
+      "group": "Macronutrients"
+    },
+    {
+      "name": "Saturated Fat",
+      "description": "Saturated fat intake",
+      "constant": "HealthDataType.dietarySaturatedFat",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.saturatedFat"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryFatSaturated",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatsaturated"
+      },
+      "category": "Nutrition",
+      "group": "Fats"
+    },
+    {
+      "name": "Monounsaturated Fat",
+      "description": "Monounsaturated fat intake",
+      "constant": "HealthDataType.dietaryMonounsaturatedFat",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.monounsaturatedFat"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryFatMonounsaturated",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatmonounsaturated"
+      },
+      "category": "Nutrition",
+      "group": "Fats"
+    },
+    {
+      "name": "Polyunsaturated Fat",
+      "description": "Polyunsaturated fat intake",
+      "constant": "HealthDataType.dietaryPolyunsaturatedFat",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.polyunsaturatedFat"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryFatPolyunsaturated",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatpolyunsaturated"
+      },
+      "category": "Nutrition",
+      "group": "Fats"
+    },
+    {
+      "name": "Cholesterol",
+      "description": "Cholesterol intake",
+      "constant": "HealthDataType.dietaryCholesterol",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.cholesterol"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryCholesterol",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycholesterol"
+      },
+      "category": "Nutrition",
+      "group": "Fats"
+    },
+    {
+      "name": "Dietary Fiber",
+      "description": "Dietary fiber intake",
+      "constant": "HealthDataType.dietaryFiber",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.dietaryFiber"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryFiber",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfiber"
+      },
+      "category": "Nutrition",
+      "group": "Fiber & Sugar"
+    },
+    {
+      "name": "Sugar",
+      "description": "Sugar intake",
+      "constant": "HealthDataType.dietarySugar",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.sugar"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietarySugar",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarysugar"
+      },
+      "category": "Nutrition",
+      "group": "Fiber & Sugar"
+    },
+    {
+      "name": "Calcium",
+      "description": "Calcium intake",
+      "constant": "HealthDataType.dietaryCalcium",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.calcium"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryCalcium",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycalcium"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Iron",
+      "description": "Iron intake",
+      "constant": "HealthDataType.dietaryIron",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.iron"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryIron",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryiron"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Magnesium",
+      "description": "Magnesium intake",
+      "constant": "HealthDataType.dietaryMagnesium",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.magnesium"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryMagnesium",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarymagnesium"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Manganese",
+      "description": "Manganese intake",
+      "constant": "HealthDataType.dietaryManganese",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.manganese"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryManganese",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarymanganese"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Phosphorus",
+      "description": "Phosphorus intake",
+      "constant": "HealthDataType.dietaryPhosphorus",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.phosphorus"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryPhosphorus",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryphosphorus"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Potassium",
+      "description": "Potassium intake",
+      "constant": "HealthDataType.dietaryPotassium",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.potassium"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryPotassium",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarypotassium"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Selenium",
+      "description": "Selenium intake",
+      "constant": "HealthDataType.dietarySelenium",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.selenium"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietarySelenium",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryselenium"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Sodium",
+      "description": "Sodium intake",
+      "constant": "HealthDataType.dietarySodium",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.sodium"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietarySodium",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarysodium"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Zinc",
+      "description": "Zinc intake",
+      "constant": "HealthDataType.dietaryZinc",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.zinc"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryZinc",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryzinc"
+      },
+      "category": "Nutrition",
+      "group": "Minerals"
+    },
+    {
+      "name": "Thiamin (B1)",
+      "description": "Thiamin (vitamin B1) intake",
+      "constant": "HealthDataType.dietaryThiamin",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.thiamin"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryThiamin",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarythiamin"
+      },
+      "category": "Nutrition",
+      "group": "B Vitamins"
+    },
+    {
+      "name": "Riboflavin (B2)",
+      "description": "Riboflavin (vitamin B2)",
+      "constant": "HealthDataType.dietaryRiboflavin",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.riboflavin"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryRiboflavin",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryriboflavin"
+      },
+      "category": "Nutrition",
+      "group": "B Vitamins"
+    },
+    {
+      "name": "Niacin (B3)",
+      "description": "Niacin (vitamin B3) intake",
+      "constant": "HealthDataType.dietaryNiacin",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.niacin"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryNiacin",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryniacin"
+      },
+      "category": "Nutrition",
+      "group": "B Vitamins"
+    },
+    {
+      "name": "Pantothenic Acid (B5)",
+      "description": "Pantothenic acid (vitamin B5)",
+      "constant": "HealthDataType.dietaryPantothenicAcid",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.pantothenicAcid"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryPantothenicAcid",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarypantothenicacid"
+      },
+      "category": "Nutrition",
+      "group": "B Vitamins"
+    },
+    {
+      "name": "Vitamin B6",
+      "description": "Vitamin B6 intake",
+      "constant": "HealthDataType.dietaryVitaminB6",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.vitaminB6"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryVitaminB6",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminb6"
+      },
+      "category": "Nutrition",
+      "group": "B Vitamins"
+    },
+    {
+      "name": "Biotin (B7)",
+      "description": "Biotin (vitamin B7) intake",
+      "constant": "HealthDataType.dietaryBiotin",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.biotin"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryBiotin",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarybiotin"
+      },
+      "category": "Nutrition",
+      "group": "B Vitamins"
+    },
+    {
+      "name": "Folate (B9)",
+      "description": "Folate (vitamin B9) intake",
+      "constant": "HealthDataType.dietaryFolate",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.folate"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryFolate",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfolate"
+      },
+      "category": "Nutrition",
+      "group": "B Vitamins"
+    },
+    {
+      "name": "Vitamin B12",
+      "description": "Vitamin B12 intake",
+      "constant": "HealthDataType.dietaryVitaminB12",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.vitaminB12"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryVitaminB12",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminb12"
+      },
+      "category": "Nutrition",
+      "group": "B Vitamins"
+    },
+    {
+      "name": "Vitamin A",
+      "description": "Vitamin A intake",
+      "constant": "HealthDataType.dietaryVitaminA",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.vitaminA"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryVitaminA",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamina"
+      },
+      "category": "Nutrition",
+      "group": "Other Vitamins"
+    },
+    {
+      "name": "Vitamin C",
+      "description": "Vitamin C intake",
+      "constant": "HealthDataType.dietaryVitaminC",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.vitaminC"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryVitaminC",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminc"
+      },
+      "category": "Nutrition",
+      "group": "Other Vitamins"
+    },
+    {
+      "name": "Vitamin D",
+      "description": "Vitamin D intake",
+      "constant": "HealthDataType.dietaryVitaminD",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.vitaminD"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryVitaminD",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamind"
+      },
+      "category": "Nutrition",
+      "group": "Other Vitamins"
+    },
+    {
+      "name": "Vitamin E",
+      "description": "Vitamin E intake",
+      "constant": "HealthDataType.dietaryVitaminE",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.vitaminE"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryVitaminE",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamine"
+      },
+      "category": "Nutrition",
+      "group": "Other Vitamins"
+    },
+    {
+      "name": "Vitamin K",
+      "description": "Vitamin K intake",
+      "constant": "HealthDataType.dietaryVitaminK",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "NutritionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord",
+        "note": "NutritionRecord.vitaminK"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.dietaryVitaminK",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamink"
+      },
+      "category": "Nutrition",
+      "group": "Other Vitamins"
+    },
+    {
+      "name": "Alcoholic Beverages",
+      "description": "Count of alcoholic drinks",
+      "constant": "HealthDataType.alcoholicBeverages",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.numberOfAlcoholicBeverages",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/numberofalcoholicbeverages"
+      },
+      "category": "Nutrition",
+      "group": "Alcohol"
+    },
+    {
+      "name": "Mindfulness Session",
+      "description": "Meditation and mindfulness sessions",
+      "constant": "HealthDataType.mindfulnessSession",
+      "aggregations": [
+        "Sum"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "MindfulnessSessionRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MindfulnessSessionRecord"
+      },
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.mindfulSession",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/mindfulsession"
+      },
+      "category": "Wellness",
+      "group": "Wellness"
+    },
+    {
+      "name": "Cervical Mucus",
+      "description": "Cervical mucus observations for fertility",
+      "constant": "HealthDataType.cervicalMucus",
+      "aggregations": [],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "CervicalMucusRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CervicalMucusRecord"
+      },
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.cervicalMucusQuality",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/cervicalmucusquality"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Basal Body Temperature",
+      "description": "Basal body temperature",
+      "constant": "HealthDataType.basalBodyTemperature",
+      "aggregations": [
+        "Avg",
+        "Min",
+        "Max"
+      ],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "BasalBodyTemperatureRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BasalBodyTemperatureRecord"
+      },
+      "iosApi": {
+        "label": "HKQuantityTypeIdentifier.basalBodyTemperature",
+        "url": "https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/basalbodytemperature"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Menstruation Flow",
+      "description": "Menstrual flow intensity",
+      "constant": "HealthDataType.menstrualFlow",
+      "aggregations": [],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "MenstruationFlowRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MenstruationFlowRecord"
+      },
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.menstrualFlow",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/menstrualflow"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Ovulation Test",
+      "description": "Ovulation test result",
+      "constant": "HealthDataType.ovulationTest",
+      "aggregations": [],
+      "android": true,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "OvulationTestRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OvulationTestRecord"
+      },
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.ovulationTestResult",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/ovulationtestresult"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Intermenstrual Bleeding",
+      "description": "Intermenstrual bleeding spotting",
+      "constant": "HealthDataType.intermenstrualBleeding",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.persistentIntermenstrualBleeding",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/persistentintermenstrualbleeding"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Progesterone Test",
+      "description": "Progesterone test result",
+      "constant": "HealthDataType.progesteroneTest",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.progesteroneTestResult",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/progesteronetestresult"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Pregnancy Test",
+      "description": "Pregnancy test result",
+      "constant": "HealthDataType.pregnancyTest",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.pregnancyTestResult",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/pregnancytestresult"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Pregnancy",
+      "description": "Pregnancy status",
+      "constant": "HealthDataType.pregnancy",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.pregnancy",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/pregnancy"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Lactation",
+      "description": "Lactation status",
+      "constant": "HealthDataType.lactation",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.lactation",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/lactation"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Contraceptive",
+      "description": "Contraceptive usage",
+      "constant": "HealthDataType.contraceptive",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.contraceptive",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/contraceptive"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Infrequent Menstrual Cycle Event",
+      "description": "Infrequent menstrual cycle event",
+      "constant": "HealthDataType.infrequentMenstrualCycleEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.infrequentMenstrualCycles",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/infrequentmenstrualcycles"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Irregular Menstrual Cycle Event",
+      "description": "Irregular menstrual cycle event",
+      "constant": "HealthDataType.irregularMenstrualCycleEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.irregularMenstrualCycles",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/irregularmenstrualcycles"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Persistent Intermenstrual Bleeding",
+      "description": "Persistent intermenstrual bleeding event",
+      "constant": "HealthDataType.persistentIntermenstrualBleedingEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.persistentIntermenstrualBleeding",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/persistentintermenstrualbleeding"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Prolonged Menstrual Period Event",
+      "description": "Prolonged menstrual period event",
+      "constant": "HealthDataType.prolongedMenstrualPeriodEvent",
+      "aggregations": [],
+      "android": false,
+      "ios": true,
+      "androidNote": null,
+      "iosNote": "iOS 16+",
+      "androidApi": null,
+      "iosApi": {
+        "label": "HKCategoryTypeIdentifier.prolongedMenstrualPeriods",
+        "url": "https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/prolongedmenstrualperiods"
+      },
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    },
+    {
+      "name": "Menstruation Period",
+      "description": "Menstruation period interval",
+      "constant": "HealthDataType.menstruationPeriod",
+      "aggregations": [],
+      "android": true,
+      "ios": false,
+      "androidNote": null,
+      "iosNote": null,
+      "androidApi": {
+        "label": "MenstruationPeriodRecord",
+        "url": "https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MenstruationPeriodRecord"
+      },
+      "iosApi": null,
+      "category": "Cycle Tracking",
+      "group": "Cycle Tracking"
+    }
+  ],
+  "exerciseTypes": [
+    {
+      "constant": "ExerciseType.other",
+      "name": "Other",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.running",
+      "name": "Running",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.runningTreadmill",
+      "name": "Running Treadmill",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.walking",
+      "name": "Walking",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.cycling",
+      "name": "Cycling",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.cyclingStationary",
+      "name": "Cycling Stationary",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.hiking",
+      "name": "Hiking",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.handCycling",
+      "name": "Hand Cycling",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.trackAndField",
+      "name": "Track And Field",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.swimming",
+      "name": "Swimming",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.swimmingOpenWater",
+      "name": "Swimming Open Water",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.swimmingPool",
+      "name": "Swimming Pool",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.surfing",
+      "name": "Surfing",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.waterPolo",
+      "name": "Water Polo",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.rowing",
+      "name": "Rowing",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.sailing",
+      "name": "Sailing",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.paddling",
+      "name": "Paddling",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.diving",
+      "name": "Diving",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.waterFitness",
+      "name": "Water Fitness",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.waterSports",
+      "name": "Water Sports",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.strengthTraining",
+      "name": "Strength Training",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.weightlifting",
+      "name": "Weightlifting",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.calisthenics",
+      "name": "Calisthenics",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.basketball",
+      "name": "Basketball",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.soccer",
+      "name": "Soccer",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.americanFootball",
+      "name": "American Football",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.frisbeeDisc",
+      "name": "Frisbee Disc",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.australianFootball",
+      "name": "Australian Football",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.baseball",
+      "name": "Baseball",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.softball",
+      "name": "Softball",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.volleyball",
+      "name": "Volleyball",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.rugby",
+      "name": "Rugby",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.cricket",
+      "name": "Cricket",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.handball",
+      "name": "Handball",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.iceHockey",
+      "name": "Ice Hockey",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.rollerHockey",
+      "name": "Roller Hockey",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.hockey",
+      "name": "Hockey",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.lacrosse",
+      "name": "Lacrosse",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.discSports",
+      "name": "Disc Sports",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.tennis",
+      "name": "Tennis",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.tableTennis",
+      "name": "Table Tennis",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.badminton",
+      "name": "Badminton",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.squash",
+      "name": "Squash",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.racquetball",
+      "name": "Racquetball",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.pickleball",
+      "name": "Pickleball",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.skiing",
+      "name": "Skiing",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.snowboarding",
+      "name": "Snowboarding",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.snowshoeing",
+      "name": "Snowshoeing",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.skating",
+      "name": "Skating",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.crossCountrySkiing",
+      "name": "Cross Country Skiing",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.curling",
+      "name": "Curling",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.downhillSkiing",
+      "name": "Downhill Skiing",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.snowSports",
+      "name": "Snow Sports",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.boxing",
+      "name": "Boxing",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.kickboxing",
+      "name": "Kickboxing",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.martialArts",
+      "name": "Martial Arts",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.wrestling",
+      "name": "Wrestling",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.fencing",
+      "name": "Fencing",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.taiChi",
+      "name": "Tai Chi",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.dancing",
+      "name": "Dancing",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.gymnastics",
+      "name": "Gymnastics",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.barre",
+      "name": "Barre",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.cardioDance",
+      "name": "Cardio Dance",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.socialDance",
+      "name": "Social Dance",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.yoga",
+      "name": "Yoga",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.pilates",
+      "name": "Pilates",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.highIntensityIntervalTraining",
+      "name": "High Intensity Interval Training",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.elliptical",
+      "name": "Elliptical",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.exerciseClass",
+      "name": "Exercise Class",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.bootCamp",
+      "name": "Boot Camp",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.guidedBreathing",
+      "name": "Guided Breathing",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.stairClimbing",
+      "name": "Stair Climbing",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.crossTraining",
+      "name": "Cross Training",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.jumpRope",
+      "name": "Jump Rope",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.fitnessGaming",
+      "name": "Fitness Gaming",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.mixedCardio",
+      "name": "Mixed Cardio",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.cooldown",
+      "name": "Cooldown",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.flexibility",
+      "name": "Flexibility",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.mindAndBody",
+      "name": "Mind And Body",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.preparationAndRecovery",
+      "name": "Preparation And Recovery",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.stepTraining",
+      "name": "Step Training",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.coreTraining",
+      "name": "Core Training",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.golf",
+      "name": "Golf",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.archery",
+      "name": "Archery",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.bowling",
+      "name": "Bowling",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.paragliding",
+      "name": "Paragliding",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.climbing",
+      "name": "Climbing",
+      "android": true,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.equestrianSports",
+      "name": "Equestrian Sports",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.fishing",
+      "name": "Fishing",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.hunting",
+      "name": "Hunting",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.play",
+      "name": "Play",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.wheelchair",
+      "name": "Wheelchair",
+      "android": true,
+      "ios": false
+    },
+    {
+      "constant": "ExerciseType.wheelchairWalkPace",
+      "name": "Wheelchair Walk Pace",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.wheelchairRunPace",
+      "name": "Wheelchair Run Pace",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.transition",
+      "name": "Transition",
+      "android": false,
+      "ios": true
+    },
+    {
+      "constant": "ExerciseType.swimBikeRun",
+      "name": "Swim Bike Run",
+      "android": false,
+      "ios": true
+    }
+  ]
+}

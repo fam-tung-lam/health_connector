@@ -1,0 +1,23 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vitepress",
+  "buildCommand": "npm run site:build",
+  "outputDirectory": "webapp/.vitepress/dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/guide/introduction", "destination": "/guide/", "permanent": true },
+    { "source": "/guide/getting-started", "destination": "/guide/installation", "permanent": true },
+    { "source": "/guide/core-sdk", "destination": "/guide/tasks/read", "permanent": true },
+    { "source": "/guide/health-records", "destination": "/guide/concepts/records", "permanent": true },
+    { "source": "/guide/advanced-usage", "destination": "/guide/tasks/synchronize", "permanent": true },
+    { "source": "/guide/app-examples", "destination": "/recipes/", "permanent": true },
+    { "source": "/guide/toolbox", "destination": "/resources/toolbox", "permanent": true },
+    {
+      "source": "/reference/supported-health-data-types",
+      "destination": "/reference/health-data-types",
+      "permanent": true
+    },
+    { "source": "/reference/project", "destination": "/resources/project", "permanent": true }
+  ]
+}
