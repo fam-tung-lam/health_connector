@@ -36,7 +36,14 @@ migrate_working_dir/
 .fvm/
 
 # Local secrets
-/.env
+/.env*
+
+# Node/VitePress/Vercel
+/node_modules/
+/webapp/.vitepress/cache/
+/webapp/.vitepress/dist/
+/webapp/public/doc/
+/.vercel/
 
 # AI
 /.mcp.local.json

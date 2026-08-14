@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Health Connector</title>
+  <defs><linearGradient id="g" x1="8" y1="8" x2="56" y2="56"><stop stop-color="#12a877"/><stop offset="1" stop-color="#1769aa"/></linearGradient></defs>
+  <rect x="4" y="4" width="56" height="56" rx="17" fill="url(#g)"/>
+  <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 10v7M40 10v7M24 47v7M40 47v7M10 24h7M10 40h7M47 24h7M47 40h7" stroke-width="3"/>
+    <rect x="17" y="17" width="30" height="30" rx="9" stroke-width="3"/>
+    <path d="M22 32h6l3-7 5 14 3-7h4" stroke-width="3.5"/>
+  </g>
+  <circle cx="24" cy="10" r="2" fill="#fff"/><circle cx="40" cy="10" r="2" fill="#fff"/>
+  <circle cx="24" cy="54" r="2" fill="#fff"/><circle cx="40" cy="54" r="2" fill="#fff"/>
+  <circle cx="10" cy="24" r="2" fill="#fff"/><circle cx="10" cy="40" r="2" fill="#fff"/>
+  <circle cx="54" cy="24" r="2" fill="#fff"/><circle cx="54" cy="40" r="2" fill="#fff"/>
+</svg>

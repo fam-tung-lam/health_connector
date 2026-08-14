@@ -9,6 +9,12 @@ A unified, type-safe Flutter plugin for accessing health data across Android and
 </p>
 
 <p align="center">
+  <a href="https://health-connector.phamtunglam.com">Documentation website</a>
+  ·
+  <a href="https://pub.dev/packages/health_connector">pub.dev</a>
+</p>
+
+<p align="center">
   <a title="Pub" href="https://pub.dev/packages/health_connector">
     <img alt="Pub Dev" src="https://img.shields.io/pub/v/health_connector.svg?style=popout"/>
   </a>
@@ -21,6 +27,8 @@ A unified, type-safe Flutter plugin for accessing health data across Android and
 </p>
 
 ---
+
+<!-- #region webapp-project -->
 
 ## 📖 Overview
 
@@ -37,18 +45,18 @@ Health Connector is organized as a monorepo containing multiple packages:
 
 ### Core Packages
 
-- **[health_connector](packages/health_connector)** - Main facade package providing the unified API
-- **[health_connector_core](packages/health_connector_core)** - Core types, abstractions, and domain
+- **[health_connector](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector)** - Main facade package providing the unified API
+- **[health_connector_core](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_core)** - Core types, abstractions, and domain
   models
-- **[health_connector_hc_android](packages/health_connector_hc_android)** - Android Health Connect
+- **[health_connector_hc_android](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_hc_android)** - Android Health Connect
   implementation
-- **[health_connector_hk_ios](packages/health_connector_hk_ios)** - iOS HealthKit implementation
+- **[health_connector_hk_ios](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_hk_ios)** - iOS HealthKit implementation
 
 ### Utility Packages
 
-- **[health_connector_lint](packages/health_connector_lint)** - Shared lint rules and analysis
+- **[health_connector_lint](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_lint)** - Shared lint rules and analysis
   options
-- **[health_connector_logger](packages/health_connector_logger)** - Structured logging utilities
+- **[health_connector_logger](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_logger)** - Structured logging utilities
 
 ---
 
@@ -65,7 +73,7 @@ Contributions are welcome! To contribute:
 Before submitting:
 
 - Ensure code follows the lint rules defined
-  in [health_connector_lint](packages/health_connector_lint)
+  in [health_connector_lint](https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_lint)
 - Add tests for new functionality
 - Update documentation as needed
 
@@ -89,4 +97,6 @@ When reporting issues, please include:
 
 ## 📄 License
 
-This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache-2.0 License - see the [LICENSE](https://github.com/fam-tung-lam/health_connector/blob/main/LICENSE) file for details.
+
+<!-- #endregion webapp-project -->

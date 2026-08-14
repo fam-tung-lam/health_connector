@@ -60,6 +60,8 @@ incremental data synchronization, and privacy-first architecture.
   - [🤝 Contributing](#-contributing)
   - [📄 License](#-license)
 
+<!-- #region webapp-toolbox -->
+
 ## 🎮 See It In Action — Interactive Toolbox Demo
 
 **See what's possible.** The Health Connector Toolbox showcases the full
@@ -68,27 +70,31 @@ and Android.
 
 <div align="center">
   <table>
-    <tr>
-      <th>Manage Permissions</th>
-      <th>Read Data</th>
-      <th>Write Data</th>
-      <th>Delete Data</th>
-      <th>Aggregate Data</th>
-    </tr>
-    <tr>
-      <td><img alt="Permission Request" src="../../doc/assets/videos/ios_request_permissions_demo.gif" width="160"/></td>
-      <td><img alt="Read Data" src="../../doc/assets/videos/ios_read_health_records_demo.gif" width="160"/></td>
-      <td><img alt="Write Data" src="../../doc/assets/videos/ios_write_health_record_demo.gif" width="160"/></td>
-      <td><img alt="Delete Data" src="../../doc/assets/videos/ios_delete_health_records_demo.gif" width="160"/></td>
-      <td><img alt="Aggregate Data" src="../../doc/assets/videos/ios_aggregate_health_data_demo.gif" width="160"/></td>
-    </tr>
-    <tr>
-      <td><img alt="Permission Request" src="../../doc/assets/videos/android_request_permissions_demo.gif" width="160"/></td>
-      <td><img alt="Read Data" src="../../doc/assets/videos/android_read_health_records_demo.gif" width="160"/></td>
-      <td><img alt="Write Data" src="../../doc/assets/videos/android_write_health_record_demo.gif" width="160"/></td>
-      <td><img alt="Delete Data" src="../../doc/assets/videos/android_delete_health_records_demo.gif" width="160"/></td>
-      <td><img alt="Aggregate Data" src="../../doc/assets/videos/android_aggregate_health_data_demo.gif" width="160"/></td>
-    </tr>
+    <thead>
+      <tr>
+        <th>Manage Permissions</th>
+        <th>Read Data</th>
+        <th>Write Data</th>
+        <th>Delete Data</th>
+        <th>Aggregate Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img alt="Permission Request" src="../../doc/assets/videos/ios_request_permissions_demo.gif" width="160"/></td>
+        <td><img alt="Read Data" src="../../doc/assets/videos/ios_read_health_records_demo.gif" width="160"/></td>
+        <td><img alt="Write Data" src="../../doc/assets/videos/ios_write_health_record_demo.gif" width="160"/></td>
+        <td><img alt="Delete Data" src="../../doc/assets/videos/ios_delete_health_records_demo.gif" width="160"/></td>
+        <td><img alt="Aggregate Data" src="../../doc/assets/videos/ios_aggregate_health_data_demo.gif" width="160"/></td>
+      </tr>
+      <tr>
+        <td><img alt="Permission Request" src="../../doc/assets/videos/android_request_permissions_demo.gif" width="160"/></td>
+        <td><img alt="Read Data" src="../../doc/assets/videos/android_read_health_records_demo.gif" width="160"/></td>
+        <td><img alt="Write Data" src="../../doc/assets/videos/android_write_health_record_demo.gif" width="160"/></td>
+        <td><img alt="Delete Data" src="../../doc/assets/videos/android_delete_health_records_demo.gif" width="160"/></td>
+        <td><img alt="Aggregate Data" src="../../doc/assets/videos/android_aggregate_health_data_demo.gif" width="160"/></td>
+      </tr>
+    </tbody>
   </table>
 </div>
 
@@ -102,6 +108,10 @@ flutter pub get && flutter run
 
 > **ℹ️ Note:** The toolbox app is used only for demonstration purposes and as an internal tool for
 > manually testing SDK features. It is not intended for production reference.
+
+<!-- #endregion webapp-toolbox -->
+
+<!-- #region webapp-getting-started -->
 
 ## 🚀 Quick Start
 
@@ -223,7 +233,7 @@ Health Connect requires Android 8.0 (API 26) or higher.
 
 Update `android/app/build.gradle`:
 
-```gradle
+```groovy
 android {
     // Your existing configuration
 
@@ -243,7 +253,7 @@ Update `android/app/build.gradle` (Groovy DSL) or `android/app/build.gradle.kts`
 
 **Groovy DSL (`build.gradle`)**:
 
-```gradle
+```groovy
 android {
     // Your existing configuration
 
@@ -265,7 +275,7 @@ android {
 > SDK 1.2.0-alpha03. In addition, writing `ExerciseSessionSegmentEvent.weight` with a non-null value
 > performs a **runtime** device capability check: if the device's Health Connect Mainline module is
 > below SDK Extension 21, an `UnsupportedOperationException` is thrown with a descriptive message.
-> See [Exercise Segment Weight and SDK Extension 21](#-exercise-segment-weight-and-sdk-extension-21)
+> See [Exercise Segment Weight and SDK Extension 21](https://health-connector.phamtunglam.com/reference/annotations#exercise-segment-weight-and-sdk-extension-21)
 > for details.
 
 #### 🍎 iOS HealthKit Setup
@@ -392,9 +402,13 @@ Future<void> quickStart() async {
 
 > **🤔 What's Next?**
 >
-> - [Usage](#-usage) section for API documentation.
-> - [Advanced Usage](#-advanced-usage) section for advanced features.
-> - [Supported Health Data Types](#-supported-health-data-types).
+> - [Usage](https://health-connector.phamtunglam.com/guide/) section for API documentation.
+> - [Advanced Usage](https://health-connector.phamtunglam.com/guide/tasks/synchronize) section for advanced features.
+> - [Supported Health Data Types](https://health-connector.phamtunglam.com/reference/health-data-types).
+
+<!-- #endregion webapp-getting-started -->
+
+<!-- #region webapp-core-sdk -->
 
 ## 📘 Usage
 
@@ -1051,6 +1065,10 @@ try {
 > check. The same app binary may succeed on one Android 14 device and throw on another,
 > depending on whether that device has received the relevant Mainline update.
 
+<!-- #endregion webapp-core-sdk -->
+
+<!-- #region webapp-advanced-usage -->
+
 ## 📚 Advanced Usage
 
 ### 🗺 Exercise Session Routes
@@ -1373,6 +1391,10 @@ final connector = await HealthConnector.create(
   ),
 );
 ```
+
+<!-- #endregion webapp-advanced-usage -->
+
+<!-- #region webapp-examples -->
 
 ## 📱 App Examples
 
@@ -1708,6 +1730,10 @@ Future<void> getExerciseHistory() async {
   }
 }
 ```
+
+<!-- #endregion webapp-examples -->
+
+<!-- #region webapp-supported-data-types -->
 
 ## 📋 Supported Health Data Types
 
@@ -2055,6 +2081,8 @@ Future<void> getExerciseHistory() async {
 | Persistent Intermenstrual Bleeding | Persistent intermenstrual bleeding event  | `HealthDataType.persistentIntermenstrualBleedingEvent` | -                     | iOS HealthKit (iOS 16+)               | -                                                                                                                                              | [HKCategoryTypeIdentifier.persistentIntermenstrualBleeding](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/persistentintermenstrualbleeding) |
 | Prolonged Menstrual Period Event   | Prolonged menstrual period event          | `HealthDataType.prolongedMenstrualPeriodEvent`         | -                     | iOS HealthKit (iOS 16+)               | -                                                                                                                                              | [HKCategoryTypeIdentifier.prolongedMenstrualPeriods](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/prolongedmenstrualperiods)               |
 | Menstruation Period                | Menstruation period interval              | `HealthDataType.menstruationPeriod`                    | -                     | Android Health Connect                | [MenstruationPeriodRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MenstruationPeriodRecord)     | -                                                                                                                                                                          |
+
+<!-- #endregion webapp-supported-data-types -->
 
 ## 📚 References
 
