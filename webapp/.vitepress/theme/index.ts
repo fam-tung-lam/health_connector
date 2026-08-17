@@ -9,6 +9,7 @@ import ExerciseTypeExplorer from "./components/ExerciseTypeExplorer.vue";
 import NextSteps from "./components/NextSteps.vue";
 import PlatformTabs from "./components/PlatformTabs.vue";
 import StatBand from "./components/StatBand.vue";
+import UsedBy from "./components/UsedBy.vue";
 import "./custom.css";
 
 export default {
@@ -24,5 +25,6 @@ export default {
     app.component("NextSteps", NextSteps);
     app.component("PlatformTabs", PlatformTabs);
     app.component("StatBand", StatBand);
+    app.component("UsedBy", UsedBy);
   },
 } satisfies Theme;
