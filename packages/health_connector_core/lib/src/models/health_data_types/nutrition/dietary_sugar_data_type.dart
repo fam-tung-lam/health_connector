@@ -20,7 +20,6 @@ part of '../health_data_type.dart';
 ///
 /// - [DietarySugarRecord]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

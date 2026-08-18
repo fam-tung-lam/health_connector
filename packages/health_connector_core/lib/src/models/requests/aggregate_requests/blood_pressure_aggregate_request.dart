@@ -6,7 +6,6 @@ part of 'aggregate_request.dart';
 /// additional field to store the specific blood pressure data type
 /// (systolic or diastolic) being aggregated.
 ///
-/// {@category Core API}
 @sinceV1_2_0
 @supportedOnHealthConnect
 @internalUse

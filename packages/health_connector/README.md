@@ -55,7 +55,7 @@ incremental data synchronization, and privacy-first architecture.
 - [Supported Health Data Types](#supported-health-data-types)
 
 - [References](#references)
-  - [API Documentation](#api-documentation)
+  - [SDK Website](#sdk-website)
   - [Migration Guides](#migration-guides)
   - [Contributing](#contributing)
   - [License](#license)
@@ -2086,9 +2086,9 @@ Future<void> getExerciseHistory() async {
 
 ## References
 
-### API Documentation
+### SDK Website
 
-- [API Documentation](https://pub.dev/documentation/health_connector/latest/)
+- [Health Connector SDK website](https://health-connector.phamtunglam.com/)
 
 ### Migration Guides
 

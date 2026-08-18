@@ -21,7 +21,6 @@ part of '../health_data_type.dart';
 ///
 /// - [RestingHeartRateRecord]
 ///
-/// {@category Health Records}
 @sinceV1_3_0
 @immutable
 final class RestingHeartRateDataType

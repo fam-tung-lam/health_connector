@@ -2,7 +2,6 @@ part of 'read_records_request.dart';
 
 /// Request to read multiple health records within a time range.
 ///
-/// {@category Core API}
 @sinceV1_0_0
 @internalUse
 @immutable

@@ -100,7 +100,7 @@ Future<void> process(HealthConnectorLog log) async {
 
 ## Design Constraints
 
-- **Internal Use Only**: Not exposed in public API, marked with `@internal`, `@nodoc`
+- **Internal Use Only**: Not exposed in public API, marked with `@internal`
 - **Non-Blocking**: Log processing uses `unawaited()` to avoid blocking
 - **Immutable**: Log records are immutable value objects
 - **Extensible**: Custom processors can be added via `addProcessor()`

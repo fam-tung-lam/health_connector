@@ -21,7 +21,6 @@ part of '../health_data_type.dart';
 ///
 /// - [DietaryZincRecord]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

@@ -42,7 +42,6 @@ part of '../health_record.dart';
 ///
 /// - [CyclingPedalingCadenceSeriesDataType]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnHealthConnect
 @immutable
@@ -193,7 +192,6 @@ final class CyclingPedalingCadenceSeriesRecord
 /// **Note**: This class does not have an ID or metadata. Those are
 /// properties of the record that contains the measurement.
 ///
-/// {@category Health Records}
 @immutable
 final class CyclingPedalingCadenceSample {
   /// Minimum valid cycling cadence.

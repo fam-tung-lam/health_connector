@@ -10,7 +10,6 @@ import 'package:meta/meta.dart';
 
 /// Base sealed class for all health records read responses.
 ///
-/// @nodoc
 @sinceV2_0_0
 @internal
 @immutable
@@ -20,7 +19,6 @@ sealed class ReadRecordsResponse<R extends HealthRecord> extends Response {
 
 /// Response from reading multiple health records.
 ///
-/// {@category Core API}
 @sinceV2_0_0
 @internalUse
 @immutable

@@ -7,7 +7,6 @@ part of '../health_record.dart';
 /// - [IrregularMenstrualCycleEventDataType]
 /// - [InfrequentMenstrualCycleEventRecord]
 ///
-/// {@category Health Records}
 @sinceV3_4_0
 @supportedOnAppleHealthIOS16Plus
 @readOnly

@@ -52,7 +52,6 @@ part of 'health_data_type.dart';
 /// final aggResponse = await connector.aggregate(aggRequest);
 /// ```
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnHealthConnect
 @immutable

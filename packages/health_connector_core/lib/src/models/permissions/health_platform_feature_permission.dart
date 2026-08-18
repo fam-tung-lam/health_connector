@@ -2,7 +2,6 @@ part of 'permission.dart';
 
 /// Represents a permission request for a platform feature.
 ///
-/// {@category Permissions}
 @sinceV1_0_0
 @immutable
 final class HealthPlatformFeaturePermission extends Permission {

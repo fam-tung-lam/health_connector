@@ -25,7 +25,6 @@ part of 'health_record.dart';
 ///
 /// - [BodyMassIndexDataType]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnAppleHealth
 @immutable

@@ -5,7 +5,6 @@ part of 'measurement_unit.dart';
 /// Velocity is used for running speed, cycling speed, and other
 /// speed-related health data.
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class Velocity extends MeasurementUnit implements Comparable<Velocity> {

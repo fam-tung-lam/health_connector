@@ -4,7 +4,6 @@ part of 'measurement_unit.dart';
 ///
 /// Blood glucose is used for diabetes management and glucose monitoring.
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class BloodGlucose extends MeasurementUnit

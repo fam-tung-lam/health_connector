@@ -41,7 +41,6 @@ part of '../health_record.dart';
 /// - [WalkingStepLengthDataType]
 /// - [DevicePlacementSide]
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable

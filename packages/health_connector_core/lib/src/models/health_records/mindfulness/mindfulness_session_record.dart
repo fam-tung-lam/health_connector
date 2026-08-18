@@ -30,7 +30,6 @@ part of '../health_record.dart';
 /// - [MindfulnessSessionDataType]
 /// - [MindfulnessSessionType]
 ///
-/// {@category Health Records}
 @sinceV2_1_0
 @immutable
 final class MindfulnessSessionRecord extends IntervalHealthRecord {
@@ -183,7 +182,6 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
 /// When viewing in the native iOS Apple Health app, all sessions appear as
 /// generic "Mindful Minutes" without type differentiation.
 ///
-/// {@category Health Records}
 @sinceV2_1_0
 enum MindfulnessSessionType {
   /// Unknown or unspecified session type.

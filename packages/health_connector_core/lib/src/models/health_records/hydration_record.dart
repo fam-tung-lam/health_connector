@@ -27,7 +27,6 @@ part of 'health_record.dart';
 ///
 /// - [HydrationDataType]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class HydrationRecord extends IntervalHealthRecord {

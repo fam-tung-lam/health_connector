@@ -3,7 +3,6 @@ part of 'health_record.dart';
 /// Base health record class containing multiple data samples within a
 /// time interval.
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 sealed class SeriesHealthRecord<T> extends IntervalHealthRecord {

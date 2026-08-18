@@ -29,7 +29,6 @@ part of '../health_record.dart';
 ///
 /// - [MoveTimeDataType]
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @readOnly

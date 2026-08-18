@@ -28,7 +28,6 @@ part of '../health_record.dart';
 ///
 /// - [ActivityIntensityDataType]
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnHealthConnect
 @immutable

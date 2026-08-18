@@ -2,7 +2,6 @@ part of '../health_record.dart';
 
 /// Base class for mineral nutrient health records.
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @internal

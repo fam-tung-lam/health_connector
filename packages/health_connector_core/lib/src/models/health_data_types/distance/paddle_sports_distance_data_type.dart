@@ -17,7 +17,6 @@ part of '../health_data_type.dart';
 /// - Aggregatable: Sum total paddle sports distance
 /// - Deletable: Delete records by IDs or time range
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealthIOS18Plus
 @immutable

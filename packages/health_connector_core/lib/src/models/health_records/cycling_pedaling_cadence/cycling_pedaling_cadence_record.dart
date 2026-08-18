@@ -28,7 +28,6 @@ part of '../health_record.dart';
 ///
 /// - [CyclingPedalingCadenceDataType]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnAppleHealthIOS17Plus
 @immutable

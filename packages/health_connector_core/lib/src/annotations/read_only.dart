@@ -64,7 +64,6 @@ import 'package:meta/meta.dart' show immutable;
 /// - [WriteableHealthDataType] and [DeletableHealthDataType], which read-only
 ///   types do **not** implement.
 ///
-/// {@category Annotations}
 @allTargets
 @internalUse
 @immutable
@@ -75,6 +74,5 @@ final class _ReadOnly {
 
 /// Annotation to mark health data types and records as read-only.
 ///
-/// {@category Annotations}
 @internalUse
 const readOnly = _ReadOnly();

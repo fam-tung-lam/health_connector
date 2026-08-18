@@ -2,7 +2,6 @@ part of 'read_records_request.dart';
 
 /// Request to read a single health record by its ID.
 ///
-/// {@category Core API}
 @sinceV1_0_0
 @internalUse
 @immutable

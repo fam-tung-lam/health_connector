@@ -15,7 +15,6 @@ part of '../health_record.dart';
 ///
 /// - [HeartRateVariabilityRMSSDDataType]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnHealthConnect
 @immutable

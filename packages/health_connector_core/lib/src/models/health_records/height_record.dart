@@ -24,7 +24,6 @@ part of 'health_record.dart';
 ///
 /// - [HeightDataType]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class HeightRecord extends InstantHealthRecord {

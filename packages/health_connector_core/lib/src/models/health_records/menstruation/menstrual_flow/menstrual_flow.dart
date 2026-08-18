@@ -12,7 +12,6 @@ part of '../../health_record.dart';
 /// - **iOS HealthKit**: Maps to `HKCategoryValueMenstrualFlow` (iOS ≤17) or
 ///   `HKCategoryValueVaginalBleeding` (iOS ≥18) enum values
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 enum MenstrualFlow {
   /// Flow intensity is unknown or unspecified.

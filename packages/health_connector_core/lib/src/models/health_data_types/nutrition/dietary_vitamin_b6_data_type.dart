@@ -21,7 +21,6 @@ part of '../health_data_type.dart';
 ///
 /// - [DietaryVitaminB6Record]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

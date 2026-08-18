@@ -5,7 +5,6 @@ part of 'aggregate_request.dart';
 /// This is the default implementation for most health data types that don't
 /// require specialized aggregation handling.
 ///
-/// {@category Core API}
 @sinceV1_2_0
 @internalUse
 @immutable

@@ -10,7 +10,6 @@ part of '../health_record.dart';
 ///
 /// - [RunningGroundContactTimeDataType]
 ///
-/// {@category Health Records}
 @sinceV3_5_0
 @supportedOnAppleHealthIOS16Plus
 @immutable

@@ -28,7 +28,6 @@ part of 'health_record.dart';
 ///
 /// - [StepsDataType]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class StepsRecord extends IntervalHealthRecord {

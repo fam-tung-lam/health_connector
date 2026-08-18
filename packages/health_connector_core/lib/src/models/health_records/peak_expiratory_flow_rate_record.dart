@@ -9,7 +9,6 @@ part of 'health_record.dart';
 ///
 /// - [PeakExpiratoryFlowRateDataType]
 ///
-/// {@category Health Records}
 @sinceV3_6_0
 @supportedOnAppleHealth
 @immutable

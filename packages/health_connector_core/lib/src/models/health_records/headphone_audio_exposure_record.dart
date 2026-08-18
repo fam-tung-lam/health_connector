@@ -14,7 +14,6 @@ part of 'health_record.dart';
 /// - [HeadphoneAudioExposureEventDataType]
 /// - [HeadphoneAudioExposureEventRecord]
 ///
-/// {@category Health Records}
 @sinceV3_6_0
 @immutable
 final class HeadphoneAudioExposureRecord extends IntervalHealthRecord {

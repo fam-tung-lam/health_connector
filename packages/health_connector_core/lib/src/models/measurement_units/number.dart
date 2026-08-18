@@ -5,7 +5,6 @@ part of 'measurement_unit.dart';
 /// Number is used for simple count values like step counts, where there is
 /// no meaningful unit conversion (steps are always just steps).
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class Number extends MeasurementUnit implements Comparable<Number> {

@@ -58,7 +58,6 @@ part of '../health_data_type.dart';
 /// await connector.deleteRecords(deleteRequest);
 /// ```
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @immutable

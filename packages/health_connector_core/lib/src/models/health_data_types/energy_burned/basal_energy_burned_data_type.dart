@@ -20,7 +20,6 @@ part of '../health_data_type.dart';
 ///
 /// - [ActiveEnergyBurnedRecord]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnAppleHealth
 @immutable

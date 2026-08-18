@@ -5,7 +5,6 @@ part of 'delete_records_request.dart';
 /// This request type allows precise deletion of individual records when
 /// you have their unique identifiers.
 ///
-/// {@category Core API}
 @sinceV3_2_0
 @internalUse
 @immutable

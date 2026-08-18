@@ -25,7 +25,6 @@ part of '../health_data_type.dart';
 /// - [HeartRateVariabilitySDNNRecord]
 /// - [HeartRateVariabilityRMSSDDataType] for RMSSD metric
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnAppleHealth
 @immutable

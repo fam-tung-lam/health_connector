@@ -28,7 +28,6 @@ part of '../health_data_type.dart';
 ///
 /// - [BloodPressureRecord]
 ///
-/// {@category Health Records}
 @sinceV1_2_0
 @immutable
 final class BloodPressureDataType

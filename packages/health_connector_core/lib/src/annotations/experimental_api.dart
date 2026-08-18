@@ -80,7 +80,6 @@ import 'package:meta/meta.dart' show immutable;
 /// - The `Since` annotation class, which marks when stable APIs were introduced
 /// - The SDK changelog for information about experimental API changes
 ///
-/// {@category Annotations}
 @allTargets
 @immutable
 final class _ExperimentalApi {
@@ -90,6 +89,5 @@ final class _ExperimentalApi {
 
 /// Marks APIs as experimental and subject to change.
 ///
-/// {@category Annotations}
 @internalUse
 const experimentalApi = _ExperimentalApi();

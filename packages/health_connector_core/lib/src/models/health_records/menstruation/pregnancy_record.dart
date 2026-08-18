@@ -24,8 +24,6 @@ part of '../health_record.dart';
 ///
 /// - [PregnancyDataType]
 ///
-/// {@category Health Records}
-/// {@category Reproductive Health}
 @sinceV3_1_0
 @supportedOnAppleHealth
 class PregnancyRecord extends IntervalHealthRecord {
@@ -53,7 +51,7 @@ class PregnancyRecord extends IntervalHealthRecord {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
   }
 
-  /// {@macro PregnancyRecord}
+  /// Internal factory for creating [PregnancyRecord] instances.
   @internalUse
   factory PregnancyRecord.fromRecord({
     required DateTime startTime,

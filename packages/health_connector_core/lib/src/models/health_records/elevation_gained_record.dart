@@ -22,7 +22,6 @@ part of 'health_record.dart';
 ///
 /// - [ElevationGainedDataType]
 ///
-/// {@category Health Records}
 ///
 /// **Validation**:
 /// - [elevation] must be between -1000000 and 1000000 meters.

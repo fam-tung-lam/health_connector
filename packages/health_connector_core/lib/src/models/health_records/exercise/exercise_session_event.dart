@@ -2,7 +2,6 @@ part of '../health_record.dart';
 
 /// Base class for all exercise session events.
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 @immutable
 sealed class ExerciseSessionEvent implements HealthPlatformData {
@@ -12,7 +11,6 @@ sealed class ExerciseSessionEvent implements HealthPlatformData {
 
 /// Base class for exercise session events that have a start and end time.
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 @immutable
 sealed class ExerciseSessionIntervalEvent extends ExerciseSessionEvent {
@@ -45,7 +43,6 @@ sealed class ExerciseSessionIntervalEvent extends ExerciseSessionEvent {
 
 /// Base class for exercise session events that occur at a single point in time.
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 @immutable
 sealed class ExerciseSessionInstantEvent extends ExerciseSessionEvent {
@@ -73,7 +70,6 @@ sealed class ExerciseSessionInstantEvent extends ExerciseSessionEvent {
 /// - **iOS HealthKit**: Mapped from [`HKWorkoutEvent.type`](https://developer.apple.com/documentation/healthkit/hkworkoutevent/type) with pause/resume event types.
 /// - **Android Health Connect**: Not supported.
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 @supportedOnAppleHealth
 @immutable
@@ -114,7 +110,6 @@ final class ExerciseSessionStateTransitionEvent
 /// - **iOS HealthKit**: Mapped from [`HKWorkoutEvent.type`](https://developer.apple.com/documentation/healthkit/hkworkoutevent/type) with `.marker` type
 /// - **Android Health Connect**: Not supported
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 @supportedOnAppleHealth
 @immutable
@@ -138,7 +133,6 @@ final class ExerciseSessionMarkerEvent extends ExerciseSessionInstantEvent {
 /// - **iOS HealthKit**: Mapped from [`HKWorkoutEvent.type`](https://developer.apple.com/documentation/healthkit/hkworkoutevent/type) with `.lap` type
 /// - **Android Health Connect**: Mapped from [`ExerciseLap`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseLap)
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 @immutable
 final class ExerciseSessionLapEvent extends ExerciseSessionIntervalEvent {
@@ -190,7 +184,6 @@ final class ExerciseSessionLapEvent extends ExerciseSessionIntervalEvent {
 /// - **iOS HealthKit**: Mapped from [`HKWorkoutEvent.type`](https://developer.apple.com/documentation/healthkit/hkworkoutevent/type) with `.segment` type.
 /// - **Android Health Connect**: Mapped from [`ExerciseSegment`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment).
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 @immutable
 final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {

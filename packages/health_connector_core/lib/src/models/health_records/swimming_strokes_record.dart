@@ -26,7 +26,6 @@ part of 'health_record.dart';
 ///
 /// - [SwimmingStrokesDataType]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @immutable
 final class SwimmingStrokesRecord extends IntervalHealthRecord {

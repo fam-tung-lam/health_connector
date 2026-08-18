@@ -18,7 +18,6 @@ part of '../health_data_type.dart';
 /// - Aggregatable: Calculate average, minimum, and maximum cycling power
 /// - Deletable: Delete records by IDs or time range
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealthIOS17Plus
 @immutable

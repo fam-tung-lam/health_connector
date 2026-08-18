@@ -28,7 +28,6 @@ part of '../health_record.dart';
 ///
 /// - [BloodGlucoseDataType]
 ///
-/// {@category Health Records}
 @sinceV1_4_0
 @immutable
 final class BloodGlucoseRecord extends InstantHealthRecord {

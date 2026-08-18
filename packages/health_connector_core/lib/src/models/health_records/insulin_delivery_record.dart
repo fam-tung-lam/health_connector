@@ -9,7 +9,6 @@ part of 'health_record.dart';
 ///
 /// - [InsulinDeliveryDataType]
 ///
-/// {@category Health Records}
 @sinceV3_5_0
 @supportedOnAppleHealth
 @immutable
@@ -163,7 +162,6 @@ final class InsulinDeliveryRecord extends IntervalHealthRecord {
 
 /// Represents the reason for insulin delivery.
 ///
-/// {@category Health Records}
 enum InsulinDeliveryReason {
   /// Insulin administered to meet the user’s basic metabolic needs.
   basal,

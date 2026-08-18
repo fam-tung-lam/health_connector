@@ -26,7 +26,6 @@ part of '../health_data_type.dart';
 ///
 /// - [DiastolicBloodPressureRecord]
 ///
-/// {@category Health Records}
 @sinceV1_2_0
 @supportedOnAppleHealth
 @immutable

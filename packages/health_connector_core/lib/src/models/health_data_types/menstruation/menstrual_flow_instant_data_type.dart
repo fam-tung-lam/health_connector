@@ -53,7 +53,6 @@ part of '../health_data_type.dart';
 /// - [MenstrualFlowDataType] - iOS interval-based alternative
 /// - [MenstrualFlow]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnHealthConnect
 @immutable

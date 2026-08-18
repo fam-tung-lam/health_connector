@@ -2,7 +2,6 @@ part of '../health_record.dart';
 
 /// Represents the relationship of a blood glucose measurement to a meal.
 ///
-/// {@category Health Records}
 @sinceV1_4_0
 enum BloodGlucoseRelationToMeal {
   /// Relationship is unknown or not specified.

@@ -41,7 +41,6 @@ part of '../health_data_type.dart';
 ///
 /// - [WalkingSteadinessEventRecord]
 ///
-/// {@category Health Records}
 @sinceV3_4_0
 @supportedOnAppleHealth
 @readOnly

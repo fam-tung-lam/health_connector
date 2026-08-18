@@ -26,7 +26,6 @@ import 'package:meta/meta.dart';
 /// );
 /// ```
 ///
-/// {@category Core API}
 @sinceV3_0_0
 @immutable
 final class SortDescriptor {

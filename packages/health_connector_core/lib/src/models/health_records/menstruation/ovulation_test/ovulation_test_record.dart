@@ -29,7 +29,6 @@ part of '../../health_record.dart';
 /// - [OvulationTestDataType]
 /// - [OvulationTestResult]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @immutable
 final class OvulationTestRecord extends InstantHealthRecord {

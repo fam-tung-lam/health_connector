@@ -4,7 +4,6 @@
 /// removing the need for manually declared static tag constants.
 ///
 /// @internalUse
-/// @nodoc
 extension ObjectNameExtension on Object {
   /// Returns class name for this instance (e.g., `ClassA().tag` -> "ClassA").
   // ignore: no_runtimetype_tostring

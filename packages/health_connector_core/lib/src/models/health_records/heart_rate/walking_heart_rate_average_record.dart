@@ -9,7 +9,6 @@ part of '../health_record.dart';
 ///
 /// - [WalkingHeartRateAverageDataType]
 ///
-/// {@category Health Records}
 @sinceV3_4_0
 @supportedOnAppleHealth
 @readOnly

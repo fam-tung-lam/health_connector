@@ -22,7 +22,6 @@ part of 'health_data_type.dart';
 ///
 /// - [StepsRecord]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class StepsDataType extends HealthDataType<StepsRecord, Number>

@@ -27,7 +27,6 @@ part of '../health_record.dart';
 ///
 /// - [DietaryThiaminDataType]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

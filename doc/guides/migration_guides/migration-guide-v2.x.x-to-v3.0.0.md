@@ -929,7 +929,7 @@ final vitalTypes = HealthDataType.values
 
 **Need Help?**
 
-- [API Documentation](https://pub.dev/documentation/health_connector/latest/)
+- [Health Connector SDK website](https://health-connector.phamtunglam.com/)
 - [File an Issue](https://github.com/fam-tung-lam/health_connector/issues)
 - [Discussion Forum](https://github.com/fam-tung-lam/health_connector/discussions)
 

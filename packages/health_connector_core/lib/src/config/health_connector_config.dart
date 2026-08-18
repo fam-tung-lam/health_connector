@@ -4,7 +4,6 @@ import 'package:meta/meta.dart' show immutable;
 
 /// Configuration for Health Connector.
 ///
-/// {@category Core API}
 @sinceV1_0_0
 @immutable
 final class HealthConnectorConfig {

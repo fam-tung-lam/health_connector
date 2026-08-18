@@ -28,7 +28,6 @@ part of '../health_data_type.dart';
 ///
 /// - [HeartRateRecord]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class HeartRateDataType extends HealthDataType<HeartRateRecord, Frequency>

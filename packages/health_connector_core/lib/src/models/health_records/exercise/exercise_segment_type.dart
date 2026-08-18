@@ -10,7 +10,6 @@ part of '../health_record.dart';
 /// - **iOS HealthKit**: Not supported natively. Handled by the SDK and stored
 ///   in [`HKWorkoutEvent.metadata`](https://developer.apple.com/documentation/healthkit/hkworkoutevent/metadata) as custom key-value pairs.
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 enum ExerciseSegmentType {
   /// Use this type if the type of the exercise segment is not known.

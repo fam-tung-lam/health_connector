@@ -98,7 +98,6 @@ linter:
     - omit_local_variable_types
     - only_throw_errors
     - package_names
-    - package_api_docs
     - parameter_assignments
     - prefer_adjacent_string_concatenation
     - prefer_asserts_in_initializer_lists
@@ -131,7 +130,6 @@ linter:
     - prefer_spread_collections
     - prefer_typing_uninitialized_variables
     - provide_deprecation_message
-    - public_member_api_docs
     - recursive_getters
     - require_trailing_commas
     - slash_for_doc_comments

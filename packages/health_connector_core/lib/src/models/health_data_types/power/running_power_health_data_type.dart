@@ -20,7 +20,6 @@ part of '../health_data_type.dart';
 ///
 /// - [RunningPowerRecord]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealthIOS16Plus
 @immutable

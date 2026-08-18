@@ -9,7 +9,6 @@ part of '../../health_record.dart';
 ///   - Natively supports: `dry`, `sticky`, `creamy`, `watery`, `eggWhite`.
 ///   - `unusual` and `unknown` are stored in custom metadata key.
 ///
-/// {@category Health Records}
 @sinceV2_1_0
 enum CervicalMucusAppearance {
   /// Unknown appearance.

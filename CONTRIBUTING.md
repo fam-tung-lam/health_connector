@@ -68,7 +68,7 @@ Before opening a pull request, verify that every applicable item below is satisf
 - [ ] All Swift analysis passes (`melos run analyze:swift`)
 - [ ] All tests pass (`melos run test:dart` and `melos run test:kotlin`)
 - [ ] New features and bug fixes include tests
-- [ ] Public API changes are documented (dartdoc comments)
+- [ ] Public API changes are documented on the SDK website
 - [ ] Documentation changes pass markdownlint (`melos run analyze:md`)
 - [ ] Pigeon input files modified → generated code is up to date (`melos run pigeon`)
 - [ ] PR title follows the [conventional commits](#pr-title-convention) format
@@ -278,12 +278,12 @@ void oldMethodName() => newMethodName();
 ### Android-only APIs
 
 Use the `@supportedOnHealthConnect` annotation for APIs that are only available on Android Health
-Connect. Document the platform restriction in the dartdoc comment.
+Connect. Document the platform restriction on the SDK website.
 
 ### iOS-only APIs
 
 Use the `@supportedOnAppleHealth` annotation for APIs that are only available on iOS HealthKit.
-Document the platform restriction in the dartdoc comment.
+Document the platform restriction on the SDK website.
 
 ---
 

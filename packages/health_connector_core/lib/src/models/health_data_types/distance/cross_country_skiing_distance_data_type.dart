@@ -23,7 +23,6 @@ part of '../health_data_type.dart';
 ///
 /// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceCrossCountrySkiing`
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealthIOS18Plus
 @immutable

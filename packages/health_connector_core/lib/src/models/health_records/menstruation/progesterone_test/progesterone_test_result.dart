@@ -11,7 +11,6 @@ part of '../../health_record.dart';
 /// - **iOS HealthKit**: Maps to `HKCategoryValueProgesteroneTestResult` enum
 ///   values
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 enum ProgesteroneTestResult {

@@ -19,8 +19,6 @@ part of '../health_data_type.dart';
 ///
 /// - [LactationRecord]
 ///
-/// {@category Reproductive Health}
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable
@@ -31,7 +29,10 @@ class LactationDataType extends HealthDataType<LactationRecord, MeasurementUnit>
         WriteableHealthDataType<LactationRecord>,
         DeletableByIdsHealthDataType<LactationRecord>,
         DeletableInTimeRangeHealthDataType<LactationRecord> {
-  /// {@macro health_data_type.const}
+  /// Creates a lactation data type.
+  ///
+  /// To reference this data type, use the singleton instance from
+  /// [HealthDataType].
   const LactationDataType() : super();
 
   @override

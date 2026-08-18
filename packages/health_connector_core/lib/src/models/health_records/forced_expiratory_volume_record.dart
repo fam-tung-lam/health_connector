@@ -6,7 +6,6 @@ part of 'health_record.dart';
 ///
 /// - [ForcedExpiratoryVolumeDataType]
 ///
-/// {@category Health Records}
 @sinceV3_4_0
 @supportedOnAppleHealth
 @immutable

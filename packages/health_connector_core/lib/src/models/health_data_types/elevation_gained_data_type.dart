@@ -19,7 +19,6 @@ part of 'health_data_type.dart';
 ///
 /// - [ElevationGainedRecord]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnHealthConnect
 @immutable

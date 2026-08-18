@@ -12,7 +12,6 @@ part of '../health_data_type.dart';
 /// - [StairAscentSpeedDataType]
 /// - [StairDescentSpeedDataType]
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

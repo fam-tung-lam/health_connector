@@ -28,7 +28,6 @@ part of 'health_record.dart';
 ///
 /// - [WheelchairPushesDataType]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class WheelchairPushesRecord extends IntervalHealthRecord {

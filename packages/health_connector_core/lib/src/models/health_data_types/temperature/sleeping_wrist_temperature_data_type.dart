@@ -24,7 +24,6 @@ part of '../health_data_type.dart';
 ///
 /// - [SleepingWristTemperatureRecord]
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealthIOS16Plus
 @readOnly

@@ -2,7 +2,6 @@ part of 'health_record.dart';
 
 /// Base health record class that spans a duration of time.
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 sealed class IntervalHealthRecord extends HealthRecord {

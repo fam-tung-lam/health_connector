@@ -24,7 +24,6 @@ part of 'health_record.dart';
 ///
 /// - [ForcedVitalCapacityDataType]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable

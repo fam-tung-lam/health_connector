@@ -26,7 +26,6 @@ part of '../health_record.dart';
 ///
 /// - [RestingHeartRateDataType]
 ///
-/// {@category Health Records}
 @sinceV1_3_0
 @immutable
 final class RestingHeartRateRecord extends InstantHealthRecord {

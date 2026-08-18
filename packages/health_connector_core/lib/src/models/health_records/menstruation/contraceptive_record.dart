@@ -27,8 +27,6 @@ part of '../health_record.dart';
 /// - [ContraceptiveDataType]
 /// - [ContraceptiveType]
 ///
-/// {@category Health Records}
-/// {@category Reproductive Health}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable

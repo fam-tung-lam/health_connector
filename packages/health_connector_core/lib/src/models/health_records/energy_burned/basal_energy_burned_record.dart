@@ -31,7 +31,6 @@ part of '../health_record.dart';
 /// - [TotalEnergyBurnedRecord]
 /// - [TotalEnergyBurnedDataType]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnAppleHealth
 @immutable

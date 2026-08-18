@@ -26,7 +26,6 @@ part 'standard_aggregate_request.dart';
 
 /// Base request class to perform an aggregation query on health records.
 ///
-/// {@category Core API}
 @sinceV1_0_0
 @internalUse
 @immutable

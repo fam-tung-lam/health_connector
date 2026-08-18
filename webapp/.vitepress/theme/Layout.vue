@@ -17,8 +17,8 @@ const { frontmatter } = useData();
         <a href="https://github.com/fam-tung-lam/health_connector/issues/new" target="_blank" rel="noreferrer">
           Open a GitHub issue
         </a>
-        <a href="https://pub.dev/documentation/health_connector/latest/" target="_blank" rel="noreferrer">
-          Browse the generated API docs
+        <a href="/reference/api-cheat-sheet">
+          Browse the API cheat sheet
         </a>
       </div>
     </template>

@@ -30,7 +30,6 @@ part of '../health_record.dart';
 ///
 /// - [DietarySaturatedFatDataType]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

@@ -30,7 +30,6 @@ part of '../health_record.dart';
 /// );
 /// ```
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @immutable
 final class NutritionRecord extends IntervalHealthRecord {

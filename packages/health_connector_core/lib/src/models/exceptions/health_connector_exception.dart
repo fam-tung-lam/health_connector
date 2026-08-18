@@ -6,7 +6,6 @@ import 'package:meta/meta.dart' show immutable;
 
 /// Sealed exception class for all health connector plugin errors.
 ///
-/// {@category Exceptions}
 @sinceV1_0_0
 @immutable
 sealed class HealthConnectorException implements Exception {
@@ -161,7 +160,6 @@ sealed class HealthConnectorException implements Exception {
 /// - [HealthConnectorErrorCode.permissionNotGranted]
 
 ///
-/// {@category Exceptions}
 @sinceV3_0_0
 @immutable
 final class AuthorizationException extends HealthConnectorException {
@@ -179,7 +177,6 @@ final class AuthorizationException extends HealthConnectorException {
 /// This exception is for configuration errors:
 /// - [HealthConnectorErrorCode.permissionNotDeclared]
 ///
-/// {@category Exceptions}
 @sinceV3_0_0
 @immutable
 final class ConfigurationException extends HealthConnectorException {
@@ -202,7 +199,6 @@ final class ConfigurationException extends HealthConnectorException {
 ///
 /// - [HealthConnectorErrorCode.invalidArgument]
 ///
-/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class InvalidArgumentException extends HealthConnectorException {
@@ -226,7 +222,6 @@ final class InvalidArgumentException extends HealthConnectorException {
 /// - [HealthConnectorErrorCode.healthServiceRestricted]
 /// - [HealthConnectorErrorCode.healthServiceNotInstalledOrUpdateRequired]
 ///
-/// {@category Exceptions}
 @sinceV3_0_0
 @immutable
 final class HealthServiceUnavailableException extends HealthConnectorException {
@@ -248,7 +243,6 @@ final class HealthServiceUnavailableException extends HealthConnectorException {
 /// - [HealthConnectorErrorCode.rateLimitExceeded]
 /// - [HealthConnectorErrorCode.dataSyncInProgress]
 ///
-/// {@category Exceptions}
 @sinceV3_0_0
 @immutable
 final class HealthServiceException extends HealthConnectorException {
@@ -268,7 +262,6 @@ final class HealthServiceException extends HealthConnectorException {
 ///
 /// - [HealthConnectorErrorCode.unsupportedOperation]
 ///
-/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class UnsupportedOperationException extends HealthConnectorException {
@@ -291,7 +284,6 @@ final class UnsupportedOperationException extends HealthConnectorException {
 ///
 /// - [HealthConnectorErrorCode.unknownError]
 ///
-/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class UnknownException extends HealthConnectorException {

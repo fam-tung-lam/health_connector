@@ -48,7 +48,6 @@ part of '../health_data_type.dart';
 /// print('Average asymmetry: ${aggResponse.value?.asWhole}%');
 /// ```
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @readOnly

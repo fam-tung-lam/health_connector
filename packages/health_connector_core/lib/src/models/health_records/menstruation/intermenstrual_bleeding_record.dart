@@ -28,7 +28,6 @@ part of '../health_record.dart';
 ///
 /// - [IntermenstrualBleedingDataType]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @immutable
 final class IntermenstrualBleedingRecord extends InstantHealthRecord {

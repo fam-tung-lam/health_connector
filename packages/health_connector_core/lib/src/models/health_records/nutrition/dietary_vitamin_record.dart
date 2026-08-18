@@ -6,7 +6,6 @@ part of '../health_record.dart';
 ///
 /// - [DietaryVitaminDataType]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @internal

@@ -44,7 +44,6 @@ part of '../health_record.dart';
 ///
 /// - [SkinTemperatureDeltaSeriesDataType]
 ///
-/// {@category Health Records}
 @sinceV3_6_0
 @supportedOnHealthConnect
 @immutable
@@ -250,7 +249,6 @@ final class SkinTemperatureDeltaSeriesRecord
 /// **Note**: This class does not have an ID or metadata. Those are
 /// properties of the record that contains the measurement.
 ///
-/// {@category Health Records}
 @immutable
 final class SkinTemperatureDeltaSample {
   /// Minimum valid temperature delta (-30.0°C).

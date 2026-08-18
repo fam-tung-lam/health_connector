@@ -18,7 +18,6 @@ part of 'health_data_type.dart';
 ///
 /// - [RespiratoryRateRecord]
 ///
-/// {@category Health Records}
 @sinceV1_3_0
 @immutable
 final class RespiratoryRateDataType

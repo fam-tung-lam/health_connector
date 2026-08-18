@@ -19,7 +19,6 @@ part of '../health_data_type.dart';
 /// - Deletable: Delete records by IDs or time range
 /// - Not aggregatable (use individual data types for aggregation)
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @immutable
 final class NutritionDataType

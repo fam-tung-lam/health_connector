@@ -27,7 +27,6 @@ part of '../health_record.dart';
 ///
 /// - [DietaryFolateDataType]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
