@@ -228,7 +228,7 @@
 
 > Note: This release has breaking changes.
 >
-> See the [Migration Guide v2.x.x → v3.0.0](../../doc/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md).
+> See the [Migration Guide v2.x.x → v3.0.0](../../docs/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md).
 
 - **FEAT**: Add new `ExperimentalApi` annotation. ([b22c4236](https://github.com/fam-tung-lam/health_connector/commit/b22c42366f8686ed6388a398f188cb33ec2d331f))
 - **FEAT**: Add incremental sync API. ([b6c8e67b](https://github.com/fam-tung-lam/health_connector/commit/b6c8e67b4055a0168b35ad26a29c553732e24193))
@@ -328,7 +328,7 @@
 
 > **Note**: This release has breaking changes.
 >
-> See the [Migration Guide](../../doc/guides/migration_guides/migration-guide-v1.x.x-to-v2.x.x.md) for detailed
+> See the [Migration Guide](../../docs/guides/migration_guides/migration-guide-v1.x.x-to-v2.0.0.md) for detailed
 > instructions on upgrading from v1.x.x to v2.0.0.
 
 - **BREAKING** **FEAT**: Introduce `TimeDuration` unit and replace `Number` with it for sleep data types. ([459798dd](https://github.com/fam-tung-lam/health_connector/commit/459798dd25d3ff014b824f4d9d7f79aa27ac0f53))

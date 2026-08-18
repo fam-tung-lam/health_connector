@@ -6,7 +6,7 @@ Health Connector SDK follows semantic versioning: only major releases contain br
 
 **Difficulty: moderate · roughly 30 minutes for a typical app**
 
-[Read the full guide →](https://github.com/fam-tung-lam/health_connector/blob/main/doc/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md)
+[Read the full guide →](https://github.com/fam-tung-lam/health_connector/blob/main/docs/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md)
 
 | Breaking change | What it affects |
 |---|---|
@@ -23,7 +23,7 @@ New in v3.0.0: the [incremental sync API](/guide/tasks/synchronize), [record sor
 
 **Difficulty: moderate · roughly 15–30 minutes for a typical app**
 
-[Read the full guide →](https://github.com/fam-tung-lam/health_connector/blob/main/doc/guides/migration_guides/migration-guide-v1.x.x-to-v2.0.0.md)
+[Read the full guide →](https://github.com/fam-tung-lam/health_connector/blob/main/docs/guides/migration_guides/migration-guide-v1.x.x-to-v2.0.0.md)
 
 | Breaking change | What it affects |
 |---|---|
