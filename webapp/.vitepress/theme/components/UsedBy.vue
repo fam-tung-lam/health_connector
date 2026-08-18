@@ -8,7 +8,7 @@ const apps = [
       "A nutrition app that turns meal photos into calorie and macro estimates, with health data synchronization.",
     creator: {
       name: "Felipe Valtl de Mello",
-      role: "Staff Engineer at Transfeera",
+      role: "Principal Software Engineer at Transfeera",
       url: "https://www.linkedin.com/in/felipevaltldemello/",
     },
   },
