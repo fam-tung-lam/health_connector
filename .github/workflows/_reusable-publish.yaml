@@ -27,6 +27,7 @@ jobs:
   wait-for-pub-dependencies:
     name: Wait for pub.dev dependencies
     needs: validate-release-tag
+    timeout-minutes: 360
     permissions:
       contents: read
     runs-on: ubuntu-latest
