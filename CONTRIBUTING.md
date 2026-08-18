@@ -362,41 +362,6 @@ Your pull request description should answer:
 
 ### Creating a release
 
-Each package has its own `package-v<version>` release tag and pub.dev publication. A new
-`health_connector` version starts a coordinated release for every package version that does not
-already have a tag.
-
-1. **Remove deprecated symbols** — search the codebase for `@Deprecated` annotations and remove
-   any that are marked for removal in the version you intend to release. Open a dedicated PR for
-   this cleanup.
-
-2. **Generate changelogs** — use Melos to bump package versions and auto-generate `CHANGELOG.md`
-   entries from the commit history:
-
-   ```bash
-   melos version -V <package1>:<version> -V <package2>:<version>
-   ```
-
-   Review the generated changelogs. For PRs with breaking changes, add migration documentation
-   under a `### BREAKING CHANGES` subsection if not already present.
-
-3. **Validate packages (dry run)** — confirm all packages are publishable and versions are correct:
-
-   ```bash
-   melos publish
-   ```
-
-4. **Preview release tags** — verify which package versions the release workflow will tag:
-
-   ```bash
-   node scripts/release-package-tags.mjs
-   ```
-
-5. **Open a release PR** — create a PR to `main` containing the updated `CHANGELOG.md` and
-   `pubspec.yaml` files. After merge, changing the facade version creates the missing package tags.
-   Each tag runs that package's quality checks and waits for approval in the `pub.dev` GitHub
-   Environment before publishing with OIDC.
-
-Repository setup requires a `RELEASE_TOKEN` secret with Contents write access. Configure every
-package on pub.dev with repository `fam-tung-lam/health_connector`, tag pattern
-`<package>-v{{version}}`, and required GitHub Actions environment `pub.dev`.
+Maintainers must follow the complete [release workflow](docs/workflows/RELEASE.md). It covers
+versioning, changelog preparation, the release pull request, and the automated tag and pub.dev
+publication flow.

@@ -8,7 +8,7 @@
 **/.dart_tool/**
 
 # Assets (images, videos, etc.)
-**/doc/assets/**
+**/docs/assets/**
 
 # Source code (Dart libraries)
 **/lib/**
