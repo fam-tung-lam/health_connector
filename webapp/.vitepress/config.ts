@@ -1,9 +1,19 @@
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitepress";
-import dataset from "./data/health-data-types.json" with { type: "json" };
 
 const productionUrl = "https://health-connector.phamtunglam.com";
 const repositoryUrl = "https://github.com/fam-tung-lam/health_connector";
-const packageVersion = dataset.packageVersion;
+const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const packageVersion = readFileSync(
+  resolve(repositoryRoot, "packages/health_connector/pubspec.yaml"),
+  "utf8",
+).match(/^version:\s*(\S+)/m)?.[1];
+
+if (!packageVersion) {
+  throw new Error("packages/health_connector/pubspec.yaml has no version.");
+}
 
 /**
  * The guide is ordered the way an integration actually happens: decide, install,
@@ -154,10 +164,6 @@ export default defineConfig({
       infoLabel: "NOTE",
       detailsLabel: "Details",
     },
-  },
-  vite: {
-    // The interactive explorers import the generated dataset directly.
-    json: { stringify: true },
   },
   themeConfig: {
     logo: { light: "/logo.svg", dark: "/logo.svg", alt: "Health Connector SDK" },

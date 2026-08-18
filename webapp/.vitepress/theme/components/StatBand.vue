@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import dataset from "../../data/health-data-types.json";
+import { data as dataset } from "../../data/catalog.data";
 
 const stats = [
   { value: `${dataset.totals.dataTypes}`, label: "typed health data types" },

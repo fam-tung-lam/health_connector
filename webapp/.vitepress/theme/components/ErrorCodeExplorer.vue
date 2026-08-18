@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { errorCodes } from "../../data/error-codes";
+import { data as dataset } from "../../data/catalog.data";
 import CopyButton from "./CopyButton.vue";
 
 const query = ref("");
+const errorCodes = dataset.errorCodes;
 
 const platformLabel = {
   both: "Android & iOS",

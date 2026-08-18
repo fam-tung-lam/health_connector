@@ -1,0 +1,385 @@
+---
+- constant: ExerciseType.other
+  name: Other
+  android: true
+  ios: true
+- constant: ExerciseType.running
+  name: Running
+  android: true
+  ios: true
+- constant: ExerciseType.runningTreadmill
+  name: Running Treadmill
+  android: true
+  ios: false
+- constant: ExerciseType.walking
+  name: Walking
+  android: true
+  ios: true
+- constant: ExerciseType.cycling
+  name: Cycling
+  android: true
+  ios: true
+- constant: ExerciseType.cyclingStationary
+  name: Cycling Stationary
+  android: true
+  ios: false
+- constant: ExerciseType.hiking
+  name: Hiking
+  android: true
+  ios: true
+- constant: ExerciseType.handCycling
+  name: Hand Cycling
+  android: false
+  ios: true
+- constant: ExerciseType.trackAndField
+  name: Track And Field
+  android: false
+  ios: true
+- constant: ExerciseType.swimming
+  name: Swimming
+  android: false
+  ios: true
+- constant: ExerciseType.swimmingOpenWater
+  name: Swimming Open Water
+  android: true
+  ios: false
+- constant: ExerciseType.swimmingPool
+  name: Swimming Pool
+  android: true
+  ios: false
+- constant: ExerciseType.surfing
+  name: Surfing
+  android: true
+  ios: true
+- constant: ExerciseType.waterPolo
+  name: Water Polo
+  android: true
+  ios: true
+- constant: ExerciseType.rowing
+  name: Rowing
+  android: true
+  ios: true
+- constant: ExerciseType.sailing
+  name: Sailing
+  android: true
+  ios: true
+- constant: ExerciseType.paddling
+  name: Paddling
+  android: true
+  ios: true
+- constant: ExerciseType.diving
+  name: Diving
+  android: true
+  ios: true
+- constant: ExerciseType.waterFitness
+  name: Water Fitness
+  android: false
+  ios: true
+- constant: ExerciseType.waterSports
+  name: Water Sports
+  android: false
+  ios: true
+- constant: ExerciseType.strengthTraining
+  name: Strength Training
+  android: true
+  ios: true
+- constant: ExerciseType.weightlifting
+  name: Weightlifting
+  android: true
+  ios: false
+- constant: ExerciseType.calisthenics
+  name: Calisthenics
+  android: true
+  ios: false
+- constant: ExerciseType.basketball
+  name: Basketball
+  android: true
+  ios: true
+- constant: ExerciseType.soccer
+  name: Soccer
+  android: true
+  ios: true
+- constant: ExerciseType.americanFootball
+  name: American Football
+  android: true
+  ios: true
+- constant: ExerciseType.frisbeeDisc
+  name: Frisbee Disc
+  android: true
+  ios: true
+- constant: ExerciseType.australianFootball
+  name: Australian Football
+  android: true
+  ios: true
+- constant: ExerciseType.baseball
+  name: Baseball
+  android: true
+  ios: true
+- constant: ExerciseType.softball
+  name: Softball
+  android: true
+  ios: true
+- constant: ExerciseType.volleyball
+  name: Volleyball
+  android: true
+  ios: true
+- constant: ExerciseType.rugby
+  name: Rugby
+  android: true
+  ios: true
+- constant: ExerciseType.cricket
+  name: Cricket
+  android: true
+  ios: true
+- constant: ExerciseType.handball
+  name: Handball
+  android: true
+  ios: true
+- constant: ExerciseType.iceHockey
+  name: Ice Hockey
+  android: true
+  ios: false
+- constant: ExerciseType.rollerHockey
+  name: Roller Hockey
+  android: true
+  ios: false
+- constant: ExerciseType.hockey
+  name: Hockey
+  android: false
+  ios: true
+- constant: ExerciseType.lacrosse
+  name: Lacrosse
+  android: false
+  ios: true
+- constant: ExerciseType.discSports
+  name: Disc Sports
+  android: false
+  ios: true
+- constant: ExerciseType.tennis
+  name: Tennis
+  android: true
+  ios: true
+- constant: ExerciseType.tableTennis
+  name: Table Tennis
+  android: true
+  ios: true
+- constant: ExerciseType.badminton
+  name: Badminton
+  android: true
+  ios: true
+- constant: ExerciseType.squash
+  name: Squash
+  android: true
+  ios: true
+- constant: ExerciseType.racquetball
+  name: Racquetball
+  android: true
+  ios: true
+- constant: ExerciseType.pickleball
+  name: Pickleball
+  android: false
+  ios: true
+- constant: ExerciseType.skiing
+  name: Skiing
+  android: true
+  ios: false
+- constant: ExerciseType.snowboarding
+  name: Snowboarding
+  android: true
+  ios: true
+- constant: ExerciseType.snowshoeing
+  name: Snowshoeing
+  android: true
+  ios: false
+- constant: ExerciseType.skating
+  name: Skating
+  android: true
+  ios: true
+- constant: ExerciseType.crossCountrySkiing
+  name: Cross Country Skiing
+  android: false
+  ios: true
+- constant: ExerciseType.curling
+  name: Curling
+  android: false
+  ios: true
+- constant: ExerciseType.downhillSkiing
+  name: Downhill Skiing
+  android: false
+  ios: true
+- constant: ExerciseType.snowSports
+  name: Snow Sports
+  android: false
+  ios: true
+- constant: ExerciseType.boxing
+  name: Boxing
+  android: true
+  ios: true
+- constant: ExerciseType.kickboxing
+  name: Kickboxing
+  android: false
+  ios: true
+- constant: ExerciseType.martialArts
+  name: Martial Arts
+  android: true
+  ios: true
+- constant: ExerciseType.wrestling
+  name: Wrestling
+  android: false
+  ios: true
+- constant: ExerciseType.fencing
+  name: Fencing
+  android: true
+  ios: true
+- constant: ExerciseType.taiChi
+  name: Tai Chi
+  android: false
+  ios: true
+- constant: ExerciseType.dancing
+  name: Dancing
+  android: true
+  ios: false
+- constant: ExerciseType.gymnastics
+  name: Gymnastics
+  android: true
+  ios: true
+- constant: ExerciseType.barre
+  name: Barre
+  android: false
+  ios: true
+- constant: ExerciseType.cardioDance
+  name: Cardio Dance
+  android: false
+  ios: true
+- constant: ExerciseType.socialDance
+  name: Social Dance
+  android: false
+  ios: true
+- constant: ExerciseType.yoga
+  name: Yoga
+  android: true
+  ios: true
+- constant: ExerciseType.pilates
+  name: Pilates
+  android: true
+  ios: true
+- constant: ExerciseType.highIntensityIntervalTraining
+  name: High Intensity Interval Training
+  android: true
+  ios: true
+- constant: ExerciseType.elliptical
+  name: Elliptical
+  android: true
+  ios: true
+- constant: ExerciseType.exerciseClass
+  name: Exercise Class
+  android: true
+  ios: false
+- constant: ExerciseType.bootCamp
+  name: Boot Camp
+  android: true
+  ios: false
+- constant: ExerciseType.guidedBreathing
+  name: Guided Breathing
+  android: true
+  ios: false
+- constant: ExerciseType.stairClimbing
+  name: Stair Climbing
+  android: true
+  ios: true
+- constant: ExerciseType.crossTraining
+  name: Cross Training
+  android: false
+  ios: true
+- constant: ExerciseType.jumpRope
+  name: Jump Rope
+  android: false
+  ios: true
+- constant: ExerciseType.fitnessGaming
+  name: Fitness Gaming
+  android: false
+  ios: true
+- constant: ExerciseType.mixedCardio
+  name: Mixed Cardio
+  android: false
+  ios: true
+- constant: ExerciseType.cooldown
+  name: Cooldown
+  android: false
+  ios: true
+- constant: ExerciseType.flexibility
+  name: Flexibility
+  android: true
+  ios: true
+- constant: ExerciseType.mindAndBody
+  name: Mind And Body
+  android: false
+  ios: true
+- constant: ExerciseType.preparationAndRecovery
+  name: Preparation And Recovery
+  android: false
+  ios: true
+- constant: ExerciseType.stepTraining
+  name: Step Training
+  android: false
+  ios: true
+- constant: ExerciseType.coreTraining
+  name: Core Training
+  android: false
+  ios: true
+- constant: ExerciseType.golf
+  name: Golf
+  android: true
+  ios: true
+- constant: ExerciseType.archery
+  name: Archery
+  android: false
+  ios: true
+- constant: ExerciseType.bowling
+  name: Bowling
+  android: false
+  ios: true
+- constant: ExerciseType.paragliding
+  name: Paragliding
+  android: true
+  ios: false
+- constant: ExerciseType.climbing
+  name: Climbing
+  android: true
+  ios: true
+- constant: ExerciseType.equestrianSports
+  name: Equestrian Sports
+  android: false
+  ios: true
+- constant: ExerciseType.fishing
+  name: Fishing
+  android: false
+  ios: true
+- constant: ExerciseType.hunting
+  name: Hunting
+  android: false
+  ios: true
+- constant: ExerciseType.play
+  name: Play
+  android: false
+  ios: true
+- constant: ExerciseType.wheelchair
+  name: Wheelchair
+  android: true
+  ios: false
+- constant: ExerciseType.wheelchairWalkPace
+  name: Wheelchair Walk Pace
+  android: false
+  ios: true
+- constant: ExerciseType.wheelchairRunPace
+  name: Wheelchair Run Pace
+  android: false
+  ios: true
+- constant: ExerciseType.transition
+  name: Transition
+  android: false
+  ios: true
+- constant: ExerciseType.swimBikeRun
+  name: Swim Bike Run
+  android: false
+  ios: true
