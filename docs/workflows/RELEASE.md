@@ -70,8 +70,10 @@ Use a prerelease suffix while a version is not ready for stable consumers:
 | Release candidate | `4.0.0-rc`, `4.0.0-rc.1` |
 | Stable | `4.0.0` |
 
-The package CD workflows accept stable versions and any valid SemVer prerelease suffix. Use the same full version in
-the package pubspec, changelog heading, and generated `<package>-v<version>` tag.
+The package CD workflows accept only `MAJOR.MINOR.PATCH` and the `alpha`, `beta`, and `rc` forms shown above. Each
+prerelease label may have one optional non-negative numeric identifier. Leading zeroes, build metadata such as
+`+build.5`, other prerelease labels, and additional identifiers are rejected. Use the same full version in the package
+pubspec, changelog heading, and generated `<package>-v<version>` tag.
 
 Use Melos to update the selected packages. The repository allows this command on `main`, so run it before creating the
 release branch. Include one `-V` argument for every selected package and replace the example versions:
@@ -95,7 +97,8 @@ Add or remove package arguments to match the release scope. The releasable packa
 - `health_connector_hk_ios`
 - `health_connector`
 
-Melos also updates affected internal dependency constraints.
+Melos updates package versions, changelogs, and affected internal dependency constraints. It does not generate or
+format source files.
 
 Always update `health_connector`. Its version change starts the coordinated release after the pull request is merged.
 
@@ -165,8 +168,9 @@ Do not create, move, or push release tags manually.
 
 ### 4. Approve publication
 
-Each package CD workflow validates its tag and package, runs the package-specific quality checks, and waits until its
-new internal dependencies are available on pub.dev.
+Each package CD workflow validates the version format and matches its tag to the package before running any
+package-specific checks. These jobs check and validate repository files without regenerating or formatting them. The
+workflow then waits until the package's new internal dependencies are available on pub.dev.
 
 GitHub pauses publication at the protected `pub.dev` environment. Approve each release when GitHub requests approval.
 Publication then uses GitHub OIDC and completes automatically.
@@ -192,7 +196,7 @@ After the release pull request is merged, CI/CD:
 1. detects the new `health_connector` version on `main`;
 2. creates missing annotated package tags in dependency order;
 3. starts the CD workflow for every new package tag;
-4. validates that each tag matches its package version;
+4. rejects unsupported version formats and validates that each tag matches its package version;
 5. runs the applicable Dart, Kotlin, Swift, Android, and iOS checks;
 6. waits until required internal package versions are available on pub.dev;
 7. waits for protected `pub.dev` environment approval; and

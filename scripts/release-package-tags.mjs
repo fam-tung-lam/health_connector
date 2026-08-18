@@ -2,6 +2,8 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+import { assertValidReleaseVersion } from './release-version.mjs';
+
 const publish = process.argv.includes('--push');
 const packages = [
   'packages/health_connector_lint',
@@ -43,7 +45,10 @@ async function packageRelease(packagePath) {
   }
 
   const name = readTopLevelScalar('name');
-  const version = readTopLevelScalar('version');
+  const version = assertValidReleaseVersion(
+    readTopLevelScalar('version'),
+    `${packagePath}/pubspec.yaml version`,
+  );
   return { name, packagePath, tag: `${name}-v${version}`, version };
 }
 

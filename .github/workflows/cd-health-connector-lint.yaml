@@ -4,7 +4,12 @@ on:
   push:
     tags:
       - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+'
-      - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+-*'
+      - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+-alpha'
+      - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
+      - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+-beta'
+      - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
+      - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+-rc'
+      - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
 
 permissions:
   contents: read
@@ -15,7 +20,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  release-validation:
+    uses: ./.github/workflows/_reusable-release-validation.yaml
+    with:
+      package-path: packages/health_connector_lint
+
   dart-quality:
+    needs: release-validation
     uses: ./.github/workflows/_reusable-dart-quality.yaml
     with:
       package-scope: health_connector_lint

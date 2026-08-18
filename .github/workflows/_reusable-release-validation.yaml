@@ -1,0 +1,30 @@
+name: Reusable Release Validation
+
+on:
+  workflow_call:
+    inputs:
+      package-path:
+        description: 'Path to the package being released'
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  release-validation:
+    name: Validate release metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Test release version convention
+        run: npm run release:test
+
+      - name: Match tag to package version
+        env:
+          PACKAGE_PATH: ${{ inputs.package-path }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: node scripts/validate-release-tag.mjs "$PACKAGE_PATH" "$RELEASE_TAG"

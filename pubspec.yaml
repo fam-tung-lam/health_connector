@@ -54,12 +54,6 @@ melos:
 
       workspaceChangelog: false
 
-      # Hooks to run before version commit
-      hooks:
-        preCommit: |
-          melos run pigeon
-          melos run format
-
   # Scripts: https://melos.invertase.dev/configuration/scripts
   scripts:
     analyze:
