@@ -21,12 +21,12 @@ The toolbox exists to demonstrate features and to manually exercise the SDK duri
 <PlatformTabs>
 <template #ios>
 
-![Requesting permissions on iOS](/doc/assets/videos/ios_request_permissions_demo.gif)
+![Requesting permissions on iOS](../../doc/assets/videos/ios_request_permissions_demo.gif)
 
 </template>
 <template #android>
 
-![Requesting permissions on Android](/doc/assets/videos/android_request_permissions_demo.gif)
+![Requesting permissions on Android](../../doc/assets/videos/android_request_permissions_demo.gif)
 
 </template>
 </PlatformTabs>
@@ -36,12 +36,12 @@ The toolbox exists to demonstrate features and to manually exercise the SDK duri
 <PlatformTabs>
 <template #ios>
 
-![Reading health records on iOS](/doc/assets/videos/ios_read_health_records_demo.gif)
+![Reading health records on iOS](../../doc/assets/videos/ios_read_health_records_demo.gif)
 
 </template>
 <template #android>
 
-![Reading health records on Android](/doc/assets/videos/android_read_health_records_demo.gif)
+![Reading health records on Android](../../doc/assets/videos/android_read_health_records_demo.gif)
 
 </template>
 </PlatformTabs>
@@ -51,12 +51,12 @@ The toolbox exists to demonstrate features and to manually exercise the SDK duri
 <PlatformTabs>
 <template #ios>
 
-![Writing a health record on iOS](/doc/assets/videos/ios_write_health_record_demo.gif)
+![Writing a health record on iOS](../../doc/assets/videos/ios_write_health_record_demo.gif)
 
 </template>
 <template #android>
 
-![Writing a health record on Android](/doc/assets/videos/android_write_health_record_demo.gif)
+![Writing a health record on Android](../../doc/assets/videos/android_write_health_record_demo.gif)
 
 </template>
 </PlatformTabs>
@@ -66,12 +66,12 @@ The toolbox exists to demonstrate features and to manually exercise the SDK duri
 <PlatformTabs>
 <template #ios>
 
-![Deleting health records on iOS](/doc/assets/videos/ios_delete_health_records_demo.gif)
+![Deleting health records on iOS](../../doc/assets/videos/ios_delete_health_records_demo.gif)
 
 </template>
 <template #android>
 
-![Deleting health records on Android](/doc/assets/videos/android_delete_health_records_demo.gif)
+![Deleting health records on Android](../../doc/assets/videos/android_delete_health_records_demo.gif)
 
 </template>
 </PlatformTabs>
@@ -81,12 +81,12 @@ The toolbox exists to demonstrate features and to manually exercise the SDK duri
 <PlatformTabs>
 <template #ios>
 
-![Aggregating health data on iOS](/doc/assets/videos/ios_aggregate_health_data_demo.gif)
+![Aggregating health data on iOS](../../doc/assets/videos/ios_aggregate_health_data_demo.gif)
 
 </template>
 <template #android>
 
-![Aggregating health data on Android](/doc/assets/videos/android_aggregate_health_data_demo.gif)
+![Aggregating health data on Android](../../doc/assets/videos/android_aggregate_health_data_demo.gif)
 
 </template>
 </PlatformTabs>

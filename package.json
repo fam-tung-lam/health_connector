@@ -4,15 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "site:prepare": "node scripts/prepare-site-assets.mjs",
-    "site:check": "node scripts/check-doc-symbols.mjs && node scripts/check-doc-links.mjs",
-    "site:build": "npm run site:prepare && npm run site:check && vitepress build webapp",
-    "site:dev": "npm run site:prepare && vitepress dev webapp",
+    "site:build": "vitepress build webapp",
+    "site:dev": "vitepress dev webapp",
     "site:preview": "vitepress preview webapp"
   },
   "devDependencies": {
     "vite": "6.4.3",
-    "vitepress": "1.6.4"
+    "vitepress": "1.6.4",
+    "yaml": "2.9.0"
   },
   "overrides": {
     "vitepress": {

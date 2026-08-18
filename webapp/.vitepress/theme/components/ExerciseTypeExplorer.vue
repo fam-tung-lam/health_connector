@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import dataset from "../../data/health-data-types.json";
+import { data as dataset } from "../../data/catalog.data";
 import CopyButton from "./CopyButton.vue";
 
 const query = ref("");

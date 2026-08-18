@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import dataset from "../../data/health-data-types.json";
+import { data as dataset } from "../../data/catalog.data";
 import { usePlatform } from "../composables/usePlatform";
 import CopyButton from "./CopyButton.vue";
 
