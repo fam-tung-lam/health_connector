@@ -9,7 +9,7 @@
     "site:preview": "vitepress preview webapp"
   },
   "devDependencies": {
-    "vite": "6.4.3",
+    "vite": "8.2.1",
     "vitepress": "1.6.4",
     "yaml": "2.9.0"
   },
