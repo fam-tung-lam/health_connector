@@ -1,0 +1,43 @@
+name: CD - release packages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/health_connector/pubspec.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cd-release-packages
+  cancel-in-progress: false
+
+jobs:
+  create-release-tags:
+    name: Create package release tags
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require release token
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          if [[ -z "$RELEASE_TOKEN" ]]; then
+            echo "::error::RELEASE_TOKEN must be a fine-grained token with Contents: write access to this repository."
+            exit 1
+          fi
+
+      - name: Check out repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+      - name: Configure tag author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create and push package tags
+        run: node scripts/release-package-tags.mjs --push

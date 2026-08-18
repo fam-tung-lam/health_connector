@@ -6,9 +6,7 @@ on:
       - 'health_connector_logger-v[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
-  contents: write
-  # Required for OIDC-based authentication to pub.dev (see _reusable-publish.yaml)
-  # Must be explicitly granted at caller level even though reusable workflow declares it
+  contents: read
   id-token: write
 
 concurrency:
@@ -26,7 +24,7 @@ jobs:
     uses: ./.github/workflows/_reusable-dart-tests.yaml
     with:
       package-scope: health_connector_logger
-  
+
   publish:
     needs: dart-tests
     uses: ./.github/workflows/_reusable-publish.yaml

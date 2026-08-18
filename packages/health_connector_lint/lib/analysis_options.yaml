@@ -75,7 +75,6 @@ linter:
     - empty_catches
     - empty_constructor_bodies
     - empty_statements
-    - enable_null_safety
     - exhaustive_cases
     - file_names
     - flutter_style_todos

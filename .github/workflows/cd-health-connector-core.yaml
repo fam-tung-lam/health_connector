@@ -6,9 +6,7 @@ on:
       - 'health_connector_core-v[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
-  contents: write
-  # Required for OIDC-based authentication to pub.dev (see _reusable-publish.yaml)
-  # Must be explicitly granted at caller level even though reusable workflow declares it
+  contents: read
   id-token: write
 
 concurrency:

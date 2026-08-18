@@ -6,9 +6,7 @@ on:
       - 'health_connector_hk_ios-v[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
-  contents: write
-  # Required for OIDC-based authentication to pub.dev (see _reusable-publish.yaml)
-  # Must be explicitly granted at caller level even though reusable workflow declares it
+  contents: read
   id-token: write
 
 concurrency:
@@ -33,7 +31,7 @@ jobs:
       package-scope: health_connector_hk_ios
 
   build-ios:
-    needs: [ dart-tests, swift-quality ]
+    needs: [dart-tests, swift-quality]
     uses: ./.github/workflows/_reusable-build-ios.yaml
     with:
       package-path: packages/health_connector_hk_ios
