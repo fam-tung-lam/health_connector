@@ -97,6 +97,7 @@ When reporting issues, please include:
 
 ## License
 
-This project is licensed under the Apache-2.0 License - see the [LICENSE](https://github.com/fam-tung-lam/health_connector/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License. See the
+[LICENSE](https://github.com/fam-tung-lam/health_connector/blob/main/LICENSE) file for details.
 
 <!-- #endregion webapp-project -->

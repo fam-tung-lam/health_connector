@@ -199,7 +199,7 @@ export default defineConfig({
       text: "Suggest an edit to this page",
     },
     footer: {
-      message: "Released under the Apache 2.0 License.",
+      message: "Released under the MIT License.",
       copyright: "Copyright © Pham Tung Lam",
     },
     outline: { level: [2, 3], label: "On this page" },
