@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { appendFile, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 import { assertValidReleaseVersion } from './release-version.mjs';
@@ -39,6 +39,13 @@ if (releaseTag.startsWith(`${packageName}-v`)) {
 if (releaseTag !== expectedTag) {
   throw new Error(
     `Release tag ${releaseTag} does not match ${packageName} version ${packageVersion}; expected ${expectedTag}`,
+  );
+}
+
+if (process.env.GITHUB_OUTPUT) {
+  await appendFile(
+    process.env.GITHUB_OUTPUT,
+    `package-name=${packageName}\npackage-version=${packageVersion}\n`,
   );
 }
 
