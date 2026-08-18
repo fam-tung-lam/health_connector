@@ -1,5 +1,5 @@
 ---
-name: ptlam-code-style-dart-health-connector
+name: ptlam-health-connector-code-style-dart
 description:
   Write, review, and fix Dart source and tests in the Health Connector SDK
   against its analyzer rules, formatter contract, imports, visibility,
@@ -11,7 +11,7 @@ description:
   data type change.
 ---
 
-# PTLam Health Connector Dart Code Style
+# PTLam Health Connector Code Style Dart
 
 Write, review, or fix Dart source and tests in the Health Connector SDK. This
 skill owns only repository-specific Dart expression: analyzer and formatter

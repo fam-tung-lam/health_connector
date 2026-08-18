@@ -31,11 +31,29 @@
       "skillPath": "skills/ptlam-health-connector-architecture/SKILL.md",
       "computedHash": "a505ff1abf6dfecba1618c790e895b0bd3805f067bbe21a38b4829f97360babf"
     },
+    "ptlam-health-connector-code-style-dart": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-health-connector-code-style-dart/SKILL.md",
+      "computedHash": "c85380464b51a384e0b630deba1bf6d86ae13ee1f0f3ee283feebaf2f4a028f9"
+    },
+    "ptlam-health-connector-code-style-kotlin": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-health-connector-code-style-kotlin/SKILL.md",
+      "computedHash": "d123ada226c465f2704ed375bd8e1bfa6779ba4fa69dc467d93cbb6a9ab45e85"
+    },
+    "ptlam-health-connector-code-style-swift": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-health-connector-code-style-swift/SKILL.md",
+      "computedHash": "611d6aabc508c2384c6eff1ee1ec2fca2315f37b6414530e46d94856ff391552"
+    },
     "ptlam-health-connector-data-type": {
       "source": "fam-tung-lam/ptlam-agent-plugin",
       "sourceType": "github",
       "skillPath": "skills/ptlam-health-connector-data-type/SKILL.md",
-      "computedHash": "99fc741b8016f9d3928f038facd4ee70ed0ce1076dad9d7f915afc43905a1ea2"
+      "computedHash": "24e55dff01297e273e384ef51cb9d63f7daae56fb975c4d485d3a843466ca9f6"
     },
     "ptlam-health-connector-debug": {
       "source": "fam-tung-lam/ptlam-agent-plugin",
@@ -47,7 +65,7 @@
       "source": "fam-tung-lam/ptlam-agent-plugin",
       "sourceType": "github",
       "skillPath": "skills/ptlam-health-connector-review/SKILL.md",
-      "computedHash": "09321956a0404e6731caa3f1c9d5ea155ccb28a79ad9ae39f3d1a59ddb42f271"
+      "computedHash": "99794dc7e8193d1e54696e572ad5497826781b06dc17803f87fe04004291432e"
     },
     "ptlam-health-connector-setup": {
       "source": "fam-tung-lam/ptlam-agent-plugin",

@@ -29,38 +29,38 @@ Use this skill to judge the diff against that architecture.
 
 Read [ptlam-health-connector-architecture](skills/ptlam-health-connector-architecture/SKILL.md).
 
-### `ptlam-code-style-dart-health-connector`
+### `ptlam-health-connector-code-style-dart`
 
 **Reason:** Provides Health Connector Dart source, analyzer, documentation, and test conventions for changed Dart files.
 
-**Instructions:** Apply ptlam-code-style-dart-health-connector to changed Dart, YAML,
+**Instructions:** Apply ptlam-health-connector-code-style-dart to changed Dart, YAML,
 and Dart-test files.
 Let it own project-specific Dart writing and check conventions.
 Report violations here without copying its rules into this skill.
 
-Read [ptlam-code-style-dart-health-connector](skills/ptlam-code-style-dart-health-connector/SKILL.md).
+Read [ptlam-health-connector-code-style-dart](skills/ptlam-health-connector-code-style-dart/SKILL.md).
 
-### `ptlam-code-style-kotlin-health-connector`
+### `ptlam-health-connector-code-style-kotlin`
 
 **Reason:** Provides Health Connector Kotlin source, ktlint, detekt, and unit-test conventions for changed Android files.
 
-**Instructions:** Apply ptlam-code-style-kotlin-health-connector to changed Kotlin,
+**Instructions:** Apply ptlam-health-connector-code-style-kotlin to changed Kotlin,
 Gradle, ktlint, detekt, and Kotlin-test files.
 Let it own project-specific Kotlin writing and check conventions.
 Report violations here without copying its rules into this skill.
 
-Read [ptlam-code-style-kotlin-health-connector](skills/ptlam-code-style-kotlin-health-connector/SKILL.md).
+Read [ptlam-health-connector-code-style-kotlin](skills/ptlam-health-connector-code-style-kotlin/SKILL.md).
 
-### `ptlam-code-style-swift-health-connector`
+### `ptlam-health-connector-code-style-swift`
 
 **Reason:** Provides Health Connector Swift source, SwiftLint, SwiftFormat, and native logging conventions for changed iOS files.
 
-**Instructions:** Apply ptlam-code-style-swift-health-connector to changed Swift,
+**Instructions:** Apply ptlam-health-connector-code-style-swift to changed Swift,
 SwiftPM, SwiftLint, and SwiftFormat files.
 Let it own project-specific Swift writing and check conventions.
 Report violations here without copying its rules into this skill.
 
-Read [ptlam-code-style-swift-health-connector](skills/ptlam-code-style-swift-health-connector/SKILL.md).
+Read [ptlam-health-connector-code-style-swift](skills/ptlam-health-connector-code-style-swift/SKILL.md).
 
 ## Resolve the review surface
 

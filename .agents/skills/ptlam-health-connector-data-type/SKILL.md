@@ -31,40 +31,40 @@ boundaries.
 
 Read [ptlam-health-connector-architecture](skills/ptlam-health-connector-architecture/SKILL.md).
 
-### `ptlam-code-style-dart-health-connector`
+### `ptlam-health-connector-code-style-dart`
 
 **Reason:** Provides the project-specific Dart conventions for the core model, contracts, mappers, documentation, and tests.
 
-**Instructions:** Apply ptlam-code-style-dart-health-connector to every Dart change.
+**Instructions:** Apply ptlam-health-connector-code-style-dart to every Dart change.
 Let it own Dart analyzer, formatter, documentation, logging, and test
 conventions.
 Keep this skill's ownership of the end-to-end feature workflow.
 
-Read [ptlam-code-style-dart-health-connector](skills/ptlam-code-style-dart-health-connector/SKILL.md).
+Read [ptlam-health-connector-code-style-dart](skills/ptlam-health-connector-code-style-dart/SKILL.md).
 
-### `ptlam-code-style-kotlin-health-connector`
+### `ptlam-health-connector-code-style-kotlin`
 
 **Reason:** Provides the project-specific Kotlin conventions for the Android mapper, handler, registry, and tests.
 
-**Instructions:** Apply ptlam-code-style-kotlin-health-connector when the type supports
+**Instructions:** Apply ptlam-health-connector-code-style-kotlin when the type supports
 Android Health Connect.
 Let it own Kotlin formatting, analysis, visibility, and test
 conventions.
 Keep this skill's ownership of Android feature completeness.
 
-Read [ptlam-code-style-kotlin-health-connector](skills/ptlam-code-style-kotlin-health-connector/SKILL.md).
+Read [ptlam-health-connector-code-style-kotlin](skills/ptlam-health-connector-code-style-kotlin/SKILL.md).
 
-### `ptlam-code-style-swift-health-connector`
+### `ptlam-health-connector-code-style-swift`
 
 **Reason:** Provides the project-specific Swift conventions for the iOS mapper, handler, registry, and native logging.
 
-**Instructions:** Apply ptlam-code-style-swift-health-connector when the type supports
+**Instructions:** Apply ptlam-health-connector-code-style-swift when the type supports
 iOS HealthKit.
 Let it own Swift formatting, analysis, visibility, and logging
 conventions.
 Keep this skill's ownership of iOS feature completeness.
 
-Read [ptlam-code-style-swift-health-connector](skills/ptlam-code-style-swift-health-connector/SKILL.md).
+Read [ptlam-health-connector-code-style-swift](skills/ptlam-health-connector-code-style-swift/SKILL.md).
 
 ## Resolve the contract before editing
 

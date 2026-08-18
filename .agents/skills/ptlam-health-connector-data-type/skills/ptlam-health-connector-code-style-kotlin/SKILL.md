@@ -1,5 +1,5 @@
 ---
-name: ptlam-code-style-kotlin-health-connector
+name: ptlam-health-connector-code-style-kotlin
 description:
   Write, review, and fix Kotlin source and tests in Health Connector's Android
   package against its visibility, file and declaration shape, import order,
@@ -10,7 +10,7 @@ description:
   Connect behavior, Pigeon ownership, or end-to-end handler registration.
 ---
 
-# PTLam Health Connector Kotlin Code Style
+# PTLam Health Connector Code Style Kotlin
 
 Write, review, or fix Kotlin source and unit tests under
 `packages/health_connector_hc_android/android/`. This skill owns only

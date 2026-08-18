@@ -1,5 +1,5 @@
 ---
-name: ptlam-code-style-swift-health-connector
+name: ptlam-health-connector-code-style-swift
 description:
   Write, review, and fix Swift source in Health Connector's iOS package against
   its access, declaration and extension shape, structured logging syntax,
@@ -10,7 +10,7 @@ description:
   registration.
 ---
 
-# PTLam Health Connector Swift Code Style
+# PTLam Health Connector Code Style Swift
 
 Write, review, or fix handwritten Swift under
 `packages/health_connector_hk_ios/ios/`. This skill owns only
