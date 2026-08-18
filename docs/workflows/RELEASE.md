@@ -175,8 +175,9 @@ workflow then waits until the package's new internal dependencies are available 
 GitHub pauses publication at the protected `pub.dev` environment. Approve each release when GitHub requests approval.
 Publication then uses GitHub OIDC and completes automatically.
 
-The release is complete when every selected package CD workflow succeeds. No manual pub.dev or Git tag verification
-is required.
+After publication, GitHub records a successful deployment named `pub.dev / <package>` with a link to the exact package
+version. The release is complete when every selected package CD workflow succeeds. No manual pub.dev or Git tag
+verification is required.
 
 ## If CI/CD fails
 
@@ -200,7 +201,21 @@ After the release pull request is merged, CI/CD:
 5. runs the applicable Dart, Kotlin, Swift, Android, and iOS checks;
 6. waits until required internal package versions are available on pub.dev;
 7. waits for protected `pub.dev` environment approval; and
-8. publishes each approved package through GitHub OIDC.
+8. publishes each approved package through GitHub OIDC; and
+9. records each published package version in GitHub Deployments.
+
+## GitHub deployments
+
+GitHub deployment history separates documentation deployments from package releases:
+
+| Environment | Created by | Target |
+| --- | --- | --- |
+| `Preview` | Vercel Git integration for pull requests and non-production branches | Commit-specific preview URL |
+| `Production` | Vercel Git integration for `main` | Production documentation site |
+| `pub.dev / <package>` | Package CD after successful publication | Exact package version on pub.dev |
+
+The protected `pub.dev` environment remains the approval gate shared by all packages. The package-specific environments
+record completed releases and do not replace that gate.
 
 ## Rules
 

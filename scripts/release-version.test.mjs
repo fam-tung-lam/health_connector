@@ -1,4 +1,8 @@
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import test from 'node:test';
 
 import {
@@ -73,5 +77,40 @@ dependencies:
 `),
       /dependency health_connector_core .* is invalid/,
     );
+  }
+});
+
+test('tag validation exports package deployment metadata in GitHub Actions', async () => {
+  const packagePath = 'packages/health_connector';
+  const pubspec = await readFile(resolve(packagePath, 'pubspec.yaml'), 'utf8');
+  const packageName = pubspec.match(/^name:\s*(\S+)/m)?.[1];
+  const packageVersion = pubspec.match(/^version:\s*(\S+)/m)?.[1];
+
+  assert.ok(packageName);
+  assert.ok(packageVersion);
+
+  const outputDirectory = await mkdtemp(join(tmpdir(), 'release-version-test-'));
+  const outputPath = join(outputDirectory, 'github-output');
+
+  try {
+    execFileSync(
+      process.execPath,
+      [
+        'scripts/validate-release-tag.mjs',
+        packagePath,
+        `${packageName}-v${packageVersion}`,
+      ],
+      {
+        cwd: resolve('.'),
+        env: { ...process.env, GITHUB_OUTPUT: outputPath },
+      },
+    );
+
+    assert.equal(
+      await readFile(outputPath, 'utf8'),
+      `package-name=${packageName}\npackage-version=${packageVersion}\n`,
+    );
+  } finally {
+    await rm(outputDirectory, { force: true, recursive: true });
   }
 });
