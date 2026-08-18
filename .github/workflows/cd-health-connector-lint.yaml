@@ -1,0 +1,26 @@
+name: CD - health_connector_lint
+
+on:
+  push:
+    tags:
+      - 'health_connector_lint-v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: cd-health_connector_lint-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  dart-quality:
+    uses: ./.github/workflows/_reusable-dart-quality.yaml
+    with:
+      package-scope: health_connector_lint
+
+  publish:
+    needs: dart-quality
+    uses: ./.github/workflows/_reusable-publish.yaml
+    with:
+      package-path: packages/health_connector_lint

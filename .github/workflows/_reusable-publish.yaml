@@ -9,19 +9,42 @@ on:
         required: true
 
 jobs:
+  validate-release-tag:
+    name: Validate release tag
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Match tag to package version
+        env:
+          PACKAGE_PATH: ${{ inputs.package-path }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: node scripts/validate-release-tag.mjs "$PACKAGE_PATH" "$RELEASE_TAG"
+
+  wait-for-pub-dependencies:
+    name: Wait for pub.dev dependencies
+    needs: validate-release-tag
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Wait for release dependencies
+        env:
+          PACKAGE_PATH: ${{ inputs.package-path }}
+        run: node scripts/wait-for-pub-dependencies.mjs "$PACKAGE_PATH"
+
   publish:
     name: Publish to pub.dev
+    needs: wait-for-pub-dependencies
     permissions:
-      # Required for OIDC-based authentication to pub.dev
-      # NOTE: This declaration alone is NOT sufficient - the caller workflow
-      # must also explicitly grant 'id-token: write' at the top level.
-      # 
-      # Why both are needed:
-      # - Effective permissions = intersection of caller's grants AND callee's declarations
-      # - The caller must explicitly grant id-token: write (repository identity permission)
-      # - This job-level declaration specifies what this specific job needs
-      # - If the caller doesn't grant it, this job cannot obtain the OIDC token
       id-token: write
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@631075bc7d06a1ef11a42118142ba9148e41727c
     with:
+      environment: pub.dev
       working-directory: ${{ inputs.package-path }}

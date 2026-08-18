@@ -6,11 +6,8 @@ on:
       - 'health_connector_hc_android-v[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
-  contents: write
+  contents: read
   security-events: write
-
-  # Required for OIDC-based authentication to pub.dev (see _reusable-publish.yaml)
-  # Must be explicitly granted at caller level even though reusable workflow declares it
   id-token: write
 
 concurrency:

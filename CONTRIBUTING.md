@@ -362,7 +362,9 @@ Your pull request description should answer:
 
 ### Creating a release
 
-Each package in the monorepo is released independently. Follow these steps:
+Each package has its own `package-v<version>` release tag and pub.dev publication. A new
+`health_connector` version starts a coordinated release for every package version that does not
+already have a tag.
 
 1. **Remove deprecated symbols** — search the codebase for `@Deprecated` annotations and remove
    any that are marked for removal in the version you intend to release. Open a dedicated PR for
@@ -384,12 +386,17 @@ Each package in the monorepo is released independently. Follow these steps:
    melos publish
    ```
 
-4. **Publish** — once satisfied with the dry run output:
+4. **Preview release tags** — verify which package versions the release workflow will tag:
 
    ```bash
-   melos publish --no-dry-run
+   node scripts/release-package-tags.mjs
    ```
 
 5. **Open a release PR** — create a PR to `main` containing the updated `CHANGELOG.md` and
-   `pubspec.yaml` files. After merge, the CD workflow publishes the packages to
-   [pub.dev](https://pub.dev).
+   `pubspec.yaml` files. After merge, changing the facade version creates the missing package tags.
+   Each tag runs that package's quality checks and waits for approval in the `pub.dev` GitHub
+   Environment before publishing with OIDC.
+
+Repository setup requires a `RELEASE_TOKEN` secret with Contents write access. Configure every
+package on pub.dev with repository `fam-tung-lam/health_connector`, tag pattern
+`<package>-v{{version}}`, and required GitHub Actions environment `pub.dev`.
