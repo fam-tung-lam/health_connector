@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "skills": {
+    "ptlam-code-style-dart-health-connector": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-code-style-dart-health-connector/SKILL.md",
+      "computedHash": "0f3c2d3f518a68c2c0f95ebcdb189c89f2b5dcfbf11926058bd931747cba34f2"
+    },
+    "ptlam-code-style-kotlin-health-connector": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-code-style-kotlin-health-connector/SKILL.md",
+      "computedHash": "44174f77a8c249020a9b7a54766518d775a0c370bb437f83406ba41c05d2955a"
+    },
+    "ptlam-code-style-swift-health-connector": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-code-style-swift-health-connector/SKILL.md",
+      "computedHash": "06580198e563285869154ea9007aeebdc47d562152d5eab1b47a8618eb47aa47"
+    },
+    "ptlam-git": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-git/SKILL.md",
+      "computedHash": "d5ccfac7f086aca453db0cfb09f83d99830c4db4f3b12f4965c5f033137d0279"
+    },
+    "ptlam-health-connector-architecture": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-health-connector-architecture/SKILL.md",
+      "computedHash": "a505ff1abf6dfecba1618c790e895b0bd3805f067bbe21a38b4829f97360babf"
+    },
+    "ptlam-health-connector-data-type": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-health-connector-data-type/SKILL.md",
+      "computedHash": "99fc741b8016f9d3928f038facd4ee70ed0ce1076dad9d7f915afc43905a1ea2"
+    },
+    "ptlam-health-connector-debug": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-health-connector-debug/SKILL.md",
+      "computedHash": "b5e8206fa523199e58f976ea955443f1718da504b02afad2212bcfc2f110d533"
+    },
+    "ptlam-health-connector-review": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-health-connector-review/SKILL.md",
+      "computedHash": "09321956a0404e6731caa3f1c9d5ea155ccb28a79ad9ae39f3d1a59ddb42f271"
+    },
+    "ptlam-health-connector-setup": {
+      "source": "fam-tung-lam/ptlam-agent-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ptlam-health-connector-setup/SKILL.md",
+      "computedHash": "0d02f67cf5746dc1f4b890ad412fe1caf0d348174bc46e716512b52ddbd94178"
+    }
+  }
+}

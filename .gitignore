@@ -46,3 +46,4 @@ migrate_working_dir/
 
 # AI
 /.mcp.local.json
+AGENTS.override.md
