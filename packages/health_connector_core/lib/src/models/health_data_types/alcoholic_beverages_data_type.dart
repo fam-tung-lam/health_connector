@@ -21,7 +21,6 @@ part of 'health_data_type.dart';
 ///
 /// - [AlcoholicBeveragesRecord]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable

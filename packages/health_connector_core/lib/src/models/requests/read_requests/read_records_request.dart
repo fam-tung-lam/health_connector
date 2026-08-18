@@ -28,7 +28,6 @@ part 'read_records_in_time_range_request.dart';
 
 /// Base sealed class for all health records read requests.
 ///
-/// @nodoc
 @sinceV2_0_0
 @internalUse
 @immutable

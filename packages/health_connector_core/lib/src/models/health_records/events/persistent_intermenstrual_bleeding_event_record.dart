@@ -8,7 +8,6 @@ part of '../health_record.dart';
 /// - [MenstrualFlowRecord]
 /// - [IntermenstrualBleedingRecord]
 ///
-/// {@category Health Records}
 @sinceV3_4_0
 @supportedOnAppleHealthIOS16Plus
 @readOnly

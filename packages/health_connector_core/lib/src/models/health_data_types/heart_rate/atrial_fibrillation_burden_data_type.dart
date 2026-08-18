@@ -57,7 +57,6 @@ part of '../health_data_type.dart';
 ///
 /// - [AtrialFibrillationBurdenRecord]
 ///
-/// {@category Health Records}
 @sinceV3_4_0
 @supportedOnAppleHealthIOS16Plus
 @readOnly

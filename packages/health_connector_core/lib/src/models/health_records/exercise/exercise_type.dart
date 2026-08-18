@@ -33,7 +33,6 @@ part of '../health_record.dart';
 /// **Important:** Attempting to use a platform-specific type on an
 /// unsupported platform will result in [UnsupportedOperationException].
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 enum ExerciseType {
   /// Other or unclassified workout.
@@ -963,7 +962,6 @@ enum ExerciseType {
 /// final androidTypes = ExerciseType.healthConnectTypes;
 /// ```
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 extension ExerciseTypeExtension on ExerciseType {
   /// Returns a list of all [ExerciseType] values supported on Apple Health

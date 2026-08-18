@@ -15,7 +15,6 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
 /// - [ArgumentError.value] if [condition] is false, including the invalid
 ///   [value] and parameter [name] for better error messages.
 ///
-/// @nodoc
 @sinceV1_0_0
 @internalUse
 @internalUse
@@ -41,7 +40,6 @@ void require<T>({
 ///
 /// - [ArgumentError] if [endTime] is not strictly after [startTime].
 ///
-/// @nodoc
 @sinceV1_0_0
 @internalUse
 void requireEndTimeAfterStartTime({

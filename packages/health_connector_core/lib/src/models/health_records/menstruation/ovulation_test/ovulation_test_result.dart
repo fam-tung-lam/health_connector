@@ -12,7 +12,6 @@ part of '../../health_record.dart';
 /// - **iOS HealthKit**: Maps to `HKCategoryValueOvulationTestResult` enum
 ///   values
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 enum OvulationTestResult {
   /// Test result is negative (no hormonal surge detected).

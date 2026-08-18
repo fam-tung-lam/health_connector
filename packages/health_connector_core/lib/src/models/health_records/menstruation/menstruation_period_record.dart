@@ -24,8 +24,6 @@ part of '../health_record.dart';
 ///
 /// - [MenstruationPeriodDataType]
 ///
-/// {@category Health Records}
-/// {@category Reproductive Health}
 @sinceV3_6_0
 @supportedOnHealthConnect
 @immutable

@@ -11,7 +11,6 @@ import 'package:meta/meta.dart';
 /// }
 /// ```
 ///
-/// @nodoc
 @sinceV1_0_0
 @internal
 @immutable

@@ -12,7 +12,6 @@ import 'package:meta/meta.dart' show immutable;
 /// - [HealthConnectorDartLog]: Logs originating from Dart code.
 /// - [HealthConnectorNativeLog]: Logs originating from native platform code.
 ///
-/// {@category Logging}
 @immutable
 sealed class HealthConnectorLog {
   /// The severity level of this log entry.
@@ -98,7 +97,6 @@ sealed class HealthConnectorLog {
 
 /// A log entry originating from Dart code.
 ///
-/// {@category Logging}
 @immutable
 final class HealthConnectorDartLog extends HealthConnectorLog {
   /// Creates a [HealthConnectorDartLog] with the specified properties.
@@ -116,7 +114,6 @@ final class HealthConnectorDartLog extends HealthConnectorLog {
 
 /// A log entry originating from native platform code (iOS or Android).
 ///
-/// {@category Logging}
 @immutable
 final class HealthConnectorNativeLog extends HealthConnectorLog {
   /// The native platform that emitted this log (e.g., "iOS" or "Android").

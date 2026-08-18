@@ -30,7 +30,6 @@ part of '../health_record.dart';
 ///
 /// - [DietaryPantothenicAcidDataType]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

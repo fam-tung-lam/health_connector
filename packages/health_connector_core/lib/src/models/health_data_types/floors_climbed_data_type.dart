@@ -22,7 +22,6 @@ part of 'health_data_type.dart';
 ///
 /// - [FloorsClimbedRecord]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class FloorsClimbedDataType

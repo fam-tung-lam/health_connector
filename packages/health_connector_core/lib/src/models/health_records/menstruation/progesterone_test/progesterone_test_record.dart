@@ -28,7 +28,6 @@ part of '../../health_record.dart';
 /// - [ProgesteroneTestDataType]
 /// - [ProgesteroneTestResult]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable

@@ -38,7 +38,6 @@ part of '../health_record.dart';
 /// - [ExerciseSessionDataType]
 /// - [ExerciseSessionEvent]
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 @immutable
 final class ExerciseSessionRecord extends IntervalHealthRecord {

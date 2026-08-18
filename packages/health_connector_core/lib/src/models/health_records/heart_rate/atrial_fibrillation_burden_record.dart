@@ -9,7 +9,6 @@ part of '../health_record.dart';
 ///
 /// - [AtrialFibrillationBurdenDataType]
 ///
-/// {@category Health Records}
 @sinceV3_4_0
 @supportedOnAppleHealthIOS16Plus
 @readOnly

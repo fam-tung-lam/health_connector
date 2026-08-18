@@ -6,7 +6,6 @@ part of '../health_record.dart';
 ///
 /// - [LowCardioFitnessEventDataType]
 ///
-/// {@category Health Records}
 @sinceV3_6_0
 @supportedOnAppleHealth
 @immutable

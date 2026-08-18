@@ -6,7 +6,6 @@ part of '../../health_record.dart';
 /// - **Android Health Connect**: [`CervicalMucusRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CervicalMucusRecord)
 /// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.cervicalMucusQuality`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/cervicalMucusQuality)
 ///
-/// {@category Health Records}
 @sinceV2_1_0
 @immutable
 final class CervicalMucusRecord extends InstantHealthRecord {

@@ -2,7 +2,7 @@
 
 Lookup material: searchable catalogs, the complete API surface, and the version and platform facts you need when planning a feature.
 
-For workflows and decisions, use the [Guide](/guide/). For exact constructor and member signatures, use the [generated API docs on pub.dev](https://pub.dev/documentation/health_connector/latest/) — this site does not duplicate them.
+For workflows and decisions, use the [Guide](/guide/). For API constraints and lookup material, use the reference pages below.
 
 <NextSteps
   title="Searchable catalogs"
@@ -40,7 +40,7 @@ For workflows and decisions, use the [Guide](/guide/). For exact constructor and
 
 | You need | Go to |
 |---|---|
-| Exact signatures, every member | [pub.dev API docs](https://pub.dev/documentation/health_connector/latest/) |
+| API surface and common signatures | [API cheat sheet](/reference/api-cheat-sheet) |
 | Which types and metrics exist | [Health data types](/reference/health-data-types) |
 | How to accomplish a task | [Guide → Tasks](/guide/tasks/read) |
 | Why the platforms differ | [Platform differences](/guide/concepts/platform-differences) |

@@ -29,7 +29,6 @@ part of 'health_record.dart';
 ///
 /// - [Vo2MaxDataType]
 ///
-/// {@category Health Records}
 @sinceV1_3_0
 @immutable
 final class Vo2MaxRecord extends InstantHealthRecord {
@@ -193,7 +192,6 @@ final class Vo2MaxRecord extends InstantHealthRecord {
 /// - **[predictionStepTest]**: Android `OTHER` (0), iOS `.predictionStepTest`
 /// - **[other]**: Android `OTHER` (0), iOS `.predictionSubMaxExercise`
 ///
-/// {@category Health Records}
 @sinceV1_3_0
 enum Vo2MaxTestType {
   /// Direct measurement using gas exchange analysis (metabolic cart).

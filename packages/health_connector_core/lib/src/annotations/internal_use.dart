@@ -88,7 +88,6 @@ import 'package:meta/meta.dart' show immutable;
 ///
 /// - Package README files for usage examples and guides
 ///
-/// {@category Annotations}
 @allTargets
 @immutable
 final class _InternalUse {
@@ -98,6 +97,5 @@ final class _InternalUse {
 
 /// Annotation to mark APIs for internal plugin ecosystem use only.
 ///
-/// {@category Annotations}
 @_InternalUse()
 const internalUse = _InternalUse();

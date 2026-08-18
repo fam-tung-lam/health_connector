@@ -16,7 +16,6 @@ part of '../health_data_type.dart';
 /// - Aggregatable: Sum total walking/running distance
 /// - Deletable: Delete records by IDs or time range
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

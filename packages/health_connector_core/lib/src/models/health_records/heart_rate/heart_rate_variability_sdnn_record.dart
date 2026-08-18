@@ -27,7 +27,6 @@ part of '../health_record.dart';
 ///
 /// - [HeartRateVariabilitySDNNDataType]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnAppleHealth
 @immutable

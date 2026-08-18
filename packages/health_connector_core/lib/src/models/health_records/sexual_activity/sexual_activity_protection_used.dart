@@ -17,7 +17,6 @@ part of '../health_record.dart';
 /// - `protected` and `unprotected` are natively supported on both platforms
 /// - `unknown` requires custom metadata handling on iOS and handled by the SDK
 ///
-/// {@category Health Records}
 @sinceV2_1_0
 enum SexualActivityProtectionUsed {
   /// Protection was used during sexual activity.

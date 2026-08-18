@@ -123,7 +123,6 @@ import 'package:meta/meta.dart' show immutable;
 /// - [HealthPlatform], which defines the available health platforms
 /// - [UnsupportedOperationException], thrown when calling unsupported APIs
 ///
-/// {@category Annotations}
 @sinceV1_0_0
 @memberAndTypeTargets
 @immutable
@@ -146,7 +145,6 @@ final class _SupportedOn {
 
 /// Convenience annotation for APIs supported only on Android Health Connect.
 ///
-/// {@category Annotations}
 @internalUse
 const supportedOnHealthConnect = _SupportedOn(
   platform: HealthPlatform.healthConnect,
@@ -173,7 +171,6 @@ const supportedOnHealthConnect = _SupportedOn(
 /// - Health Connect SDK Extension versioning:
 ///   <https://developer.android.com/health-and-fitness/guides/health-connect/plan/sdk-extensions>
 ///
-/// {@category Annotations}
 @sinceV3_9_0
 @internalUse
 const supportedOnHealthConnectSdkExtension21 = _SupportedOn(
@@ -183,7 +180,6 @@ const supportedOnHealthConnectSdkExtension21 = _SupportedOn(
 
 /// Convenience annotation for APIs supported only on iOS HealthKit.
 ///
-/// {@category Annotations}
 @internalUse
 const supportedOnAppleHealth = _SupportedOn(
   platform: HealthPlatform.appleHealth,
@@ -191,7 +187,6 @@ const supportedOnAppleHealth = _SupportedOn(
 
 /// Convenience annotation for APIs supported only on iOS 16+.
 ///
-/// {@category Annotations}
 @internalUse
 const supportedOnAppleHealthIOS16Plus = _SupportedOn(
   platform: HealthPlatform.appleHealth,
@@ -200,7 +195,6 @@ const supportedOnAppleHealthIOS16Plus = _SupportedOn(
 
 /// Convenience annotation for APIs supported only on iOS 17+.
 ///
-/// {@category Annotations}
 @internalUse
 const supportedOnAppleHealthIOS17Plus = _SupportedOn(
   platform: HealthPlatform.appleHealth,
@@ -209,7 +203,6 @@ const supportedOnAppleHealthIOS17Plus = _SupportedOn(
 
 /// Convenience annotation for APIs supported only on iOS 18+.
 ///
-/// {@category Annotations}
 @internalUse
 const supportedOnAppleHealthIOS18Plus = _SupportedOn(
   platform: HealthPlatform.appleHealth,

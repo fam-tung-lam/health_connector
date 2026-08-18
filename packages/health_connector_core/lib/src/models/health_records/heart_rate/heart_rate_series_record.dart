@@ -41,7 +41,6 @@ part of '../health_record.dart';
 ///
 /// - [HeartRateSeriesDataType]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable
@@ -193,7 +192,6 @@ final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
 /// **Note**: This class does not have an ID or metadata. Those are
 /// properties of the record that contains the measurement.
 ///
-/// {@category Health Records}
 @immutable
 final class HeartRateSample {
   /// Minimum valid heart rate in beats per minute.

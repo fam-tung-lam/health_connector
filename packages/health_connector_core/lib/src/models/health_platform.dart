@@ -4,7 +4,6 @@ import 'package:health_connector_core/src/models/operating_system.dart';
 
 /// Represents the available health platform APIs.
 ///
-/// {@category Core API}
 @sinceV1_0_0
 enum HealthPlatform {
   /// iOS HealthKit on iOS.

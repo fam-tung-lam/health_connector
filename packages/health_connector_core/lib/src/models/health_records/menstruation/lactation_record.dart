@@ -24,8 +24,6 @@ part of '../health_record.dart';
 ///
 /// - [LactationDataType]
 ///
-/// {@category Reproductive Health}
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable
@@ -54,7 +52,8 @@ class LactationRecord extends IntervalHealthRecord {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
   }
 
-  /// {@macro health_record.internal}
+  /// Internal factory for creating [LactationRecord] instances without
+  /// validation.
   @internalUse
   factory LactationRecord.internal({
     required DateTime startTime,

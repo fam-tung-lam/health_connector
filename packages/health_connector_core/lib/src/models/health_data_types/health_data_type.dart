@@ -220,7 +220,6 @@ part 'wheelchair_pushes_data_type.dart';
 /// - The implementations are straightforward (mostly creating request objects)
 /// - It eliminates the switch-case exhaustiveness problem
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>

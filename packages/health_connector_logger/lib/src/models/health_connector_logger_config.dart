@@ -100,7 +100,6 @@ import 'package:meta/meta.dart';
 ///
 /// @sinceV3_0_0
 ///
-/// {@category Logging}
 @immutable
 final class HealthConnectorLoggerConfig {
   /// The list of processors that will handle log records.

@@ -33,7 +33,6 @@ part of '../health_data_type.dart';
 ///
 /// - [BasalMetabolicRateRecord]
 ///
-/// {@category Health Records}
 @sinceV3_6_0
 @supportedOnHealthConnect
 @immutable

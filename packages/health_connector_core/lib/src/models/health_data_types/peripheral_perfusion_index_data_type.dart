@@ -21,7 +21,6 @@ part of 'health_data_type.dart';
 ///
 /// - [PeripheralPerfusionIndexRecord]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @immutable
 final class PeripheralPerfusionIndexDataType

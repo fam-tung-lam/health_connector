@@ -26,7 +26,6 @@ part of '../health_record.dart';
 /// - [SkatingSportsDistanceRecord] - Ice/roller skating (iOS 18+)
 /// - [SixMinuteWalkTestDistanceRecord] - Medical walk test distance
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @internalUse

@@ -58,7 +58,6 @@ import 'package:health_connector_logger/src/models/health_connector_log.dart';
 ///
 /// @sinceV3_0_0
 ///
-/// {@category Logging}
 class PrintLogProcessor extends HealthConnectorLogProcessor {
   /// Creates a print log processor for the specified [levels].
   ///

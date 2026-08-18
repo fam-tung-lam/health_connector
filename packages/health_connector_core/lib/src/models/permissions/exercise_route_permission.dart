@@ -24,7 +24,6 @@ part of 'permission.dart';
 /// ]);
 /// ```
 ///
-/// {@category Permissions}
 @sinceV3_8_0
 @immutable
 final class ExerciseRoutePermission extends Permission {

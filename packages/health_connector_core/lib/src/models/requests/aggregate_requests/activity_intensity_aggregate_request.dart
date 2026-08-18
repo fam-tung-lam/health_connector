@@ -6,7 +6,6 @@ part of 'aggregate_request.dart';
 /// additional field [intensityType] to specify which activity intensity
 /// metric to aggregate.
 ///
-/// {@category Core API}
 @sinceV3_1_0
 @supportedOnHealthConnect
 @internalUse

@@ -3,7 +3,6 @@ part of 'health_record.dart';
 /// Base health record class representing a measurement at a single point
 /// in time.
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 sealed class InstantHealthRecord extends HealthRecord {

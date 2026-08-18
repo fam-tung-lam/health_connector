@@ -21,7 +21,6 @@ part of '../health_data_type.dart';
 /// This data type is only supported on Android Health Connect. For iOS,
 /// use activity-specific distance types.
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable

@@ -28,7 +28,6 @@ part of '../health_data_type.dart';
 /// - [HighHeartRateEventDataType]
 /// - [HighHeartRateEventRecord]
 ///
-/// {@category Health Records}
 @sinceV3_3_0
 @supportedOnAppleHealth
 @readOnly

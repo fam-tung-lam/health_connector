@@ -23,7 +23,6 @@ part of 'health_data_type.dart';
 ///
 /// - [Vo2MaxRecord]
 ///
-/// {@category Health Records}
 @sinceV1_3_0
 @immutable
 final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>

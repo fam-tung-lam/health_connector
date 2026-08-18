@@ -11,7 +11,6 @@ part of '../health_record.dart';
 /// - **Android Health Connect**: [`ExerciseRoute.Location`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseRoute.Location)
 /// - **iOS HealthKit**: `CLLocation` from [`HKWorkoutRoute`](https://developer.apple.com/documentation/healthkit/hkworkoutroute)
 ///
-/// {@category Health Records}
 @sinceV3_8_0
 @immutable
 final class ExerciseRouteLocation implements HealthPlatformData {

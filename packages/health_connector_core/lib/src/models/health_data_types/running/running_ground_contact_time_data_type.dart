@@ -53,7 +53,6 @@ part of '../health_data_type.dart';
 ///
 /// - [RunningGroundContactTimeRecord]
 ///
-/// {@category Health Records}
 @sinceV3_5_0
 @supportedOnAppleHealthIOS16Plus
 @immutable

@@ -26,7 +26,6 @@ part of '../health_record.dart';
 ///
 /// - [BasalMetabolicRateDataType]
 ///
-/// {@category Health Records}
 @sinceV3_6_0
 @supportedOnHealthConnect
 @immutable

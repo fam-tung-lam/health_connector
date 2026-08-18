@@ -26,7 +26,6 @@ part of '../health_record.dart';
 ///
 /// - [DietaryTotalFatDataType]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

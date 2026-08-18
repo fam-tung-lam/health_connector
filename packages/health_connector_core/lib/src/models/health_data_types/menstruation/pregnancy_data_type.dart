@@ -42,7 +42,6 @@ part of '../health_data_type.dart';
 ///
 /// - [PregnancyRecord]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable

@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 ///
 /// - [SleepSessionRecord]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable

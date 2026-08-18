@@ -2,7 +2,6 @@ part of '../health_record.dart';
 
 /// Represents the source of the biological specimen used for the measurement.
 ///
-/// {@category Health Records}
 @sinceV1_4_0
 enum BloodGlucoseSpecimenSource {
   /// Source unknown or unspecified.

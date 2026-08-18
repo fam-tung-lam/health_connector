@@ -56,7 +56,7 @@ include: package:health_connector_lint/analysis_options.yaml
 linter:
   rules:
     # Disable a rule from health_connector_lint
-    public_member_api_docs: false
+    lines_longer_than_80_chars: false
 ```
 
 ---

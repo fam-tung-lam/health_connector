@@ -28,7 +28,6 @@ part of '../health_record.dart';
 ///
 /// - [StandTimeDataType]
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @readOnly

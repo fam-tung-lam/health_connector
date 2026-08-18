@@ -44,7 +44,7 @@ Every page has a **Suggest an edit to this page** link at the bottom that opens 
 |---|---|
 | Source | [github.com/fam-tung-lam/health_connector](https://github.com/fam-tung-lam/health_connector) |
 | Package | [pub.dev/packages/health_connector](https://pub.dev/packages/health_connector) |
-| Generated API docs | [pub.dev/documentation/health_connector](https://pub.dev/documentation/health_connector/latest/) |
+| SDK reference | [Health Connector reference](/reference/) |
 | Changelog | [pub.dev changelog](https://pub.dev/packages/health_connector/changelog) |
 | Issues | [GitHub Issues](https://github.com/fam-tung-lam/health_connector/issues) |
 

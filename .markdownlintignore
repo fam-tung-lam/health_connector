@@ -7,9 +7,6 @@
 **/node_modules/**
 **/.dart_tool/**
 
-# Auto-generated API Dartdoc documentation
-**/doc/api/**
-
 # Assets (images, videos, etc.)
 **/doc/assets/**
 

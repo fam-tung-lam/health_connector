@@ -17,7 +17,6 @@ part 'delete_records_in_time_range_request.dart';
 /// Attempting to delete records created by other apps, manually entered by
 /// users, or system-generated will fail with [AuthorizationException].
 ///
-/// {@category Core API}
 @sinceV2_0_0
 @internalUse
 @immutable

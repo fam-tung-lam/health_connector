@@ -8,7 +8,6 @@ part of '../health_record.dart';
 ///   constants
 /// - **iOS HealthKit**: Maps to `HKCategoryValueSleepAnalysis` enum values
 ///
-/// {@category Health Records}
 enum SleepStage {
   /// Unknown sleep stage (fallback).
   unknown,

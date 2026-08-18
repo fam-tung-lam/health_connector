@@ -61,8 +61,6 @@ part of '../health_data_type.dart';
 /// - [ContraceptiveRecord]
 /// - [ContraceptiveType]
 ///
-/// {@category Health Records}
-/// {@category Reproductive Health}
 @sinceV3_1_0
 @supportedOnAppleHealth
 @immutable
@@ -74,7 +72,10 @@ class ContraceptiveDataType
         WriteableHealthDataType<ContraceptiveRecord>,
         DeletableByIdsHealthDataType<ContraceptiveRecord>,
         DeletableInTimeRangeHealthDataType<ContraceptiveRecord> {
-  /// {@macro health_data_type.const}
+  /// Creates a contraceptive data type.
+  ///
+  /// To reference this data type, use the singleton instance from
+  /// [HealthDataType].
   const ContraceptiveDataType() : super();
 
   @override

@@ -53,7 +53,6 @@ part of '../health_data_type.dart';
 /// - [MenstrualFlowInstantDataType] - Android instant-based alternative
 /// - [MenstrualFlow]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnAppleHealth
 @immutable

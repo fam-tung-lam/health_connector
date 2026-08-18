@@ -10,7 +10,6 @@ part of '../health_record.dart';
 /// - **iOS HealthKit**: Fully supported via [`HKWorkoutEventType`](https://developer.apple.com/documentation/healthkit/hkworkouteventtype).
 /// - **Android Health Connect**: Not supported.
 ///
-/// {@category Health Records}
 @sinceV3_7_0
 @supportedOnAppleHealth
 enum ExerciseSessionStateTransitionType {

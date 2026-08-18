@@ -30,7 +30,6 @@ part of '../health_record.dart';
 ///
 /// - [WalkingSteadinessDataType]
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @readOnly

@@ -18,7 +18,6 @@ part of '../health_data_type.dart';
 /// - Aggregatable: Calculate average walking speed
 /// - Deletable: Delete records by IDs or time range
 ///
-/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealthIOS16Plus
 @immutable

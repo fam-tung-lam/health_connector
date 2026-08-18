@@ -18,7 +18,6 @@ part of '../health_record.dart';
 /// await healthConnector.writeRecord(record);
 /// ```
 ///
-/// {@category Health Records}
 @sinceV2_1_0
 @supportedOnAppleHealthIOS17Plus
 @immutable

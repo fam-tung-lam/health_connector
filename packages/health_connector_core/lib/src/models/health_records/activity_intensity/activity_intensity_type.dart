@@ -10,7 +10,6 @@ part of '../health_record.dart';
 ///   `ActivityIntensityRecord.ACTIVITY_INTENSITY_TYPE_*` constants
 /// - **iOS HealthKit**: Not supported
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnHealthConnect
 enum ActivityIntensityType {

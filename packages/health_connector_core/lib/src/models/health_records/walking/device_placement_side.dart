@@ -21,7 +21,6 @@ part of '../health_record.dart';
 /// );
 /// ```
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 enum DevicePlacementSide {
   /// The placement side is unknown or not specified.

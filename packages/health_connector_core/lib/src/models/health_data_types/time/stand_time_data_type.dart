@@ -43,7 +43,6 @@ part of '../health_data_type.dart';
 /// print('Total stand: ${aggResponse.value?.inMinutes} minutes');
 /// ```
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealth
 @readOnly

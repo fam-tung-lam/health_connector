@@ -27,7 +27,6 @@ part of 'health_record.dart';
 /// - [BloodAlcoholContentDataType]
 /// - [AlcoholicBeveragesRecord]
 ///
-/// {@category Health Records}
 @sinceV3_1_0
 @immutable
 final class BloodAlcoholContentRecord extends InstantHealthRecord {

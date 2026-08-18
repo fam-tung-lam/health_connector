@@ -172,10 +172,6 @@ export default defineConfig({
           { text: "Migration guides", link: "/resources/migration" },
           { text: "Toolbox demo app", link: "/resources/toolbox" },
           { text: "Project & community", link: "/resources/project" },
-          {
-            text: "Generated API docs",
-            link: "https://pub.dev/documentation/health_connector/latest/",
-          },
           { text: "pub.dev", link: "https://pub.dev/packages/health_connector" },
         ],
       },

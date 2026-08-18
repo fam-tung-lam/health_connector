@@ -28,7 +28,6 @@ part of '../health_record.dart';
 ///
 /// - [ActiveEnergyBurnedDataType]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class ActiveEnergyBurnedRecord extends IntervalHealthRecord {

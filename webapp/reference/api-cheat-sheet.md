@@ -1,6 +1,6 @@
 # API cheat sheet
 
-Every method on `HealthConnector`, with the platform constraint that applies. Exact signatures live in the [generated API docs](https://pub.dev/documentation/health_connector/latest/).
+Every method on `HealthConnector`, with the platform constraint that applies.
 
 ## Setup & status
 
@@ -96,7 +96,7 @@ Each carries a `HealthConnectorErrorCode` — look any of them up in the [error 
 
 <NextSteps
   :links="[
-    { text: 'Generated API docs', link: 'https://pub.dev/documentation/health_connector/latest/', description: 'Exact signatures for every class and member.' },
+    { text: 'Package reference', link: '/reference/packages', description: 'The role and public surface of each SDK package.' },
     { text: 'Health data types', link: '/reference/health-data-types', description: 'Which types support which of these calls.' },
     { text: 'Task guides', link: '/guide/tasks/read', description: 'Each call in context, with working code.' },
   ]"

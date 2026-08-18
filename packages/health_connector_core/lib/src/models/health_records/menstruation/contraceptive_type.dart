@@ -15,8 +15,6 @@ part of '../health_record.dart';
 /// All contraceptive types are iOS HealthKit only and will throw
 /// [UnsupportedOperationException] on Android Health Connect.
 ///
-/// {@category Health Records}
-/// {@category Reproductive Health}
 @sinceV3_1_0
 @supportedOnAppleHealth
 enum ContraceptiveType {

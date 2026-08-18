@@ -4,7 +4,6 @@ import 'package:health_connector_core/src/models/exceptions/health_connector_exc
 ///
 /// These codes help identify the specific type of error that occurred.
 ///
-/// {@category Exceptions}
 enum HealthConnectorErrorCode {
   /// Permission to access health data was not granted.
   ///

@@ -21,7 +21,6 @@ part of 'health_data_type.dart';
 ///
 /// - [InhalerUsageRecord]
 ///
-/// {@category Health Records}
 @sinceV3_5_0
 @supportedOnAppleHealth
 @immutable

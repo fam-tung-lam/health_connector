@@ -2,7 +2,6 @@ part of '../health_record.dart';
 
 /// Base class for macronutrient health records.
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @internal

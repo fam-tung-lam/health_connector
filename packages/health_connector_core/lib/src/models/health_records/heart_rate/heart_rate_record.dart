@@ -29,7 +29,6 @@ part of '../health_record.dart';
 /// - [HeartRateSeriesRecord] for series-based heart rate measurements
 /// - [HeartRateSample] is used exclusively for series record samples
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnAppleHealth
 @immutable

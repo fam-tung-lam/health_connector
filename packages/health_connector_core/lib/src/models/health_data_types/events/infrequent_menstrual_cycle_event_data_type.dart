@@ -28,7 +28,6 @@ part of '../health_data_type.dart';
 /// - [IntermenstrualBleedingDataType]
 /// - [IntermenstrualBleedingRecord]
 ///
-/// {@category Health Records}
 @sinceV3_4_0
 @supportedOnAppleHealthIOS16Plus
 @readOnly

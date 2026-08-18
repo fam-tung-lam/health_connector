@@ -33,7 +33,6 @@ part of '../health_record.dart';
 /// - [SleepingWristTemperatureDataType]
 /// - [BasalBodyTemperatureRecord]
 ///
-/// {@category Health Records}
 @sinceV3_2_0
 @supportedOnAppleHealthIOS16Plus
 @readOnly

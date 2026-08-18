@@ -29,7 +29,6 @@ part of '../health_record.dart';
 /// - [BasalBodyTemperatureDataType]
 /// - [BodyTemperatureRecord]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @immutable
 final class BasalBodyTemperatureRecord extends InstantHealthRecord {
@@ -181,7 +180,6 @@ final class BasalBodyTemperatureRecord extends InstantHealthRecord {
 /// was measured. Different measurement locations can yield slightly different
 /// readings.
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 enum BasalBodyTemperatureMeasurementLocation {
   /// Unknown measurement location (default).

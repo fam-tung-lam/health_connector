@@ -20,7 +20,6 @@ part of '../health_data_type.dart';
 ///
 /// - [RunningStrideLengthRecord]
 ///
-/// {@category Health Records}
 @sinceV3_5_0
 @supportedOnAppleHealthIOS16Plus
 @immutable

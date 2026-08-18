@@ -24,7 +24,6 @@ part of '../health_record.dart';
 ///
 /// - [BodyTemperatureDataType]
 ///
-/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class BodyTemperatureRecord extends InstantHealthRecord {

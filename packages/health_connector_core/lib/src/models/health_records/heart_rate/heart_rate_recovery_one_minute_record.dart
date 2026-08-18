@@ -9,7 +9,6 @@ part of '../health_record.dart';
 ///
 /// - [HeartRateRecoveryOneMinuteDataType]
 ///
-/// {@category Health Records}
 @sinceV3_5_0
 @supportedOnAppleHealthIOS16Plus
 @immutable

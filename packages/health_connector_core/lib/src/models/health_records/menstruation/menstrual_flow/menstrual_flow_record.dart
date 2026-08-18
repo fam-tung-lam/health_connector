@@ -49,7 +49,6 @@ part of '../../health_record.dart';
 /// - [MenstrualFlowInstantRecord] - Android instant-based alternative
 /// - [MenstrualFlow]
 ///
-/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnAppleHealth
 @immutable

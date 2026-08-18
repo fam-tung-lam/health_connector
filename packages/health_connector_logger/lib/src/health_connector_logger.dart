@@ -15,7 +15,6 @@ import 'package:health_connector_logger/src/models/health_connector_log_level.da
 /// [HealthConnectorLogger] as its implementation may change without notice.
 ///
 /// @internalUse
-/// @nodoc
 abstract final class HealthConnectorLogger {
   /// Private constructor to prevent instantiation.
   const HealthConnectorLogger._();

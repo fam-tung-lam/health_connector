@@ -28,7 +28,6 @@ part of '../health_record.dart';
 ///
 /// - [DietaryRiboflavinDataType]
 ///
-/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

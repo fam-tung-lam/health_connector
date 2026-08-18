@@ -24,7 +24,6 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
 /// // Returns: HealthDataType.height (HeightDataType instance)
 /// ```
 ///
-/// @nodoc
 @internalUse
 extension HealthRecordDataTypeExtension on HealthRecord {
   /// Returns the [HealthDataType] associated with this [HealthRecord].
