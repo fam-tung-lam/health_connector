@@ -1,8 +1,5 @@
 # Health Connector SDK
 
-Health Connector is a Flutter plugin monorepo providing unified access to health data across Android (Health Connect)
-and iOS (HealthKit).
-
 <!-- PTLAM-SETUP-SKILL:START -->
 
 ## AGENTS.override.md has precedence
@@ -11,135 +8,60 @@ Read [AGENTS.override.md](AGENTS.override.md). It has precedence over this file.
 
 <!-- PTLAM-SETUP-SKILL:END -->
 
-## Package Structure
+## Project overview
 
-- **health_connector** - Main facade package (public API)
-- **health_connector_core** - Domain models and abstractions
-- **health_connector_hc_android** - Android Health Connect implementation
-- **health_connector_hk_ios** - iOS HealthKit implementation
-- **health_connector_lint** - Shared lint rules
-- **health_connector_logger** - Logging utilities
+Health Connector is a Flutter plugin monorepo that provides one API for health
+data on Android Health Connect and iOS HealthKit.
 
-## Core Directory Structure
+### Packages
 
-```text
-.github/
-├── actions/                     # setup-cocoapods, setup-flutter, setup-gradle, setup-java, setup-melos
-└── workflows/                   # CI/CD and reusable workflow definitions
-examples/                        # Example Flutter app
-packages/
-├── health_connector             # Main facade (public API)
-├── health_connector_core        # Domain models and abstractions
-├── health_connector_hc_android  # Android Health Connect implementation
-├── health_connector_hk_ios      # iOS HealthKit implementation
-├── health_connector_lint        # Shared lint rules
-└── health_connector_logger      # Logging utilities
-pubspec.yaml                     # Root pubspec for melos bootstrap
-README.md
-```
-
-## Essential Commands
-
-### Setup
-
-```bash
-fvm dart pub get                    # Install dependencies (runs melos bootstrap)
-```
-
-### Running Tests
-
-```bash
-melos run test:dart                   # All Dart/Flutter tests
-melos run test:kotlin                 # Kotlin unit tests for `health_connector_hc_android` plugin
-fvm flutter test                      # Run tests in current package
-fvm flutter test test/path_test.dart  # Run single test file
-```
-
-### Code Quality
-
-```bash
-melos run analyze               # All analysis (Dart, Swift, Kotlin)
-melos run analyze:dart:strict   # Dart with fatal warnings
-melos run format                # Format all code
-melos run format:check          # Check formatting without changes
-```
-
-### Platform-Specific
-
-```bash
-melos run analyze:swift         # SwiftLint
-melos run analyze:kotlin        # Detekt
-melos run format:swift          # SwiftFormat
-melos run format:kotlin         # KtLint format
-```
-
-### Code Generation
-
-```bash
-melos run pigeon                # Regenerate platform channel code
-```
+- `health_connector`: Public Flutter API and platform selection.
+- `health_connector_core`: Shared domain models and abstractions.
+- `health_connector_hc_android`: Android Health Connect implementation.
+- `health_connector_hk_ios`: iOS HealthKit implementation.
+- `health_connector_lint`: Shared Dart lint rules.
+- `health_connector_logger`: Shared logging utilities.
 
 ## Architecture
 
-The project follows a **Plugin Architecture** with facade pattern:
+Use the `ptlam-health-connector-architecture` skill for package boundaries,
+public APIs, Pigeon contracts, native layers, and platform limits.
 
-1. **Core Layer** (`health_connector_core`): Defines interfaces, data types, and abstractions
-2. **Platform Layer** (`health_connector_hc_android`, `health_connector_hk_ios`): Platform-specific implementations
-   using Pigeon-generated code
-3. **Facade Layer** (`health_connector`): Unified public API that abstracts platform differences
+## Development setup
 
-### Data Flow
+Use the `ptlam-health-connector-setup` skill for toolchains, workspace
+bootstrap, and development checks.
 
-```mermaid
-flowchart TB
-  Facade["health_connector (Facade) - Unified API: HealthConnector.create()"]
-  PlatformClient["Platform Client (HC/HK) - HealthConnectorHCClient / HealthConnectorHKClient"]
-  DTOsMappers["DTOs and Mappers - toDto() / toDomain() extensions"]
-  NativeCode["Native Code - Kotlin (Health Connect) / Swift (HealthKit)"]
-  Facade -->|"Platform detection"| PlatformClient
-  PlatformClient -->|"Pigeon API calls"| DTOsMappers
-  DTOsMappers --> NativeCode
-```
+## Health data types
 
-### Mapper Pattern
+Use the `ptlam-health-connector-data-type` skill when adding or extending a
+health data type across Dart, Pigeon, Android, and iOS.
 
-Platform packages use extension methods to convert between DTOs and domain models:
+## Debugging
 
-- `record.toDto()` - Domain model → DTO (for writing to platform)
-- `dto.toDomain()` - DTO → Domain model (for reading from platform)
+Use the `ptlam-health-connector-debug` skill to diagnose runtime,
+platform-channel, or platform-specific failures.
 
-Mappers are organized by health record type in `lib/src/mappers/health_record_mappers/`
+## Changeset review
 
-## Code Generation
+Use the `ptlam-health-connector-review` skill to review a working-tree changeset
+without editing it.
 
-Pigeon generates type-safe platform channel code:
+## Dart development
 
-- Input: `packages/health_connector_hc_android/pigeon/health_connector_hc_android_api.dart`
-- Input: `packages/health_connector_hk_ios/pigeon/health_connector_hk_ios_api.dart`
-- Generated files: `*.g.dart`, `*.g.kt`, `*.g.swift` (excluded from linting)
+Use the `ptlam-health-connector-code-style-dart` skill for Dart source, tests,
+analysis, formatting, and documentation conventions.
 
-After modifying Pigeon input files, run `melos run pigeon` to regenerate.
+## Kotlin development
 
-## Lint Configuration
+Use the `ptlam-health-connector-code-style-kotlin` skill for Android Kotlin
+source, tests, analysis, and formatting conventions.
 
-- **Dart**: Uses `health_connector_lint` package, excludes `*.g.dart`
-- **Kotlin**: Detekt + KtLint, excludes `*.g.kt`
-- **Swift**: SwiftLint (strict mode with baseline), excludes `*.g.swift`
+## Swift development
 
-## Testing Patterns
+Use the `ptlam-health-connector-code-style-swift` skill for iOS Swift source,
+analysis, formatting, and logging conventions.
 
-- **Dart**: Uses `mocktail` for mocking, `parameterized_test` for data-driven tests
-- **Kotlin**: JUnit 5 + MockK + Kotest assertions + Robolectric
-- Test files located in `test/` directories within each package
-- Platform packages use `test/unit_tests/` subdirectory structure mirroring `lib/src/`
-- Kotlin tests in `example/android/src/test/kotlin`
+## Git workflows
 
-## Platform Differences
-
-Some APIs behave differently across platforms:
-
-- **Record updates**: Only supported on Android Health Connect; iOS HealthKit uses immutable records
-- **Permission status**: iOS read permissions always return `unknown` for privacy
-- **Feature permissions**: iOS returns `granted` by default (features always available)
-
-Use `@supportedOnHealthConnect` annotation to mark Android-only APIs.
+Use the `ptlam-git` skill for commits and worktrees.
