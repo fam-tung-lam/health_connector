@@ -79,9 +79,9 @@ function assertUnique(values: string[], source: string): void {
 
 export default defineLoader({
   watch: [
-    "../../../SUPPORTED_HEALTH_DATA_TYPES.yml",
-    "../../../SUPPORTED_EXERCISE_TYPES.yml",
-    "../../../HEALTH_CONNECTOR_ERROR_CODES.yml",
+    "../../SUPPORTED_HEALTH_DATA_TYPES.yml",
+    "../../SUPPORTED_EXERCISE_TYPES.yml",
+    "../../HEALTH_CONNECTOR_ERROR_CODES.yml",
   ],
   load(watchedFiles): CatalogData {
     const dataTypes = loadList<HealthDataTypeEntry>(
