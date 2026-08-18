@@ -53,7 +53,7 @@ The developer prepares, reviews, merges, and approves the release. Everything el
 
 ### 1. Prepare the release changes
 
-Choose a stable semantic version for every package being released:
+Choose a semantic version for every package being released:
 
 | Change | Version change | Example |
 | --- | --- | --- |
@@ -61,8 +61,17 @@ Choose a stable semantic version for every package being released:
 | Backwards-compatible functionality | Minor | `3.2.1` to `3.3.0` |
 | Backwards-compatible fix | Patch | `3.2.1` to `3.2.2` |
 
-The current package CD workflows accept stable `major.minor.patch` versions only. Do not use a prerelease version such
-as `4.0.0-beta.1`.
+Use a prerelease suffix while a version is not ready for stable consumers:
+
+| Release stage | Version examples |
+| --- | --- |
+| Alpha | `4.0.0-alpha`, `4.0.0-alpha.1` |
+| Beta | `4.0.0-beta`, `4.0.0-beta.1` |
+| Release candidate | `4.0.0-rc`, `4.0.0-rc.1` |
+| Stable | `4.0.0` |
+
+The package CD workflows accept stable versions and any valid SemVer prerelease suffix. Use the same full version in
+the package pubspec, changelog heading, and generated `<package>-v<version>` tag.
 
 Use Melos to update the selected packages. The repository allows this command on `main`, so run it before creating the
 release branch. Include one `-V` argument for every selected package and replace the example versions:

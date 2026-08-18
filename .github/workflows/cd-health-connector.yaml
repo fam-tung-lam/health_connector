@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'health_connector-v[0-9]+.[0-9]+.[0-9]+'
+      - 'health_connector-v[0-9]+.[0-9]+.[0-9]+-*'
 
 permissions:
   contents: read
