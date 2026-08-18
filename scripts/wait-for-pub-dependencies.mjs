@@ -1,6 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+import { readInternalDependencies } from './release-version.mjs';
+
 const [packagePath] = process.argv.slice(2);
 const maxAttempts = Number(process.env.PUB_DEPENDENCY_ATTEMPTS ?? 700);
 const retryDelayMs = Number(process.env.PUB_DEPENDENCY_RETRY_MS ?? 30_000);
@@ -11,25 +13,10 @@ if (!packagePath) {
 }
 
 const pubspec = await readFile(resolve(packagePath, 'pubspec.yaml'), 'utf8');
-const internalDependencies = new Map();
-let section = null;
-
-for (const line of pubspec.split(/\r?\n/)) {
-  const topLevelKey = line.match(/^([a-z_]+):(?:\s|$)/)?.[1];
-  if (topLevelKey) {
-    section = ['dependencies', 'dev_dependencies'].includes(topLevelKey) ? topLevelKey : null;
-    continue;
-  }
-
-  if (!section) {
-    continue;
-  }
-
-  const dependency = line.match(/^  (health_connector(?:_[a-z_]+)?):\s*\^?([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?)/);
-  if (dependency) {
-    internalDependencies.set(dependency[1], dependency[2]);
-  }
-}
+const internalDependencies = readInternalDependencies(
+  pubspec,
+  `${packagePath}/pubspec.yaml`,
+);
 
 async function isPublished(name, version) {
   let response;

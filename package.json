@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "release:test": "node --test scripts/release-version.test.mjs",
     "site:build": "vitepress build webapp",
     "site:dev": "vitepress dev webapp",
     "site:preview": "vitepress preview webapp"

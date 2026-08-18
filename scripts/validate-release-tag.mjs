@@ -1,6 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+import { assertValidReleaseVersion } from './release-version.mjs';
+
 const [packagePath, releaseTag] = process.argv.slice(2);
 
 if (!packagePath || !releaseTag) {
@@ -21,8 +23,18 @@ function readTopLevelScalar(key) {
 }
 
 const packageName = readTopLevelScalar('name');
-const packageVersion = readTopLevelScalar('version');
+const packageVersion = assertValidReleaseVersion(
+  readTopLevelScalar('version'),
+  `${packagePath}/pubspec.yaml version`,
+);
 const expectedTag = `${packageName}-v${packageVersion}`;
+
+if (releaseTag.startsWith(`${packageName}-v`)) {
+  assertValidReleaseVersion(
+    releaseTag.slice(`${packageName}-v`.length),
+    `Release tag ${releaseTag} version`,
+  );
+}
 
 if (releaseTag !== expectedTag) {
   throw new Error(
