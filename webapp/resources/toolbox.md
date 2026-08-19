@@ -2,6 +2,9 @@
 
 The Health Connector SDK Toolbox runs every SDK operation against a real device on both platforms. It is the fastest way to see a flow working before you build it — and the fastest way to tell whether a problem is in your app's configuration or in the SDK.
 
+The public mobile app does not collect or transmit health data. Read the
+[Toolbox privacy policy](/legal/toolbox-privacy).
+
 ## Run it
 
 ```bash

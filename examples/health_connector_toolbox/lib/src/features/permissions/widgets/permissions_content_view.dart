@@ -6,7 +6,6 @@ import 'package:health_connector/health_connector_internal.dart'
         HealthDataPermission,
         HealthDataType,
         HealthDataTypeCategory,
-        HealthPlatformFeature,
         HealthPlatformFeatureStatus;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
@@ -79,7 +78,7 @@ final class PermissionsContentView extends StatelessWidget {
                   AppTexts.featurePermissions,
                 ),
                 const SizedBox(height: 16),
-                ...HealthPlatformFeature.values.map(
+                ...PermissionsChangeNotifier.healthPlatformFeatures.map(
                   (feature) => PermissionListTile(
                     title: Text(feature.displayName),
                     isSelected: notifier.isPermissionSelected(

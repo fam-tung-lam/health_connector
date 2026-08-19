@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 500">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1024" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e7f8f1"/>
+      <stop offset="1" stop-color="#e8f2fb"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#12a877"/>
+      <stop offset="1" stop-color="#1769aa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="500" fill="url(#background)"/>
+  <g opacity="0.18" stroke="#087f5b">
+    <path d="M0 100h1024M0 200h1024M0 300h1024M0 400h1024"/>
+    <path d="M100 0v500M200 0v500M300 0v500M400 0v500M500 0v500M600 0v500M700 0v500M800 0v500M900 0v500"/>
+  </g>
+  <rect x="72" y="72" width="176" height="176" rx="50" fill="url(#mark)"/>
+  <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="112" y="112" width="96" height="96" rx="26" stroke-width="10"/>
+    <path d="M126 160h19l9-23 15 46 10-23h15" stroke-width="11"/>
+  </g>
+  <text x="72" y="338" fill="#15251f" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="54" font-weight="750" letter-spacing="-1.5">Health Connector Toolbox</text>
+  <text x="75" y="405" fill="#087f5b" font-family="ui-monospace, 'SFMono-Regular', monospace" font-size="22" font-weight="700" letter-spacing="1.2">EXPLORE THE SDK ON A REAL DEVICE</text>
+  <text x="75" y="452" fill="#425c52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24">Permissions · Records · Aggregation · Sync</text>
+</svg>

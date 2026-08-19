@@ -1,4 +1,4 @@
-package com.phamtunglam.health_connector_toolbox
+package com.phamtunglam.healthconnector
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

@@ -1,6 +1,6 @@
 name: health_connector_toolbox
 resolution: workspace
-description: "A new Flutter project."
+description: Explore Health Connector SDK capabilities on Android and iOS.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -22,4 +22,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
