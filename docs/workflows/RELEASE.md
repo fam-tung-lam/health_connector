@@ -186,8 +186,8 @@ verification is required.
   already exist and creates the missing tags.
 - If a package CD workflow fails because of a temporary error, rerun that workflow.
 - If a package CD workflow cannot start because its workflow configuration is invalid, fix the configuration through a
-  pull request. Then run that package workflow manually from `main` with its existing release tag. The workflow rejects
-  recovery when the package directory on `main` differs from the tag, so prepare a new version instead of moving the tag.
+  pull request. If the package was not published, delete its failed tag and rerun `CD - release packages`; the workflow
+  recreates the missing tag from the fixed `main`. Never delete or recreate a tag after its package was published.
 - If code or package metadata is wrong after a tag exists, prepare a new version in a new pull request. Do not move or
   reuse the existing tag.
 - If a published package is wrong, prepare corrected versions for that package and affected dependents in a new pull
@@ -224,6 +224,7 @@ record completed releases and do not replace that gate.
 
 - Never publish a package locally.
 - Never run release validation locally.
-- Never create, move, or verify release tags manually.
+- Never create, move, or verify release tags manually. Delete an unpublished failed tag only for the configuration
+  recovery described above; `CD - release packages` recreates it.
 - Never verify pub.dev manually as part of the release flow.
 - Fix release failures through a pull request or rerun the failed workflow when the error is temporary.
