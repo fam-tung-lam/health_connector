@@ -20,6 +20,6 @@
     <path d="M126 160h19l9-23 15 46 10-23h15" stroke-width="11"/>
   </g>
   <text x="72" y="338" fill="#15251f" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="54" font-weight="750" letter-spacing="-1.5">Health Connector Toolbox</text>
-  <text x="75" y="405" fill="#087f5b" font-family="ui-monospace, 'SFMono-Regular', monospace" font-size="22" font-weight="700" letter-spacing="1.2">EXPLORE THE SDK ON A REAL DEVICE</text>
-  <text x="75" y="452" fill="#425c52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24">Permissions · Records · Aggregation · Sync</text>
+  <text x="75" y="405" fill="#087f5b" font-family="ui-monospace, 'SFMono-Regular', monospace" font-size="22" font-weight="700" letter-spacing="1.2">INSPECT YOUR HEALTH DATA PRIVATELY</text>
+  <text x="75" y="452" fill="#425c52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24">Records · Summaries · Entries · Developer tools</text>
 </svg>

@@ -2,10 +2,11 @@
 
 **Effective August 19, 2026**
 
-Health Connector Toolbox is a local developer utility for exploring Health
-Connector SDK capabilities on Android and iOS. It does not create an account,
-show ads, run analytics, or send health data to Pham Tung Lam or any third
-party.
+Health Connector Toolbox is a personal health-data inspector that lets you
+browse, summarize, and add health entries stored in Apple Health or Health
+Connect. It also includes optional developer tools that show technical details
+for those same on-device flows. It does not create an account, show ads, run
+analytics, or send health data to Pham Tung Lam or any third party.
 
 ## Health data access
 
@@ -15,12 +16,12 @@ Toolbox groups supported data into these categories:
 
 | Category | Data types | Available operations |
 | --- | --- | --- |
-| Activity and fitness | Calories burned, activity intensity, basal metabolic rate, distance, elevation, exercise and routes, floors climbed, power, speed, steps, VO2 max, and wheelchair pushes | Read, write sample records, delete Toolbox-created records, and aggregate supported measurements |
-| Body measurements | Body fat, body water mass, bone mass, height, lean body mass, and weight | Read, write sample records, delete Toolbox-created records, and aggregate supported measurements |
-| Vitals | Basal, body, and skin temperature; blood glucose and pressure; heart rate, heart-rate variability, and resting heart rate; oxygen saturation; and respiratory rate | Read, write sample records, delete Toolbox-created records, and aggregate supported measurements |
-| Nutrition | Hydration and nutrition | Read, write sample records, and delete Toolbox-created records |
-| Sleep and wellness | Sleep and mindfulness sessions | Read, write sample records, delete Toolbox-created records, and aggregate supported durations |
-| Reproductive and sexual health | Cervical mucus, intermenstrual bleeding, menstruation, ovulation tests, and sexual activity | Read, write sample records, and delete Toolbox-created records |
+| Activity and fitness | Calories burned, activity intensity, basal metabolic rate, distance, elevation, exercise and routes, floors climbed, power, speed, steps, VO2 max, and wheelchair pushes | Browse records, add entries, delete Toolbox-created records, and summarize supported measurements |
+| Body measurements | Body fat, body water mass, bone mass, height, lean body mass, and weight | Browse records, add entries, delete Toolbox-created records, and summarize supported measurements |
+| Vitals | Basal, body, and skin temperature; blood glucose and pressure; heart rate, heart-rate variability, and resting heart rate; oxygen saturation; and respiratory rate | Browse records, add entries, delete Toolbox-created records, and summarize supported measurements |
+| Nutrition | Hydration and nutrition | Browse records, add entries, and delete Toolbox-created records |
+| Sleep and wellness | Sleep and mindfulness sessions | Browse records, add entries, delete Toolbox-created records, and summarize supported durations |
+| Reproductive and sexual health | Cervical mucus, intermenstrual bleeding, menstruation, ovulation tests, and sexual activity | Browse records, add entries, and delete Toolbox-created records |
 
 Android can also request access to health-data history when you explicitly
 select that feature. The app does not request every permission at launch.
@@ -33,10 +34,11 @@ platform health app. The Toolbox can only delete records that it created.
 
 ## Local app data
 
-The app stores incremental synchronization tokens locally on your device so you
-can continue a sync demonstration. Uninstalling the Toolbox removes this local
-app data but does not delete records already saved in Apple Health or Health
-Connect.
+The optional Developer Tools mode stores incremental synchronization tokens
+locally on your device so you can continue inspecting changes. Developer Tools
+does not unlock additional data or bypass the permissions you choose.
+Uninstalling the Toolbox removes this local app data but does not delete records
+already saved in Apple Health or Health Connect.
 
 ## Data collection, sharing, and retention
 

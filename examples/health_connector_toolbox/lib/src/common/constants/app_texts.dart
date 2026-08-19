@@ -9,29 +9,55 @@ abstract final class AppTexts {
   static const String healthConnectorToolbox = 'Health Connector Toolbox';
   static const String welcomeToToolbox = 'Welcome to Health Connector Toolbox';
   static const String toolboxSubtitle =
-      'Explore Health Connect and HealthKit SDK capabilities';
+      'Inspect and manage your health data privately';
 
   // endregion
 
   // region Home Page
-  static const String platformStatus = 'Platform Status';
+  static const String platformStatus = 'Health Data Source';
   static const String ready = 'Ready';
   static const String healthMetrics = 'Health Metrics';
   static const String quickActions = 'Quick Actions';
-  static const String exploreFeatures = 'Explore Features';
+  static const String exploreFeatures = 'Your Health Data';
+  static const String chooseDataAccess = 'Choose Data Access';
+  static const String browseHealthData = 'Browse Health Data';
+  static const String addHealthEntry = 'Add Health Entry';
+  static const String healthSummary = 'Health Summary';
+  static const String developerTools = 'Developer Tools';
+  static const String developerToolsDescription =
+      'Inspect SDK capabilities and platform-specific behavior';
+  static const String developerToolsSubtitle =
+      'Technical views for the same on-device health data flows. These tools '
+      'never request access beyond the permissions you choose.';
+  static const String sdkOperations = 'SDK Operations';
+  static const String permissionsApi = 'Permissions API';
+  static const String recordsApi = 'Records API';
+  static const String writeApi = 'Write API';
+  static const String aggregationApi = 'Aggregation API';
+  static const String syncApi = 'Incremental Sync API';
 
   // Feature Descriptions
   static const String openHealthAppStore = 'Open Health App Store';
   static const String openHealthAppStoreDescription =
       'Install or update the health app from the app store';
   static const String permissionsDescription =
-      'Manage health data permissions and access controls';
+      'Choose the health data types this app can access';
   static const String readRecordsDescription =
-      'Browse and query health records from connected platforms';
+      'Browse records from Apple Health or Health Connect';
   static const String writeRecordsDescription =
-      'Write new health data records to the platform';
+      'Add an entry and manage records created by this app';
   static const String aggregateDescription =
-      'Perform aggregation operations on health data';
+      'View totals, averages, and ranges for selected metrics';
+  static const String permissionsApiDescription =
+      'Inspect permission status and platform access controls';
+  static const String recordsApiDescription =
+      'Inspect mapped records and their technical metadata';
+  static const String writeApiDescription =
+      'Inspect supported record fields before adding an entry';
+  static const String aggregationApiDescription =
+      'Inspect supported metrics and aggregation responses';
+  static const String syncApiDescription =
+      'Inspect change tokens and updates for authorized data types';
   static const String privacyAndData = 'Privacy & Data';
   static const String privacyAndDataDescription =
       'Learn what stays on this device and how to remove it';

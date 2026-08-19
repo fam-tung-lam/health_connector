@@ -1,6 +1,12 @@
-# Toolbox demo app
+# Health Connector Toolbox
 
-The Health Connector SDK Toolbox runs every SDK operation against a real device on both platforms. It is the fastest way to see a flow working before you build it — and the fastest way to tell whether a problem is in your app's configuration or in the SDK.
+Health Connector Toolbox is a private, on-device health-data inspector. Choose
+which data it can access, browse records from Apple Health or Health Connect,
+view summaries, add entries, and delete entries created by the app.
+
+The optional Developer Tools mode exposes technical details for the same flows,
+including permission state, mapped record metadata, supported aggregations, and
+incremental sync behavior. It never expands the permissions you select.
 
 The public mobile app does not collect or transmit health data. Read the
 [Toolbox privacy policy](/legal/toolbox-privacy).
@@ -16,7 +22,13 @@ Use the public
 only for non-sensitive bug reports. Remove health values, record identifiers,
 dates, and device names before posting logs.
 
-## Run the source version
+## Developer source and SDK diagnostics
+
+The source version demonstrates every Health Connector SDK operation against a
+real device on both platforms. Use it to compare your integration with a known
+working flow.
+
+### Run the source version
 
 ```bash
 git clone https://github.com/fam-tung-lam/health_connector.git
@@ -24,8 +36,10 @@ cd health_connector/examples/health_connector_toolbox
 flutter pub get && flutter run
 ```
 
-::: info It is a testing tool, not a reference app
-The toolbox exists to demonstrate features and to manually exercise the SDK during development. Its architecture is not a production template — for patterns worth copying, use the [app recipes](/recipes/).
+::: info The source project is not a reference architecture
+The public app is a personal health-data inspector. Its optional Developer Tools
+mode and source project also exercise the SDK during development. For production
+integration patterns, use the [app recipes](/recipes/).
 :::
 
 ## What it demonstrates

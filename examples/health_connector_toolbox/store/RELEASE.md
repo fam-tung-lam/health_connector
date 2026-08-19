@@ -8,46 +8,47 @@
 - Apple bundle ID: `com.phamtunglam.healthconnector`
 - Default locale: English (United States)
 - Price: Free
-- Google Play category: Libraries & Demo
-- Apple primary category: Developer Tools
-- Apple secondary category: Health & Fitness
+- Google Play category: Health & Fitness
+- Apple primary category: Health & Fitness
+- Apple secondary category: Developer Tools
 
 ## Store listing
 
 App Store subtitle:
 
-> Explore health SDK workflows
+> Private health data inspector
 
 Google Play short description:
 
-> Explore Health Connect and HealthKit SDK flows on a real device.
+> Privately inspect, summarize, and add health data on your device.
 
 Full description:
 
-> Health Connector Toolbox is an interactive health data explorer for Flutter
-> developers. Try Health Connect on Android and HealthKit on iOS without cloning
-> a repository or configuring a development environment.
+> Health Connector Toolbox helps you inspect and manage the health data already
+> stored on your device. It works with Apple Health on iOS and Health Connect on
+> Android.
 >
-> Choose the exact permissions you want to test, read records from a time range,
-> create sample records, aggregate supported metrics, and inspect incremental
-> synchronization behavior. The app keeps platform differences visible so you
-> can see which SDK capabilities are available on each device.
+> Choose exactly which data types the app can access. Browse records over a time
+> range, view totals and averages for supported metrics, add health entries, and
+> delete entries created by the Toolbox.
+>
+> Optional Developer Tools show permission state, mapped record metadata,
+> supported aggregation operations, and incremental sync behavior for the same
+> on-device flows. These tools never expand the permissions you choose.
 >
 > Your health data stays on your device. The Toolbox has no account, ads,
-> analytics, or remote service. It reads only the data types you authorize and
-> never uploads health records.
->
-> This app is a developer utility. It does not provide medical advice,
-> diagnosis, treatment, or emergency services.
+> analytics, tracking, or remote service. It never uploads health records. The
+> app does not provide medical advice, diagnosis, treatment, or emergency
+> services.
 
 Keywords for App Store Connect:
 
-`flutter,healthkit,health connect,developer,sdk,health data,testing`
+`health data,health records,apple health,health connect,wellness,inspector,flutter`
 
 What's new:
 
-> Initial public release with permission, read, write, aggregation, deletion,
-> feature-status, and incremental-sync demonstrations.
+> Initial public release for browsing, summarizing, adding, and managing
+> on-device health data, with optional SDK diagnostics.
 
 ## URLs
 
@@ -74,12 +75,14 @@ What's new:
 ## Review notes
 
 > No account or login is required. On first launch, the app initializes the
-> platform health service. Open Permissions, select one or more data types, and
-> approve the system permission sheet. Read Records queries the chosen time
-> range. Write Records saves only the sample record entered by the reviewer.
-> Health data never leaves the device. The Privacy & Data card on the home screen
-> explains storage and deletion. This is a developer utility and provides no
-> medical advice.
+> platform health service. Open Choose Data Access, select one or more data
+> types, and approve the system permission sheet. Browse Health Data displays
+> records for the chosen time range. Add Health Entry saves only the entry
+> entered by the reviewer, and the app can delete only records it created.
+> Health Summary calculates supported totals, averages, minimums, or maximums.
+> Health data never leaves the device. Developer Tools is an optional secondary
+> mode for inspecting technical details of those same flows. The Privacy & Data
+> card explains storage and deletion. The app provides no medical advice.
 
 ## Android release signing
 
@@ -94,11 +97,10 @@ keystore outside Git and back it up separately from this checkout.
 - Accept the current Apple Developer Program License Agreement.
 - Publish the privacy-policy page before entering its URL in either store.
 - Complete Google's Health apps declaration for every requested Health Connect
-  data type and explain its user-facing Toolbox flow.
-- Resolve the public-use-case policy gate before submission. Google limits
-  Health Connect to approved health, fitness, medical-care, research, rewards,
-  coaching, corporate-wellness, and game use cases. Apple requires HealthKit to
-  be used for a health or fitness purpose that is clear in the UI and marketing.
+  data type and connect each permission to a visible browse, summary, or entry
+  feature.
+- Keep the personal health-data inspector as the primary purpose in the UI and
+  marketing. Developer Tools must remain optional and must not expand access.
 - If Play Console requires it, keep at least 12 testers opted in to the closed
   test continuously for 14 days before applying for production access.
 - Obtain explicit approval before uploading builds or submitting either app.

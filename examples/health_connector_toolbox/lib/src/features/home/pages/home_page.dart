@@ -8,6 +8,7 @@ import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dar
 import 'package:health_connector_toolbox/src/common/widgets/error_view.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/aggregate_health_data_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/pages/aggregate_health_data_page.dart';
+import 'package:health_connector_toolbox/src/features/developer_tools/pages/developer_tools_page.dart';
 import 'package:health_connector_toolbox/src/features/home/home_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/feature_navigation_card.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/platform_status_card.dart';
@@ -145,53 +146,43 @@ final class _HomeContent extends StatelessWidget {
             const SizedBox(height: 12),
           ],
 
-          // Permissions card
+          // Health data access card
           FeatureNavigationCard(
             icon: AppIcons.lockOutline,
-            title: AppTexts.permissions,
+            title: AppTexts.chooseDataAccess,
             description: AppTexts.permissionsDescription,
             color: Colors.deepOrange,
             onTap: () => _navigateToPermissions(context),
           ),
           const SizedBox(height: 12),
 
-          // Read records card
+          // Browse health data card
           FeatureNavigationCard(
             icon: AppIcons.readMore,
-            title: AppTexts.readHealthRecords,
+            title: AppTexts.browseHealthData,
             description: AppTexts.readRecordsDescription,
             color: Colors.teal,
             onTap: () => _navigateToReadRecords(context),
           ),
           const SizedBox(height: 12),
 
-          // Write records card
+          // Add health entry card
           FeatureNavigationCard(
             icon: AppIcons.add,
-            title: AppTexts.write,
+            title: AppTexts.addHealthEntry,
             description: AppTexts.writeRecordsDescription,
             color: Colors.blue,
             onTap: () => _navigateToWriteRecords(context),
           ),
           const SizedBox(height: 12),
 
-          // Aggregate data card
+          // Health summary card
           FeatureNavigationCard(
             icon: AppIcons.calculate,
-            title: AppTexts.aggregate,
+            title: AppTexts.healthSummary,
             description: AppTexts.aggregateDescription,
             color: Colors.purple,
             onTap: () => _navigateToAggregate(context),
-          ),
-          const SizedBox(height: 12),
-
-          // Incremental data sync card
-          FeatureNavigationCard(
-            icon: Icons.sync,
-            title: 'Incremental Data Sync',
-            description: 'Test sync API with token management and pagination',
-            color: Colors.indigo,
-            onTap: () => _navigateToIncrementalDataSync(context),
           ),
           const SizedBox(height: 12),
 
@@ -201,6 +192,24 @@ final class _HomeContent extends StatelessWidget {
             description: AppTexts.privacyAndDataDescription,
             color: Colors.blueGrey,
             onTap: () => _navigateToPrivacyPolicy(context),
+          ),
+          const SizedBox(height: 28),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Text(
+              AppTexts.developerTools,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          FeatureNavigationCard(
+            icon: AppIcons.developerMode,
+            title: AppTexts.developerTools,
+            description: AppTexts.developerToolsDescription,
+            color: Colors.indigo,
+            onTap: () => _navigateToDeveloperTools(context),
           ),
 
           // Bottom padding for better scroll experience
@@ -313,6 +322,25 @@ final class _HomeContent extends StatelessWidget {
       context,
       MaterialPageRoute<Widget>(
         builder: (_) => const PrivacyPolicyPage(),
+      ),
+    );
+  }
+
+  /// Navigates to the optional developer tools page.
+  void _navigateToDeveloperTools(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<Widget>(
+        builder: (_) => DeveloperToolsPage(
+          healthPlatform: healthConnector.healthPlatform,
+          onOpenPermissions: () => _navigateToPermissions(context),
+          onOpenRecords: () => _navigateToReadRecords(context),
+          onOpenWrite: () => _navigateToWriteRecords(context),
+          onOpenAggregation: () => _navigateToAggregate(context),
+          onOpenSync: () => unawaited(
+            _navigateToIncrementalDataSync(context),
+          ),
+        ),
       ),
     );
   }
