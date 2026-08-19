@@ -7,6 +7,11 @@ on:
         description: 'Path to the package to publish'
         type: string
         required: true
+      release-tag:
+        description: 'Release tag to validate; defaults to the triggering tag'
+        type: string
+        required: false
+        default: ''
 
 jobs:
   validate-release-tag:
@@ -20,13 +25,25 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
 
       - name: Match tag to package version
         id: release
         env:
           PACKAGE_PATH: ${{ inputs.package-path }}
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release-tag || github.ref_name }}
         run: node scripts/validate-release-tag.mjs "$PACKAGE_PATH" "$RELEASE_TAG"
+
+      - name: Match package content to release tag
+        env:
+          PACKAGE_PATH: ${{ inputs.package-path }}
+          RELEASE_TAG: ${{ inputs.release-tag || github.ref_name }}
+        run: |
+          if ! git diff --quiet "$RELEASE_TAG" -- "$PACKAGE_PATH"; then
+            echo "::error::$PACKAGE_PATH differs from $RELEASE_TAG at the workflow ref."
+            exit 1
+          fi
 
   wait-for-pub-dependencies:
     name: Wait for pub.dev dependencies
@@ -49,7 +66,7 @@ jobs:
     needs: wait-for-pub-dependencies
     permissions:
       id-token: write
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@631075bc7d06a1ef11a42118142ba9148e41727c
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@7654d458321ee25acccccfdb86cd48bd95768ff1 # v1.8.0
     with:
       environment: pub.dev
       working-directory: ${{ inputs.package-path }}
