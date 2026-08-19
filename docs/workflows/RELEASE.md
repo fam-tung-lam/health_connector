@@ -3,8 +3,21 @@
 This guide lists only the actions a developer performs to release Health Connector packages. CI/CD handles validation,
 package tags, dependency ordering, and publication to pub.dev.
 
-The release environment, repository secrets, pub.dev trusted publishers, and required developer tools are expected to
-be configured already.
+Complete the [contributor environment setup](../../CONTRIBUTING.md#environment-setup) before preparing a release.
+
+## Required release configuration
+
+Configure these repository and package settings before the first release and recheck them after an authentication or
+tag-trigger failure:
+
+| Location | Required configuration |
+| --- | --- |
+| GitHub Actions secret `RELEASE_TOKEN` | Fine-grained token for this repository with `Contents: write`. The release dispatcher uses it to push tags that start package CD workflows. |
+| GitHub Actions environment `pub.dev` | Protected environment with the required release reviewer or reviewers. |
+| Every package on pub.dev | Enable publishing from GitHub Actions for `fam-tung-lam/health_connector`, use the tag pattern `<package>-v{{version}}`, enable `push` events, disable `workflow_dispatch` events, and require the `pub.dev` environment. |
+
+The six packages listed under [Prepare the release changes](#1-prepare-the-release-changes) need the pub.dev
+configuration. Manual pub.dev publishing does not participate in this process.
 
 ## Release at a glance
 
@@ -47,7 +60,18 @@ flowchart LR
     ApprovePublication -->|"`yes`"| PublishPackages --> StorePackages
 ```
 
-The developer prepares, reviews, merges, and approves the release. Everything else is automatic.
+The developer prepares, reviews, merges, and approves each eligible package release. Everything else is automatic.
+
+### Package dependency chain
+
+Package CD workflows start independently as their tags are pushed. Each workflow reads both `dependencies` and
+`dev_dependencies` from its package pubspec and waits until the required internal versions are available on pub.dev:
+
+`health_connector_lint` → `health_connector_logger` → `health_connector_core` →
+{`health_connector_hc_android`, `health_connector_hk_ios`} → `health_connector`
+
+GitHub requests each `pub.dev` approval as that package becomes eligible. Approve the waiting packages in that order;
+do not trigger individual package workflows during a normal release.
 
 ## Developer steps
 
@@ -172,8 +196,9 @@ Each package CD workflow validates the version format and matches its tag to the
 package-specific checks. These jobs check and validate repository files without regenerating or formatting them. The
 workflow then waits until the package's new internal dependencies are available on pub.dev.
 
-GitHub pauses publication at the protected `pub.dev` environment. Approve each release when GitHub requests approval.
-Publication then uses GitHub OIDC and completes automatically.
+GitHub pauses publication at the protected `pub.dev` environment. Approve each release when GitHub requests approval;
+later packages remain dependency-gated until their required versions are indexed on pub.dev. Publication then uses
+GitHub OIDC and completes automatically.
 
 After publication, GitHub records a successful deployment named `pub.dev / <package>` with a link to the exact package
 version. The release is complete when every selected package CD workflow succeeds. No manual pub.dev or Git tag
@@ -185,9 +210,14 @@ verification is required.
 - If `CD - release packages` fails because of a temporary error, rerun the entire workflow. It skips package tags that
   already exist and creates the missing tags.
 - If a package CD workflow fails because of a temporary error, rerun that workflow.
+- If publication fails because pub.dev reports that publishing from GitHub is not enabled, correct that package's
+  automated publishing configuration from [Required release configuration](#required-release-configuration), then
+  rerun the failed package workflow. Keep the same version and tag while the package remains unpublished.
 - If a package CD workflow cannot start because its workflow configuration is invalid, fix the configuration through a
-  pull request. If the package was not published, delete its failed tag and rerun `CD - release packages`; the workflow
-  recreates the missing tag from the fixed `main`. Never delete or recreate a tag after its package was published.
+  pull request. If the package was not published, delete its failed tag and, when it is a different package, delete the
+  unpublished `health_connector` facade tag. The facade tag is the release dispatcher's completion sentinel. Rerun
+  `CD - release packages`; it skips the remaining tags and recreates the deleted tags from the fixed `main`. Never
+  delete or recreate a tag after its package was published.
 - If code or package metadata is wrong after a tag exists, prepare a new version in a new pull request. Do not move or
   reuse the existing tag.
 - If a published package is wrong, prepare corrected versions for that package and affected dependents in a new pull
@@ -203,7 +233,7 @@ After the release pull request is merged, CI/CD:
 4. rejects unsupported version formats and validates that each tag matches its package version;
 5. runs the applicable Dart, Kotlin, Swift, Android, and iOS checks;
 6. waits until required internal package versions are available on pub.dev;
-7. waits for protected `pub.dev` environment approval; and
+7. waits for protected `pub.dev` environment approval;
 8. publishes each approved package through GitHub OIDC; and
 9. records each published package version in GitHub Deployments.
 
