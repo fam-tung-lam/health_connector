@@ -24,12 +24,14 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-    <key>NSHealthShareUsageDescription</key>
-    <string>This app needs to read your health data to provide personalized insights.</string>
-    <key>NSHealthUpdateUsageDescription</key>
-    <string>This app needs to save health data to track your progress.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Health Connector Toolbox reads the health data types you choose so you can inspect how the SDK returns records on this device.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Health Connector Toolbox writes only the sample health records you create so you can test SDK write and delete operations.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

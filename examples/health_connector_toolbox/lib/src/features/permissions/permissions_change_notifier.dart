@@ -37,6 +37,11 @@ final class LoadingRequest extends PermissionLoadingState {
 /// permissions, and tracking feature statuses. Also manages the selection
 /// state of permissions for batch requests.
 final class PermissionsChangeNotifier extends ChangeNotifier {
+  /// Platform features exercised by the Toolbox.
+  static const healthPlatformFeatures = [
+    HealthPlatformFeature.readHealthDataHistory,
+  ];
+
   final HealthConnector _healthConnector;
 
   PermissionsChangeNotifier(this._healthConnector) {
@@ -116,7 +121,7 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
 
     try {
       // Load all feature statuses in parallel for better performance
-      final featureStatusFutures = HealthPlatformFeature.values.map(
+      final featureStatusFutures = healthPlatformFeatures.map(
         (feature) async => MapEntry(
           feature,
           await _healthConnector.getFeatureStatus(feature),

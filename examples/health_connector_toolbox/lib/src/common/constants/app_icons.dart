@@ -46,6 +46,7 @@ abstract final class AppIcons {
   static const IconData helpOutline = Icons.help_outline;
   static const IconData infoOutline = Icons.info_outline;
   static const IconData warning = Icons.warning;
+  static const IconData privacyTip = Icons.privacy_tip_outlined;
 
   // Status & Feedback
   static const IconData error = Icons.error;

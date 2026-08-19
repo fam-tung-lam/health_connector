@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="background" x1="96" y1="80" x2="928" y2="944" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#12a877"/>
+      <stop offset="1" stop-color="#1769aa"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="220" y1="160" x2="820" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#background)"/>
+  <path d="M0 0h1024L0 1024z" fill="url(#shine)"/>
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M384 174v116M640 174v116M384 734v116M640 734v116M174 384h116M174 640h116M734 384h116M734 640h116" stroke-width="48"/>
+    <rect x="272" y="272" width="480" height="480" rx="136" stroke-width="52"/>
+    <path d="M348 514h94l47-116 76 232 50-116h61" stroke-width="58"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="384" cy="174" r="31"/><circle cx="640" cy="174" r="31"/>
+    <circle cx="384" cy="850" r="31"/><circle cx="640" cy="850" r="31"/>
+    <circle cx="174" cy="384" r="31"/><circle cx="174" cy="640" r="31"/>
+    <circle cx="850" cy="384" r="31"/><circle cx="850" cy="640" r="31"/>
+  </g>
+</svg>

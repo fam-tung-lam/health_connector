@@ -16,6 +16,7 @@ import 'package:health_connector_toolbox/src/features/incremental_data_sync/incr
 import 'package:health_connector_toolbox/src/features/incremental_data_sync/pages/incremental_data_sync_page.dart';
 import 'package:health_connector_toolbox/src/features/incremental_data_sync/services/sync_token_storage_service.dart';
 import 'package:health_connector_toolbox/src/features/permissions/pages/permissions_page.dart';
+import 'package:health_connector_toolbox/src/features/privacy/pages/privacy_policy_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/pages/read_health_records_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/read_health_records_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/pages/health_data_type_selection_page.dart';
@@ -192,6 +193,15 @@ final class _HomeContent extends StatelessWidget {
             color: Colors.indigo,
             onTap: () => _navigateToIncrementalDataSync(context),
           ),
+          const SizedBox(height: 12),
+
+          FeatureNavigationCard(
+            icon: AppIcons.privacyTip,
+            title: AppTexts.privacyAndData,
+            description: AppTexts.privacyAndDataDescription,
+            color: Colors.blueGrey,
+            onTap: () => _navigateToPrivacyPolicy(context),
+          ),
 
           // Bottom padding for better scroll experience
           const SizedBox(height: 20),
@@ -293,6 +303,16 @@ final class _HomeContent extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  /// Navigates to the privacy policy page.
+  void _navigateToPrivacyPolicy(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<Widget>(
+        builder: (_) => const PrivacyPolicyPage(),
       ),
     );
   }

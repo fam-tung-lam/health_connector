@@ -9,7 +9,7 @@ abstract final class AppTexts {
   static const String healthConnectorToolbox = 'Health Connector Toolbox';
   static const String welcomeToToolbox = 'Welcome to Health Connector Toolbox';
   static const String toolboxSubtitle =
-      'Cross-platform health data SDK demo application';
+      'Explore Health Connect and HealthKit SDK capabilities';
 
   // endregion
 
@@ -32,6 +32,9 @@ abstract final class AppTexts {
       'Write new health data records to the platform';
   static const String aggregateDescription =
       'Perform aggregation operations on health data';
+  static const String privacyAndData = 'Privacy & Data';
+  static const String privacyAndDataDescription =
+      'Learn what stays on this device and how to remove it';
 
   // Demo Health Metrics
   static const String todaySteps = "Today's Steps";
