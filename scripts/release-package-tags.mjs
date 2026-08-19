@@ -18,12 +18,19 @@ if (publish && process.env.GITHUB_ACTIONS === 'true' && process.env.GITHUB_REF !
   throw new Error(`Package releases must run from refs/heads/main, not ${process.env.GITHUB_REF}`);
 }
 
-function git(args, options = {}) {
+function readGit(args) {
   return execFileSync('git', args, {
     cwd: resolve('.'),
     encoding: 'utf8',
-    stdio: options.stdio ?? ['ignore', 'pipe', 'pipe'],
+    stdio: ['ignore', 'pipe', 'pipe'],
   }).trim();
+}
+
+function runGit(args) {
+  execFileSync('git', args, {
+    cwd: resolve('.'),
+    stdio: 'inherit',
+  });
 }
 
 function tagExists(tag) {
@@ -52,7 +59,7 @@ async function packageRelease(packagePath) {
   return { name, packagePath, tag: `${name}-v${version}`, version };
 }
 
-git(['rev-parse', '--show-toplevel']);
+readGit(['rev-parse', '--show-toplevel']);
 const releases = await Promise.all(packages.map(packageRelease));
 const facadeRelease = releases.find(({ name }) => name === 'health_connector');
 
@@ -73,6 +80,6 @@ if (!publish) {
 }
 
 for (const { name, version, tag } of pending) {
-  git(['tag', '--annotate', tag, '--message', `${name} ${version}`], { stdio: 'inherit' });
-  git(['push', 'origin', `refs/tags/${tag}`], { stdio: 'inherit' });
+  runGit(['tag', '--annotate', tag, '--message', `${name} ${version}`]);
+  runGit(['push', 'origin', `refs/tags/${tag}`]);
 }
