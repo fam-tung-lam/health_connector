@@ -1,3 +1,8 @@
+## 3.9.3
+
+- **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.
+- **DOCS**: Remove dartdoc tooling and directives. ([d2ca7bd5](https://github.com/fam-tung-lam/health_connector/commit/d2ca7bd5d86d4aaefd731be13fb4be8ed790b251))
+
 ## 3.9.2
 
 - **FIX**: Expose `deleteByIds` and `deleteInTimeRange` APIs for `NutritionDataType`. ([54afe082](https://github.com/fam-tung-lam/health_connector/commit/54afe08239f6c100bc1c833a2e00cc8ee3d2e76a))

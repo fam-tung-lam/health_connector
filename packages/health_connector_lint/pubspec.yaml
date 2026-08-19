@@ -1,7 +1,7 @@
 name: health_connector_lint
 resolution: workspace
 description: Lint rules for health_connector packages
-version: 1.2.0
+version: 1.2.1
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_lint
 issue_tracker: https://github.com/fam-tung-lam/health_connector/issues?q=is%3Aissue%20is%3Aopen
 

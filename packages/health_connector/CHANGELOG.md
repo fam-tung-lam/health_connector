@@ -1,3 +1,15 @@
+## 3.9.5
+
+- **CHORE**: Migrate the Health Connector SDK packages from the Apache 2.0 License to the MIT License.
+- **DOCS**(health_connector): Reorganize the package README for faster API
+  discovery ([#192](https://github.com/fam-tung-lam/health_connector/issues/192)).
+  ([be2deac1](https://github.com/fam-tung-lam/health_connector/commit/be2deac1d6ebe053c70cab689da6cb15a30fe21f))
+- **DOCS**(webapp): Source SDK reference tables from YAML data. ([62ec1b45](https://github.com/fam-tung-lam/health_connector/commit/62ec1b45ac367239ee18b60e44401b56095f1465))
+- **DOCS**: Remove dartdoc tooling and directives. ([d2ca7bd5](https://github.com/fam-tung-lam/health_connector/commit/d2ca7bd5d86d4aaefd731be13fb4be8ed790b251))
+- **DOCS**(webapp): Launch the Health Connector SDK website
+  ([#164](https://github.com/fam-tung-lam/health_connector/issues/164)).
+  ([d0c99c61](https://github.com/fam-tung-lam/health_connector/commit/d0c99c61a54a34d268fd5c0875c3aa0edef869dc))
+
 ## 3.9.4
 
 - **REFACTOR**: Remove unused native Android and iOS modules from the Dart facade. Native platform registration remains owned by `health_connector_hc_android` and `health_connector_hk_ios`. ([c4eb3848](https://github.com/fam-tung-lam/health_connector/commit/c4eb3848d64ea9a6e62111179e6811cd27050dfe))

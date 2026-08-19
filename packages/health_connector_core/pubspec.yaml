@@ -1,7 +1,7 @@
 name: health_connector_core
 resolution: workspace
 description: Core models, utilities, and platform interface for Health Connector
-version: 3.9.2
+version: 3.9.3
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_core
 issue_tracker: https://github.com/fam-tung-lam/health_connector/issues?q=is%3Aissue%20is%3Aopen
 
@@ -10,11 +10,11 @@ environment:
 
 dependencies:
   collection: ^1.19.1
-  health_connector_logger: ^4.0.0
+  health_connector_logger: ^4.0.1
   meta: ^1.16.0
 
 dev_dependencies:
-  health_connector_lint: ^1.2.0
+  health_connector_lint: ^1.2.1
   mocktail: ^1.0.4
   parameterized_test: ^2.0.2
   test: ^1.24.0
