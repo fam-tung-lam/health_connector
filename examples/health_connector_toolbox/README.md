@@ -6,9 +6,10 @@
 
 ## 📖 Overview
 
-A comprehensive demonstration and testing application for the
-[`health_connector`](../../packages/health_connector) plugin, showcasing all
-major features and capabilities across Android and iOS platforms.
+A personal health-data inspector for Apple Health and Health Connect, with an
+optional Developer Tools mode that demonstrates the
+[`health_connector`](../../packages/health_connector) plugin across Android and
+iOS.
 
 ---
 

@@ -29,9 +29,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Health Connector Toolbox reads the health data types you choose so you can inspect how the SDK returns records on this device.</string>
+	<string>Health Connector Toolbox reads the health data types you choose so you can browse your records and view health summaries on this device.</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>Health Connector Toolbox writes only the sample health records you create so you can test SDK write and delete operations.</string>
+	<string>Health Connector Toolbox writes only the health entries you create so you can manage them in Apple Health and delete entries created by this app.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

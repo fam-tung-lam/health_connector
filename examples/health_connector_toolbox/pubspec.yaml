@@ -1,6 +1,6 @@
 name: health_connector_toolbox
 resolution: workspace
-description: Explore Health Connector SDK capabilities on Android and iOS.
+description: Privately inspect personal health data with optional SDK tools.
 publish_to: 'none'
 version: 1.0.0+2
 

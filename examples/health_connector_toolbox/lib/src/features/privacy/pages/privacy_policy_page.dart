@@ -17,7 +17,8 @@ final class PrivacyPolicyPage extends StatelessWidget {
             _PrivacySection(
               title: 'Your data stays on your device',
               body:
-                  'The Toolbox does not create an account, show ads, run '
+                  'This personal health-data inspector does not create an '
+                  'account, show ads, run '
                   'analytics, or send health data to Pham Tung Lam or any '
                   'third party. Health records are read directly from Apple '
                   'Health or Health Connect only after you grant access.',
@@ -41,9 +42,17 @@ final class PrivacyPolicyPage extends StatelessWidget {
               title: 'Local app storage',
               body:
                   'Incremental synchronization tokens are stored locally so '
-                  'you can continue a sync demonstration. Uninstalling the '
+                  'the optional Developer Tools mode can continue an '
+                  'incremental sync inspection. Uninstalling the '
                   'Toolbox removes this local app data but does not delete '
                   'records already saved in the platform health store.',
+            ),
+            _PrivacySection(
+              title: 'Optional developer tools',
+              body:
+                  'Developer Tools shows technical details for the same '
+                  'on-device health data flows. It does not unlock additional '
+                  'data or bypass the permissions you choose.',
             ),
             _PrivacySection(
               title: 'Your controls',
