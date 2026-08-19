@@ -1,7 +1,8 @@
 ## 3.6.3
 
 - **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.
-- **DOCS**: Remove dartdoc tooling and directives. ([d2ca7bd5](https://github.com/fam-tung-lam/health_connector/commit/d2ca7bd5d86d4aaefd731be13fb4be8ed790b251))
+- **DOCS**: Retire package-level dartdoc tooling and directives because Health Connector SDK documentation now lives
+  in the webapp. ([d2ca7bd5](https://github.com/fam-tung-lam/health_connector/commit/d2ca7bd5d86d4aaefd731be13fb4be8ed790b251))
 
 ## 3.6.2
 
