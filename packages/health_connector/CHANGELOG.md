@@ -5,7 +5,8 @@
   discovery ([#192](https://github.com/fam-tung-lam/health_connector/issues/192)).
   ([be2deac1](https://github.com/fam-tung-lam/health_connector/commit/be2deac1d6ebe053c70cab689da6cb15a30fe21f))
 - **DOCS**(webapp): Source SDK reference tables from YAML data. ([62ec1b45](https://github.com/fam-tung-lam/health_connector/commit/62ec1b45ac367239ee18b60e44401b56095f1465))
-- **DOCS**: Remove dartdoc tooling and directives. ([d2ca7bd5](https://github.com/fam-tung-lam/health_connector/commit/d2ca7bd5d86d4aaefd731be13fb4be8ed790b251))
+- **DOCS**: Retire package-level dartdoc tooling and directives because Health Connector SDK documentation now lives
+  in the webapp. ([d2ca7bd5](https://github.com/fam-tung-lam/health_connector/commit/d2ca7bd5d86d4aaefd731be13fb4be8ed790b251))
 - **DOCS**(webapp): Launch the Health Connector SDK website
   ([#164](https://github.com/fam-tung-lam/health_connector/issues/164)).
   ([d0c99c61](https://github.com/fam-tung-lam/health_connector/commit/d0c99c61a54a34d268fd5c0875c3aa0edef869dc))
