@@ -2,7 +2,7 @@ name: health_connector_toolbox
 resolution: workspace
 description: Explore Health Connector SDK capabilities on Android and iOS.
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.9.2

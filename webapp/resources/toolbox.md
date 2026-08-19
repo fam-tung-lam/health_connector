@@ -5,7 +5,18 @@ The Health Connector SDK Toolbox runs every SDK operation against a real device 
 The public mobile app does not collect or transmit health data. Read the
 [Toolbox privacy policy](/legal/toolbox-privacy).
 
-## Run it
+## Support
+
+Email [fam.tung.lam@gmail.com](mailto:fam.tung.lam@gmail.com) for installation,
+privacy, or app-support questions. Do not email health records or screenshots
+containing health data.
+
+Use the public
+[Health Connector SDK issue tracker](https://github.com/fam-tung-lam/health_connector/issues)
+only for non-sensitive bug reports. Remove health values, record identifiers,
+dates, and device names before posting logs.
+
+## Run the source version
 
 ```bash
 git clone https://github.com/fam-tung-lam/health_connector.git

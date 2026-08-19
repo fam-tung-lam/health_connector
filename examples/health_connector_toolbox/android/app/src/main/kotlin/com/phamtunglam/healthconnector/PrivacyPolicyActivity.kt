@@ -1,6 +1,7 @@
 package com.phamtunglam.healthconnector
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,8 +17,10 @@ class PrivacyPolicyActivity : Activity() {
                 Uri.parse(PRIVACY_POLICY_URL),
             )
 
-        if (privacyPolicyIntent.resolveActivity(packageManager) != null) {
+        try {
             startActivity(privacyPolicyIntent)
+        } catch (_: ActivityNotFoundException) {
+            // The device has no browser capable of opening the policy URL.
         }
 
         finish()
