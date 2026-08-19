@@ -3,13 +3,14 @@
 ## Product identity
 
 - App name: `Health Connector Toolbox`
-- Version: `1.0.0` (`1`)
+- Version: `1.0.0` (`2`)
 - Android application ID: `com.phamtunglam.healthconnector`
 - Apple bundle ID: `com.phamtunglam.healthconnector`
 - Default locale: English (United States)
 - Price: Free
-- Primary category: Health & Fitness
-- Secondary Apple category: Developer Tools
+- Google Play category: Libraries & Demo
+- Apple primary category: Developer Tools
+- Apple secondary category: Health & Fitness
 
 ## Store listing
 
@@ -53,6 +54,15 @@ What's new:
 - Privacy policy: `https://health-connector.phamtunglam.com/legal/toolbox-privacy`
 - Support: `https://health-connector.phamtunglam.com/resources/toolbox`
 - Marketing: `https://health-connector.phamtunglam.com`
+- Private support email: `fam.tung.lam@gmail.com`
+
+## Store assets
+
+- Google Play icon: `assets/google_play_icon_512.png`
+- Google Play feature graphic: `assets/google_play_feature_graphic_1024x500.png`
+- Android phone screenshots: `screenshots/android/`
+- iPhone screenshot: `screenshots/ios/home_iphone_17_pro_max.png`
+- 13-inch iPad screenshot: `screenshots/ios/home_ipad_pro_13.png`
 
 ## Privacy declarations
 
@@ -85,6 +95,10 @@ keystore outside Git and back it up separately from this checkout.
 - Publish the privacy-policy page before entering its URL in either store.
 - Complete Google's Health apps declaration for every requested Health Connect
   data type and explain its user-facing Toolbox flow.
+- Resolve the public-use-case policy gate before submission. Google limits
+  Health Connect to approved health, fitness, medical-care, research, rewards,
+  coaching, corporate-wellness, and game use cases. Apple requires HealthKit to
+  be used for a health or fitness purpose that is clear in the UI and marketing.
 - If Play Console requires it, keep at least 12 testers opted in to the closed
   test continuously for 14 days before applying for production access.
 - Obtain explicit approval before uploading builds or submitting either app.

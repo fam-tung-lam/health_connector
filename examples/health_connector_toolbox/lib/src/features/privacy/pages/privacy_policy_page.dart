@@ -56,9 +56,11 @@ final class PrivacyPolicyPage extends StatelessWidget {
             _PrivacySection(
               title: 'Support',
               body:
-                  'Report privacy questions or app issues in the public '
-                  'Health Connector SDK issue tracker: '
-                  'github.com/fam-tung-lam/health_connector/issues',
+                  'For private support or privacy questions, email '
+                  'fam.tung.lam@gmail.com. Do not send health records or '
+                  'screenshots containing health data. Use the public Health '
+                  'Connector SDK issue tracker only for non-sensitive bug '
+                  'reports.',
             ),
             Text(
               'Effective August 19, 2026',
