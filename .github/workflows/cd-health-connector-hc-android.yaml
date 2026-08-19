@@ -10,6 +10,12 @@ on:
       - 'health_connector_hc_android-v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
       - 'health_connector_hc_android-v[0-9]+.[0-9]+.[0-9]+-rc'
       - 'health_connector_hc_android-v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Existing health_connector_hc_android release tag to recover'
+        type: string
+        required: true
 
 permissions:
   contents: read
@@ -25,6 +31,7 @@ jobs:
     uses: ./.github/workflows/_reusable-release-validation.yaml
     with:
       package-path: packages/health_connector_hc_android
+      release-tag: ${{ inputs.release_tag || github.ref_name }}
 
   dart-quality:
     needs: release-validation
@@ -63,3 +70,4 @@ jobs:
     uses: ./.github/workflows/_reusable-publish.yaml
     with:
       package-path: packages/health_connector_hc_android
+      release-tag: ${{ inputs.release_tag || github.ref_name }}

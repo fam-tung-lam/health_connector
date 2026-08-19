@@ -185,6 +185,9 @@ verification is required.
 - If `CD - release packages` fails because of a temporary error, rerun the entire workflow. It skips package tags that
   already exist and creates the missing tags.
 - If a package CD workflow fails because of a temporary error, rerun that workflow.
+- If a package CD workflow cannot start because its workflow configuration is invalid, fix the configuration through a
+  pull request. Then run that package workflow manually from `main` with its existing release tag. The workflow rejects
+  recovery when the package directory on `main` differs from the tag, so prepare a new version instead of moving the tag.
 - If code or package metadata is wrong after a tag exists, prepare a new version in a new pull request. Do not move or
   reuse the existing tag.
 - If a published package is wrong, prepare corrected versions for that package and affected dependents in a new pull
