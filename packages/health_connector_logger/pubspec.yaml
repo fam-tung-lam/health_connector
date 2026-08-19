@@ -1,7 +1,7 @@
 name: health_connector_logger
 resolution: workspace
 description: Structured logging utility for Health Connector packages
-version: 4.0.0
+version: 4.0.1
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector_logger
 issue_tracker: https://github.com/fam-tung-lam/health_connector/issues?q=is%3Aissue%20is%3Aopen
 
@@ -14,7 +14,7 @@ dependencies:
 
 dev_dependencies:
   async: ^2.13.0
-  health_connector_lint: ^1.2.0
+  health_connector_lint: ^1.2.1
   test: ^1.24.0
 
 platforms:

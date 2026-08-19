@@ -1,3 +1,8 @@
+## 4.0.1
+
+- **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.
+- **DOCS**: Remove dartdoc tooling and directives. ([d2ca7bd5](https://github.com/fam-tung-lam/health_connector/commit/d2ca7bd5d86d4aaefd731be13fb4be8ed790b251))
+
 ## 4.0.0
 
 > Note: This release has breaking changes.
