@@ -3,7 +3,7 @@
 ## Product identity
 
 - App name: `Health Connector Toolbox`
-- Version: `1.0.0` (`2`)
+- Version: `1.0.0` (`3`)
 - Android application ID: `com.phamtunglam.healthconnector`
 - Apple bundle ID: `com.phamtunglam.healthconnector`
 - Default locale: English (United States)
@@ -62,8 +62,16 @@ What's new:
 - Google Play icon: `assets/google_play_icon_512.png`
 - Google Play feature graphic: `assets/google_play_feature_graphic_1024x500.png`
 - Android phone screenshots: `screenshots/android/`
-- iPhone screenshot: `screenshots/ios/home_iphone_17_pro_max.png`
-- 13-inch iPad screenshot: `screenshots/ios/home_ipad_pro_13.png`
+- iPhone screenshots, in upload order:
+  - `screenshots/ios/iphone_17_pro_max/01_home.png`
+  - `screenshots/ios/iphone_17_pro_max/02_data_access.png`
+  - `screenshots/ios/iphone_17_pro_max/04_privacy.png`
+- 13-inch iPad screenshots, in upload order:
+  - `screenshots/ios/ipad_pro_13/01_home.png`
+  - `screenshots/ios/ipad_pro_13/02_data_access.png`
+  - `screenshots/ios/ipad_pro_13/03_summary.png`
+  - `screenshots/ios/ipad_pro_13/05_developer_tools.png`
+  - `screenshots/ios/ipad_pro_13/04_privacy.png`
 
 ## Privacy declarations
 
