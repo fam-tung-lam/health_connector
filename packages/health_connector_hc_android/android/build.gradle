@@ -6,9 +6,9 @@ version = "1.0-SNAPSHOT"
 
 buildscript {
     // Core libraries
-    ext.kotlin_version = "2.1.0"
+    ext.kotlin_version = "2.4.10"
     ext.gradle_version = "8.9.1"
-    ext.kotlin_coroutines_version = "1.10.2"
+    ext.kotlin_coroutines_version = "1.11.0"
 
     // Health Connect SDK library
     ext.health_connect_version = "1.2.0-alpha03"
@@ -19,11 +19,11 @@ buildscript {
     ext.detekt_version = "1.23.8"
 
     // Local unit/integration testing libraries
-    ext.mockk_version = "1.14.7"
+    ext.mockk_version = "1.14.11"
     ext.junit_version = "5.11.4"
     ext.kotest_version = "5.9.1"
     ext.androidx_test_core_version = "1.7.0"
-    ext.robolectric_version = "4.16"
+    ext.robolectric_version = "4.16.1"
     ext.health_connect_testing_version = "1.0.0-alpha03"
     repositories {
         google()
