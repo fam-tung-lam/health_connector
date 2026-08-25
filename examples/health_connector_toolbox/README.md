@@ -1,6 +1,6 @@
 # Health Connector Toolbox
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.3.0+-02569B?logo=flutter)](https://flutter.dev)
+[![Flutter](https://img.shields.io/badge/Flutter-3.44.0+-02569B?logo=flutter)](https://flutter.dev)
 
 ---
 
@@ -17,8 +17,8 @@ iOS.
 
 ### Prerequisites
 
-- Flutter >=3.3.0
-- Dart >=3.9.2
+- Flutter >=3.44.0
+- Dart >=3.12.0
 - **Android**:
   - Android SDK API 26+ (Android 8.0)
   - Health Connect app installed (or built-in on Android 14+)
@@ -26,6 +26,9 @@ iOS.
   - iOS 15.0+
   - Xcode 14.0+
   - HealthKit capability enabled
+
+Flutter 3.44 consumers using AGP 9 must set `android.builtInKotlin=false`. The toolbox enables Built-in Kotlin and is
+validated with Flutter 3.47.1, so use Flutter 3.47 or later to build its Android host.
 
 ### Installation
 
