@@ -55,29 +55,7 @@ import 'package:meta/meta_meta.dart' show TargetKind, Target;
 /// - The `meta_meta` package for Dart's annotation target system
 /// - Individual annotation files for specific usage examples
 @internal
-const allTargets = Target({
-  TargetKind.classType,
-  TargetKind.constructor,
-  TargetKind.directive,
-  TargetKind.enumType,
-  TargetKind.enumValue,
-  TargetKind.extension,
-  TargetKind.extensionType,
-  TargetKind.field,
-  TargetKind.function,
-  TargetKind.library,
-  TargetKind.getter,
-  TargetKind.method,
-  TargetKind.mixinType,
-  TargetKind.optionalParameter,
-  TargetKind.overridableMember,
-  TargetKind.parameter,
-  TargetKind.setter,
-  TargetKind.topLevelVariable,
-  TargetKind.type,
-  TargetKind.typedefType,
-  TargetKind.typeParameter,
-});
+const allTargets = Target({...TargetKind.values});
 
 /// Target set for type declarations and their members only.
 ///

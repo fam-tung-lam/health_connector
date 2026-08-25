@@ -80,8 +80,8 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     this.title,
     this.notes,
     this.events = const [],
-    ExerciseRoute? exerciseRoute,
-  }) : _exerciseRoute = exerciseRoute {
+    this.exerciseRoute,
+  }) {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     if (events.isNotEmpty) {
       _requireEventsWithinSessionTimeRange(
@@ -110,9 +110,10 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
         sessionType: exerciseType,
       );
     }
-    if (exerciseRoute != null && exerciseRoute.isNotEmpty) {
+    final route = exerciseRoute;
+    if (route != null && route.isNotEmpty) {
       _requireRouteLocationsWithinSessionTimeRange(
-        route: exerciseRoute,
+        route: route,
         sessionStartTime: startTime,
         sessionEndTime: endTime,
       );
@@ -163,8 +164,8 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
     this.title,
     this.notes,
     this.events = const [],
-    ExerciseRoute? exerciseRoute,
-  }) : _exerciseRoute = exerciseRoute;
+    this.exerciseRoute,
+  });
 
   /// The type of exercise performed during this session.
   ///
@@ -199,8 +200,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
   ///
   /// **⚠️ Warning**: Not for public use.
   @internalUse
-  ExerciseRoute? get exerciseRoute => _exerciseRoute;
-  final ExerciseRoute? _exerciseRoute;
+  final ExerciseRoute? exerciseRoute;
 
   /// Convenience getter for state transition events only.
   List<ExerciseSessionStateTransitionEvent> get stateTransitionEvents =>
@@ -244,7 +244,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
       title: title ?? this.title,
       notes: notes ?? this.notes,
       events: events ?? this.events,
-      exerciseRoute: exerciseRoute ?? _exerciseRoute,
+      exerciseRoute: exerciseRoute ?? this.exerciseRoute,
     );
   }
 
@@ -266,7 +266,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
             events,
             other.events,
           ) &&
-          _exerciseRoute == other._exerciseRoute;
+          exerciseRoute == other.exerciseRoute;
 
   @override
   int get hashCode =>
@@ -280,7 +280,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
       title.hashCode ^
       notes.hashCode ^
       const ListEquality<ExerciseSessionEvent>().hash(events) ^
-      _exerciseRoute.hashCode;
+      exerciseRoute.hashCode;
 
   /// Validates that all [events] fall within [sessionStartTime] and
   /// [sessionEndTime]:

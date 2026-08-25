@@ -2,9 +2,11 @@
 
 > Note: This release has breaking changes.
 
-- **BREAKING** **BUILD**: Require Dart 3.12 and Flutter 3.44. Flutter 3.44 consumers using AGP 9 must keep
-  `android.builtInKotlin=false`; repository and application validation with Built-in Kotlin enabled requires Flutter
-  3.47 or later.
+- **BREAKING** **BUILD**: Require Dart 3.12 and Flutter 3.44, and migrate the
+  Android plugin to AGP Built-in Kotlin. Flutter 3.44 consumers using AGP 9
+  must keep `android.builtInKotlin=false` and `android.newDsl=false`. Flutter
+  3.47 or later hosts can set `android.builtInKotlin=true`, but must keep
+  `android.newDsl=false`.
 
 ## 3.7.0
 

@@ -10,22 +10,18 @@ import 'package:meta/meta.dart' show internal, immutable;
 @immutable
 final class HealthConnectorImpl implements HealthConnector {
   const HealthConnectorImpl({
-    required HealthConnectorConfig config,
-    required HealthPlatform healthPlatform,
+    required this.config,
+    required this.healthPlatform,
     required HealthConnectorPlatformClient healthPlatformClient,
-  }) : _config = config,
-       _healthPlatform = healthPlatform,
-       _client = healthPlatformClient;
+  }) : _client = healthPlatformClient;
 
-  final HealthConnectorConfig _config;
-  final HealthPlatform _healthPlatform;
+  @override
+  final HealthConnectorConfig config;
+
+  @override
+  final HealthPlatform healthPlatform;
+
   final HealthConnectorPlatformClient _client;
-
-  @override
-  HealthConnectorConfig get config => _config;
-
-  @override
-  HealthPlatform get healthPlatform => _healthPlatform;
 
   @override
   Future<List<PermissionRequestResult>> requestPermissions(
@@ -100,7 +96,7 @@ final class HealthConnectorImpl implements HealthConnector {
       message: 'Getting granted permissions',
     );
 
-    switch (_healthPlatform) {
+    switch (healthPlatform) {
       case HealthPlatform.appleHealth:
         HealthConnectorLogger.error(
           tag,
@@ -195,7 +191,7 @@ final class HealthConnectorImpl implements HealthConnector {
       message: 'Revoking all permissions',
     );
 
-    switch (_healthPlatform) {
+    switch (healthPlatform) {
       case HealthPlatform.appleHealth:
         HealthConnectorLogger.error(
           tag,
@@ -242,7 +238,7 @@ final class HealthConnectorImpl implements HealthConnector {
       context: context,
     );
 
-    switch (_healthPlatform) {
+    switch (healthPlatform) {
       case HealthPlatform.appleHealth:
         HealthConnectorLogger.info(
           tag,

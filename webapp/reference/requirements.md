@@ -9,16 +9,21 @@ Version floors for the current release, and what each one is actually for.
 | Flutter | ≥ 3.44.0 |
 | Dart | `^3.12.0` (declared in the package's `pubspec.yaml`) |
 | Android OS | API 26+ (Android 8.0) at build time |
-| Kotlin | 2.1.0 |
-| Java | 17 |
+| Repository Android Gradle Plugin | 9.3.1 |
+| Repository Built-in Kotlin compiler | 2.2.10 (provided by AGP 9.3.1) |
+| Android build JDK | 17 |
+| Java and Kotlin bytecode target | JVM 11 |
 | iOS | 15.0+ |
 | Swift | 5.9 |
 
 ::: warning Flutter 3.44 is the published floor
 The package declares `flutter: '>=3.44.0'` and `sdk: ^3.12.0`, so `pub get` fails on older Flutter and Dart versions.
 
-Flutter 3.44 consumers using AGP 9 must set `android.builtInKotlin=false`. Enable Built-in Kotlin in application hosts
-only when using Flutter 3.47 or later. The repository validates Built-in Kotlin with Flutter 3.47.1.
+Consumers do not select or apply the Kotlin Gradle plugin for this package.
+Flutter 3.44 consumers using AGP 9 must set `android.builtInKotlin=false` and
+`android.newDsl=false`. Flutter 3.47 or later hosts can enable Built-in Kotlin
+with `android.builtInKotlin=true`, but must keep `android.newDsl=false`. The
+repository validates that configuration with Flutter 3.47.1.
 :::
 
 ## Android build configuration
