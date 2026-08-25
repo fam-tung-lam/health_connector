@@ -27,8 +27,10 @@ iOS.
   - Xcode 14.0+
   - HealthKit capability enabled
 
-Flutter 3.44 consumers using AGP 9 must set `android.builtInKotlin=false`. The toolbox enables Built-in Kotlin and is
-validated with Flutter 3.47.1, so use Flutter 3.47 or later to build its Android host.
+The toolbox is validated with Flutter 3.44.9, KGP 2.3.20, and AGP 9.3.1, so
+its Android host keeps `android.builtInKotlin=false` and
+`android.newDsl=false`. The published plugin remains compatible with Flutter
+3.47 or later client apps that enable Built-in Kotlin.
 
 ### Installation
 
