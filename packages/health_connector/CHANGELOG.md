@@ -1,3 +1,8 @@
+## 3.10.0
+
+- **FEAT**(hc_android): Support built-in Kotlin for Flutter versions earlier than 3.44. ([32949a7a](https://github.com/fam-tung-lam/health_connector/commit/32949a7a652e9de99056d04f11ff26951e00ea54))
+- **FIX**(hk_ios): Declare that the iOS plugin does not collect HealthKit data in its privacy manifest. ([b47453f1](https://github.com/fam-tung-lam/health_connector/commit/b47453f1f88577ef76b061156abcb14597a6f18a))
+
 ## 3.9.5
 
 - **CHORE**: Migrate the Health Connector SDK packages from the Apache 2.0 License to the MIT License.

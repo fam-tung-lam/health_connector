@@ -1,3 +1,7 @@
+## 3.9.4
+
+- **FIX**: Declare that the iOS plugin does not collect HealthKit data in its privacy manifest. ([b47453f1](https://github.com/fam-tung-lam/health_connector/commit/b47453f1f88577ef76b061156abcb14597a6f18a))
+
 ## 3.9.3
 
 - **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.
