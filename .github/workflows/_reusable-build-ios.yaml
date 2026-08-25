@@ -51,7 +51,9 @@ jobs:
         run: |
           # Use --deployment when Podfile.lock exists for reproducible CI; otherwise --repo-update.
           # Commit Podfile.lock for iOS example apps that use CocoaPods so CI uses deterministic installs.
-          if [[ -f "Podfile.lock" ]]; then
+          if [[ ! -f "Podfile" ]]; then
+            echo "No Podfile found; flutter build ios will create or use the required plugin integration."
+          elif [[ -f "Podfile.lock" ]]; then
             pod install --deployment
           else
             pod install --repo-update
