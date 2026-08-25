@@ -1,3 +1,11 @@
+## Unreleased
+
+> Note: This release has breaking changes.
+
+- **BREAKING** **BUILD**: Require Dart 3.12 and Flutter 3.44. Flutter 3.44 consumers using AGP 9 must keep
+  `android.builtInKotlin=false`; repository and application validation with Built-in Kotlin enabled requires Flutter
+  3.47 or later.
+
 ## 3.7.0
 
 - **FEAT**: Support built-in Kotlin for Flutter versions earlier than 3.44. ([32949a7a](https://github.com/fam-tung-lam/health_connector/commit/32949a7a652e9de99056d04f11ff26951e00ea54))

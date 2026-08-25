@@ -6,7 +6,7 @@ repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/
 issue_tracker: https://github.com/fam-tung-lam/health_connector/issues?q=is%3Aissue%20is%3Aopen
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.12.0
 
 dependencies:
   collection: ^1.19.1

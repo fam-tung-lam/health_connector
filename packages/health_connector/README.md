@@ -116,19 +116,15 @@ flutter pub get && flutter run
 
 | Component   | Requirements                                        |
 |-------------|-----------------------------------------------------|
-| **Flutter** | • SDK: ≥3.35.7                                      |
+| **Flutter** | • SDK: ≥3.44.0                                      |
+| **Dart**    | • SDK: ≥3.12.0                                      |
 | **Android** | • OS: API 26+<br>• Languages: Kotlin 2.1.0, Java 17 |
 | **iOS**     | • OS: ≥15.0<br>• Language: Swift 5.9                |
 
-> **Upgrading is Easy:**
+> **Android build compatibility:**
 >
-> - *Flutter 3.35.7* has great backward compatibility up to *Flutter 3.32.0*, making the migration very
-> straightforward and requiring no changes to your existing code. For projects already using Material 3 UI,
-> great backward compatibility extends up to *Flutter 3.27.0*.
->
-> - *Swift 5.9* has great backward compatibility up to *Swift 5.0*, and *Kotlin 2.1* up to *Kotlin 2.0*.
-> Migration is very straightforward — simply update version in your build configuration files. *No changes to
-> your existing native code are required.*
+> Flutter 3.44 consumers using AGP 9 must set `android.builtInKotlin=false`. Enable Built-in Kotlin in application
+> hosts only when using Flutter 3.47 or later. The repository validates Built-in Kotlin with Flutter 3.47.1.
 
 ### Installation
 

@@ -1,3 +1,9 @@
+## Unreleased
+
+> Note: This release has breaking changes.
+
+- **BREAKING** **BUILD**: Require Dart 3.12 and Flutter 3.44 or later.
+
 ## 3.9.4
 
 - **FIX**: Declare that the iOS plugin does not collect HealthKit data in its privacy manifest. ([b47453f1](https://github.com/fam-tung-lam/health_connector/commit/b47453f1f88577ef76b061156abcb14597a6f18a))

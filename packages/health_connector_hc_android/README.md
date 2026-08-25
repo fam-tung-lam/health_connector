@@ -22,11 +22,14 @@ data on Android devices.
 
 ## 🎯 Requirements
 
-- Flutter >=3.3.0
-- Dart >=3.9.2
+- Flutter >=3.44.0
+- Dart >=3.12.0
 - Android SDK: API level 26+ (Android 8.0)
 - Kotlin: 1.9.0+
 - Java: 11+
+
+Flutter 3.44 consumers using AGP 9 must set `android.builtInKotlin=false`. Enable Built-in Kotlin in application hosts
+only when using Flutter 3.47 or later. The repository validates Built-in Kotlin with Flutter 3.47.1.
 
 ---
 
