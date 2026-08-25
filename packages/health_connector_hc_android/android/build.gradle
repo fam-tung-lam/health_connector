@@ -1,5 +1,7 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 group = "com.phamtunglam.health_connector_hc_android"
 version = "1.0-SNAPSHOT"
@@ -47,7 +49,15 @@ allprojects {
 }
 
 apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
+
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize(".")[0] as int
+
+if (agpMajor < 9) {
+    // Flutter 3.44.9 scans literal `apply plugin:` calls without evaluating this AGP guard.
+    // Keep this form until the scanner recognizes guarded KGP application.
+    project.pluginManager.apply("org.jetbrains.kotlin.android")
+}
+
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: "io.gitlab.arturbosch.detekt"
 
@@ -130,10 +140,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
-    }
-
     sourceSets {
         main.java.srcDirs += "src/main/kotlin"
         test.java.srcDirs += "src/test/kotlin"
@@ -211,4 +217,8 @@ android {
             includeAndroidResources = true
         }
     }
+}
+
+project.extensions.configure(KotlinAndroidProjectExtension) { kotlinExtension ->
+    kotlinExtension.compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
 }
