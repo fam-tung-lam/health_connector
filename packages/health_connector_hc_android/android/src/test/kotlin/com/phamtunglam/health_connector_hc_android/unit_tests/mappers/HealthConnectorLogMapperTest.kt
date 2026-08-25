@@ -48,7 +48,7 @@ class HealthConnectorLogMapperTest {
                 "WHEN toDto called → " +
                 "THEN maps to correct HealthConnectorLogLevelDto",
         )
-        fun whenAnyLogLevel_thenMapsToCorrectDto(
+        internal fun whenAnyLogLevel_thenMapsToCorrectDto(
             logLevel: HealthConnectorLogger.LogLevel,
             expectedDto: HealthConnectorLogLevelDto,
         ) {
