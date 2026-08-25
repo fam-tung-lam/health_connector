@@ -1,7 +1,7 @@
 name: health_connector
 resolution: workspace
 description: The most comprehensive Flutter health SDK for seamless iOS HealthKit and Android Health Connect integration.
-version: 3.9.5
+version: 3.10.0
 homepage: https://github.com/fam-tung-lam/health_connector
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector
 issue_tracker: https://github.com/fam-tung-lam/health_connector/issues?q=is%3Aissue%20is%3Aopen
@@ -14,8 +14,8 @@ dependencies:
   flutter:
     sdk: flutter
   health_connector_core: ^3.9.3
-  health_connector_hc_android: ^3.6.3
-  health_connector_hk_ios: ^3.9.3
+  health_connector_hc_android: ^3.7.0
+  health_connector_hk_ios: ^3.9.4
   health_connector_logger: ^4.0.1
   meta: ^1.16.0
 
