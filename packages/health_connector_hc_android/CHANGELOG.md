@@ -1,3 +1,7 @@
+## Unreleased
+
+- **FEAT**: Support built-in Kotlin for Flutter versions earlier than 3.44.
+
 ## 3.6.3
 
 - **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.
