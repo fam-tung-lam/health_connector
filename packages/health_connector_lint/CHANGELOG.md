@@ -1,9 +1,3 @@
-## Unreleased
-
-> Note: This release has breaking changes.
-
-- **BREAKING** **BUILD**: Require Dart 3.12 or later.
-
 ## 1.2.1
 
 - **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.

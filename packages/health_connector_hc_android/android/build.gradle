@@ -1,14 +1,15 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
-import org.gradle.api.artifacts.component.ProjectComponentIdentifier
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 group = "com.phamtunglam.health_connector_hc_android"
 version = "1.0-SNAPSHOT"
 
 buildscript {
     // Core libraries
-    ext.agp_version = "9.3.1"
+    ext.kotlin_version = "2.1.0"
+    ext.gradle_version = "8.9.1"
     ext.kotlin_coroutines_version = "1.10.2"
 
     // Health Connect SDK library
@@ -16,7 +17,7 @@ buildscript {
 
     // Code quality libraries
     ext.ktlint_version = "1.6.0"
-    ext.ktlint_gradle_version = "14.2.0"
+    ext.ktlint_gradle_version = "12.1.2"
     ext.detekt_version = "1.23.8"
 
     // Local unit/integration testing libraries
@@ -33,7 +34,8 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:$agp_version")
+        classpath("com.android.tools.build:gradle:$gradle_version")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
         classpath("org.jlleitschuh.gradle:ktlint-gradle:$ktlint_gradle_version")
         classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version")
     }
@@ -47,6 +49,15 @@ allprojects {
 }
 
 apply plugin: "com.android.library"
+
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize(".")[0] as int
+
+if (agpMajor < 9) {
+    // Flutter 3.44.9 scans literal `apply plugin:` calls without evaluating this AGP guard.
+    // Keep this form until the scanner recognizes guarded KGP application.
+    project.pluginManager.apply("org.jetbrains.kotlin.android")
+}
+
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: "io.gitlab.arturbosch.detekt"
 
@@ -81,7 +92,7 @@ detekt {
     source.setFrom("src/main/kotlin")
 }
 
-// Configure the JVM target and reports for every Detekt task
+// Configure type resolution for Detekt (enables advanced analysis)
 tasks.withType(Detekt).configureEach {
     jvmTarget = "11"
 
@@ -104,30 +115,11 @@ tasks.withType(DetektCreateBaselineTask).configureEach {
     exclude("**/*.g.kt", "**/generated/**")
 }
 
-// Convenience task to analyze main and test sources with type resolution
-def detektAllTask = tasks.register("detektAll", Detekt) {
-    setSource(files("src/main/kotlin", "src/test/kotlin"))
-    buildUponDefaultConfig = true
-    config.setFrom("$projectDir/detekt.yml")
-    baseline = file("$projectDir/detekt-baseline.xml")
+// Convenience task to run all detekt tasks with type resolution
+tasks.register("detektAll") {
+    dependsOn("detektMain", "detektTest")
     group = "verification"
     description = "Run detekt analysis on all source sets with type resolution"
-}
-
-androidComponents.onVariants(androidComponents.selector().withBuildType("debug")) { variant ->
-    def externalUnitTestClasspath = variant.unitTest.compileConfiguration.incoming.artifactView {
-        componentFilter { componentIdentifier ->
-            !(componentIdentifier instanceof ProjectComponentIdentifier)
-        }
-    }.files
-
-    detektAllTask.configure {
-        classpath.setFrom(
-            androidComponents.sdkComponents.bootClasspath,
-            variant.compileClasspath,
-            externalUnitTestClasspath,
-        )
-    }
 }
 
 // Task to run both ktlint and detekt
@@ -149,8 +141,8 @@ android {
     }
 
     sourceSets {
-        main.kotlin.srcDirs += "src/main/kotlin"
-        test.kotlin.srcDirs += "src/test/kotlin"
+        main.java.srcDirs += "src/main/kotlin"
+        test.java.srcDirs += "src/test/kotlin"
     }
 
     defaultConfig {
@@ -168,11 +160,9 @@ android {
         testImplementation("io.mockk:mockk-android:$mockk_version")
 
         // JUnit 5 is a core testing framework.
-        testImplementation(platform("org.junit:junit-bom:$junit_version"))
-        testImplementation("org.junit.jupiter:junit-jupiter-api")
-        testImplementation("org.junit.jupiter:junit-jupiter-params")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:$junit_version")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
 
         // Kotest Assertions provides expressive, readable assertions for better test clarity.
         testImplementation("io.kotest:kotest-assertions-core:$kotest_version")
@@ -229,8 +219,6 @@ android {
     }
 }
 
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
-    }
+project.extensions.configure(KotlinAndroidProjectExtension) { kotlinExtension ->
+    kotlinExtension.compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
 }

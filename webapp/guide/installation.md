@@ -6,20 +6,14 @@ Adding the package takes one command. Most of the work is platform configuration
 
 | Component | Requirement |
 |---|---|
-| Flutter | ≥ 3.44.0 (the package declares `flutter: '>=3.44.0'`) |
-| Dart | `^3.12.0` |
-| Android | API 26+ (Android 8.0); repository build uses Flutter 3.44.9, AGP 9.3.1, KGP 2.3.20, JDK 17, and JVM 11 bytecode |
+| Flutter | ≥ 3.35.7 (the package declares `sdk: ^3.9.2`) |
+| Android | API 26+ (Android 8.0), Kotlin 2.1.0, Java 17 |
 | iOS | iOS 15.0+, Swift 5.9 |
 
-::: warning Flutter 3.44 is the published floor
-The package declares `flutter: '>=3.44.0'` and `sdk: ^3.12.0`, so `pub get` fails on older Flutter and Dart versions.
+::: warning Flutter 3.35.7 is a hard floor
+The Dart constraint `^3.9.2` ships with Flutter 3.35.x, so `pub get` will not resolve on anything older — Flutter 3.32 carries Dart 3.8. This is a resolution requirement, not a recommendation.
 
-The published plugin neither selects nor applies the Kotlin Gradle plugin and
-uses the Built-in Kotlin-compatible `kotlin.compilerOptions` API. Repository
-examples validate the Flutter 3.44.9 compatibility host lane with KGP 2.3.20,
-`android.builtInKotlin=false`, and `android.newDsl=false`. Flutter 3.47 or later
-client apps can enable Built-in Kotlin with `android.builtInKotlin=true` while
-keeping `android.newDsl=false`.
+The upgrade itself is usually painless: Flutter 3.35.7 is source-compatible with apps written for 3.32.0 (3.27.0 for projects already on Material 3), and Swift 5.9 and Kotlin 2.1 are compatible with Swift 5.0 and Kotlin 2.0 code. Expect to bump versions in build files, not to rewrite anything.
 :::
 
 Full details, including why each floor exists, are in [Requirements](/reference/requirements).

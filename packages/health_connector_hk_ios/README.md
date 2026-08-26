@@ -22,8 +22,8 @@ devices.
 
 ## 🎯 Requirements
 
-- Flutter >=3.44.0
-- Dart >=3.12.0
+- Flutter >=3.3.0
+- Dart >=3.9.2
 - iOS >=15.0
 - Xcode >=14.0
 

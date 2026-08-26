@@ -22,19 +22,11 @@ data on Android devices.
 
 ## 🎯 Requirements
 
-- Flutter >=3.44.0
-- Dart >=3.12.0
+- Flutter >=3.3.0
+- Dart >=3.9.2
 - Android SDK: API level 26+ (Android 8.0)
-- Repository Android build: Flutter 3.44.9, AGP 9.3.1, and KGP 2.3.20
-- Android build JDK: 17
-- Java and Kotlin bytecode target: JVM 11
-
-The published plugin neither selects nor applies the Kotlin Gradle plugin and
-uses the Built-in Kotlin-compatible `kotlin.compilerOptions` API. Repository
-examples validate the Flutter 3.44.9 compatibility host lane with KGP 2.3.20,
-`android.builtInKotlin=false`, and `android.newDsl=false`. Flutter 3.47 or later
-client apps can enable Built-in Kotlin with `android.builtInKotlin=true` while
-keeping `android.newDsl=false`.
+- Kotlin: 1.9.0+
+- Java: 11+
 
 ---
 
