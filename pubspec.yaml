@@ -18,7 +18,7 @@ workspace:
   - examples/health_connector_toolbox
 
 dev_dependencies:
-  melos: ^7.3.0
+  melos: ^8.3.0
 
 melos:
   name: health_connector
