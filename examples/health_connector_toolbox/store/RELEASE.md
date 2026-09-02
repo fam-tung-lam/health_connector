@@ -22,11 +22,10 @@ Google Play short description:
 
 > Privately inspect, summarize, and add health data on your device.
 
-Full description:
+App Store description:
 
 > Health Connector Toolbox helps you inspect and manage the health data already
-> stored on your device. It works with Apple Health on iOS and Health Connect on
-> Android.
+> stored in Apple Health on your iPhone or iPad.
 >
 > Choose exactly which data types the app can access. Browse records over a time
 > range, view totals and averages for supported metrics, add health entries, and
@@ -43,7 +42,25 @@ Full description:
 
 Keywords for App Store Connect:
 
-`health data,health records,apple health,health connect,wellness,inspector,flutter`
+`health data,health records,apple health,healthkit,wellness,inspector,privacy`
+
+Google Play full description:
+
+> Health Connector Toolbox helps you inspect and manage the health data already
+> stored in Health Connect on your Android device.
+>
+> Choose exactly which data types the app can access. Browse records over a time
+> range, view totals and averages for supported metrics, add health entries, and
+> delete entries created by the Toolbox.
+>
+> Optional Developer Tools show permission state, mapped record metadata,
+> supported aggregation operations, and incremental sync behavior for the same
+> on-device flows. These tools never expand the permissions you choose.
+>
+> Your health data stays on your device. The Toolbox has no account, ads,
+> analytics, tracking, or remote service. It never uploads health records. The
+> app does not provide medical advice, diagnosis, treatment, or emergency
+> services.
 
 What's new:
 
