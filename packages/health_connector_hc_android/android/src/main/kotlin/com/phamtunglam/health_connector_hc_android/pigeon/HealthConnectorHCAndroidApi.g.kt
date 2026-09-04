@@ -5710,6 +5710,7 @@ interface HealthConnectorHCAndroidApi {
   fun aggregate(request: AggregateRequestDto, callback: (Result<Double>) -> Unit)
   fun deleteRecords(request: DeleteRecordsRequestDto, callback: (Result<Unit>) -> Unit)
   fun getFeatureStatus(feature: HealthPlatformFeatureDto, callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit)
+  fun isExerciseSegmentWeightSupported(callback: (Result<Boolean>) -> Unit)
   fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit)
   fun requestPermissions(request: PermissionRequestsDto, callback: (Result<List<PermissionRequestResultDto>>) -> Unit)
   fun getGrantedPermissions(callback: (Result<List<PermissionRequestResultDto>>) -> Unit)
@@ -5815,6 +5816,24 @@ interface HealthConnectorHCAndroidApi {
             val args = message as List<Any?>
             val featureArg = args[0] as HealthPlatformFeatureDto
             api.getFeatureStatus(featureArg) { result: Result<HealthPlatformFeatureStatusDto> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.isExerciseSegmentWeightSupported$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.isExerciseSegmentWeightSupported{ result: Result<Boolean> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

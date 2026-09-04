@@ -525,6 +525,38 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     }
 
     /**
+     * Returns whether this device can persist [ExerciseSegment.weight].
+     *
+     * @param callback Called with a [Result] containing `true` if the device's Health Connect
+     *   Mainline module is at SDK Extension 21 or higher, `false` otherwise
+     */
+    @Throws(HealthConnectorErrorDto::class)
+    override fun isExerciseSegmentWeightSupported(callback: (Result<Boolean>) -> Unit) {
+        val operation = "is_exercise_segment_weight_supported"
+
+        scope.launch {
+            process(operation = operation, callback = callback) {
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Checking exercise segment weight support...",
+                )
+
+                val result = requireClient().isExerciseSegmentWeightSupported()
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Checked exercise segment weight support.",
+                    context = mapOf("result" to result),
+                )
+
+                result
+            }
+        }
+    }
+
+    /**
      * Reads a single health record by ID.
      *
      * @param request Contains the data type and record ID to read

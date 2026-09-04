@@ -784,4 +784,10 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       );
     }
   }
+
+  /// Whether this device can persist [ExerciseSessionSegmentEvent.weight].
+  ///
+  /// HealthKit has no equivalent field, so this always returns `false`.
+  @override
+  Future<bool> isExerciseSegmentWeightSupported() async => false;
 }

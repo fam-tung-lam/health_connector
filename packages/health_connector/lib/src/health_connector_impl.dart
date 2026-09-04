@@ -290,6 +290,38 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
+  Future<bool> isExerciseSegmentWeightSupported() async {
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'isExerciseSegmentWeightSupported',
+      message: 'Checking exercise segment weight support',
+    );
+
+    try {
+      final result = await _client.isExerciseSegmentWeightSupported();
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'isExerciseSegmentWeightSupported',
+        message: 'Exercise segment weight support checked',
+        context: {'result': result},
+      );
+
+      return result;
+    } on HealthConnectorException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'isExerciseSegmentWeightSupported',
+        message: 'Failed to check exercise segment weight support',
+        exception: e,
+        stackTrace: st,
+      );
+
+      rethrow;
+    }
+  }
+
+  @override
   Future<R?> readRecord<R extends HealthRecord>(
     ReadRecordByIdRequest<R> request,
   ) async {

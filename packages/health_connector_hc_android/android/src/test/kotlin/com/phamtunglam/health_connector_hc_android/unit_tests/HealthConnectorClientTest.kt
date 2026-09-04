@@ -294,6 +294,23 @@ class HealthConnectorClientTest {
             }
     }
 
+    @Nested
+    @DisplayName("GIVEN isExerciseSegmentWeightSupported → ")
+    inner class ExerciseSegmentWeightSupport {
+
+        @Test
+        @DisplayName("WHEN SDK Extension 21 is missing → THEN returns false")
+        fun returnsFalseWithoutExtension21() {
+            buildClient(supportsExt21 = false).isExerciseSegmentWeightSupported() shouldBe false
+        }
+
+        @Test
+        @DisplayName("WHEN SDK Extension 21 is present → THEN returns true")
+        fun returnsTrueWithExtension21() {
+            buildClient(supportsExt21 = true).isExerciseSegmentWeightSupported() shouldBe true
+        }
+    }
+
     private fun buildExerciseSessionDto(
         weightKg: Double?,
         id: String? = null,

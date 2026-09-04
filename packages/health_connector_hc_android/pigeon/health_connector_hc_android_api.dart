@@ -2912,6 +2912,9 @@ abstract class HealthConnectorHCAndroidApi {
   );
 
   @async
+  bool isExerciseSegmentWeightSupported();
+
+  @async
   HealthPlatformStatusDto getHealthPlatformStatus();
 
   @async
