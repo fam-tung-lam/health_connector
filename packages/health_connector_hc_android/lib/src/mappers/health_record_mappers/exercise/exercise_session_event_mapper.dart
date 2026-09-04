@@ -36,6 +36,8 @@ extension ExerciseSessionEventToDto on ExerciseSessionEvent {
         :final segmentType,
         :final repetitions,
         :final weight,
+        :final setIndex,
+        :final rateOfPerceivedExertion,
       ) =>
         ExerciseSessionSegmentEventDto(
           startTime: startTime.millisecondsSinceEpoch,
@@ -43,6 +45,8 @@ extension ExerciseSessionEventToDto on ExerciseSessionEvent {
           segmentType: segmentType.toDto(),
           repetitions: repetitions,
           weightKg: weight?.inKilograms,
+          setIndex: setIndex,
+          rateOfPerceivedExertion: rateOfPerceivedExertion,
         ),
       ExerciseSessionStateTransitionEvent _ => throw UnsupportedError(
         '$ExerciseSessionStateTransitionEvent is not supported on '
@@ -84,6 +88,8 @@ extension ExerciseSessionEventDtoToDomain on ExerciseSessionEventDto {
         :final segmentType,
         :final repetitions,
         :final weightKg,
+        :final setIndex,
+        :final rateOfPerceivedExertion,
       ) =>
         ExerciseSessionSegmentEvent(
           startTime: DateTime.fromMillisecondsSinceEpoch(
@@ -94,6 +100,8 @@ extension ExerciseSessionEventDtoToDomain on ExerciseSessionEventDto {
           segmentType: segmentType.toDomain(),
           repetitions: repetitions,
           weight: weightKg != null ? Mass.kilograms(weightKg) : null,
+          setIndex: setIndex,
+          rateOfPerceivedExertion: rateOfPerceivedExertion,
         ),
     };
   }

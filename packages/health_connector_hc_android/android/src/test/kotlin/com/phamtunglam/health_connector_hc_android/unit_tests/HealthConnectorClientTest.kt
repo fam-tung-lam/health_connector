@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
-@DisplayName("HealthConnectorClient — exercise segment weight validation")
+@DisplayName("HealthConnectorClient — exercise segment extended field validation")
 @ExtendWith(MainDispatcherExtension::class)
 class HealthConnectorClientTest {
 
@@ -137,6 +137,23 @@ class HealthConnectorClientTest {
                 val id = client.writeRecord(dto)
 
                 id.shouldNotBeEmpty()
+            }
+
+        @Test
+        @DisplayName(
+            "WHEN exercise session has segment with non-null setIndex on unsupported SDK → " +
+                "THEN throws UnsupportedOperation",
+        )
+        fun `writeRecord throws on segment setIndex with unsupported SDK`() =
+            runTest(testDispatcher) {
+                val client = buildClient(supportsExt21 = false)
+                val dto = buildExerciseSessionDto(weightKg = null, setIndex = 2L)
+
+                val exception = shouldThrow<HealthConnectorException> {
+                    client.writeRecord(dto)
+                }
+                exception.shouldBeInstanceOf<HealthConnectorException.UnsupportedOperation>()
+                exception.message shouldBe EXPECTED_ERROR_MESSAGE
             }
     }
 
@@ -280,6 +297,7 @@ class HealthConnectorClientTest {
     private fun buildExerciseSessionDto(
         weightKg: Double?,
         id: String? = null,
+        setIndex: Long? = null,
     ): ExerciseSessionRecordDto {
         val startTime = FIXED_NOW.minusSeconds(3600).toEpochMilli()
         val endTime = FIXED_NOW.toEpochMilli()
@@ -295,6 +313,7 @@ class HealthConnectorClientTest {
                     segmentType = ExerciseSegmentTypeDto.RUNNING,
                     repetitions = null,
                     weightKg = weightKg,
+                    setIndex = setIndex,
                 ),
             ),
             metadata = MetadataDto(
@@ -316,8 +335,9 @@ class HealthConnectorClientTest {
         const val FAKE_PACKAGE_NAME = ""
         val FIXED_NOW: Instant = Instant.parse("2026-01-01T12:00:00Z")
         const val EXPECTED_ERROR_MESSAGE =
-            "Writing ExerciseSessionSegmentEvent.weight requires Health Connect " +
-                "SDK Extension 21 (Android 14+ with the latest Health Connect Mainline " +
-                "update). This device does not meet the requirement."
+            "Writing ExerciseSessionSegmentEvent.weight, setIndex or " +
+                "rateOfPerceivedExertion requires Health Connect SDK Extension 21 " +
+                "(Android 14+ with the latest Health Connect Mainline update). " +
+                "This device does not meet the requirement."
     }
 }

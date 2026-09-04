@@ -1833,6 +1833,8 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
     required this.segmentType,
     this.repetitions,
     this.weightKg,
+    this.setIndex,
+    this.rateOfPerceivedExertion,
   });
 
   /// Start time in milliseconds since epoch (UTC).
@@ -1849,6 +1851,12 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
 
   /// Weight lifted during this segment, in kilograms.
   final double? weightKg;
+
+  /// Zero-based index of the set this segment belongs to.
+  final int? setIndex;
+
+  /// Borg CR10 rate of perceived exertion, 0-10.
+  final double? rateOfPerceivedExertion;
 }
 
 // region Exercise Route

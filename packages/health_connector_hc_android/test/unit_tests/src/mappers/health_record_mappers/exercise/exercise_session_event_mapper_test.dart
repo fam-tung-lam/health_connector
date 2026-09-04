@@ -82,5 +82,52 @@ void main() {
       final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
       expect(domain.weight, const Mass.kilograms(80.0));
     });
+
+    test(
+      'converts ExerciseSessionSegmentEvent with setIndex and RPE to/from DTO',
+      () {
+        final startTime = DateTime(2023, 1, 1, 10).toUtc();
+        final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
+        final event = ExerciseSessionSegmentEvent(
+          startTime: startTime,
+          endTime: endTime,
+          segmentType: ExerciseSegmentType.benchPress,
+          repetitions: 8,
+          weight: const Mass.kilograms(80.0),
+          setIndex: 2,
+          rateOfPerceivedExertion: 7.5,
+        );
+
+        final dto = event.toDto() as ExerciseSessionSegmentEventDto;
+        expect(dto.setIndex, 2);
+        expect(dto.rateOfPerceivedExertion, 7.5);
+
+        final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
+        expect(domain.setIndex, 2);
+        expect(domain.rateOfPerceivedExertion, 7.5);
+      },
+    );
+
+    test(
+      'converts ExerciseSessionSegmentEvent without setIndex or RPE to/from DTO',
+      () {
+        final startTime = DateTime(2023, 1, 1, 10).toUtc();
+        final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
+        final event = ExerciseSessionSegmentEvent(
+          startTime: startTime,
+          endTime: endTime,
+          segmentType: ExerciseSegmentType.running,
+          repetitions: 10,
+        );
+
+        final dto = event.toDto() as ExerciseSessionSegmentEventDto;
+        expect(dto.setIndex, isNull);
+        expect(dto.rateOfPerceivedExertion, isNull);
+
+        final domain = dto.toDomain() as ExerciseSessionSegmentEvent;
+        expect(domain.setIndex, isNull);
+        expect(domain.rateOfPerceivedExertion, isNull);
+      },
+    );
   });
 }
