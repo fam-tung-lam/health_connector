@@ -525,7 +525,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     }
 
     /**
-     * Returns whether this device can persist [ExerciseSegment.weight].
+     * Returns whether this device can persist `ExerciseSegment.weight`.
      *
      * @param callback Called with a [Result] containing `true` if the device's Health Connect
      *   Mainline module is at SDK Extension 21 or higher, `false` otherwise

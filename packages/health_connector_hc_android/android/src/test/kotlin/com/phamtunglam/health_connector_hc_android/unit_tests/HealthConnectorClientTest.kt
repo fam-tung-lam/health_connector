@@ -155,6 +155,45 @@ class HealthConnectorClientTest {
                 exception.shouldBeInstanceOf<HealthConnectorException.UnsupportedOperation>()
                 exception.message shouldBe EXPECTED_ERROR_MESSAGE
             }
+
+        @Test
+        @DisplayName(
+            "WHEN exercise session has segment with non-null rateOfPerceivedExertion on " +
+                "unsupported SDK → THEN throws UnsupportedOperation",
+        )
+        fun `writeRecord throws on segment rateOfPerceivedExertion with unsupported SDK`() =
+            runTest(testDispatcher) {
+                val client = buildClient(supportsExt21 = false)
+                val dto = buildExerciseSessionDto(
+                    weightKg = null,
+                    rateOfPerceivedExertion = 7.5,
+                )
+
+                val exception = shouldThrow<HealthConnectorException> {
+                    client.writeRecord(dto)
+                }
+                exception.shouldBeInstanceOf<HealthConnectorException.UnsupportedOperation>()
+                exception.message shouldBe EXPECTED_ERROR_MESSAGE
+            }
+
+        @Test
+        @DisplayName(
+            "WHEN exercise session has segment with non-null setIndex and " +
+                "rateOfPerceivedExertion on supported SDK → THEN write succeeds",
+        )
+        fun `writeRecord succeeds on segment setIndex and RPE with supported SDK`() =
+            runTest(testDispatcher) {
+                val client = buildClient(supportsExt21 = true)
+                val dto = buildExerciseSessionDto(
+                    weightKg = null,
+                    setIndex = 2L,
+                    rateOfPerceivedExertion = 7.5,
+                )
+
+                val id = client.writeRecord(dto)
+
+                id.shouldNotBeEmpty()
+            }
     }
 
     @Nested
@@ -315,6 +354,7 @@ class HealthConnectorClientTest {
         weightKg: Double?,
         id: String? = null,
         setIndex: Long? = null,
+        rateOfPerceivedExertion: Double? = null,
     ): ExerciseSessionRecordDto {
         val startTime = FIXED_NOW.minusSeconds(3600).toEpochMilli()
         val endTime = FIXED_NOW.toEpochMilli()
@@ -331,6 +371,7 @@ class HealthConnectorClientTest {
                     repetitions = null,
                     weightKg = weightKg,
                     setIndex = setIndex,
+                    rateOfPerceivedExertion = rateOfPerceivedExertion,
                 ),
             ),
             metadata = MetadataDto(
