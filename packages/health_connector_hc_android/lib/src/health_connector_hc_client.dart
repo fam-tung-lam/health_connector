@@ -1079,6 +1079,55 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     }
   }
 
+  /// Queries the native platform to determine whether the device can persist
+  /// [ExerciseSessionSegmentEvent.weight].
+  ///
+  /// ## Returns
+  ///
+  /// `true` if the device's Health Connect Mainline module is at SDK
+  /// Extension 21 or higher, `false` otherwise.
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] if the platform request fails
+  @override
+  Future<bool> isExerciseSegmentWeightSupported() async {
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'isExerciseSegmentWeightSupported',
+      message: 'Checking exercise segment weight support',
+    );
+
+    try {
+      final result = await _platformClient.isExerciseSegmentWeightSupported();
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'isExerciseSegmentWeightSupported',
+        message: 'Exercise segment weight support checked',
+        context: {'result': result},
+      );
+
+      return result;
+    } on PlatformException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'isExerciseSegmentWeightSupported',
+        message: 'Failed to check exercise segment weight support',
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
+        'Failed to check exercise segment weight support: '
+        '${e.message ?? 'Unknown error'}',
+        cause: e,
+        stackTrace: st,
+      );
+    }
+  }
+
   /// Handles the special case where Health Connect uses a single permission
   /// for nutrition and all data types.
   List<PermissionRequestResult> _handleNutritionNutrientPermissions({

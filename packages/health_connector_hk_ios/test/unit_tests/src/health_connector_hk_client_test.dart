@@ -711,6 +711,21 @@ void main() {
           );
 
           group(
+            'isExerciseSegmentWeightSupported',
+            () {
+              test(
+                'always returns false (Android-only feature)',
+                () async {
+                  final result = await client
+                      .isExerciseSegmentWeightSupported();
+
+                  expect(result, isFalse);
+                },
+              );
+            },
+          );
+
+          group(
             'deleteRecords',
             () {
               test(

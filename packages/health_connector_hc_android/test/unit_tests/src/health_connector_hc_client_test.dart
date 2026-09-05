@@ -475,6 +475,28 @@ void main() {
           );
 
           group(
+            'isExerciseSegmentWeightSupported',
+            () {
+              test(
+                'delegates to the platform API',
+                () async {
+                  when(
+                    () => mockApi.isExerciseSegmentWeightSupported(),
+                  ).thenAnswer((_) async => true);
+
+                  expect(
+                    await client.isExerciseSegmentWeightSupported(),
+                    isTrue,
+                  );
+                  verify(
+                    () => mockApi.isExerciseSegmentWeightSupported(),
+                  ).called(1);
+                },
+              );
+            },
+          );
+
+          group(
             'readRecord',
             () {
               test(

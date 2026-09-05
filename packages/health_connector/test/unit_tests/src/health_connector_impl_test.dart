@@ -1435,6 +1435,37 @@ void main() {
           );
         },
       );
+
+      group(
+        'isExerciseSegmentWeightSupported',
+        () {
+          test(
+            'GIVEN platform client reports unsupported → '
+            'WHEN isExerciseSegmentWeightSupported is called → '
+            'THEN returns the platform client result',
+            () async {
+              // GIVEN
+              final connector = HealthConnectorImpl(
+                config: const HealthConnectorConfig(),
+                healthPlatform: HealthPlatform.healthConnect,
+                healthPlatformClient: mockClient,
+              );
+              when(
+                () => mockClient.isExerciseSegmentWeightSupported(),
+              ).thenAnswer((_) async => false);
+
+              // WHEN
+              final result = await connector.isExerciseSegmentWeightSupported();
+
+              // THEN
+              expect(result, isFalse);
+              verify(
+                () => mockClient.isExerciseSegmentWeightSupported(),
+              ).called(1);
+            },
+          );
+        },
+      );
     },
   );
 }

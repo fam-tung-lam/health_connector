@@ -582,6 +582,28 @@ abstract interface class HealthConnector {
     HealthPlatformFeature feature,
   );
 
+  /// Whether this device can persist [ExerciseSessionSegmentEvent.weight].
+  ///
+  /// Health Connect requires SDK Extension 21 for segment weights; HealthKit
+  /// has no equivalent field and always reports false.
+  ///
+  /// ## Returns
+  ///
+  /// - `true` if the device can persist segment weight, `false` otherwise.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final connector = await HealthConnector.create();
+  /// if (await connector.isExerciseSegmentWeightSupported()) {
+  ///   // Safe to include ExerciseSessionSegmentEvent.weight.
+  /// } else {
+  ///   // Omit segment weight, or catch UnsupportedOperationException.
+  /// }
+  /// ```
+  @sinceV3_11_0
+  Future<bool> isExerciseSegmentWeightSupported();
+
   /// Reads a single health record by ID.
   ///
   /// ## Parameters

@@ -196,12 +196,16 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
   /// - [segmentType]: The type of exercise segment
   /// - [repetitions]: Optional number of repetitions in this segment
   /// - [weight]: Optional weight lifted during this segment
+  /// - [setIndex]: Optional zero-based index of the set this segment belongs to
+  /// - [rateOfPerceivedExertion]: Optional Borg CR10 rate of perceived exertion
   const ExerciseSessionSegmentEvent({
     required super.startTime,
     required super.endTime,
     required this.segmentType,
     this.repetitions,
     this.weight,
+    this.setIndex,
+    this.rateOfPerceivedExertion,
   });
 
   /// The type of exercise segment.
@@ -227,6 +231,41 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
   @supportedOnHealthConnectSdkExtension21
   final Mass? weight;
 
+  /// Zero-based index of the set this segment belongs to.
+  ///
+  /// A set is a group of consecutive repetitions performed without a break.
+  /// The index restarts at zero for each exercise, so three sets of one
+  /// exercise followed by three of another produce 0, 1, 2, 0, 1, 2. Several
+  /// segments may share an index when they form one logical set.
+  ///
+  /// Must be non-negative if provided.
+  ///
+  /// **Health Connect (Android):** Mapped to and from
+  /// [`ExerciseSegment.setIndex`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#setIndex).
+  /// Subject to the same SDK Extension 21 requirement as [weight].
+  ///
+  /// **HealthKit (iOS):** Not yet persisted — always `null`. Unlike [weight],
+  /// HealthKit could carry this in `HKWorkoutEvent.metadata` the way segment
+  /// type and repetitions already are; that is a planned follow-up.
+  @sinceV3_10_0
+  @supportedOnHealthConnectSdkExtension21
+  final int? setIndex;
+
+  /// Borg CR10 rate of perceived exertion for this segment.
+  ///
+  /// Must be between 0 and 10 inclusive if provided.
+  ///
+  /// **Health Connect (Android):** Mapped to and from
+  /// [`ExerciseSegment.rateOfPerceivedExertion`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#rateOfPerceivedExertion).
+  /// Subject to the same SDK Extension 21 requirement as [weight].
+  ///
+  /// **HealthKit (iOS):** Not yet persisted — always `null`. Unlike [weight],
+  /// HealthKit could carry this in `HKWorkoutEvent.metadata` the way segment
+  /// type and repetitions already are; that is a planned follow-up.
+  @sinceV3_10_0
+  @supportedOnHealthConnectSdkExtension21
+  final double? rateOfPerceivedExertion;
+
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
@@ -242,7 +281,9 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
           endTime == other.endTime &&
           segmentType == other.segmentType &&
           repetitions == other.repetitions &&
-          weight == other.weight;
+          weight == other.weight &&
+          setIndex == other.setIndex &&
+          rateOfPerceivedExertion == other.rateOfPerceivedExertion;
 
   @override
   int get hashCode => Object.hash(
@@ -250,5 +291,7 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
     segmentType,
     repetitions,
     weight,
+    setIndex,
+    rateOfPerceivedExertion,
   );
 }

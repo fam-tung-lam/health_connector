@@ -442,6 +442,12 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     }
 
     /**
+     * Returns whether this device can persist `ExerciseSegment.weight`, i.e. whether its
+     * Health Connect Mainline module is at SDK Extension 21 or higher.
+     */
+    fun isExerciseSegmentWeightSupported(): Boolean = supportsHealthConnectSdkExtension21
+
+    /**
      * Reads a single health record by ID.
      *
      * @param request Contains the data type and record ID to read
@@ -585,7 +591,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 )
             }
 
-            validateExerciseSessionSegmentWeights(listOf(record))
+            validateExerciseSessionSegmentExtendedFields(listOf(record))
 
             val recordId = handler.writeRecord(record)
 
@@ -661,7 +667,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                     context = context,
                 )
 
-                validateExerciseSessionSegmentWeights(records)
+                validateExerciseSessionSegmentExtendedFields(records)
 
                 val response = client.insertRecords(
                     records.map { record -> record.toHealthConnect() },
@@ -721,7 +727,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 )
             }
 
-            validateExerciseSessionSegmentWeights(listOf(record))
+            validateExerciseSessionSegmentExtendedFields(listOf(record))
 
             handler.updateRecord(record)
 
@@ -791,7 +797,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 }
             }
 
-            validateExerciseSessionSegmentWeights(records)
+            validateExerciseSessionSegmentExtendedFields(records)
 
             client.updateRecords(
                 records.map { record -> record.toHealthConnect() },
@@ -1187,22 +1193,26 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
 
     /**
      * Throws [HealthConnectorException.UnsupportedOperation] if any record in the list is an
-     * [ExerciseSessionRecordDto] containing a segment with a non-null `weightKg` while the
-     * device does not support SDK Extension 21.
+     * [ExerciseSessionRecordDto] containing a segment with a non-null `weightKg`, `setIndex` or
+     * `rateOfPerceivedExertion` while the device does not support SDK Extension 21.
      */
-    private fun validateExerciseSessionSegmentWeights(records: List<HealthRecordDto>) {
+    private fun validateExerciseSessionSegmentExtendedFields(records: List<HealthRecordDto>) {
         if (supportsHealthConnectSdkExtension21) return
 
         records.filterIsInstance<ExerciseSessionRecordDto>().forEach { exerciseDto ->
-            val hasSegmentWeight = exerciseDto.events
+            val hasExtendedField = exerciseDto.events
                 .filterIsInstance<ExerciseSessionSegmentEventDto>()
-                .any { it.weightKg != null }
+                .any {
+                    it.weightKg != null ||
+                        it.setIndex != null ||
+                        it.rateOfPerceivedExertion != null
+                }
 
-            if (hasSegmentWeight) {
+            if (hasExtendedField) {
                 throw HealthConnectorException.UnsupportedOperation(
-                    message = "Writing ExerciseSessionSegmentEvent.weight requires " +
-                        "Health Connect SDK Extension 21 (Android 14+ with the latest " +
-                        "Health Connect Mainline update). " +
+                    message = "Writing ExerciseSessionSegmentEvent.weight, setIndex or " +
+                        "rateOfPerceivedExertion requires Health Connect SDK Extension 21 " +
+                        "(Android 14+ with the latest Health Connect Mainline update). " +
                         "This device does not meet the requirement.",
                 )
             }

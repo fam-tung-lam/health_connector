@@ -1341,11 +1341,17 @@ try {
 > leverage these annotations and integrate with the Dart analyzer through custom lint rules to guide developers in
 > using the SDK API correctly.
 
-`ExerciseSessionSegmentEvent.weight` is annotated with
-`@supportedOnHealthConnectSdkExtension21`. This field maps to
-[`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight)
-in the Health Connect SDK, which is only available on devices whose Health
-Connect Mainline module is at **SDK Extension 21 or higher**.
+### Exercise Segment Weight, Set Index, and RPE (SDK Extension 21)
+
+`ExerciseSessionSegmentEvent.weight`, `.setIndex`, and `.rateOfPerceivedExertion` are all
+annotated with `@supportedOnHealthConnectSdkExtension21`. These fields map to
+[`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight),
+[`ExerciseSegment.setIndex`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#setIndex),
+and
+[`ExerciseSegment.rateOfPerceivedExertion`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#rateOfPerceivedExertion)
+in the Health Connect SDK. All three are gated behind the same check, and are only
+available on devices whose Health Connect Mainline module is at **SDK Extension 21 or
+higher**.
 
 **Platform behavior summary:**
 
@@ -1356,30 +1362,38 @@ Connect Mainline module is at **SDK Extension 21 or higher**.
 | Android < 14                                      | Throws `UnsupportedOperationException`   | `null`     |
 | iOS HealthKit                                     | Throws `UnsupportedOperationException`   | `null`     |
 
-**Recommended pattern:**
+**Recommended pattern: check the capability first, then fall back to the exception catch.**
 
 ```dart
-// Always guard non-null weight writes
+// 1. Ask before writing, so you can adapt the UI instead of racing an exception.
+final supportsExtendedFields = await connector.isExerciseSegmentWeightSupported();
+
 final segment = ExerciseSessionSegmentEvent(
   startTime: startTime,
   endTime: endTime,
   segmentType: ExerciseSegmentType.benchPress,
   repetitions: 10,
-  weight: Mass.fromKilograms(80), // requires SDK Extension 21+ on Android
+  weight: supportsExtendedFields ? Mass.kilograms(80) : null,
+  setIndex: supportsExtendedFields ? 0 : null,
+  rateOfPerceivedExertion: supportsExtendedFields ? 7.5 : null,
 );
 
+// 2. Keep the catch as a backstop: the capability check is evaluated once at
+//    client creation and cached, so treat it as a strong signal, not a guarantee
+//    against every edge case.
 try {
   await connector.writeRecord(exerciseSession);
 } on UnsupportedOperationException catch (e) {
-  // Device does not support ExerciseSessionSegmentEvent.weight.
-  // Either omit the weight field or inform the user.
-  print('Segment weight not supported on this device: $e');
+  // Device does not support these segment fields.
+  // Either omit them or inform the user.
+  print('Segment weight, set index, or RPE not supported on this device: $e');
 }
 ```
 
-> **Important**: This check is a **runtime** device capability check, not a compile-time
-> check. The same app binary may succeed on one Android 14 device and throw on another,
-> depending on whether that device has received the relevant Mainline update.
+> **Important**: `isExerciseSegmentWeightSupported()` and the write-time guard are both
+> **runtime** device capability checks, not compile-time checks. The same app binary may
+> succeed on one Android 14 device and throw on another, depending on whether that device
+> has received the relevant Mainline update.
 
 ## References
 

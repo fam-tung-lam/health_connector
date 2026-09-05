@@ -319,4 +319,11 @@ abstract interface class HealthConnectorPlatformClient {
   /// - [HealthConnectorException] if the platform request fails
   @sinceV3_8_0
   Future<ExerciseRoute?> readExerciseRoute(HealthRecordId exerciseSessionId);
+
+  /// Whether this device can persist [ExerciseSessionSegmentEvent.weight].
+  ///
+  /// Health Connect requires SDK Extension 21 for segment weights; HealthKit
+  /// has no equivalent field and always reports false.
+  @sinceV3_10_0
+  Future<bool> isExerciseSegmentWeightSupported();
 }

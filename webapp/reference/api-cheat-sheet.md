@@ -31,6 +31,7 @@ final connector = await HealthConnector.create();
 | Call | Platform | Notes |
 |---|---|---|
 | `getFeatureStatus(feature)` | Both | iOS always returns `available` |
+| `isExerciseSegmentWeightSupported()` | Both | Whether the device supports `ExerciseSessionSegmentEvent.weight`/`.setIndex`/`.rateOfPerceivedExertion`; always `false` on iOS |
 
 ## Reading
 

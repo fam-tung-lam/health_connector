@@ -23,6 +23,8 @@ class ExerciseSessionEventMapperTest {
         const val TEST_REPETITIONS = 10
         const val TEST_DISTANCE_METERS = 100.0
         const val TEST_WEIGHT_KG = 80.0
+        const val TEST_SET_INDEX = 2
+        const val TEST_RPE = 7.5f
     }
 
     @Test
@@ -204,6 +206,100 @@ class ExerciseSessionEventMapperTest {
 
         // Then
         segment.weight shouldBe null
+    }
+
+    @Test
+    @DisplayName(
+        "GIVEN ExerciseSegment with setIndex and RPE → WHEN toDto → THEN both are preserved",
+    )
+    fun whenExerciseSegmentWithSetIndexAndRpeToDto_thenBothArePreserved() {
+        // Given
+        val segment = ExerciseSegment(
+            startTime = Instant.ofEpochMilli(TEST_START_TIME),
+            endTime = Instant.ofEpochMilli(TEST_END_TIME),
+            segmentType = ExerciseSegment.EXERCISE_SEGMENT_TYPE_BENCH_PRESS,
+            repetitions = TEST_REPETITIONS,
+            weight = Mass.kilograms(TEST_WEIGHT_KG),
+            setIndex = TEST_SET_INDEX,
+            rateOfPerceivedExertion = TEST_RPE,
+        )
+
+        // When
+        val dto = segment.toDto()
+
+        // Then
+        dto.setIndex shouldBe TEST_SET_INDEX.toLong()
+        dto.rateOfPerceivedExertion shouldBe TEST_RPE.toDouble()
+    }
+
+    @Test
+    @DisplayName(
+        "GIVEN ExerciseSegment without setIndex or RPE → WHEN toDto → THEN both are null",
+    )
+    fun whenExerciseSegmentWithoutSetIndexOrRpeToDto_thenBothAreNull() {
+        // Given
+        val segment = ExerciseSegment(
+            startTime = Instant.ofEpochMilli(TEST_START_TIME),
+            endTime = Instant.ofEpochMilli(TEST_END_TIME),
+            segmentType = ExerciseSegment.EXERCISE_SEGMENT_TYPE_RUNNING,
+            repetitions = TEST_REPETITIONS,
+        )
+
+        // When
+        val dto = segment.toDto()
+
+        // Then
+        dto.setIndex shouldBe null
+        dto.rateOfPerceivedExertion shouldBe null
+    }
+
+    @Test
+    @DisplayName(
+        "GIVEN ExerciseSessionSegmentEventDto with setIndex and RPE → " +
+            "WHEN toHealthConnect → THEN both are preserved",
+    )
+    fun whenExerciseSessionSegmentEventDtoWithSetIndexAndRpeToHealthConnect_thenBothArePreserved() {
+        // Given
+        val dto = ExerciseSessionSegmentEventDto(
+            startTime = TEST_START_TIME,
+            endTime = TEST_END_TIME,
+            segmentType = ExerciseSegmentTypeDto.BENCH_PRESS,
+            repetitions = TEST_REPETITIONS.toLong(),
+            weightKg = TEST_WEIGHT_KG,
+            setIndex = TEST_SET_INDEX.toLong(),
+            rateOfPerceivedExertion = TEST_RPE.toDouble(),
+        )
+
+        // When
+        val segment = dto.toHealthConnect()
+
+        // Then
+        segment.setIndex shouldBe TEST_SET_INDEX
+        segment.rateOfPerceivedExertion shouldBe TEST_RPE
+    }
+
+    @Test
+    @DisplayName(
+        "GIVEN ExerciseSessionSegmentEventDto with null setIndex and RPE → " +
+            "WHEN toHealthConnect → THEN both are null",
+    )
+    fun whenExerciseSessionSegmentEventDtoWithNullSetIndexAndRpeToHealthConnect_thenBothAreNull() {
+        // Given
+        val dto = ExerciseSessionSegmentEventDto(
+            startTime = TEST_START_TIME,
+            endTime = TEST_END_TIME,
+            segmentType = ExerciseSegmentTypeDto.RUNNING,
+            repetitions = TEST_REPETITIONS.toLong(),
+            setIndex = null,
+            rateOfPerceivedExertion = null,
+        )
+
+        // When
+        val segment = dto.toHealthConnect()
+
+        // Then
+        segment.setIndex shouldBe null
+        segment.rateOfPerceivedExertion shouldBe null
     }
 
     @Test
