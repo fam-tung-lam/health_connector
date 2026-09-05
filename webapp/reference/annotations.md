@@ -65,7 +65,7 @@ try {
 A future `health_connector_lint` release will surface these annotations through the Dart analyzer, so the constraints become analyzer warnings instead of documentation you have to remember.
 :::
 
-## Exercise segment weight, set index, and RPE and SDK Extension 21 {#exercise-segment-weight-and-sdk-extension-21}
+## Exercise segment weight, set index, and RPE (SDK Extension 21) {#exercise-segment-weight-and-sdk-extension-21}
 
 `ExerciseSessionSegmentEvent.weight`, `.setIndex`, and `.rateOfPerceivedExertion` are all annotated `@supportedOnHealthConnectSdkExtension21`. They map to [`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight), [`ExerciseSegment.setIndex`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#setIndex), and [`ExerciseSegment.rateOfPerceivedExertion`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#rateOfPerceivedExertion) respectively, all of which only exist on devices whose Health Connect Mainline module is at **SDK Extension 21 or higher**.
 
