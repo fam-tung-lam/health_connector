@@ -41,7 +41,7 @@ android {
 ```
 
 ::: warning `compileSdkExtension 19` is not the same as SDK Extension 21
-Extension 19 satisfies the build. Writing `ExerciseSessionSegmentEvent.weight` separately requires the **device's** Health Connect Mainline module to be at Extension 21, checked at runtime. [Details](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
+Extension 19 satisfies the build. Writing `ExerciseSessionSegmentEvent.weight`, `.setIndex`, or `.rateOfPerceivedExertion` separately requires the **device's** Health Connect Mainline module to be at Extension 21, checked at runtime. [Details](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
 :::
 
 ## iOS build configuration
