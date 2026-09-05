@@ -46,11 +46,25 @@ extension ExerciseSessionEventToDto on ExerciseSessionEvent {
         :final segmentType,
         :final repetitions,
         :final weight,
+        :final setIndex,
+        :final rateOfPerceivedExertion,
       ) =>
         weight != null
             ? throw const UnsupportedOperationException(
                 'ExerciseSessionSegmentEvent.weight is not supported on iOS '
                 'HealthKit. HKWorkoutEvent does not have a weight field.',
+              )
+            : setIndex != null
+            ? throw const UnsupportedOperationException(
+                'ExerciseSessionSegmentEvent.setIndex is not supported on '
+                'iOS HealthKit. HKWorkoutEvent does not have a setIndex '
+                'field.',
+              )
+            : rateOfPerceivedExertion != null
+            ? throw const UnsupportedOperationException(
+                'ExerciseSessionSegmentEvent.rateOfPerceivedExertion is not '
+                'supported on iOS HealthKit. HKWorkoutEvent does not have a '
+                'rateOfPerceivedExertion field.',
               )
             : ExerciseSessionSegmentEventDto(
                 startTime: startTime.millisecondsSinceEpoch,

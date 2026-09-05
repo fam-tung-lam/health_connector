@@ -1341,7 +1341,7 @@ try {
 > leverage these annotations and integrate with the Dart analyzer through custom lint rules to guide developers in
 > using the SDK API correctly.
 
-#### Exercise Segment Weight, Set Index, and RPE (SDK Extension 21)
+### Exercise Segment Weight, Set Index, and RPE (SDK Extension 21)
 
 `ExerciseSessionSegmentEvent.weight`, `.setIndex`, and `.rateOfPerceivedExertion` are all
 annotated with `@supportedOnHealthConnectSdkExtension21`. These fields map to
