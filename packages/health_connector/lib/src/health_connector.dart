@@ -601,7 +601,7 @@ abstract interface class HealthConnector {
   ///   // Omit segment weight, or catch UnsupportedOperationException.
   /// }
   /// ```
-  @sinceV3_10_0
+  @sinceV3_11_0
   Future<bool> isExerciseSegmentWeightSupported();
 
   /// Reads a single health record by ID.

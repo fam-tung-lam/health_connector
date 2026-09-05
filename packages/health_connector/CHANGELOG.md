@@ -1,8 +1,3 @@
-## Unreleased
-
-- **FEAT**(hc_android): Map `ExerciseSessionSegmentEvent.setIndex` and `.rateOfPerceivedExertion` from `ExerciseSegment`, alongside the existing `.weight` mapping. All three fields require Health Connect SDK Extension 21.
-- **FEAT**: Add `HealthConnector.isExerciseSegmentWeightSupported()` to check ahead of time whether the device's Health Connect Mainline module supports `ExerciseSessionSegmentEvent.weight`, `.setIndex`, and `.rateOfPerceivedExertion`, instead of relying solely on catching `UnsupportedOperationException` after a failed write. Always `false` on iOS.
-
 ## 3.10.0
 
 - **FEAT**(hc_android): Support built-in Kotlin for Flutter versions earlier than 3.44. ([32949a7a](https://github.com/fam-tung-lam/health_connector/commit/32949a7a652e9de99056d04f11ff26951e00ea54))
