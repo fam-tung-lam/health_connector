@@ -233,7 +233,7 @@ extension HKWorkoutActivityType {
             .running
         case .walking:
             .walking
-        case .cycling:
+        case .cycling, .cyclingStationary:
             .cycling
         case .hiking:
             .hiking

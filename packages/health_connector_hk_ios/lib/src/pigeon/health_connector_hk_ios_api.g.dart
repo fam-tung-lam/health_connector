@@ -665,6 +665,9 @@ enum ExerciseTypeDto {
   /// Multisport
   transition,
   swimBikeRun,
+
+  /// Stationary cycling, appended to preserve existing Pigeon enum indices.
+  cyclingStationary,
 }
 
 /// Mindfulness session type classification.

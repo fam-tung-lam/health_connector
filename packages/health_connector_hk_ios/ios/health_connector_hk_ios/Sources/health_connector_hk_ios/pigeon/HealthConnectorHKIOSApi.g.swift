@@ -641,6 +641,8 @@ public enum ExerciseTypeDto: Int {
   /// Multisport
   case transition = 78
   case swimBikeRun = 79
+  /// Stationary cycling, appended to preserve existing Pigeon enum indices.
+  case cyclingStationary = 80
 }
 
 /// Mindfulness session type classification.

@@ -5,7 +5,13 @@ import HealthKit
 extension HKWorkout {
     /// Converts `HKWorkout` to `ExerciseSessionRecordDto`.
     func toHKWorkoutDto() throws -> ExerciseSessionRecordDto {
-        let exerciseType = workoutActivityType.toDto()
+        let exerciseType =
+            if workoutActivityType == .cycling,
+            metadata?[HKMetadataKeyIndoorWorkout] as? Bool == true {
+                ExerciseTypeDto.cyclingStationary
+            } else {
+                workoutActivityType.toDto()
+            }
 
         // Create builder from HK metadata with source and device
         var builder = MetadataBuilder(
@@ -62,6 +68,15 @@ extension ExerciseSessionRecordDto {
         }
         if let notes {
             builder.set(ExerciseSessionNotesKey.self, value: notes)
+        }
+
+        switch exerciseType {
+        case .cyclingStationary:
+            builder.set(standardKey: HKMetadataKeyIndoorWorkout, value: NSNumber(value: true))
+        case .cycling:
+            builder.set(standardKey: HKMetadataKeyIndoorWorkout, value: NSNumber(value: false))
+        default:
+            break
         }
 
         // Add timezone information for start time

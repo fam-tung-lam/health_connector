@@ -65,6 +65,24 @@ void main() {
         expect(intersection, isEmpty);
       });
 
+      parameterizedTest(
+        'cycling environment types are supported on both platforms',
+        [
+          [ExerciseType.cycling],
+          [ExerciseType.cyclingStationary],
+        ],
+        (ExerciseType type) {
+          expect(
+            type.isSupportedOnPlatform(HealthPlatform.appleHealth),
+            isTrue,
+          );
+          expect(
+            type.isSupportedOnPlatform(HealthPlatform.healthConnect),
+            isTrue,
+          );
+        },
+      );
+
       test('every ExerciseType is in at most one platform-only list', () {
         final appleOnly = ExerciseType.other.getExerciseTypesForPlatform(
           HealthPlatform.appleHealth,

@@ -1231,7 +1231,8 @@ abstract final class AppTexts {
   // Exercise Types - Common (Android + iOS)
   static const String exerciseRunning = 'Running';
   static const String exerciseWalking = 'Walking';
-  static const String exerciseCycling = 'Cycling';
+  static const String exerciseCycling = 'Outdoor Cycling';
+  static const String exerciseBikingStationary = 'Indoor Cycling';
   static const String exerciseHiking = 'Hiking';
   static const String exerciseSwimming = 'Swimming';
   static const String exerciseSurfing = 'Surfing';
@@ -1316,7 +1317,6 @@ abstract final class AppTexts {
 
   // Health Connect specific or new cross-platform types
   static const String exerciseOtherWorkout = 'Other Workout';
-  static const String exerciseBikingStationary = 'Stationary Biking';
   static const String exerciseBootCamp = 'Boot Camp';
   static const String exerciseExerciseClass = 'Exercise Class';
   static const String exerciseFrisbeeDisc = 'Frisbee Disc';

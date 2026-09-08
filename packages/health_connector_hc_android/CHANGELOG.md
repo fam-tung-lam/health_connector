@@ -1,3 +1,10 @@
+## Unreleased
+
+- **FIX**: Clarify that Health Connect biking maps to `ExerciseType.cycling`
+  (outdoor) and stationary biking maps to `ExerciseType.cyclingStationary`
+  (indoor)
+  ([#218](https://github.com/fam-tung-lam/health_connector/issues/218)).
+
 ## 3.7.0
 
 - **FEAT**: Support built-in Kotlin for Flutter versions earlier than 3.44. ([32949a7a](https://github.com/fam-tung-lam/health_connector/commit/32949a7a652e9de99056d04f11ff26951e00ea54))

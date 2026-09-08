@@ -14,6 +14,7 @@ extension ExerciseTypeToDto on ExerciseType {
       ExerciseType.running => ExerciseTypeDto.running,
       ExerciseType.walking => ExerciseTypeDto.walking,
       ExerciseType.cycling => ExerciseTypeDto.cycling,
+      ExerciseType.cyclingStationary => ExerciseTypeDto.cyclingStationary,
       ExerciseType.hiking => ExerciseTypeDto.hiking,
 
       // Water Sports
@@ -116,7 +117,6 @@ extension ExerciseTypeToDto on ExerciseType {
 
       // Android Health Connect only types
       ExerciseType.runningTreadmill ||
-      ExerciseType.cyclingStationary ||
       ExerciseType.swimmingOpenWater ||
       ExerciseType.swimmingPool ||
       ExerciseType.weightlifting ||
@@ -147,6 +147,7 @@ extension ExerciseTypeDtoToDomain on ExerciseTypeDto {
       ExerciseTypeDto.running => ExerciseType.running,
       ExerciseTypeDto.walking => ExerciseType.walking,
       ExerciseTypeDto.cycling => ExerciseType.cycling,
+      ExerciseTypeDto.cyclingStationary => ExerciseType.cyclingStationary,
       ExerciseTypeDto.hiking => ExerciseType.hiking,
       // Water Sports
       ExerciseTypeDto.swimming => ExerciseType.swimming,

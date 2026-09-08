@@ -1,3 +1,10 @@
+## Unreleased
+
+- **FIX**: Define `ExerciseType.cycling` as outdoor cycling and
+  `ExerciseType.cyclingStationary` as indoor cycling, with both types supported
+  on HealthKit and Health Connect
+  ([#218](https://github.com/fam-tung-lam/health_connector/issues/218)).
+
 ## 3.9.3
 
 - **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.

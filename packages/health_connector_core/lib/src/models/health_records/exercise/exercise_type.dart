@@ -70,21 +70,20 @@ enum ExerciseType {
   /// - **Android Health Connect**: `EXERCISE_TYPE_WALKING`
   walking,
 
-  /// Cycling or biking activity.
+  /// Outdoor cycling or biking activity.
   ///
   /// **Platform Mappings:**
-  /// - **iOS HealthKit**: `HKWorkoutActivityType.cycling`
+  /// - **iOS HealthKit**: `HKWorkoutActivityType.cycling` when
+  ///   `HKMetadataKeyIndoorWorkout` is `false`, missing, or invalid
   /// - **Android Health Connect**: `EXERCISE_TYPE_BIKING`
   cycling,
 
-  /// Stationary cycling or biking.
+  /// Stationary cycling or biking, normalized as indoor cycling.
   ///
   /// **Platform Mappings:**
-  /// - **iOS HealthKit**: Not supported
+  /// - **iOS HealthKit**: `HKWorkoutActivityType.cycling` with
+  ///   `HKMetadataKeyIndoorWorkout == true`
   /// - **Android Health Connect**: `EXERCISE_TYPE_BIKING_STATIONARY`
-  ///
-  /// Throws [UnsupportedOperationException] on iOS HealthKit.
-  @supportedOnHealthConnect
   cyclingStationary,
 
   /// Hiking activity.
@@ -1015,7 +1014,7 @@ extension ExerciseTypeExtension on ExerciseType {
   /// final androidOnlyTypes = ExerciseType.other.getExerciseTypesForPlatform(
   ///   HealthPlatform.healthConnect,
   /// );
-  /// // Returns: [runningTreadmill, cyclingStationary, weightlifting, ...]
+  /// // Returns: [runningTreadmill, weightlifting, ...]
   /// ```
   List<ExerciseType> getExerciseTypesForPlatform(HealthPlatform platform) {
     switch (platform) {
@@ -1031,7 +1030,6 @@ extension ExerciseTypeExtension on ExerciseType {
   /// on the enum values.
   static const Set<ExerciseType> _healthConnectOnlyTypes = {
     ExerciseType.runningTreadmill,
-    ExerciseType.cyclingStationary,
     ExerciseType.swimmingOpenWater,
     ExerciseType.swimmingPool,
     ExerciseType.weightlifting,

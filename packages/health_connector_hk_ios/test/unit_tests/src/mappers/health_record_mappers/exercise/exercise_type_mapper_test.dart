@@ -18,6 +18,10 @@ void main() {
               [ExerciseType.running, ExerciseTypeDto.running],
               [ExerciseType.walking, ExerciseTypeDto.walking],
               [ExerciseType.cycling, ExerciseTypeDto.cycling],
+              [
+                ExerciseType.cyclingStationary,
+                ExerciseTypeDto.cyclingStationary,
+              ],
               [ExerciseType.hiking, ExerciseTypeDto.hiking],
               // Water Sports
               [ExerciseType.swimming, ExerciseTypeDto.swimming],
@@ -136,10 +140,6 @@ void main() {
                 throwsA(isA<ArgumentError>()),
               );
               expect(
-                () => ExerciseType.cyclingStationary.toDto(),
-                throwsA(isA<ArgumentError>()),
-              );
-              expect(
                 () => ExerciseType.swimmingOpenWater.toDto(),
                 throwsA(isA<ArgumentError>()),
               );
@@ -210,6 +210,10 @@ void main() {
               [ExerciseTypeDto.running, ExerciseType.running],
               [ExerciseTypeDto.walking, ExerciseType.walking],
               [ExerciseTypeDto.cycling, ExerciseType.cycling],
+              [
+                ExerciseTypeDto.cyclingStationary,
+                ExerciseType.cyclingStationary,
+              ],
               [ExerciseTypeDto.hiking, ExerciseType.hiking],
               // Water Sports
               [ExerciseTypeDto.swimming, ExerciseType.swimming],

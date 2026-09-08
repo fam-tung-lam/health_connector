@@ -1,3 +1,10 @@
+## Unreleased
+
+- **FIX**: Define `ExerciseType.cycling` as outdoor cycling and
+  `ExerciseType.cyclingStationary` as indoor cycling across HealthKit and
+  Health Connect
+  ([#218](https://github.com/fam-tung-lam/health_connector/issues/218)).
+
 ## 3.10.0
 
 - **FEAT**(hc_android): Support built-in Kotlin for Flutter versions earlier than 3.44. ([32949a7a](https://github.com/fam-tung-lam/health_connector/commit/32949a7a652e9de99056d04f11ff26951e00ea54))
