@@ -3,7 +3,7 @@
 ## Product identity
 
 - App name: `Health Connector Toolbox`
-- Version: `1.0.0` (`3`)
+- Version: `1.0.0` (`4`)
 - Android application ID: `com.phamtunglam.healthconnector`
 - Apple bundle ID: `com.phamtunglam.healthconnector`
 - Default locale: English (United States)
@@ -24,8 +24,8 @@ Google Play short description:
 
 App Store description:
 
-> Health Connector Toolbox helps you inspect and manage the health data already
-> stored in Apple Health on your iPhone or iPad.
+> Health Connector Toolbox uses Apple's HealthKit framework to help you inspect
+> and manage health data stored in the Health app on your iPhone or iPad.
 >
 > Choose exactly which data types the app can access. Browse records over a time
 > range, view totals and averages for supported metrics, add health entries, and
@@ -107,6 +107,11 @@ What's new:
 > Aggregate Data calculates supported totals, averages, minimums, or maximums.
 > Incremental Data Sync shows changes for authorized data types. Health data
 > never leaves the device. The app provides no medical advice.
+>
+> This iOS build uses HealthKit only; it does not use CareKit. On launch, the
+> Health Data Source card identifies the integration as "Apple Health
+> (HealthKit)" and explains its authorized read, summary, write, and delete
+> operations. The Privacy & Data page provides the same HealthKit disclosure.
 
 ## Android release signing
 

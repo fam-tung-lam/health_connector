@@ -15,6 +15,20 @@ final class PrivacyPolicyPage extends StatelessWidget {
       HealthPlatform.appleHealth => 'Apple Health',
       HealthPlatform.healthConnect => 'Health Connect',
     };
+    final integrationTitle = switch (healthPlatform) {
+      HealthPlatform.appleHealth => 'Apple Health and HealthKit',
+      HealthPlatform.healthConnect => 'Health Connect integration',
+    };
+    final integrationBody = switch (healthPlatform) {
+      HealthPlatform.appleHealth =>
+        'The Toolbox uses HealthKit to read and summarize only the health data '
+            'types you authorize. It uses HealthKit to save entries you create '
+            'and to delete only entries created by this app.',
+      HealthPlatform.healthConnect =>
+        'The Toolbox uses Health Connect to read and summarize only the health '
+            'data types you authorize. It saves entries you create and deletes '
+            'only entries created by this app.',
+    };
     final controlsBody = switch (healthPlatform) {
       HealthPlatform.appleHealth =>
         'You can grant only the permissions needed for a feature. You can '
@@ -32,6 +46,10 @@ final class PrivacyPolicyPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
+            _PrivacySection(
+              title: integrationTitle,
+              body: integrationBody,
+            ),
             _PrivacySection(
               title: 'Your data stays on your device',
               body:

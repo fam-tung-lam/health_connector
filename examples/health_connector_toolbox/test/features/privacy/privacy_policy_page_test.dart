@@ -21,14 +21,16 @@ void main() {
     // When the privacy information is displayed.
     await tester.pumpAndSettle();
 
-    // Then every platform-specific disclosure is about Apple Health.
+    // Then every platform-specific disclosure identifies Apple HealthKit.
     expect(find.text('Your data stays on your device'), findsOneWidget);
     expect(find.textContaining('Apple Health'), findsWidgets);
+    expect(find.textContaining('HealthKit'), findsWidgets);
     expect(
       find.textContaining(RegExp('Health Connect(?!or)')),
       findsNothing,
     );
     expect(find.textContaining('Android'), findsNothing);
+    expect(find.textContaining('CareKit'), findsNothing);
   });
 
   testWidgets('Health Connect privacy page excludes Apple Health details', (
@@ -54,6 +56,7 @@ void main() {
       findsWidgets,
     );
     expect(find.textContaining('Apple Health'), findsNothing);
+    expect(find.textContaining('HealthKit'), findsNothing);
     expect(find.textContaining('iOS'), findsNothing);
   });
 

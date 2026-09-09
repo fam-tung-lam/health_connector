@@ -14,6 +14,15 @@ extension HealthPlatformUI on HealthPlatform {
     };
   }
 
+  /// Returns the user-facing explanation of this platform integration.
+  String get integrationDescription {
+    return switch (this) {
+      HealthPlatform.appleHealth => AppTexts.appleHealthIntegrationDescription,
+      HealthPlatform.healthConnect =>
+        AppTexts.healthConnectIntegrationDescription,
+    };
+  }
+
   /// Returns the icon for this health platform.
   IconData get icon {
     return switch (this) {

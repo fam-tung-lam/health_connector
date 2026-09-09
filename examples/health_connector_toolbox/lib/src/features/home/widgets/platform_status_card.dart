@@ -104,6 +104,14 @@ final class PlatformStatusCard extends StatelessWidget {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        healthPlatform.integrationDescription,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                          height: 1.4,
+                        ),
+                      ),
                     ],
                   ),
                 ),

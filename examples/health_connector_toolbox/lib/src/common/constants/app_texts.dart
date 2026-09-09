@@ -349,8 +349,14 @@ abstract final class AppTexts {
   // endregion
 
   // region Health Platforms
-  static const String appleHealth = 'Apple Health';
+  static const String appleHealth = 'Apple Health (HealthKit)';
+  static const String appleHealthIntegrationDescription =
+      'Uses HealthKit to read and summarize authorized data, and to manage '
+      'entries created by this app';
   static const String healthConnect = 'Health Connect';
+  static const String healthConnectIntegrationDescription =
+      'Uses Health Connect to read and summarize authorized data, and to '
+      'manage entries created by this app';
 
   // endregion
 
