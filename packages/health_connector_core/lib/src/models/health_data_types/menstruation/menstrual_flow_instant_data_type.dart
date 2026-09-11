@@ -83,7 +83,7 @@ final class MenstrualFlowInstantDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    HealthConnectRequirement.allVersions,
+    HealthConnectRequirement.none,
   ];
 
   @override

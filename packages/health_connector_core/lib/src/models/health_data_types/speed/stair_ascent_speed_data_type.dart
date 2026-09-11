@@ -37,7 +37,7 @@ final class StairAscentSpeedDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.ios16,
+    AppleHealthRequirement.ios16OrLater,
   ];
 
   @override

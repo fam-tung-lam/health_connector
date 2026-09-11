@@ -20,14 +20,14 @@ sealed class HealthPlatformFeature {
       HealthPlatformFeaturePermission(this);
 
   /// Requirements for each platform that supports this feature.
-  @sinceV4_0_0
+  @sinceV3_11_0
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
       HealthPlatformRequirement.allPlatforms;
 
   /// The health platforms that support this feature.
   @Deprecated(
     'Use healthPlatformRequirements.supportedHealthPlatforms instead. '
-    'Will be removed in 4.1.0.',
+    'Will be removed in 4.0.0.',
   )
   List<HealthPlatform> get supportedHealthPlatforms =>
       healthPlatformRequirements.supportedHealthPlatforms;

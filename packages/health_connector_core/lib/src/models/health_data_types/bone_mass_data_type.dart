@@ -40,7 +40,7 @@ final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    HealthConnectRequirement.allVersions,
+    HealthConnectRequirement.none,
   ];
 
   @override

@@ -17,6 +17,11 @@ on:
         type: string
         required: false
         default: '26'
+      run-native-tests:
+        description: 'Run the example app native iOS tests'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -42,11 +47,13 @@ jobs:
         uses: ./.github/actions/setup-melos
 
       - name: Setup CocoaPods cache
+        if: ${{ hashFiles(format('{0}/example/ios/Podfile', inputs.package-path)) != '' }}
         uses: ./.github/actions/setup-cocoapods
         with:
           podfile-path: ${{ inputs.package-path }}/example/ios/Podfile.lock
 
       - name: Install CocoaPods dependencies
+        if: ${{ hashFiles(format('{0}/example/ios/Podfile', inputs.package-path)) != '' }}
         working-directory: ${{ inputs.package-path }}/example/ios
         run: |
           # Use --deployment when Podfile.lock exists for reproducible CI; otherwise --repo-update.
@@ -68,6 +75,21 @@ jobs:
         # 3. Debug builds provide better error messages for catching plugin integration issues
         #    during CI validation.
         run: flutter build ios --no-codesign --debug
+
+      - name: Run native iOS tests
+        if: inputs.run-native-tests
+        working-directory: ${{ inputs.package-path }}/example/ios
+        run: |
+          destination_id=$(xcrun simctl list devices available | awk -F '[()]' '/iPhone/{print $2; exit}')
+          if [[ -z "$destination_id" ]]; then
+            echo "No available iPhone simulator found."
+            exit 1
+          fi
+          xcodebuild test \
+            -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -destination "platform=iOS Simulator,id=$destination_id" \
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Upload build logs on failure
         if: failure()

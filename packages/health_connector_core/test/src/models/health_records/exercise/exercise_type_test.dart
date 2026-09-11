@@ -20,21 +20,21 @@ void main() {
         );
         expect(
           ExerciseType.runningTreadmill.healthPlatformRequirements,
-          const [HealthConnectRequirement.allVersions],
+          const [HealthConnectRequirement.none],
         );
         expect(
           ExerciseType.swimming.healthPlatformRequirements,
-          const [AppleHealthRequirement.allVersions],
+          const [AppleHealthRequirement.none],
         );
         expect(
           ExerciseType.transition.healthPlatformRequirements,
-          const [AppleHealthRequirement.ios16],
+          const [AppleHealthRequirement.ios16OrLater],
         );
         expect(
           ExerciseType.diving.healthPlatformRequirements,
           const [
-            AppleHealthRequirement.ios17,
-            HealthConnectRequirement.allVersions,
+            AppleHealthRequirement.ios17OrLater,
+            HealthConnectRequirement.none,
           ],
         );
       });

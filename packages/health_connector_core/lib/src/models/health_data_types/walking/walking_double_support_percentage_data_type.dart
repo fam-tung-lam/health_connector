@@ -89,7 +89,7 @@ final class WalkingDoubleSupportPercentageDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.none,
   ];
 
   @override

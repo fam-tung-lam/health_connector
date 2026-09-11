@@ -64,16 +64,9 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 context: context
             )
 
-            let version = ProcessInfo.processInfo.operatingSystemVersion
-            completion(
-                .success(
-                    OperatingSystemInfoDto(
-                        majorVersion: Int64(version.majorVersion),
-                        minorVersion: Int64(version.minorVersion),
-                        patchVersion: Int64(version.patchVersion)
-                    )
-                )
-            )
+            let operatingSystemInfo = ProcessInfo.processInfo.operatingSystemVersion
+                .toOperatingSystemInfoDto()
+            completion(.success(operatingSystemInfo))
         } catch {
             HealthConnectorLogger.error(
                 tag: Self.tag,

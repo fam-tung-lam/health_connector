@@ -25,7 +25,7 @@ import 'package:health_connector_core/src/models/responses/read_records_response
 @internalUse
 abstract interface class HealthConnectorPlatformClient {
   /// Device operating-system facts captured during client initialization.
-  @sinceV4_0_0
+  @sinceV3_11_0
   OperatingSystemInfo get operatingSystemInfo;
 
   /// The configuration used by this client.

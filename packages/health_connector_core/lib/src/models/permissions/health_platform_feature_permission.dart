@@ -21,7 +21,7 @@ final class HealthPlatformFeaturePermission extends Permission {
   /// The health platforms that support [feature].
   @Deprecated(
     'Use feature.healthPlatformRequirements.supportedHealthPlatforms instead. '
-    'Will be removed in 4.1.0.',
+    'Will be removed in 4.0.0.',
   )
   List<HealthPlatform> get supportedHealthPlatforms =>
       feature.healthPlatformRequirements.supportedHealthPlatforms;

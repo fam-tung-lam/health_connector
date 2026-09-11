@@ -28,7 +28,7 @@ sealed class SpeedActivityDataType<R extends SpeedActivityRecord>
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.none,
   ];
 
   @override

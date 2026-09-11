@@ -13,6 +13,6 @@ sealed class NutrientDataType<R extends HealthRecord, U extends MeasurementUnit>
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.none,
   ];
 }

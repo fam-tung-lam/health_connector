@@ -9,13 +9,13 @@ sealed class ExerciseSessionEvent {
   const ExerciseSessionEvent();
 
   /// Requirements for each platform that supports this event kind.
-  @sinceV4_0_0
+  @sinceV3_11_0
   List<HealthPlatformRequirement> get healthPlatformRequirements;
 
   /// The health platforms that support this event kind.
   @Deprecated(
     'Use healthPlatformRequirements.supportedHealthPlatforms instead. '
-    'Will be removed in 4.1.0.',
+    'Will be removed in 4.0.0.',
   )
   List<HealthPlatform> get supportedHealthPlatforms =>
       healthPlatformRequirements.supportedHealthPlatforms;
@@ -108,7 +108,7 @@ final class ExerciseSessionStateTransitionEvent
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.none,
   ];
 }
 
@@ -129,7 +129,7 @@ final class ExerciseSessionMarkerEvent extends ExerciseSessionInstantEvent {
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.none,
   ];
 }
 
@@ -241,13 +241,13 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
       HealthPlatformRequirement.allPlatforms;
 
   /// Requirements for fields unavailable in the base segment event contract.
-  @sinceV4_0_0
+  @sinceV3_11_0
   static const List<HealthPlatformRequirement> extendedFieldsRequirements = [
-    HealthConnectRequirement.sdkExtension21,
+    HealthConnectRequirement.android14OrLaterWithSDKExtension21,
   ];
 
   /// Whether this event contains a field gated by additional requirements.
-  @sinceV4_0_0
+  @sinceV3_11_0
   bool get hasExtendedFields => weight != null;
 
   @override

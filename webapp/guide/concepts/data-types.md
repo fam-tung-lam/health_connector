@@ -48,7 +48,7 @@ Each type exposes its runtime requirements:
 ```dart
 final requirements = HealthDataType.infrequentMenstrualCycleEvent
     .healthPlatformRequirements;
-// [AppleHealthRequirement.ios16]
+// [AppleHealthRequirement.ios16OrLater]
 ```
 
 This type is supported on iOS 16 or later. Calling it on Android or iOS 15

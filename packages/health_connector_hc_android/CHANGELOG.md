@@ -1,5 +1,8 @@
 ## 3.7.1
 
+- **FEAT**: Return the Android API level and Health Connect SDK Extension
+  snapshot during connector initialization
+  ([#223](https://github.com/fam-tung-lam/health_connector/pull/223)).
 - **FIX**: Clarify that Health Connect biking maps to `ExerciseType.cycling`
   (outdoor) and stationary biking maps to `ExerciseType.cyclingStationary`
   (indoor)

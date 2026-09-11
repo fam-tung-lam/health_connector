@@ -3,7 +3,7 @@ import 'package:health_connector_core/src/models/health_platform_requirements/he
 import 'package:meta/meta.dart' show immutable;
 
 /// Whether a device satisfies a list of health platform requirements.
-@sinceV4_0_0
+@sinceV3_11_0
 sealed class HealthPlatformSupportStatus {
   /// Creates a health platform support status.
   const HealthPlatformSupportStatus();
@@ -13,7 +13,7 @@ sealed class HealthPlatformSupportStatus {
 }
 
 /// The requirements are satisfied by the current device.
-@sinceV4_0_0
+@sinceV3_11_0
 @immutable
 final class HealthPlatformSupported extends HealthPlatformSupportStatus {
   /// Creates a supported status.
@@ -24,7 +24,7 @@ final class HealthPlatformSupported extends HealthPlatformSupportStatus {
 }
 
 /// The requirements are not satisfied by the current device.
-@sinceV4_0_0
+@sinceV3_11_0
 @immutable
 final class HealthPlatformNotSupported extends HealthPlatformSupportStatus {
   /// Creates a not-supported status.
@@ -48,7 +48,7 @@ final class HealthPlatformNotSupported extends HealthPlatformSupportStatus {
 }
 
 /// Reasons health platform requirements may not be satisfied.
-@sinceV4_0_0
+@sinceV3_11_0
 enum HealthPlatformNotSupportedReason {
   /// No requirement exists for the current health platform.
   healthPlatform,

@@ -1,5 +1,13 @@
 ## 3.10.1
 
+- **FEAT**: Add runtime platform and OS requirement checks through
+  `HealthConnector.getSupportStatusFor`, backed by an immutable
+  `operatingSystemInfo` snapshot
+  ([#223](https://github.com/fam-tung-lam/health_connector/pull/223)).
+- **DEPRECATED**: Replace platform-only support projections and legacy
+  `supportedOn…` annotations with `healthPlatformRequirements`. Deprecated APIs
+  remain available until 4.0.0
+  ([#223](https://github.com/fam-tung-lam/health_connector/pull/223)).
 - **FIX**: Define `ExerciseType.cycling` as outdoor cycling and
   `ExerciseType.cyclingStationary` as indoor cycling across HealthKit and
   Health Connect

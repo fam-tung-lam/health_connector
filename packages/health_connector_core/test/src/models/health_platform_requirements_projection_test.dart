@@ -105,7 +105,7 @@ void main() {
   test('segment extended fields use SDK Extension 21', () {
     expect(
       ExerciseSessionSegmentEvent.extendedFieldsRequirements,
-      [HealthConnectRequirement.sdkExtension21],
+      [HealthConnectRequirement.android14OrLaterWithSDKExtension21],
     );
   });
 
@@ -140,21 +140,21 @@ void main() {
     for (final dataType in expectedIOS16) {
       expect(
         dataType.healthPlatformRequirements,
-        [AppleHealthRequirement.ios16],
+        [AppleHealthRequirement.ios16OrLater],
         reason: dataType.toString(),
       );
     }
     for (final dataType in expectedIOS17) {
       expect(
         dataType.healthPlatformRequirements,
-        [AppleHealthRequirement.ios17],
+        [AppleHealthRequirement.ios17OrLater],
         reason: dataType.toString(),
       );
     }
     for (final dataType in expectedIOS18) {
       expect(
         dataType.healthPlatformRequirements,
-        [AppleHealthRequirement.ios18],
+        [AppleHealthRequirement.ios18OrLater],
         reason: dataType.toString(),
       );
     }

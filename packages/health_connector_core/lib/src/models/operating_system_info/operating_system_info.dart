@@ -4,14 +4,14 @@ import 'package:health_connector_core/src/models/operating_system_info/ios_versi
 import 'package:meta/meta.dart' show immutable;
 
 /// Device operating-system facts captured during connector creation.
-@sinceV4_0_0
+@sinceV3_11_0
 sealed class OperatingSystemInfo {
   /// Creates an operating-system information snapshot.
   const OperatingSystemInfo();
 }
 
 /// Android operating-system facts captured during connector creation.
-@sinceV4_0_0
+@sinceV3_11_0
 @immutable
 final class AndroidOperatingSystemInfo extends OperatingSystemInfo {
   /// Creates an Android operating-system information snapshot.
@@ -49,7 +49,7 @@ final class AndroidOperatingSystemInfo extends OperatingSystemInfo {
 }
 
 /// iOS operating-system facts captured during connector creation.
-@sinceV4_0_0
+@sinceV3_11_0
 @immutable
 final class IOSOperatingSystemInfo extends OperatingSystemInfo {
   /// Creates an iOS operating-system information snapshot.

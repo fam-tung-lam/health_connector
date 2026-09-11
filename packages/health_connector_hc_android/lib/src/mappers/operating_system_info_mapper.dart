@@ -3,7 +3,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
 import 'package:meta/meta.dart' show internal;
 
 /// Maps an Android SDK Extension DTO to the domain model.
-@sinceV4_0_0
+@sinceV3_11_0
 @internal
 extension AndroidSDKExtensionVersionDtoToDomain
     on AndroidSDKExtensionVersionDto {
@@ -15,7 +15,7 @@ extension AndroidSDKExtensionVersionDtoToDomain
 }
 
 /// Maps an Android operating-system DTO to the domain model.
-@sinceV4_0_0
+@sinceV3_11_0
 @internal
 extension OperatingSystemInfoDtoToDomain on OperatingSystemInfoDto {
   /// Converts this DTO to an [AndroidOperatingSystemInfo].

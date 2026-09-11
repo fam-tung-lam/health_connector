@@ -51,7 +51,7 @@ final class ExerciseRoutePermission extends Permission {
   /// The health platforms that support exercise route permissions.
   @Deprecated(
     'Use HealthPlatformRequirement.allPlatforms.supportedHealthPlatforms '
-    'instead. Will be removed in 4.1.0.',
+    'instead. Will be removed in 4.0.0.',
   )
   List<HealthPlatform> get supportedHealthPlatforms =>
       HealthPlatformRequirement.allPlatforms.supportedHealthPlatforms;

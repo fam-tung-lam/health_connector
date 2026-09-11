@@ -39,7 +39,7 @@ final class CrossCountrySkiingDistanceDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.ios18,
+    AppleHealthRequirement.ios18OrLater,
   ];
 
   @override

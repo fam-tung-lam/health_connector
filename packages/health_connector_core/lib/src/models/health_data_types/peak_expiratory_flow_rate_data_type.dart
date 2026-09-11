@@ -57,7 +57,7 @@ final class PeakExpiratoryFlowRateDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.none,
   ];
 
   @override

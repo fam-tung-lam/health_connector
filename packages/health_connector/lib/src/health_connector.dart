@@ -317,12 +317,6 @@ abstract interface class HealthConnector {
   /// ```
   HealthPlatform get healthPlatform;
 
-  /// Device operating-system facts captured during [create].
-  ///
-  /// The snapshot remains unchanged for the lifetime of this connector.
-  @sinceV4_0_0
-  OperatingSystemInfo get operatingSystemInfo;
-
   /// The configuration used by this connector.
   ///
   /// Contains settings such as logger enablement and other connector
@@ -341,15 +335,6 @@ abstract interface class HealthConnector {
   ///
   /// - [HealthConnectorConfig] for available configuration options
   HealthConnectorConfig get config;
-
-  /// Resolves whether this device satisfies [requirements].
-  ///
-  /// This check is synchronous and uses [operatingSystemInfo] together with
-  /// the supplied platform requirements.
-  @sinceV4_0_0
-  HealthPlatformSupportStatus getSupportStatusFor(
-    List<HealthPlatformRequirement> requirements,
-  );
 
   /// Requests the specified permissions from the health platform.
   ///
@@ -1248,4 +1233,45 @@ abstract interface class HealthConnector {
   /// - [ExerciseRouteLocation] for individual GPS points
   @sinceV3_8_0
   Future<ExerciseRoute?> readExerciseRoute(HealthRecordId exerciseSessionId);
+}
+
+/// Runtime platform support checks for connectors created by
+/// [HealthConnector.create].
+@sinceV3_11_0
+extension HealthConnectorPlatformSupport on HealthConnector {
+  /// Device operating-system facts captured during
+  /// [HealthConnector.create].
+  ///
+  /// The snapshot remains unchanged for the lifetime of this connector.
+  ///
+  /// Throws [UnsupportedOperationException] when this connector was not
+  /// returned by [HealthConnector.create].
+  @sinceV3_11_0
+  OperatingSystemInfo get operatingSystemInfo {
+    final connector = this;
+    if (connector is HealthConnectorImpl) {
+      return connector.operatingSystemInfo;
+    }
+
+    throw const UnsupportedOperationException(
+      'Operating-system information is available only on connectors returned '
+      'by HealthConnector.create().',
+    );
+  }
+
+  /// Resolves whether this device satisfies [requirements].
+  ///
+  /// This check is synchronous and uses [operatingSystemInfo] together with
+  /// the supplied platform requirements.
+  ///
+  /// Throws [UnsupportedOperationException] when this connector was not
+  /// returned by [HealthConnector.create].
+  @sinceV3_11_0
+  HealthPlatformSupportStatus getSupportStatusFor(
+    List<HealthPlatformRequirement> requirements,
+  ) => resolveHealthPlatformSupportStatus(
+    requirements: requirements,
+    healthPlatform: healthPlatform,
+    operatingSystemInfo: operatingSystemInfo,
+  );
 }

@@ -15,16 +15,16 @@ OS-version support is represented at runtime by `healthPlatformRequirements`.
 ## Deprecated platform annotations
 
 The legacy `supportedOn…` annotations remain in the internal core library for
-compatibility and are deprecated for removal in 4.1.0. Do not add new usages.
+compatibility and are deprecated for removal in 4.0.0. Do not add new usages.
 
 | Deprecated annotation | Runtime replacement |
 |---|---|
-| `supportedOnHealthConnect` | `HealthConnectRequirement.allVersions` |
-| `supportedOnHealthConnectSdkExtension21` | `HealthConnectRequirement.sdkExtension21` |
-| `supportedOnAppleHealth` | `AppleHealthRequirement.allVersions` |
-| `supportedOnAppleHealthIOS16Plus` | `AppleHealthRequirement.ios16` |
-| `supportedOnAppleHealthIOS17Plus` | `AppleHealthRequirement.ios17` |
-| `supportedOnAppleHealthIOS18Plus` | `AppleHealthRequirement.ios18` |
+| `supportedOnHealthConnect` | `HealthConnectRequirement.none` |
+| `supportedOnHealthConnectSdkExtension21` | `HealthConnectRequirement.android14OrLaterWithSDKExtension21` |
+| `supportedOnAppleHealth` | `AppleHealthRequirement.none` |
+| `supportedOnAppleHealthIOS16Plus` | `AppleHealthRequirement.ios16OrLater` |
+| `supportedOnAppleHealthIOS17Plus` | `AppleHealthRequirement.ios17OrLater` |
+| `supportedOnAppleHealthIOS18Plus` | `AppleHealthRequirement.ios18OrLater` |
 
 Platform availability is queryable before an operation:
 

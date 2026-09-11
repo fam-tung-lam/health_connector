@@ -34,7 +34,7 @@ export 'src/models/health_data_types/health_data_type_capabilities/health_data_t
 export 'src/models/health_platform.dart';
 export 'src/models/health_platform_features/health_platform_feature.dart';
 export 'src/models/health_platform_requirements/health_platform_requirement.dart';
-export 'src/models/health_platform_support_status.dart';
+export 'src/models/health_platform_requirements/health_platform_support_status.dart';
 export 'src/models/health_records/health_record.dart'
     hide DietaryMacronutrientRecord, DietaryMineralRecord, DietaryVitaminRecord;
 export 'src/models/measurement_units/measurement_unit.dart';

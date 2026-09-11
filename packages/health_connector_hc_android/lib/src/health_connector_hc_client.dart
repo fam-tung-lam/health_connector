@@ -235,7 +235,7 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
 
   final HealthConnectorConfig _config;
 
-  @sinceV4_0_0
+  @sinceV3_11_0
   @override
   final AndroidOperatingSystemInfo operatingSystemInfo;
 

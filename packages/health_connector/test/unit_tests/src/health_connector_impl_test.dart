@@ -8,6 +8,8 @@ import '../utils/fake_data.dart';
 class MockHealthConnectorClient extends Mock
     implements HealthConnectorPlatformClient {}
 
+class MockHealthConnector extends Mock implements HealthConnector {}
+
 void main() {
   late MockHealthConnectorClient mockClient;
 
@@ -119,7 +121,7 @@ void main() {
             apiLevel: 34,
             sdkExtensionVersions: [],
           );
-          final connector = HealthConnectorImpl(
+          final HealthConnector connector = HealthConnectorImpl(
             config: const HealthConnectorConfig(),
             healthPlatform: HealthPlatform.healthConnect,
             healthPlatformClient: mockClient,
@@ -130,11 +132,25 @@ void main() {
       );
 
       test(
+        'GIVEN a non-factory connector → '
+        'WHEN operatingSystemInfo is read → '
+        'THEN throws UnsupportedOperationException',
+        () {
+          final HealthConnector connector = MockHealthConnector();
+
+          expect(
+            () => connector.operatingSystemInfo,
+            throwsA(isA<UnsupportedOperationException>()),
+          );
+        },
+      );
+
+      test(
         'GIVEN Extension 21 is absent → '
         'WHEN extended field support is checked → '
         'THEN returns the extension requirement failure',
         () {
-          final connector = HealthConnectorImpl(
+          final HealthConnector connector = HealthConnectorImpl(
             config: const HealthConnectorConfig(),
             healthPlatform: HealthPlatform.healthConnect,
             healthPlatformClient: mockClient,

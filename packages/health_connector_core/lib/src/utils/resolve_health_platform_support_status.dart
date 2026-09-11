@@ -1,12 +1,12 @@
 import 'package:health_connector_core/src/annotations/annotations.dart';
 import 'package:health_connector_core/src/models/health_platform.dart';
 import 'package:health_connector_core/src/models/health_platform_requirements/health_platform_requirement.dart';
-import 'package:health_connector_core/src/models/health_platform_support_status.dart';
+import 'package:health_connector_core/src/models/health_platform_requirements/health_platform_support_status.dart';
 import 'package:health_connector_core/src/models/operating_system_info/android_sdk_extension_version.dart';
 import 'package:health_connector_core/src/models/operating_system_info/operating_system_info.dart';
 
 /// Resolves whether [requirements] are satisfied by the current device.
-@sinceV4_0_0
+@sinceV3_11_0
 @internalUse
 HealthPlatformSupportStatus resolveHealthPlatformSupportStatus({
   required List<HealthPlatformRequirement> requirements,

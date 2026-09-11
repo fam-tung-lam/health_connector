@@ -62,7 +62,7 @@ final class HeartRateSeriesDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    HealthConnectRequirement.allVersions,
+    HealthConnectRequirement.none,
   ];
 
   @override

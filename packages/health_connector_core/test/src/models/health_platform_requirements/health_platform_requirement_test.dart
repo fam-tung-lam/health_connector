@@ -4,12 +4,12 @@ import 'package:test/test.dart';
 void main() {
   test('all Health Connect requirement presets are static constants', () {
     const requirements = [
-      HealthConnectRequirement.allVersions,
-      HealthConnectRequirement.sdkExtension13,
-      HealthConnectRequirement.sdkExtension15,
-      HealthConnectRequirement.sdkExtension16,
-      HealthConnectRequirement.sdkExtension19,
-      HealthConnectRequirement.sdkExtension21,
+      HealthConnectRequirement.none,
+      HealthConnectRequirement.android14OrLaterWithSDKExtension13,
+      HealthConnectRequirement.android14OrLaterWithSDKExtension15,
+      HealthConnectRequirement.android14OrLaterWithSDKExtension16,
+      HealthConnectRequirement.android14OrLaterWithSDKExtension19,
+      HealthConnectRequirement.android14OrLaterWithSDKExtension21,
     ];
 
     expect(
@@ -22,6 +22,14 @@ void main() {
       [13, 15, 16, 19, 21],
     );
     expect(
+      requirements
+          .skip(1)
+          .every(
+            (requirement) => requirement.minApiLevel == 34,
+          ),
+      isTrue,
+    );
+    expect(
       requirements.every(
         (requirement) =>
             requirement.healthPlatform == HealthPlatform.healthConnect,
@@ -30,12 +38,18 @@ void main() {
     );
   });
 
+  test('none presets add no version requirements', () {
+    expect(HealthConnectRequirement.none.minApiLevel, isNull);
+    expect(HealthConnectRequirement.none.minSDKExtensionVersion, isNull);
+    expect(AppleHealthRequirement.none.minIOSVersion, isNull);
+  });
+
   test('all platform requirements use canonical unversioned constants', () {
     expect(
       HealthPlatformRequirement.allPlatforms,
       equals([
-        AppleHealthRequirement.allVersions,
-        HealthConnectRequirement.allVersions,
+        AppleHealthRequirement.none,
+        HealthConnectRequirement.none,
       ]),
     );
   });
@@ -47,7 +61,7 @@ void main() {
     );
     expect(
       const [
-        AppleHealthRequirement.ios18,
+        AppleHealthRequirement.ios18OrLater,
       ].supportedHealthPlatforms,
       [HealthPlatform.appleHealth],
     );

@@ -1308,7 +1308,7 @@ OS-version support is represented by each API's `healthPlatformRequirements`.
 | `@sinceV…` | Release that introduced the API. | Use it to confirm the minimum SDK version. |
 
 The internal `supportedOn…` annotation constants remain available as deprecated
-compatibility aliases until 4.1.0. New code must use
+compatibility aliases until 4.0.0. New code must use
 `HealthConnectRequirement` or `AppleHealthRequirement` in
 `healthPlatformRequirements`.
 

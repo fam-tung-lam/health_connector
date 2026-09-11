@@ -897,25 +897,25 @@ enum ExerciseType {
 
   const ExerciseType._healthConnectOnly()
     : healthPlatformRequirements = const [
-        HealthConnectRequirement.allVersions,
+        HealthConnectRequirement.none,
       ];
 
   const ExerciseType._appleHealthOnly()
     : healthPlatformRequirements = const [
-        AppleHealthRequirement.allVersions,
+        AppleHealthRequirement.none,
       ];
 
   const ExerciseType._appleHealthOnlyIOS16()
-    : healthPlatformRequirements = const [AppleHealthRequirement.ios16];
+    : healthPlatformRequirements = const [AppleHealthRequirement.ios16OrLater];
 
   const ExerciseType._appleHealthIOS17()
     : healthPlatformRequirements = const [
-        AppleHealthRequirement.ios17,
-        HealthConnectRequirement.allVersions,
+        AppleHealthRequirement.ios17OrLater,
+        HealthConnectRequirement.none,
       ];
 
   /// Requirements for each platform that supports this exercise type.
-  @sinceV4_0_0
+  @sinceV3_11_0
   final List<HealthPlatformRequirement> healthPlatformRequirements;
 }
 
@@ -960,7 +960,7 @@ extension ExerciseTypeExtension on ExerciseType {
     'Use healthPlatformRequirements.supportedHealthPlatforms and call '
     'contains(platform) for platform support, or '
     'HealthConnector.getSupportStatusFor for runtime version support. '
-    'Will be removed in 4.1.0.',
+    'Will be removed in 4.0.0.',
   )
   bool isSupportedOnPlatform(HealthPlatform platform) =>
       healthPlatformRequirements.supportedHealthPlatforms.contains(platform);

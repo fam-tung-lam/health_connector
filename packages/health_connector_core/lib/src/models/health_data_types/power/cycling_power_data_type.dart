@@ -43,7 +43,7 @@ final class CyclingPowerDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.ios17,
+    AppleHealthRequirement.ios17OrLater,
   ];
 
   @override

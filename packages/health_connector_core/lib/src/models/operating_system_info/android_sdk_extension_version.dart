@@ -5,7 +5,7 @@ import 'package:meta/meta.dart' show immutable;
 ///
 /// In an operating-system snapshot, this is a version present on the device.
 /// In a platform requirement, this is the minimum version a capability needs.
-@sinceV4_0_0
+@sinceV3_11_0
 @immutable
 final class AndroidSDKExtensionVersion {
   /// Creates an Android SDK Extension version.

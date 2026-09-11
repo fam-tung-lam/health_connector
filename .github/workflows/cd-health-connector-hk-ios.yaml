@@ -48,6 +48,7 @@ jobs:
     uses: ./.github/workflows/_reusable-build-ios.yaml
     with:
       package-path: packages/health_connector_hk_ios
+      run-native-tests: true
 
   publish:
     needs: build-ios

@@ -27,10 +27,8 @@ final class HealthConnectorImpl implements HealthConnector {
   @override
   HealthPlatform get healthPlatform => _healthPlatform;
 
-  @override
   OperatingSystemInfo get operatingSystemInfo => _client.operatingSystemInfo;
 
-  @override
   HealthPlatformSupportStatus getSupportStatusFor(
     List<HealthPlatformRequirement> requirements,
   ) => resolveHealthPlatformSupportStatus(

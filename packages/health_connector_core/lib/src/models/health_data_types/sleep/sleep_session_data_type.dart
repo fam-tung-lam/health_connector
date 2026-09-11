@@ -53,7 +53,7 @@ final class SleepSessionDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    HealthConnectRequirement.allVersions,
+    HealthConnectRequirement.none,
   ];
 
   @override

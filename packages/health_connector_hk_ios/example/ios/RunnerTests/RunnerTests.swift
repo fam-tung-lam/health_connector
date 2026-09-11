@@ -1,29 +1,22 @@
-import Flutter
-import UIKit
+import Foundation
+@testable import health_connector_hk_ios
 import XCTest
 
-// If your plugin has been explicitly set to "type: .dynamic" in the Package.swift,
-// you will need to add your plugin as a dependency of RunnerTests within Xcode.
+final class RunnerTests: XCTestCase {
+    func testOperatingSystemVersionMapsEveryComponent() {
+        // Given
+        let version = OperatingSystemVersion(
+            majorVersion: 17,
+            minorVersion: 4,
+            patchVersion: 1
+        )
 
-@testable import health_connector_hk_ios
+        // When
+        let dto = version.toOperatingSystemInfoDto()
 
-// This demonstrates a simple unit test of the Swift portion of this plugin's implementation.
-//
-// See https://developer.apple.com/documentation/xctest for more information about using XCTest.
-
-class RunnerTests: XCTestCase {
-
-  func testGetPlatformVersion() {
-    let plugin = HealthConnectorHkIosPlugin()
-
-    let call = FlutterMethodCall(methodName: "getPlatformVersion", arguments: [])
-
-    let resultExpectation = expectation(description: "result block must be called.")
-    plugin.handle(call) { result in
-      XCTAssertEqual(result as! String, "iOS " + UIDevice.current.systemVersion)
-      resultExpectation.fulfill()
+        // Then
+        XCTAssertEqual(dto.majorVersion, 17)
+        XCTAssertEqual(dto.minorVersion, 4)
+        XCTAssertEqual(dto.patchVersion, 1)
     }
-    waitForExpectations(timeout: 1)
-  }
-
 }

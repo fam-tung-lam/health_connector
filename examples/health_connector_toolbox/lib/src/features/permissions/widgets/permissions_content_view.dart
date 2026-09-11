@@ -3,6 +3,7 @@ import 'package:health_connector/health_connector_internal.dart'
     show
         ExerciseRoutePermission,
         HealthConnector,
+        HealthConnectorPlatformSupport,
         HealthDataPermission,
         HealthDataType,
         HealthDataTypeCategory,

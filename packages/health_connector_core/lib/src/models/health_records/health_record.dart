@@ -239,7 +239,7 @@ sealed class HealthRecord {
   /// The health platforms that support this record's [dataType].
   @Deprecated(
     'Use dataType.healthPlatformRequirements.supportedHealthPlatforms instead. '
-    'Will be removed in 4.1.0.',
+    'Will be removed in 4.0.0.',
   )
   List<HealthPlatform> get supportedHealthPlatforms =>
       dataType.healthPlatformRequirements.supportedHealthPlatforms;

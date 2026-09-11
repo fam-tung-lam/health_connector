@@ -3,7 +3,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
 import 'package:meta/meta.dart' show internal;
 
 /// Maps an iOS operating-system DTO to the domain model.
-@sinceV4_0_0
+@sinceV3_11_0
 @internal
 extension OperatingSystemInfoDtoToDomain on OperatingSystemInfoDto {
   /// Converts this DTO to an [IOSOperatingSystemInfo].
