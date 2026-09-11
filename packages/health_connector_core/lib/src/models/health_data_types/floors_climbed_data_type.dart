@@ -43,7 +43,7 @@ final class FloorsClimbedDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'floors_climbed';

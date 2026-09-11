@@ -44,7 +44,7 @@ final class RestingHeartRateDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'resting_heart_rate';

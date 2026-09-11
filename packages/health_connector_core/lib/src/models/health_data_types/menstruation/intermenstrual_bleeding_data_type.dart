@@ -71,7 +71,7 @@ final class IntermenstrualBleedingDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'intermenstrual_bleeding';

@@ -42,7 +42,7 @@ final class BasalBodyTemperatureDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'basal_body_temperature';

@@ -22,7 +22,7 @@ sealed class HealthPlatformFeature {
   /// Requirements for each platform that supports this feature.
   @sinceV3_11_0
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   /// The health platforms that support this feature.
   @Deprecated(

@@ -16,10 +16,11 @@ sealed class HealthPlatformRequirement {
   HealthPlatform get healthPlatform;
 
   /// Both health platforms without an additional version requirement.
-  static const List<HealthPlatformRequirement> allPlatforms = [
-    AppleHealthRequirement.none,
-    HealthConnectRequirement.none,
-  ];
+  static const List<HealthPlatformRequirement> allPlatformsWithoutRequirements =
+      [
+        AppleHealthRequirement.none,
+        HealthConnectRequirement.none,
+      ];
 }
 
 /// Platform projections for a list of health platform requirements.

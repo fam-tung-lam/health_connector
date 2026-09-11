@@ -41,7 +41,7 @@ final class WheelchairPushesDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'wheelchair_pushes';

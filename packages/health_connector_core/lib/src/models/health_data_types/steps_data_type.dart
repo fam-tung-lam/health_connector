@@ -41,7 +41,7 @@ final class StepsDataType extends HealthDataType<StepsRecord, Number>
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'steps';

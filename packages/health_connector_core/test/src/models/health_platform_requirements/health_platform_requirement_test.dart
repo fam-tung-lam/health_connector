@@ -44,9 +44,9 @@ void main() {
     expect(AppleHealthRequirement.none.minIOSVersion, isNull);
   });
 
-  test('all platform requirements use canonical unversioned constants', () {
+  test('all platforms without requirements use unversioned constants', () {
     expect(
-      HealthPlatformRequirement.allPlatforms,
+      HealthPlatformRequirement.allPlatformsWithoutRequirements,
       equals([
         AppleHealthRequirement.none,
         HealthConnectRequirement.none,
@@ -56,7 +56,9 @@ void main() {
 
   test('requirement lists project their supported health platforms', () {
     expect(
-      HealthPlatformRequirement.allPlatforms.supportedHealthPlatforms,
+      HealthPlatformRequirement
+          .allPlatformsWithoutRequirements
+          .supportedHealthPlatforms,
       [HealthPlatform.appleHealth, HealthPlatform.healthConnect],
     );
     expect(

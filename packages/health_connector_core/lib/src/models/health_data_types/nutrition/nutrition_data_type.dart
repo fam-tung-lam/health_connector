@@ -38,7 +38,7 @@ final class NutritionDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [];

@@ -42,7 +42,7 @@ final class WeightDataType extends HealthDataType<WeightRecord, Mass>
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'weight';

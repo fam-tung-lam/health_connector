@@ -44,7 +44,7 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'vo2_max';

@@ -43,7 +43,7 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   String get id => 'height';

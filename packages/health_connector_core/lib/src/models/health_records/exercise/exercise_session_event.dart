@@ -167,7 +167,7 @@ final class ExerciseSessionLapEvent extends ExerciseSessionIntervalEvent {
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   @override
   bool operator ==(Object other) =>
@@ -238,7 +238,7 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
-      HealthPlatformRequirement.allPlatforms;
+      HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   /// Requirements for fields unavailable in the base segment event contract.
   @sinceV3_11_0

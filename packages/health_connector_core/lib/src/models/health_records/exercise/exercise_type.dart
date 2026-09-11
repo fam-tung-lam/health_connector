@@ -893,7 +893,8 @@ enum ExerciseType {
 
   /// Creates an exercise type available on both health platforms.
   const ExerciseType()
-    : healthPlatformRequirements = HealthPlatformRequirement.allPlatforms;
+    : healthPlatformRequirements =
+          HealthPlatformRequirement.allPlatformsWithoutRequirements;
 
   const ExerciseType._healthConnectOnly()
     : healthPlatformRequirements = const [

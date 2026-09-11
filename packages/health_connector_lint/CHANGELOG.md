@@ -1,7 +1,3 @@
-## Unreleased
-
-- No changes.
-
 ## 1.2.1
 
 - **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.

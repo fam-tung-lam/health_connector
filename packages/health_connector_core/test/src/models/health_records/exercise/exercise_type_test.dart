@@ -16,7 +16,7 @@ void main() {
       test('enum values store their platform requirements', () {
         expect(
           ExerciseType.running.healthPlatformRequirements,
-          HealthPlatformRequirement.allPlatforms,
+          HealthPlatformRequirement.allPlatformsWithoutRequirements,
         );
         expect(
           ExerciseType.runningTreadmill.healthPlatformRequirements,
