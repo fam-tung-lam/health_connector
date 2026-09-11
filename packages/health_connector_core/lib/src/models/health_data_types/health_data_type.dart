@@ -7,6 +7,7 @@ import 'package:health_connector_core/src/models/health_platform.dart';
 import 'package:health_connector_core/src/models/health_platform_requirements/health_platform_requirement.dart'
     show
         HealthPlatformRequirement,
+        HealthPlatformRequirementsExtension,
         HealthConnectRequirement,
         AppleHealthRequirement;
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
@@ -234,12 +235,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit> {
 
   /// The health platforms that support this data type.
   @Deprecated(
-    'Use healthPlatformRequirements instead. Will be removed in 4.1.0.',
+    'Use healthPlatformRequirements.supportedHealthPlatforms instead. '
+    'Will be removed in 4.1.0.',
   )
   List<HealthPlatform> get supportedHealthPlatforms =>
-      healthPlatformRequirements
-          .map((requirement) => requirement.healthPlatform)
-          .toList(growable: false);
+      healthPlatformRequirements.supportedHealthPlatforms;
 
   /// The list of aggregation metrics that support this health record.
   List<AggregationMetric> get supportedAggregationMetrics;
@@ -1492,17 +1492,16 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit> {
   /// Returns a list of all available health data types for
   /// [HealthPlatform.healthConnect].
   static final healthConnectDataTypes = values.where(
-    (type) => type.healthPlatformRequirements.any(
-      (requirement) =>
-          requirement.healthPlatform == HealthPlatform.healthConnect,
+    (type) => type.healthPlatformRequirements.supportedHealthPlatforms.contains(
+      HealthPlatform.healthConnect,
     ),
   );
 
   /// Returns a list of all available health data types for
   /// [HealthPlatform.appleHealth].
   static final appleHealthDataTypes = values.where(
-    (type) => type.healthPlatformRequirements.any(
-      (requirement) => requirement.healthPlatform == HealthPlatform.appleHealth,
+    (type) => type.healthPlatformRequirements.supportedHealthPlatforms.contains(
+      HealthPlatform.appleHealth,
     ),
   );
 

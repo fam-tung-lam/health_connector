@@ -16,10 +16,19 @@ sealed class HealthPlatformRequirement {
   HealthPlatform get healthPlatform;
 
   /// Both health platforms without an additional version requirement.
-  static const allPlatforms = [
+  static const List<HealthPlatformRequirement> allPlatforms = [
     HealthConnectRequirement.allVersions,
     AppleHealthRequirement.allVersions,
   ];
+}
+
+/// Platform projections for a list of health platform requirements.
+@sinceV4_0_0
+extension HealthPlatformRequirementsExtension
+    on List<HealthPlatformRequirement> {
+  /// The health platforms represented by these requirements.
+  List<HealthPlatform> get supportedHealthPlatforms =>
+      map((requirement) => requirement.healthPlatform).toList(growable: false);
 }
 
 /// A runtime support requirement for Android Health Connect.

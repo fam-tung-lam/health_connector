@@ -25,12 +25,11 @@ sealed class HealthPlatformFeature {
 
   /// The health platforms that support this feature.
   @Deprecated(
-    'Use healthPlatformRequirements instead. Will be removed in 4.1.0.',
+    'Use healthPlatformRequirements.supportedHealthPlatforms instead. '
+    'Will be removed in 4.1.0.',
   )
   List<HealthPlatform> get supportedHealthPlatforms =>
-      healthPlatformRequirements
-          .map((requirement) => requirement.healthPlatform)
-          .toList(growable: false);
+      healthPlatformRequirements.supportedHealthPlatforms;
 
   /// Historical health data reading capability.
   ///

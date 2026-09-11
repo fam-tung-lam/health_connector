@@ -22,9 +22,8 @@ void main() {
   group('deprecated platform projections', () {
     test('every data type projects its requirements to the same platforms', () {
       for (final dataType in HealthDataType.values) {
-        final expected = dataType.healthPlatformRequirements
-            .map((requirement) => requirement.healthPlatform)
-            .toList(growable: false);
+        final expected =
+            dataType.healthPlatformRequirements.supportedHealthPlatforms;
 
         expect(
           // ignore: deprecated_member_use_from_same_package
@@ -37,9 +36,8 @@ void main() {
 
     test('every feature projects its requirements to the same platforms', () {
       for (final feature in HealthPlatformFeature.values) {
-        final expected = feature.healthPlatformRequirements
-            .map((requirement) => requirement.healthPlatform)
-            .toList(growable: false);
+        final expected =
+            feature.healthPlatformRequirements.supportedHealthPlatforms;
 
         expect(
           // ignore: deprecated_member_use_from_same_package
@@ -52,9 +50,8 @@ void main() {
 
     test('every event projects its requirements to the same platforms', () {
       for (final event in events) {
-        final expected = event.healthPlatformRequirements
-            .map((requirement) => requirement.healthPlatform)
-            .toList(growable: false);
+        final expected =
+            event.healthPlatformRequirements.supportedHealthPlatforms;
 
         expect(
           // ignore: deprecated_member_use_from_same_package
@@ -93,9 +90,10 @@ void main() {
         dataType: HealthDataType.steps,
         accessType: HealthDataPermissionAccessType.read,
       );
-      final expected = HealthDataType.steps.healthPlatformRequirements
-          .map((requirement) => requirement.healthPlatform)
-          .toList(growable: false);
+      final expected = HealthDataType
+          .steps
+          .healthPlatformRequirements
+          .supportedHealthPlatforms;
 
       // ignore: deprecated_member_use_from_same_package
       expect(record.supportedHealthPlatforms, expected);

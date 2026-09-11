@@ -48,10 +48,8 @@ final class ExerciseSessionFormState
         labelText: AppTexts.exerciseType,
         values: ExerciseType.values
             .where(
-              (type) => type.healthPlatformRequirements.any(
-                (requirement) =>
-                    requirement.healthPlatform == widget.healthPlatform,
-              ),
+              (type) => type.healthPlatformRequirements.supportedHealthPlatforms
+                  .contains(widget.healthPlatform),
             )
             .toList(),
         initialValue: exerciseType,

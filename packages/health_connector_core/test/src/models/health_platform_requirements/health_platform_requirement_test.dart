@@ -39,4 +39,17 @@ void main() {
       ]),
     );
   });
+
+  test('requirement lists project their supported health platforms', () {
+    expect(
+      HealthPlatformRequirement.allPlatforms.supportedHealthPlatforms,
+      [HealthPlatform.healthConnect, HealthPlatform.appleHealth],
+    );
+    expect(
+      const [
+        AppleHealthRequirement.ios18,
+      ].supportedHealthPlatforms,
+      [HealthPlatform.appleHealth],
+    );
+  });
 }

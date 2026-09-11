@@ -35,6 +35,7 @@ export 'src/models/health_platform_features/health_platform_feature.dart'
 export 'src/models/health_platform_requirements/health_platform_requirement.dart'
     show
         HealthPlatformRequirement,
+        HealthPlatformRequirementsExtension,
         HealthConnectRequirement,
         AppleHealthRequirement;
 export 'src/models/health_platform_support_status.dart'

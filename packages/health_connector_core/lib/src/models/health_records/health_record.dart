@@ -238,13 +238,11 @@ sealed class HealthRecord {
 
   /// The health platforms that support this record's [dataType].
   @Deprecated(
-    'Use dataType.healthPlatformRequirements instead. '
+    'Use dataType.healthPlatformRequirements.supportedHealthPlatforms instead. '
     'Will be removed in 4.1.0.',
   )
-  List<HealthPlatform> get supportedHealthPlatforms => dataType
-      .healthPlatformRequirements
-      .map((requirement) => requirement.healthPlatform)
-      .toList(growable: false);
+  List<HealthPlatform> get supportedHealthPlatforms =>
+      dataType.healthPlatformRequirements.supportedHealthPlatforms;
 
   /// The category of this health record, derived from its associated data type.
   ///

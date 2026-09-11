@@ -158,10 +158,11 @@ final class ExerciseRouteLocation {
 
   /// The health platforms that support exercise route locations.
   @Deprecated(
-    'Exercise route locations support both platforms. '
-    'Will be removed in 4.1.0.',
+    'Use HealthPlatformRequirement.allPlatforms.supportedHealthPlatforms '
+    'instead. Will be removed in 4.1.0.',
   )
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+  List<HealthPlatform> get supportedHealthPlatforms =>
+      HealthPlatformRequirement.allPlatforms.supportedHealthPlatforms;
 
   @override
   bool operator ==(Object other) =>

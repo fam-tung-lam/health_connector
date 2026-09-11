@@ -36,16 +36,12 @@ void main() {
         'supported platforms are correctly defined',
         () {
           expect(
-            dataType.healthPlatformRequirements
-                .map((requirement) => requirement.healthPlatform)
-                .toList(growable: false),
+            dataType.healthPlatformRequirements.supportedHealthPlatforms,
             contains(HealthPlatform.appleHealth),
           );
           // Not supported on Health Connect
           expect(
-            dataType.healthPlatformRequirements
-                .map((requirement) => requirement.healthPlatform)
-                .toList(growable: false),
+            dataType.healthPlatformRequirements.supportedHealthPlatforms,
             isNot(contains(HealthPlatform.healthConnect)),
           );
         },

@@ -3,6 +3,7 @@ import 'package:health_connector_core/src/models/health_data_types/health_data_t
     show HealthDataType;
 import 'package:health_connector_core/src/models/health_platform.dart';
 import 'package:health_connector_core/src/models/health_platform_features/health_platform_feature.dart';
+import 'package:health_connector_core/src/models/health_platform_requirements/health_platform_requirement.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show MeasurementUnit;

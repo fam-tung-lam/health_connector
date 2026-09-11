@@ -13,6 +13,21 @@ const _universalSegments = [
 void main() {
   group('ExerciseType', () {
     group('platform support', () {
+      test('enum values store their platform requirements', () {
+        expect(
+          ExerciseType.running.healthPlatformRequirements,
+          HealthPlatformRequirement.allPlatforms,
+        );
+        expect(
+          ExerciseType.runningTreadmill.healthPlatformRequirements,
+          const [HealthConnectRequirement.allVersions],
+        );
+        expect(
+          ExerciseType.swimming.healthPlatformRequirements,
+          const [AppleHealthRequirement.allVersions],
+        );
+      });
+
       parameterizedTest(
         'getExerciseTypesForPlatform returns only valid exercise types',
         [
