@@ -2,6 +2,37 @@
 
 Health Connector SDK follows semantic versioning: only major releases contain breaking changes. Each has a dedicated guide with before-and-after code for every change.
 
+## v3.x.x → v4.0.0
+
+Platform support is now represented by requirements and resolved against the
+device snapshot captured by `HealthConnector.create()`.
+
+Replace direct platform-list checks:
+
+```dart
+// Before
+final supported = dataType.supportedHealthPlatforms.contains(
+  connector.healthPlatform,
+);
+
+// After
+final status = connector.getSupportStatusFor(
+  dataType.healthPlatformRequirements,
+);
+final supported = status.isSupported;
+```
+
+Replace `exerciseType.isSupportedOnPlatform(connector.healthPlatform)` with
+`connector.getSupportStatusFor(exerciseType.healthPlatformRequirements)`. The
+old members remain deprecated until 4.1.0.
+
+Check a record's `dataType`, a permission's data type or feature, or
+`ExerciseSessionSegmentEvent.extendedFieldsRequirements` for Extension 21
+fields. `getSupportStatusFor()` accepts the requirements list directly.
+
+Use `connector.operatingSystemInfo` when you need the immutable Android API and
+SDK Extension snapshot or iOS semantic version.
+
 ## v2.x.x → v3.0.0
 
 **Difficulty: moderate · roughly 30 minutes for a typical app**

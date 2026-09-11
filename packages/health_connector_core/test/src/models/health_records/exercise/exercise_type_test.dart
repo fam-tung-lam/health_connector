@@ -73,11 +73,17 @@ void main() {
         ],
         (ExerciseType type) {
           expect(
-            type.isSupportedOnPlatform(HealthPlatform.appleHealth),
+            type.healthPlatformRequirements.any(
+              (requirement) =>
+                  requirement.healthPlatform == HealthPlatform.appleHealth,
+            ),
             isTrue,
           );
           expect(
-            type.isSupportedOnPlatform(HealthPlatform.healthConnect),
+            type.healthPlatformRequirements.any(
+              (requirement) =>
+                  requirement.healthPlatform == HealthPlatform.healthConnect,
+            ),
             isTrue,
           );
         },

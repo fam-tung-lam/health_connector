@@ -239,8 +239,10 @@ class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
                               items: HealthDataType.values
                                   .where(
                                     (type) =>
-                                        type.supportedHealthPlatforms.contains(
-                                          widget.healthPlatform,
+                                        type.healthPlatformRequirements.any(
+                                          (requirement) =>
+                                              requirement.healthPlatform ==
+                                              widget.healthPlatform,
                                         ),
                                   )
                                   .toList(),

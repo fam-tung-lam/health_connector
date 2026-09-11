@@ -42,7 +42,8 @@ final class FloorsClimbedDataType
   const FloorsClimbedDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+  List<HealthPlatformRequirement> get healthPlatformRequirements =>
+      HealthPlatformRequirement.allPlatforms;
 
   @override
   String get id => 'floors_climbed';

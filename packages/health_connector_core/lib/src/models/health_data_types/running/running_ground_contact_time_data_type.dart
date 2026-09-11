@@ -72,8 +72,8 @@ final class RunningGroundContactTimeDataType
   const RunningGroundContactTimeDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

@@ -940,9 +940,22 @@ enum ExerciseType {
   ///
   /// Throws [UnsupportedOperationException] on Android Health Connect.
   @supportedOnAppleHealth
-  swimBikeRun,
+  swimBikeRun;
 
   //endregion
+
+  /// Requirements for each platform that supports this exercise type.
+  @sinceV4_0_0
+  List<HealthPlatformRequirement> get healthPlatformRequirements {
+    if (ExerciseTypeExtension._healthConnectOnlyTypes.contains(this)) {
+      return const [HealthConnectRequirement.allVersions];
+    }
+    if (ExerciseTypeExtension._appleHealthOnlyTypes.contains(this)) {
+      return const [AppleHealthRequirement.allVersions];
+    }
+
+    return HealthPlatformRequirement.allPlatforms;
+  }
 }
 
 /// Extension on [ExerciseType] that provides static getters for
@@ -966,23 +979,34 @@ extension ExerciseTypeExtension on ExerciseType {
   /// Returns a list of all [ExerciseType] values supported on Apple Health
   /// (iOS HealthKit).
   static List<ExerciseType> get appleHealthTypes => ExerciseType.values
-      .where((type) => !_healthConnectOnlyTypes.contains(type))
+      .where(
+        (type) => type.healthPlatformRequirements.any(
+          (requirement) =>
+              requirement.healthPlatform == HealthPlatform.appleHealth,
+        ),
+      )
       .toList();
 
   /// Returns a list of all [ExerciseType] values supported on Health Connect
   /// (Android).
   static List<ExerciseType> get healthConnectTypes => ExerciseType.values
-      .where((type) => !_appleHealthOnlyTypes.contains(type))
+      .where(
+        (type) => type.healthPlatformRequirements.any(
+          (requirement) =>
+              requirement.healthPlatform == HealthPlatform.healthConnect,
+        ),
+      )
       .toList();
 
   /// Checks if this exercise type is supported on the given [platform].
+  @Deprecated(
+    'Use healthPlatformRequirements or HealthConnector.getSupportStatusFor '
+    'instead. Will be removed in 4.1.0.',
+  )
   bool isSupportedOnPlatform(HealthPlatform platform) {
-    switch (platform) {
-      case HealthPlatform.appleHealth:
-        return !_healthConnectOnlyTypes.contains(this);
-      case HealthPlatform.healthConnect:
-        return !_appleHealthOnlyTypes.contains(this);
-    }
+    return healthPlatformRequirements.any(
+      (requirement) => requirement.healthPlatform == platform,
+    );
   }
 
   /// Returns a list of [ExerciseType] values that are exclusively supported on

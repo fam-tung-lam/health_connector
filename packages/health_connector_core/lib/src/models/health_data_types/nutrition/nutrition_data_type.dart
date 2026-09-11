@@ -37,7 +37,8 @@ final class NutritionDataType
   const NutritionDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+  List<HealthPlatformRequirement> get healthPlatformRequirements =>
+      HealthPlatformRequirement.allPlatforms;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [];

@@ -7,6 +7,7 @@ import 'package:health_connector_core/src/models/health_data_sync/health_data_sy
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
+import 'package:health_connector_core/src/models/operating_system_info/operating_system_info.dart';
 import 'package:health_connector_core/src/models/permissions/permission.dart';
 import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregate_request.dart';
 import 'package:health_connector_core/src/models/requests/delete_requests/delete_records_request.dart';
@@ -23,6 +24,10 @@ import 'package:health_connector_core/src/models/responses/read_records_response
 @sinceV1_0_0
 @internalUse
 abstract interface class HealthConnectorPlatformClient {
+  /// Device operating-system facts captured during client initialization.
+  @sinceV4_0_0
+  OperatingSystemInfo get operatingSystemInfo;
+
   /// The configuration used by this client.
   @sinceV2_0_0
   HealthConnectorConfig get config;

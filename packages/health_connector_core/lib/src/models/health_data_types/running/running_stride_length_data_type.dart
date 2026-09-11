@@ -39,8 +39,8 @@ final class RunningStrideLengthDataType
   const RunningStrideLengthDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

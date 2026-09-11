@@ -63,8 +63,8 @@ final class MoveTimeDataType
   const MoveTimeDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

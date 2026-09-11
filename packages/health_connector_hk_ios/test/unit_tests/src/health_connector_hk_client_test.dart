@@ -154,12 +154,20 @@ void main() {
             'initializes and returns client instance',
             () async {
               when(() => mockApi.initialize(any())).thenAnswer(
-                (_) async {},
+                (_) async => OperatingSystemInfoDto(
+                  majorVersion: 18,
+                  minorVersion: 2,
+                  patchVersion: 1,
+                ),
               );
 
               final client = await HealthConnectorHKClient.create();
 
               expect(client, isA<HealthConnectorHKClient>());
+              expect(
+                client.operatingSystemInfo.version,
+                const IOSVersion(18, 2, 1),
+              );
               verify(() => mockApi.initialize(any())).called(1);
             },
           );
@@ -174,7 +182,11 @@ void main() {
           setUp(
             () async {
               when(() => mockApi.initialize(any())).thenAnswer(
-                (_) async {},
+                (_) async => OperatingSystemInfoDto(
+                  majorVersion: 18,
+                  minorVersion: 0,
+                  patchVersion: 0,
+                ),
               );
               client = await HealthConnectorHKClient.create();
             },

@@ -33,10 +33,15 @@ export 'src/models/health_data_types/health_data_type.dart'
 export 'src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
 export 'src/models/health_platform.dart';
 export 'src/models/health_platform_features/health_platform_feature.dart';
+export 'src/models/health_platform_requirements/health_platform_requirement.dart';
+export 'src/models/health_platform_support_status.dart';
 export 'src/models/health_records/health_record.dart'
     hide DietaryMacronutrientRecord, DietaryMineralRecord, DietaryVitaminRecord;
 export 'src/models/measurement_units/measurement_unit.dart';
 export 'src/models/metadata/metadata.dart';
+export 'src/models/operating_system_info/android_sdk_extension_version.dart';
+export 'src/models/operating_system_info/ios_version.dart';
+export 'src/models/operating_system_info/operating_system_info.dart';
 export 'src/models/permissions/permission.dart';
 export 'src/models/requests/aggregate_requests/aggregate_request.dart';
 export 'src/models/requests/aggregate_requests/aggregation_metric.dart';
@@ -49,4 +54,5 @@ export 'src/models/responses/read_records_response.dart'
 export 'src/utils/double_to_measurement_unit_extension.dart';
 export 'src/utils/health_record_data_type_extension.dart';
 export 'src/utils/permission_extension.dart';
+export 'src/utils/resolve_health_platform_support_status.dart';
 export 'src/utils/validation_utils.dart';

@@ -6,18 +6,28 @@ The SDK uses annotations to state platform support, OS-version floors, and usage
 
 | Annotation | Means | What to do |
 |---|---|---|
-| `@supportedOnHealthConnect` | Android Health Connect only | Check `HealthConnector.healthPlatform`, or catch `UnsupportedOperationException` |
+| `@supportedOnHealthConnect` | Android Health Connect only | Pass the corresponding `healthPlatformRequirements` to `getSupportStatusFor()` |
 | `@supportedOnAppleHealth` | iOS HealthKit only | Same |
-| `@supportedOnAppleHealthIOS16Plus` | iOS 16.0+ only | Check platform **and** OS version; throws below iOS 16 |
-| `@supportedOnAppleHealthIOS17Plus` | iOS 17.0+ only | Throws below iOS 17 |
-| `@supportedOnAppleHealthIOS18Plus` | iOS 18.0+ only | Throws below iOS 18 |
-| `@supportedOnHealthConnectSdkExtension21` | Health Connect SDK Extension 21+ | Runtime device check — see [below](#exercise-segment-weight-and-sdk-extension-21) |
+| `@supportedOnAppleHealthIOS16Plus` | iOS 16.0+ only | Check the corresponding capability; throws below iOS 16 |
+| `@supportedOnAppleHealthIOS17Plus` | iOS 17.0+ only | Check the corresponding capability; throws below iOS 17 |
+| `@supportedOnAppleHealthIOS18Plus` | iOS 18.0+ only | Check the corresponding capability; throws below iOS 18 |
+| `@supportedOnHealthConnectSdkExtension21` | Health Connect SDK Extension 21+ | Call `getSupportStatusFor(ExerciseSessionSegmentEvent.extendedFieldsRequirements)` |
 | `@readOnly` | System-calculated metric | Use `readRecords()` or `aggregate()` only; writing throws |
 | `@internalUse` | Not part of the public API | Do not call from application code |
 
 ::: info Annotations combine
 When several appear on one declaration, every constraint applies at once.
 :::
+
+Platform annotations are the documentation counterpart of
+`healthPlatformRequirements`. Check a data type before using it:
+
+```dart
+final status = connector.getSupportStatusFor(
+  HealthDataType.steps.healthPlatformRequirements,
+);
+if (!status.isSupported) return;
+```
 
 ## Worked example
 
@@ -76,9 +86,14 @@ A future `health_connector_lint` release will surface these annotations through 
 | Android below 14 | Throws `UnsupportedOperationException` | `null` |
 | iOS HealthKit | Throws `UnsupportedOperationException` | `null` |
 
-Always guard the write:
+Check the extended-fields capability before adding a weight:
 
 ```dart
+final status = connector.getSupportStatusFor(
+  ExerciseSessionSegmentEvent.extendedFieldsRequirements,
+);
+if (!status.isSupported) return;
+
 final segment = ExerciseSessionSegmentEvent(
   startTime: startTime,
   endTime: endTime,
@@ -87,12 +102,7 @@ final segment = ExerciseSessionSegmentEvent(
   weight: Mass.kilograms(80), // needs SDK Extension 21+ on Android
 );
 
-try {
-  await connector.writeRecord(exerciseSession);
-} on UnsupportedOperationException catch (e) {
-  // Omit the weight, or tell the user their device cannot store it.
-  print('Segment weight not supported on this device: $e');
-}
+await connector.writeRecord(exerciseSession);
 ```
 
 ::: danger This is a runtime check, not a compile-time one

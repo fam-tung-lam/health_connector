@@ -3,8 +3,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart';
 import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
 import 'package:health_connector_core/src/models/health_platform.dart';
-import 'package:health_connector_core/src/models/health_platform_data.dart'
-    show HealthPlatformData;
+import 'package:health_connector_core/src/models/health_platform_requirements/health_platform_requirement.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/metadata/metadata.dart';
 import 'package:health_connector_core/src/utils/health_record_data_type_extension.dart';
@@ -212,7 +211,7 @@ part 'wheelchair_pushes_record.dart';
 ///
 @sinceV1_0_0
 @immutable
-sealed class HealthRecord implements HealthPlatformData {
+sealed class HealthRecord {
   /// Creates a health record with the specified [id] and [metadata].
   const HealthRecord({required this.metadata, this.id = HealthRecordId.none});
 
@@ -237,9 +236,15 @@ sealed class HealthRecord implements HealthPlatformData {
   @override
   int get hashCode;
 
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms =>
-      dataType.supportedHealthPlatforms;
+  /// The health platforms that support this record's [dataType].
+  @Deprecated(
+    'Use dataType.healthPlatformRequirements instead. '
+    'Will be removed in 4.1.0.',
+  )
+  List<HealthPlatform> get supportedHealthPlatforms => dataType
+      .healthPlatformRequirements
+      .map((requirement) => requirement.healthPlatform)
+      .toList(growable: false);
 
   /// The category of this health record, derived from its associated data type.
   ///

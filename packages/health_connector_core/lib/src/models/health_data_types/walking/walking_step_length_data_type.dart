@@ -80,8 +80,8 @@ final class WalkingStepLengthDataType
   const WalkingStepLengthDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

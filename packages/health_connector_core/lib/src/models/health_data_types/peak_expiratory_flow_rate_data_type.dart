@@ -57,8 +57,8 @@ final class PeakExpiratoryFlowRateDataType
   int get hashCode => runtimeType.hashCode;
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

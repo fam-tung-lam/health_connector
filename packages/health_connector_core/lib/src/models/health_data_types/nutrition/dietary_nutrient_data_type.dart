@@ -13,7 +13,7 @@ sealed class NutrientDataType<R extends HealthRecord, U extends MeasurementUnit>
   String get id => 'dietary_nutrient';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 }

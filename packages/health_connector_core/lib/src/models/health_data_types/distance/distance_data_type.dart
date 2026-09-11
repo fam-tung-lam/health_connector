@@ -42,8 +42,8 @@ final class DistanceDataType extends HealthDataType<DistanceRecord, Length>
   String get id => 'distance';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    HealthConnectRequirement.allVersions,
   ];
 
   @override

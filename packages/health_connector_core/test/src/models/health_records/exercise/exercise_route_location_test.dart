@@ -295,6 +295,7 @@ void main() {
         );
 
         expect(
+          // ignore: deprecated_member_use_from_same_package
           location.supportedHealthPlatforms,
           containsAll([
             HealthPlatform.appleHealth,

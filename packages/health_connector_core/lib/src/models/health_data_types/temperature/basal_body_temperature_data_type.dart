@@ -41,7 +41,8 @@ final class BasalBodyTemperatureDataType
   const BasalBodyTemperatureDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+  List<HealthPlatformRequirement> get healthPlatformRequirements =>
+      HealthPlatformRequirement.allPlatforms;
 
   @override
   String get id => 'basal_body_temperature';

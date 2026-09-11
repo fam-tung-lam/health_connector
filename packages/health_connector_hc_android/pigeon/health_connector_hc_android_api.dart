@@ -30,6 +30,34 @@ class HealthConnectorConfigDto {
   final bool isLoggerEnabled;
 }
 
+/// One Android SDK Extension track and its version on the device.
+class AndroidSDKExtensionVersionDto {
+  AndroidSDKExtensionVersionDto({
+    required this.androidApiLevel,
+    required this.extensionVersion,
+  });
+
+  /// The Android API level identifying the extension track.
+  final int androidApiLevel;
+
+  /// The installed version of the extension track.
+  final int extensionVersion;
+}
+
+/// Android operating-system facts captured during initialization.
+class OperatingSystemInfoDto {
+  OperatingSystemInfoDto({
+    required this.apiLevel,
+    required this.sdkExtensionVersions,
+  });
+
+  /// The device's `Build.VERSION.SDK_INT` value.
+  final int apiLevel;
+
+  /// Present extension tracks sorted by Android API level.
+  final List<AndroidSDKExtensionVersionDto> sdkExtensionVersions;
+}
+
 // region Metadata
 
 /// Device type for health data recording.
@@ -2887,7 +2915,7 @@ abstract class HealthConnectorHCAndroidApi {
   /// This method must be called before any other Health Connector operations
   /// to properly configure the native platform code, including logger settings.
   @async
-  void initialize(HealthConnectorConfigDto config);
+  OperatingSystemInfoDto initialize(HealthConnectorConfigDto config);
 
   @async
   void launchHealthConnectPageInGooglePlay();

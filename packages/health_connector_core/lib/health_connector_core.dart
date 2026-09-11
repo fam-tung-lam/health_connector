@@ -32,6 +32,17 @@ export 'src/models/health_platform.dart'
     show HealthPlatform, HealthPlatformStatus;
 export 'src/models/health_platform_features/health_platform_feature.dart'
     show HealthPlatformFeature, HealthPlatformFeatureStatus;
+export 'src/models/health_platform_requirements/health_platform_requirement.dart'
+    show
+        HealthPlatformRequirement,
+        HealthConnectRequirement,
+        AppleHealthRequirement;
+export 'src/models/health_platform_support_status.dart'
+    show
+        HealthPlatformSupportStatus,
+        HealthPlatformSupported,
+        HealthPlatformNotSupported,
+        HealthPlatformNotSupportedReason;
 export 'src/models/health_records/health_record.dart'
     hide
         DietaryMacronutrientRecord,
@@ -57,6 +68,14 @@ export 'src/models/measurement_units/measurement_unit.dart'
         Volume;
 export 'src/models/metadata/metadata.dart'
     show Metadata, Device, DeviceType, RecordingMethod, DataOrigin;
+export 'src/models/operating_system_info/android_sdk_extension_version.dart'
+    show AndroidSDKExtensionVersion;
+export 'src/models/operating_system_info/ios_version.dart' show IOSVersion;
+export 'src/models/operating_system_info/operating_system_info.dart'
+    show
+        OperatingSystemInfo,
+        AndroidOperatingSystemInfo,
+        IOSOperatingSystemInfo;
 export 'src/models/permissions/permission.dart'
     show
         HealthPlatformFeaturePermission,

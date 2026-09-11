@@ -56,9 +56,15 @@ final class HealthDataPermission extends Permission {
   /// The type of access being requested for the specified [dataType]
   final HealthDataPermissionAccessType accessType;
 
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms =>
-      dataType.supportedHealthPlatforms;
+  /// The health platforms that support [dataType].
+  @Deprecated(
+    'Use dataType.healthPlatformRequirements instead. '
+    'Will be removed in 4.1.0.',
+  )
+  List<HealthPlatform> get supportedHealthPlatforms => dataType
+      .healthPlatformRequirements
+      .map((requirement) => requirement.healthPlatform)
+      .toList(growable: false);
 
   @override
   bool operator ==(Object other) =>

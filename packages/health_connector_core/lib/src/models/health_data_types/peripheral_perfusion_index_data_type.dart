@@ -62,8 +62,8 @@ final class PeripheralPerfusionIndexDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => const [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

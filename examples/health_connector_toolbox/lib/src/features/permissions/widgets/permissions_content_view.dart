@@ -174,9 +174,11 @@ final class PermissionsContentView extends StatelessWidget {
           (dataType) => dataType.permissions.whereType<HealthDataPermission>(),
         )
         .where(
-          (permission) => permission.supportedHealthPlatforms.contains(
-            healthConnector.healthPlatform,
-          ),
+          (permission) => healthConnector
+              .getSupportStatusFor(
+                permission.dataType.healthPlatformRequirements,
+              )
+              .isSupported,
         )
         .toList();
 

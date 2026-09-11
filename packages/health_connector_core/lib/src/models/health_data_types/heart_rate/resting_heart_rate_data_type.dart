@@ -43,7 +43,8 @@ final class RestingHeartRateDataType
   const RestingHeartRateDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+  List<HealthPlatformRequirement> get healthPlatformRequirements =>
+      HealthPlatformRequirement.allPlatforms;
 
   @override
   String get id => 'resting_heart_rate';

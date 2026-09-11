@@ -48,8 +48,8 @@ final class IrregularHeartRhythmEventDataType
   String get id => 'irregular_heart_rhythm_event';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

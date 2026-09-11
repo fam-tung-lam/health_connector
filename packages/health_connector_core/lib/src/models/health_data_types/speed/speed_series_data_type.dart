@@ -42,8 +42,8 @@ final class SpeedSeriesDataType
   String get id => 'speed_series';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    HealthConnectRequirement.allVersions,
   ];
 
   @override

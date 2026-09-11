@@ -11,7 +11,8 @@ part of 'aggregate_request.dart';
 @internalUse
 @immutable
 final class BloodPressureAggregateRequest extends AggregateRequest<Pressure> {
-  static const _bloodPressureDataTypes = [
+  static const List<HealthDataType<HealthRecord, Pressure>>
+  _bloodPressureDataTypes = [
     HealthDataType.diastolicBloodPressure,
     HealthDataType.systolicBloodPressure,
   ];
@@ -38,7 +39,9 @@ final class BloodPressureAggregateRequest extends AggregateRequest<Pressure> {
     required super.endTime,
   }) {
     require(
-      condition: _bloodPressureDataTypes.contains(dataType),
+      condition: _bloodPressureDataTypes.any(
+        (bloodPressureDataType) => identical(bloodPressureDataType, dataType),
+      ),
       value: dataType,
       name: 'dataType',
       message:

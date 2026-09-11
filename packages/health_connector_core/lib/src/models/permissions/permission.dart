@@ -2,7 +2,6 @@ import 'package:health_connector_core/src/annotations/annotations.dart';
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
     show HealthDataType;
 import 'package:health_connector_core/src/models/health_platform.dart';
-import 'package:health_connector_core/src/models/health_platform_data.dart';
 import 'package:health_connector_core/src/models/health_platform_features/health_platform_feature.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
@@ -17,7 +16,7 @@ part 'health_platform_feature_permission.dart';
 ///
 @sinceV1_0_0
 @internalUse
-sealed class Permission implements HealthPlatformData {
+sealed class Permission {
   /// Creates a base permission.
   const Permission();
 }

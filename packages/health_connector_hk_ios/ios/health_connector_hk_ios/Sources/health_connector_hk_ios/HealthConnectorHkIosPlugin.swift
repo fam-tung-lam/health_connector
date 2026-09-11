@@ -32,7 +32,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///   - completion: Called with a `Result` indicating success or failure
     func initialize(
         config: HealthConnectorConfigDto,
-        completion: @escaping (Result<Void, Error>) -> Void
+        completion: @escaping (Result<OperatingSystemInfoDto, Error>) -> Void
     ) {
         let operation = "initialize"
         // Note: isLoggerEnabled context is valuable here
@@ -64,7 +64,16 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 context: context
             )
 
-            completion(.success(()))
+            let version = ProcessInfo.processInfo.operatingSystemVersion
+            completion(
+                .success(
+                    OperatingSystemInfoDto(
+                        majorVersion: Int64(version.majorVersion),
+                        minorVersion: Int64(version.minorVersion),
+                        patchVersion: Int64(version.patchVersion)
+                    )
+                )
+            )
         } catch {
             HealthConnectorLogger.error(
                 tag: Self.tag,

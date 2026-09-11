@@ -2,6 +2,23 @@
 
 Platform features are capabilities that sit alongside data access — reading in the background, reaching further back in history. On Android their availability depends on the installed Health Connect version and the OS; on iOS they are part of the system.
 
+## Support checks
+
+Every data type, exercise type, exercise event, and platform feature exposes
+`healthPlatformRequirements` describing where it can run. Resolve that list
+synchronously against the device snapshot:
+
+```dart
+final status = connector.getSupportStatusFor(
+  HealthDataType.steps.healthPlatformRequirements,
+);
+if (!status.isSupported) return;
+```
+
+A `HealthPlatformFeature` also carries a permission and has a native
+availability state. Pass its requirements to `getSupportStatusFor()`, then use
+the asynchronous `getFeatureStatus()` before requesting its permission.
+
 ::: info Platform behavior
 **iOS** — HealthKit is built into the OS, so features report `HealthPlatformFeatureStatus.available` and their permissions are granted by default.
 

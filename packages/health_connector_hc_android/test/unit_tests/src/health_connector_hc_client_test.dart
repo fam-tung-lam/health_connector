@@ -201,12 +201,22 @@ void main() {
             'initializes and returns client instance',
             () async {
               when(() => mockApi.initialize(any())).thenAnswer(
-                (_) async {},
+                (_) async => OperatingSystemInfoDto(
+                  apiLevel: 34,
+                  sdkExtensionVersions: [
+                    AndroidSDKExtensionVersionDto(
+                      androidApiLevel: 34,
+                      extensionVersion: 21,
+                    ),
+                  ],
+                ),
               );
 
               final client = await HealthConnectorHCClient.create();
 
               expect(client, isA<HealthConnectorHCClient>());
+              expect(client.operatingSystemInfo.apiLevel, 34);
+              expect(client.operatingSystemInfo.extensionVersionOf(34), 21);
               verify(() => mockApi.initialize(any())).called(1);
             },
           );
@@ -221,7 +231,10 @@ void main() {
           setUp(
             () async {
               when(() => mockApi.initialize(any())).thenAnswer(
-                (_) async {},
+                (_) async => OperatingSystemInfoDto(
+                  apiLevel: 34,
+                  sdkExtensionVersions: [],
+                ),
               );
               client = await HealthConnectorHCClient.create();
             },

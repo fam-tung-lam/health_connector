@@ -9,6 +9,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_route_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/operating_system_info_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
@@ -54,9 +55,14 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       HealthConnectorHKNativeLogApi.init();
     }
 
-    await _platformClient.initialize(config.toDto());
+    final operatingSystemInfoDto = await _platformClient.initialize(
+      config.toDto(),
+    );
 
-    return HealthConnectorHKClient._(config);
+    return HealthConnectorHKClient._(
+      config,
+      operatingSystemInfoDto.toDomain(),
+    );
   }
 
   /// Queries the native platform to determine health platform availability.
@@ -118,9 +124,13 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     }
   }
 
-  const HealthConnectorHKClient._(this._config);
+  const HealthConnectorHKClient._(this._config, this.operatingSystemInfo);
 
   final HealthConnectorConfig _config;
+
+  @sinceV4_0_0
+  @override
+  final IOSOperatingSystemInfo operatingSystemInfo;
 
   @override
   HealthConnectorConfig get config => _config;

@@ -116,13 +116,6 @@ abstract interface class HealthConnector {
           '$healthPlatform needs installation or update.',
         );
       case HealthPlatformStatus.available:
-        HealthConnectorLogger.info(
-          _tag,
-          operation: 'create',
-          message: 'HealthConnector created successfully',
-          context: {'platform': healthPlatform.name},
-        );
-
         final healthPlatformClient = switch (healthPlatform) {
           HealthPlatform.appleHealth => await HealthConnectorHKClient.create(
             config,
@@ -131,6 +124,17 @@ abstract interface class HealthConnector {
             config,
           ),
         };
+
+        HealthConnectorLogger.info(
+          _tag,
+          operation: 'create',
+          message: 'HealthConnector created successfully',
+          context: {
+            'platform': healthPlatform.name,
+            'operating_system_info': healthPlatformClient.operatingSystemInfo
+                .toString(),
+          },
+        );
 
         return HealthConnectorImpl(
           config: config,
@@ -314,6 +318,12 @@ abstract interface class HealthConnector {
   /// ```
   HealthPlatform get healthPlatform;
 
+  /// Device operating-system facts captured during [create].
+  ///
+  /// The snapshot remains unchanged for the lifetime of this connector.
+  @sinceV4_0_0
+  OperatingSystemInfo get operatingSystemInfo;
+
   /// The configuration used by this connector.
   ///
   /// Contains settings such as logger enablement and other connector
@@ -332,6 +342,15 @@ abstract interface class HealthConnector {
   ///
   /// - [HealthConnectorConfig] for available configuration options
   HealthConnectorConfig get config;
+
+  /// Resolves whether this device satisfies [requirements].
+  ///
+  /// This check is synchronous and uses [operatingSystemInfo] together with
+  /// the supplied platform requirements.
+  @sinceV4_0_0
+  HealthPlatformSupportStatus getSupportStatusFor(
+    List<HealthPlatformRequirement> requirements,
+  );
 
   /// Requests the specified permissions from the health platform.
   ///

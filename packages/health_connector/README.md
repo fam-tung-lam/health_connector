@@ -523,6 +523,24 @@ try {
 
 ### Manage Features
 
+### Check Runtime Capability Support
+
+Data types, exercise types, exercise events, and platform features expose
+`healthPlatformRequirements`. Resolve them against the platform and immutable
+OS snapshot captured when the connector was created:
+
+```dart
+final status = connector.getSupportStatusFor(
+  HealthDataType.steps.healthPlatformRequirements,
+);
+if (!status.isSupported) return;
+
+print(connector.operatingSystemInfo);
+```
+
+For `HealthPlatformFeature`, also call `getFeatureStatus()` because native
+feature availability can change independently of its platform requirement.
+
 > **Platform Behavior:**
 >
 > - **iOS:** HealthKit is built into the OS. All features are always available
@@ -1284,11 +1302,11 @@ constraints. Understanding these annotations helps you use the API correctly.
 
 | Annotation                                    | Description                                                                                                                     | Usage                                                                                                                                                                |
 |:----------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `@supportedOnHealthConnect`                   | Android Health Connect only.                                                                                                    | Verify platform using `HealthConnector.healthPlatform` before use.                                                                                                   |
-| `@supportedOnAppleHealth`                     | iOS HealthKit only.                                                                                                             | Verify platform using `HealthConnector.healthPlatform` before use.                                                                                                   |
-| `@supportedOnAppleHealthIOS16Plus`            | iOS HealthKit with iOS 16.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 16.0.                                            |
-| `@supportedOnAppleHealthIOS17Plus`            | iOS HealthKit with iOS 17.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 17.0.                                            |
-| `@supportedOnAppleHealthIOS18Plus`            | iOS HealthKit with iOS 18.0 or later.                                                                                           | Verify platform and iOS version before use. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 18.0.                                            |
+| `@supportedOnHealthConnect`                   | Android Health Connect only.                                                                                                    | Pass the corresponding `healthPlatformRequirements` to `HealthConnector.getSupportStatusFor()`.                                                                      |
+| `@supportedOnAppleHealth`                     | iOS HealthKit only.                                                                                                             | Pass the corresponding `healthPlatformRequirements` to `HealthConnector.getSupportStatusFor()`.                                                                      |
+| `@supportedOnAppleHealthIOS16Plus`            | iOS HealthKit with iOS 16.0 or later.                                                                                           | Check the corresponding capability. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 16.0.                                                  |
+| `@supportedOnAppleHealthIOS17Plus`            | iOS HealthKit with iOS 17.0 or later.                                                                                           | Check the corresponding capability. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 17.0.                                                  |
+| `@supportedOnAppleHealthIOS18Plus`            | iOS HealthKit with iOS 18.0 or later.                                                                                           | Check the corresponding capability. Throws `UnsupportedOperationException` on unsupported platforms or iOS < 18.0.                                                  |
 | `@supportedOnHealthConnectSdkExtension21`     | Android Health Connect with SDK Extension 21+ (Android 14+ with the Health Connect Mainline update).                           | Writing a non-null value on unsupported devices throws `UnsupportedOperationException`. The field is always `null` on iOS. See the note below. |
 | `@readOnly`                                   | Read-only data types representing system-calculated metrics. Cannot be written, updated, or deleted.                            | Use only `readRecords()` or `aggregate()`. Writing throws `UnsupportedOperationException`.                                                                            |
 | `@internalUse`                                | Internal SDK APIs not part of the public API surface.                                                                           | **Do not use in application code.** Use documented public APIs instead.                                                                                               |
@@ -1359,7 +1377,11 @@ Connect Mainline module is at **SDK Extension 21 or higher**.
 **Recommended pattern:**
 
 ```dart
-// Always guard non-null weight writes
+final support = connector.getSupportStatusFor(
+  ExerciseSessionSegmentEvent.extendedFieldsRequirements,
+);
+if (!support.isSupported) return;
+
 final segment = ExerciseSessionSegmentEvent(
   startTime: startTime,
   endTime: endTime,
@@ -1368,13 +1390,7 @@ final segment = ExerciseSessionSegmentEvent(
   weight: Mass.fromKilograms(80), // requires SDK Extension 21+ on Android
 );
 
-try {
-  await connector.writeRecord(exerciseSession);
-} on UnsupportedOperationException catch (e) {
-  // Device does not support ExerciseSessionSegmentEvent.weight.
-  // Either omit the weight field or inform the user.
-  print('Segment weight not supported on this device: $e');
-}
+await connector.writeRecord(exerciseSession);
 ```
 
 > **Important**: This check is a **runtime** device capability check, not a compile-time

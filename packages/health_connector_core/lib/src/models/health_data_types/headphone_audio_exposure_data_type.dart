@@ -48,8 +48,8 @@ final class HeadphoneAudioExposureDataType
   String get id => 'headphone_audio_exposure';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

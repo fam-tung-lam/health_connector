@@ -71,8 +71,8 @@ final class PregnancyDataType
   List<AggregationMetric> get supportedAggregationMetrics => const [];
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => const [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

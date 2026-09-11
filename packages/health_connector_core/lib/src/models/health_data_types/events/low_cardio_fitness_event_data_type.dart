@@ -46,8 +46,8 @@ final class LowCardioFitnessEventDataType
   String get id => 'low_cardio_fitness_event';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

@@ -13,7 +13,7 @@ part of '../health_record.dart';
 ///
 @sinceV3_8_0
 @immutable
-final class ExerciseRoute implements HealthPlatformData {
+final class ExerciseRoute {
   /// Creates an exercise route with the given locations.
   ///
   /// ## Parameters
@@ -99,11 +99,11 @@ final class ExerciseRoute implements HealthPlatformData {
     return locations.last.time.difference(locations.first.time);
   }
 
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-    HealthPlatform.healthConnect,
-  ];
+  /// The health platforms that support exercise routes.
+  @Deprecated(
+    'Exercise routes support both platforms. Will be removed in 4.1.0.',
+  )
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 
   @override
   bool operator ==(Object other) =>

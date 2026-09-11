@@ -57,8 +57,8 @@ final class CyclingPedalingCadenceDataType
   String get id => 'cycling_pedaling_cadence';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

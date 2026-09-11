@@ -32,7 +32,9 @@ void main() {
         'supported platforms are correctly defined',
         () {
           expect(
-            dataType.supportedHealthPlatforms,
+            dataType.healthPlatformRequirements
+                .map((requirement) => requirement.healthPlatform)
+                .toList(growable: false),
             contains(HealthPlatform.appleHealth),
           );
         },

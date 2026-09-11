@@ -46,7 +46,16 @@ By default Health Connect only exposes the last 30 days of data. Older records r
 
 Health Connect is an updatable app whose capabilities depend on its version and on the device's Mainline module level. iOS features are part of the OS, so `getFeatureStatus()` returns `available` and feature permissions return `granted` on iOS by default.
 
-Always check before relying on an optional capability:
+Check platform and OS requirements before relying on a capability:
+
+```dart
+final support = connector.getSupportStatusFor(
+  ExerciseSessionSegmentEvent.extendedFieldsRequirements,
+);
+```
+
+Platform features also have a native availability state, so check that
+separately:
 
 ```dart
 final status = await connector.getFeatureStatus(
@@ -70,7 +79,8 @@ Check availability per type in the [data type explorer](/reference/health-data-t
 
 - Treat "no data" and "no permission" as the same UI state.
 - Never store a health record ID as a durable key without an iOS re-creation strategy.
-- Check `getFeatureStatus()` for anything optional, and keep a fallback path.
+- Pass `healthPlatformRequirements` to `getSupportStatusFor()` and keep a fallback path.
+- Check `getFeatureStatus()` as well when the capability is a platform feature.
 - Branch on `HealthConnector.healthPlatform` only for genuinely platform-specific features; everything else should be shared code.
 
 <NextSteps

@@ -70,7 +70,8 @@ final class IntermenstrualBleedingDataType
   const IntermenstrualBleedingDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+  List<HealthPlatformRequirement> get healthPlatformRequirements =>
+      HealthPlatformRequirement.allPlatforms;
 
   @override
   String get id => 'intermenstrual_bleeding';

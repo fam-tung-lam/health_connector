@@ -44,8 +44,8 @@ final class BodyWaterMassDataType
   List<AggregationMetric> get supportedAggregationMetrics => [];
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    HealthConnectRequirement.allVersions,
   ];
 
   @override

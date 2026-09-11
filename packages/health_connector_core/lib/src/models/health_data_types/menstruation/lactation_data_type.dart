@@ -36,8 +36,8 @@ class LactationDataType extends HealthDataType<LactationRecord, MeasurementUnit>
   const LactationDataType() : super();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

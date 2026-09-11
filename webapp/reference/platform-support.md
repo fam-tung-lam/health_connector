@@ -46,11 +46,15 @@ Every requested Health Connect type needs a matching `<uses-permission>` entry. 
 
 ### Android capability is dynamic
 
-Health Connect is an updatable app, so newer records and operations can depend on its version, the OS version, or the device's Mainline module level. Check `getFeatureStatus()` for anything optional and keep a fallback path. iOS features ship with the OS.
+Health Connect is an updatable app, so newer records and operations can depend on its version, the OS version, or the device's Mainline module level. Pass the API's `healthPlatformRequirements` to `getSupportStatusFor()`. For platform features, also check the native state with `getFeatureStatus()`. iOS features ship with the OS.
 
 ### Records do not map one to one
 
 Not every conceptual record has an equivalent on both stores, and some — nutrition especially — are modelled at different granularity. Check the [data type explorer](/reference/health-data-types) and the [annotations](/reference/annotations) on a type before designing a cross-platform feature around it.
+
+The SDK exposes these facts as `healthPlatformRequirements`. The deprecated
+`supportedHealthPlatforms` projection reports only the platform and cannot
+represent OS or SDK Extension floors.
 
 ## History windows
 

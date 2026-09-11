@@ -142,7 +142,9 @@ class _AggregateDataPageState extends State<AggregateDataPage>
   bool _filterSupportedDataTypes(
     HealthDataType<HealthRecord, MeasurementUnit> type,
   ) {
-    return type.supportedHealthPlatforms.contains(widget.healthPlatform) &&
+    return type.healthPlatformRequirements.any(
+          (requirement) => requirement.healthPlatform == widget.healthPlatform,
+        ) &&
         type.supportedAggregationMetrics.isNotEmpty;
   }
 

@@ -254,6 +254,35 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
     }
   }
 
+  /// Demonstrates runtime platform requirement checks.
+  void _checkSupport() {
+    final connector = _connector;
+    if (connector == null) {
+      _log('Connector not initialized');
+      return;
+    }
+
+    _log('Operating system: ${connector.operatingSystemInfo}');
+
+    final requirementsByName = <String, List<HealthPlatformRequirement>>{
+      'Steps': HealthDataType.steps.healthPlatformRequirements,
+      'Running exercise': ExerciseType.running.healthPlatformRequirements,
+      'Exercise segment extended fields':
+          ExerciseSessionSegmentEvent.extendedFieldsRequirements,
+    };
+
+    for (final MapEntry(key: name, value: requirements)
+        in requirementsByName.entries) {
+      final status = connector.getSupportStatusFor(requirements);
+      switch (status) {
+        case HealthPlatformSupported():
+          _log(' - $name: supported');
+        case HealthPlatformNotSupported(:final message):
+          _log(' - $name: $message');
+      }
+    }
+  }
+
   /// Demonstrates [HealthConnector.readRecord] method.
   Future<void> _readRecord() async {
     if (_connector == null) {
@@ -614,6 +643,12 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
                             ? null
                             : _getFeatureStatus,
                         child: const Text('Feature Status'),
+                      ),
+                      ElevatedButton(
+                        onPressed: _isLoading || _connector == null
+                            ? null
+                            : _checkSupport,
+                        child: const Text('Capability Support'),
                       ),
                     ],
                   ),

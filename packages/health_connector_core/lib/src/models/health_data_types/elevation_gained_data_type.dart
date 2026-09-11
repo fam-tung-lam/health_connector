@@ -37,8 +37,8 @@ final class ElevationGainedDataType
   String get id => 'elevation_gained';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    HealthConnectRequirement.allVersions,
   ];
 
   @override

@@ -261,6 +261,7 @@ void main() {
         final route = ExerciseRoute([location1]);
 
         expect(
+          // ignore: deprecated_member_use_from_same_package
           route.supportedHealthPlatforms,
           containsAll([
             HealthPlatform.appleHealth,

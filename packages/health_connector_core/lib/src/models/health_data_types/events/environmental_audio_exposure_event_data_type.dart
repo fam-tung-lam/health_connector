@@ -53,8 +53,8 @@ final class EnvironmentalAudioExposureEventDataType
   String get id => 'environmental_audio_exposure_event';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

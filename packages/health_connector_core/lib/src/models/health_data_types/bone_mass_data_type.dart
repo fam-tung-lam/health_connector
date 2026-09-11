@@ -40,8 +40,8 @@ final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
   String get id => 'bone_mass';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    HealthConnectRequirement.allVersions,
   ];
 
   @override

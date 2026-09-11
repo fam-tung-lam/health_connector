@@ -48,11 +48,12 @@ final class ExerciseRoutePermission extends Permission {
   /// The type of access being requested.
   final HealthDataPermissionAccessType accessType;
 
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-    HealthPlatform.healthConnect,
-  ];
+  /// The health platforms that support exercise route permissions.
+  @Deprecated(
+    'Exercise route permissions support both platforms. '
+    'Will be removed in 4.1.0.',
+  )
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 
   @override
   bool operator ==(Object other) =>

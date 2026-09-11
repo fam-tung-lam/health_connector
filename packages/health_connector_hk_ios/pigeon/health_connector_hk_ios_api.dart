@@ -27,6 +27,24 @@ class HealthConnectorConfigDto {
   final bool isLoggerEnabled;
 }
 
+/// iOS operating-system facts captured during initialization.
+class OperatingSystemInfoDto {
+  OperatingSystemInfoDto({
+    required this.majorVersion,
+    required this.minorVersion,
+    required this.patchVersion,
+  });
+
+  /// The major iOS version component.
+  final int majorVersion;
+
+  /// The minor iOS version component.
+  final int minorVersion;
+
+  /// The patch iOS version component.
+  final int patchVersion;
+}
+
 // region Metadata
 
 /// Device type for health data recording.
@@ -5039,7 +5057,7 @@ abstract class HealthConnectorNativeLogApi {
 @HostApi()
 abstract class HealthConnectorHKIOSApi {
   @async
-  void initialize(HealthConnectorConfigDto config);
+  OperatingSystemInfoDto initialize(HealthConnectorConfigDto config);
 
   @async
   double aggregate(AggregateRequestDto request);

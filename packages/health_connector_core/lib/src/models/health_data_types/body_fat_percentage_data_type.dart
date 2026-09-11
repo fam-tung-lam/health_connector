@@ -39,7 +39,8 @@ final class BodyFatPercentageDataType
   const BodyFatPercentageDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+  List<HealthPlatformRequirement> get healthPlatformRequirements =>
+      HealthPlatformRequirement.allPlatforms;
 
   @override
   String get id => 'body_fat_percentage';

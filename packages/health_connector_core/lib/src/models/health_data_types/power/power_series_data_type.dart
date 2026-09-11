@@ -34,8 +34,8 @@ final class PowerSeriesDataType extends HealthDataType<PowerSeriesRecord, Power>
   String get id => 'power_series';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    HealthConnectRequirement.allVersions,
   ];
 
   @override

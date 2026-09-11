@@ -4,8 +4,11 @@ import 'package:health_connector_core/src/config/health_connector_config_constan
 import 'package:health_connector_core/src/models/health_data_sync/health_data_sync_token.dart';
 import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
 import 'package:health_connector_core/src/models/health_platform.dart';
-import 'package:health_connector_core/src/models/health_platform_data.dart'
-    show HealthPlatformData;
+import 'package:health_connector_core/src/models/health_platform_requirements/health_platform_requirement.dart'
+    show
+        HealthPlatformRequirement,
+        HealthConnectRequirement,
+        AppleHealthRequirement;
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/metadata/metadata.dart';
@@ -222,9 +225,21 @@ part 'wheelchair_pushes_data_type.dart';
 ///
 @sinceV1_0_0
 @immutable
-sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
-    implements HealthPlatformData {
+sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit> {
   const HealthDataType();
+
+  /// Requirements for each platform that supports this data type.
+  @sinceV4_0_0
+  List<HealthPlatformRequirement> get healthPlatformRequirements;
+
+  /// The health platforms that support this data type.
+  @Deprecated(
+    'Use healthPlatformRequirements instead. Will be removed in 4.1.0.',
+  )
+  List<HealthPlatform> get supportedHealthPlatforms =>
+      healthPlatformRequirements
+          .map((requirement) => requirement.healthPlatform)
+          .toList(growable: false);
 
   /// The list of aggregation metrics that support this health record.
   List<AggregationMetric> get supportedAggregationMetrics;
@@ -1477,16 +1492,17 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Returns a list of all available health data types for
   /// [HealthPlatform.healthConnect].
   static final healthConnectDataTypes = values.where(
-    (type) => type.supportedHealthPlatforms.contains(
-      HealthPlatform.healthConnect,
+    (type) => type.healthPlatformRequirements.any(
+      (requirement) =>
+          requirement.healthPlatform == HealthPlatform.healthConnect,
     ),
   );
 
   /// Returns a list of all available health data types for
   /// [HealthPlatform.appleHealth].
   static final appleHealthDataTypes = values.where(
-    (type) => type.supportedHealthPlatforms.contains(
-      HealthPlatform.appleHealth,
+    (type) => type.healthPlatformRequirements.any(
+      (requirement) => requirement.healthPlatform == HealthPlatform.appleHealth,
     ),
   );
 

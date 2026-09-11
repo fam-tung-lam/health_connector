@@ -47,8 +47,8 @@ final class IrregularMenstrualCycleEventDataType
   String get id => 'irregular_menstrual_cycle_event';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

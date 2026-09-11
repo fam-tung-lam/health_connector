@@ -40,8 +40,8 @@ final class ForcedExpiratoryVolumeDataType
   const ForcedExpiratoryVolumeDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

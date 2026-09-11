@@ -49,8 +49,8 @@ final class ProlongedMenstrualPeriodEventDataType
   String get id => 'prolonged_menstrual_period_event';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override

@@ -42,8 +42,8 @@ final class HeartRateVariabilityRMSSDDataType
   String get id => 'heart_rate_variability_rmssd';
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    HealthConnectRequirement.allVersions,
   ];
 
   @override

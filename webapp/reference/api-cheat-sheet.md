@@ -17,6 +17,11 @@ if (status != HealthPlatformStatus.available) return;
 final connector = await HealthConnector.create();
 ```
 
+Each connector exposes an immutable `operatingSystemInfo` snapshot. Use
+`getSupportStatusFor(requirements)` to synchronously check the
+`healthPlatformRequirements` of a data type, exercise type, exercise event, or
+platform feature against that snapshot.
+
 ## Permissions
 
 | Call | Platform | Notes |
@@ -73,6 +78,7 @@ final connector = await HealthConnector.create();
 
 ```dart
 HealthPlatformStatus.available        // and its unavailable variants
+HealthPlatformSupportStatus           // isSupported, or a typed failure reason
 PermissionStatus.granted | denied | unknown
 HealthPlatformFeatureStatus.available
 SortDescriptor.timeAscending | timeDescending

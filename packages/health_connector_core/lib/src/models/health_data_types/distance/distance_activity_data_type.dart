@@ -41,8 +41,8 @@ sealed class DistanceActivityDataType<R extends DistanceActivityRecord>
   const DistanceActivityDataType();
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.allVersions,
   ];
 
   @override
