@@ -12,6 +12,20 @@ OS-version support is represented at runtime by `healthPlatformRequirements`.
 | `@experimentalApi` | API may change before stabilization | Review release notes before upgrading |
 | `@sinceV…` | Release that introduced the API | Use it to confirm the minimum SDK version |
 
+## Deprecated platform annotations
+
+The legacy `supportedOn…` annotations remain in the internal core library for
+compatibility and are deprecated for removal in 4.1.0. Do not add new usages.
+
+| Deprecated annotation | Runtime replacement |
+|---|---|
+| `supportedOnHealthConnect` | `HealthConnectRequirement.allVersions` |
+| `supportedOnHealthConnectSdkExtension21` | `HealthConnectRequirement.sdkExtension21` |
+| `supportedOnAppleHealth` | `AppleHealthRequirement.allVersions` |
+| `supportedOnAppleHealthIOS16Plus` | `AppleHealthRequirement.ios16` |
+| `supportedOnAppleHealthIOS17Plus` | `AppleHealthRequirement.ios17` |
+| `supportedOnAppleHealthIOS18Plus` | `AppleHealthRequirement.ios18` |
+
 Platform availability is queryable before an operation:
 
 ```dart
