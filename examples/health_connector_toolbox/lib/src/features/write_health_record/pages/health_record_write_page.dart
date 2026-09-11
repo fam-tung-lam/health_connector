@@ -659,6 +659,9 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       StandTimeDataType _ => throw UnsupportedError(
         'Apple Stand Time is read-only',
       ),
+      AppleStandHourDataType _ => throw UnsupportedError(
+        'Apple Stand Hour is read-only',
+      ),
       WalkingSteadinessDataType _ => throw UnsupportedError(
         'Apple Walking Steadiness is read-only',
       ),

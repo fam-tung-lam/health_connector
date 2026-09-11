@@ -15,6 +15,7 @@ void main() {
             <HealthDataType>[
               HealthDataType.activeEnergyBurned,
               HealthDataType.activityIntensity,
+              HealthDataType.appleStandHour,
               HealthDataType.exerciseTime,
               HealthDataType.moveTime,
               HealthDataType.standTime,

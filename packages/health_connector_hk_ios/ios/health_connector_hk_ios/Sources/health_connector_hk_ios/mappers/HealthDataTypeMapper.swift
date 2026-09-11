@@ -360,6 +360,8 @@ extension HealthDataTypeDto {
             try HKCategoryType.make(from: .highHeartRateEvent)
         case .walkingSteadinessEvent:
             try HKCategoryType.make(from: .appleWalkingSteadinessEvent)
+        case .appleStandHour:
+            try HKCategoryType.make(from: .appleStandHour)
         case .persistentIntermenstrualBleedingEvent:
             if #available(iOS 16.0, *) {
                 try HKCategoryType.make(from: .persistentIntermenstrualBleeding)

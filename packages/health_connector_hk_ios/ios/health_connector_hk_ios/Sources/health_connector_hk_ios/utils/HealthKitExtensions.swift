@@ -224,6 +224,8 @@ extension HKSample {
                 return .highHeartRateEvent
             case HKCategoryTypeIdentifier.appleWalkingSteadinessEvent.rawValue:
                 return .walkingSteadinessEvent
+            case HKCategoryTypeIdentifier.appleStandHour.rawValue:
+                return .appleStandHour
             // Correlation types
             case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
                 return .bloodPressure

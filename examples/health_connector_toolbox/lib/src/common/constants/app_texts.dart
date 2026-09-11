@@ -208,6 +208,7 @@ abstract final class AppTexts {
       ExerciseTimeDataType() => exerciseTime,
       MoveTimeDataType() => moveTime,
       StandTimeDataType() => standTime,
+      AppleStandHourDataType() => appleStandHour,
       WalkingSteadinessDataType() => walkingSteadiness,
       WalkingAsymmetryPercentageDataType() => walkingAsymmetryPercentage,
       WalkingDoubleSupportPercentageDataType() =>
@@ -381,6 +382,9 @@ abstract final class AppTexts {
       'Amount of time spent moving actively';
   static const String standTime = 'Apple Stand Time';
   static const String standTimeDescription = 'Amount of time spent standing';
+  static const String appleStandHour = 'Apple Stand Hour';
+  static const String standGoalAchieved = 'Stand goal achieved';
+  static const String standGoalNotAchieved = 'Stand goal not achieved';
   static const String walkingAsymmetryPercentage = 'Walking Asymmetry';
   static const String walkingAsymmetryPercentageDescription =
       'Percentage of time the weight alternates between left and right feet '

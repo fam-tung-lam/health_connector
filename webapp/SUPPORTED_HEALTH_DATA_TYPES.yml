@@ -224,6 +224,18 @@
     url: https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/applestandtime
   category: Activity
   group: General Activity
+- name: Apple Stand Hour
+  description: Hourly status indicating whether the Stand or Roll goal was met
+  constant: HealthDataType.appleStandHour
+  aggregations:
+  - Sum
+  android: false
+  ios: true
+  iosApi:
+    label: HKCategoryTypeIdentifier.appleStandHour
+    url: https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/applestandhour
+  category: Activity
+  group: General Activity
 - name: Distance (generic)
   description: Generic distance traveled
   constant: HealthDataType.distance

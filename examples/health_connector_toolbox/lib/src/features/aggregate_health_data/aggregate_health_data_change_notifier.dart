@@ -114,6 +114,13 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+      AppleStandHourDataType() => _buildSum(
+        () => HealthDataType.appleStandHour.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
       ElectrodermalActivityDataType() => _buildAvgMinMax(
         () => HealthDataType.electrodermalActivity.aggregateAvg(
           startTime: startTime,

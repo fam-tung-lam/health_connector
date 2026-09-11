@@ -190,6 +190,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(IrregularHeartRhythmEventRecordHandler(healthStore: healthStore))
         register(LowHeartRateEventRecordHandler(healthStore: healthStore))
         register(WalkingSteadinessEventRecordHandler(healthStore: healthStore))
+        register(AppleStandHourHandler(healthStore: healthStore))
         register(InfrequentMenstrualCycleEventRecordHandler(healthStore: healthStore))
         register(IrregularMenstrualCycleEventRecordHandler(healthStore: healthStore))
         register(PersistentIntermenstrualBleedingEventRecordHandler(healthStore: healthStore))

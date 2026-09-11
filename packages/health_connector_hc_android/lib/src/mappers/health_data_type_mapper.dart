@@ -338,6 +338,7 @@ extension HealthDataTypeToDto on HealthDataType {
       case InfrequentMenstrualCycleEventDataType():
       case HighHeartRateEventDataType():
       case WalkingSteadinessEventDataType():
+      case AppleStandHourDataType():
       case PersistentIntermenstrualBleedingEventDataType():
       case ProlongedMenstrualPeriodEventDataType():
       case AtrialFibrillationBurdenDataType():

@@ -125,6 +125,7 @@ extension HealthDataPermissionRequestDto {
              .infrequentMenstrualCycleEvent,
              .highHeartRateEvent,
              .walkingSteadinessEvent,
+             .appleStandHour,
              .persistentIntermenstrualBleedingEvent,
              .prolongedMenstrualPeriodEvent,
              .prolongedMenstrualPeriodEvent,

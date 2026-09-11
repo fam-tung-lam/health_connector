@@ -27,6 +27,10 @@ void main() {
                 HealthDataType.walkingRunningDistance,
               ],
               [HealthDataTypeDto.floorsClimbed, HealthDataType.floorsClimbed],
+              [
+                HealthDataTypeDto.appleStandHour,
+                HealthDataType.appleStandHour,
+              ],
               [HealthDataTypeDto.height, HealthDataType.height],
               [HealthDataTypeDto.hydration, HealthDataType.hydration],
               [HealthDataTypeDto.leanBodyMass, HealthDataType.leanBodyMass],
@@ -238,6 +242,10 @@ void main() {
                 HealthDataTypeDto.walkingRunningDistance,
               ],
               [HealthDataType.floorsClimbed, HealthDataTypeDto.floorsClimbed],
+              [
+                HealthDataType.appleStandHour,
+                HealthDataTypeDto.appleStandHour,
+              ],
               [HealthDataType.height, HealthDataTypeDto.height],
               [HealthDataType.hydration, HealthDataTypeDto.hydration],
               [HealthDataType.leanBodyMass, HealthDataTypeDto.leanBodyMass],
