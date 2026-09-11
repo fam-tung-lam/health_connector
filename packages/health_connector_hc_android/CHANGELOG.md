@@ -1,9 +1,10 @@
-## Unreleased
+## 3.7.1
 
 - **FIX**: Clarify that Health Connect biking maps to `ExerciseType.cycling`
   (outdoor) and stationary biking maps to `ExerciseType.cyclingStationary`
   (indoor)
-  ([#218](https://github.com/fam-tung-lam/health_connector/issues/218)).
+  ([#218](https://github.com/fam-tung-lam/health_connector/issues/218),
+  [e5e0796d](https://github.com/fam-tung-lam/health_connector/commit/e5e0796d4de3c4850785d7e7ec29d9748414fdd7)).
 
 ## 3.7.0
 

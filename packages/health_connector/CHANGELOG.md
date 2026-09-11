@@ -1,9 +1,10 @@
-## Unreleased
+## 3.10.1
 
 - **FIX**: Define `ExerciseType.cycling` as outdoor cycling and
   `ExerciseType.cyclingStationary` as indoor cycling across HealthKit and
   Health Connect
-  ([#218](https://github.com/fam-tung-lam/health_connector/issues/218)).
+  ([#218](https://github.com/fam-tung-lam/health_connector/issues/218),
+  [e5e0796d](https://github.com/fam-tung-lam/health_connector/commit/e5e0796d4de3c4850785d7e7ec29d9748414fdd7)).
 
 ## 3.10.0
 
