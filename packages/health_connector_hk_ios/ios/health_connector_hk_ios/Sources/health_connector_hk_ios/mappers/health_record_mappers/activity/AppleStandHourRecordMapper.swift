@@ -3,23 +3,29 @@ import HealthKit
 
 /// Maps an Apple Stand Hour category sample to its platform DTO.
 extension HKCategorySample {
+    func toAppleActivityCategoryRecordDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
+        switch type {
+        case .walkingSteadinessEvent:
+            try toWalkingSteadinessEventRecordDto()
+        case .appleStandHour:
+            try toAppleStandHourRecordDto()
+        default:
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected an Apple activity event data type",
+                context: ["data_type": type.rawValue]
+            )
+        }
+    }
+
     func toAppleStandHourRecordDto() throws -> AppleStandHourRecordDto {
         guard categoryType.identifier == HKCategoryTypeIdentifier.appleStandHour.rawValue else {
             throw HealthConnectorError.invalidArgument(
-                message: "Expected Apple Stand Hour category type, got \(categoryType.identifier)",
-                context: [
-                    "expected": HKCategoryTypeIdentifier.appleStandHour.rawValue,
-                    "actual": categoryType.identifier,
-                ]
+                message: "Expected Apple Stand Hour category type",
+                context: ["data_type": "appleStandHour"]
             )
         }
 
-        guard let standHourValue = HKCategoryValueAppleStandHour(rawValue: value) else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Invalid Apple Stand Hour value: \(value)",
-                context: ["value": value]
-            )
-        }
+        let status = try AppleStandHourStatusDto(standHourValue: value)
 
         var builder = MetadataBuilder(
             fromHKMetadata: metadata ?? [:],
@@ -34,24 +40,24 @@ extension HKCategorySample {
             startTime: startDate.millisecondsSince1970,
             endTime: endDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            status: AppleStandHourStatusDto(from: standHourValue),
+            status: status,
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset
         )
     }
 }
 
-private extension AppleStandHourStatusDto {
-    init(from standHourValue: HKCategoryValueAppleStandHour) throws {
+extension AppleStandHourStatusDto {
+    init(standHourValue: Int) throws {
         switch standHourValue {
-        case .stood:
+        case HKCategoryValueAppleStandHour.stood.rawValue:
             self = .stood
-        case .idle:
+        case HKCategoryValueAppleStandHour.idle.rawValue:
             self = .idle
-        @unknown default:
+        default:
             throw HealthConnectorError.invalidArgument(
-                message: "Unknown Apple Stand Hour value: \(standHourValue.rawValue)",
-                context: ["value": standHourValue.rawValue]
+                message: "Invalid Apple Stand Hour category value",
+                context: ["data_type": "appleStandHour"]
             )
         }
     }

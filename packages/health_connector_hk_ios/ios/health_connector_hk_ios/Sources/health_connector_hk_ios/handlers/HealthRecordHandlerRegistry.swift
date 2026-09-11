@@ -189,8 +189,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(HighHeartRateEventRecordHandler(healthStore: healthStore))
         register(IrregularHeartRhythmEventRecordHandler(healthStore: healthStore))
         register(LowHeartRateEventRecordHandler(healthStore: healthStore))
-        register(WalkingSteadinessEventRecordHandler(healthStore: healthStore))
-        register(AppleStandHourHandler(healthStore: healthStore))
+        registerAppleActivityCategoryHandlers()
         register(InfrequentMenstrualCycleEventRecordHandler(healthStore: healthStore))
         register(IrregularMenstrualCycleEventRecordHandler(healthStore: healthStore))
         register(PersistentIntermenstrualBleedingEventRecordHandler(healthStore: healthStore))
@@ -204,6 +203,11 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(HeadphoneAudioExposureEventRecordHandler(healthStore: healthStore))
         register(EnvironmentalAudioExposureHandler(healthStore: healthStore))
         register(HeadphoneAudioExposureHandler(healthStore: healthStore))
+    }
+
+    private func registerAppleActivityCategoryHandlers() {
+        register(WalkingSteadinessEventRecordHandler(healthStore: healthStore))
+        register(AppleStandHourHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

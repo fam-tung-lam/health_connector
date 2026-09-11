@@ -35,8 +35,7 @@ extension AppleStandHourHandler {
             operation: "aggregate",
             context: [
                 "metric": metric.rawValue,
-                "start_time": startTime,
-                "end_time": endTime,
+                "query_span_seconds": endTime.timeIntervalSince(startTime),
             ]
         ) {
             try validateAggregationMetric(metric)
@@ -46,9 +45,13 @@ extension AppleStandHourHandler {
                 endTime: endTime
             )
 
-            return samples.reduce(0.0) { total, sample in
-                total + (sample.value == HKCategoryValueAppleStandHour.stood.rawValue ? 1.0 : 0.0)
-            }
+            return Self.countStoodHours(in: samples)
+        }
+    }
+
+    static func countStoodHours(in samples: [HKCategorySample]) -> Double {
+        samples.reduce(0.0) { total, sample in
+            total + (sample.value == HKCategoryValueAppleStandHour.stood.rawValue ? 1.0 : 0.0)
         }
     }
 }

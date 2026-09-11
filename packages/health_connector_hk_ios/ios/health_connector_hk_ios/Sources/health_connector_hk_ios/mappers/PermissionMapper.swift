@@ -128,7 +128,6 @@ extension HealthDataPermissionRequestDto {
              .appleStandHour,
              .persistentIntermenstrualBleedingEvent,
              .prolongedMenstrualPeriodEvent,
-             .prolongedMenstrualPeriodEvent,
              .atrialFibrillationBurden,
              .walkingHeartRateAverage,
              .numberOfTimesFallen,

@@ -1,7 +1,10 @@
-## 3.10.1
+## Unreleased
 
 - **FEAT**: Add read and sum-aggregation support for Apple Stand Hour records
   on HealthKit ([#217](https://github.com/fam-tung-lam/health_connector/issues/217)).
+
+## 3.10.1
+
 - **FEAT**: Add runtime platform and OS requirement checks through
   `HealthConnector.getSupportStatusFor`, backed by an immutable
   `operatingSystemInfo` snapshot
