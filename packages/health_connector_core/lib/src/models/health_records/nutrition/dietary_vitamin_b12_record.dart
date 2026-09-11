@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryVitaminB12DataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryVitaminB12Record extends DietaryVitaminRecord {
   /// Creates a vitamin B12 nutrient record.

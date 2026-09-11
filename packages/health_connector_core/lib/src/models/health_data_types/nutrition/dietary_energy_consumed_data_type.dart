@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietaryEnergyConsumedRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryEnergyConsumedDataType
     extends NutrientDataType<DietaryEnergyConsumedRecord, Energy>

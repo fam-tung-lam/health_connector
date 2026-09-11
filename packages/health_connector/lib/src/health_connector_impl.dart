@@ -97,7 +97,6 @@ final class HealthConnectorImpl implements HealthConnector {
     }
   }
 
-  @supportedOnHealthConnect
   @override
   Future<List<Permission>> getGrantedPermissions() async {
     HealthConnectorLogger.debug(
@@ -188,7 +187,6 @@ final class HealthConnectorImpl implements HealthConnector {
     }
   }
 
-  @supportedOnHealthConnect
   @override
   Future<void> revokeAllPermissions() async {
     HealthConnectorLogger.debug(

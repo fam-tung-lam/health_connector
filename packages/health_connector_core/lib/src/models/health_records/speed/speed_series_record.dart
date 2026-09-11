@@ -36,7 +36,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV2_0_0
-@supportedOnHealthConnect
 @immutable
 final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
   ///
@@ -182,7 +181,6 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
 /// Represents a speed measurement at a specific point in time.
 ///
 @sinceV2_0_0
-@supportedOnHealthConnect
 @immutable
 final class SpeedSample {
   /// Minimum valid speed in km/h (0.0 km/h).

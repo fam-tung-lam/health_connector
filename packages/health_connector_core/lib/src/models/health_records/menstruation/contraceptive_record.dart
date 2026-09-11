@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [ContraceptiveType]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 final class ContraceptiveRecord extends IntervalHealthRecord {
   /// Creates a contraceptive record.

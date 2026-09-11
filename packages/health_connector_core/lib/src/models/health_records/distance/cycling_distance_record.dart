@@ -20,7 +20,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @immutable
 final class CyclingDistanceRecord extends DistanceActivityRecord {
   /// Creates a cycling distance record.

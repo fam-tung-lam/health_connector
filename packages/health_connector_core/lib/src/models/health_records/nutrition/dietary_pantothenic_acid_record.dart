@@ -31,7 +31,6 @@ part of '../health_record.dart';
 /// - [DietaryPantothenicAcidDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryPantothenicAcidRecord extends DietaryVitaminRecord {
   /// Creates a pantothenic acid nutrient record.

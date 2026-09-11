@@ -32,7 +32,6 @@ part of '../health_record.dart';
 /// - [DietaryTotalCarbohydrateDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryTotalCarbohydrateRecord extends DietaryMacronutrientRecord {
   /// Creates a total carbohydrate nutrient record.

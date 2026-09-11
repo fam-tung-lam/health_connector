@@ -16,7 +16,6 @@ part of '../health_record.dart';
 /// combined [NutritionRecord] instead.
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @internalUse
 @immutable
 sealed class NutrientRecord<U extends MeasurementUnit>

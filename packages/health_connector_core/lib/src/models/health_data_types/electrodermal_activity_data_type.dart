@@ -22,7 +22,6 @@ part of 'health_data_type.dart';
 /// - [ElectrodermalActivityRecord]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealth
 @immutable
 final class ElectrodermalActivityDataType
     extends HealthDataType<ElectrodermalActivityRecord, Number>

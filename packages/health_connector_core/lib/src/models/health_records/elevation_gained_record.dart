@@ -26,7 +26,6 @@ part of 'health_record.dart';
 /// **Validation**:
 /// - [elevation] must be between -1000000 and 1000000 meters.
 @sinceV3_1_0
-@supportedOnHealthConnect
 @immutable
 final class ElevationGainedRecord extends IntervalHealthRecord {
   /// Minimum valid elevation (-1,000,000 m).

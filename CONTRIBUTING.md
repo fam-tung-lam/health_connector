@@ -277,13 +277,13 @@ void oldMethodName() => newMethodName();
 
 ### Android-only APIs
 
-Use the `@supportedOnHealthConnect` annotation for APIs that are only available on Android Health
-Connect. Document the platform restriction on the SDK website.
+Expose a `healthPlatformRequirements` list containing only the applicable
+`HealthConnectRequirement`. Document the platform restriction on the SDK website.
 
 ### iOS-only APIs
 
-Use the `@supportedOnAppleHealth` annotation for APIs that are only available on iOS HealthKit.
-Document the platform restriction on the SDK website.
+Expose a `healthPlatformRequirements` list containing only the applicable
+`AppleHealthRequirement`. Document the platform restriction on the SDK website.
 
 ---
 

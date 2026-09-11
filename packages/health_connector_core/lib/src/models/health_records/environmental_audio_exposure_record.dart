@@ -13,7 +13,6 @@ part of 'health_record.dart';
 /// - [HeadphoneAudioExposureEventRecord]
 ///
 @sinceV3_6_0
-@supportedOnAppleHealth
 @immutable
 final class EnvironmentalAudioExposureRecord extends IntervalHealthRecord {
   /// Creates an [EnvironmentalAudioExposureRecord] with the given parameters.

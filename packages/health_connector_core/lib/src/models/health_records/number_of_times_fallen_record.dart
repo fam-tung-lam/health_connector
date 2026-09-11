@@ -10,7 +10,6 @@ part of 'health_record.dart';
 /// - [NumberOfTimesFallenDataType]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealth
 @immutable
 final class NumberOfTimesFallenRecord extends IntervalHealthRecord {
   /// Minimum valid count (0).

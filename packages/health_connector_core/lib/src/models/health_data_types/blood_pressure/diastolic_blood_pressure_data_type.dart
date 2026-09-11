@@ -27,7 +27,6 @@ part of '../health_data_type.dart';
 /// - [DiastolicBloodPressureRecord]
 ///
 @sinceV1_2_0
-@supportedOnAppleHealth
 @immutable
 final class DiastolicBloodPressureDataType
     extends HealthDataType<DiastolicBloodPressureRecord, Pressure>

@@ -25,7 +25,6 @@ part of '../health_data_type.dart';
 /// - **iOS HealthKit**: `HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @immutable
 final class SixMinuteWalkTestDistanceDataType
     extends DistanceActivityDataType<SixMinuteWalkTestDistanceRecord>

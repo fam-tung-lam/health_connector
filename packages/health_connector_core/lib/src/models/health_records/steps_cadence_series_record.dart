@@ -38,7 +38,6 @@ part of 'health_record.dart';
 /// - [StepsCadenceSeriesDataType]
 ///
 @sinceV3_1_0
-@supportedOnHealthConnect
 @immutable
 final class StepsCadenceSeriesRecord
     extends SeriesHealthRecord<StepsCadenceSample> {

@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietarySeleniumDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietarySeleniumRecord extends DietaryMineralRecord {
   /// Creates a selenium nutrient record.

@@ -30,7 +30,6 @@ part of '../health_record.dart';
 /// - [MoveTimeDataType]
 ///
 @sinceV3_2_0
-@supportedOnAppleHealth
 @readOnly
 @immutable
 final class MoveTimeRecord extends IntervalHealthRecord {

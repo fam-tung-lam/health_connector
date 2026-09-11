@@ -29,7 +29,6 @@ part of '../../health_record.dart';
 /// - [ProgesteroneTestResult]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 final class ProgesteroneTestRecord extends InstantHealthRecord {
   /// Creates a progesterone test record.

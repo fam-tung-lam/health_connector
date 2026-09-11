@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryCholesterolDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryCholesterolRecord extends DietaryMacronutrientRecord {
   /// Creates a cholesterol nutrient record.

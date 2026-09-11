@@ -62,7 +62,6 @@ part of '../health_data_type.dart';
 /// - [ContraceptiveType]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 class ContraceptiveDataType
     extends HealthDataType<ContraceptiveRecord, MeasurementUnit>

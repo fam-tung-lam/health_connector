@@ -25,7 +25,6 @@ part of '../health_data_type.dart';
 /// - **iOS HealthKit**: `HKQuantityTypeIdentifier.stairDescentSpeed`
 ///
 @sinceV2_0_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class StairDescentSpeedDataType
     extends SpeedActivityDataType<StairDescentSpeedRecord> {
@@ -35,6 +34,11 @@ final class StairDescentSpeedDataType
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const StairDescentSpeedDataType();
+
+  @override
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.ios16,
+  ];
 
   @override
   String get id => 'stair_descent_speed';

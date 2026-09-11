@@ -29,7 +29,6 @@ part of '../health_record.dart';
 /// - [DietaryFiberNutrientDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryFiberRecord extends DietaryMacronutrientRecord {
   /// Creates a dietary fiber nutrient record.

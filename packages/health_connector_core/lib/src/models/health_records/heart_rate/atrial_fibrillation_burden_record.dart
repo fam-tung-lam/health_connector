@@ -10,7 +10,6 @@ part of '../health_record.dart';
 /// - [AtrialFibrillationBurdenDataType]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealthIOS16Plus
 @readOnly
 @immutable
 final class AtrialFibrillationBurdenRecord extends IntervalHealthRecord {

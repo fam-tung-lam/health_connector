@@ -19,7 +19,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV2_0_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class WalkingSpeedRecord extends SpeedActivityRecord {
   /// Minimum valid walking speed in km/h (0.0 km/h).

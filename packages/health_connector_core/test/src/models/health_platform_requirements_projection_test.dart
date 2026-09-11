@@ -108,4 +108,55 @@ void main() {
       [HealthConnectRequirement.sdkExtension21],
     );
   });
+
+  test('version-gated data types expose their iOS floors', () {
+    const expectedIOS16 = <HealthDataType>[
+      HealthDataType.sleepingWristTemperature,
+      HealthDataType.runningGroundContactTime,
+      HealthDataType.atrialFibrillationBurden,
+      HealthDataType.runningStrideLength,
+      HealthDataType.runningPower,
+      HealthDataType.heartRateRecoveryOneMinute,
+      HealthDataType.irregularMenstrualCycleEvent,
+      HealthDataType.prolongedMenstrualPeriodEvent,
+      HealthDataType.persistentIntermenstrualBleedingEvent,
+      HealthDataType.infrequentMenstrualCycleEvent,
+      HealthDataType.walkingSpeed,
+      HealthDataType.runningSpeed,
+      HealthDataType.stairAscentSpeed,
+      HealthDataType.stairDescentSpeed,
+    ];
+    const expectedIOS17 = <HealthDataType>[
+      HealthDataType.cyclingPower,
+      HealthDataType.cyclingPedalingCadence,
+    ];
+    const expectedIOS18 = <HealthDataType>[
+      HealthDataType.rowingDistance,
+      HealthDataType.crossCountrySkiingDistance,
+      HealthDataType.skatingSportsDistance,
+      HealthDataType.paddleSportsDistance,
+    ];
+
+    for (final dataType in expectedIOS16) {
+      expect(
+        dataType.healthPlatformRequirements,
+        [AppleHealthRequirement.ios16],
+        reason: dataType.toString(),
+      );
+    }
+    for (final dataType in expectedIOS17) {
+      expect(
+        dataType.healthPlatformRequirements,
+        [AppleHealthRequirement.ios17],
+        reason: dataType.toString(),
+      );
+    }
+    for (final dataType in expectedIOS18) {
+      expect(
+        dataType.healthPlatformRequirements,
+        [AppleHealthRequirement.ios18],
+        reason: dataType.toString(),
+      );
+    }
+  });
 }

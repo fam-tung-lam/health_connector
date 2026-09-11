@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryFolateDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryFolateRecord extends DietaryVitaminRecord {
   /// Creates a folate nutrient record.

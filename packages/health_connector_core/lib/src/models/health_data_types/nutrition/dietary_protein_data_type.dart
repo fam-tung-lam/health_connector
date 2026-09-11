@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietaryProteinRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryProteinDataType
     extends MacronutrientDataType<DietaryProteinRecord>

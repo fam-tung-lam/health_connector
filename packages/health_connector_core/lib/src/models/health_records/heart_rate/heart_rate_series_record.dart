@@ -42,7 +42,6 @@ part of '../health_record.dart';
 /// - [HeartRateSeriesDataType]
 ///
 @sinceV1_0_0
-@supportedOnHealthConnect
 @immutable
 final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
   ///

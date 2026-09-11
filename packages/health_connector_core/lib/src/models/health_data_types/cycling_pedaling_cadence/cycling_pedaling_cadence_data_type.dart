@@ -32,7 +32,6 @@ part of '../health_data_type.dart';
 /// - [CyclingPedalingCadenceRecord]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealthIOS17Plus
 @immutable
 final class CyclingPedalingCadenceDataType
     extends HealthDataType<CyclingPedalingCadenceRecord, Frequency>
@@ -58,7 +57,7 @@ final class CyclingPedalingCadenceDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.ios17,
   ];
 
   @override

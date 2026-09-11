@@ -8,8 +8,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Availability
 ///
-/// **These records are ONLY supported on iOS/HealthKit.** They are marked with
-/// `@supportedOnAppleHealth` and will not compile when targeting Android.
+/// **These records are ONLY supported on iOS/HealthKit.** Their data types'
+/// `healthPlatformRequirements` contain only an [AppleHealthRequirement].
 ///
 /// For cross-platform speed tracking, use [SpeedSeriesRecord] that is available
 /// only on Android Health Connect.
@@ -22,7 +22,6 @@ part of '../health_record.dart';
 /// - [StairDescentSpeedRecord] - Stair descent speed
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @internalUse
 @immutable
 sealed class SpeedActivityRecord extends InstantHealthRecord {

@@ -26,7 +26,6 @@ part of '../../health_record.dart';
 /// - [MenstrualFlow]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class MenstrualFlowInstantRecord extends InstantHealthRecord {
   /// Creates a menstrual flow instant record.

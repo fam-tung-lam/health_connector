@@ -22,7 +22,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV2_0_0
-@supportedOnAppleHealthIOS18Plus
 @immutable
 final class SkatingSportsDistanceRecord extends DistanceActivityRecord {
   /// Creates a skating sports distance record.

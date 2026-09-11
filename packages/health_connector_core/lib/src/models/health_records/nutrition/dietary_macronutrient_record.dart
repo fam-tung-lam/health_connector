@@ -3,7 +3,6 @@ part of '../health_record.dart';
 /// Base class for macronutrient health records.
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @internal
 @immutable
 sealed class DietaryMacronutrientRecord extends NutrientRecord<Mass> {

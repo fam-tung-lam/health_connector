@@ -34,7 +34,6 @@ part of '../health_data_type.dart';
 /// - [BasalMetabolicRateRecord]
 ///
 @sinceV3_6_0
-@supportedOnHealthConnect
 @immutable
 final class BasalMetabolicRateDataType
     extends HealthDataType<BasalMetabolicRateRecord, Energy>

@@ -19,7 +19,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV2_0_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class RunningSpeedRecord extends SpeedActivityRecord {
   /// Minimum valid running speed in km/h (0.0 km/h).

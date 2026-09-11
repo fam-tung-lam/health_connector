@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [BasalMetabolicRateDataType]
 ///
 @sinceV3_6_0
-@supportedOnHealthConnect
 @immutable
 final class BasalMetabolicRateRecord extends InstantHealthRecord {
   /// Minimum valid basal metabolic rate (0.0 kcal/day).

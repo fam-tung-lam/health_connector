@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryIronDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryIronRecord extends DietaryMineralRecord {
   /// Creates an iron nutrient record.

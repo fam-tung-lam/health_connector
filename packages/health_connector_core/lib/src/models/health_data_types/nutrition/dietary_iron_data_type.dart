@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietaryIronRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryIronDataType
     extends MineralNutrientDataType<DietaryIronRecord>

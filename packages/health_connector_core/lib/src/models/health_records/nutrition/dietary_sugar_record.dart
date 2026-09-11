@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietarySugarDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietarySugarRecord extends DietaryMacronutrientRecord {
   /// Creates a sugar nutrient record.

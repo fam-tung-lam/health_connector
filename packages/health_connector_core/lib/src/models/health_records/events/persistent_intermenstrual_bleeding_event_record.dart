@@ -9,7 +9,6 @@ part of '../health_record.dart';
 /// - [IntermenstrualBleedingRecord]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealthIOS16Plus
 @readOnly
 @immutable
 final class PersistentIntermenstrualBleedingEventRecord

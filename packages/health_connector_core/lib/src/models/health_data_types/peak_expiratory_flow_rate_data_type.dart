@@ -23,7 +23,6 @@ part of 'health_data_type.dart';
 /// - [PeakExpiratoryFlowRateRecord]
 ///
 @sinceV3_6_0
-@supportedOnAppleHealth
 @immutable
 final class PeakExpiratoryFlowRateDataType
     extends HealthDataType<PeakExpiratoryFlowRateRecord, Volume>

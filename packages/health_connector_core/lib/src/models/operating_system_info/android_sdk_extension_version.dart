@@ -6,7 +6,6 @@ import 'package:meta/meta.dart' show immutable;
 /// In an operating-system snapshot, this is a version present on the device.
 /// In a platform requirement, this is the minimum version a capability needs.
 @sinceV4_0_0
-@supportedOnHealthConnect
 @immutable
 final class AndroidSDKExtensionVersion {
   /// Creates an Android SDK Extension version.

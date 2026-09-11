@@ -25,7 +25,6 @@ part of '../health_record.dart';
 /// - [PregnancyDataType]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 class PregnancyRecord extends IntervalHealthRecord {
   /// Creates a pregnancy record.
   ///

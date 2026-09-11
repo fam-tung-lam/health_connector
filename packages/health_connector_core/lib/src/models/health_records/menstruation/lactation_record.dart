@@ -25,7 +25,6 @@ part of '../health_record.dart';
 /// - [LactationDataType]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 class LactationRecord extends IntervalHealthRecord {
   /// Creates a lactation record.

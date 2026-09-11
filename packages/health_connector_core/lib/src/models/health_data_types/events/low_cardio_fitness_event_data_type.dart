@@ -27,7 +27,6 @@ part of '../health_data_type.dart';
 /// - [LowCardioFitnessEventRecord]
 ///
 @sinceV3_6_0
-@supportedOnAppleHealth
 @readOnly
 @immutable
 final class LowCardioFitnessEventDataType

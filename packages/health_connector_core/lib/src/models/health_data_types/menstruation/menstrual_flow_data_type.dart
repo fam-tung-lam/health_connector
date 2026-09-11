@@ -54,7 +54,6 @@ part of '../health_data_type.dart';
 /// - [MenstrualFlow]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealth
 @immutable
 final class MenstrualFlowDataType
     extends HealthDataType<MenstrualFlowRecord, MeasurementUnit>

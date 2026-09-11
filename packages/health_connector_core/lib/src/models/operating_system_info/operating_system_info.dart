@@ -12,7 +12,6 @@ sealed class OperatingSystemInfo {
 
 /// Android operating-system facts captured during connector creation.
 @sinceV4_0_0
-@supportedOnHealthConnect
 @immutable
 final class AndroidOperatingSystemInfo extends OperatingSystemInfo {
   /// Creates an Android operating-system information snapshot.
@@ -51,7 +50,6 @@ final class AndroidOperatingSystemInfo extends OperatingSystemInfo {
 
 /// iOS operating-system facts captured during connector creation.
 @sinceV4_0_0
-@supportedOnAppleHealth
 @immutable
 final class IOSOperatingSystemInfo extends OperatingSystemInfo {
   /// Creates an iOS operating-system information snapshot.

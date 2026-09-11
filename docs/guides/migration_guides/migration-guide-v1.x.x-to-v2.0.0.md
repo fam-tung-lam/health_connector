@@ -381,10 +381,10 @@ v2.0.0 includes **100+ exercise types** across both platforms:
 
 - **~50 cross-platform types**: running, walking, cycling, swimming,
   basketball, tennis, yoga, HIIT, and more
-- **iOS-only types** (annotated with `@supportedOnAppleHealth`):
+- **iOS-only types** (represented by Apple Health-only runtime requirements):
   - Swimming (generic), kickboxing, pickleball, cross-country skiing, tai
     chi, etc.
-- **Android-only types** (annotated with `@supportedOnHealthConnect`):
+- **Android-only types** (represented by Health Connect-only runtime requirements):
   - Running treadmill, cycling stationary, weightlifting, ice hockey,
     guided breathing, etc.
 

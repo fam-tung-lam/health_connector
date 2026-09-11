@@ -53,7 +53,6 @@ part of 'health_data_type.dart';
 /// ```
 ///
 @sinceV3_2_0
-@supportedOnHealthConnect
 @immutable
 final class ActivityIntensityDataType
     extends HealthDataType<ActivityIntensityRecord, TimeDuration>

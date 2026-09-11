@@ -41,7 +41,6 @@ part of '../health_record.dart';
 /// - [SleepSessionDataType]
 ///
 @sinceV1_0_0
-@supportedOnHealthConnect
 @immutable
 final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
   /// Minimum valid sleep session duration (1 minute).
@@ -229,7 +228,6 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
 /// Represents a single sleep stage period with time range.
 ///
 @sinceV1_0_0
-@supportedOnHealthConnect
 @immutable
 final class SleepStageSample {
   /// Creates a sleep stage.

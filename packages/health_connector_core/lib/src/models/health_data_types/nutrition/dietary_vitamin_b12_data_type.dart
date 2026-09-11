@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietaryVitaminB12Record]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryVitaminB12DataType
     extends DietaryVitaminDataType<DietaryVitaminB12Record>

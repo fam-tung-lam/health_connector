@@ -24,7 +24,6 @@ part of 'health_data_type.dart';
 /// - [WaistCircumferenceRecord]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealth
 @immutable
 final class WaistCircumferenceDataType
     extends HealthDataType<WaistCircumferenceRecord, Length>

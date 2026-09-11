@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietaryManganeseRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryManganeseDataType
     extends MineralNutrientDataType<DietaryManganeseRecord>

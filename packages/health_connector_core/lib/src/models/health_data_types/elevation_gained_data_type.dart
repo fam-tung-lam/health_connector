@@ -20,7 +20,6 @@ part of 'health_data_type.dart';
 /// - [ElevationGainedRecord]
 ///
 @sinceV3_1_0
-@supportedOnHealthConnect
 @immutable
 final class ElevationGainedDataType
     extends HealthDataType<ElevationGainedRecord, Length>

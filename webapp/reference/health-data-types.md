@@ -26,6 +26,6 @@ Filter by **Both** to see only the types that exist as first-class data types on
   :links="[
     { text: 'Data types & capabilities', link: '/guide/concepts/data-types', description: 'How a type carries permissions, requests, and capabilities.' },
     { text: 'Exercise types', link: '/reference/exercise-types', description: 'The 96 workout types, catalogued separately.' },
-    { text: 'Annotations', link: '/reference/annotations', description: 'Reading the platform and OS-version constraints.' },
+    { text: 'Runtime requirements', link: '/reference/requirements', description: 'Checking platform and OS-version constraints.' },
   ]"
 />

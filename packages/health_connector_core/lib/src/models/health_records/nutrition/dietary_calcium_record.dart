@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryCalciumDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryCalciumRecord extends DietaryMineralRecord {
   /// Minimum valid calcium mass (0.0 g).

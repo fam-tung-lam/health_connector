@@ -22,7 +22,6 @@ part of 'health_data_type.dart';
 /// - [InsulinDeliveryRecord]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealth
 @immutable
 final class InsulinDeliveryDataType
     extends HealthDataType<InsulinDeliveryRecord, Number>

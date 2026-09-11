@@ -25,7 +25,6 @@ part of '../health_record.dart';
 /// - [MenstruationPeriodDataType]
 ///
 @sinceV3_6_0
-@supportedOnHealthConnect
 @immutable
 final class MenstruationPeriodRecord extends IntervalHealthRecord {
   /// Maximum valid duration for a menstruation period (31 days).

@@ -26,7 +26,6 @@ part of '../health_data_type.dart';
 /// - [HeartRateVariabilityRMSSDDataType] for RMSSD metric
 ///
 @sinceV2_2_0
-@supportedOnAppleHealth
 @immutable
 final class HeartRateVariabilitySDNNDataType
     extends HealthDataType<HeartRateVariabilitySDNNRecord, TimeDuration>

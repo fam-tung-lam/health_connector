@@ -18,7 +18,9 @@ The SDK makes the common path uniform. This page lists everywhere it deliberatel
 
 ## Records are immutable on iOS
 
-HealthKit has no update operation. `updateRecord()` and `updateRecords()` are annotated `@supportedOnHealthConnect` and throw `UnsupportedOperationException` on iOS.
+HealthKit has no update operation. `updateRecord()` and `updateRecords()` are
+available only on Health Connect and throw `UnsupportedOperationException` on
+iOS.
 
 The workaround is delete plus re-create, which **changes the record's ID**. If your backend stores health record IDs as foreign keys, that reassignment has to be handled. See [Update records](/guide/tasks/update).
 

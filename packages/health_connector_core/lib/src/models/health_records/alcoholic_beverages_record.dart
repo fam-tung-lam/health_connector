@@ -28,7 +28,6 @@ part of 'health_record.dart';
 /// - [BloodAlcoholContentRecord]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 final class AlcoholicBeveragesRecord extends IntervalHealthRecord {
   /// Minimum valid alcoholic beverages count (0).

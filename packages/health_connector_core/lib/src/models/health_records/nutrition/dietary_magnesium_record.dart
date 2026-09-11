@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryMagnesiumDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryMagnesiumRecord extends DietaryMineralRecord {
   /// Creates a magnesium nutrient record.

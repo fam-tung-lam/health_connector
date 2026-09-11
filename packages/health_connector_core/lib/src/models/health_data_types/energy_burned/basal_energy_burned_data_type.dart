@@ -21,7 +21,6 @@ part of '../health_data_type.dart';
 /// - [ActiveEnergyBurnedRecord]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealth
 @immutable
 final class BasalEnergyBurnedDataType
     extends HealthDataType<BasalEnergyBurnedRecord, Energy>

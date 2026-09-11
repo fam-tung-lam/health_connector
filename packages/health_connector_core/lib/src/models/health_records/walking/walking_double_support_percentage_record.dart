@@ -44,7 +44,6 @@ part of '../health_record.dart';
 /// - [DevicePlacementSide]
 ///
 @sinceV3_2_0
-@supportedOnAppleHealth
 @immutable
 final class WalkingDoubleSupportPercentageRecord extends IntervalHealthRecord {
   /// Minimum valid walking double support percentage (0%).

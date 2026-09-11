@@ -3,7 +3,6 @@ import 'package:meta/meta.dart' show immutable;
 
 /// A semantic iOS operating-system version.
 @sinceV4_0_0
-@supportedOnAppleHealth
 @immutable
 final class IOSVersion implements Comparable<IOSVersion> {
   /// Creates an iOS version.

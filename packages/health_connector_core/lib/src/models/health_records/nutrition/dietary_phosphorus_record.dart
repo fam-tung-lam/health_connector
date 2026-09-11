@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryPhosphorusDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryPhosphorusRecord extends DietaryMineralRecord {
   /// Creates a phosphorus nutrient record.

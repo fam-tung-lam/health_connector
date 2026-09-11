@@ -22,7 +22,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @immutable
 final class DownhillSnowSportsDistanceRecord extends DistanceActivityRecord {
   /// Creates a downhill snow sports distance record.

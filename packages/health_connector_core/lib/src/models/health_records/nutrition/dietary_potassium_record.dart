@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryPotassiumDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryPotassiumRecord extends DietaryMineralRecord {
   /// Creates a potassium nutrient record.

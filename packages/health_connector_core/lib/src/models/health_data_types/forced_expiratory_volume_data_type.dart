@@ -22,7 +22,6 @@ part of 'health_data_type.dart';
 /// - [ForcedExpiratoryVolumeRecord]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealth
 @immutable
 final class ForcedExpiratoryVolumeDataType
     extends HealthDataType<ForcedExpiratoryVolumeRecord, Volume>

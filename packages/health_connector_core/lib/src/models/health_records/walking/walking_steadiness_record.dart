@@ -31,7 +31,6 @@ part of '../health_record.dart';
 /// - [WalkingSteadinessDataType]
 ///
 @sinceV3_2_0
-@supportedOnAppleHealth
 @readOnly
 @immutable
 final class WalkingSteadinessRecord extends IntervalHealthRecord {

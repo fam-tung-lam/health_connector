@@ -60,10 +60,10 @@ final records = response.records;
 An abstraction that pretends the platforms are identical produces bugs that only appear on one of them. Health Connector SDK keeps the real constraints visible:
 
 - HealthKit never discloses whether the user denied a **read** permission, so iOS read status is reported as `unknown` — by design, not as a gap.
-- HealthKit records are immutable, so `updateRecord()` exists on Android only and is marked `@supportedOnHealthConnect`.
+- HealthKit records are immutable, so `updateRecord()` exists on Android only.
 - Health Connect requires a matching `<uses-permission>` declaration for every type you touch; a missing one is a configuration error, not a denied permission.
 
-Each of these is documented in [Platform differences](/guide/concepts/platform-differences), and the annotations that encode them are listed in the [annotation reference](/reference/annotations).
+Each of these is documented in [Platform differences](/guide/concepts/platform-differences). Data type and feature availability is encoded by runtime `healthPlatformRequirements`.
 
 ## Privacy posture
 

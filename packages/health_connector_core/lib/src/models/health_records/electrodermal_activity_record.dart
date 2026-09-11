@@ -10,7 +10,6 @@ part of 'health_record.dart';
 /// - [ElectrodermalActivityDataType]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealth
 @immutable
 final class ElectrodermalActivityRecord extends IntervalHealthRecord {
   /// Minimum valid conductance (0 microsiemens).

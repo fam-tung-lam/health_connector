@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietaryCaffeineRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryCaffeineDataType
     extends NutrientDataType<DietaryCaffeineRecord, Mass>

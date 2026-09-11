@@ -6,7 +6,9 @@ Health Connector SDK is a facade over two native health stores. Understanding th
 
 <ArchitectureDiagram />
 
-**Core** defines the vocabulary: record models, measurement units, permission types, exceptions, and the annotations that describe platform constraints. It contains no platform code, which is why the same `WeightRecord` means the same thing everywhere.
+**Core** defines the vocabulary: record models, measurement units, permission
+types, exceptions, and runtime platform requirements. It contains no platform
+code, which is why the same `WeightRecord` means the same thing everywhere.
 
 **Platform adapters** translate that vocabulary into native calls. Each owns its Pigeon-generated channel and a set of mappers — `toDto()` on the way down, `toDomain()` on the way back.
 
@@ -14,16 +16,19 @@ Health Connector SDK is a facade over two native health stores. Understanding th
 
 ## Why a facade rather than a common denominator
 
-A "lowest common denominator" API would have to drop `updateRecord()` entirely, because HealthKit cannot do it. Health Connector SDK instead exposes the full union of capabilities and marks the platform-specific parts:
+A "lowest common denominator" API would have to drop `updateRecord()` entirely, because HealthKit cannot do it. Health Connector SDK instead exposes the full union of capabilities and checks platform-specific parts at runtime:
 
 ```dart
-@supportedOnHealthConnect
 Future<void> updateRecord(HealthRecord record);
 ```
 
-The annotation tells you — and, in future, a custom lint rule — that this call has no iOS implementation and will throw `UnsupportedOperationException` there. You get the capability where it exists, plus a clear signal about where it does not, instead of an API that silently pretends the platforms match.
+This call has no iOS implementation and throws `UnsupportedOperationException`
+there. Data types and features expose `healthPlatformRequirements` so callers
+can check platform and version support before executing an operation.
 
-The same principle governs data types: a type that only Health Connect models is still available, annotated, and throws on iOS rather than being omitted from the SDK.
+The same principle governs data types: a type that only Health Connect models
+is still available, reports a Health Connect-only runtime requirement, and
+throws on iOS rather than being omitted from the SDK.
 
 ## What crosses the channel
 

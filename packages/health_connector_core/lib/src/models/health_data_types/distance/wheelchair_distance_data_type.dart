@@ -18,7 +18,6 @@ part of '../health_data_type.dart';
 /// - Deletable: Delete records by IDs or time range
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @immutable
 final class WheelchairDistanceDataType
     extends DistanceActivityDataType<WheelchairDistanceRecord>

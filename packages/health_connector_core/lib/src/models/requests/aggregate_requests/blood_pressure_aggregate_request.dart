@@ -7,7 +7,6 @@ part of 'aggregate_request.dart';
 /// (systolic or diastolic) being aggregated.
 ///
 @sinceV1_2_0
-@supportedOnHealthConnect
 @internalUse
 @immutable
 final class BloodPressureAggregateRequest extends AggregateRequest<Pressure> {

@@ -9,10 +9,10 @@ import HealthKit
 /// ## Platform-Specific Behavior
 ///
 /// Not all `ExerciseType` values are supported on iOS HealthKit:
-/// - **Android-only types** (annotated with `@supportedOnHealthConnect` in core):
+/// - **Android-only types** (represented by Health Connect-only runtime requirements in core):
 ///   These types are NOT present in `ExerciseTypeDto` for iOS and should throw
 ///   `ArgumentError` if attempted to be used from Dart layer.
-/// - **iOS-only types** (annotated with `@supportedOnAppleHealth` in core):
+/// - **iOS-only types** (represented by Apple Health-only runtime requirements in core):
 ///   These types ARE present in `ExerciseTypeDto` and map to specific `HKWorkoutActivityType` values.
 /// - **Cross-platform types**: Supported on both platforms with appropriate mappings.
 /// Extension for mapping `HKWorkoutActivityType` ↔ `ExerciseTypeDto`.

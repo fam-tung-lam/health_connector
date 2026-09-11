@@ -42,7 +42,6 @@ part of '../health_record.dart';
 /// - [DevicePlacementSide]
 ///
 @sinceV3_2_0
-@supportedOnAppleHealth
 @immutable
 final class WalkingStepLengthRecord extends IntervalHealthRecord {
   /// Minimum valid walking step length (0.20 meters / 20 cm).

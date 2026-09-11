@@ -29,7 +29,6 @@ part of '../health_record.dart';
 /// - [DietaryRiboflavinDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryRiboflavinRecord extends DietaryVitaminRecord {
   /// Creates a riboflavin nutrient record.

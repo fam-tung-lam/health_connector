@@ -18,7 +18,6 @@ part of '../health_data_type.dart';
 /// - [StairDescentSpeedDataType]
 ///
 @sinceV2_0_0
-@supportedOnHealthConnect
 @immutable
 final class SpeedSeriesDataType
     extends HealthDataType<SpeedSeriesRecord, Velocity>

@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryVitaminKDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryVitaminKRecord extends DietaryVitaminRecord {
   /// Creates a vitamin K nutrient record.

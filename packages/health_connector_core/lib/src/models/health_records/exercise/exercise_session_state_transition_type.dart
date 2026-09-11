@@ -11,7 +11,6 @@ part of '../health_record.dart';
 /// - **Android Health Connect**: Not supported.
 ///
 @sinceV3_7_0
-@supportedOnAppleHealth
 enum ExerciseSessionStateTransitionType {
   /// User manually paused the workout.
   pause,

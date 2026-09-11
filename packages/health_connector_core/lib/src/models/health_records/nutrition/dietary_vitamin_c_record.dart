@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryVitaminCDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryVitaminCRecord extends DietaryVitaminRecord {
   /// Creates a vitamin C nutrient record.

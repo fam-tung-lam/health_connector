@@ -28,7 +28,6 @@ part of 'health_record.dart';
 /// - [WaistCircumferenceDataType]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealth
 @immutable
 final class WaistCircumferenceRecord extends InstantHealthRecord {
   /// Minimum valid waist circumference (20.0 cm).

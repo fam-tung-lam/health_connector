@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietarySodiumDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietarySodiumRecord extends DietaryMineralRecord {
   /// Creates a sodium nutrient record.

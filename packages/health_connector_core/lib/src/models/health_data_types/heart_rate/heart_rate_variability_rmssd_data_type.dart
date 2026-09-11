@@ -21,7 +21,6 @@ part of '../health_data_type.dart';
 /// - [HeartRateVariabilityRMSSDRecord]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class HeartRateVariabilityRMSSDDataType
     extends HealthDataType<HeartRateVariabilityRMSSDRecord, TimeDuration>

@@ -31,7 +31,6 @@ part of '../health_record.dart';
 /// - [DietarySaturatedFatDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietarySaturatedFatRecord extends DietaryMacronutrientRecord {
   /// Creates a saturated fat nutrient record.

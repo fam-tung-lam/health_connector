@@ -33,7 +33,6 @@ part of '../health_record.dart';
 /// - [SystolicBloodPressureDataType]
 ///
 @sinceV1_2_0
-@supportedOnAppleHealth
 @immutable
 final class DiastolicBloodPressureRecord extends InstantHealthRecord {
   /// Minimum valid diastolic blood pressure (30 mmHg).

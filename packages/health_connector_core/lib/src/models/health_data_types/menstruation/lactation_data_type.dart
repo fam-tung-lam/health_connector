@@ -20,7 +20,6 @@ part of '../health_data_type.dart';
 /// - [LactationRecord]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 class LactationDataType extends HealthDataType<LactationRecord, MeasurementUnit>
     implements

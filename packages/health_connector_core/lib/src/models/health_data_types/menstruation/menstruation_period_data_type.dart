@@ -48,7 +48,6 @@ part of '../health_data_type.dart';
 /// - [MenstruationPeriodRecord]
 ///
 @sinceV3_6_0
-@supportedOnHealthConnect
 @immutable
 final class MenstruationPeriodDataType
     extends HealthDataType<MenstruationPeriodRecord, MeasurementUnit>

@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryEnergyConsumedDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
   /// Minimum valid energy (0.0 kcal).

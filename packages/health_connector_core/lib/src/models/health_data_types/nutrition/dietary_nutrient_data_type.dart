@@ -2,7 +2,6 @@ part of '../health_data_type.dart';
 
 ///
 @sinceV1_0_0
-@supportedOnAppleHealth
 @internal
 @immutable
 sealed class NutrientDataType<R extends HealthRecord, U extends MeasurementUnit>

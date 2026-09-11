@@ -15,7 +15,6 @@ part of '../health_record.dart';
 /// - [WalkingSteadinessEventDataType]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealth
 @immutable
 class WalkingSteadinessEventRecord extends IntervalHealthRecord {
   /// The type of walking steadiness event.
@@ -83,7 +82,6 @@ class WalkingSteadinessEventRecord extends IntervalHealthRecord {
 
 /// The type of walking steadiness event.
 @sinceV3_4_0
-@supportedOnAppleHealth
 enum WalkingSteadinessType {
   /// The user's walking steadiness score is low.
   initialLow,

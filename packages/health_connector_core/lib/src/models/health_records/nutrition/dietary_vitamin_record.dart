@@ -7,7 +7,6 @@ part of '../health_record.dart';
 /// - [DietaryVitaminDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @internal
 @immutable
 sealed class DietaryVitaminRecord extends NutrientRecord<Mass> {

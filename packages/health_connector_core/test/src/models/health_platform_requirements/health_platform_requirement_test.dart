@@ -34,8 +34,8 @@ void main() {
     expect(
       HealthPlatformRequirement.allPlatforms,
       equals([
-        HealthConnectRequirement.allVersions,
         AppleHealthRequirement.allVersions,
+        HealthConnectRequirement.allVersions,
       ]),
     );
   });
@@ -43,7 +43,7 @@ void main() {
   test('requirement lists project their supported health platforms', () {
     expect(
       HealthPlatformRequirement.allPlatforms.supportedHealthPlatforms,
-      [HealthPlatform.healthConnect, HealthPlatform.appleHealth],
+      [HealthPlatform.appleHealth, HealthPlatform.healthConnect],
     );
     expect(
       const [

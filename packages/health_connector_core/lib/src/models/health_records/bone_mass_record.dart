@@ -24,7 +24,6 @@ part of 'health_record.dart';
 /// - [BoneMassDataType]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class BoneMassRecord extends InstantHealthRecord {
   /// Minimum valid bone mass in kilograms (0.1 kg).

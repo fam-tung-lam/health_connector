@@ -34,7 +34,6 @@ part of '../health_record.dart';
 /// - [BasalBodyTemperatureRecord]
 ///
 @sinceV3_2_0
-@supportedOnAppleHealthIOS16Plus
 @readOnly
 @immutable
 final class SleepingWristTemperatureRecord extends IntervalHealthRecord {

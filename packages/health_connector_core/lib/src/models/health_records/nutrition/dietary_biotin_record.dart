@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryBiotinDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryBiotinRecord extends DietaryVitaminRecord {
   /// Creates a biotin nutrient record.

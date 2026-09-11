@@ -21,7 +21,6 @@ part of 'health_data_type.dart';
 /// - [BodyWaterMassRecord]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class BodyWaterMassDataType
     extends HealthDataType<BodyWaterMassRecord, Mass>

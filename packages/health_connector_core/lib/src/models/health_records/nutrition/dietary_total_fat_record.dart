@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryTotalFatDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryTotalFatRecord extends DietaryMacronutrientRecord {
   /// Creates a total fat nutrient record.

@@ -178,7 +178,6 @@ abstract interface class HealthConnectorPlatformClient {
   ///   - The platform request fails
   ///   - The record ID is invalid or doesn't exist
   ///   - Required permissions are not granted
-  @supportedOnHealthConnect
   Future<void> updateRecord<R extends HealthRecord>(R record);
 
   /// Updates multiple health records on the platform.
@@ -196,7 +195,6 @@ abstract interface class HealthConnectorPlatformClient {
   ///   - The platform request fails
   ///   - The record ID is invalid or doesn't exist
   ///   - Required permissions are not granted
-  @supportedOnHealthConnect
   Future<void> updateRecords<R extends HealthRecord>(List<R> records);
 
   /// Performs an aggregation query over health records.

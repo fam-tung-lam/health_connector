@@ -53,7 +53,9 @@ Extension 19 satisfies the build. Writing `ExerciseSessionSegmentEvent.weight` s
 | `NSHealthShareUsageDescription` | Specific string | Shown when requesting read access |
 | `NSHealthUpdateUsageDescription` | Specific string | Shown when requesting write access |
 
-Some data types require newer iOS versions than 15.0 — those carry an `@supportedOnAppleHealthIOS16Plus`-style annotation and throw below their floor. See [Annotations](/reference/annotations).
+Some data types require newer iOS versions than 15.0. Their
+`healthPlatformRequirements` expose the exact floor and operations throw below
+it.
 
 ## Runtime availability
 

@@ -23,7 +23,6 @@ part of '../health_data_type.dart';
 /// - [SleepSessionRecord]
 ///
 @sinceV1_0_0
-@supportedOnHealthConnect
 @immutable
 final class SleepSessionDataType
     extends HealthDataType<SleepSessionRecord, TimeDuration>

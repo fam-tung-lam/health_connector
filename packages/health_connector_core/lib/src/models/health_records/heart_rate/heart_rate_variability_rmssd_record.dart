@@ -16,7 +16,6 @@ part of '../health_record.dart';
 /// - [HeartRateVariabilityRMSSDDataType]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   /// Minimum valid HRV RMSSD.

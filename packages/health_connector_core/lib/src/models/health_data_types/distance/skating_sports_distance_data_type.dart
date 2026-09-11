@@ -24,7 +24,6 @@ part of '../health_data_type.dart';
 /// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceSkatingSports`
 ///
 @sinceV2_0_0
-@supportedOnAppleHealthIOS18Plus
 @immutable
 final class SkatingSportsDistanceDataType
     extends DistanceActivityDataType<SkatingSportsDistanceRecord>
@@ -37,6 +36,11 @@ final class SkatingSportsDistanceDataType
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const SkatingSportsDistanceDataType();
+
+  @override
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.ios18,
+  ];
 
   @override
   String get id => 'skating_sports_distance';

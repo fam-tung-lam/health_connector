@@ -58,7 +58,6 @@ part of '../health_data_type.dart';
 /// - [AtrialFibrillationBurdenRecord]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealthIOS16Plus
 @readOnly
 @immutable
 final class AtrialFibrillationBurdenDataType
@@ -78,7 +77,7 @@ final class AtrialFibrillationBurdenDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.ios16,
   ];
 
   @override

@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryProteinDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryProteinRecord extends DietaryMacronutrientRecord {
   /// Creates a protein nutrient record.

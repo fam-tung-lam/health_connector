@@ -12,7 +12,6 @@ part of '../../health_record.dart';
 ///   values
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 enum ProgesteroneTestResult {
   /// Test result is positive (progesterone surge detected).
   positive,

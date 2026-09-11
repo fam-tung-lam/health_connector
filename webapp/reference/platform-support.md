@@ -50,7 +50,11 @@ Health Connect is an updatable app, so newer records and operations can depend o
 
 ### Records do not map one to one
 
-Not every conceptual record has an equivalent on both stores, and some — nutrition especially — are modelled at different granularity. Check the [data type explorer](/reference/health-data-types) and the [annotations](/reference/annotations) on a type before designing a cross-platform feature around it.
+Not every conceptual record has an equivalent on both stores, and some —
+nutrition especially — are modelled at different granularity. Check the
+[data type explorer](/reference/health-data-types) and each type's
+`healthPlatformRequirements` before designing a cross-platform feature around
+it.
 
 The SDK exposes these facts as `healthPlatformRequirements`. The deprecated
 `supportedHealthPlatforms` projection reports only the platform and cannot

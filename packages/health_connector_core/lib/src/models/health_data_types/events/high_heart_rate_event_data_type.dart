@@ -28,7 +28,6 @@ part of '../health_data_type.dart';
 /// - [IrregularHeartRhythmEventRecord]
 ///
 @sinceV3_3_0
-@supportedOnAppleHealth
 @readOnly
 @immutable
 final class HighHeartRateEventDataType

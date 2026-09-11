@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [HeartRateRecoveryOneMinuteRecord]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class HeartRateRecoveryOneMinuteDataType
     extends HealthDataType<HeartRateRecoveryOneMinuteRecord, Frequency>
@@ -48,7 +47,7 @@ final class HeartRateRecoveryOneMinuteDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.ios16,
   ];
 
   @override

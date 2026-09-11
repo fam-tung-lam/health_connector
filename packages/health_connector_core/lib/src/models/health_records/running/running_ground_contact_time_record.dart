@@ -11,7 +11,6 @@ part of '../health_record.dart';
 /// - [RunningGroundContactTimeDataType]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class RunningGroundContactTimeRecord extends IntervalHealthRecord {
   /// Minimum valid ground contact time (50 milliseconds).

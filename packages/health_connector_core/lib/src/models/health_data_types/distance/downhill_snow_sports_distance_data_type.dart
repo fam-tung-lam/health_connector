@@ -24,7 +24,6 @@ part of '../health_data_type.dart';
 /// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceDownhillSnowSports`
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @immutable
 final class DownhillSnowSportsDistanceDataType
     extends DistanceActivityDataType<DownhillSnowSportsDistanceRecord>

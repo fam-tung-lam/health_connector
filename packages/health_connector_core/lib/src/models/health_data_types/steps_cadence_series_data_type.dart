@@ -21,7 +21,6 @@ part of 'health_data_type.dart';
 /// - [StepsCadenceSeriesRecord]
 ///
 @sinceV3_1_0
-@supportedOnHealthConnect
 final class StepsCadenceSeriesDataType
     extends HealthDataType<StepsCadenceSeriesRecord, Frequency>
     implements

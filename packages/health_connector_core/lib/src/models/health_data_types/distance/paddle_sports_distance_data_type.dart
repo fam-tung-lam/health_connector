@@ -18,7 +18,6 @@ part of '../health_data_type.dart';
 /// - Deletable: Delete records by IDs or time range
 ///
 @sinceV2_0_0
-@supportedOnAppleHealthIOS18Plus
 @immutable
 final class PaddleSportsDistanceDataType
     extends DistanceActivityDataType<PaddleSportsDistanceRecord>
@@ -31,6 +30,11 @@ final class PaddleSportsDistanceDataType
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const PaddleSportsDistanceDataType();
+
+  @override
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.ios18,
+  ];
 
   @override
   String get id => 'paddle_sports_distance';

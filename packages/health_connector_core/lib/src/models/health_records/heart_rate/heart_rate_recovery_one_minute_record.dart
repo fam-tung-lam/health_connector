@@ -10,7 +10,6 @@ part of '../health_record.dart';
 /// - [HeartRateRecoveryOneMinuteDataType]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class HeartRateRecoveryOneMinuteRecord extends IntervalHealthRecord {
   /// Minimum valid heart rate recovery value (0).

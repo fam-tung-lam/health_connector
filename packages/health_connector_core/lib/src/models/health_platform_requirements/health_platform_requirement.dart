@@ -17,8 +17,8 @@ sealed class HealthPlatformRequirement {
 
   /// Both health platforms without an additional version requirement.
   static const List<HealthPlatformRequirement> allPlatforms = [
-    HealthConnectRequirement.allVersions,
     AppleHealthRequirement.allVersions,
+    HealthConnectRequirement.allVersions,
   ];
 }
 
@@ -42,47 +42,53 @@ final class HealthConnectRequirement extends HealthPlatformRequirement {
   });
 
   /// Health Connect on any Android version supported by this SDK.
-  static const allVersions = HealthConnectRequirement();
+  static const HealthConnectRequirement allVersions =
+      HealthConnectRequirement();
 
   /// Health Connect SDK Extension 13 on the Android 14 extension track.
-  static const sdkExtension13 = HealthConnectRequirement(
-    minSDKExtensionVersion: AndroidSDKExtensionVersion(
-      androidApiLevel: 34,
-      extensionVersion: 13,
-    ),
-  );
+  static const HealthConnectRequirement sdkExtension13 =
+      HealthConnectRequirement(
+        minSDKExtensionVersion: AndroidSDKExtensionVersion(
+          androidApiLevel: 34,
+          extensionVersion: 13,
+        ),
+      );
 
   /// Health Connect SDK Extension 15 on the Android 14 extension track.
-  static const sdkExtension15 = HealthConnectRequirement(
-    minSDKExtensionVersion: AndroidSDKExtensionVersion(
-      androidApiLevel: 34,
-      extensionVersion: 15,
-    ),
-  );
+  static const HealthConnectRequirement sdkExtension15 =
+      HealthConnectRequirement(
+        minSDKExtensionVersion: AndroidSDKExtensionVersion(
+          androidApiLevel: 34,
+          extensionVersion: 15,
+        ),
+      );
 
   /// Health Connect SDK Extension 16 on the Android 14 extension track.
-  static const sdkExtension16 = HealthConnectRequirement(
-    minSDKExtensionVersion: AndroidSDKExtensionVersion(
-      androidApiLevel: 34,
-      extensionVersion: 16,
-    ),
-  );
+  static const HealthConnectRequirement sdkExtension16 =
+      HealthConnectRequirement(
+        minSDKExtensionVersion: AndroidSDKExtensionVersion(
+          androidApiLevel: 34,
+          extensionVersion: 16,
+        ),
+      );
 
   /// Health Connect SDK Extension 19 on the Android 14 extension track.
-  static const sdkExtension19 = HealthConnectRequirement(
-    minSDKExtensionVersion: AndroidSDKExtensionVersion(
-      androidApiLevel: 34,
-      extensionVersion: 19,
-    ),
-  );
+  static const HealthConnectRequirement sdkExtension19 =
+      HealthConnectRequirement(
+        minSDKExtensionVersion: AndroidSDKExtensionVersion(
+          androidApiLevel: 34,
+          extensionVersion: 19,
+        ),
+      );
 
   /// Health Connect SDK Extension 21 on the Android 14 extension track.
-  static const sdkExtension21 = HealthConnectRequirement(
-    minSDKExtensionVersion: AndroidSDKExtensionVersion(
-      androidApiLevel: 34,
-      extensionVersion: 21,
-    ),
-  );
+  static const HealthConnectRequirement sdkExtension21 =
+      HealthConnectRequirement(
+        minSDKExtensionVersion: AndroidSDKExtensionVersion(
+          androidApiLevel: 34,
+          extensionVersion: 21,
+        ),
+      );
 
   /// Minimum `Build.VERSION.SDK_INT`, or `null` for the SDK's minimum.
   final int? minApiLevel;
@@ -105,16 +111,22 @@ final class AppleHealthRequirement extends HealthPlatformRequirement {
   const AppleHealthRequirement({this.minIOSVersion});
 
   /// Apple HealthKit on any iOS version supported by this SDK.
-  static const allVersions = AppleHealthRequirement();
+  static const AppleHealthRequirement allVersions = AppleHealthRequirement();
 
   /// Apple HealthKit on iOS 16 or newer.
-  static const ios16 = AppleHealthRequirement(minIOSVersion: IOSVersion(16));
+  static const AppleHealthRequirement ios16 = AppleHealthRequirement(
+    minIOSVersion: IOSVersion(16),
+  );
 
   /// Apple HealthKit on iOS 17 or newer.
-  static const ios17 = AppleHealthRequirement(minIOSVersion: IOSVersion(17));
+  static const AppleHealthRequirement ios17 = AppleHealthRequirement(
+    minIOSVersion: IOSVersion(17),
+  );
 
   /// Apple HealthKit on iOS 18 or newer.
-  static const ios18 = AppleHealthRequirement(minIOSVersion: IOSVersion(18));
+  static const AppleHealthRequirement ios18 = AppleHealthRequirement(
+    minIOSVersion: IOSVersion(18),
+  );
 
   /// Minimum iOS version, or `null` for the SDK's deployment target.
   final IOSVersion? minIOSVersion;

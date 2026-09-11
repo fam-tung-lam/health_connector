@@ -24,7 +24,6 @@ part of '../health_data_type.dart';
 /// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceRowing`
 ///
 @sinceV2_0_0
-@supportedOnAppleHealthIOS18Plus
 @immutable
 final class RowingDistanceDataType
     extends DistanceActivityDataType<RowingDistanceRecord>
@@ -37,6 +36,11 @@ final class RowingDistanceDataType
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const RowingDistanceDataType();
+
+  @override
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.ios18,
+  ];
 
   @override
   String get id => 'rowing_distance';

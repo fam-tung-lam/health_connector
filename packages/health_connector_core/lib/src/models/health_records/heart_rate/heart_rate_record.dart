@@ -30,7 +30,6 @@ part of '../health_record.dart';
 /// - [HeartRateSample] is used exclusively for series record samples
 ///
 @sinceV1_0_0
-@supportedOnAppleHealth
 @immutable
 final class HeartRateRecord extends InstantHealthRecord {
   /// Minimum valid heart rate in beats per minute.

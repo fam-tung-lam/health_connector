@@ -7,7 +7,6 @@ part of 'health_record.dart';
 /// - [ForcedExpiratoryVolumeDataType]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealth
 @immutable
 final class ForcedExpiratoryVolumeRecord extends IntervalHealthRecord {
   /// Creates a forced expiratory volume record.

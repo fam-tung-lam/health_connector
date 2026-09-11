@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryThiaminDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryThiaminRecord extends DietaryVitaminRecord {
   /// Creates a thiamin nutrient record.

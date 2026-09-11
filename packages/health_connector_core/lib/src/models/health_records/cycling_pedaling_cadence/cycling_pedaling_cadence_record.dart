@@ -29,7 +29,6 @@ part of '../health_record.dart';
 /// - [CyclingPedalingCadenceDataType]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealthIOS17Plus
 @immutable
 final class CyclingPedalingCadenceRecord extends InstantHealthRecord {
   /// Minimum valid cycling cadence (0.0 RPM).

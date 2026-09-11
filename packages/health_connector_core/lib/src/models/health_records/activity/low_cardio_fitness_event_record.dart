@@ -7,7 +7,6 @@ part of '../health_record.dart';
 /// - [LowCardioFitnessEventDataType]
 ///
 @sinceV3_6_0
-@supportedOnAppleHealth
 @immutable
 final class LowCardioFitnessEventRecord extends IntervalHealthRecord {
   /// Internal factory for creating [LowCardioFitnessEventRecord] instances

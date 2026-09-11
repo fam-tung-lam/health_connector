@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryManganeseDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryManganeseRecord extends DietaryMineralRecord {
   /// Creates a manganese nutrient record.

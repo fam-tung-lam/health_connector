@@ -43,15 +43,17 @@ Which aggregations each type supports is searchable in the [health data type exp
 
 Not every conceptual measurement exists on both stores. Of the 140 typed data types, some are Health Connect-only, many nutrient types are exposed as discrete HealthKit identifiers while Health Connect models them as fields on a single `NutritionRecord`, and a few require a specific iOS version.
 
-Types that are not universal carry an annotation:
+Each type exposes its runtime requirements:
 
 ```dart
-@supportedOnAppleHealthIOS16Plus
-@readOnly
-final class InfrequentMenstrualCycleEventRecord extends IntervalHealthRecord { … }
+final requirements = HealthDataType.infrequentMenstrualCycleEvent
+    .healthPlatformRequirements;
+// [AppleHealthRequirement.ios16]
 ```
 
-Read that as: iOS 16 or later only, and read-only even there. Calling it on Android, or on iOS 15, throws `UnsupportedOperationException`. The full annotation vocabulary is in the [annotation reference](/reference/annotations).
+This type is supported on iOS 16 or later. Calling it on Android or iOS 15
+throws `UnsupportedOperationException`. Pass the list to
+`getSupportStatusFor()` before presenting an operation.
 
 ## Reads stay typed all the way through
 
@@ -102,6 +104,6 @@ Those two heart-rate types are also a platform split — `heartRate` is HealthKi
   :links="[
     { text: 'Health data type explorer', link: '/reference/health-data-types', description: 'Search 140 types by platform, category, and aggregation.' },
     { text: 'Exercise types', link: '/reference/exercise-types', description: 'The 96 workout types and where each is available.' },
-    { text: 'Annotations', link: '/reference/annotations', description: 'How to read the platform and version constraints.' },
+    { text: 'Runtime requirements', link: '/reference/requirements', description: 'How to check platform and version constraints.' },
   ]"
 />

@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [HeartRateVariabilitySDNNDataType]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealth
 @immutable
 final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
   /// Minimum valid HRV SDNN in milliseconds (1.0 ms).

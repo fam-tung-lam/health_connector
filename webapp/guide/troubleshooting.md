@@ -80,9 +80,12 @@ The API you called exists on one platform only. The common cases:
 | `updateRecord()`, `updateRecords()` | Android only | HealthKit records are immutable |
 | `getGrantedPermissions()` | Android only | HealthKit will not let apps enumerate grants |
 | `revokeAllPermissions()` | Android only | iOS users revoke in Settings |
-| A data type marked `@supportedOnAppleHealth…` | iOS, sometimes iOS 16/17/18+ | No Health Connect equivalent |
+| A data type with only an `AppleHealthRequirement` | iOS, sometimes iOS 16/17/18+ | No Health Connect equivalent |
 
-Check the [annotation reference](/reference/annotations), and branch on `HealthConnector.healthPlatform` when a feature is genuinely platform-specific. The [iOS update workaround](/guide/tasks/update#ios-delete-and-recreate) covers the most common of these.
+Check `healthPlatformRequirements` with `getSupportStatusFor()`, and branch on
+`HealthConnector.healthPlatform` when an operation has no requirement list.
+The [iOS update workaround](/guide/tasks/update#ios-delete-and-recreate) covers
+the most common case.
 
 ## Writes succeed but the data does not appear
 

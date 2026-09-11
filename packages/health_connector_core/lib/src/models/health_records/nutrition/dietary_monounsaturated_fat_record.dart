@@ -31,7 +31,6 @@ part of '../health_record.dart';
 /// - [DietaryMonounsaturatedFatDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryMonounsaturatedFatRecord extends DietaryMacronutrientRecord {
   /// Creates a monounsaturated fat nutrient record.

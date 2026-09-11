@@ -10,7 +10,6 @@ part of 'health_record.dart';
 /// - [PeakExpiratoryFlowRateDataType]
 ///
 @sinceV3_6_0
-@supportedOnAppleHealth
 @immutable
 final class PeakExpiratoryFlowRateRecord extends IntervalHealthRecord {
   /// Creates a peak expiratory flow rate record.

@@ -29,7 +29,6 @@ part of '../health_record.dart';
 /// - [ActivityIntensityDataType]
 ///
 @sinceV3_2_0
-@supportedOnHealthConnect
 @immutable
 final class ActivityIntensityRecord extends IntervalHealthRecord {
   /// Creates an activity intensity record.

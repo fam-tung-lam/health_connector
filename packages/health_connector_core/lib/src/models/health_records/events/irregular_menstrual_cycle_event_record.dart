@@ -8,7 +8,6 @@ part of '../health_record.dart';
 /// - [InfrequentMenstrualCycleEventRecord]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealthIOS16Plus
 @readOnly
 @immutable
 final class IrregularMenstrualCycleEventRecord extends IntervalHealthRecord {

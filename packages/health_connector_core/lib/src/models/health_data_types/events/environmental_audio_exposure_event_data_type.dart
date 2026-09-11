@@ -32,7 +32,6 @@ part of '../health_data_type.dart';
 /// - [HeadphoneAudioExposureEventRecord]
 ///
 @sinceV3_6_0
-@supportedOnAppleHealth
 @readOnly
 @immutable
 final class EnvironmentalAudioExposureEventDataType

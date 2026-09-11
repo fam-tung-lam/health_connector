@@ -14,7 +14,6 @@ part of '../health_record.dart';
 /// - [HighHeartRateEventRecord]
 ///
 @sinceV3_3_0
-@supportedOnAppleHealth
 @readOnly
 @immutable
 final class IrregularHeartRhythmEventRecord extends IntervalHealthRecord {

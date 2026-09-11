@@ -83,7 +83,6 @@ sealed class ExerciseSessionInstantEvent extends ExerciseSessionEvent {
 /// - **Android Health Connect**: Not supported.
 ///
 @sinceV3_7_0
-@supportedOnAppleHealth
 @immutable
 final class ExerciseSessionStateTransitionEvent
     extends ExerciseSessionInstantEvent {
@@ -123,7 +122,6 @@ final class ExerciseSessionStateTransitionEvent
 /// - **Android Health Connect**: Not supported
 ///
 @sinceV3_7_0
-@supportedOnAppleHealth
 @immutable
 final class ExerciseSessionMarkerEvent extends ExerciseSessionInstantEvent {
   /// Creates an exercise marker event.
@@ -236,7 +234,6 @@ final class ExerciseSessionSegmentEvent extends ExerciseSessionIntervalEvent {
   /// [HKWorkoutEvent](https://developer.apple.com/documentation/healthkit/hkworkoutevent)
   /// does not support a weight field.
   @sinceV3_9_0
-  @supportedOnHealthConnectSdkExtension21
   final Mass? weight;
 
   @override

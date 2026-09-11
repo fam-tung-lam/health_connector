@@ -254,7 +254,6 @@ abstract interface class HealthConnector {
   /// }
   /// ```
   @sinceV2_3_0
-  @supportedOnHealthConnect
   static Future<void> launchHealthAppPageInAppStore() async {
     final healthPlatform = Platform.isIOS
         ? HealthPlatform.appleHealth
@@ -458,7 +457,6 @@ abstract interface class HealthConnector {
   ///   }
   /// }
   /// ```
-  @supportedOnHealthConnect
   Future<List<Permission>> getGrantedPermissions();
 
   /// Gets the current permission status for a specific permission.
@@ -545,7 +543,6 @@ abstract interface class HealthConnector {
   ///   }
   /// }
   /// ```
-  @supportedOnHealthConnect
   Future<void> revokeAllPermissions();
 
   /// Checks the availability status of a specific platform feature.
@@ -928,7 +925,6 @@ abstract interface class HealthConnector {
   ///
   /// - [deleteRecords] for deleting specific records
   /// - [writeRecord] for creating new records
-  @supportedOnHealthConnect
   Future<void> updateRecord<R extends HealthRecord>(R record);
 
   /// Updates multiple existing health records in a single batch operation.
@@ -1016,7 +1012,6 @@ abstract interface class HealthConnector {
   /// - [deleteRecords] for deleting multiple records
   /// - [writeRecords] for creating multiple new records
   @sinceV2_0_0
-  @supportedOnHealthConnect
   Future<void> updateRecords<R extends HealthRecord>(List<R> records);
 
   /// Synchronizes health data using incremental change tracking.

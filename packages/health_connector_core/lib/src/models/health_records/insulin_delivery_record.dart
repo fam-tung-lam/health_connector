@@ -10,7 +10,6 @@ part of 'health_record.dart';
 /// - [InsulinDeliveryDataType]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealth
 @immutable
 final class InsulinDeliveryRecord extends IntervalHealthRecord {
   /// Minimum valid units (0).

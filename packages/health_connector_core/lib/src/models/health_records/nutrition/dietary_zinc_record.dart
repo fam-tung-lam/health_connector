@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryZincDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryZincRecord extends DietaryMineralRecord {
   /// Creates a zinc nutrient record.

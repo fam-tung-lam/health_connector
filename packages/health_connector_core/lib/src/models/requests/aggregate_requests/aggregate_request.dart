@@ -1,10 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show
-        internalUse,
-        sinceV1_0_0,
-        sinceV1_2_0,
-        sinceV3_1_0,
-        supportedOnHealthConnect;
+    show internalUse, sinceV1_0_0, sinceV1_2_0, sinceV3_1_0;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
     show HealthDataType;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/aggregateable_health_data_type.dart';

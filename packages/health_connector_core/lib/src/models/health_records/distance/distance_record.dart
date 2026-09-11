@@ -26,7 +26,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV1_0_0
-@supportedOnHealthConnect
 @immutable
 final class DistanceRecord extends IntervalHealthRecord {
   /// Minimum valid distance (0.0 km).

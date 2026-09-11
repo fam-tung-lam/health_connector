@@ -6,7 +6,6 @@ part of '../health_data_type.dart';
 /// - [DietaryVitaminRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @internal
 @immutable
 sealed class DietaryVitaminDataType<R extends HealthRecord>

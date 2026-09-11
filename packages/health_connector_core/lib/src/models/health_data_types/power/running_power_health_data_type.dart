@@ -21,7 +21,6 @@ part of '../health_data_type.dart';
 /// - [RunningPowerRecord]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class RunningPowerDataType
     extends HealthDataType<RunningPowerRecord, Power>
@@ -42,7 +41,7 @@ final class RunningPowerDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.ios16,
   ];
 
   @override

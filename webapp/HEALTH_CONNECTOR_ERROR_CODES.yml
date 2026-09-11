@@ -64,7 +64,7 @@
   exception: UnsupportedOperationException
   platform: both
   cause: "The operation does not exist on this platform or OS version — for example updating a record on iOS."
-  recovery: "Check the @supportedOn annotations before calling, and branch on HealthConnector.healthPlatform."
+  recovery: "Check healthPlatformRequirements with getSupportStatusFor() before calling, and branch on HealthConnector.healthPlatform for operations without a requirement list."
 - code: unknownError
   exception: UnknownException
   platform: both

@@ -30,7 +30,6 @@ part of '../../health_record.dart';
 /// - [PregnancyTestResult]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 final class PregnancyTestRecord extends InstantHealthRecord {
   /// Creates a pregnancy test record.

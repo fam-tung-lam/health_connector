@@ -26,6 +26,17 @@ void main() {
           ExerciseType.swimming.healthPlatformRequirements,
           const [AppleHealthRequirement.allVersions],
         );
+        expect(
+          ExerciseType.transition.healthPlatformRequirements,
+          const [AppleHealthRequirement.ios16],
+        );
+        expect(
+          ExerciseType.diving.healthPlatformRequirements,
+          const [
+            AppleHealthRequirement.ios17,
+            HealthConnectRequirement.allVersions,
+          ],
+        );
       });
 
       parameterizedTest(

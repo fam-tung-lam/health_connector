@@ -53,7 +53,6 @@ part of '../health_data_type.dart';
 /// - [PregnancyTestResult]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 final class PregnancyTestDataType
     extends HealthDataType<PregnancyTestRecord, MeasurementUnit>

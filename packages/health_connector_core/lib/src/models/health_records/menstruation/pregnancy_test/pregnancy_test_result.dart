@@ -13,7 +13,6 @@ part of '../../health_record.dart';
 ///   values
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 enum PregnancyTestResult {
   /// Test result is positive (pregnancy detected).
   positive,

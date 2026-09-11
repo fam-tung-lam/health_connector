@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [SkinTemperatureDeltaSeriesRecord]
 ///
 @sinceV3_6_0
-@supportedOnHealthConnect
 @immutable
 final class SkinTemperatureDeltaSeriesDataType
     extends HealthDataType<SkinTemperatureDeltaSeriesRecord, Temperature>

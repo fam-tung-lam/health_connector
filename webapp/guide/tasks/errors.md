@@ -117,7 +117,9 @@ Future<T> withRetry<T>(Future<T> Function() operation, {int attempts = 3}) async
 
 `permissionNotDeclared` is the one developers most often misread as a denial. It means the permission is missing from `AndroidManifest.xml`, or a usage description is missing from `Info.plist`. No user action can grant it — only a rebuild.
 
-`unsupportedOperation` means the API does not exist on this platform or OS version. Check the [annotations](/reference/annotations) before calling, and catch it as the platform-branching mechanism it is:
+`unsupportedOperation` means the API does not exist on this platform or OS
+version. Check `healthPlatformRequirements` with `getSupportStatusFor()` before
+calling, and catch it as the platform-branching mechanism it is:
 
 ```dart
 try {

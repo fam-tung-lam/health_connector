@@ -59,7 +59,6 @@ part of '../health_data_type.dart';
 /// ```
 ///
 @sinceV3_2_0
-@supportedOnAppleHealth
 @immutable
 final class WalkingStepLengthDataType
     extends HealthDataType<WalkingStepLengthRecord, Length>

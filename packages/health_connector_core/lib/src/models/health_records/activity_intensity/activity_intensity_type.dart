@@ -11,7 +11,6 @@ part of '../health_record.dart';
 /// - **iOS HealthKit**: Not supported
 ///
 @sinceV3_2_0
-@supportedOnHealthConnect
 enum ActivityIntensityType {
   /// Moderate intensity activity.
   moderate,

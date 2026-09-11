@@ -7,7 +7,6 @@ part of 'aggregate_request.dart';
 /// metric to aggregate.
 ///
 @sinceV3_1_0
-@supportedOnHealthConnect
 @internalUse
 @immutable
 final class ActivityIntensityAggregateRequest

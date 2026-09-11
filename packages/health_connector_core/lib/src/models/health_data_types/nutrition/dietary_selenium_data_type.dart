@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietarySeleniumRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietarySeleniumDataType
     extends MineralNutrientDataType<DietarySeleniumRecord>

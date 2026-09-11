@@ -10,7 +10,6 @@ part of 'health_record.dart';
 /// - [InhalerUsageDataType]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealth
 @immutable
 final class InhalerUsageRecord extends IntervalHealthRecord {
   /// Minimum valid puff count (0).

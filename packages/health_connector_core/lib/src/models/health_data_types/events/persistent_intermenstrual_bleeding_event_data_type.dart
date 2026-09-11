@@ -29,7 +29,6 @@ part of '../health_data_type.dart';
 /// - [IntermenstrualBleedingRecord]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealthIOS16Plus
 @readOnly
 @immutable
 final class PersistentIntermenstrualBleedingEventDataType
@@ -55,7 +54,7 @@ final class PersistentIntermenstrualBleedingEventDataType
 
   @override
   List<HealthPlatformRequirement> get healthPlatformRequirements => const [
-    AppleHealthRequirement.allVersions,
+    AppleHealthRequirement.ios16,
   ];
 
   @override

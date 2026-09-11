@@ -19,6 +19,7 @@ sealed class HealthPlatformFeature {
   HealthPlatformFeaturePermission get permission =>
       HealthPlatformFeaturePermission(this);
 
+  /// Requirements for each platform that supports this feature.
   @sinceV4_0_0
   List<HealthPlatformRequirement> get healthPlatformRequirements =>
       HealthPlatformRequirement.allPlatforms;

@@ -169,6 +169,6 @@ The same binary succeeds on one Android 14 device and throws on another, dependi
   :links="[
     { text: 'Exercise routes', link: '/guide/tasks/exercise-routes', description: 'Route permissions and lazy loading in depth.' },
     { text: 'Exercise types', link: '/reference/exercise-types', description: 'All 96 types and their platform support.' },
-    { text: 'Annotations', link: '/reference/annotations', description: 'Reading version and platform constraints.' },
+    { text: 'Runtime requirements', link: '/reference/requirements', description: 'Checking version and platform constraints.' },
   ]"
 />

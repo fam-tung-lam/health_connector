@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietaryMagnesiumRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryMagnesiumDataType
     extends MineralNutrientDataType<DietaryMagnesiumRecord>

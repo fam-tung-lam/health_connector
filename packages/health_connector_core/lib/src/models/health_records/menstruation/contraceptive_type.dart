@@ -16,7 +16,6 @@ part of '../health_record.dart';
 /// [UnsupportedOperationException] on Android Health Connect.
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 enum ContraceptiveType {
   /// Unspecified or unknown contraceptive method.
   ///

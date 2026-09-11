@@ -19,7 +19,6 @@ part of '../health_data_type.dart';
 /// - Deletable: Delete records by IDs or time range
 ///
 @sinceV2_0_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class RunningSpeedDataType
     extends SpeedActivityDataType<RunningSpeedRecord> {
@@ -29,6 +28,11 @@ final class RunningSpeedDataType
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const RunningSpeedDataType();
+
+  @override
+  List<HealthPlatformRequirement> get healthPlatformRequirements => const [
+    AppleHealthRequirement.ios16,
+  ];
 
   @override
   String get id => 'running_speed';

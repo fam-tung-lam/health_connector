@@ -33,7 +33,6 @@ part of '../health_record.dart';
 /// - [BasalEnergyBurnedDataType]
 ///
 @sinceV1_0_0
-@supportedOnHealthConnect
 @immutable
 final class TotalEnergyBurnedRecord extends IntervalHealthRecord {
   /// Minimum valid total energy burned (0.0 kcal).

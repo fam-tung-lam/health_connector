@@ -22,7 +22,6 @@ part of 'health_data_type.dart';
 /// - [AlcoholicBeveragesRecord]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 final class AlcoholicBeveragesDataType
     extends HealthDataType<AlcoholicBeveragesRecord, Number>

@@ -26,7 +26,6 @@ part of 'health_record.dart';
 /// - [BodyMassIndexDataType]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealth
 @immutable
 final class BodyMassIndexRecord extends InstantHealthRecord {
   /// Minimum valid BMI (5.0 kg/m²).

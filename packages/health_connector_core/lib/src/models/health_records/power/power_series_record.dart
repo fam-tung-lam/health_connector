@@ -32,7 +32,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV2_1_0
-@supportedOnHealthConnect
 @immutable
 final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
   ///
@@ -178,7 +177,6 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
 /// Represents a power measurement at a specific point in time.
 ///
 @sinceV2_1_0
-@supportedOnHealthConnect
 @immutable
 final class PowerSample {
   /// Minimum valid power.

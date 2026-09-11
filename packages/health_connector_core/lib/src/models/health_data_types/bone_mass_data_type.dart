@@ -21,7 +21,6 @@ part of 'health_data_type.dart';
 /// - [BoneMassRecord]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
     implements

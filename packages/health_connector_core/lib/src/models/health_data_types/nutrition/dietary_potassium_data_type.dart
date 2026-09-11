@@ -22,7 +22,6 @@ part of '../health_data_type.dart';
 /// - [DietaryPotassiumRecord]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryPotassiumDataType
     extends MineralNutrientDataType<DietaryPotassiumRecord>

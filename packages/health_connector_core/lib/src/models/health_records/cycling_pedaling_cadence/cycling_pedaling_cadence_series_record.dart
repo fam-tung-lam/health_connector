@@ -43,7 +43,6 @@ part of '../health_record.dart';
 /// - [CyclingPedalingCadenceSeriesDataType]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class CyclingPedalingCadenceSeriesRecord
     extends SeriesHealthRecord<CyclingPedalingCadenceSample> {

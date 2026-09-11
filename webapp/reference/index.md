@@ -17,7 +17,7 @@ For workflows and decisions, use the [Guide](/guide/). For API constraints and l
   title="API and constraints"
   :links="[
     { text: 'API cheat sheet', link: '/reference/api-cheat-sheet', description: 'Every method on HealthConnector, on one page.' },
-    { text: 'Annotations', link: '/reference/annotations', description: 'How platform and version constraints are marked.' },
+    { text: 'Runtime requirements', link: '/reference/requirements', description: 'How platform and version constraints are represented.' },
     { text: 'Platform support', link: '/reference/platform-support', description: 'The operation matrix and version floors.' },
     { text: 'Requirements', link: '/reference/requirements', description: 'Toolchain versions and why each floor exists.' },
     { text: 'Packages', link: '/reference/packages', description: 'What each package in the monorepo does.' },

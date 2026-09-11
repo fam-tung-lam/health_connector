@@ -67,13 +67,12 @@ Interface classes are used instead of mixins to avoid switch-case exhaustiveness
 - **`health_connector_core_internal.dart`**: Internal API for platform implementations, exports everything including
   `@internalUse` annotated APIs
 
-## Platform Annotations
+## Platform Requirements
 
-Custom annotations indicate platform support:
+Runtime requirements indicate platform support:
 
-- `@supportedOnHealthConnect` - Android Health Connect only
-- `@supportedOnAppleHealth` - iOS HealthKit only
-- `@supportedOnAppleHealthIOS16Plus/17Plus/18Plus` - iOS version requirements
+- `HealthConnectRequirement` - Android Health Connect and SDK Extension requirements
+- `AppleHealthRequirement` - iOS HealthKit and iOS version requirements
 - `@readOnly` - Data type cannot be written (system-generated)
 - `@sinceV1_0_0`, `@sinceV2_0_0`, etc. - Version when feature was added
 

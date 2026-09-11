@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryNiacinDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryNiacinRecord extends DietaryVitaminRecord {
   /// Creates a niacin nutrient record.

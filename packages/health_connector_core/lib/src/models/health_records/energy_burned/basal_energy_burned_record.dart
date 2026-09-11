@@ -32,7 +32,6 @@ part of '../health_record.dart';
 /// - [TotalEnergyBurnedDataType]
 ///
 @sinceV1_0_0
-@supportedOnAppleHealth
 @immutable
 final class BasalEnergyBurnedRecord extends IntervalHealthRecord {
   /// Minimum valid basal energy burned (0.0 kcal).

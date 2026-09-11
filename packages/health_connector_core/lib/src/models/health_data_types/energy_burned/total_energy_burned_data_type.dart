@@ -26,7 +26,6 @@ part of '../health_data_type.dart';
 /// - [BasalEnergyBurnedDataType]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class TotalEnergyBurnedDataType
     extends HealthDataType<TotalEnergyBurnedRecord, Energy>

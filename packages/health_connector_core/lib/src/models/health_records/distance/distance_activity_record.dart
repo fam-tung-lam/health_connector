@@ -8,8 +8,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Availability
 ///
-/// **These records are ONLY supported on iOS/HealthKit.** They are marked with
-/// `@supportedOnAppleHealth` and will not compile when targeting Android.
+/// **These records are ONLY supported on iOS/HealthKit.** Their data types'
+/// `healthPlatformRequirements` contain only an [AppleHealthRequirement].
 ///
 /// For cross-platform distance tracking (walking/running), use
 /// [DistanceRecord].
@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [SixMinuteWalkTestDistanceRecord] - Medical walk test distance
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @internalUse
 @immutable
 sealed class DistanceActivityRecord extends IntervalHealthRecord {

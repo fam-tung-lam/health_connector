@@ -23,7 +23,6 @@ part of '../health_record.dart';
 /// ```
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @immutable
 final class SixMinuteWalkTestDistanceRecord extends DistanceActivityRecord {
   /// Creates a six-minute walk test distance record.

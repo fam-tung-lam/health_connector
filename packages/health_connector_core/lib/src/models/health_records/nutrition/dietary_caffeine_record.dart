@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryCaffeineDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryCaffeineRecord extends NutrientRecord<Mass> {
   /// Creates a caffeine nutrient record.

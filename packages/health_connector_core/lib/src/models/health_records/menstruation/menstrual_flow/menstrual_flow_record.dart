@@ -50,7 +50,6 @@ part of '../../health_record.dart';
 /// - [MenstrualFlow]
 ///
 @sinceV2_2_0
-@supportedOnAppleHealth
 @immutable
 final class MenstrualFlowRecord extends IntervalHealthRecord {
   /// Creates a menstrual flow record.

@@ -9,7 +9,6 @@ part of '../health_record.dart';
 /// - [RunningStrideLengthDataType]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealthIOS16Plus
 @immutable
 final class RunningStrideLengthRecord extends IntervalHealthRecord {
   /// Minimum valid running stride length (0.20 meters / 20 cm).

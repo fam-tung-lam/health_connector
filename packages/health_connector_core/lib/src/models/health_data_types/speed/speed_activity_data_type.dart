@@ -13,7 +13,6 @@ part of '../health_data_type.dart';
 /// - [StairDescentSpeedDataType]
 ///
 @sinceV2_0_0
-@supportedOnAppleHealth
 @immutable
 sealed class SpeedActivityDataType<R extends SpeedActivityRecord>
     extends HealthDataType<R, Velocity>

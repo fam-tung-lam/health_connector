@@ -33,7 +33,6 @@ part of '../health_record.dart';
 /// - [SleepStageDataType]
 ///
 @sinceV1_0_0
-@supportedOnAppleHealth
 @immutable
 final class SleepStageRecord extends IntervalHealthRecord {
   /// Creates a sleep stage record.

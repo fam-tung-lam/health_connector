@@ -28,7 +28,6 @@ part of '../health_record.dart';
 /// - [DietaryVitaminB6DataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryVitaminB6Record extends DietaryVitaminRecord {
   /// Creates a vitamin B6 nutrient record.

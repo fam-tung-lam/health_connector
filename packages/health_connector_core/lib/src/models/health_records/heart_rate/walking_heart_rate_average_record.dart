@@ -10,7 +10,6 @@ part of '../health_record.dart';
 /// - [WalkingHeartRateAverageDataType]
 ///
 @sinceV3_4_0
-@supportedOnAppleHealth
 @readOnly
 @immutable
 final class WalkingHeartRateAverageRecord extends IntervalHealthRecord {

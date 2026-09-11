@@ -22,7 +22,6 @@ part of 'health_data_type.dart';
 /// - [InhalerUsageRecord]
 ///
 @sinceV3_5_0
-@supportedOnAppleHealth
 @immutable
 final class InhalerUsageDataType
     extends HealthDataType<InhalerUsageRecord, Number>

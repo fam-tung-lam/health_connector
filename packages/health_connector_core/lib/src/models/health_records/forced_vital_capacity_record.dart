@@ -25,7 +25,6 @@ part of 'health_record.dart';
 /// - [ForcedVitalCapacityDataType]
 ///
 @sinceV3_1_0
-@supportedOnAppleHealth
 @immutable
 final class ForcedVitalCapacityRecord extends InstantHealthRecord {
   /// Creates a forced vital capacity record.

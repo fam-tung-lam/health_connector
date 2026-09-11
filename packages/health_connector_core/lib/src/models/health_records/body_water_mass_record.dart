@@ -25,7 +25,6 @@ part of 'health_record.dart';
 /// - [BodyWaterMassDataType]
 ///
 @sinceV2_2_0
-@supportedOnHealthConnect
 @immutable
 final class BodyWaterMassRecord extends InstantHealthRecord {
   /// Minimum valid body water mass in kilograms (0.3 kg).

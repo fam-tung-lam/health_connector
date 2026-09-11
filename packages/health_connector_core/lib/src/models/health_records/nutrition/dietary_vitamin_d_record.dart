@@ -27,7 +27,6 @@ part of '../health_record.dart';
 /// - [DietaryVitaminDDataType]
 ///
 @sinceV1_1_0
-@supportedOnAppleHealth
 @immutable
 final class DietaryVitaminDRecord extends DietaryVitaminRecord {
   /// Creates a vitamin D nutrient record.
