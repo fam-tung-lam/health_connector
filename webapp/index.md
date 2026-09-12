@@ -118,15 +118,7 @@ for (final record in response.records) {
 
 <UsedBy />
 
-## Try the SDK in Health Connector Toolbox
-
-Explore permissions, health records, aggregations, and synchronization on a
-real iPhone without first creating a Flutter project.
-
-[Download Health Connector Toolbox on the App Store](https://apps.apple.com/us/app/health-connector-toolbox/id6803127460)
-
-**Android:** The Google Play release is in progress and coming soon. Until then,
-you can [run the Android version from source](/resources/toolbox#run-the-source-version).
+<ToolboxStoreButtons />
 
 ## Pick your entry point
 
