@@ -18,6 +18,11 @@ Connector plugin. It provides integration with Apple's HealthKit framework,
 enabling Flutter apps to read, write, and aggregate health data on iOS
 devices.
 
+The plugin captures the iOS version when the connector is created so the
+facade can resolve runtime requirements. It supports reading and sum-aggregating
+Apple Stand Hour records. HealthKit does not persist exercise-segment `weight`,
+`setIndex`, or `rateOfPerceivedExertion`, so non-null writes are rejected.
+
 ---
 
 ## 🎯 Requirements

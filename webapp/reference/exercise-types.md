@@ -14,7 +14,11 @@ The activities `ExerciseSessionRecord.exerciseType` accepts. Availability differ
 
 **`ExerciseType.other` is the safe fallback.** When the activity your app tracks has no exact match, or has one on only one platform, record it as `other` with a descriptive `title` rather than picking a near-miss type. The title is what users see in the native health apps.
 
-**Segments describe what happened inside a session.** `ExerciseSegmentType` is a separate vocabulary covering sets and movements such as bench press. Segment weight has an additional device requirement on Android — see [SDK Extension 21](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
+**Segments describe what happened inside a session.** `ExerciseSegmentType` is
+a separate vocabulary covering sets and movements such as bench press. Segment
+`weight`, `setIndex`, and `rateOfPerceivedExertion` have an additional device
+requirement on Android — see
+[SDK Extension 21](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
 
 <NextSteps
   :links="[

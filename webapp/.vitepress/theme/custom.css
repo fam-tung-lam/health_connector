@@ -251,6 +251,186 @@ body { text-rendering: optimizeLegibility; }
 .hc-used-by__creator a { font-weight: 650; color: var(--vp-c-text-2); }
 .hc-used-by__creator a:hover { color: var(--hc-green); }
 
+/* ------------------------------------------------------- store buttons ---- */
+
+.hc-toolbox-stores {
+  position: relative;
+  margin-top: 64px;
+  border: 1px solid var(--hc-line);
+  border-radius: calc(var(--hc-radius) + 4px);
+  padding: 30px;
+  background:
+    radial-gradient(
+      circle at 92% 8%,
+      color-mix(in srgb, var(--hc-blue-soft) 82%, transparent),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 4% 100%,
+      color-mix(in srgb, var(--hc-green-soft) 72%, transparent),
+      transparent 45%
+    ),
+    var(--hc-surface);
+  box-shadow: var(--hc-shadow-sm);
+}
+
+.hc-toolbox-stores__heading > p:first-child {
+  margin: 0 0 8px;
+  letter-spacing: .09em;
+  font: 750 10px/14px var(--hc-font-mono);
+  text-transform: uppercase;
+  color: var(--hc-green);
+}
+
+.vp-doc .hc-toolbox-stores__heading h2 {
+  margin-top: 0;
+  border: 0;
+  padding-top: 0;
+}
+
+.hc-toolbox-stores__heading h2 + p {
+  margin-top: 0;
+  max-width: 680px;
+  color: var(--vp-c-text-2);
+}
+
+.hc-toolbox-stores__buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 190px));
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.vp-doc .hc-store-button {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  border: 1px solid var(--hc-line);
+  border-radius: 22px;
+  padding: 18px 16px 16px;
+  min-height: 210px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  background: color-mix(in srgb, var(--hc-surface) 94%, transparent);
+  box-shadow: 0 12px 32px rgb(22 89 70 / 9%);
+  cursor: pointer;
+  transition:
+    border-color .2s,
+    box-shadow .2s,
+    transform .2s,
+    background-color .2s;
+}
+
+.vp-doc .hc-store-button:hover {
+  border-color: color-mix(in srgb, var(--hc-green) 58%, var(--hc-line));
+  background: var(--hc-surface);
+  box-shadow: 0 18px 38px rgb(22 89 70 / 16%);
+  transform: translateY(-4px);
+}
+
+.vp-doc .hc-store-button--ios:hover {
+  border-color: color-mix(in srgb, var(--hc-blue) 58%, var(--hc-line));
+  box-shadow: 0 18px 38px rgb(23 105 170 / 17%);
+}
+
+.vp-doc .hc-store-button:active {
+  box-shadow: var(--hc-shadow-sm);
+  transform: translateY(-1px) scale(.98);
+}
+
+.hc-store-button__icon {
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--hc-line) 70%, transparent);
+  border-radius: 19px;
+  width: 104px;
+  height: 104px;
+  background: var(--hc-surface);
+  box-shadow: 0 9px 24px rgb(20 45 36 / 10%);
+  transition: transform .2s;
+}
+
+.hc-store-button:hover .hc-store-button__icon { transform: scale(1.04); }
+.hc-store-button__icon img { width: 58px; height: 58px; }
+.hc-store-button--android .hc-store-button__icon img { width: 52px; }
+
+.hc-store-button__label { display: grid; justify-items: center; }
+
+.hc-store-button__label > span {
+  letter-spacing: .08em;
+  font: 750 9px/13px var(--hc-font-mono);
+  text-transform: uppercase;
+  color: var(--hc-green);
+}
+
+.hc-store-button--ios .hc-store-button__label > span { color: var(--hc-blue); }
+.hc-store-button__label strong { margin-top: 2px; letter-spacing: -.02em; font-size: 17px; }
+.hc-store-button__label small { margin-top: 1px; font-size: 12px; color: var(--vp-c-text-3); }
+
+.hc-store-snackbar {
+  position: fixed;
+  z-index: 80;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--hc-green) 42%, var(--hc-line));
+  border-radius: 13px;
+  padding: 14px 14px 14px 16px;
+  width: min(430px, calc(100vw - 32px));
+  color: var(--vp-c-text-1);
+  background: var(--hc-surface);
+  box-shadow: var(--hc-shadow);
+}
+
+.hc-store-snackbar__icon {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font: 750 13px var(--hc-font-mono);
+  color: var(--hc-green);
+  background: var(--hc-green-soft);
+}
+
+.hc-store-snackbar > span:nth-child(2) { display: grid; gap: 2px; }
+.hc-store-snackbar strong { font-size: 13.5px; }
+.hc-store-snackbar span span { font-size: 12.5px; line-height: 1.45; color: var(--vp-c-text-2); }
+.vp-doc .hc-store-snackbar a { color: var(--hc-green); }
+
+.hc-store-snackbar > button {
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+  color: var(--vp-c-text-3);
+}
+
+.hc-store-snackbar > button:hover {
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-bg-soft);
+}
+
+.hc-store-snackbar > button svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
+.hc-snackbar-enter-active,
+.hc-snackbar-leave-active { transition: opacity .2s, transform .2s; }
+
+.hc-snackbar-enter-from,
+.hc-snackbar-leave-to { opacity: 0; transform: translateY(12px); }
+
 /* --------------------------------------------------------- hero figure ---- */
 
 .hc-bridge {
@@ -998,6 +1178,13 @@ body { text-rendering: optimizeLegibility; }
   .hc-used-by__creator { padding-inline: 18px; }
   .hc-used-by__separator { display: none; }
   .hc-used-by__role { display: block; }
+  .hc-toolbox-stores { padding: 22px; }
+  .hc-toolbox-stores__buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .vp-doc .hc-store-button { border-radius: 17px; padding: 14px 10px; min-height: 174px; }
+  .hc-store-button__icon { border-radius: 15px; width: 78px; height: 78px; }
+  .hc-store-button__icon img { width: 46px; height: 46px; }
+  .hc-store-button--android .hc-store-button__icon img { width: 42px; }
+  .hc-store-snackbar { right: 16px; bottom: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1006,4 +1193,9 @@ body { text-rendering: optimizeLegibility; }
   .hc-arrow__head { animation: none; }
   .hc-next a:hover { transform: none; }
   .hc-used-by__app:hover svg { transform: none; }
+  .vp-doc .hc-store-button:hover,
+  .vp-doc .hc-store-button:active,
+  .hc-store-button:hover .hc-store-button__icon,
+  .hc-snackbar-enter-from,
+  .hc-snackbar-leave-to { transform: none; }
 }

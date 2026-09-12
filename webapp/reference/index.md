@@ -7,7 +7,7 @@ For workflows and decisions, use the [Guide](/guide/). For API constraints and l
 <NextSteps
   title="Searchable catalogs"
   :links="[
-    { text: 'Health data types', link: '/reference/health-data-types', description: '140 types filterable by platform, category, and aggregation.' },
+    { text: 'Health data types', link: '/reference/health-data-types', description: '143 types filterable by platform, category, and aggregation.' },
     { text: 'Exercise types', link: '/reference/exercise-types', description: '96 workout types with per-platform availability.' },
     { text: 'Error codes', link: '/reference/error-codes', description: 'Every code with its cause and recovery strategy.' },
   ]"

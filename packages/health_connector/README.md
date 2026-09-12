@@ -17,7 +17,7 @@
 </p>
 
 **Production-grade Flutter health SDK for iOS HealthKit and Android Health
-Connect.** Access **150+ health data types** with compile-time type safety,
+Connect.** Access **143 typed health data types** with compile-time type safety,
 incremental data synchronization, and privacy-first architecture.
 
 For maintained installation guides, platform configuration, and task recipes,
@@ -95,7 +95,17 @@ and Android.
   </table>
 </div>
 
-### Try It Yourself
+### Install the Toolbox
+
+The iOS app is available free on the App Store. Use it to explore the SDK on a
+real device without first creating a Flutter project:
+
+[Download Health Connector Toolbox on the App Store](https://apps.apple.com/us/app/health-connector-toolbox/id6803127460)
+
+> **Android:** The Google Play release is in progress and coming soon. Until it
+> is available, run the Android version from source.
+
+### Run from Source
 
 ```bash
 git clone https://github.com/fam-tung-lam/health_connector.git
@@ -103,8 +113,8 @@ cd health_connector/examples/health_connector_toolbox
 flutter pub get && flutter run
 ```
 
-> **Note:** The toolbox app is used only for demonstration purposes and as an internal tool for
-> manually testing SDK features. It is not intended for production reference.
+> **Note:** The toolbox app demonstrates and manually tests SDK features. It is
+> not a reference architecture for production apps.
 
 <!-- #endregion webapp-toolbox -->
 
@@ -269,10 +279,13 @@ android {
 ```
 
 > **Important**: `compileSdkExtension 19` is a **compile-time** requirement for the Health Connect
-> SDK 1.2.0-alpha03. In addition, writing `ExerciseSessionSegmentEvent.weight` with a non-null value
-> performs a **runtime** device capability check: if the device's Health Connect Mainline module is
-> below SDK Extension 21, an `UnsupportedOperationException` is thrown with a descriptive message.
-> See [Exercise Segment Weight and SDK Extension 21](https://health-connector.phamtunglam.com/reference/annotations#exercise-segment-weight-and-sdk-extension-21)
+> SDK 1.2.0-alpha03. In addition, writing a non-null
+> `ExerciseSessionSegmentEvent.weight`, `.setIndex`, or
+> `.rateOfPerceivedExertion` performs a **runtime** device capability check. If
+> the device's Health Connect Mainline module is below SDK Extension 21, an
+> `UnsupportedOperationException` is thrown with a descriptive message. Check
+> `ExerciseSessionSegmentEvent.extendedFieldsRequirements` before writing. See
+> [Exercise Segment Extended Fields and SDK Extension 21](https://health-connector.phamtunglam.com/reference/annotations#exercise-segment-weight-and-sdk-extension-21)
 > for details.
 
 #### iOS HealthKit Setup

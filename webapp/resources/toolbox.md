@@ -11,6 +11,16 @@ incremental sync behavior. It never expands the permissions you select.
 The public mobile app does not collect or transmit health data. Read the
 [Toolbox privacy policy](/legal/toolbox-privacy).
 
+## Install the app
+
+The iOS app is available free on the App Store. Use it to explore the SDK on a
+real device without first creating a Flutter project:
+
+[Download Health Connector Toolbox on the App Store](https://apps.apple.com/us/app/health-connector-toolbox/id6803127460)
+
+**Android:** The Google Play release is in progress and coming soon. Until it is
+available, run the Android version from source.
+
 ## Support
 
 Email [fam.tung.lam@gmail.com](mailto:fam.tung.lam@gmail.com) for installation,

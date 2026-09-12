@@ -109,7 +109,12 @@ android {
 }
 ```
 
-If the build now passes but a write throws at runtime with `UnsupportedOperationException`, you have hit the separate **SDK Extension 21** device check on `ExerciseSessionSegmentEvent.weight`. That one cannot be fixed in configuration — guard the write or omit the field. [Details](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
+If the build now passes but a write throws at runtime with
+`UnsupportedOperationException`, you may have hit the separate **SDK Extension
+21** device check on `ExerciseSessionSegmentEvent.weight`, `.setIndex`, or
+`.rateOfPerceivedExertion`. That cannot be fixed in configuration. Resolve
+`ExerciseSessionSegmentEvent.extendedFieldsRequirements` and omit unsupported
+fields. [Details](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
 
 ## Still stuck
 

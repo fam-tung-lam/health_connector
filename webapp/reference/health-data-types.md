@@ -19,7 +19,10 @@ Every data type the SDK supports, with its typed constant, aggregation metrics, 
 **Native APIs** link to Google's and Apple's own documentation for the underlying record or identifier, which is where to look when you need the platform's exact semantics for a measurement.
 
 ::: tip Verify availability before promising a feature
-Filter by **Both** to see only the types that exist as first-class data types on Health Connect and HealthKit alike. Anything outside that set needs a platform branch or a documented gap.
+Filter by **Both** to see only the types that exist as first-class data types on
+Health Connect and HealthKit alike. Resolve the selected type's
+`healthPlatformRequirements` with `getSupportStatusFor()` before presenting the
+feature.
 :::
 
 <NextSteps

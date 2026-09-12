@@ -139,30 +139,55 @@ Future<void> showWorkoutMap(HealthRecordId sessionId) async {
 Each call is a separate round trip carrying a full GPS track. Fetching a route per session to render a list turns one query into dozens, moves a lot of location data you will not draw, and on Android pushes you toward `rateLimitExceeded`.
 :::
 
-## Strength training and segment weight
+## Strength training and extended segment fields
 
-Segments describe what happened inside a session — sets, reps, and load:
+Segments describe what happened inside a session — sets, reps, load, and
+perceived effort. Check the runtime requirement before including fields that
+need Health Connect SDK Extension 21:
 
 ```dart
+final support = connector.getSupportStatusFor(
+  ExerciseSessionSegmentEvent.extendedFieldsRequirements,
+);
+final supportsExtendedFields = support.isSupported;
+final startTime = DateTime.now();
+final endTime = startTime.add(const Duration(minutes: 1));
+
 final segment = ExerciseSessionSegmentEvent(
   startTime: startTime,
   endTime: endTime,
   segmentType: ExerciseSegmentType.benchPress,
   repetitions: 10,
-  weight: Mass.kilograms(80), // Android SDK Extension 21+ only
+  weight: supportsExtendedFields ? Mass.kilograms(80) : null,
+  setIndex: supportsExtendedFields ? 0 : null,
+  rateOfPerceivedExertion: supportsExtendedFields ? 7.5 : null,
+);
+
+final exerciseSession = ExerciseSessionRecord(
+  startTime: startTime,
+  endTime: endTime,
+  exerciseType: ExerciseType.strengthTraining,
+  events: [segment],
+  metadata: Metadata.automaticallyRecorded(
+    device: Device.fromType(DeviceType.watch),
+  ),
 );
 
 try {
   await connector.writeRecord(exerciseSession);
 } on UnsupportedOperationException catch (e) {
   // The device's Health Connect module predates Extension 21,
-  // or this is iOS. Omit the weight or tell the user.
-  print('Segment weight not supported on this device: $e');
+  // or this is iOS. Omit the fields or tell the user.
+  print('Extended segment fields are not supported: $e');
 }
 ```
 
-::: danger `weight` is a runtime device check, not a build-time one
-The same binary succeeds on one Android 14 device and throws on another, depending on whether that device received the relevant Health Connect Mainline update. Always guard non-null weight writes. [Full behavior table](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
+::: danger Extended fields require a runtime device check
+The same binary succeeds on one Android 14 device and throws on another,
+depending on whether that device received the relevant Health Connect Mainline
+update. Always check `extendedFieldsRequirements` and retain an unsupported
+operation fallback.
+[Full behavior table](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
 :::
 
 <NextSteps

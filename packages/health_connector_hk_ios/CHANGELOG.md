@@ -1,13 +1,16 @@
-## Unreleased
+## 3.10.0
 
 - **FEAT**: Add read and sum-aggregation support for Apple Stand Hour records
   ([#217](https://github.com/fam-tung-lam/health_connector/issues/217)).
-
-## 3.9.5
-
 - **FEAT**: Return the current iOS version snapshot during connector
   initialization
   ([#223](https://github.com/fam-tung-lam/health_connector/pull/223)).
+- **FIX**: Reject writes containing exercise-segment `setIndex` or
+  `rateOfPerceivedExertion`, which HealthKit does not support
+  ([#216](https://github.com/fam-tung-lam/health_connector/pull/216)).
+
+## 3.9.5
+
 - **FIX**: Distinguish indoor and outdoor cycling workouts using
   `HKMetadataKeyIndoorWorkout`. Missing, invalid, or `false` metadata maps to
   `ExerciseType.cycling`; `true` maps to `ExerciseType.cyclingStationary`

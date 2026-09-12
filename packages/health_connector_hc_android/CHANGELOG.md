@@ -1,8 +1,14 @@
-## 3.7.1
+## 3.8.0
 
 - **FEAT**: Return the Android API level and Health Connect SDK Extension
   snapshot during connector initialization
   ([#223](https://github.com/fam-tung-lam/health_connector/pull/223)).
+- **FEAT**: Map exercise-segment `setIndex` and `rateOfPerceivedExertion`, and
+  reject writes on devices below Health Connect SDK Extension 21
+  ([#216](https://github.com/fam-tung-lam/health_connector/pull/216)).
+
+## 3.7.1
+
 - **FIX**: Clarify that Health Connect biking maps to `ExerciseType.cycling`
   (outdoor) and stationary biking maps to `ExerciseType.cyclingStationary`
   (indoor)

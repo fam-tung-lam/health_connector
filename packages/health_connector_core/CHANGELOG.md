@@ -1,10 +1,10 @@
-## Unreleased
+## 3.10.0
 
 - **FEAT**: Add read and sum-aggregation support for Apple Stand Hour records
   on HealthKit ([#217](https://github.com/fam-tung-lam/health_connector/issues/217)).
-
-## 3.9.4
-
+- **FEAT**: Add `setIndex` and `rateOfPerceivedExertion` to
+  `ExerciseSessionSegmentEvent`
+  ([#216](https://github.com/fam-tung-lam/health_connector/pull/216)).
 - **FEAT**: Add runtime platform requirement, support status, and immutable
   operating-system information models
   ([#223](https://github.com/fam-tung-lam/health_connector/pull/223)).
@@ -15,6 +15,9 @@
   `supportedOn…` annotations with runtime requirements. Deprecated APIs remain
   available until 4.0.0
   ([#223](https://github.com/fam-tung-lam/health_connector/pull/223)).
+
+## 3.9.4
+
 - **FIX**: Define `ExerciseType.cycling` as outdoor cycling and
   `ExerciseType.cyclingStationary` as indoor cycling, with both types supported
   on HealthKit and Health Connect

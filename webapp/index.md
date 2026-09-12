@@ -118,6 +118,8 @@ for (final record in response.records) {
 
 <UsedBy />
 
+<ToolboxStoreButtons />
+
 ## Pick your entry point
 
 <NextSteps
