@@ -95,7 +95,17 @@ and Android.
   </table>
 </div>
 
-### Try It Yourself
+### Install the Toolbox
+
+The iOS app is available free on the App Store. Use it to explore the SDK on a
+real device without first creating a Flutter project:
+
+[Download Health Connector Toolbox on the App Store](https://apps.apple.com/us/app/health-connector-toolbox/id6803127460)
+
+> **Android:** The Google Play release is in progress and coming soon. Until it
+> is available, run the Android version from source.
+
+### Run from Source
 
 ```bash
 git clone https://github.com/fam-tung-lam/health_connector.git
@@ -103,8 +113,8 @@ cd health_connector/examples/health_connector_toolbox
 flutter pub get && flutter run
 ```
 
-> **Note:** The toolbox app is used only for demonstration purposes and as an internal tool for
-> manually testing SDK features. It is not intended for production reference.
+> **Note:** The toolbox app demonstrates and manually tests SDK features. It is
+> not a reference architecture for production apps.
 
 <!-- #endregion webapp-toolbox -->
 
