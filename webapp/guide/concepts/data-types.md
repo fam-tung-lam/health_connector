@@ -37,11 +37,11 @@ The same mechanism covers writes. A type marked `@readOnly` — typically a metr
 | Update | Android only | `UnsupportedOperationException` on iOS |
 | Delete | Records your app wrote | `AuthorizationException` for other apps' records |
 
-Which aggregations each type supports is searchable in the [health data type explorer](/reference/health-data-types) — filter by **Aggregatable only** to see the 104 types that support at least one metric.
+Which aggregations each type supports is searchable in the [health data type explorer](/reference/health-data-types) — filter by **Aggregatable only** to see the 112 types that support at least one metric.
 
 ## Platform availability is per type
 
-Not every conceptual measurement exists on both stores. Of the 140 typed data types, some are Health Connect-only, many nutrient types are exposed as discrete HealthKit identifiers while Health Connect models them as fields on a single `NutritionRecord`, and a few require a specific iOS version.
+Not every conceptual measurement exists on both stores. Of the 143 typed data types, some are Health Connect-only, many nutrient types are exposed as discrete HealthKit identifiers while Health Connect models them as fields on a single `NutritionRecord`, and a few require a specific iOS version.
 
 Each type exposes its runtime requirements:
 
@@ -95,14 +95,18 @@ for (final record in series.records) {
 ```
 
 ::: warning Static typing does not cover platform availability
-Those two heart-rate types are also a platform split — `heartRate` is HealthKit-only and `heartRateSeries` is Health Connect-only. That constraint is **not** enforced by the compiler: passing an unsupported type compiles fine and throws `UnsupportedOperationException` at runtime. Check availability in the [explorer](/reference/health-data-types) and branch on `HealthConnector.healthPlatform`.
+Those two heart-rate types are also a platform split — `heartRate` is
+HealthKit-only and `heartRateSeries` is Health Connect-only. That constraint is
+**not** enforced by the compiler: passing an unsupported type compiles fine and
+throws `UnsupportedOperationException` at runtime. Resolve each type's
+`healthPlatformRequirements` with `getSupportStatusFor()` before using it.
 :::
 
 ## Finding the type you need
 
 <NextSteps
   :links="[
-    { text: 'Health data type explorer', link: '/reference/health-data-types', description: 'Search 140 types by platform, category, and aggregation.' },
+    { text: 'Health data type explorer', link: '/reference/health-data-types', description: 'Search 143 types by platform, category, and aggregation.' },
     { text: 'Exercise types', link: '/reference/exercise-types', description: 'The 96 workout types and where each is available.' },
     { text: 'Runtime requirements', link: '/reference/requirements', description: 'How to check platform and version constraints.' },
   ]"

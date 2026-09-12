@@ -51,7 +51,9 @@ Diagnostics from the Kotlin and Swift layers are forwarded through the same chan
 
 - Import only `package:health_connector/health_connector.dart`. The platform packages are transitive.
 - Do not branch on platform for ordinary reads, writes, and aggregates — they are uniform.
-- Do branch on `HealthConnector.healthPlatform` for annotated APIs, or catch `UnsupportedOperationException`.
+- Resolve an API's `healthPlatformRequirements` with
+  `getSupportStatusFor()`, and retain an `UnsupportedOperationException`
+  fallback.
 - Never call anything marked `@internalUse`; those factories exist for the adapters.
 
 <NextSteps

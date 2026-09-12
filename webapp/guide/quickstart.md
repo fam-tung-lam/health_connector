@@ -1,6 +1,9 @@
 # Your first integration
 
-A complete round trip — availability, permissions, write, read, aggregate, delete — using steps as the example data type. The same shape works for any of the [140 supported data types](/reference/health-data-types).
+A complete round trip — availability, permissions, write, read, aggregate,
+delete — using steps as the example data type. The same request-builder pattern
+applies across the [143 supported data types](/reference/health-data-types),
+while each type exposes only its supported operations.
 
 ::: tip Before you start
 Finish [Install & configure](/guide/installation) first. This example both reads and writes, so:

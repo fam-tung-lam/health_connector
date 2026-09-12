@@ -35,6 +35,16 @@ fields. `getSupportStatusFor()` accepts the requirements list directly.
 Use `connector.operatingSystemInfo` when you need the immutable Android API and
 SDK Extension snapshot or iOS semantic version.
 
+New public APIs in 3.11.0 include:
+
+- `HealthDataType.appleStandHour` for reading and sum-aggregating Apple
+  Stand Hour records on HealthKit;
+- `ExerciseSessionSegmentEvent.setIndex` and
+  `.rateOfPerceivedExertion` for Health Connect SDK Extension 21 devices; and
+- `ExerciseSessionSegmentEvent.extendedFieldsRequirements` for checking the
+  runtime support shared by `weight`, `setIndex`, and
+  `rateOfPerceivedExertion`.
+
 ## v2.x.x → v3.0.0
 
 **Difficulty: moderate · roughly 30 minutes for a typical app**
@@ -73,7 +83,10 @@ New in v2.0.0: individual permission status checks, batch updates (Android), act
 Minor and patch releases are backward compatible. Note two version-specific build requirements introduced along the way:
 
 - **v3.9.0+** requires `compileSdkExtension 19` in your Android Gradle configuration, because it builds against Health Connect 1.2.0-alpha03. See [Requirements](/reference/requirements#android-build-configuration).
-- **`ExerciseSessionSegmentEvent.weight`** additionally requires the device's Health Connect Mainline module to be at SDK Extension 21, checked at runtime. See [Annotations](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
+- **`ExerciseSessionSegmentEvent.weight`, `.setIndex`, and
+  `.rateOfPerceivedExertion`** require the device's Health Connect Mainline
+  module to be at SDK Extension 21, checked at runtime. See
+  [Annotations](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
 
 The [changelog](https://pub.dev/packages/health_connector/changelog) lists every release.
 

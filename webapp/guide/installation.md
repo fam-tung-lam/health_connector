@@ -156,7 +156,13 @@ Depend only on the facade. The Android and iOS implementations arrive transitive
 </div>
 
 ::: warning `compileSdkExtension` is compile-time only
-Setting extension 19 satisfies the build. Separately, writing a non-null `ExerciseSessionSegmentEvent.weight` performs a **runtime** device check and throws `UnsupportedOperationException` if that device's Health Connect Mainline module is below SDK Extension 21. The same binary can succeed on one Android 14 device and fail on another. See [exercise segment weight](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
+Setting extension 19 satisfies the build. Separately, writing a non-null
+`ExerciseSessionSegmentEvent.weight`, `.setIndex`, or
+`.rateOfPerceivedExertion` performs a **runtime** device check and throws
+`UnsupportedOperationException` if that device's Health Connect Mainline module
+is below SDK Extension 21. The same binary can succeed on one Android 14 device
+and fail on another. See
+[exercise segment extended fields](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
 :::
 
 </template>

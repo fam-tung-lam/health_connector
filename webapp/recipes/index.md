@@ -26,4 +26,4 @@ If you have not run a read yet, start with [Your first integration](/guide/quick
 
 ## Choosing your data types
 
-The 140 supported types are searchable by category and platform in the [data type explorer](/reference/health-data-types). Before committing to a feature, check that every type it needs is available on both platforms you ship — nutrition in particular is modelled differently by each store.
+The 143 supported types are searchable by category and platform in the [data type explorer](/reference/health-data-types). Before committing to a feature, check that every type it needs is available on both platforms you ship — nutrition in particular is modelled differently by each store.

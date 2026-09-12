@@ -17,7 +17,7 @@
 </p>
 
 **Production-grade Flutter health SDK for iOS HealthKit and Android Health
-Connect.** Access **150+ health data types** with compile-time type safety,
+Connect.** Access **143 typed health data types** with compile-time type safety,
 incremental data synchronization, and privacy-first architecture.
 
 For maintained installation guides, platform configuration, and task recipes,
@@ -269,10 +269,13 @@ android {
 ```
 
 > **Important**: `compileSdkExtension 19` is a **compile-time** requirement for the Health Connect
-> SDK 1.2.0-alpha03. In addition, writing `ExerciseSessionSegmentEvent.weight` with a non-null value
-> performs a **runtime** device capability check: if the device's Health Connect Mainline module is
-> below SDK Extension 21, an `UnsupportedOperationException` is thrown with a descriptive message.
-> See [Exercise Segment Weight and SDK Extension 21](https://health-connector.phamtunglam.com/reference/annotations#exercise-segment-weight-and-sdk-extension-21)
+> SDK 1.2.0-alpha03. In addition, writing a non-null
+> `ExerciseSessionSegmentEvent.weight`, `.setIndex`, or
+> `.rateOfPerceivedExertion` performs a **runtime** device capability check. If
+> the device's Health Connect Mainline module is below SDK Extension 21, an
+> `UnsupportedOperationException` is thrown with a descriptive message. Check
+> `ExerciseSessionSegmentEvent.extendedFieldsRequirements` before writing. See
+> [Exercise Segment Extended Fields and SDK Extension 21](https://health-connector.phamtunglam.com/reference/annotations#exercise-segment-weight-and-sdk-extension-21)
 > for details.
 
 #### iOS HealthKit Setup

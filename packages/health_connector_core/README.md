@@ -25,6 +25,8 @@ used across the Health Connector plugin ecosystem:
 
 - **Domain Model**: Defines health records, data types, and measurement units
 - **Platform Interface**: Specifies the contract that platform implementations must fulfill
+- **Runtime Requirements**: Models platform and OS requirements, immutable OS
+  snapshots, and typed support results
 - **Shared Utilities**: Provides common validation and error handling
 
 ### Acknowledgments: Android Health Connect SDK

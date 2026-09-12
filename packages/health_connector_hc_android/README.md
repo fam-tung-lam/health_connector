@@ -18,6 +18,12 @@ the Health Connector plugin. It provides integration with Android's Health
 Connect SDK, enabling Flutter apps to read, write, and aggregate health
 data on Android devices.
 
+The plugin captures the Android API level and Health Connect SDK Extension
+versions when the connector is created. The facade uses that immutable snapshot
+to resolve runtime requirements. Exercise-segment `weight`, `setIndex`, and
+`rateOfPerceivedExertion` require Android 14 with SDK Extension 21 or later when
+written.
+
 ---
 
 ## 🎯 Requirements

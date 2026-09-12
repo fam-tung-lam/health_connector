@@ -117,6 +117,6 @@ Render your workout list from the session records alone — type, duration, titl
   :links="[
     { text: 'Fitness recipes', link: '/recipes/fitness', description: 'A complete run with laps, segments, and a route.' },
     { text: 'Exercise types', link: '/reference/exercise-types', description: 'All 96 types and where each is supported.' },
-    { text: 'Annotations', link: '/reference/annotations', description: 'Segment weight and the SDK Extension 21 check.' },
+    { text: 'Annotations', link: '/reference/annotations', description: 'Extended segment fields and the SDK Extension 21 check.' },
   ]"
 />

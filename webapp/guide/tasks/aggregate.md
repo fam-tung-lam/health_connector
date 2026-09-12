@@ -59,7 +59,11 @@ The available methods are part of each data type's interface, so nonsensical agg
 | Heart rate | — | Yes |
 | Exercise session | Yes (a `TimeDuration`) | — |
 
-`HealthDataType.weight.aggregateSum(...)` is a compile error, not a runtime failure — summing body weight has no meaning. 104 of the 140 data types support at least one metric; filter by **Aggregatable only** in the [data type explorer](/reference/health-data-types) to see which, and which metrics each one offers.
+`HealthDataType.weight.aggregateSum(...)` is a compile error, not a runtime
+failure — summing body weight has no meaning. 112 of the 143 data types support
+at least one metric; filter by **Aggregatable only** in the
+[data type explorer](/reference/health-data-types) to see which, and which
+metrics each one offers.
 
 ::: info "Duration" is a return type, not a method
 Session types such as `exerciseSession` and `mindfulnessSession` are listed as supporting **Duration**. That means their `aggregateSum` returns a `TimeDuration` — the total time spent across the range — rather than a count or a mass:
