@@ -352,17 +352,8 @@ body { text-rendering: optimizeLegibility; }
 }
 
 .hc-store-button:hover .hc-store-button__icon { transform: scale(1.04); }
-.hc-store-button__icon svg { width: 58px; height: 58px; }
-
-.hc-store-button--ios .hc-store-button__icon svg circle { fill: #1677ff; }
-
-.hc-store-button--ios .hc-store-button__icon svg path {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 5.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
+.hc-store-button__icon img { width: 58px; height: 58px; }
+.hc-store-button--android .hc-store-button__icon img { width: 52px; }
 
 .hc-store-button__label { display: grid; justify-items: center; }
 
@@ -1191,7 +1182,8 @@ body { text-rendering: optimizeLegibility; }
   .hc-toolbox-stores__buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .vp-doc .hc-store-button { border-radius: 17px; padding: 14px 10px; min-height: 174px; }
   .hc-store-button__icon { border-radius: 15px; width: 78px; height: 78px; }
-  .hc-store-button__icon svg { width: 46px; height: 46px; }
+  .hc-store-button__icon img { width: 46px; height: 46px; }
+  .hc-store-button--android .hc-store-button__icon img { width: 42px; }
   .hc-store-snackbar { right: 16px; bottom: 16px; }
 }
 

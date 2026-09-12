@@ -47,10 +47,7 @@ onBeforeUnmount(pauseAndroidNoticeHide);
         aria-label="Download Health Connector Toolbox on the App Store (opens in a new tab)"
       >
         <span class="hc-store-button__icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64">
-            <circle cx="32" cy="32" r="29" />
-            <path d="m23 45 19-33M22 19l15 26M16 39h32" />
-          </svg>
+          <img src="/stores/app-store.svg" alt="" />
         </span>
         <span class="hc-store-button__label">
           <span>Available now</span>
@@ -67,15 +64,7 @@ onBeforeUnmount(pauseAndroidNoticeHide);
         @click="showAndroidNotice"
       >
         <span class="hc-store-button__icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64">
-            <path fill="#00d7fe" d="M14 9v46l25-23z" />
-            <path fill="#00ed76" d="m14 9 34 19-9 4z" />
-            <path
-              fill="#ffce00"
-              d="m39 32 9-4 5 3a1.2 1.2 0 0 1 0 2l-5 3z"
-            />
-            <path fill="#ff4b55" d="m14 55 34-19-9-4z" />
-          </svg>
+          <img src="/stores/google-play.svg" alt="" />
         </span>
         <span class="hc-store-button__label">
           <span>Coming soon</span>
