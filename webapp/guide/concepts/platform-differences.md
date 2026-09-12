@@ -65,7 +65,13 @@ final status = await connector.getFeatureStatus(
 );
 ```
 
-The sharpest version of this is `ExerciseSessionSegmentEvent.weight`, which requires the device's Health Connect Mainline module to be at SDK Extension 21. The same app binary succeeds on one Android 14 device and throws on another. [Details](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
+The sharpest version of this is `ExerciseSessionSegmentEvent.weight`,
+`.setIndex`, and `.rateOfPerceivedExertion`, which all require the device's
+Health Connect Mainline module to be at SDK Extension 21. The same app binary
+succeeds on one Android 14 device and throws on another. Pass
+`ExerciseSessionSegmentEvent.extendedFieldsRequirements` to
+`getSupportStatusFor()` before adding these fields.
+[Details](/reference/annotations#exercise-segment-weight-and-sdk-extension-21).
 
 ## Data types do not map one to one
 

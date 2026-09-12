@@ -3907,6 +3907,8 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
     required this.segmentType,
     this.repetitions,
     this.weightKg,
+    this.setIndex,
+    this.rateOfPerceivedExertion,
   });
 
   /// Start time in milliseconds since epoch (UTC).
@@ -3924,6 +3926,12 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
   /// Weight lifted during this segment, in kilograms.
   double? weightKg;
 
+  /// Zero-based index of the set this segment belongs to.
+  int? setIndex;
+
+  /// Borg CR10 rate of perceived exertion, 0-10.
+  double? rateOfPerceivedExertion;
+
   List<Object?> _toList() {
     return <Object?>[
       startTime,
@@ -3931,6 +3939,8 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
       segmentType,
       repetitions,
       weightKg,
+      setIndex,
+      rateOfPerceivedExertion,
     ];
   }
 
@@ -3946,6 +3956,8 @@ class ExerciseSessionSegmentEventDto extends ExerciseSessionEventDto {
       segmentType: result[2]! as ExerciseSegmentTypeDto,
       repetitions: result[3] as int?,
       weightKg: result[4] as double?,
+      setIndex: result[5] as int?,
+      rateOfPerceivedExertion: result[6] as double?,
     );
   }
 

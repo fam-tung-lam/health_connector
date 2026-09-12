@@ -39,38 +39,57 @@ The requirement list is the single source of truth. It identifies supported
 platforms and any minimum iOS, Android API, or Health Connect SDK Extension
 version. See [Runtime requirements](/reference/requirements#runtime-availability).
 
-## Exercise segment weight and SDK Extension 21 {#exercise-segment-weight-and-sdk-extension-21}
+## Exercise segment weight, set index, and RPE (SDK Extension 21) {#exercise-segment-weight-and-sdk-extension-21}
 
-`ExerciseSessionSegmentEvent.weight` maps to [`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight), which only exists on devices whose Health Connect Mainline module is at **SDK Extension 21 or higher**.
+`ExerciseSessionSegmentEvent.weight`, `.setIndex`, and
+`.rateOfPerceivedExertion` map to
+[`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight),
+[`ExerciseSegment.setIndex`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#setIndex),
+and
+[`ExerciseSegment.rateOfPerceivedExertion`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#rateOfPerceivedExertion),
+respectively. All three require a device whose Health Connect Mainline module is
+at **SDK Extension 21 or higher**.
 
-| Scenario | Writing a non-null weight | Value when read |
+| Scenario | Writing a non-null value | Value when read |
 |---|---|---|
 | Android 14+ with Mainline Extension 21+ | Persisted normally | Non-null |
 | Android 14+ without the Extension 21 update | Throws `UnsupportedOperationException` | `null` |
 | Android below 14 | Throws `UnsupportedOperationException` | `null` |
 | iOS HealthKit | Throws `UnsupportedOperationException` | `null` |
 
-Check the extended-fields capability before adding a weight:
+Check the extended-fields requirements before adding any of these fields:
 
 ```dart
 final status = connector.getSupportStatusFor(
   ExerciseSessionSegmentEvent.extendedFieldsRequirements,
 );
-if (!status.isSupported) return;
+final supportsExtendedFields = status.isSupported;
 
 final segment = ExerciseSessionSegmentEvent(
   startTime: startTime,
   endTime: endTime,
   segmentType: ExerciseSegmentType.benchPress,
   repetitions: 10,
-  weight: Mass.kilograms(80), // needs SDK Extension 21+ on Android
+  weight: supportsExtendedFields ? Mass.kilograms(80) : null,
+  setIndex: supportsExtendedFields ? 0 : null,
+  rateOfPerceivedExertion: supportsExtendedFields ? 7.5 : null,
 );
 
-await connector.writeRecord(exerciseSession);
+try {
+  await connector.writeRecord(exerciseSession);
+} on UnsupportedOperationException catch (e) {
+  // Omit the fields, or tell the user their device cannot store them.
+  print('Segment weight, set index, or RPE not supported on this device: $e');
+}
 ```
 
 ::: danger This is a runtime check, not a compile-time one
-`compileSdkExtension 19` in your Gradle config satisfies the **build**. The Extension 21 requirement is checked on the **device**. The same app binary succeeds on one Android 14 phone and throws on another, depending on whether that phone received the Mainline update — so you cannot test this away on a single device.
+`compileSdkExtension 19` in your Gradle config satisfies the **build**. The
+Extension 21 requirement is checked on the **device**. The same app binary
+succeeds on one Android 14 phone and throws on another, depending on whether
+that phone received the Mainline update. Use `getSupportStatusFor()` to check
+the immutable operating-system snapshot captured when the connector is created,
+and retain an unsupported-operation fallback.
 :::
 
 <NextSteps

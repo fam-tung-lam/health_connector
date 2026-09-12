@@ -107,6 +107,29 @@ void main() {
       ExerciseSessionSegmentEvent.extendedFieldsRequirements,
       [HealthConnectRequirement.android14OrLaterWithSDKExtension21],
     );
+
+    final startTime = DateTime.utc(2026);
+    final endTime = DateTime.utc(2026, 1, 1, 0, 1);
+    ExerciseSessionSegmentEvent buildEvent({
+      Mass? weight,
+      int? setIndex,
+      double? rateOfPerceivedExertion,
+    }) => ExerciseSessionSegmentEvent(
+      startTime: startTime,
+      endTime: endTime,
+      segmentType: ExerciseSegmentType.unknown,
+      weight: weight,
+      setIndex: setIndex,
+      rateOfPerceivedExertion: rateOfPerceivedExertion,
+    );
+
+    expect(buildEvent().hasExtendedFields, isFalse);
+    expect(
+      buildEvent(weight: const Mass.kilograms(1)).hasExtendedFields,
+      isTrue,
+    );
+    expect(buildEvent(setIndex: 0).hasExtendedFields, isTrue);
+    expect(buildEvent(rateOfPerceivedExertion: 1).hasExtendedFields, isTrue);
   });
 
   test('version-gated data types expose their iOS floors', () {

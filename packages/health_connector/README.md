@@ -1321,10 +1321,16 @@ final support = connector.getSupportStatusFor(
 if (!support.isSupported) return;
 ```
 
-`ExerciseSessionSegmentEvent.weight` maps to
-[`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight)
-in the Health Connect SDK, which is only available on devices whose Health
-Connect Mainline module is at **SDK Extension 21 or higher**.
+### Exercise Segment Weight, Set Index, and RPE (SDK Extension 21)
+
+`ExerciseSessionSegmentEvent.weight`, `.setIndex`, and
+`.rateOfPerceivedExertion` map to
+[`ExerciseSegment.weight`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#weight),
+[`ExerciseSegment.setIndex`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#setIndex),
+and
+[`ExerciseSegment.rateOfPerceivedExertion`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSegment#rateOfPerceivedExertion)
+in the Health Connect SDK. All three require a device whose Health Connect
+Mainline module is at **SDK Extension 21 or higher**.
 
 **Platform behavior summary:**
 
@@ -1335,28 +1341,37 @@ Connect Mainline module is at **SDK Extension 21 or higher**.
 | Android < 14                                      | Throws `UnsupportedOperationException`   | `null`     |
 | iOS HealthKit                                     | Throws `UnsupportedOperationException`   | `null`     |
 
-**Recommended pattern:**
+**Recommended pattern: check the runtime requirements first.**
 
 ```dart
 final support = connector.getSupportStatusFor(
   ExerciseSessionSegmentEvent.extendedFieldsRequirements,
 );
-if (!support.isSupported) return;
+final supportsExtendedFields = support.isSupported;
 
 final segment = ExerciseSessionSegmentEvent(
   startTime: startTime,
   endTime: endTime,
   segmentType: ExerciseSegmentType.benchPress,
   repetitions: 10,
-  weight: Mass.fromKilograms(80), // requires SDK Extension 21+ on Android
+  weight: supportsExtendedFields ? Mass.kilograms(80) : null,
+  setIndex: supportsExtendedFields ? 0 : null,
+  rateOfPerceivedExertion: supportsExtendedFields ? 7.5 : null,
 );
 
-await connector.writeRecord(exerciseSession);
+try {
+  await connector.writeRecord(exerciseSession);
+} on UnsupportedOperationException catch (e) {
+  // Device does not support these segment fields.
+  // Either omit them or inform the user.
+  print('Segment weight, set index, or RPE not supported on this device: $e');
+}
 ```
 
-> **Important**: This check is a **runtime** device capability check, not a compile-time
-> check. The same app binary may succeed on one Android 14 device and throw on another,
-> depending on whether that device has received the relevant Mainline update.
+> **Important**: `getSupportStatusFor()` and the write-time guard use runtime
+> device capabilities, not compile-time checks. The same app binary may succeed
+> on one Android 14 device and throw on another, depending on whether that device
+> has received the relevant Mainline update.
 
 ## References
 

@@ -18,6 +18,8 @@ internal fun ExerciseSegment.toDto(): ExerciseSessionSegmentEventDto =
         segmentType = segmentType.toExerciseSegmentTypeDto(),
         repetitions = if (repetitions > 0) repetitions.toLong() else null,
         weightKg = weight?.inKilograms,
+        setIndex = setIndex?.toLong(),
+        rateOfPerceivedExertion = rateOfPerceivedExertion?.toDouble(),
     )
 
 /**
@@ -38,6 +40,8 @@ internal fun ExerciseSessionSegmentEventDto.toHealthConnect(): ExerciseSegment =
     segmentType = segmentType.toHealthConnect(),
     repetitions = repetitions?.toInt() ?: 0,
     weight = weightKg?.let { Mass.kilograms(it) },
+    setIndex = setIndex?.toInt(),
+    rateOfPerceivedExertion = rateOfPerceivedExertion?.toFloat(),
 )
 
 /**

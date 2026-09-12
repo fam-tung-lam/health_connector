@@ -3168,7 +3168,11 @@ data class ExerciseSessionSegmentEventDto (
   /** Number of repetitions in this segment. */
   val repetitions: Long? = null,
   /** Weight lifted during this segment, in kilograms. */
-  val weightKg: Double? = null
+  val weightKg: Double? = null,
+  /** Zero-based index of the set this segment belongs to. */
+  val setIndex: Long? = null,
+  /** Borg CR10 rate of perceived exertion, 0-10. */
+  val rateOfPerceivedExertion: Double? = null
 ) : ExerciseSessionEventDto()
  {
   companion object {
@@ -3178,7 +3182,9 @@ data class ExerciseSessionSegmentEventDto (
       val segmentType = pigeonVar_list[2] as ExerciseSegmentTypeDto
       val repetitions = pigeonVar_list[3] as Long?
       val weightKg = pigeonVar_list[4] as Double?
-      return ExerciseSessionSegmentEventDto(startTime, endTime, segmentType, repetitions, weightKg)
+      val setIndex = pigeonVar_list[5] as Long?
+      val rateOfPerceivedExertion = pigeonVar_list[6] as Double?
+      return ExerciseSessionSegmentEventDto(startTime, endTime, segmentType, repetitions, weightKg, setIndex, rateOfPerceivedExertion)
     }
   }
   fun toList(): List<Any?> {
@@ -3188,6 +3194,8 @@ data class ExerciseSessionSegmentEventDto (
       segmentType,
       repetitions,
       weightKg,
+      setIndex,
+      rateOfPerceivedExertion,
     )
   }
   override fun equals(other: Any?): Boolean {

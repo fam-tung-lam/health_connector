@@ -96,6 +96,47 @@ void main() {
       },
     );
 
+    test(
+      'toDto throws UnsupportedOperationException when setIndex is non-null',
+      () {
+        final startTime = DateTime(2023, 1, 1, 10).toUtc();
+        final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
+        final event = ExerciseSessionSegmentEvent(
+          startTime: startTime,
+          endTime: endTime,
+          segmentType: ExerciseSegmentType.benchPress,
+          repetitions: 8,
+          setIndex: 0,
+        );
+
+        expect(
+          event.toDto,
+          throwsA(isA<UnsupportedOperationException>()),
+        );
+      },
+    );
+
+    test(
+      'toDto throws UnsupportedOperationException when '
+      'rateOfPerceivedExertion is non-null',
+      () {
+        final startTime = DateTime(2023, 1, 1, 10).toUtc();
+        final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
+        final event = ExerciseSessionSegmentEvent(
+          startTime: startTime,
+          endTime: endTime,
+          segmentType: ExerciseSegmentType.benchPress,
+          repetitions: 8,
+          rateOfPerceivedExertion: 7.5,
+        );
+
+        expect(
+          event.toDto,
+          throwsA(isA<UnsupportedOperationException>()),
+        );
+      },
+    );
+
     test('toDto succeeds when weight is null', () {
       final startTime = DateTime(2023, 1, 1, 10).toUtc();
       final endTime = DateTime(2023, 1, 1, 10, 30).toUtc();
