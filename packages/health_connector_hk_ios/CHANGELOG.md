@@ -1,3 +1,8 @@
+## Unreleased
+
+- **FEAT**: Add read and sum-aggregation support for Apple Stand Hour records
+  ([#217](https://github.com/fam-tung-lam/health_connector/issues/217)).
+
 ## 3.9.5
 
 - **FEAT**: Return the current iOS version snapshot during connector

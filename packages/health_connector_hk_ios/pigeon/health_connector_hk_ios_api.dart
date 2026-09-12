@@ -1149,6 +1149,9 @@ enum HealthDataTypeDto {
 
   /// Headphone audio exposure event data.
   headphoneAudioExposureEvent,
+
+  /// Apple Stand Hour data.
+  appleStandHour,
 }
 
 /// Sealed class for all health record DTOs.
@@ -5223,6 +5226,50 @@ class NumberOfTimesFallenRecordDto extends HealthRecordDto {
 
   /// The number of times fallen (count).
   final double count;
+
+  /// Timezone offset in seconds for start time.
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time.
+  final int? endZoneOffsetSeconds;
+}
+
+/// Whether the user completed the Stand or Roll goal during an hour.
+enum AppleStandHourStatusDto {
+  /// The user stood or rolled and moved for at least one continuous minute.
+  stood,
+
+  /// The user did not stand or roll and move for at least one continuous
+  /// minute.
+  idle,
+}
+
+/// Represents an Apple Stand Hour record for platform transfer.
+class AppleStandHourRecordDto extends HealthRecordDto {
+  AppleStandHourRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.status,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Whether the Stand or Roll goal was completed during this hour.
+  final AppleStandHourStatusDto status;
 
   /// Timezone offset in seconds for start time.
   final int? startZoneOffsetSeconds;

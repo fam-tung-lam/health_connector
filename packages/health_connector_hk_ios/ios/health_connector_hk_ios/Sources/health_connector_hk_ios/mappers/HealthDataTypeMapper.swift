@@ -358,8 +358,8 @@ extension HealthDataTypeDto {
             }
         case .highHeartRateEvent:
             try HKCategoryType.make(from: .highHeartRateEvent)
-        case .walkingSteadinessEvent:
-            try HKCategoryType.make(from: .appleWalkingSteadinessEvent)
+        case .walkingSteadinessEvent, .appleStandHour:
+            try HKCategoryType.make(from: appleActivityCategoryTypeIdentifier)
         case .persistentIntermenstrualBleedingEvent:
             if #available(iOS 16.0, *) {
                 try HKCategoryType.make(from: .persistentIntermenstrualBleeding)
@@ -430,5 +430,11 @@ extension HealthDataTypeDto {
         case .headphoneAudioExposure:
             try HKQuantityType.make(from: .headphoneAudioExposure)
         }
+    }
+}
+
+private extension HealthDataTypeDto {
+    var appleActivityCategoryTypeIdentifier: HKCategoryTypeIdentifier {
+        self == .appleStandHour ? .appleStandHour : .appleWalkingSteadinessEvent
     }
 }

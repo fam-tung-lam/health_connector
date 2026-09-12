@@ -580,6 +580,10 @@ extension HealthRecordToDto on HealthRecord {
           '$WalkingSteadinessEventRecord is not supported on Android '
           'Health Connect.',
         );
+      case AppleStandHourRecord():
+        throw UnsupportedError(
+          '$AppleStandHourRecord is not supported on Android Health Connect.',
+        );
       case PersistentIntermenstrualBleedingEventRecord():
         throw UnsupportedError(
           '$PersistentIntermenstrualBleedingEventRecord is not supported on '

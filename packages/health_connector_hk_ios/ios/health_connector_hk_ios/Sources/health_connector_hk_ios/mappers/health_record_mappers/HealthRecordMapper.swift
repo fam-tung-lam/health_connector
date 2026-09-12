@@ -352,8 +352,8 @@ extension HKCategorySample {
             try toEnvironmentalAudioExposureEventRecordDto()
         case .headphoneAudioExposureEvent:
             try toHeadphoneAudioExposureEventRecordDto()
-        case .walkingSteadinessEvent:
-            try toWalkingSteadinessEventRecordDto()
+        case .walkingSteadinessEvent, .appleStandHour:
+            try toAppleActivityCategoryRecordDto(for: type)
         default:
             throw HealthConnectorError.invalidArgument(
                 message:

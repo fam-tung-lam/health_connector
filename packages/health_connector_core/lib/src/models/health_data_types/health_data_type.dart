@@ -21,6 +21,7 @@ import 'package:health_connector_core/src/models/requests/read_requests/read_rec
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'activity_intensity_data_type.dart';
+part 'activity/apple_stand_hour_data_type.dart';
 part 'alcoholic_beverages_data_type.dart';
 part 'blood_alcohol_content_data_type.dart';
 part 'blood_glucose_data_type.dart';
@@ -526,6 +527,16 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit> {
   /// time interval. Active energy are those burned through exercise
   /// and movement, excluding basal metabolic rate.
   static const activeEnergyBurned = ActiveEnergyBurnedDataType();
+
+  /// Apple Stand Hour data type.
+  ///
+  /// Records whether the user stood and moved for at least one minute during
+  /// each hour. For wheelchair users, HealthKit reports Roll hours instead.
+  ///
+  /// **Note**: This is a read-only data type.
+  @sinceV3_11_0
+  @readOnly
+  static const appleStandHour = AppleStandHourDataType();
 
   /// Activity intensity data type.
   ///
@@ -1252,6 +1263,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit> {
     activeEnergyBurned,
     activityIntensity,
     alcoholicBeverages,
+    appleStandHour,
     atrialFibrillationBurden,
     electrodermalActivity,
     exerciseTime,

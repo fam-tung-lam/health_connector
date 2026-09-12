@@ -100,6 +100,7 @@ extension DoubleToMeasurementUnit on double {
 
       // Number
       case AlcoholicBeveragesDataType _:
+      case AppleStandHourDataType _:
       case BodyMassIndexDataType _:
       case ElectrodermalActivityDataType _:
       case FloorsClimbedDataType _:

@@ -1,4 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/activity/apple_stand_hour_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/activity/low_cardio_fitness_event_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/alcoholic_beverages_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_alcohol_content_record_mapper.dart';
@@ -496,6 +497,8 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$WalkingSteadinessEventRecord is read-only data type.',
         );
+      case final AppleStandHourRecord _:
+        throw UnsupportedError('$AppleStandHourRecord is read-only data type.');
       case final PersistentIntermenstrualBleedingEventRecord _:
         throw UnsupportedError(
           '$PersistentIntermenstrualBleedingEventRecord is '
@@ -744,6 +747,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return RunningStrideLengthRecordDtoToDomain(dto).toDomain();
       case final WalkingSteadinessEventRecordDto dto:
         return WalkingSteadinessEventRecordDtoMapper(dto).toDomain();
+      case final AppleStandHourRecordDto dto:
+        return AppleStandHourRecordDtoToDomain(dto).toDomain();
       case final PersistentIntermenstrualBleedingEventRecordDto dto:
         return PersistentIntermenstrualBleedingEventRecordDtoToDomain(
           dto,

@@ -1,9 +1,6 @@
 import Foundation
 
-/// Extension providing common property access for `HealthRecordDto` protocol
-///
-/// Pigeon does not allow defining properties in base classes and interfaces, this extension
-/// provides a computed property to access fields that exist in all `HealthRecordDto` implementations.
+/// Provides common property access that Pigeon cannot define on `HealthRecordDto`.
 extension HealthRecordDto {
     /// Platform-assigned unique identifier for this health record
     var id: String? {
@@ -21,6 +18,8 @@ extension HealthRecordDto {
         case let record as WalkingSteadinessRecordDto:
             record.id
         case let record as WalkingSteadinessEventRecordDto:
+            record.id
+        case let record as AppleStandHourRecordDto:
             record.id
         case let record as BloodAlcoholContentRecordDto:
             record.id
@@ -255,6 +254,8 @@ extension HealthRecordDto {
                 return .walkingSteadiness
             case is WalkingSteadinessEventRecordDto:
                 return .walkingSteadinessEvent
+            case is AppleStandHourRecordDto:
+                return .appleStandHour
             case is AlcoholicBeveragesRecordDto:
                 return .alcoholicBeverages
             case is BloodAlcoholContentRecordDto:
@@ -482,7 +483,6 @@ extension HealthRecordDto {
     /// - Interval records: `endTime`
     /// - Nutrients: `time`
     /// - Correlations: `endTime`
-    ///
     /// - Returns: Pagination timestamp
     /// - Throws: `HealthConnectorError.invalidArgument` for unknown DTO types
     func extractTimestamp() throws -> Int64 {

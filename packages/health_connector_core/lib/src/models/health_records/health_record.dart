@@ -12,6 +12,8 @@ import 'package:meta/meta.dart' show immutable, internal;
 
 part 'activity_intensity/activity_intensity_record.dart';
 part 'activity_intensity/activity_intensity_type.dart';
+part 'activity/apple_stand_hour_record.dart';
+part 'activity/apple_stand_hour_status.dart';
 part 'alcoholic_beverages_record.dart';
 part 'time/exercise_time_record.dart';
 part 'time/move_time_record.dart';

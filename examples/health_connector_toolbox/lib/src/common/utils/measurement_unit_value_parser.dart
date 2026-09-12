@@ -21,6 +21,7 @@ abstract class MeasurementUnitValueParser {
       FloorsClimbedDataType() ||
       WheelchairPushesDataType() ||
       NumberOfTimesFallenDataType() ||
+      AppleStandHourDataType() ||
       HeartRateRecoveryOneMinuteDataType() ||
       SwimmingStrokesDataType() => _parseIntegerCount(value),
 

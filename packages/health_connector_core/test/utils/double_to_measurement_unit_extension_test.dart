@@ -289,6 +289,7 @@ void main() {
         'converts number data types to Number',
         [
           [2.0, HealthDataType.alcoholicBeverages],
+          [12.0, HealthDataType.appleStandHour],
           [22.5, HealthDataType.bodyMassIndex],
           [0.5, HealthDataType.electrodermalActivity],
           [10000.0, HealthDataType.steps],

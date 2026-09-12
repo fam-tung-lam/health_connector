@@ -131,6 +131,7 @@ extension HealthDataTypeUI on HealthDataType {
       ExerciseTimeDataType _ => AppTexts.exerciseTime,
       MoveTimeDataType _ => AppTexts.moveTime,
       StandTimeDataType _ => AppTexts.standTime,
+      AppleStandHourDataType _ => AppTexts.appleStandHour,
       WalkingSteadinessDataType _ => 'Walking Steadiness',
       WalkingAsymmetryPercentageDataType _ =>
         AppTexts.walkingAsymmetryPercentage,
@@ -312,6 +313,8 @@ extension HealthDataTypeUI on HealthDataType {
       ExerciseTimeDataType _ => AppTexts.exerciseTimeDescription,
       MoveTimeDataType _ => AppTexts.moveTimeDescription,
       StandTimeDataType _ => AppTexts.standTimeDescription,
+      AppleStandHourDataType _ =>
+        'Whether the Stand or Roll goal was achieved during an hour (iOS only)',
       WalkingSteadinessDataType _ =>
         'Measure of walking stability and gait regularity (iOS only)',
       WalkingAsymmetryPercentageDataType _ =>
@@ -482,6 +485,7 @@ extension HealthDataTypeUI on HealthDataType {
       ExerciseTimeDataType _ => AppIcons.time,
       MoveTimeDataType _ => AppIcons.time,
       StandTimeDataType _ => AppIcons.time,
+      AppleStandHourDataType _ => AppIcons.directionsWalk,
       WalkingSteadinessDataType _ => AppIcons.directionsWalk,
       WalkingAsymmetryPercentageDataType _ => AppIcons.directionsWalk,
       WalkingDoubleSupportPercentageDataType _ => AppIcons.directionsWalk,
