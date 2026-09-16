@@ -128,6 +128,13 @@ abstract final class AppIcons {
   static const IconData trendingDown = Icons.trending_down;
   static const IconData analytics = Icons.analytics_outlined;
 
+  // Background Incremental Data Sync Page
+  static const IconData backgroundSync = Icons.update;
+  static const IconData playArrow = Icons.play_arrow;
+  static const IconData schedule = Icons.schedule;
+  static const IconData openInNew = Icons.open_in_new;
+  static const IconData tune = Icons.tune;
+
   // Console Logs Page
   static const IconData terminal = Icons.terminal;
   static const IconData copyAll = Icons.copy_all;

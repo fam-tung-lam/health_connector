@@ -16,6 +16,7 @@ void main() {
               onOpenWrite: () {},
               onOpenAggregation: () {},
               onOpenSync: () {},
+              onOpenBackgroundSync: () {},
               onOpenConsoleLogs: () {},
             ),
           ),
@@ -34,6 +35,7 @@ void main() {
     expect(find.text('Insert Health Record'), findsOneWidget);
     expect(find.text('Read Aggregate Data'), findsOneWidget);
     expect(find.text('Incremental Data Sync'), findsOneWidget);
+    expect(find.text('Background Incremental Data Sync'), findsOneWidget);
     expect(find.text('Diagnostics'), findsOneWidget);
     expect(find.text('SDK Console Logs'), findsOneWidget);
     expect(
