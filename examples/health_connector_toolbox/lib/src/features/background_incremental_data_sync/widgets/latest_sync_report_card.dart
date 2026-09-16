@@ -16,8 +16,8 @@ import 'package:provider/provider.dart';
 /// The status section shows whether the periodic task is registered, the
 /// scheduler's view of it, and the background read permission on Health
 /// Connect. The report section shows when and why the latest run happened,
-/// how it ended, the token transition, and the upserted and deleted records
-/// it observed.
+/// how it ended, the token transition, and how many records it upserted and
+/// deleted.
 @immutable
 final class LatestSyncReportCard extends StatelessWidget {
   const LatestSyncReportCard({required this.onRequestPermission, super.key});
@@ -214,6 +214,18 @@ class _ReportDetails extends StatelessWidget {
         StatusRow(label: AppTexts.pages, value: '${report.pageCount}'),
         const SizedBox(height: 8),
         StatusRow(
+          label: AppTexts.upsertedRecords,
+          value: '${report.upsertedRecordCount}',
+          valueColor: statusColors.success,
+        ),
+        const SizedBox(height: 8),
+        StatusRow(
+          label: AppTexts.deletedRecords,
+          value: '${report.deletedRecordCount}',
+          valueColor: theme.colorScheme.error,
+        ),
+        const SizedBox(height: 8),
+        StatusRow(
           label: AppTexts.dataTypes,
           value: report.dataTypeIds.join(', '),
           maxLines: 6,
@@ -290,130 +302,7 @@ class _ReportDetails extends StatelessWidget {
             ),
           ),
         ],
-        const SizedBox(height: 16),
-        if (report.isTruncated) ...[
-          Text(
-            AppTexts.reportListsTruncated.replaceFirst(
-              '{0}',
-              '${BackgroundSyncReport.maxListedRecords}',
-            ),
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
-          ),
-          const SizedBox(height: 8),
-        ],
-        _SectionHeader(
-          title: AppTexts.upsertedRecords,
-          count: report.upsertedRecordCount,
-          color: statusColors.success,
-        ),
-        const SizedBox(height: 8),
-        ...report.upsertedRecords.map(
-          (record) => _UpsertedRecordTile(record: record),
-        ),
-        const SizedBox(height: 8),
-        _SectionHeader(
-          title: AppTexts.deletedRecordIds,
-          count: report.deletedRecordCount,
-          color: theme.colorScheme.error,
-        ),
-        const SizedBox(height: 8),
-        ...report.deletedRecordIds.map(
-          (id) => Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Row(
-              children: [
-                Icon(AppIcons.delete, size: 18, color: theme.colorScheme.error),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: SelectableText(
-                    id,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      fontFamily: 'monospace',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
       ],
-    );
-  }
-}
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({
-    required this.title,
-    required this.count,
-    required this.color,
-  });
-
-  final String title;
-  final int count;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      '$title ($count)',
-      style: Theme.of(context).textTheme.titleSmall?.copyWith(color: color),
-    );
-  }
-}
-
-class _UpsertedRecordTile extends StatelessWidget {
-  const _UpsertedRecordTile({required this.record});
-
-  final SyncedRecordSummary record;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final start = DateFormatter.formatDateTimeWithSeconds(
-      record.startTime.toLocal(),
-    );
-    final end = record.endTime;
-    final time = end == null
-        ? start
-        : '$start → ${DateFormatter.formatDateTimeWithSeconds(end.toLocal())}';
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: theme.colorScheme.outlineVariant),
-      ),
-      child: ExpansionTile(
-        dense: true,
-        title: Text(record.typeName, style: theme.textTheme.titleSmall),
-        subtitle: Text(time, style: theme.textTheme.bodySmall),
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SelectableText(
-                  'ID: ${record.recordId}',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontFamily: 'monospace',
-                  ),
-                ),
-                const SizedBox(height: 4),
-                SelectableText(
-                  record.description,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontFamily: 'monospace',
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

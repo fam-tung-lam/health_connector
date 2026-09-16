@@ -108,8 +108,8 @@ void main() {
     expect(report.outcome, BackgroundSyncOutcome.succeeded);
     expect(report.trigger, BackgroundSyncTrigger.manual);
     expect(report.pageCount, 2);
-    expect(report.upsertedRecords.map((r) => r.recordId), ['a']);
-    expect(report.deletedRecordIds, ['gone']);
+    expect(report.upsertedRecordCount, 1);
+    expect(report.deletedRecordCount, 1);
     expect(report.tokenBefore?.token, 't0');
     expect(report.tokenAfter?.token, 't2');
     expect(report.tokenReset, isFalse);

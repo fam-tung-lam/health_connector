@@ -218,7 +218,7 @@ void main() {
 
     // Then the report and token are refreshed from storage.
     expect(result.report.trigger, BackgroundSyncTrigger.manual);
-    expect(notifier.latestReport?.deletedRecordIds, ['gone']);
+    expect(notifier.latestReport?.deletedRecordCount, 1);
     expect(notifier.syncToken?.token, 'next');
     expect(notifier.isSyncing, isFalse);
   });
