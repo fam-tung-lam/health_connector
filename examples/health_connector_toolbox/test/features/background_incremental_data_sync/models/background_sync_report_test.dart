@@ -88,6 +88,63 @@ void main() {
     expect(restored.tokenAfter, isNull);
   });
 
+  test('report keeps counts but lists at most maxListedRecords', () {
+    // Given a run with more records than the report lists.
+    final many = List.generate(
+      BackgroundSyncReport.maxListedRecords + 5,
+      (i) => SyncedRecordSummary(
+        recordId: 'r$i',
+        typeName: 'StepsRecord',
+        startTime: start,
+        description: 'r$i',
+      ),
+    );
+    final report = BackgroundSyncReport(
+      trigger: BackgroundSyncTrigger.scheduled,
+      outcome: BackgroundSyncOutcome.succeeded,
+      startedAt: start,
+      finishedAt: end,
+      dataTypeIds: const ['steps'],
+      upsertedRecords: many,
+      deletedRecordIds: List.generate(3, (i) => 'd$i'),
+    );
+
+    // When restored from JSON.
+    final restored = BackgroundSyncReport.fromJson(report.toJson());
+
+    // Then the sample is bounded and the totals survive.
+    expect(
+      report.upsertedRecords,
+      hasLength(
+        BackgroundSyncReport.maxListedRecords,
+      ),
+    );
+    expect(report.upsertedRecordCount, many.length);
+    expect(report.deletedRecordCount, 3);
+    expect(report.isTruncated, isTrue);
+    expect(restored, report);
+  });
+
+  test('record description is truncated', () {
+    // Given a record whose string form is long.
+    final record = StepsRecord(
+      id: HealthRecordId('long'),
+      startTime: start,
+      endTime: end,
+      count: const Number(1),
+      metadata: Metadata.manualEntry(),
+    );
+
+    // When summarized.
+    final summary = SyncedRecordSummary.fromRecord(record);
+
+    // Then the description never exceeds the bound plus the ellipsis.
+    expect(
+      summary.description.length,
+      lessThanOrEqualTo(SyncedRecordSummary.maxDescriptionLength + 1),
+    );
+  });
+
   test('enum ids fall back safely', () {
     expect(
       BackgroundSyncTrigger.fromId('unknown'),

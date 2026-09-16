@@ -291,9 +291,21 @@ class _ReportDetails extends StatelessWidget {
           ),
         ],
         const SizedBox(height: 16),
+        if (report.isTruncated) ...[
+          Text(
+            AppTexts.reportListsTruncated.replaceFirst(
+              '{0}',
+              '${BackgroundSyncReport.maxListedRecords}',
+            ),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
         _SectionHeader(
           title: AppTexts.upsertedRecords,
-          count: report.upsertedRecords.length,
+          count: report.upsertedRecordCount,
           color: statusColors.success,
         ),
         const SizedBox(height: 8),
@@ -303,7 +315,7 @@ class _ReportDetails extends StatelessWidget {
         const SizedBox(height: 8),
         _SectionHeader(
           title: AppTexts.deletedRecordIds,
-          count: report.deletedRecordIds.length,
+          count: report.deletedRecordCount,
           color: theme.colorScheme.error,
         ),
         const SizedBox(height: 8),
