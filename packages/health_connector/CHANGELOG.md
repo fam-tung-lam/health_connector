@@ -1,4 +1,4 @@
-## Unreleased
+## 3.11.1
 
 - **BUILD**: Bump the minimum Flutter version from 3.3.0 to 3.38.0 and the
   Dart SDK constraint from `^3.9.2` to `^3.10.0`, which Flutter 3.38.0 ships
