@@ -10,7 +10,6 @@ void main() {
   test('BackgroundSyncReport round-trips through JSON', () {
     // Given a fully populated failed report.
     final report = BackgroundSyncReport(
-      trigger: BackgroundSyncTrigger.manual,
       outcome: BackgroundSyncOutcome.failed,
       startedAt: start,
       finishedAt: end,
@@ -41,7 +40,6 @@ void main() {
   test('counts default to zero when missing from JSON', () {
     // Given a stored report without count fields.
     final restored = BackgroundSyncReport.fromJson({
-      'trigger': 'scheduled',
       'outcome': 'skipped',
       'startedAt': start.toIso8601String(),
       'finishedAt': end.toIso8601String(),
@@ -53,11 +51,7 @@ void main() {
     expect(restored.deletedRecordCount, 0);
   });
 
-  test('enum ids fall back safely', () {
-    expect(
-      BackgroundSyncTrigger.fromId('unknown'),
-      BackgroundSyncTrigger.scheduled,
-    );
+  test('outcome id falls back safely', () {
     expect(BackgroundSyncOutcome.fromId(null), BackgroundSyncOutcome.failed);
   });
 }

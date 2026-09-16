@@ -15,9 +15,9 @@ import 'package:provider/provider.dart';
 ///
 /// The status section shows whether the periodic task is registered, the
 /// scheduler's view of it, and the background read permission on Health
-/// Connect. The report section shows when and why the latest run happened,
-/// how it ended, the token transition, and how many records it upserted and
-/// deleted.
+/// Connect. The report section shows when the latest worker run started and
+/// finished, how it ended, the token transition, and how many records it
+/// upserted and deleted.
 @immutable
 final class LatestSyncReportCard extends StatelessWidget {
   const LatestSyncReportCard({required this.onRequestPermission, super.key});
@@ -117,13 +117,6 @@ class _StatusSection extends StatelessWidget {
               label: AppTexts.schedulerState,
               value: workInfo?.state.name ?? AppTexts.notScheduled,
             ),
-            if (workInfo?.lastFinishedAt case final lastFinishedAt?) ...[
-              const SizedBox(height: 8),
-              StatusRow(
-                label: AppTexts.lastFinished,
-                value: DateFormatter.formatDateTimeWithSeconds(lastFinishedAt),
-              ),
-            ],
             if (notifier.requiresBackgroundReadPermission) ...[
               const SizedBox(height: 12),
               Row(
@@ -197,12 +190,17 @@ class _ReportDetails extends StatelessWidget {
           valueColor: _outcomeColor(context),
         ),
         const SizedBox(height: 8),
-        StatusRow(label: AppTexts.trigger, value: report.trigger.id),
-        const SizedBox(height: 8),
         StatusRow(
           label: AppTexts.startedAt,
           value: DateFormatter.formatDateTimeWithSeconds(
             report.startedAt.toLocal(),
+          ),
+        ),
+        const SizedBox(height: 8),
+        StatusRow(
+          label: AppTexts.finishedAt,
+          value: DateFormatter.formatDateTimeWithSeconds(
+            report.finishedAt.toLocal(),
           ),
         ),
         const SizedBox(height: 8),

@@ -56,7 +56,6 @@ void main() {
       )
       ..token = buildToken(value: 't', dataTypeIds: stepsIds)
       ..report = BackgroundSyncReport(
-        trigger: BackgroundSyncTrigger.scheduled,
         outcome: BackgroundSyncOutcome.succeeded,
         startedAt: DateTime.utc(2026, 9, 16),
         finishedAt: DateTime.utc(2026, 9, 16),
@@ -192,36 +191,6 @@ void main() {
       expect(notifier.syncToken?.token, 't');
     },
   );
-
-  test('runSyncNow runs the worker with the UI connector', () async {
-    // Given a selection and a connector that returns one change.
-    storage.settings = const BackgroundSyncSettings(
-      dataTypes: [HealthDataType.steps],
-    );
-    when(
-      () => healthConnector.synchronize(
-        dataTypes: any(named: 'dataTypes'),
-        syncToken: any(named: 'syncToken'),
-      ),
-    ).thenAnswer(
-      (_) async => HealthDataSyncResult.internal(
-        upsertedRecords: const [],
-        deletedRecordIds: [HealthRecordId('gone')],
-        hasMore: false,
-        nextSyncToken: buildToken(value: 'next', dataTypeIds: stepsIds),
-      ),
-    );
-    await notifier.initialize();
-
-    // When the run is triggered manually.
-    final result = await notifier.runSyncNow();
-
-    // Then the report and token are refreshed from storage.
-    expect(result.report.trigger, BackgroundSyncTrigger.manual);
-    expect(notifier.latestReport?.deletedRecordCount, 1);
-    expect(notifier.syncToken?.token, 'next');
-    expect(notifier.isSyncing, isFalse);
-  });
 
   test('clearToken removes the stored token', () async {
     // Given a stored token.

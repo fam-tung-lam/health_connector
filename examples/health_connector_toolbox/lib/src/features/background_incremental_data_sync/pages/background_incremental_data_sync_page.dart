@@ -3,13 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
     show HealthDataType, HealthPlatform;
-import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/background_incremental_data_sync_change_notifier.dart';
-import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/models/background_sync_report.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/health_data_type_multi_select_bottom_sheet.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/latest_sync_report_card.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/selected_data_types_card.dart';
@@ -19,9 +17,10 @@ import 'package:provider/provider.dart';
 /// Reference screen for scheduling incremental sync in the background.
 ///
 /// The screen configures the data types, enables or disables the periodic
-/// task, runs the worker on demand, and observes the token and the latest run
-/// report. It polls storage every [refreshInterval] and on resume so results
-/// written by the background isolate show up without user action.
+/// task, and observes the token and the latest run report. Only the platform
+/// scheduler runs the worker; see the README for forcing a run while
+/// debugging. The screen polls storage every [refreshInterval] and on resume
+/// so results written by the background isolate show up without user action.
 @immutable
 final class BackgroundIncrementalDataSyncPage extends StatefulWidget {
   const BackgroundIncrementalDataSyncPage({
@@ -129,34 +128,6 @@ class _BackgroundIncrementalDataSyncPageState
     });
   }
 
-  Future<void> _runNow() async {
-    if (_notifier.selectedDataTypes.isEmpty) {
-      showAppSnackBar(
-        context,
-        SnackBarType.warning,
-        AppTexts.selectAtLeastOneDataType,
-      );
-      return;
-    }
-    await process(() async {
-      final result = await _notifier.runSyncNow();
-      if (!mounted) {
-        return;
-      }
-      final report = result.report;
-      final type = switch (report.outcome) {
-        BackgroundSyncOutcome.succeeded => SnackBarType.success,
-        BackgroundSyncOutcome.skipped => SnackBarType.warning,
-        BackgroundSyncOutcome.failed => SnackBarType.error,
-      };
-      showAppSnackBar(
-        context,
-        type,
-        report.error?.message ?? AppTexts.backgroundSyncCompleted,
-      );
-    });
-  }
-
   Future<void> _clearToken() async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -194,7 +165,7 @@ class _BackgroundIncrementalDataSyncPageState
   Widget build(BuildContext context) {
     return Selector<BackgroundIncrementalDataSyncChangeNotifier, (bool, bool)>(
       selector: (_, notifier) => (
-        notifier.isLoading || notifier.isSyncing,
+        notifier.isLoading,
         notifier.isBackgroundSyncEnabled,
       ),
       builder: (context, state, _) {
@@ -239,29 +210,18 @@ class _BackgroundIncrementalDataSyncPageState
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ElevatedButton(
-                        onPressed: isBusy
-                            ? null
-                            : () => unawaited(_toggleBackgroundSync()),
-                        child: Text(
-                          isEnabled
-                              ? AppTexts.disableBackgroundSync
-                              : AppTexts.enableBackgroundSync,
-                        ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: isBusy
+                          ? null
+                          : () => unawaited(_toggleBackgroundSync()),
+                      child: Text(
+                        isEnabled
+                            ? AppTexts.disableBackgroundSync
+                            : AppTexts.enableBackgroundSync,
                       ),
-                      const SizedBox(height: 12),
-                      OutlinedButton.icon(
-                        onPressed: isBusy ? null : () => unawaited(_runNow()),
-                        icon: const Icon(AppIcons.playArrow),
-                        label: const Text(AppTexts.runSyncNow),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(double.infinity, 44),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],
