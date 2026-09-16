@@ -82,6 +82,40 @@ void main() {
     expect(notifier.requiresBackgroundReadPermission, isFalse);
   });
 
+  test(
+    'initialize re-submits the task when background sync is enabled',
+    () async {
+      // Given persisted settings that say enabled with a 30 minute frequency.
+      storage.settings = const BackgroundSyncSettings(
+        dataTypes: [HealthDataType.steps],
+        isEnabled: true,
+        frequency: Duration(minutes: 30),
+      );
+
+      // When the notifier initializes.
+      await notifier.initialize();
+
+      // Then the scheduler receives the request again.
+      verify(() => scheduler.schedule(const Duration(minutes: 30))).called(1);
+    },
+  );
+
+  test(
+    'initialize does not schedule when background sync is disabled',
+    () async {
+      // Given disabled settings.
+      storage.settings = const BackgroundSyncSettings(
+        dataTypes: [HealthDataType.steps],
+      );
+
+      // When the notifier initializes.
+      await notifier.initialize();
+
+      // Then nothing is scheduled.
+      verifyNever(() => scheduler.schedule(any()));
+    },
+  );
+
   test('enableBackgroundSync rejects an empty selection', () async {
     // Given no selected data types.
     await notifier.initialize();
