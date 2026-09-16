@@ -28,6 +28,23 @@ abstract class DateFormatter {
     return DateFormat('yyyy-MM-dd HH:mm').format(dateTime);
   }
 
+  /// Formats a [DateTime] to a string in 'HH:mm:ss.SSS' format.
+  ///
+  /// Used by console views where sub-second ordering matters.
+  static String formatTimeWithMilliseconds(DateTime dateTime) {
+    return DateFormat('HH:mm:ss.SSS').format(dateTime);
+  }
+
+  /// Formats a [DateTime] to a string in 'yyyy-MM-dd HH:mm:ss' format.
+  ///
+  /// Returns an empty string if [dateTime] is null.
+  static String formatDateTimeWithSeconds(DateTime? dateTime) {
+    if (dateTime == null) {
+      return '';
+    }
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+  }
+
   /// Formats a [TimeOfDay] to a string in 'HH:mm' format.
   ///
   /// Returns an empty string if [time] is null.

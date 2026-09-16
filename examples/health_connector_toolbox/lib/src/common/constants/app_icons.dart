@@ -128,6 +128,12 @@ abstract final class AppIcons {
   static const IconData trendingDown = Icons.trending_down;
   static const IconData analytics = Icons.analytics_outlined;
 
+  // Console Logs Page
+  static const IconData terminal = Icons.terminal;
+  static const IconData copyAll = Icons.copy_all;
+  static const IconData deleteSweep = Icons.delete_sweep;
+  static const IconData filterList = Icons.filter_list;
+
   // Read Records Page
   static const IconData displaySettings = Icons.settings_outlined;
   static const IconData clipboard = Icons.assignment_outlined;

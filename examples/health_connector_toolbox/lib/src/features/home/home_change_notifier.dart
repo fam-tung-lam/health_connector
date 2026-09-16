@@ -1,12 +1,15 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:health_connector/health_connector_internal.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/console_log_processor.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/console_log_store.dart';
 
 /// Manages the initialization state of the Health Connector for the home page.
 final class HomeChangeNotifier extends ChangeNotifier {
-  StreamSubscription<HealthConnectorLog>? _logEventSubscription;
+  HomeChangeNotifier({required ConsoleLogStore consoleLogStore})
+    : _consoleLogStore = consoleLogStore;
+
+  final ConsoleLogStore _consoleLogStore;
+  List<HealthConnectorLogProcessor> _registeredLogProcessors = const [];
   bool _isLoading = false;
   HealthConnector? _healthConnector;
   HealthConnectorException? _error;
@@ -19,19 +22,18 @@ final class HomeChangeNotifier extends ChangeNotifier {
 
   /// Initializes the Health Connector instance.
   ///
-  /// Creates a new [HealthConnector] with default configuration and updates
-  /// [healthConnector] on success or [error] on failure.
+  /// Creates a new [HealthConnector] with native logging enabled and the
+  /// toolbox log processors, then updates [healthConnector] on success or
+  /// [error] on failure.
   Future<void> init() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      const config = HealthConnectorConfig(
+      final config = HealthConnectorConfig(
         loggerConfig: HealthConnectorLoggerConfig(
           enableNativeLogging: true,
-          logProcessors: [
-            DeveloperLogProcessor(),
-          ],
+          logProcessors: _prepareLogProcessors(),
         ),
       );
       final healthConnector = await HealthConnector.create(config);
@@ -55,10 +57,27 @@ final class HomeChangeNotifier extends ChangeNotifier {
     }
   }
 
+  /// Builds the log processors for the next [HealthConnector.create] call.
+  ///
+  /// `HealthConnector.create` registers the configured processors on every
+  /// call, so the processors from a previous attempt are removed first to keep
+  /// a retry after an error from duplicating every log line.
+  List<HealthConnectorLogProcessor> _prepareLogProcessors() {
+    for (final processor in _registeredLogProcessors) {
+      HealthConnectorLogger.removeProcessor(processor);
+    }
+    return _registeredLogProcessors = [
+      const DeveloperLogProcessor(),
+      ConsoleLogProcessor(_consoleLogStore),
+    ];
+  }
+
   @override
   void dispose() {
-    _logEventSubscription?.cancel();
-    _logEventSubscription = null;
+    for (final processor in _registeredLogProcessors) {
+      HealthConnectorLogger.removeProcessor(processor);
+    }
+    _registeredLogProcessors = const [];
     _healthConnector = null;
 
     super.dispose();
