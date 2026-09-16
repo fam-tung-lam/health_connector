@@ -14,6 +14,7 @@ final class ToolboxOperationsSection extends StatelessWidget {
     required this.onOpenWrite,
     required this.onOpenAggregation,
     required this.onOpenSync,
+    required this.onOpenBackgroundSync,
     required this.onOpenConsoleLogs,
     super.key,
   });
@@ -24,6 +25,7 @@ final class ToolboxOperationsSection extends StatelessWidget {
   final VoidCallback onOpenWrite;
   final VoidCallback onOpenAggregation;
   final VoidCallback onOpenSync;
+  final VoidCallback onOpenBackgroundSync;
   final VoidCallback onOpenConsoleLogs;
 
   @override
@@ -87,6 +89,14 @@ final class ToolboxOperationsSection extends StatelessWidget {
           description: AppTexts.syncApiDescription,
           color: Colors.indigo,
           onTap: onOpenSync,
+        ),
+        const SizedBox(height: 12),
+        FeatureNavigationCard(
+          icon: AppIcons.backgroundSync,
+          title: AppTexts.backgroundIncrementalDataSync,
+          description: AppTexts.backgroundSyncApiDescription,
+          color: Colors.cyan,
+          onTap: onOpenBackgroundSync,
         ),
         const SizedBox(height: 28),
         Padding(
