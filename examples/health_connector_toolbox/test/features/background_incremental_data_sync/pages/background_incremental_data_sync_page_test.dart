@@ -117,7 +117,7 @@ void main() {
         startedAt: DateTime(2026, 9, 16, 8),
         finishedAt: DateTime(2026, 9, 16, 8, 0, 2),
         dataTypeIds: const ['steps'],
-        deletedRecordIds: const ['gone'],
+        deletedRecordCount: 1,
         error: const BackgroundSyncError(
           code: 'rateLimitExceeded',
           message: 'Too many requests',
@@ -133,7 +133,7 @@ void main() {
     expect(find.text('failed'), findsOneWidget);
     expect(find.text('Error: rateLimitExceeded'), findsOneWidget);
     expect(find.text('Too many requests'), findsOneWidget);
-    expect(find.text('Deleted Record IDs (1)'), findsOneWidget);
+    expect(find.text('Deleted Records:'), findsOneWidget);
 
     // When disabling.
     await tester.tap(find.text('DISABLE BACKGROUND SYNC'));

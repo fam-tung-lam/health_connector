@@ -3,10 +3,7 @@ import 'package:health_connector/health_connector.dart'
     show
         HealthConnectorErrorCode,
         HealthConnectorException,
-        HealthDataSyncToken,
-        HealthRecord,
-        InstantHealthRecord,
-        IntervalHealthRecord;
+        HealthDataSyncToken;
 
 /// What started a background sync run.
 enum BackgroundSyncTrigger {
@@ -102,87 +99,6 @@ final class SyncTokenSnapshot {
       Object.hash(token, createdAt, Object.hashAll(dataTypeIds));
 }
 
-/// Compact, serializable description of one upserted [HealthRecord].
-///
-/// Records themselves are not JSON-serializable, so the report keeps the
-/// identifiers and time range a developer needs to correlate the change with
-/// the platform health app, plus the record's string form for inspection.
-@immutable
-final class SyncedRecordSummary {
-  const SyncedRecordSummary({
-    required this.recordId,
-    required this.typeName,
-    required this.startTime,
-    required this.description,
-    this.endTime,
-  });
-
-  /// Summarizes [record], truncating its string form to
-  /// [maxDescriptionLength] characters so a report stays small.
-  factory SyncedRecordSummary.fromRecord(HealthRecord record) {
-    final (startTime, endTime) = switch (record) {
-      InstantHealthRecord(:final time) => (time, null),
-      IntervalHealthRecord(:final startTime, :final endTime) => (
-        startTime,
-        endTime,
-      ),
-    };
-    final description = record.toString();
-    return SyncedRecordSummary(
-      recordId: record.id.value,
-      typeName: record.runtimeType.toString(),
-      startTime: startTime,
-      endTime: endTime,
-      description: description.length > maxDescriptionLength
-          ? '${description.substring(0, maxDescriptionLength)}…'
-          : description,
-    );
-  }
-
-  /// Upper bound of characters kept from a record's string form.
-  static const int maxDescriptionLength = 400;
-
-  factory SyncedRecordSummary.fromJson(Map<String, dynamic> json) {
-    final endTime = json['endTime'] as String?;
-    return SyncedRecordSummary(
-      recordId: json['recordId'] as String,
-      typeName: json['typeName'] as String,
-      startTime: DateTime.parse(json['startTime'] as String),
-      endTime: endTime == null ? null : DateTime.parse(endTime),
-      description: json['description'] as String,
-    );
-  }
-
-  final String recordId;
-  final String typeName;
-  final DateTime startTime;
-  final DateTime? endTime;
-  final String description;
-
-  Map<String, dynamic> toJson() => {
-    'recordId': recordId,
-    'typeName': typeName,
-    'startTime': startTime.toUtc().toIso8601String(),
-    if (endTime != null) 'endTime': endTime!.toUtc().toIso8601String(),
-    'description': description,
-  };
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SyncedRecordSummary &&
-          runtimeType == other.runtimeType &&
-          recordId == other.recordId &&
-          typeName == other.typeName &&
-          startTime == other.startTime &&
-          endTime == other.endTime &&
-          description == other.description;
-
-  @override
-  int get hashCode =>
-      Object.hash(recordId, typeName, startTime, endTime, description);
-}
-
 /// Error that ended a background sync run.
 @immutable
 final class BackgroundSyncError {
@@ -241,37 +157,26 @@ final class BackgroundSyncError {
 /// Everything a developer needs to know about the latest background sync run.
 ///
 /// Only the most recent report is stored; each run replaces the previous one.
-/// The record lists are samples bounded by [maxListedRecords]; the counts
-/// always reflect the whole run. A fresh HealthKit baseline can return years
-/// of samples, and the preferences store rejects values above 4 MiB.
+/// The report keeps record counts rather than the records themselves, so its
+/// size does not depend on how much data a run returned. A fresh HealthKit
+/// baseline can return years of samples, and the preferences store rejects
+/// values above 4 MiB.
 @immutable
 final class BackgroundSyncReport {
-  BackgroundSyncReport({
+  const BackgroundSyncReport({
     required this.trigger,
     required this.outcome,
     required this.startedAt,
     required this.finishedAt,
     required this.dataTypeIds,
     this.pageCount = 0,
-    List<SyncedRecordSummary> upsertedRecords = const [],
-    List<String> deletedRecordIds = const [],
-    int? upsertedRecordCount,
-    int? deletedRecordCount,
+    this.upsertedRecordCount = 0,
+    this.deletedRecordCount = 0,
     this.tokenBefore,
     this.tokenAfter,
     this.tokenReset = false,
     this.error,
-  }) : upsertedRecordCount = upsertedRecordCount ?? upsertedRecords.length,
-       deletedRecordCount = deletedRecordCount ?? deletedRecordIds.length,
-       upsertedRecords = List.unmodifiable(
-         upsertedRecords.take(maxListedRecords),
-       ),
-       deletedRecordIds = List.unmodifiable(
-         deletedRecordIds.take(maxListedRecords),
-       );
-
-  /// Upper bound of upserted summaries and deleted ids kept in a report.
-  static const int maxListedRecords = 100;
+  });
 
   factory BackgroundSyncReport.fromJson(Map<String, dynamic> json) {
     final tokenBefore = json['tokenBefore'] as Map<String, dynamic>?;
@@ -284,16 +189,8 @@ final class BackgroundSyncReport {
       finishedAt: DateTime.parse(json['finishedAt'] as String),
       dataTypeIds: (json['dataTypeIds'] as List<dynamic>).cast<String>(),
       pageCount: json['pageCount'] as int? ?? 0,
-      upsertedRecords: (json['upsertedRecords'] as List<dynamic>? ?? const [])
-          .map(
-            (item) =>
-                SyncedRecordSummary.fromJson(item as Map<String, dynamic>),
-          )
-          .toList(),
-      deletedRecordIds: (json['deletedRecordIds'] as List<dynamic>? ?? const [])
-          .cast<String>(),
-      upsertedRecordCount: json['upsertedRecordCount'] as int?,
-      deletedRecordCount: json['deletedRecordCount'] as int?,
+      upsertedRecordCount: json['upsertedRecordCount'] as int? ?? 0,
+      deletedRecordCount: json['deletedRecordCount'] as int? ?? 0,
       tokenBefore: tokenBefore == null
           ? null
           : SyncTokenSnapshot.fromJson(tokenBefore),
@@ -316,22 +213,11 @@ final class BackgroundSyncReport {
   /// Number of `synchronize` calls the run needed, including pagination.
   final int pageCount;
 
-  /// First [maxListedRecords] upserted records of the run.
-  final List<SyncedRecordSummary> upsertedRecords;
-
-  /// First [maxListedRecords] deleted record ids of the run.
-  final List<String> deletedRecordIds;
-
-  /// Total upserted records of the run, including those not listed.
+  /// Total upserted records of the run across all pages.
   final int upsertedRecordCount;
 
-  /// Total deleted records of the run, including those not listed.
+  /// Total deleted records of the run across all pages.
   final int deletedRecordCount;
-
-  /// Whether [upsertedRecords] or [deletedRecordIds] omit records.
-  bool get isTruncated =>
-      upsertedRecordCount > upsertedRecords.length ||
-      deletedRecordCount > deletedRecordIds.length;
 
   /// Token loaded before the run, when one was stored.
   final SyncTokenSnapshot? tokenBefore;
@@ -356,8 +242,6 @@ final class BackgroundSyncReport {
     'finishedAt': finishedAt.toUtc().toIso8601String(),
     'dataTypeIds': dataTypeIds,
     'pageCount': pageCount,
-    'upsertedRecords': upsertedRecords.map((r) => r.toJson()).toList(),
-    'deletedRecordIds': deletedRecordIds,
     'upsertedRecordCount': upsertedRecordCount,
     'deletedRecordCount': deletedRecordCount,
     if (tokenBefore != null) 'tokenBefore': tokenBefore!.toJson(),
@@ -377,8 +261,6 @@ final class BackgroundSyncReport {
           finishedAt == other.finishedAt &&
           listEquals(dataTypeIds, other.dataTypeIds) &&
           pageCount == other.pageCount &&
-          listEquals(upsertedRecords, other.upsertedRecords) &&
-          listEquals(deletedRecordIds, other.deletedRecordIds) &&
           upsertedRecordCount == other.upsertedRecordCount &&
           deletedRecordCount == other.deletedRecordCount &&
           tokenBefore == other.tokenBefore &&
@@ -394,8 +276,6 @@ final class BackgroundSyncReport {
     finishedAt,
     Object.hashAll(dataTypeIds),
     pageCount,
-    Object.hashAll(upsertedRecords),
-    Object.hashAll(deletedRecordIds),
     upsertedRecordCount,
     deletedRecordCount,
     tokenBefore,

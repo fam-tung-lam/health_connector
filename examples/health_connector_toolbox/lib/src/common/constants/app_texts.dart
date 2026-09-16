@@ -1012,6 +1012,7 @@ abstract final class AppTexts {
   static const String deleted = 'deleted';
   static const String upsertedRecords = 'Upserted Records';
   static const String deletedRecordIds = 'Deleted Record IDs';
+  static const String deletedRecords = 'Deleted Records';
   static const String clearToken = 'Clear Token';
   static const String syncToken = 'Sync Token';
   static const String noneInitialSync = 'No stored sync token found';
@@ -1063,9 +1064,6 @@ abstract final class AppTexts {
       'started from a new baseline. Deletions before the baseline are lost.';
   static const String willRetry = 'Will retry';
   static const String openFullConsole = 'Open full console';
-  static const String reportListsTruncated =
-      'Only the first {0} records of each list are stored; the counts cover '
-      'the whole run.';
   static const String syncTokenCleared = 'Sync token cleared';
   static const String backgroundSyncCompleted = 'Sync run completed';
 

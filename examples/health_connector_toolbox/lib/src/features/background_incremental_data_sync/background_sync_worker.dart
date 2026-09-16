@@ -97,8 +97,8 @@ final class BackgroundSyncWorker {
     var dataTypeIds = const <String>[];
     SyncTokenSnapshot? tokenBefore;
     var tokenReset = false;
-    final upserted = <SyncedRecordSummary>[];
-    final deleted = <String>[];
+    var upsertedRecordCount = 0;
+    var deletedRecordCount = 0;
     var pageCount = 0;
 
     try {
@@ -151,10 +151,8 @@ final class BackgroundSyncWorker {
             syncToken: token,
           );
           pageCount++;
-          upserted.addAll(
-            result.upsertedRecords.map(SyncedRecordSummary.fromRecord),
-          );
-          deleted.addAll(result.deletedRecordIds.map((id) => id.value));
+          upsertedRecordCount += result.upsertedRecords.length;
+          deletedRecordCount += result.deletedRecordIds.length;
           token = result.nextSyncToken;
           hasMore = result.hasMore;
           HealthConnectorLogger.debug(
@@ -193,8 +191,8 @@ final class BackgroundSyncWorker {
         message: 'Background sync completed',
         context: {
           'pages': pageCount,
-          'upserted': upserted.length,
-          'deleted': deleted.length,
+          'upserted': upsertedRecordCount,
+          'deleted': deletedRecordCount,
           'token_reset': tokenReset,
         },
       );
@@ -207,8 +205,8 @@ final class BackgroundSyncWorker {
           finishedAt: _clock(),
           dataTypeIds: dataTypeIds,
           pageCount: pageCount,
-          upsertedRecords: upserted,
-          deletedRecordIds: deleted,
+          upsertedRecordCount: upsertedRecordCount,
+          deletedRecordCount: deletedRecordCount,
           tokenBefore: tokenBefore,
           tokenAfter: token == null ? null : SyncTokenSnapshot.fromToken(token),
           tokenReset: tokenReset,
@@ -233,8 +231,8 @@ final class BackgroundSyncWorker {
           finishedAt: _clock(),
           dataTypeIds: dataTypeIds,
           pageCount: pageCount,
-          upsertedRecords: upserted,
-          deletedRecordIds: deleted,
+          upsertedRecordCount: upsertedRecordCount,
+          deletedRecordCount: deletedRecordCount,
           tokenBefore: tokenBefore,
           tokenReset: tokenReset,
           error: BackgroundSyncError.fromException(e, willRetry: shouldRetry),
@@ -257,8 +255,8 @@ final class BackgroundSyncWorker {
           finishedAt: _clock(),
           dataTypeIds: dataTypeIds,
           pageCount: pageCount,
-          upsertedRecords: upserted,
-          deletedRecordIds: deleted,
+          upsertedRecordCount: upsertedRecordCount,
+          deletedRecordCount: deletedRecordCount,
           tokenBefore: tokenBefore,
           tokenReset: tokenReset,
           error: BackgroundSyncError(
