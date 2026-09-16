@@ -7,23 +7,21 @@ import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
-import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/background_incremental_data_sync_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/models/background_sync_report.dart';
-import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/background_sync_console_card.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/health_data_type_multi_select_bottom_sheet.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/latest_sync_report_card.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/selected_data_types_card.dart';
-import 'package:health_connector_toolbox/src/features/console_logs/console_log_store.dart';
-import 'package:health_connector_toolbox/src/features/console_logs/pages/console_logs_page.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/widgets/console_logs_action_button.dart';
 import 'package:provider/provider.dart';
 
 /// Reference screen for scheduling incremental sync in the background.
 ///
 /// The screen configures the data types, enables or disables the periodic
-/// task, runs the worker on demand, and observes the token, the latest run
-/// report, and the console logs the background isolate persisted.
+/// task, runs the worker on demand, and observes the token and the latest run
+/// report. It polls storage every [refreshInterval] and on resume so results
+/// written by the background isolate show up without user action.
 @immutable
 final class BackgroundIncrementalDataSyncPage extends StatefulWidget {
   const BackgroundIncrementalDataSyncPage({
@@ -50,7 +48,6 @@ class _BackgroundIncrementalDataSyncPageState
         > {
   late final _notifier = context
       .read<BackgroundIncrementalDataSyncChangeNotifier>();
-  late final _consoleLogStore = context.read<ConsoleLogStore>();
   Timer? _refreshTimer;
 
   @override
@@ -77,9 +74,7 @@ class _BackgroundIncrementalDataSyncPageState
     super.dispose();
   }
 
-  Future<void> _refresh() async {
-    await Future.wait([_notifier.refresh(), _consoleLogStore.reload()]);
-  }
+  Future<void> _refresh() => _notifier.refresh();
 
   Future<void> _editDataTypes() async {
     final selection = await HealthDataTypeMultiSelectBottomSheet.show(
@@ -145,7 +140,6 @@ class _BackgroundIncrementalDataSyncPageState
     }
     await process(() async {
       final result = await _notifier.runSyncNow();
-      await _consoleLogStore.reload();
       if (!mounted) {
         return;
       }
@@ -196,13 +190,6 @@ class _BackgroundIncrementalDataSyncPageState
     });
   }
 
-  void _openConsole() {
-    Navigator.push(
-      context,
-      MaterialPageRoute<Widget>(builder: (_) => const ConsoleLogsPage()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Selector<BackgroundIncrementalDataSyncChangeNotifier, (bool, bool)>(
@@ -218,13 +205,7 @@ class _BackgroundIncrementalDataSyncPageState
           child: Scaffold(
             appBar: AppBar(
               title: const Text(AppTexts.backgroundIncrementalDataSync),
-              actions: [
-                IconButton(
-                  icon: const Icon(AppIcons.refresh),
-                  tooltip: AppTexts.refresh,
-                  onPressed: () => unawaited(_refresh()),
-                ),
-              ],
+              actions: const [ConsoleLogsActionButton()],
             ),
             body: Column(
               children: [
@@ -252,8 +233,6 @@ class _BackgroundIncrementalDataSyncPageState
                             process(_notifier.requestBackgroundReadPermission),
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        BackgroundSyncConsoleCard(onOpenConsole: _openConsole),
                       ],
                     ),
                   ),
@@ -263,13 +242,15 @@ class _BackgroundIncrementalDataSyncPageState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      ElevatedGradientButton(
+                      ElevatedButton(
                         onPressed: isBusy
                             ? null
                             : () => unawaited(_toggleBackgroundSync()),
-                        label: isEnabled
-                            ? AppTexts.disableBackgroundSync
-                            : AppTexts.enableBackgroundSync,
+                        child: Text(
+                          isEnabled
+                              ? AppTexts.disableBackgroundSync
+                              : AppTexts.enableBackgroundSync,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       OutlinedButton.icon(

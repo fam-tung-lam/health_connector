@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector.dart' show HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/widgets/console_logs_action_button.dart';
 
 /// Explains how the Toolbox accesses and stores health data.
 @immutable
@@ -41,7 +42,10 @@ final class PrivacyPolicyPage extends StatelessWidget {
     };
 
     return Scaffold(
-      appBar: AppBar(title: const Text(AppTexts.privacyAndData)),
+      appBar: AppBar(
+        title: const Text(AppTexts.privacyAndData),
+        actions: const [ConsoleLogsActionButton()],
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(20),

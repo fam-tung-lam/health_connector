@@ -1004,7 +1004,6 @@ abstract final class AppTexts {
   static const String tokenClearedSuccessfully = 'Token cleared successfully';
   static const String synchronize = 'SYNCHRONIZE';
   static const String selectDataTypes = 'Select Data Types';
-  static const String consoleLog = 'Console Log';
   static const String noLogsYet = 'No logs yet';
   static const String controlPanel = 'Control Panel';
   static const String syncResults = 'Sync Results';
@@ -1063,7 +1062,6 @@ abstract final class AppTexts {
       'The stored token was rejected or covered other data types, so the run '
       'started from a new baseline. Deletions before the baseline are lost.';
   static const String willRetry = 'Will retry';
-  static const String openFullConsole = 'Open full console';
   static const String syncTokenCleared = 'Sync token cleared';
   static const String backgroundSyncCompleted = 'Sync run completed';
 

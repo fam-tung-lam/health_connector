@@ -4,6 +4,7 @@ import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/widgets/console_logs_action_button.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/base_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/custom_health_record_write_forms/blood_pressure_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/custom_health_record_write_forms/cervical_mucus_health_record_write_form.dart';
@@ -135,6 +136,7 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppTexts.getInsertTextFor(widget.dataType)),
+          actions: const [ConsoleLogsActionButton()],
         ),
         body: _buildWriteForm(),
       ),

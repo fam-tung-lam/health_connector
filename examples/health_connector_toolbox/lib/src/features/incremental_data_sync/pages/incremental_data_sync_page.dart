@@ -3,10 +3,9 @@ import 'package:health_connector/health_connector.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
-import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/widgets/console_logs_action_button.dart';
 import 'package:health_connector_toolbox/src/features/incremental_data_sync/incremental_data_sync_change_notifier.dart';
-import 'package:health_connector_toolbox/src/features/incremental_data_sync/widgets/sync_console_log_card.dart';
 import 'package:health_connector_toolbox/src/features/incremental_data_sync/widgets/sync_results_viewer_card.dart';
 import 'package:health_connector_toolbox/src/features/incremental_data_sync/widgets/sync_token_card.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,7 @@ import 'package:provider/provider.dart';
 /// Test page for manually verifying the incremental synchronization API.
 ///
 /// Provides UI controls for testing sync tokens, pagination, token expiration,
-/// and viewing sync results with detailed logging.
+/// and viewing sync results.
 @immutable
 final class IncrementalDataSyncPage extends StatefulWidget {
   const IncrementalDataSyncPage({
@@ -141,6 +140,7 @@ class _IncrementalDataSyncPageState extends State<IncrementalDataSyncPage>
           child: Scaffold(
             appBar: AppBar(
               title: const Text(AppTexts.incrementalDataSync),
+              actions: const [ConsoleLogsActionButton()],
             ),
             body: Column(
               children: [
@@ -162,10 +162,6 @@ class _IncrementalDataSyncPageState extends State<IncrementalDataSyncPage>
                         SyncResultsViewerCard(
                           onLoadMore: _notifier.loadMore,
                         ),
-                        const SizedBox(height: 16),
-
-                        // Console Log
-                        const SyncConsoleLogCard(),
                       ],
                     ),
                   ),
@@ -174,9 +170,12 @@ class _IncrementalDataSyncPageState extends State<IncrementalDataSyncPage>
                 // Bottom button
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: ElevatedGradientButton(
-                    onPressed: isLoading ? null : _handleSynchronize,
-                    label: AppTexts.synchronize,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: isLoading ? null : _handleSynchronize,
+                      child: const Text(AppTexts.synchronize),
+                    ),
                   ),
                 ),
               ],
