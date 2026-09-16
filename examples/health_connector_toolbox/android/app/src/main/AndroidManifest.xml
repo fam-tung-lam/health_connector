@@ -84,7 +84,7 @@
     <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND" />
 
     <application
-        android:name="${applicationName}"
+        android:name=".ToolboxApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="Health Connector Toolbox">
         <activity
