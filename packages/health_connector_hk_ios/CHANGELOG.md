@@ -1,3 +1,9 @@
+## Unreleased
+
+- **BUILD**: Bump the minimum Flutter version from 3.3.0 to 3.38.0 and the
+  Dart SDK constraint from `^3.9.2` to `^3.10.0`, which Flutter 3.38.0 ships
+  ([#230](https://github.com/fam-tung-lam/health_connector/pull/230)).
+
 ## 3.10.0
 
 - **FEAT**: Add read and sum-aggregation support for Apple Stand Hour records

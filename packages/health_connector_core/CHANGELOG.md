@@ -1,3 +1,8 @@
+## Unreleased
+
+- **BUILD**: Bump the Dart SDK constraint from `^3.9.2` to `^3.10.0`, matching
+  the workspace move to Flutter 3.38.0 ([#230](https://github.com/fam-tung-lam/health_connector/pull/230)).
+
 ## 3.10.0
 
 - **FEAT**: Add read and sum-aggregation support for Apple Stand Hour records

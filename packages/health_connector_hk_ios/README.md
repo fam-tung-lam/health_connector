@@ -27,8 +27,8 @@ Apple Stand Hour records. HealthKit does not persist exercise-segment `weight`,
 
 ## 🎯 Requirements
 
-- Flutter >=3.3.0
-- Dart >=3.9.2
+- Flutter >=3.38.0
+- Dart >=3.10.0
 - iOS >=15.0
 - Xcode >=14.0
 

@@ -32,7 +32,7 @@ context, and exception tracking.
 
 ## 🎯 Requirements
 
-- Dart >=3.9.2
+- Dart >=3.10.0
 
 ---
 

@@ -1,3 +1,8 @@
+## Unreleased
+
+- **BUILD**: Bump the Dart SDK constraint from `^3.9.2` to `^3.10.0`, matching
+  the workspace move to Flutter 3.38.0 ([#230](https://github.com/fam-tung-lam/health_connector/pull/230)).
+
 ## 4.0.1
 
 - **CHORE**: Migrate the package from the Apache 2.0 License to the MIT License.

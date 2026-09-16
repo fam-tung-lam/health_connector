@@ -10,7 +10,8 @@ enum HealthPlatform {
   appleHealth(OperatingSystem.iOS),
 
   /// Health Connect on Android.
-  healthConnect(OperatingSystem.android);
+  healthConnect(OperatingSystem.android)
+  ;
 
   const HealthPlatform(this.os);
 
