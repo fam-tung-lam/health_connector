@@ -16,6 +16,7 @@ void main() {
               onOpenWrite: () {},
               onOpenAggregation: () {},
               onOpenSync: () {},
+              onOpenConsoleLogs: () {},
             ),
           ),
         ),
@@ -33,9 +34,15 @@ void main() {
     expect(find.text('Insert Health Record'), findsOneWidget);
     expect(find.text('Read Aggregate Data'), findsOneWidget);
     expect(find.text('Incremental Data Sync'), findsOneWidget);
+    expect(find.text('Diagnostics'), findsOneWidget);
+    expect(find.text('SDK Console Logs'), findsOneWidget);
     expect(
       tester.getTopLeft(find.text('Privacy & Data')).dy,
       lessThan(tester.getTopLeft(find.text('SDK Operations')).dy),
+    );
+    expect(
+      tester.getTopLeft(find.text('Incremental Data Sync')).dy,
+      lessThan(tester.getTopLeft(find.text('Diagnostics')).dy),
     );
   });
 }

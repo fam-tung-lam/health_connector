@@ -5,6 +5,7 @@ import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/widgets/error_view.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/aggregate_health_data_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/pages/aggregate_health_data_page.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/pages/console_logs_page.dart';
 import 'package:health_connector_toolbox/src/features/home/home_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/platform_status_card.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/toolbox_operations_section.dart';
@@ -29,6 +30,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// - Platform connection status
 /// - Privacy and data information
 /// - SDK operation navigation cards
+/// - Diagnostics navigation cards
 ///
 /// The design follows Material Design 3 principles with a calming color
 /// palette suitable for health applications.
@@ -126,6 +128,7 @@ final class _HomeContent extends StatelessWidget {
             onOpenSync: () => unawaited(
               _navigateToIncrementalDataSync(context),
             ),
+            onOpenConsoleLogs: () => _navigateToConsoleLogs(context),
           ),
 
           // Bottom padding for better scroll experience
@@ -228,6 +231,19 @@ final class _HomeContent extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  /// Navigates to the SDK console logs page.
+  ///
+  /// The console log store is provided above the [MaterialApp], so the page
+  /// reads it from the inherited provider tree.
+  void _navigateToConsoleLogs(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<Widget>(
+        builder: (_) => const ConsoleLogsPage(),
       ),
     );
   }
