@@ -1,58 +1,170 @@
 import 'package:flutter/material.dart';
+import 'package:health_connector/health_connector_internal.dart'
+    show HealthPlatformFeatureStatus, PermissionStatus;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/theme/app_status_colors.dart';
 import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/background_incremental_data_sync_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/models/background_sync_report.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/status_row.dart';
 import 'package:provider/provider.dart';
 
-/// Card describing the latest background sync run.
+/// Card showing the background sync status and the latest run.
 ///
-/// Shows when and why the run happened, how it ended, the token transition,
-/// and the upserted and deleted records it observed.
+/// The status section shows whether the periodic task is registered, the
+/// scheduler's view of it, and the background read permission on Health
+/// Connect. The report section shows when and why the latest run happened,
+/// how it ended, the token transition, and the upserted and deleted records
+/// it observed.
 @immutable
 final class LatestSyncReportCard extends StatelessWidget {
-  const LatestSyncReportCard({super.key});
+  const LatestSyncReportCard({required this.onRequestPermission, super.key});
+
+  final VoidCallback onRequestPermission;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final statusColors = theme.extension<AppStatusColors>()!;
 
-    return Selector<
-      BackgroundIncrementalDataSyncChangeNotifier,
-      BackgroundSyncReport?
-    >(
-      selector: (_, notifier) => notifier.latestReport,
-      builder: (context, report, _) {
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _StatusSection(
+              statusColors: statusColors,
+              onRequestPermission: onRequestPermission,
+            ),
+            const SizedBox(height: 12),
+            const Divider(),
+            const SizedBox(height: 8),
+            Text(AppTexts.latestSyncResult, style: theme.textTheme.titleMedium),
+            const SizedBox(height: 8),
+            Selector<
+              BackgroundIncrementalDataSyncChangeNotifier,
+              BackgroundSyncReport?
+            >(
+              selector: (_, notifier) => notifier.latestReport,
+              builder: (context, report, _) => report == null
+                  ? Text(
+                      AppTexts.noSyncResultYet,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    )
+                  : _ReportDetails(report: report, statusColors: statusColors),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatusSection extends StatelessWidget {
+  const _StatusSection({
+    required this.statusColors,
+    required this.onRequestPermission,
+  });
+
+  final AppStatusColors statusColors;
+  final VoidCallback onRequestPermission;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Consumer<BackgroundIncrementalDataSyncChangeNotifier>(
+      builder: (context, notifier, _) {
+        final isEnabled = notifier.isBackgroundSyncEnabled;
+        final workInfo = notifier.workInfo;
+        final permissionStatus = notifier.backgroundReadPermissionStatus;
+        final featureStatus = notifier.backgroundReadFeatureStatus;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               children: [
-                Text(
-                  AppTexts.latestSyncResult,
-                  style: theme.textTheme.titleMedium,
+                Expanded(
+                  child: Text(
+                    AppTexts.backgroundSyncStatus,
+                    style: theme.textTheme.titleMedium,
+                  ),
                 ),
-                const SizedBox(height: 8),
-                if (report == null)
-                  Text(
-                    AppTexts.noSyncResultYet,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  )
-                else
-                  _ReportDetails(report: report, statusColors: statusColors),
+                Chip(
+                  avatar: Icon(
+                    isEnabled ? AppIcons.checkCircle : AppIcons.cancel,
+                    size: 18,
+                    color: isEnabled
+                        ? statusColors.onSuccessContainer
+                        : theme.colorScheme.onSurfaceVariant,
+                  ),
+                  label: Text(isEnabled ? AppTexts.active : AppTexts.inactive),
+                  backgroundColor: isEnabled
+                      ? statusColors.successContainer
+                      : theme.colorScheme.surfaceContainerHighest,
+                ),
               ],
             ),
-          ),
+            const SizedBox(height: 12),
+            StatusRow(
+              label: AppTexts.schedulerState,
+              value: workInfo?.state.name ?? AppTexts.notScheduled,
+            ),
+            if (workInfo?.lastFinishedAt case final lastFinishedAt?) ...[
+              const SizedBox(height: 8),
+              StatusRow(
+                label: AppTexts.lastFinished,
+                value: DateFormatter.formatDateTimeWithSeconds(lastFinishedAt),
+              ),
+            ],
+            if (notifier.requiresBackgroundReadPermission) ...[
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppTexts.backgroundReadPermission,
+                          style: theme.textTheme.titleSmall,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          featureStatus ==
+                                  HealthPlatformFeatureStatus.unavailable
+                              ? AppTexts.featureUnavailable
+                              : permissionStatus?.displayName ??
+                                    AppTexts.unknown,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: permissionStatus == PermissionStatus.granted
+                                ? statusColors.success
+                                : theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (permissionStatus != PermissionStatus.granted)
+                    FilledButton.tonal(
+                      onPressed:
+                          featureStatus ==
+                              HealthPlatformFeatureStatus.unavailable
+                          ? null
+                          : onRequestPermission,
+                      child: const Text(AppTexts.requestPermission),
+                    ),
+                ],
+              ),
+            ],
+          ],
         );
       },
     );

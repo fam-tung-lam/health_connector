@@ -85,18 +85,19 @@ void main() {
   test(
     'initialize re-submits the task when background sync is enabled',
     () async {
-      // Given persisted settings that say enabled with a 30 minute frequency.
+      // Given persisted settings that say enabled.
       storage.settings = const BackgroundSyncSettings(
         dataTypes: [HealthDataType.steps],
         isEnabled: true,
-        frequency: Duration(minutes: 30),
       );
 
       // When the notifier initializes.
       await notifier.initialize();
 
       // Then the scheduler receives the request again.
-      verify(() => scheduler.schedule(const Duration(minutes: 30))).called(1);
+      verify(
+        () => scheduler.schedule(BackgroundSyncSettings.frequency),
+      ).called(1);
     },
   );
 
@@ -128,10 +129,9 @@ void main() {
   });
 
   test('enable and disable drive the scheduler and persist the flag', () async {
-    // Given a selection with a 30 minute frequency.
+    // Given a selection.
     storage.settings = const BackgroundSyncSettings(
       dataTypes: [HealthDataType.steps],
-      frequency: Duration(minutes: 30),
     );
     await notifier.initialize();
 
@@ -142,7 +142,9 @@ void main() {
     await notifier.disableBackgroundSync();
 
     // Then the scheduler saw both calls and the flag is persisted.
-    verify(() => scheduler.schedule(const Duration(minutes: 30))).called(1);
+    verify(
+      () => scheduler.schedule(BackgroundSyncSettings.frequency),
+    ).called(1);
     verify(() => scheduler.cancel()).called(1);
     expect(notifier.isBackgroundSyncEnabled, isFalse);
     expect(storage.settings.isEnabled, isFalse);
@@ -190,22 +192,6 @@ void main() {
       expect(notifier.syncToken?.token, 't');
     },
   );
-
-  test('updateFrequency reschedules only while enabled', () async {
-    // Given an enabled task.
-    storage.settings = const BackgroundSyncSettings(
-      dataTypes: [HealthDataType.steps],
-      isEnabled: true,
-    );
-    await notifier.initialize();
-
-    // When the frequency changes.
-    await notifier.updateFrequency(const Duration(hours: 1));
-
-    // Then the scheduler is updated and the setting persisted.
-    verify(() => scheduler.schedule(const Duration(hours: 1))).called(1);
-    expect(storage.settings.frequency, const Duration(hours: 1));
-  });
 
   test('runSyncNow runs the worker with the UI connector', () async {
     // Given a selection and a connector that returns one change.

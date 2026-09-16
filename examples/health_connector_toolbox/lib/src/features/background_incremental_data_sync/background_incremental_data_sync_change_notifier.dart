@@ -34,14 +34,6 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
 
   static const String _tag = 'BackgroundIncrementalDataSync';
 
-  /// Frequencies offered in the UI; 15 minutes is the Android minimum.
-  static const List<Duration> frequencyOptions = [
-    Duration(minutes: 15),
-    Duration(minutes: 30),
-    Duration(hours: 1),
-    Duration(hours: 6),
-  ];
-
   final HealthConnector _healthConnector;
   final BackgroundSyncStorage _storage;
   final BackgroundSyncScheduler _scheduler;
@@ -157,26 +149,6 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
     return tokenCleared;
   }
 
-  /// Persists [frequency] and re-registers the task when it is enabled.
-  Future<void> updateFrequency(Duration frequency) async {
-    final settings = _settings.copyWith(frequency: frequency);
-    await _storage.saveSettings(settings);
-    if (settings.isEnabled) {
-      await _scheduler.schedule(frequency);
-    }
-    HealthConnectorLogger.info(
-      _tag,
-      operation: 'updateFrequency',
-      message: 'Background sync frequency updated',
-      context: {'frequency_minutes': frequency.inMinutes},
-    );
-    final workInfo = await _loadWorkInfo();
-    _notify(() {
-      _settings = settings;
-      _workInfo = workInfo;
-    });
-  }
-
   /// Registers the periodic task.
   ///
   /// Throws [ArgumentError] when no data types are selected.
@@ -185,7 +157,7 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
       throw ArgumentError('Select at least one data type first');
     }
 
-    await _scheduler.schedule(_settings.frequency);
+    await _scheduler.schedule(BackgroundSyncSettings.frequency);
     final settings = _settings.copyWith(isEnabled: true);
     await _storage.saveSettings(settings);
     HealthConnectorLogger.info(
@@ -193,7 +165,7 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
       operation: 'enableBackgroundSync',
       message: 'Background sync task registered',
       context: {
-        'frequency_minutes': settings.frequency.inMinutes,
+        'frequency_minutes': BackgroundSyncSettings.frequency.inMinutes,
         'data_types': settings.dataTypeIds,
       },
     );
@@ -297,12 +269,14 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
 
   Future<void> _ensureScheduled() async {
     try {
-      await _scheduler.schedule(_settings.frequency);
+      await _scheduler.schedule(BackgroundSyncSettings.frequency);
       HealthConnectorLogger.info(
         _tag,
         operation: 'initialize',
         message: 'Background sync task re-submitted',
-        context: {'frequency_minutes': _settings.frequency.inMinutes},
+        context: {
+          'frequency_minutes': BackgroundSyncSettings.frequency.inMinutes,
+        },
       );
     } on Exception catch (e, stackTrace) {
       HealthConnectorLogger.warning(

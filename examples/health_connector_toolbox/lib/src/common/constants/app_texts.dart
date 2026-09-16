@@ -1033,19 +1033,9 @@ abstract final class AppTexts {
   static const String backgroundSyncEnabled = 'Background sync enabled';
   static const String backgroundSyncDisabled = 'Background sync disabled';
   static const String runSyncNow = 'Run sync now';
-  static const String runSyncNowHint =
-      'Runs the same worker the scheduler executes, in the foreground';
-  static const String everyMinutes = 'Every {0} min';
   static const String schedulerState = 'Scheduler state';
   static const String lastFinished = 'Last finished';
   static const String notScheduled = 'Not scheduled';
-  static const String androidBackgroundSyncNote =
-      'Android runs the task at least 15 minutes apart and may delay it under '
-      'battery optimization. Reads require the background read permission.';
-  static const String iosBackgroundSyncNote =
-      'iOS runs app refresh tasks opportunistically (about 30 s each) and '
-      'cannot read health data while the device is locked. Trigger a run '
-      'from Xcode with the BGTaskScheduler launch command.';
   static const String backgroundReadPermission = 'Background read permission';
   static const String requestPermission = 'Request';
   static const String featureUnavailable = 'Feature unavailable';

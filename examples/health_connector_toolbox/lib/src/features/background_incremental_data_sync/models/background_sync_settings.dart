@@ -10,7 +10,6 @@ final class BackgroundSyncSettings {
   const BackgroundSyncSettings({
     this.dataTypes = const [],
     this.isEnabled = false,
-    this.frequency = defaultFrequency,
   });
 
   /// Restores settings written by [toJson].
@@ -23,27 +22,21 @@ final class BackgroundSyncSettings {
     return BackgroundSyncSettings(
       dataTypes: resolveDataTypes(ids),
       isEnabled: json[_isEnabledKey] as bool? ?? false,
-      frequency: Duration(
-        minutes:
-            json[_frequencyMinutesKey] as int? ?? defaultFrequency.inMinutes,
-      ),
     );
   }
 
-  /// Android WorkManager enforces a 15 minute minimum for periodic work.
-  static const Duration defaultFrequency = Duration(minutes: 15);
+  /// Interval between background runs.
+  ///
+  /// Android WorkManager enforces a 15 minute minimum for periodic work. Both
+  /// platforms treat the value as a hint; iOS in particular runs app refresh
+  /// tasks whenever it decides based on usage patterns.
+  static const Duration frequency = Duration(minutes: 15);
 
   /// Health data types included in every background sync.
   final List<HealthDataType> dataTypes;
 
   /// Whether the periodic background task is registered.
   final bool isEnabled;
-
-  /// Requested interval between background runs.
-  ///
-  /// Both platforms treat this as a hint; iOS in particular runs app refresh
-  /// tasks whenever it decides based on usage patterns.
-  final Duration frequency;
 
   /// Identifiers of [dataTypes], in selection order.
   List<String> get dataTypeIds => dataTypes.map((type) => type.id).toList();
@@ -60,24 +53,20 @@ final class BackgroundSyncSettings {
   BackgroundSyncSettings copyWith({
     List<HealthDataType>? dataTypes,
     bool? isEnabled,
-    Duration? frequency,
   }) {
     return BackgroundSyncSettings(
       dataTypes: dataTypes ?? this.dataTypes,
       isEnabled: isEnabled ?? this.isEnabled,
-      frequency: frequency ?? this.frequency,
     );
   }
 
   Map<String, dynamic> toJson() => {
     _dataTypesKey: dataTypeIds,
     _isEnabledKey: isEnabled,
-    _frequencyMinutesKey: frequency.inMinutes,
   };
 
   static const _dataTypesKey = 'dataTypes';
   static const _isEnabledKey = 'isEnabled';
-  static const _frequencyMinutesKey = 'frequencyMinutes';
 
   @override
   bool operator ==(Object other) =>
@@ -85,15 +74,12 @@ final class BackgroundSyncSettings {
       other is BackgroundSyncSettings &&
           runtimeType == other.runtimeType &&
           listEquals(dataTypes, other.dataTypes) &&
-          isEnabled == other.isEnabled &&
-          frequency == other.frequency;
+          isEnabled == other.isEnabled;
 
   @override
-  int get hashCode =>
-      Object.hash(Object.hashAll(dataTypes), isEnabled, frequency);
+  int get hashCode => Object.hash(Object.hashAll(dataTypes), isEnabled);
 
   @override
   String toString() =>
-      'BackgroundSyncSettings(dataTypes: $dataTypeIds, '
-      'isEnabled: $isEnabled, frequency: $frequency)';
+      'BackgroundSyncSettings(dataTypes: $dataTypeIds, isEnabled: $isEnabled)';
 }

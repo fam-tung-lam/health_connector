@@ -4,11 +4,10 @@ import 'package:health_connector_toolbox/src/features/background_incremental_dat
 
 void main() {
   test('round-trips through JSON', () {
-    // Given enabled settings with two data types and a custom frequency.
+    // Given enabled settings with two data types.
     const settings = BackgroundSyncSettings(
       dataTypes: [HealthDataType.steps, HealthDataType.weight],
       isEnabled: true,
-      frequency: Duration(minutes: 30),
     );
 
     // When serialized and restored.
@@ -28,7 +27,6 @@ void main() {
     // Then only the known type is kept and defaults apply.
     expect(restored.dataTypes, [HealthDataType.steps]);
     expect(restored.isEnabled, isFalse);
-    expect(restored.frequency, BackgroundSyncSettings.defaultFrequency);
   });
 
   test('copyWith replaces only the given fields', () {
@@ -41,6 +39,5 @@ void main() {
     // Then the rest is unchanged.
     expect(copy.isEnabled, isTrue);
     expect(copy.dataTypes, isEmpty);
-    expect(copy.frequency, settings.frequency);
   });
 }
