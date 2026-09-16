@@ -6,14 +6,14 @@ Adding the package takes one command. Most of the work is platform configuration
 
 | Component | Requirement |
 |---|---|
-| Flutter | ≥ 3.38.0 (the package declares `flutter: '>=3.38.0'`) |
+| Flutter | ≥ 3.38.0 (the package declares `flutter: '>=3.38.0'`, `sdk: ^3.10.0`) |
 | Android | API 26+ (Android 8.0), Kotlin 2.1.0, Java 17 |
 | iOS | iOS 15.0+, Swift 5.9 |
 
 ::: warning Flutter 3.38.0 is a hard floor
 The package declares `flutter: '>=3.38.0'`, so `pub get` fails on Flutter 3.35.x and older. This is a resolution requirement, not a recommendation.
 
-Flutter 3.38.0 ships Dart 3.10.0, which also satisfies the package's `sdk: ^3.9.2` constraint. Swift 5.9 and Kotlin 2.1 remain compatible with Swift 5.0 and Kotlin 2.0 code, so the native side is a version bump in your build files.
+Flutter 3.38.0 ships Dart 3.10.0, so a single Flutter upgrade satisfies both constraints. Swift 5.9 and Kotlin 2.1 remain compatible with Swift 5.0 and Kotlin 2.0 code, so the native side is a version bump in your build files.
 :::
 
 Full details, including why each floor exists, are in [Requirements](/reference/requirements).

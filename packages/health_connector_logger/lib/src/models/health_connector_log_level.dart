@@ -15,7 +15,8 @@ enum HealthConnectorLogLevel {
   warning('WARNING', 900),
 
   /// Error level for serious problems.
-  error('ERROR', 1000);
+  error('ERROR', 1000)
+  ;
 
   /// The string name of the log level.
   final String name;

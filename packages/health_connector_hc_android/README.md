@@ -29,7 +29,7 @@ written.
 ## 🎯 Requirements
 
 - Flutter >=3.38.0
-- Dart >=3.10.0 (bundled with Flutter 3.38.0)
+- Dart >=3.10.0
 - Android SDK: API level 26+ (Android 8.0)
 - Kotlin: 1.9.0+
 - Java: 11+

@@ -1,10 +1,7 @@
 ## Unreleased
 
-> Note: This release has breaking changes.
-
-- **BREAKING** **BUILD**: Require Flutter 3.38.0 or later. The plugin now
-  declares `flutter: '>=3.38.0'`, so `pub get` no longer resolves on Flutter
-  3.35.x and earlier
+- **BUILD**: Bump the minimum Flutter version from 3.3.0 to 3.38.0 and the
+  Dart SDK constraint from `^3.9.2` to `^3.10.0`, which Flutter 3.38.0 ships
   ([#230](https://github.com/fam-tung-lam/health_connector/pull/230)).
 
 ## 3.11.0

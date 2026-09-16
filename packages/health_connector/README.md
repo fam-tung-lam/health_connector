@@ -126,15 +126,14 @@ flutter pub get && flutter run
 
 | Component   | Requirements                                        |
 |-------------|-----------------------------------------------------|
-| **Flutter** | • SDK: ≥3.38.0                                      |
+| **Flutter** | • SDK: ≥3.38.0<br>• Dart: ≥3.10.0                   |
 | **Android** | • OS: API 26+<br>• Languages: Kotlin 2.1.0, Java 17 |
 | **iOS**     | • OS: ≥15.0<br>• Language: Swift 5.9                |
 
 > **Upgrading is Easy:**
 >
 > - *Flutter 3.38.0* ships *Dart 3.10.0*, so upgrading from *Flutter 3.35.x* is a toolchain bump
-> rather than a code change. The package keeps its `sdk: ^3.9.2` constraint, so the Flutter floor is
-> the binding requirement.
+> rather than a code change. One Flutter upgrade satisfies both the Flutter and the Dart floor.
 >
 > - *Swift 5.9* has great backward compatibility up to *Swift 5.0*, and *Kotlin 2.1* up to *Kotlin 2.0*.
 > Migration is very straightforward — simply update version in your build configuration files. *No changes to

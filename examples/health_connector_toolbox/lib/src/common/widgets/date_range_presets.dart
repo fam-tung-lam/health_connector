@@ -6,7 +6,8 @@ enum DateRangePreset {
   lastHour,
   today,
   last7Days,
-  last30Days;
+  last30Days
+  ;
 
   String get displayName {
     return switch (this) {

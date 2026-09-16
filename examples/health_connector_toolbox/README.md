@@ -18,7 +18,7 @@ records, writes, aggregation, and incremental sync through the
 ### Prerequisites
 
 - Flutter >=3.38.0
-- Dart >=3.10.0 (bundled with Flutter 3.38.0)
+- Dart >=3.10.0
 - **Android**:
   - Android SDK API 26+ (Android 8.0)
   - Health Connect app installed (or built-in on Android 14+)
