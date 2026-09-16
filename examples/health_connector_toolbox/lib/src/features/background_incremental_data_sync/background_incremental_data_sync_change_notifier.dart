@@ -86,10 +86,19 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
       _backgroundReadPermissionStatus;
 
   /// Loads persisted state and platform status.
+  ///
+  /// When background sync is enabled the periodic task is submitted again.
+  /// iOS drops pending `BGAppRefreshTask` requests on reinstall or update and
+  /// the plugin only re-registers launch handlers, so without this the screen
+  /// would show "Active" while nothing is scheduled. On Android the update
+  /// policy makes the call idempotent.
   Future<void> initialize() async {
     _notify(() => _isLoading = true);
     try {
       _settings = await _storage.loadSettings();
+      if (_settings.isEnabled) {
+        await _ensureScheduled();
+      }
       await _loadBackgroundReadStatus();
       await refresh();
     } finally {
@@ -280,6 +289,26 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
         _tag,
         operation: 'initialize',
         message: 'Could not load background read permission status',
+        exception: e,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
+  Future<void> _ensureScheduled() async {
+    try {
+      await _scheduler.schedule(_settings.frequency);
+      HealthConnectorLogger.info(
+        _tag,
+        operation: 'initialize',
+        message: 'Background sync task re-submitted',
+        context: {'frequency_minutes': _settings.frequency.inMinutes},
+      );
+    } on Exception catch (e, stackTrace) {
+      HealthConnectorLogger.warning(
+        _tag,
+        operation: 'initialize',
+        message: 'Could not re-submit background sync task',
         exception: e,
         stackTrace: stackTrace,
       );
