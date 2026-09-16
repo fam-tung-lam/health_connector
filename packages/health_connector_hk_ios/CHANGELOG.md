@@ -3,7 +3,8 @@
 > Note: This release has breaking changes.
 
 - **BREAKING** **BUILD**: Require Flutter 3.38.0 or later for the iOS HealthKit
-  plugin.
+  plugin
+  ([#230](https://github.com/fam-tung-lam/health_connector/pull/230)).
 
 ## 3.10.0
 
