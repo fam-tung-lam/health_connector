@@ -144,6 +144,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      */
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         HealthConnectorHCAndroidApi.setUp(binding.binaryMessenger, null)
+        HealthConnectorLogger.release(binding.binaryMessenger)
         scope.cancel()
     }
 
