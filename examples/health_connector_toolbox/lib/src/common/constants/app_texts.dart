@@ -1063,6 +1063,9 @@ abstract final class AppTexts {
       'started from a new baseline. Deletions before the baseline are lost.';
   static const String willRetry = 'Will retry';
   static const String openFullConsole = 'Open full console';
+  static const String reportListsTruncated =
+      'Only the first {0} records of each list are stored; the counts cover '
+      'the whole run.';
   static const String syncTokenCleared = 'Sync token cleared';
   static const String backgroundSyncCompleted = 'Sync run completed';
 
