@@ -13,6 +13,6 @@ import dev.fluttercommunity.workmanager.WorkmanagerDebug
 class ToolboxApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        WorkmanagerDebug.setCurrent(HealthConnectorWorkmanagerDebugHandler())
+        WorkmanagerDebug.setCurrent(WorkManagerDebugHandler())
     }
 }

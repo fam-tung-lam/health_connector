@@ -18,66 +18,28 @@ import kotlinx.coroutines.launch
  *
  * Uses [HealthConnectorNativeLogApi] to send log events to Flutter via
  * callback-based Pigeon API.
- *
- * Host applications may call the public logging functions to route their own
- * native diagnostics (for example background task status updates) into the
- * same Flutter log stream. Events are delivered only after the Flutter side
- * created a `HealthConnector` with native logging enabled; earlier events are
- * dropped. When several engines are attached, events reach the most recently
- * attached one.
  */
-object HealthConnectorLogger {
+internal object HealthConnectorLogger {
     /**
-     * Everything needed to deliver log events to one Flutter engine.
+     * Coroutine scope for executing asynchronous operations.
      */
-    private class EngineBinding(
-        val scope: CoroutineScope,
-        val binaryMessenger: BinaryMessenger,
-        val logApi: HealthConnectorNativeLogApi,
-    )
+    lateinit var scope: CoroutineScope
 
     /**
-     * Bindings of every attached Flutter engine, in attach order.
-     *
-     * A process can host several engines at once, for example the UI engine
-     * and a headless engine started by a background task scheduler. Events go
-     * to the most recently attached engine that is still alive, so a
-     * background run logs into its own isolate and the UI engine takes over
-     * again once the background engine detaches.
-     *
-     * Guarded by [bindingsLock].
+     * API instance for sending log events to Flutter.
      */
-    private val bindings = mutableListOf<EngineBinding>()
-
-    private val bindingsLock = Any()
+    private var logApi: HealthConnectorNativeLogApi? = null
 
     /**
-     * Registers the coroutine scope and binary messenger of an attached engine.
+     * Initializes the logger with the coroutine scope and binary messenger.
      *
      * @param externalScope The coroutine scope to use for async operations.
      * @param binaryMessenger The Flutter binary messenger for Pigeon API.
      */
-    internal fun initialize(externalScope: CoroutineScope, binaryMessenger: BinaryMessenger) {
-        synchronized(bindingsLock) {
-            bindings.removeAll { it.binaryMessenger === binaryMessenger }
-            bindings.add(
-                EngineBinding(
-                    scope = externalScope,
-                    binaryMessenger = binaryMessenger,
-                    logApi = HealthConnectorNativeLogApi(binaryMessenger),
-                ),
-            )
-        }
-    }
-
-    /**
-     * Forgets the engine bound to [binaryMessenger] after it detached.
-     *
-     * @param binaryMessenger The messenger of the detached engine.
-     */
-    internal fun release(binaryMessenger: BinaryMessenger) {
-        synchronized(bindingsLock) {
-            bindings.removeAll { it.binaryMessenger === binaryMessenger }
+    fun initialize(externalScope: CoroutineScope, binaryMessenger: BinaryMessenger) {
+        if (!this::scope.isInitialized) {
+            scope = externalScope
+            logApi = HealthConnectorNativeLogApi(binaryMessenger)
         }
     }
 
@@ -85,7 +47,6 @@ object HealthConnectorLogger {
      * Flag for whether logging is enabled.
      */
     var isEnabled = false
-        internal set
 
     /**
      * Logs a debug message.
@@ -257,10 +218,10 @@ object HealthConnectorLogger {
             return
         }
 
-        val binding = synchronized(bindingsLock) { bindings.lastOrNull() } ?: return
+        val api = logApi ?: return
 
         // Events from native to Flutter layer must be sent on the main thread.
-        binding.scope.launch(Dispatchers.Main.immediate) {
+        scope.launch(Dispatchers.Main.immediate) {
             val logDto = HealthConnectorLogDto(
                 level = level.toDto(),
                 tag = tag,
@@ -271,7 +232,7 @@ object HealthConnectorLogger {
                 exception = exception?.toExceptionInfoDto(),
             )
 
-            binding.logApi.onNativeLogEvent(logDto) { result ->
+            api.onNativeLogEvent(logDto) { result ->
                 // Callback is invoked by Flutter. Errors are ignored to prevent
                 // logging failures from affecting app functionality.
                 result.onFailure {

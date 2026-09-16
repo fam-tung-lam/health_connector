@@ -96,8 +96,8 @@ Files: `lib/src/features/background_incremental_data_sync/`.
 - **Android**: `READ_HEALTH_DATA_IN_BACKGROUND` is declared in the manifest
   and requestable from the permissions page and the sync screen. Health
   Connect rejects reads from a WorkManager job without it.
-  `ToolboxApplication` installs `HealthConnectorWorkmanagerDebugHandler`,
-  which forwards WorkManager task status updates into the SDK native logger.
+  `ToolboxApplication` installs `WorkManagerDebugHandler`, which writes
+  WorkManager task status updates to logcat under the `WorkManagerDebug` tag.
 - **iOS**: `Info.plist` declares `UIBackgroundModes: fetch` and the task
   identifier in `BGTaskSchedulerPermittedIdentifiers`. `AppDelegate`
   pre-registers the identifier with
