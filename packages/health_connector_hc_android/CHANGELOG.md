@@ -1,5 +1,10 @@
 ## Unreleased
 
+- **FEAT**: Expose the native `HealthConnectorLogger` to host applications so
+  Android app code can route its own diagnostics into the Flutter log stream.
+- **FIX**: Deliver native log events to the most recently attached Flutter
+  engine and stop delivering to detached engines, so headless background
+  engines and the UI engine can coexist in one process.
 - **BUILD**: Bump the minimum Flutter version from 3.3.0 to 3.38.0 and the
   Dart SDK constraint from `^3.9.2` to `^3.10.0`, which Flutter 3.38.0 ships
   ([#230](https://github.com/fam-tung-lam/health_connector/pull/230)).
