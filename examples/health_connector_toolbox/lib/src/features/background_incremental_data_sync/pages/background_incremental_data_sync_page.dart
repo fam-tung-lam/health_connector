@@ -12,8 +12,6 @@ import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/background_incremental_data_sync_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/models/background_sync_report.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/background_sync_console_card.dart';
-import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/background_sync_status_card.dart';
-import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/background_sync_token_card.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/health_data_type_multi_select_bottom_sheet.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/latest_sync_report_card.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/widgets/selected_data_types_card.dart';
@@ -23,9 +21,9 @@ import 'package:provider/provider.dart';
 
 /// Reference screen for scheduling incremental sync in the background.
 ///
-/// The screen configures the data types and frequency, enables or disables
-/// the periodic task, and observes the token, the latest run report, and the
-/// console logs the background isolate persisted.
+/// The screen configures the data types, enables or disables the periodic
+/// task, runs the worker on demand, and observes the token, the latest run
+/// report, and the console logs the background isolate persisted.
 @immutable
 final class BackgroundIncrementalDataSyncPage extends StatefulWidget {
   const BackgroundIncrementalDataSyncPage({
@@ -36,7 +34,7 @@ final class BackgroundIncrementalDataSyncPage extends StatefulWidget {
   final HealthPlatform healthPlatform;
 
   /// How often persisted background results are polled while visible.
-  static const Duration refreshInterval = Duration(seconds: 10);
+  static const Duration refreshInterval = Duration(seconds: 2);
 
   @override
   State<BackgroundIncrementalDataSyncPage> createState() =>
@@ -236,17 +234,6 @@ class _BackgroundIncrementalDataSyncPageState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        BackgroundSyncStatusCard(
-                          healthPlatform: widget.healthPlatform,
-                          onRunNow: () => unawaited(_runNow()),
-                          onRequestPermission: () => unawaited(
-                            process(_notifier.requestBackgroundReadPermission),
-                          ),
-                          onFrequencyChanged: (frequency) => unawaited(
-                            process(() => _notifier.updateFrequency(frequency)),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
                         Selector<
                           BackgroundIncrementalDataSyncChangeNotifier,
                           List<HealthDataType>
@@ -256,14 +243,15 @@ class _BackgroundIncrementalDataSyncPageState
                               SelectedDataTypesCard(
                                 dataTypes: dataTypes,
                                 onEdit: () => unawaited(_editDataTypes()),
+                                onClearToken: () => unawaited(_clearToken()),
                               ),
                         ),
                         const SizedBox(height: 16),
-                        BackgroundSyncTokenCard(
-                          onClearToken: () => unawaited(_clearToken()),
+                        LatestSyncReportCard(
+                          onRequestPermission: () => unawaited(
+                            process(_notifier.requestBackgroundReadPermission),
+                          ),
                         ),
-                        const SizedBox(height: 16),
-                        const LatestSyncReportCard(),
                         const SizedBox(height: 16),
                         BackgroundSyncConsoleCard(onOpenConsole: _openConsole),
                       ],
@@ -272,13 +260,27 @@ class _BackgroundIncrementalDataSyncPageState
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: ElevatedGradientButton(
-                    onPressed: isBusy
-                        ? null
-                        : () => unawaited(_toggleBackgroundSync()),
-                    label: isEnabled
-                        ? AppTexts.disableBackgroundSync
-                        : AppTexts.enableBackgroundSync,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ElevatedGradientButton(
+                        onPressed: isBusy
+                            ? null
+                            : () => unawaited(_toggleBackgroundSync()),
+                        label: isEnabled
+                            ? AppTexts.disableBackgroundSync
+                            : AppTexts.enableBackgroundSync,
+                      ),
+                      const SizedBox(height: 12),
+                      OutlinedButton.icon(
+                        onPressed: isBusy ? null : () => unawaited(_runNow()),
+                        icon: const Icon(AppIcons.playArrow),
+                        label: const Text(AppTexts.runSyncNow),
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 44),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
