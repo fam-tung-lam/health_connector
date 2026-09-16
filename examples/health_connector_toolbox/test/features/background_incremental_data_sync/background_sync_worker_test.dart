@@ -60,7 +60,7 @@ void main() {
     storage.settings = const BackgroundSyncSettings();
 
     // When the worker runs.
-    final result = await worker.run(trigger: BackgroundSyncTrigger.scheduled);
+    final result = await worker.run();
 
     // Then nothing is synchronized and the report says skipped.
     expect(result.shouldRetry, isFalse);
@@ -100,13 +100,12 @@ void main() {
     );
 
     // When the worker runs.
-    final result = await worker.run(trigger: BackgroundSyncTrigger.manual);
+    final result = await worker.run();
 
     // Then both pages are merged and the final token is persisted.
     final report = result.report;
     expect(result.shouldRetry, isFalse);
     expect(report.outcome, BackgroundSyncOutcome.succeeded);
-    expect(report.trigger, BackgroundSyncTrigger.manual);
     expect(report.pageCount, 2);
     expect(report.upsertedRecordCount, 1);
     expect(report.deletedRecordCount, 1);
@@ -131,7 +130,7 @@ void main() {
     ).thenAnswer((_) async => buildResult(nextToken: 'fresh'));
 
     // When the worker runs.
-    final result = await worker.run(trigger: BackgroundSyncTrigger.scheduled);
+    final result = await worker.run();
 
     // Then the initial sync used no token and the reset is reported.
     expect(result.report.outcome, BackgroundSyncOutcome.succeeded);
@@ -157,7 +156,7 @@ void main() {
     ).thenAnswer((_) async => buildResult(nextToken: 'baseline'));
 
     // When the worker runs.
-    final result = await worker.run(trigger: BackgroundSyncTrigger.scheduled);
+    final result = await worker.run();
 
     // Then a new baseline token is stored and the reset is flagged.
     expect(result.shouldRetry, isFalse);
@@ -187,7 +186,7 @@ void main() {
       );
 
       // When the worker runs.
-      final result = await worker.run(trigger: BackgroundSyncTrigger.scheduled);
+      final result = await worker.run();
 
       // Then the failure asks for a retry and the token is untouched.
       expect(result.shouldRetry, isTrue);
@@ -211,7 +210,7 @@ void main() {
     );
 
     // When the worker runs.
-    final result = await worker.run(trigger: BackgroundSyncTrigger.scheduled);
+    final result = await worker.run();
 
     // Then the failure is final.
     expect(result.shouldRetry, isFalse);

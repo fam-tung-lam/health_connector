@@ -112,7 +112,6 @@ void main() {
         isEnabled: true,
       )
       ..report = BackgroundSyncReport(
-        trigger: BackgroundSyncTrigger.scheduled,
         outcome: BackgroundSyncOutcome.failed,
         startedAt: DateTime(2026, 9, 16, 8),
         finishedAt: DateTime(2026, 9, 16, 8, 0, 2),
@@ -131,6 +130,8 @@ void main() {
     expect(find.text('Active'), findsOneWidget);
     expect(find.text('Selected Data Types (1)'), findsOneWidget);
     expect(find.text('failed'), findsOneWidget);
+    expect(find.text('Started at:'), findsOneWidget);
+    expect(find.text('Finished at:'), findsOneWidget);
     expect(find.text('Error: rateLimitExceeded'), findsOneWidget);
     expect(find.text('Too many requests'), findsOneWidget);
     expect(find.text('Deleted Records:'), findsOneWidget);

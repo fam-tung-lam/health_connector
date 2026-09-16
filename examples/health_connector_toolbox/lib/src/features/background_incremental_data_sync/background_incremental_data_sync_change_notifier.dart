@@ -20,9 +20,9 @@ import 'package:workmanager/workmanager.dart' show WorkInfo;
 /// State and actions of the background incremental data sync screen.
 ///
 /// The notifier owns the persisted selection, the sync token, the latest run
-/// report, and the scheduler registration. It never runs the sync itself in
-/// the background; the scheduler starts [BackgroundSyncWorker] in a headless
-/// isolate, and the notifier only observes what that run persisted.
+/// report, and the scheduler registration. It never runs the sync itself;
+/// only the platform scheduler starts [BackgroundSyncWorker], in a headless
+/// isolate, and the notifier observes what that run persisted.
 final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
   BackgroundIncrementalDataSyncChangeNotifier({
     required HealthConnector healthConnector,
@@ -40,7 +40,6 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
 
   bool _isDisposed = false;
   bool _isLoading = false;
-  bool _isSyncing = false;
   BackgroundSyncSettings _settings = const BackgroundSyncSettings();
   HealthDataSyncToken? _syncToken;
   BackgroundSyncReport? _latestReport;
@@ -50,9 +49,6 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
 
   /// Whether the initial load is in progress.
   bool get isLoading => _isLoading;
-
-  /// Whether a manual sync run is in progress.
-  bool get isSyncing => _isSyncing;
 
   BackgroundSyncSettings get settings => _settings;
 
@@ -193,25 +189,6 @@ final class BackgroundIncrementalDataSyncChangeNotifier extends ChangeNotifier {
       _settings = settings;
       _workInfo = workInfo;
     });
-  }
-
-  /// Runs the worker once in the foreground with the connector of the UI.
-  ///
-  /// Uses the exact code path the scheduler executes, which is the quickest
-  /// way to debug the sync logic without waiting for the platform.
-  Future<BackgroundSyncRunResult> runSyncNow() async {
-    _notify(() => _isSyncing = true);
-    try {
-      final worker = BackgroundSyncWorker(
-        createHealthConnector: () async => _healthConnector,
-        storage: _storage,
-      );
-      final result = await worker.run(trigger: BackgroundSyncTrigger.manual);
-      await refresh();
-      return result;
-    } finally {
-      _notify(() => _isSyncing = false);
-    }
   }
 
   /// Removes the stored token so the next run starts from a new baseline.

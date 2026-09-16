@@ -6,7 +6,6 @@ import 'package:health_connector/health_connector_internal.dart'
         HealthConnectorLogger,
         HealthConnectorLoggerConfig;
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/background_sync_worker.dart';
-import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/models/background_sync_report.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/services/background_sync_scheduler.dart';
 import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/services/background_sync_storage.dart';
 import 'package:health_connector_toolbox/src/features/console_logs/console_log_processor.dart';
@@ -63,9 +62,7 @@ void backgroundSyncCallbackDispatcher() {
     );
 
     try {
-      final result = await worker.run(
-        trigger: BackgroundSyncTrigger.scheduled,
-      );
+      final result = await worker.run();
       HealthConnectorLogger.info(
         _tag,
         operation: 'executeTask',

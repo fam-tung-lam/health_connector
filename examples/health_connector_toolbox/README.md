@@ -84,10 +84,12 @@ closed. It pairs `HealthConnector.synchronize` with the
    Android retries with backoff; permission errors do not.
 5. Settings, token, and report live in `SharedPreferencesAsync`, which has no
    per-isolate cache, so the UI sees what the background isolate wrote. The
-   screen polls every 10 seconds and on resume.
+   screen polls every 2 seconds and on resume.
 
-**Run sync now** executes the same worker in the foreground, which is the
-fastest way to debug the sync logic before waiting for the scheduler.
+Only the platform scheduler runs the worker. There is no in-app trigger,
+because a foreground run would not exercise the headless engine, the
+background permission, or the scheduler contract. See
+[Forcing a run while debugging](#forcing-a-run-while-debugging).
 
 Files: `lib/src/features/background_incremental_data_sync/`.
 

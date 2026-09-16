@@ -5,27 +5,6 @@ import 'package:health_connector/health_connector.dart'
         HealthConnectorException,
         HealthDataSyncToken;
 
-/// What started a background sync run.
-enum BackgroundSyncTrigger {
-  /// The platform scheduler ran the registered periodic task.
-  scheduled('scheduled'),
-
-  /// The developer tapped "Run now" in the toolbox UI.
-  manual('manual')
-  ;
-
-  const BackgroundSyncTrigger(this.id);
-
-  /// Stable identifier used in JSON.
-  final String id;
-
-  /// Returns the trigger matching [id], defaulting to [scheduled].
-  static BackgroundSyncTrigger fromId(String? id) => values.firstWhere(
-    (trigger) => trigger.id == id,
-    orElse: () => BackgroundSyncTrigger.scheduled,
-  );
-}
-
 /// How a background sync run ended.
 enum BackgroundSyncOutcome {
   /// Every page was synchronized and the new token was stored.
@@ -164,7 +143,6 @@ final class BackgroundSyncError {
 @immutable
 final class BackgroundSyncReport {
   const BackgroundSyncReport({
-    required this.trigger,
     required this.outcome,
     required this.startedAt,
     required this.finishedAt,
@@ -183,7 +161,6 @@ final class BackgroundSyncReport {
     final tokenAfter = json['tokenAfter'] as Map<String, dynamic>?;
     final error = json['error'] as Map<String, dynamic>?;
     return BackgroundSyncReport(
-      trigger: BackgroundSyncTrigger.fromId(json['trigger'] as String?),
       outcome: BackgroundSyncOutcome.fromId(json['outcome'] as String?),
       startedAt: DateTime.parse(json['startedAt'] as String),
       finishedAt: DateTime.parse(json['finishedAt'] as String),
@@ -202,9 +179,12 @@ final class BackgroundSyncReport {
     );
   }
 
-  final BackgroundSyncTrigger trigger;
   final BackgroundSyncOutcome outcome;
+
+  /// When the worker started the run.
   final DateTime startedAt;
+
+  /// When the worker finished the run, on every outcome.
   final DateTime finishedAt;
 
   /// Data types requested for the run, in selection order.
@@ -236,7 +216,6 @@ final class BackgroundSyncReport {
   Duration get duration => finishedAt.difference(startedAt);
 
   Map<String, dynamic> toJson() => {
-    'trigger': trigger.id,
     'outcome': outcome.id,
     'startedAt': startedAt.toUtc().toIso8601String(),
     'finishedAt': finishedAt.toUtc().toIso8601String(),
@@ -255,7 +234,6 @@ final class BackgroundSyncReport {
       identical(this, other) ||
       other is BackgroundSyncReport &&
           runtimeType == other.runtimeType &&
-          trigger == other.trigger &&
           outcome == other.outcome &&
           startedAt == other.startedAt &&
           finishedAt == other.finishedAt &&
@@ -270,7 +248,6 @@ final class BackgroundSyncReport {
 
   @override
   int get hashCode => Object.hash(
-    trigger,
     outcome,
     startedAt,
     finishedAt,
@@ -286,7 +263,7 @@ final class BackgroundSyncReport {
 
   @override
   String toString() =>
-      'BackgroundSyncReport(trigger: ${trigger.id}, outcome: ${outcome.id}, '
+      'BackgroundSyncReport(outcome: ${outcome.id}, '
       'pages: $pageCount, upserted: $upsertedRecordCount, '
       'deleted: $deletedRecordCount, tokenReset: $tokenReset, '
       'error: ${error?.code})';

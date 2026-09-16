@@ -34,8 +34,8 @@ final class BackgroundSyncRunResult {
 
 /// Runs one incremental synchronization pass end to end.
 ///
-/// The worker is platform-agnostic Dart so the same code path executes in the
-/// headless background isolate and from the "Run now" button in the UI:
+/// The worker is platform-agnostic Dart with no Flutter dependencies, so it
+/// runs unchanged in the headless background isolate:
 ///
 /// 1. Load the selected data types and the stored sync token.
 /// 2. Discard the token when its data types no longer match the selection.
@@ -83,15 +83,12 @@ final class BackgroundSyncWorker {
   /// No [Exception] escapes: every failure is captured in the report so the
   /// caller can map [BackgroundSyncRunResult.shouldRetry] to the scheduler's
   /// contract.
-  Future<BackgroundSyncRunResult> run({
-    required BackgroundSyncTrigger trigger,
-  }) async {
+  Future<BackgroundSyncRunResult> run() async {
     final startedAt = _clock();
     HealthConnectorLogger.info(
       _tag,
       operation: 'run',
       message: 'Background sync started',
-      context: {'trigger': trigger.id},
     );
 
     var dataTypeIds = const <String>[];
@@ -116,7 +113,6 @@ final class BackgroundSyncWorker {
         );
         return await _finish(
           BackgroundSyncReport(
-            trigger: trigger,
             outcome: BackgroundSyncOutcome.skipped,
             startedAt: startedAt,
             finishedAt: _clock(),
@@ -199,7 +195,6 @@ final class BackgroundSyncWorker {
 
       return await _finish(
         BackgroundSyncReport(
-          trigger: trigger,
           outcome: BackgroundSyncOutcome.succeeded,
           startedAt: startedAt,
           finishedAt: _clock(),
@@ -225,7 +220,6 @@ final class BackgroundSyncWorker {
       );
       return _finish(
         BackgroundSyncReport(
-          trigger: trigger,
           outcome: BackgroundSyncOutcome.failed,
           startedAt: startedAt,
           finishedAt: _clock(),
@@ -249,7 +243,6 @@ final class BackgroundSyncWorker {
       );
       return _finish(
         BackgroundSyncReport(
-          trigger: trigger,
           outcome: BackgroundSyncOutcome.failed,
           startedAt: startedAt,
           finishedAt: _clock(),

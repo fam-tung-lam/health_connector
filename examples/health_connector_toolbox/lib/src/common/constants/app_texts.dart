@@ -1032,9 +1032,7 @@ abstract final class AppTexts {
   static const String disableBackgroundSync = 'DISABLE BACKGROUND SYNC';
   static const String backgroundSyncEnabled = 'Background sync enabled';
   static const String backgroundSyncDisabled = 'Background sync disabled';
-  static const String runSyncNow = 'Run sync now';
   static const String schedulerState = 'Scheduler state';
-  static const String lastFinished = 'Last finished';
   static const String notScheduled = 'Not scheduled';
   static const String backgroundReadPermission = 'Background read permission';
   static const String requestPermission = 'Request';
@@ -1052,10 +1050,11 @@ abstract final class AppTexts {
   static const String clearSelection = 'Clear selection';
   static const String latestSyncResult = 'Latest Sync Result';
   static const String noSyncResultYet =
-      'No background sync has run yet. Enable background sync or run it now.';
-  static const String trigger = 'Trigger';
+      'No background sync has run yet. Enable background sync and wait for '
+      'the platform to run the task.';
   static const String outcome = 'Outcome';
   static const String startedAt = 'Started at';
+  static const String finishedAt = 'Finished at';
   static const String pages = 'Pages';
   static const String tokenReset = 'Token reset';
   static const String tokenResetHint =
