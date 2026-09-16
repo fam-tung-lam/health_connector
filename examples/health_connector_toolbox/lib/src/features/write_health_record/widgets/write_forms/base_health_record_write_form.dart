@@ -3,7 +3,6 @@ import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/start_date_time_picker_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
-import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/metadata_write_form_field_group.dart';
 
 /// Callback type for form submission.
@@ -152,9 +151,12 @@ abstract class BaseHealthRecordWriteFormState<
         // Submit Button
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: ElevatedGradientButton(
-            onPressed: _submitRecord,
-            label: AppTexts.write,
+          child: SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _submitRecord,
+              child: const Text(AppTexts.write),
+            ),
           ),
         ),
       ],

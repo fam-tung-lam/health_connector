@@ -10,7 +10,6 @@ import 'package:health_connector/health_connector_internal.dart'
         HealthPlatformFeatureStatus;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
-import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
 import 'package:health_connector_toolbox/src/common/widgets/health_data_category_list_view.dart';
 import 'package:health_connector_toolbox/src/common/widgets/search_text_field.dart';
 import 'package:health_connector_toolbox/src/features/permissions/permissions_change_notifier.dart';
@@ -233,7 +232,7 @@ final class PermissionsContentView extends StatelessWidget {
 
 /// Permission action bar widget.
 ///
-/// Displays a gradient action bar with a button to request
+/// Displays a full-width button at the bottom of the page to request the
 /// selected permissions.
 final class _PermissionActionBar extends StatelessWidget {
   const _PermissionActionBar({
@@ -249,11 +248,20 @@ final class _PermissionActionBar extends StatelessWidget {
     return Selector<PermissionsChangeNotifier, int>(
       selector: (_, notifier) => notifier.selectedPermissions.length,
       builder: (context, selectedCount, _) {
-        return ElevatedGradientButton(
-          onPressed: notifier.isLoading || selectedCount == 0
-              ? null
-              : onRequestPermissions,
-          label: _getButtonText(selectedCount),
+        return SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: notifier.isLoading || selectedCount == 0
+                    ? null
+                    : onRequestPermissions,
+                child: Text(_getButtonText(selectedCount)),
+              ),
+            ),
+          ),
         );
       },
     );

@@ -7,7 +7,6 @@ import 'package:health_connector_toolbox/src/common/utils/extensions/display_nam
 import 'package:health_connector_toolbox/src/common/utils/mixins/date_time_range_picker_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
-import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_range_presets.dart';
 import 'package:health_connector_toolbox/src/common/widgets/health_data_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
@@ -15,6 +14,7 @@ import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_ra
 import 'package:health_connector_toolbox/src/common/widgets/searchable_dropdown_menu_form_field.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/aggregate_health_data_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/widgets/aggregate_result_card.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/widgets/console_logs_action_button.dart';
 import 'package:provider/provider.dart' show Provider, Selector;
 
 /// Page for aggregating health data over a time range.
@@ -184,7 +184,10 @@ class _AggregateDataPageState extends State<AggregateDataPage>
         return LoadingOverlay(
           isLoading: isLoading,
           child: Scaffold(
-            appBar: AppBar(title: const Text(AppTexts.readAggregateData)),
+            appBar: AppBar(
+              title: const Text(AppTexts.readAggregateData),
+              actions: const [ConsoleLogsActionButton()],
+            ),
             body: Column(
               children: [
                 Expanded(
@@ -331,9 +334,18 @@ class _AggregateDataPageState extends State<AggregateDataPage>
                     ),
                   ),
                 ),
-                ElevatedGradientButton(
-                  onPressed: isLoading ? null : _aggregate,
-                  label: AppTexts.aggregate.toUpperCase(),
+                SafeArea(
+                  top: false,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: isLoading ? null : _aggregate,
+                        child: Text(AppTexts.aggregate.toUpperCase()),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

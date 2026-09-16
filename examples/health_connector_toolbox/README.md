@@ -139,8 +139,8 @@ Every SDK log event, from Dart and from the native layers, is captured by a
 kept in the app-wide `ConsoleLogStore`. Entries are persisted per isolate, so
 logs written by the background sync isolate are merged into the same console
 the next time the store reloads. The **SDK Console Logs** screen filters by
-level, searches, copies, and clears the log; the background sync screen embeds
-the same console.
+level, searches, copies, and clears the log. Every feature screen opens it
+from the console icon in its app bar.
 
 ---
 

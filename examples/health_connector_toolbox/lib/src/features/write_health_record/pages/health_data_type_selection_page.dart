@@ -4,6 +4,7 @@ import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 import 'package:health_connector_toolbox/src/common/widgets/health_data_category_list_view.dart';
 import 'package:health_connector_toolbox/src/common/widgets/search_text_field.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/widgets/console_logs_action_button.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/feature_navigation_card.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/pages/health_record_write_page.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
@@ -68,6 +69,7 @@ class _HealthDataTypeSelectionPageState
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppTexts.insertHealthRecord),
+        actions: const [ConsoleLogsActionButton()],
       ),
       body: Column(
         children: [

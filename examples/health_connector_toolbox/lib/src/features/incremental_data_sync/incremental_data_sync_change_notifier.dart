@@ -6,8 +6,8 @@ import 'package:health_connector_toolbox/src/features/incremental_data_sync/serv
 
 /// ChangeNotifier for managing incremental data synchronization state.
 ///
-/// Handles sync token persistence, data synchronization, pagination,
-/// and console logging for the test harness UI.
+/// Handles sync token persistence, data synchronization, and pagination for
+/// the test harness UI.
 final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
   final HealthConnector _healthConnector;
   final SyncTokenStorageService _storageService;
@@ -21,10 +21,6 @@ final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
   List<HealthRecord> _upsertedRecords = [];
   List<HealthRecordId> _deletedRecordIds = [];
   bool _hasMore = false;
-
-  // Console logs
-  final List<String> _logs = [];
-  static const int _maxLogLines = 100;
 
   // Getters
   bool get isLoading => _isLoading;
@@ -40,8 +36,6 @@ final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
       UnmodifiableListView(_deletedRecordIds);
 
   bool get hasMore => _hasMore;
-
-  UnmodifiableListView<String> get logs => UnmodifiableListView(_logs);
 
   IncrementalDataSyncChangeNotifier(
     this._healthConnector,
@@ -60,10 +54,6 @@ final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
           _selectedDataTypes = List.from(token.dataTypes);
         }
       });
-      _addLog(
-        'Initialized: '
-        '${token != null ? "Token loaded" : "No token found"}',
-      );
     } finally {
       notify(() => _isLoading = false);
     }
@@ -78,10 +68,6 @@ final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
     }
 
     notify(() => _isLoading = true);
-    _addLog(
-      'Starting synchronization for '
-      '${_selectedDataTypes.length} data type(s)...',
-    );
 
     try {
       final result = await _healthConnector.synchronize(
@@ -99,12 +85,6 @@ final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
 
       // Save token
       await _storageService.saveToken(_syncToken);
-
-      _addLog(
-        'Sync complete: ${result.upsertedRecords.length} upsert(s), '
-        '${result.deletedRecordIds.length} deletion(s), '
-        'hasMore: ${result.hasMore}',
-      );
     } finally {
       notify(() => _isLoading = false);
     }
@@ -129,7 +109,6 @@ final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
         _deletedRecordIds = [];
         _hasMore = false;
       });
-      _addLog('Token cleared');
     } finally {
       notify(() => _isLoading = false);
     }
@@ -142,7 +121,6 @@ final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
       _deletedRecordIds = [];
       _hasMore = false;
     });
-    _addLog('Results cleared');
   }
 
   /// Updates the selected data types for synchronization.
@@ -152,16 +130,6 @@ final class IncrementalDataSyncChangeNotifier extends ChangeNotifier {
     notify(() {
       _selectedDataTypes = dataTypes;
     });
-  }
-
-  /// Adds a timestamped log entry.
-  void _addLog(String message) {
-    final timestamp = DateTime.now().toString().substring(11, 19);
-    _logs.add('[$timestamp] $message');
-    if (_logs.length > _maxLogLines) {
-      _logs.removeAt(0);
-    }
-    notifyListeners();
   }
 
   /// Helper method to notify listeners after state mutation.

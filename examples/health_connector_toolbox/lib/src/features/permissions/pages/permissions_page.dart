@@ -7,6 +7,7 @@ import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dar
 import 'package:health_connector_toolbox/src/common/widgets/error_view.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_indicator.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
+import 'package:health_connector_toolbox/src/features/console_logs/widgets/console_logs_action_button.dart';
 import 'package:health_connector_toolbox/src/features/permissions/permissions_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/permissions/widgets/permissions_content_view.dart';
 import 'package:provider/provider.dart'
@@ -53,6 +54,7 @@ class _PermissionsPageState extends State<PermissionsPage>
                 child: Scaffold(
                   appBar: AppBar(
                     title: const Text(AppTexts.requestPermissions),
+                    actions: const [ConsoleLogsActionButton()],
                   ),
                   body: loadingState.isPageLoading
                       ? const LoadingIndicator()
