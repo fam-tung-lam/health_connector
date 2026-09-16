@@ -5,6 +5,10 @@ import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/widgets/error_view.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/aggregate_health_data_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/pages/aggregate_health_data_page.dart';
+import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/background_incremental_data_sync_change_notifier.dart';
+import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/pages/background_incremental_data_sync_page.dart';
+import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/services/background_sync_scheduler.dart';
+import 'package:health_connector_toolbox/src/features/background_incremental_data_sync/services/background_sync_storage.dart';
 import 'package:health_connector_toolbox/src/features/console_logs/pages/console_logs_page.dart';
 import 'package:health_connector_toolbox/src/features/home/home_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/platform_status_card.dart';
@@ -22,6 +26,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/write_
 import 'package:provider/provider.dart'
     show Consumer, Provider, ChangeNotifierProvider;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workmanager/workmanager.dart' show Workmanager;
 
 /// The main home page of the application.
 ///
@@ -128,6 +133,8 @@ final class _HomeContent extends StatelessWidget {
             onOpenSync: () => unawaited(
               _navigateToIncrementalDataSync(context),
             ),
+            onOpenBackgroundSync: () =>
+                _navigateToBackgroundIncrementalDataSync(context),
             onOpenConsoleLogs: () => _navigateToConsoleLogs(context),
           ),
 
@@ -229,6 +236,30 @@ final class _HomeContent extends StatelessWidget {
             child: IncrementalDataSyncPage(
               healthPlatform: healthConnector.healthPlatform,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Navigates to the background incremental data sync page.
+  ///
+  /// Storage uses the async preferences API so the page observes values the
+  /// headless background isolate wrote.
+  void _navigateToBackgroundIncrementalDataSync(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<Widget>(
+        builder: (_) => ChangeNotifierProvider(
+          create: (_) => BackgroundIncrementalDataSyncChangeNotifier(
+            healthConnector: healthConnector,
+            storage: SharedPreferencesBackgroundSyncStorage(
+              SharedPreferencesAsync(),
+            ),
+            scheduler: WorkmanagerBackgroundSyncScheduler(Workmanager()),
+          )..initialize(),
+          child: BackgroundIncrementalDataSyncPage(
+            healthPlatform: healthConnector.healthPlatform,
           ),
         ),
       ),

@@ -31,6 +31,8 @@ abstract final class AppTexts {
       'Inspect supported metrics and aggregation responses';
   static const String syncApiDescription =
       'Inspect change tokens and updates for authorized data types';
+  static const String backgroundSyncApiDescription =
+      'Schedule incremental sync in the background and inspect its latest run';
   static const String consoleLogsApiDescription =
       'Inspect Dart and native SDK log events captured across features';
   static const String diagnostics = 'Diagnostics';
@@ -300,6 +302,7 @@ abstract final class AppTexts {
   static const String delete = 'Delete';
   static const String cancel = 'Cancel';
   static const String close = 'Close';
+  static const String refresh = 'Refresh';
   static const String deleteRecordQuestion = 'Delete Record?';
   static const String actionCannotBeUndone = 'This action cannot be undone.';
   static const String sample = 'Sample';
@@ -1016,6 +1019,62 @@ abstract final class AppTexts {
   static const String dataTypes = 'Data Types';
   static const String types = 'type(s)';
   static const String lastSync = 'Last Sync';
+
+  // endregion
+
+  // region Background Incremental Data Sync
+  static const String backgroundIncrementalDataSync =
+      'Background Incremental Data Sync';
+  static const String backgroundSyncStatus = 'Background Sync';
+  static const String active = 'Active';
+  static const String inactive = 'Inactive';
+  static const String enableBackgroundSync = 'ENABLE BACKGROUND SYNC';
+  static const String disableBackgroundSync = 'DISABLE BACKGROUND SYNC';
+  static const String backgroundSyncEnabled = 'Background sync enabled';
+  static const String backgroundSyncDisabled = 'Background sync disabled';
+  static const String runSyncNow = 'Run sync now';
+  static const String runSyncNowHint =
+      'Runs the same worker the scheduler executes, in the foreground';
+  static const String everyMinutes = 'Every {0} min';
+  static const String schedulerState = 'Scheduler state';
+  static const String lastFinished = 'Last finished';
+  static const String notScheduled = 'Not scheduled';
+  static const String androidBackgroundSyncNote =
+      'Android runs the task at least 15 minutes apart and may delay it under '
+      'battery optimization. Reads require the background read permission.';
+  static const String iosBackgroundSyncNote =
+      'iOS runs app refresh tasks opportunistically (about 30 s each) and '
+      'cannot read health data while the device is locked. Trigger a run '
+      'from Xcode with the BGTaskScheduler launch command.';
+  static const String backgroundReadPermission = 'Background read permission';
+  static const String requestPermission = 'Request';
+  static const String featureUnavailable = 'Feature unavailable';
+  static const String selectedDataTypes = 'Selected Data Types';
+  static const String noDataTypesSelected =
+      'No data types selected. Tap to choose which types to sync.';
+  static const String tapToAdjustSelection = 'Tap to adjust the selection';
+  static const String selectAtLeastOneDataType =
+      'Select at least one data type first';
+  static const String selectionSaved = 'Selection saved';
+  static const String dataTypesChangedTokenCleared =
+      'Data types changed, the stored sync token was cleared';
+  static const String done = 'Done';
+  static const String clearSelection = 'Clear selection';
+  static const String latestSyncResult = 'Latest Sync Result';
+  static const String noSyncResultYet =
+      'No background sync has run yet. Enable background sync or run it now.';
+  static const String trigger = 'Trigger';
+  static const String outcome = 'Outcome';
+  static const String startedAt = 'Started at';
+  static const String pages = 'Pages';
+  static const String tokenReset = 'Token reset';
+  static const String tokenResetHint =
+      'The stored token was rejected or covered other data types, so the run '
+      'started from a new baseline. Deletions before the baseline are lost.';
+  static const String willRetry = 'Will retry';
+  static const String openFullConsole = 'Open full console';
+  static const String syncTokenCleared = 'Sync token cleared';
+  static const String backgroundSyncCompleted = 'Sync run completed';
 
   // endregion
 
