@@ -81,6 +81,7 @@
 
     <!-- Health Connect feature permissions -->
     <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_HISTORY" />
+    <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND" />
 
     <application
         android:name="${applicationName}"
