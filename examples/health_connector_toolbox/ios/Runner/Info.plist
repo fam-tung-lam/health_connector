@@ -32,8 +32,16 @@
 	<string>Health Connector Toolbox reads the health data types you choose so you can browse your records and view health summaries on this device.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Health Connector Toolbox writes only the health entries you create so you can manage them in Apple Health and delete entries created by this app.</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.phamtunglam.healthconnector.background_sync</string>
+	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
