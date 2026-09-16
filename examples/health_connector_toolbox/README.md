@@ -99,7 +99,11 @@ Files: `lib/src/features/background_incremental_data_sync/`.
   `ToolboxApplication` installs `HealthConnectorWorkmanagerDebugHandler`,
   which forwards WorkManager task status updates into the SDK native logger.
 - **iOS**: `Info.plist` declares `UIBackgroundModes: fetch` and the task
-  identifier in `BGTaskSchedulerPermittedIdentifiers`. `AppDelegate` calls
+  identifier in `BGTaskSchedulerPermittedIdentifiers`. `AppDelegate`
+  pre-registers the identifier with
+  `WorkmanagerPlugin.registerPeriodicTask(withIdentifier:)` on every launch
+  (iOS accepts launch handlers only before the launch finishes, and
+  `BGTaskScheduler.submit` crashes for an identifier without one), calls
   `WorkmanagerPlugin.registerLaunchHandlers()`, registers the plugin
   registrant for the background engine, and installs the plugin's
   `LoggingDebugHandler`. `workmanager_apple` 0.9.x does not let another module
