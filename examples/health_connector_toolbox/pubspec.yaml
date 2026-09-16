@@ -16,6 +16,7 @@ dependencies:
   shared_preferences: ^2.5.4
 
 dev_dependencies:
+  fake_async: ^1.3.1
   flutter_test:
     sdk: flutter
   health_connector_lint: ^1.2.1

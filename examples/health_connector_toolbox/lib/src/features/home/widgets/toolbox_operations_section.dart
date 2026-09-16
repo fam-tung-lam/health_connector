@@ -3,7 +3,8 @@ import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/feature_navigation_card.dart';
 
-/// Navigation for privacy information and Health Connector SDK operations.
+/// Navigation for privacy information, Health Connector SDK operations, and
+/// diagnostics.
 @immutable
 final class ToolboxOperationsSection extends StatelessWidget {
   const ToolboxOperationsSection({
@@ -13,6 +14,7 @@ final class ToolboxOperationsSection extends StatelessWidget {
     required this.onOpenWrite,
     required this.onOpenAggregation,
     required this.onOpenSync,
+    required this.onOpenConsoleLogs,
     super.key,
   });
 
@@ -22,6 +24,7 @@ final class ToolboxOperationsSection extends StatelessWidget {
   final VoidCallback onOpenWrite;
   final VoidCallback onOpenAggregation;
   final VoidCallback onOpenSync;
+  final VoidCallback onOpenConsoleLogs;
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +87,24 @@ final class ToolboxOperationsSection extends StatelessWidget {
           description: AppTexts.syncApiDescription,
           color: Colors.indigo,
           onTap: onOpenSync,
+        ),
+        const SizedBox(height: 28),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Text(
+            AppTexts.diagnostics,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        FeatureNavigationCard(
+          icon: AppIcons.terminal,
+          title: AppTexts.sdkConsoleLogs,
+          description: AppTexts.consoleLogsApiDescription,
+          color: Colors.green,
+          onTap: onOpenConsoleLogs,
         ),
       ],
     );

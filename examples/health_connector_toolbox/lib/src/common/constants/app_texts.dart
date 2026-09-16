@@ -31,6 +31,9 @@ abstract final class AppTexts {
       'Inspect supported metrics and aggregation responses';
   static const String syncApiDescription =
       'Inspect change tokens and updates for authorized data types';
+  static const String consoleLogsApiDescription =
+      'Inspect Dart and native SDK log events captured across features';
+  static const String diagnostics = 'Diagnostics';
   static const String privacyAndData = 'Privacy & Data';
   static const String privacyAndDataDescription =
       'Learn what stays on this device and how to remove it';
@@ -1013,6 +1016,27 @@ abstract final class AppTexts {
   static const String dataTypes = 'Data Types';
   static const String types = 'type(s)';
   static const String lastSync = 'Last Sync';
+
+  // endregion
+
+  // region Console Logs
+  static const String sdkConsoleLogs = 'SDK Console Logs';
+  static const String noLogsMatchFilters = 'No logs match the current filters';
+  static const String copyLogs = 'Copy logs';
+  static const String logsCopied = 'Logs copied to clipboard';
+  static const String clearLogs = 'Clear logs';
+  static const String clearLogsQuestion = 'Clear Console Logs?';
+  static const String clearLogsContent =
+      'This removes every captured log entry, including entries persisted by '
+      'the background sync task.';
+  static const String refreshLogs = 'Reload persisted logs';
+  static const String searchLogs = 'Search logs...';
+  static const String origin = 'Origin';
+  static const String isolate = 'Isolate';
+  static const String operation = 'Operation';
+  static const String exception = 'Exception';
+  static const String context = 'Context';
+  static const String entries = 'entries';
 
   // endregion
 
