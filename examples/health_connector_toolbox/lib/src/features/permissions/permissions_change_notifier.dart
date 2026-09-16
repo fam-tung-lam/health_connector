@@ -38,8 +38,12 @@ final class LoadingRequest extends PermissionLoadingState {
 /// state of permissions for batch requests.
 final class PermissionsChangeNotifier extends ChangeNotifier {
   /// Platform features exercised by the Toolbox.
+  ///
+  /// Background reads back the background incremental data sync feature, so
+  /// its permission must be requestable from the permissions page.
   static const healthPlatformFeatures = [
     HealthPlatformFeature.readHealthDataHistory,
+    HealthPlatformFeature.readHealthDataInBackground,
   ];
 
   final HealthConnector _healthConnector;
