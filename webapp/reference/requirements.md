@@ -6,8 +6,8 @@ Version floors for the current release, and what each one is actually for.
 
 | Component | Requirement |
 |---|---|
-| Flutter | ≥ 3.35.7 |
-| Dart | `^3.9.2` (declared in the package's `pubspec.yaml`) |
+| Flutter | ≥ 3.38.0 (declared as `flutter: '>=3.38.0'`) |
+| Dart | `^3.9.2` (declared in the package's `pubspec.yaml`); Flutter 3.38.0 ships Dart 3.10.0 |
 | Android OS | API 26+ (Android 8.0) at build time |
 | Kotlin | 2.1.0 |
 | Java | 17 |
@@ -15,9 +15,9 @@ Version floors for the current release, and what each one is actually for.
 | Swift | 5.9 |
 
 ::: warning The Flutter floor is enforced by pub, not advisory
-`sdk: ^3.9.2` resolves only against Flutter 3.35.x and later. On Flutter 3.32 (Dart 3.8) `pub get` fails outright — there is no way to use this package on an older Flutter.
+The package declares `flutter: '>=3.38.0'`, so `pub get` fails outright on Flutter 3.35.x and older — there is no way to use this package on an older Flutter.
 
-Upgrading is normally cheap, though: Flutter 3.35.7 is source-compatible with apps written for 3.32.0, and for 3.27.0 if you are already on Material 3. Swift 5.9 accepts Swift 5.0 code and Kotlin 2.1 accepts Kotlin 2.0, so the native side is a version bump in your build files.
+The Dart constraint stays at `^3.9.2`, but the Flutter floor is the binding one: every Flutter release from 3.38.0 onward ships Dart 3.10.0 or later. Swift 5.9 accepts Swift 5.0 code and Kotlin 2.1 accepts Kotlin 2.0, so the native side is a version bump in your build files.
 :::
 
 ## Android build configuration

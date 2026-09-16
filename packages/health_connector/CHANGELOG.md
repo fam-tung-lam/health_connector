@@ -1,3 +1,11 @@
+## Unreleased
+
+> Note: This release has breaking changes.
+
+- **BREAKING** **BUILD**: Require Flutter 3.38.0 or later. The plugin now
+  declares `flutter: '>=3.38.0'`, so `pub get` no longer resolves on Flutter
+  3.35.x and earlier.
+
 ## 3.11.0
 
 - **FEAT**: Add read and sum-aggregation support for Apple Stand Hour records

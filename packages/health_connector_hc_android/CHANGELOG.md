@@ -1,3 +1,10 @@
+## Unreleased
+
+> Note: This release has breaking changes.
+
+- **BREAKING** **BUILD**: Require Flutter 3.38.0 or later for the Android
+  Health Connect plugin.
+
 ## 3.8.0
 
 - **FEAT**: Return the Android API level and Health Connect SDK Extension

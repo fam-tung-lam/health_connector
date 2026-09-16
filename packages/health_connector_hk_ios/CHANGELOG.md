@@ -1,3 +1,10 @@
+## Unreleased
+
+> Note: This release has breaking changes.
+
+- **BREAKING** **BUILD**: Require Flutter 3.38.0 or later for the iOS HealthKit
+  plugin.
+
 ## 3.10.0
 
 - **FEAT**: Add read and sum-aggregation support for Apple Stand Hour records

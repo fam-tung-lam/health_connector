@@ -7,7 +7,7 @@ issue_tracker: https://github.com/fam-tung-lam/health_connector/issues?q=is%3Ais
 
 environment:
   sdk: ^3.9.2
-  flutter: '>=3.3.0'
+  flutter: '>=3.38.0'
 
 dependencies:
   flutter:

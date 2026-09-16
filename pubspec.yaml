@@ -28,7 +28,7 @@ melos:
     bootstrap:
       environment:
         sdk: ^3.9.2
-        flutter: '>=3.3.0'
+        flutter: '>=3.38.0'
 
       dependencies:
         meta: ^1.16.0
