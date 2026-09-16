@@ -20,6 +20,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   health_connector_lint: ^1.2.1
+  mocktail: ^1.0.4
 
 flutter:
   uses-material-design: true
