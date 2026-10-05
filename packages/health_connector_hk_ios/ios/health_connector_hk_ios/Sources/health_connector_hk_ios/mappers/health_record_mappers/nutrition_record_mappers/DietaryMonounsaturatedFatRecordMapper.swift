@@ -30,7 +30,7 @@ extension HKQuantitySample {
         )
 
         // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
         let foodName = NutrientFoodNameKey.read(from: builder.metadataDict)
         let mealType = NutrientMealTypeKey.read(from: builder.metadataDict)
 

@@ -29,9 +29,11 @@ enum StartTimeZoneOffsetKey: CustomMetadataKey {
     /// First attempts to read from our custom metadata key. If not present,
     /// falls back to extracting the offset from the native HealthKit timezone.
     ///
-    /// - Parameter metadata: The HealthKit metadata dictionary
+    /// - Parameters:
+    ///   - metadata: The HealthKit metadata dictionary
+    ///   - date: The sample start date used to resolve historical daylight saving time
     /// - Returns: The timezone offset in seconds, or `nil` if not available
-    static func read(from metadata: [String: Any]?) -> Int64? {
+    static func read(from metadata: [String: Any]?, at date: Date) -> Int64? {
         // First try reading from custom key using superclass implementation
         if let customValue = deserialize(metadata?[fullKey]) {
             return customValue
@@ -44,7 +46,7 @@ enum StartTimeZoneOffsetKey: CustomMetadataKey {
             return nil
         }
 
-        return Int64(timeZone.secondsFromGMT())
+        return Int64(timeZone.secondsFromGMT(for: date))
     }
 }
 
@@ -74,9 +76,11 @@ enum EndTimeZoneOffsetKey: CustomMetadataKey {
     /// First attempts to read from our custom metadata key. If not present,
     /// falls back to extracting the offset from the native HealthKit timezone.
     ///
-    /// - Parameter metadata: The HealthKit metadata dictionary
+    /// - Parameters:
+    ///   - metadata: The HealthKit metadata dictionary
+    ///   - date: The sample end date used to resolve historical daylight saving time
     /// - Returns: The timezone offset in seconds, or `nil` if not available
-    static func read(from metadata: [String: Any]?) -> Int64? {
+    static func read(from metadata: [String: Any]?, at date: Date) -> Int64? {
         // First try reading from custom key using superclass implementation
         if let customValue = deserialize(metadata?[fullKey]) {
             return customValue
@@ -89,6 +93,6 @@ enum EndTimeZoneOffsetKey: CustomMetadataKey {
             return nil
         }
 
-        return Int64(timeZone.secondsFromGMT())
+        return Int64(timeZone.secondsFromGMT(for: date))
     }
 }

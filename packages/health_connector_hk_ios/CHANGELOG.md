@@ -1,3 +1,9 @@
+## Unreleased
+
+- **FIX**: Resolve HealthKit timezone metadata at each sample's start and end
+  dates so historical daylight saving time is preserved. Explicitly stored
+  timezone offsets continue to take precedence.
+
 ## 3.10.1
 
 - **BUILD**: Bump the minimum Flutter version from 3.3.0 to 3.38.0 and the

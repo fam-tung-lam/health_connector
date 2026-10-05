@@ -35,8 +35,8 @@ extension HKCategorySample {
             startTime: startDate.millisecondsSince1970,
             endTime: endDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            startZoneOffsetSeconds: StartTimeZoneOffsetKey.read(from: builder.metadataDict),
-            endZoneOffsetSeconds: EndTimeZoneOffsetKey.read(from: builder.metadataDict),
+            startZoneOffsetSeconds: StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate),
+            endZoneOffsetSeconds: EndTimeZoneOffsetKey.read(from: builder.metadataDict, at: endDate),
             aWeightedDecibel: aWeightedDecibel
         )
     }

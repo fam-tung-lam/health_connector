@@ -72,7 +72,7 @@ extension HKQuantitySample {
             let rpmValue = quantity.doubleValue(for: unit)
 
             // Extract timezone offset from metadata
-            let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+            let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
 
             return try CyclingPedalingCadenceRecordDto(
                 id: uuid.uuidString,

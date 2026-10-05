@@ -25,8 +25,8 @@ extension HKWorkout {
         let notes = ExerciseSessionNotesKey.read(from: builder.metadataDict)
 
         // Extract timezone offsets
-        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
-        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict) ?? startZoneOffset
+        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
+        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict, at: endDate) ?? startZoneOffset
 
         // Convert workout events to DTOs
         let eventDtos = (workoutEvents ?? []).compactMap { $0.toEventDto() }

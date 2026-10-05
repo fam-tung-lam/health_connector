@@ -55,7 +55,7 @@ extension HKQuantitySample {
         )
 
         // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
 
         let bpmUnit = HKUnit.count().unitDivided(by: .minute())
         let beatsPerMinute = quantity.doubleValue(for: bpmUnit)

@@ -15,7 +15,7 @@ extension HKCategorySample {
         )
 
         // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
 
         // Convert HealthKit category value to DTO
         guard let hkResult = HKCategoryValueOvulationTestResult(rawValue: value) else {

@@ -60,7 +60,7 @@ extension HKQuantitySample {
         )
 
         // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
         let value = quantity.doubleValue(for: unit)

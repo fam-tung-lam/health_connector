@@ -39,8 +39,8 @@ extension HKCategorySample {
             metadata: builder.toMetadataDto(),
             vo2MlPerMinPerKg: vo2MaxVal,
             vo2MlPerMinPerKgThreshold: thresholdVal,
-            startZoneOffsetSeconds: StartTimeZoneOffsetKey.read(from: builder.metadataDict),
-            endZoneOffsetSeconds: EndTimeZoneOffsetKey.read(from: builder.metadataDict)
+            startZoneOffsetSeconds: StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate),
+            endZoneOffsetSeconds: EndTimeZoneOffsetKey.read(from: builder.metadataDict, at: endDate)
         )
     }
 }

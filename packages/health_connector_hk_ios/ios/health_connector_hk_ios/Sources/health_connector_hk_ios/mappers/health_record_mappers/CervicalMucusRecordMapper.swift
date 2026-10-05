@@ -33,7 +33,7 @@ extension HKCategorySample {
         )
 
         // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
 
         // Appearance Handling:
         // Priority 1: Custom metadata (supports all 7 types including .unusual and .unknown)

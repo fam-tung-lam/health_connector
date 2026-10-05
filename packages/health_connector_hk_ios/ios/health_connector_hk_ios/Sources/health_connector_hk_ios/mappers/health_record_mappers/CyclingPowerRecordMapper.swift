@@ -62,7 +62,7 @@ extension HKQuantitySample {
             )
 
             // Extract timezone offset from metadata
-            let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+            let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
 
             return try CyclingPowerRecordDto(
                 id: uuid.uuidString,

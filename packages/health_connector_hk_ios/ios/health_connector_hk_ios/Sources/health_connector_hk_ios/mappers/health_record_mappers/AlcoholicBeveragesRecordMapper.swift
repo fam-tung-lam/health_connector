@@ -61,8 +61,8 @@ extension HKQuantitySample {
         )
 
         // Extract timezone offsets from metadata
-        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
-        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
+        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict, at: endDate)
 
         return try AlcoholicBeveragesRecordDto(
             count: count,

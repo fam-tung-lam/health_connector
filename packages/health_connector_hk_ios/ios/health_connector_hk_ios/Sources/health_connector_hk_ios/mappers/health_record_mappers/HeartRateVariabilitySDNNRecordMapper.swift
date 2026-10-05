@@ -58,7 +58,7 @@ extension HKQuantitySample {
         )
 
         // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
 
         // HealthKit has seconds, DTO expects milliseconds
         let milliseconds = quantity.doubleValue(for: .second()) * 1000

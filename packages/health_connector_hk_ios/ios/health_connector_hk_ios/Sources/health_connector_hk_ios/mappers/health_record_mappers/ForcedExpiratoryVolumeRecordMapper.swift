@@ -54,8 +54,8 @@ extension HKQuantitySample {
             device: device
         )
 
-        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
-        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
+        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict, at: endDate)
 
         return try ForcedExpiratoryVolumeRecordDto(
             id: uuid.uuidString,

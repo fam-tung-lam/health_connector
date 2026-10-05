@@ -56,7 +56,7 @@ extension HKQuantitySample {
         )
 
         // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
 
         // FVC is measured in liters
         return try ForcedVitalCapacityRecordDto(

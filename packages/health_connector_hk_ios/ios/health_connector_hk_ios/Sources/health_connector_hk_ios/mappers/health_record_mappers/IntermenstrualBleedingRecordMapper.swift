@@ -15,7 +15,7 @@ extension HKCategorySample {
         )
 
         // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict, at: startDate)
 
         return try IntermenstrualBleedingRecordDto(
             id: uuid.uuidString,
