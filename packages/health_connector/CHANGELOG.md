@@ -6,7 +6,7 @@
   ([Issue #235](https://github.com/fam-tung-lam/health_connector/issues/235)).
 - **FIX**(health_connector_hk_ios): Preserve historical daylight saving time when reading iOS
   HealthKit records.
-  ([PR #240]([https://github.com/fam-tung-lam/health_connector/commit/56c3f313f76d31bd95cee3f7ac53e12e9b2ee80c](https://github.com/fam-tung-lam/health_connector/pull/240))).
+  ([PR #240](https://github.com/fam-tung-lam/health_connector/pull/240)).
 
 ## 3.11.1
 
