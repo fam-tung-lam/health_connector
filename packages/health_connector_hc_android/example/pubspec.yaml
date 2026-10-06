@@ -9,14 +9,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  health_connector_core: ^3.11.0
+  health_connector_core:
+    path: ../../health_connector_core
   health_connector_hc_android:
     path: ../
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  health_connector_lint: ^1.2.2
+  health_connector_lint:
+    path: ../../health_connector_lint
   integration_test:
     sdk: flutter
 
