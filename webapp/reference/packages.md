@@ -6,7 +6,7 @@ Health Connector SDK is a Melos-managed monorepo. Applications depend on the fac
 
 ```yaml
 dependencies:
-  health_connector: ^3.9.4
+  health_connector: ^3.12.0
 ```
 
 ```dart

@@ -73,6 +73,10 @@ platform feature against that snapshot.
 | `.deleteByIds(ids)` | A delete request |
 | `.deleteInTimeRange(startTime:, endTime:)` | A ranged delete request |
 | `.aggregateSum/Avg/Min/Max(startTime:, endTime:)` | An aggregate request, where the type supports it |
+| `.aggregateActiveEnergyBurnedFor(exerciseSession:)` | An `AggregateRequest<Energy>` for a saved exercise session (exercise session only, since 3.12.0) |
+
+See [workout active energy](/guide/tasks/aggregate#active-energy-for-a-saved-workout)
+for the required permissions and differences between Health Connect and HealthKit.
 
 ## Statuses and enums you will branch on
 

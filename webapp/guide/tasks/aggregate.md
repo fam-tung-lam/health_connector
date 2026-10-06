@@ -45,7 +45,7 @@ final maxResult = await connector.aggregate(
 print('Maximum weight: ${maxResult.inKilograms} kg');
 ```
 
-Those four — `aggregateSum`, `aggregateAvg`, `aggregateMin`, `aggregateMax` — are the complete set. There is no separate duration method.
+Those four — `aggregateSum`, `aggregateAvg`, `aggregateMin`, `aggregateMax` — are the time-range metrics. There is no separate duration method. Exercise sessions also provide `aggregateActiveEnergyBurnedFor` for a saved workout, described below.
 
 ## Only meaningful metrics exist
 
@@ -80,6 +80,36 @@ final totalWorkoutTime = await connector.aggregate(
 print('${totalWorkoutTime.inMinutes} minutes trained');
 ```
 :::
+
+## Active energy for a saved workout
+
+Since 3.12.0, pass a saved `ExerciseSessionRecord` to
+`HealthDataType.exerciseSession.aggregateActiveEnergyBurnedFor` to get an
+`Energy` result through the same `aggregate` API:
+
+```dart
+// exerciseSession is a saved record read from the platform store.
+final Energy energy = await connector.aggregate(
+  HealthDataType.exerciseSession.aggregateActiveEnergyBurnedFor(
+    exerciseSession: exerciseSession,
+  ),
+);
+
+print('${energy.inKilocalories} kcal');
+```
+
+The record must have a platform-assigned ID. An unsaved record with
+`HealthRecordId.none` raises `ArgumentError` when building the request.
+Missing energy returns zero. A missing saved workout raises
+`InvalidArgumentException`.
+
+| Platform | Read permissions | How energy is calculated |
+|---|---|---|
+| Android Health Connect | `HealthDataType.exerciseSession.readPermission` and `HealthDataType.activeEnergyBurned.readPermission` | Sums active energy from the saved session's data origin within its time range. Other activity from that source during the interval may be included. |
+| iOS HealthKit | `HealthDataType.exerciseSession.readPermission` | Reads energy associated with the saved workout. On iOS 16+, uses workout statistics with `totalEnergyBurned` as fallback. On iOS 15, uses `totalEnergyBurned`. |
+
+This returns active energy for one workout. `exerciseSession.aggregateSum`
+continues to return total workout duration across a time range.
 
 ## Results keep their units
 

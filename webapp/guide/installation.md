@@ -28,7 +28,7 @@ Or declare it directly in `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  health_connector: ^3.9.4
+  health_connector: ^3.12.0
 ```
 
 Depend only on the facade. The Android and iOS implementations arrive transitively, which lets the facade coordinate compatible releases — see [Packages](/reference/packages).

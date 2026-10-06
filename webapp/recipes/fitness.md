@@ -139,6 +139,26 @@ Future<void> showWorkoutMap(HealthRecordId sessionId) async {
 Each call is a separate round trip carrying a full GPS track. Fetching a route per session to render a list turns one query into dozens, moves a lot of location data you will not draw, and on Android pushes you toward `rateLimitExceeded`.
 :::
 
+## Read active energy for a workout
+
+For a saved session from the history query, use the workout energy builder:
+
+```dart
+final Energy energy = await connector.aggregate(
+  HealthDataType.exerciseSession.aggregateActiveEnergyBurnedFor(
+    exerciseSession: session,
+  ),
+);
+print('Active energy: ${energy.inKilocalories} kcal');
+```
+
+On Android, also request `HealthDataType.activeEnergyBurned.readPermission`.
+Health Connect sums energy from the workout's source during its time range, so
+other activity in that interval can be included. HealthKit reads the energy
+associated with the saved workout and requires workout read access.
+See [workout active energy](/guide/tasks/aggregate#active-energy-for-a-saved-workout)
+for missing-record behavior and iOS version differences.
+
 ## Strength training and extended segment fields
 
 Segments describe what happened inside a session — sets, reps, load, and

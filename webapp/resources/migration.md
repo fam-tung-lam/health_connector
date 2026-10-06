@@ -4,6 +4,16 @@ Health Connector SDK follows semantic versioning. Major releases contain
 breaking changes, while minor releases may add replacement APIs and deprecate
 older ones before the next major release removes them.
 
+## v3.11.x → v3.12.0
+
+No API migration is required. Version 3.12.0 adds
+[`aggregateActiveEnergyBurnedFor`](/guide/tasks/aggregate#active-energy-for-a-saved-workout)
+for saved exercise sessions and fixes historical daylight saving time when
+reading HealthKit records.
+
+Android apps using workout energy need both exercise-session and active-energy
+read permissions. iOS apps need workout read access.
+
 ## v3.10.x → v3.11.0
 
 Platform support is now represented by requirements and resolved against the
