@@ -1,9 +1,16 @@
-## Unreleased
+## 3.11.0
 
 - **FEAT**: Add `ExerciseSessionDataType.aggregateActiveEnergyBurnedFor` and
   `ExerciseSessionActiveEnergyAggregateRequest` to aggregate active energy for
   saved exercise sessions. Reject sessions without a saved record ID
-  ([#235](https://github.com/fam-tung-lam/health_connector/issues/235)).
+  ([#235](https://github.com/fam-tung-lam/health_connector/issues/235),
+  [2ec0633c](https://github.com/fam-tung-lam/health_connector/commit/2ec0633c1c3b1bd03a6cab48a7ba30e5253e3625)).
+- **FEAT**: Add the `sinceV3_12_0` annotation for APIs introduced in the
+  `health_connector` 3.12.0 release
+  ([bfbd33ad](https://github.com/fam-tung-lam/health_connector/commit/bfbd33ad6ef902804bef7bc0a28cddaee54157e8)).
+- **FIX**: Mark the workout energy APIs as available since `health_connector`
+  3.12.0
+  ([ed64674a](https://github.com/fam-tung-lam/health_connector/commit/ed64674a718160a4b663246bceb4b8dbc5a17499)).
 
 ## 3.10.1
 

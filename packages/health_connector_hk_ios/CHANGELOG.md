@@ -1,13 +1,21 @@
-## Unreleased
+## 3.11.0
 
 - **FEAT**: Read active energy associated with a saved workout using HealthKit
   workout statistics on iOS 16 and later, with `totalEnergyBurned` as fallback.
   Use `totalEnergyBurned` on iOS 15. Return zero when energy is missing and an
   invalid-argument error when the workout does not exist
-  ([#235](https://github.com/fam-tung-lam/health_connector/issues/235)).
+  ([#235](https://github.com/fam-tung-lam/health_connector/issues/235),
+  [c5a50482](https://github.com/fam-tung-lam/health_connector/commit/c5a504821395646c70db5eb2a95f98159fab7587),
+  [ee680bb4](https://github.com/fam-tung-lam/health_connector/commit/ee680bb4b7fe5fe12d61b2b78d1269388811fa89),
+  [f7ff851a](https://github.com/fam-tung-lam/health_connector/commit/f7ff851aa8c51f986f77284151b627bbca7f7c5f),
+  [121c347f](https://github.com/fam-tung-lam/health_connector/commit/121c347f70d26be9c6bf0c800917beddeff2807a)).
+- **FIX**: Expose the workout energy aggregate DTO protocol in generated
+  Swift platform-channel code
+  ([328c9078](https://github.com/fam-tung-lam/health_connector/commit/328c90784f48161f87a57d7e8b92e3b9c8b40fc8)).
 - **FIX**: Resolve HealthKit timezone metadata at each sample's start and end
-  dates so historical daylight saving time is preserved. Explicitly stored
-  timezone offsets continue to take precedence.
+  dates to preserve historical daylight saving time. Explicitly stored
+  timezone offsets continue to take precedence
+  ([56c3f313](https://github.com/fam-tung-lam/health_connector/commit/56c3f313f76d31bd95cee3f7ac53e12e9b2ee80c)).
 
 ## 3.10.1
 

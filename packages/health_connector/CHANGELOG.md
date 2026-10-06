@@ -1,9 +1,24 @@
-## Unreleased
+## 3.12.0
 
-- **FEAT**: Add active energy aggregation for saved exercise sessions through
+- **FEAT**(core): Add active energy aggregation for saved exercise sessions through
   `HealthDataType.exerciseSession.aggregateActiveEnergyBurnedFor` and
-  `HealthConnector.aggregate`
-  ([#235](https://github.com/fam-tung-lam/health_connector/issues/235)).
+  `HealthConnector.aggregate`. Reject sessions without a saved record ID
+  ([#235](https://github.com/fam-tung-lam/health_connector/issues/235),
+  [2ec0633c](https://github.com/fam-tung-lam/health_connector/commit/2ec0633c1c3b1bd03a6cab48a7ba30e5253e3625)).
+- **FEAT**(hc_android): Aggregate active energy using the saved session's time
+  range and data origin. Require exercise session and active energy read
+  permissions. Other activity from the same source during that interval can
+  be included
+  ([939d6009](https://github.com/fam-tung-lam/health_connector/commit/939d6009212fc41738182d7ac0103a5c4c9fafc6)).
+- **FEAT**(hk_ios): Read active energy associated with a saved workout using
+  HealthKit workout statistics on iOS 16 and later, with `totalEnergyBurned`
+  as fallback. Use `totalEnergyBurned` on iOS 15. Return zero when energy is
+  missing and an invalid-argument error when the workout does not exist
+  ([c5a50482](https://github.com/fam-tung-lam/health_connector/commit/c5a504821395646c70db5eb2a95f98159fab7587)).
+- **FIX**(hk_ios): Preserve historical daylight saving time when reading
+  HealthKit records. Explicitly stored timezone offsets continue to take
+  precedence
+  ([56c3f313](https://github.com/fam-tung-lam/health_connector/commit/56c3f313f76d31bd95cee3f7ac53e12e9b2ee80c)).
 
 ## 3.11.1
 
