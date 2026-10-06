@@ -1,9 +1,7 @@
 ## 3.9.0
 
 - **FEAT**: Aggregate active energy for saved exercise sessions using the
-  session's time range and data origin. Require exercise session and active
-  energy read permissions. Other activity from the same source during that
-  interval can be included
+  session's time range and data origin.
   ([#235](https://github.com/fam-tung-lam/health_connector/issues/235),
   [939d6009](https://github.com/fam-tung-lam/health_connector/commit/939d6009212fc41738182d7ac0103a5c4c9fafc6)).
 

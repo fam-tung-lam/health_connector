@@ -8,9 +8,6 @@
 - **FEAT**: Add the `sinceV3_12_0` annotation for APIs introduced in the
   `health_connector` 3.12.0 release
   ([bfbd33ad](https://github.com/fam-tung-lam/health_connector/commit/bfbd33ad6ef902804bef7bc0a28cddaee54157e8)).
-- **FIX**: Mark the workout energy APIs as available since `health_connector`
-  3.12.0
-  ([ed64674a](https://github.com/fam-tung-lam/health_connector/commit/ed64674a718160a4b663246bceb4b8dbc5a17499)).
 
 ## 3.10.1
 
