@@ -1,3 +1,7 @@
+## 3.11.1
+
+- **DEPS**: Update `health_connector_core` to `3.11.1`.
+
 ## 3.11.0
 
 - **FEAT**: Read active energy associated with a saved workout using HealthKit

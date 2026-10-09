@@ -1,3 +1,7 @@
+## 3.12.1
+
+- **FIX**(core): Restore JSON deserialization of persisted cycling distance sync tokens.
+
 ## 3.12.0
 
 - **FEAT**: Add active energy aggregation for an exercise session through

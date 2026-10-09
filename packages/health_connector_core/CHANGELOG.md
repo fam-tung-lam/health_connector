@@ -1,3 +1,7 @@
+## 3.11.1
+
+- **FIX**: Restore JSON deserialization of persisted cycling distance sync tokens. ([bc5da997](https://github.com/fam-tung-lam/health_connector/commit/bc5da99790eaccbaa8bc2a1d1ff622358d68fd50))
+
 ## 3.11.0
 
 - **FEAT**: Add `ExerciseSessionDataType.aggregateActiveEnergyBurnedFor` and

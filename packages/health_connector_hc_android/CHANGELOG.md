@@ -1,3 +1,7 @@
+## 3.9.1
+
+- **DEPS**: Update `health_connector_core` to `3.11.1`.
+
 ## 3.9.0
 
 - **FEAT**: Aggregate active energy for saved exercise sessions using the
