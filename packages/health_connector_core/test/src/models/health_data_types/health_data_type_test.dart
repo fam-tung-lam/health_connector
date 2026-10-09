@@ -22,6 +22,7 @@ void main() {
               HealthDataType.basalEnergyBurned,
               HealthDataType.basalMetabolicRate,
               HealthDataType.crossCountrySkiingDistance,
+              HealthDataType.cyclingDistance,
               HealthDataType.cyclingPedalingCadence,
               HealthDataType.cyclingPedalingCadenceSeries,
               HealthDataType.cyclingPower,

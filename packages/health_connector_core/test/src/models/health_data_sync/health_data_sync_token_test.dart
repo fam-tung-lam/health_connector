@@ -4,6 +4,18 @@ import 'package:test/test.dart';
 
 void main() {
   group('HealthDataSyncToken serialization', () {
+    test('cycling distance sync token survives a JSON round trip', () {
+      final token = HealthDataSyncToken.internal(
+        token: 'test_token',
+        dataTypes: const [HealthDataType.cyclingDistance],
+        createdAt: DateTime.utc(2026),
+      );
+
+      final restoredToken = HealthDataSyncToken.fromJson(token.toJson());
+
+      expect(restoredToken, token);
+    });
+
     test('toJson uses snake_case ids from HealthDataType.id', () {
       final token = HealthDataSyncToken.internal(
         token: 'test_token',

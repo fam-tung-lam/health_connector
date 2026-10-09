@@ -1318,6 +1318,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit> {
     cervicalMucus,
     contraceptive,
     crossCountrySkiingDistance,
+    cyclingDistance,
     cyclingPedalingCadence,
     cyclingPedalingCadenceSeries,
     cyclingPower,
