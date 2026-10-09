@@ -1,6 +1,8 @@
 ## 3.12.1
 
 - **FIX**(core): Restore JSON deserialization of persisted cycling distance sync tokens.
+  ([Issue #244](https://github.com/fam-tung-lam/health_connector/issues/244))
+  ([bc5da997](https://github.com/fam-tung-lam/health_connector/commit/bc5da99790eaccbaa8bc2a1d1ff622358d68fd50)).
 
 ## 3.12.0
 
