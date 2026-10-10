@@ -1,7 +1,7 @@
 ## 3.13.0
 
-- **FEAT**: Add optional `DataOrigin.displayName` for source display names on
-  Android Health Connect and iOS HealthKit.
+- **FEAT**: Add `DataOrigin.displayName` for descriptive source name.
+  ([PR #242](https://github.com/fam-tung-lam/health_connector/pull/242)).
 
 ## 3.12.1
 
