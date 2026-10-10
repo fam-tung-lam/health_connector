@@ -1,3 +1,8 @@
+## 3.13.0
+
+- **FEAT**: Add optional `DataOrigin.displayName` for source display names on
+  Android Health Connect and iOS HealthKit.
+
 ## 3.12.1
 
 - **FIX**(core): Restore JSON deserialization of persisted cycling distance sync tokens.

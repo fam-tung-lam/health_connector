@@ -1,3 +1,8 @@
+## 3.12.0
+
+- **FEAT**: Populate `DataOrigin.displayName` with the source name from
+  iOS HealthKit. ([8ac36083](https://github.com/fam-tung-lam/health_connector/commit/8ac3608320e169a17122547d2df3c7419fe85f7d))
+
 ## 3.11.1
 
 - **DEPS**: Update `health_connector_core` to `3.11.1`.

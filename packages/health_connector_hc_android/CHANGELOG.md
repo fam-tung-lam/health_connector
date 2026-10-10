@@ -1,3 +1,8 @@
+## 3.10.0
+
+- **FEAT**: Populate `DataOrigin.displayName` with the source app label from
+  Android Health Connect and cache resolved labels. ([8ac36083](https://github.com/fam-tung-lam/health_connector/commit/8ac3608320e169a17122547d2df3c7419fe85f7d)) ([e6652162](https://github.com/fam-tung-lam/health_connector/commit/e665216265e0f7b89860b47a400afe9442639908))
+
 ## 3.9.1
 
 - **DEPS**: Update `health_connector_core` to `3.11.1`.
