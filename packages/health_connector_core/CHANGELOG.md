@@ -1,3 +1,7 @@
+## 3.12.0
+
+- **FEAT**: Add optional `DataOrigin.displayName` for descriptive source names. ([8ac36083](https://github.com/fam-tung-lam/health_connector/commit/8ac3608320e169a17122547d2df3c7419fe85f7d))
+
 ## 3.11.1
 
 - **FIX**: Restore JSON deserialization of persisted cycling distance sync tokens. ([bc5da997](https://github.com/fam-tung-lam/health_connector/commit/bc5da99790eaccbaa8bc2a1d1ff622358d68fd50))
