@@ -870,6 +870,7 @@ abstract final class AppTexts {
   // region Health Record Metadata
   static const String metadata = 'Metadata';
   static const String dataOrigin = 'Data Origin';
+  static const String dataOriginDisplayName = 'Source Name';
   static const String dataOrigins = 'Data Origins';
   static const String dataOriginsHint = 'com.example1,com.example2';
   static const String dataOriginsHelper =

@@ -273,7 +273,9 @@ final class MetadataBuilder {
             deviceFirmwareVersion: device?.firmwareVersion,
             deviceSoftwareVersion: device?.softwareVersion,
             deviceLocalIdentifier: device?.localIdentifier,
-            deviceUdiDeviceIdentifier: device?.udiDeviceIdentifier
+            deviceUdiDeviceIdentifier: device?.udiDeviceIdentifier,
+            dataOriginDisplayName: source.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                ? nil : source.name
         )
     }
 

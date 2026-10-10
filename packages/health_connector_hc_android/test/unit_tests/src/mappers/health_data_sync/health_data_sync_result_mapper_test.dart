@@ -116,6 +116,7 @@ void main() {
                     id: 'record-123',
                     metadata: MetadataDto(
                       dataOrigin: FakeData.fakeDataOrigin,
+                      dataOriginDisplayName: 'Health App',
                       recordingMethod: RecordingMethodDto.manualEntry,
                       clientRecordVersion: 1,
                       deviceType: DeviceTypeDto.phone,
@@ -141,6 +142,10 @@ void main() {
 
               expect(result.upsertedRecords, hasLength(1));
               expect(result.upsertedRecords[0], isA<StepsRecord>());
+              expect(
+                result.upsertedRecords[0].metadata.dataOrigin?.displayName,
+                'Health App',
+              );
               expect(result.deletedRecordIds, hasLength(2));
               expect(result.deletedRecordIds[0].value, 'deleted-id-1');
               expect(result.deletedRecordIds[1].value, 'deleted-id-2');

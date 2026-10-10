@@ -33,6 +33,7 @@ void main() {
                     endZoneOffsetSeconds: 0,
                     metadata: MetadataDto(
                       dataOrigin: FakeData.fakeDataOrigin,
+                      dataOriginDisplayName: 'Health App',
                       recordingMethod: RecordingMethodDto.activelyRecorded,
                       clientRecordVersion: 1,
                       deviceType: DeviceTypeDto.phone,
@@ -63,6 +64,10 @@ void main() {
               expect(response.records, hasLength(2));
               expect(response.records[0], isA<StepsRecord>());
               expect(response.records[0].id.value, 'steps-1');
+              expect(
+                response.records[0].metadata.dataOrigin?.displayName,
+                'Health App',
+              );
               expect(response.records[1].id.value, 'steps-2');
               expect(response.nextPageRequest, isNull);
             },

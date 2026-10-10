@@ -107,6 +107,19 @@ Metadata.automaticallyRecorded(
 
 Attach a `Device` whenever you know the source — a phone pedometer and a chest strap have very different trust characteristics, and users can see the difference in the native health apps.
 
+Records returned by reads and synchronization also include `metadata.dataOrigin`. Its `packageName` is the source's Android package name or iOS bundle identifier. Its optional `displayName` is descriptive source information:
+
+```dart
+final origin = record.metadata.dataOrigin;
+final sourceLabel = origin?.displayName ?? origin?.packageName;
+```
+
+HealthKit supplies `HKSource.name`, which can identify an app or a supported Bluetooth LE source. Health Connect app labels are resolved through Android's package manager and may be unavailable for uninstalled or invisible packages. Blank names are returned as `null`. See [HealthKit source names](https://developer.apple.com/documentation/healthkit/hksource/name) and [Health Connect attribution](https://developer.android.com/health-and-fitness/health-connect/ui/data).
+
+Names can change with language or app updates. Equality and source filters continue to use `packageName`; names are not stable identifiers or guaranteed historical labels. Writes ignore display names and let the health platform assign attribution.
+
+Android's [package visibility rules](https://developer.android.com/training/package-visibility) can limit label lookup. Host apps may declare specific known source packages in `<queries>` when needed; this feature does not require `QUERY_ALL_PACKAGES` or guarantee that every source has a name.
+
 ## Reading records back
 
 Because requests are built from a data type, responses arrive already typed:

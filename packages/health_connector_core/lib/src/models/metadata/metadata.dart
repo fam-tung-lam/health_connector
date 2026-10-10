@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0, internalUse;
+    show sinceV1_0_0, sinceV3_13_0, internalUse;
 import 'package:meta/meta.dart' show immutable;
 
 part 'data_origin.dart';
@@ -159,7 +159,8 @@ final class Metadata {
     );
   }
 
-  /// The data origin (app package name) that wrote this record.
+  /// The source that wrote this record, including its identifier and available
+  /// display name.
   ///
   /// This field is automatically populated by the platform when writing records
   /// and is only available on records retrieved via read operations.

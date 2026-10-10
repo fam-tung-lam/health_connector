@@ -33,7 +33,12 @@ extension MetadataDtoMapper on Metadata {
 extension MetadataDtoToDomain on MetadataDto {
   Metadata toDomain() {
     return Metadata.internal(
-      dataOrigin: DataOrigin(dataOrigin),
+      dataOrigin: DataOrigin(
+        dataOrigin,
+        displayName: dataOriginDisplayName?.trim().isNotEmpty ?? false
+            ? dataOriginDisplayName
+            : null,
+      ),
       recordingMethod: recordingMethod.toDomain(),
       clientRecordId: clientRecordId,
       clientRecordVersion: clientRecordVersion,

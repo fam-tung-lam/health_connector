@@ -27,6 +27,10 @@ final class HealthRecordMetadataInfo extends StatelessWidget {
           value: metadata.dataOrigin?.packageName,
         ),
         _MetadataInfoRow(
+          label: AppTexts.dataOriginDisplayName,
+          value: metadata.dataOrigin?.displayName,
+        ),
+        _MetadataInfoRow(
           label: AppTexts.recordingMethod,
           value: metadata.recordingMethod.name,
         ),

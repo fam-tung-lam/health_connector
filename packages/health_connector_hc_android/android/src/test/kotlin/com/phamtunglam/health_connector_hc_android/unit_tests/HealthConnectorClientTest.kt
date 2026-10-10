@@ -22,6 +22,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StandardAggregateRequestDto
+import com.phamtunglam.health_connector_hc_android.services.HealthConnectorDataOriginService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorDataSyncService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
@@ -67,6 +68,9 @@ class HealthConnectorClientTest {
     @RelaxedMockK
     private lateinit var syncService: HealthConnectorDataSyncService
 
+    @RelaxedMockK
+    private lateinit var dataOriginService: HealthConnectorDataOriginService
+
     private lateinit var fakeHealthConnectClient: FakeHealthConnectClient
     private val testDispatcher = StandardTestDispatcher()
 
@@ -99,6 +103,7 @@ class HealthConnectorClientTest {
             permissionService = permissionService,
             syncService = syncService,
             recordHandlerRegistry = registry,
+            dataOriginService = dataOriginService,
             supportsHealthConnectSdkExtension21 = supportsExt21,
         )
     }
@@ -365,6 +370,7 @@ class HealthConnectorClientTest {
                 permissionService = permissionService,
                 syncService = syncService,
                 recordHandlerRegistry = recordHandlerRegistry,
+                dataOriginService = dataOriginService,
                 supportsHealthConnectSdkExtension21 = false,
             )
         }

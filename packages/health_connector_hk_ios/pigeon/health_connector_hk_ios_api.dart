@@ -126,6 +126,7 @@ class MetadataDto {
     this.deviceSoftwareVersion,
     this.deviceLocalIdentifier,
     this.deviceUdiDeviceIdentifier,
+    this.dataOriginDisplayName,
   });
 
   /// A custom identifier assigned by your application.
@@ -171,6 +172,10 @@ class MetadataDto {
   /// The UDI (Unique Device Identifier) for the device that recorded
   /// the data.
   final String? deviceUdiDeviceIdentifier;
+
+  /// The HealthKit source's display name, when available.
+  /// Ignored during writes.
+  final String? dataOriginDisplayName;
 }
 
 // endregion

@@ -44,6 +44,20 @@ for (final record in response.records) {
 
 The range is matched against the record's own timestamps, not against when it was written. A backdated record appears in the range it describes.
 
+## Show the source name
+
+Each record's `metadata.dataOrigin` retains the source identifier and adds a nullable display name:
+
+```dart
+for (final record in response.records) {
+  final origin = record.metadata.dataOrigin;
+  final label = origin?.displayName ?? origin?.packageName ?? 'Unknown source';
+  // Show label in your application.
+}
+```
+
+The same information is available on single-record reads and synchronization upserts. A missing name does not prevent reading a record. Continue to use `packageName` for identity and filtering; see [source metadata](/guide/concepts/records#metadata) for platform differences and Android package visibility.
+
 ## Sort by time
 
 ```dart

@@ -116,6 +116,7 @@ class MetadataDto {
     this.clientRecordVersion,
     this.deviceManufacturer,
     this.deviceModel,
+    this.dataOriginDisplayName,
   });
 
   /// A custom identifier assigned by your application.
@@ -148,6 +149,9 @@ class MetadataDto {
   /// Unix timestamp in milliseconds since epoch (UTC).
   /// Automatically maintained by Health Connect.
   final int? lastModifiedTime;
+
+  /// The source app's display name, when available. Ignored during writes.
+  final String? dataOriginDisplayName;
 }
 
 // endregion

@@ -8,6 +8,80 @@ void main() {
   const clientRecordId = 'client_123';
   const clientRecordVersion = 5;
 
+  group('Source display names', () {
+    test('read metadata preserves the platform name and identifier', () {
+      // Given
+      final dto = MetadataDto(
+        dataOrigin: 'com.example.app',
+        dataOriginDisplayName: ' Santé Health ',
+        recordingMethod: RecordingMethodDto.manualEntry,
+        deviceType: DeviceTypeDto.phone,
+      );
+
+      // When
+      final metadata = dto.toDomain();
+
+      // Then
+      expect(metadata.dataOrigin?.packageName, 'com.example.app');
+      expect(metadata.dataOrigin?.displayName, ' Santé Health ');
+    });
+
+    for (final name in <String?>[null, '', ' \t\n']) {
+      test('unavailable or blank source name ($name) remains absent', () {
+        // Given
+        final dto = MetadataDto(
+          dataOrigin: 'com.example.app',
+          dataOriginDisplayName: name,
+          recordingMethod: RecordingMethodDto.unknown,
+          deviceType: DeviceTypeDto.unknown,
+        );
+
+        // When
+        final metadata = dto.toDomain();
+
+        // Then
+        expect(metadata.dataOrigin?.displayName, isNull);
+        expect(metadata.dataOrigin?.packageName, 'com.example.app');
+      });
+    }
+
+    test('writes omit the read-derived display name', () {
+      // Given
+      final metadata = Metadata.internal(
+        recordingMethod: RecordingMethod.manualEntry,
+        dataOrigin: const DataOrigin(
+          'com.example.app',
+          displayName: 'Health App',
+        ),
+      );
+
+      // When
+      final dto = metadata.toDto();
+
+      // Then
+      expect(dto.dataOriginDisplayName, isNull);
+    });
+
+    for (final name in <String?>[null, 'Gesundheit 🩺']) {
+      test('wire metadata preserves nullable source name ($name)', () {
+        // Given
+        final dto = MetadataDto(
+          dataOrigin: 'com.example.app',
+          dataOriginDisplayName: name,
+          recordingMethod: RecordingMethodDto.manualEntry,
+          deviceType: DeviceTypeDto.phone,
+        );
+
+        // When
+        final decoded = MetadataDto.decode(dto.encode());
+
+        // Then
+        expect(decoded.dataOriginDisplayName, name);
+        expect(decoded.dataOrigin, 'com.example.app');
+      });
+    }
+  });
+
   group(
     'MetadataMapper',
     () {
