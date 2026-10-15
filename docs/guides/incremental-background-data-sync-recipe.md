@@ -22,7 +22,7 @@ and goes back to sleep.
 - [Step 1: Decide the token scopes](#step-1-decide-the-token-scopes)
 - [Step 2: Declare platform capabilities](#step-2-declare-platform-capabilities)
 - [Step 3: Register the iOS launch handler](#step-3-register-the-ios-launch-handler)
-- [Step 4: Persist tokens and settings](#step-4-persist-tokens-and-settings)
+- [Step 4: Persist tokens](#step-4-persist-tokens)
 - [Step 5: Write the sync worker](#step-5-write-the-sync-worker)
 - [Step 6: Write the background entry point](#step-6-write-the-background-entry-point)
 - [Step 7: Initialize Workmanager and let the user enable the sync](#step-7-initialize-workmanager-and-let-the-user-enable-the-sync)
@@ -74,7 +74,6 @@ flowchart TB
     subgraph HeadlessIsolate["Background Worker"]
       direction TB
         CreateConnector["HealthConnector.create()"]
-        LoadScopes["Load sync scopes from storage"]
         NextScope(["Next token scope"])
         LoadToken["Load stored token"]
         Synchronize(["synchronize(dataTypes, token)"])
@@ -89,8 +88,7 @@ flowchart TB
     InitializeWorkmanager --> RegisterPeriodicTask
     RegisterPeriodicTask -->|"Schedules periodic background task"| OsScheduler
     OsScheduler -->|"Dispatches worker"| HeadlessIsolate
-    CreateConnector --> LoadScopes
-    LoadScopes --> NextScope
+    CreateConnector --> NextScope
     NextScope --> LoadToken
     LoadToken --> Synchronize
     Synchronize --> SyncOutcome
@@ -141,9 +139,9 @@ Why it matters:
   them at the same checkpoint, so you never show a session whose samples have
   not arrived yet.
 
-Model the scopes explicitly. They are persisted in Step 4 so the headless
-worker reads the same selection the UI enabled, which is why the class can
-round-trip through JSON by data type id.
+Model the scopes explicitly in a hardcoded global `SYNC_SCOPES` list. The UI
+uses it to request permissions, and the headless worker iterates over the
+same list on every run.
 
 ```dart
 import 'package:health_connector/health_connector.dart';
@@ -152,32 +150,17 @@ import 'package:health_connector/health_connector.dart';
 final class SyncScope {
   const SyncScope(this.id, this.dataTypes);
 
-  /// Restores a scope written by [toJson], skipping unknown data type ids so
-  /// an older selection never blocks the worker after an SDK upgrade.
-  factory SyncScope.fromJson(Map<String, dynamic> json) {
-    final byId = {for (final type in HealthDataType.values) type.id: type};
-    return SyncScope(json['id'] as String, [
-      for (final id in (json['dataTypes'] as List<dynamic>).cast<String>())
-        if (byId[id] case final type?) type,
-    ]);
-  }
-
   /// Stable key used for the persisted token.
   final String id;
 
   /// Data types that are always consumed together.
   final List<HealthDataType> dataTypes;
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'dataTypes': [for (final type in dataTypes) type.id],
-  };
 }
 
 /// The scopes this app syncs. Steps and weight are consumed independently,
 /// so each gets its own token. Exercise sessions and heart rate are rendered
 /// together, so they share one.
-const syncScopes = [
+const SYNC_SCOPES = [
   SyncScope('steps', [HealthDataType.steps]),
   SyncScope('weight', [HealthDataType.weight]),
   SyncScope('workouts', [
@@ -265,7 +248,7 @@ Android needs no native code for this step.
 
 ---
 
-## Step 4: Persist tokens and settings
+## Step 4: Persist tokens
 
 Both isolates must see the same tokens. `SharedPreferencesAsync` works
 because it has no per-isolate cache; every read goes to the platform store.
@@ -309,47 +292,12 @@ final class SyncTokenStore {
 `HealthDataSyncToken.toJson` includes the data types and creation time, which
 the worker uses in the next step to detect a scope change.
 
-The worker also needs to know which scopes to sync. Do not compile the list
-into the dispatcher; store it. The UI writes the selection when the user
-enables the sync, and the headless worker reads it at the start of every run,
-so changing the selection never requires re-registering the task.
-
-```dart
-final class SyncScopeStore {
-  SyncScopeStore(this._preferences);
-
-  final SharedPreferencesAsync _preferences;
-
-  static const _key = 'health_sync.scopes';
-
-  /// Scopes selected in the UI, or an empty list when nothing was saved.
-  Future<List<SyncScope>> load() async {
-    final raw = await _preferences.getString(_key);
-    if (raw == null) {
-      return const [];
-    }
-    return [
-      for (final item in jsonDecode(raw) as List<dynamic>)
-        SyncScope.fromJson(item as Map<String, dynamic>),
-    ];
-  }
-
-  Future<void> save(List<SyncScope> scopes) {
-    return _preferences.setString(
-      _key,
-      jsonEncode([for (final scope in scopes) scope.toJson()]),
-    );
-  }
-}
-```
-
 ---
 
 ## Step 5: Write the sync worker
 
 The worker is plain Dart, so it runs unchanged inside the headless isolate.
-It loads the scopes from `SyncScopeStore` at the start of every run, so it
-always syncs what the UI last saved. Then, for every scope, it:
+For every scope in the global `SYNC_SCOPES` list, it:
 
 1. Loads the stored token and discards it if its data types no longer match
    the scope.
@@ -379,22 +327,19 @@ final class HealthSyncWorker {
   HealthSyncWorker({
     required this.connector,
     required this.syncTokenStorage,
-    required this.syncScopeStorage,
     required this.onChanges,
   });
 
   final HealthConnector connector;
   final SyncTokenStore syncTokenStorage;
-  final SyncScopeStore syncScopeStorage;
 
   /// Called once per page with the changes of one scope. Persist them here.
   final Future<void> Function(SyncScope scope, HealthDataSyncResult page)
   onChanges;
 
   Future<SyncRunResult> run() async {
-    final syncScopes = await syncScopeStorage.load();
     var shouldRetry = false;
-    for (final scope in syncScopes) {
+    for (final scope in SYNC_SCOPES) {
       try {
         await _syncScope(scope);
       } on AuthorizationException {
@@ -487,7 +432,6 @@ void healthSyncDispatcher() {
     final worker = HealthSyncWorker(
       connector: connector,
       syncTokenStorage: SyncTokenStore(preferences),
-      syncScopeStorage: SyncScopeStore(preferences),
       onChanges: (scope, page) async {
         // Write page.upsertedRecords and page.deletedRecordIds to your
         // database here.
@@ -521,7 +465,6 @@ The widget below is deliberately minimal: one `Workmanager` and one
 ```dart
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 Future<void> main() async {
@@ -539,7 +482,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _workmanager = Workmanager();
-  final _syncScopeStorage = SyncScopeStore(SharedPreferencesAsync());
   late final Future<HealthConnector> _healthConnector =
       HealthConnector.create();
 
@@ -580,7 +522,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     final results = await connector.requestPermissions([
-      for (final scope in syncScopes)
+      for (final scope in SYNC_SCOPES)
         for (final type in scope.dataTypes) type.readPermission,
       background.permission,
     ]);
@@ -594,9 +536,6 @@ class _MyAppState extends State<MyApp> {
       return;
     }
 
-    // Persist the selection before the task exists, so the first run never
-    // finds an empty list.
-    await _syncScopeStorage.save(syncScopes);
     await _registerPeriodicTask();
     _show('Background sync enabled.');
     setState(() => _isEnabled = true);
@@ -718,9 +657,9 @@ page covers OEM battery optimizers that keep Android tasks from firing.
   `Info.plist`, with the same identifier used in Dart.
 - [ ] `WorkmanagerPlugin.registerPeriodicTask(withIdentifier:)` and
   `setPluginRegistrantCallback` in `AppDelegate.swift`.
-- [ ] Tokens and the scope selection stored through `SharedPreferencesAsync`
-  or another store with no per-isolate cache; the worker loads the scopes at
-  the start of every run.
+- [ ] Scopes declared in the global `SYNC_SCOPES` list used by the UI and worker.
+- [ ] Tokens stored through `SharedPreferencesAsync` or another store with no
+  per-isolate cache.
 - [ ] Dispatcher is top-level and annotated with `@pragma('vm:entry-point')`.
 - [ ] `Workmanager().initialize` runs in `main()` on every launch.
 - [ ] Worker catches `AuthorizationException` per scope, keeps that scope's
