@@ -12,6 +12,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health
 import 'package:health_connector_hk_ios/src/mappers/operating_system_info_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/user_characteristic_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart';
@@ -147,6 +148,8 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   ) async {
     final healthDataPermissions = permissions.healthDataPermissions;
     final exerciseRoutePermissions = permissions.exerciseRoutePermissions;
+    final userCharacteristicPermissions =
+        permissions.userCharacteristicPermissions;
     final featurePermissions = permissions.featurePermissions;
     final featureCount = featurePermissions.length;
     final context = {
@@ -176,12 +179,15 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     final results = <PermissionRequestResult>[];
 
     final hasNativePermissions =
-        healthDataPermissions.isNotEmpty || exerciseRoutePermissions.isNotEmpty;
+        healthDataPermissions.isNotEmpty ||
+        exerciseRoutePermissions.isNotEmpty ||
+        userCharacteristicPermissions.isNotEmpty;
     if (hasNativePermissions) {
       try {
         final requestDto = createPermissionsRequestDto(
           healthDataPermissions: healthDataPermissions,
           exerciseRoutePermissions: exerciseRoutePermissions,
+          userCharacteristicPermissions: userCharacteristicPermissions,
         );
 
         final responseDto = await _platformClient.requestPermissions(
@@ -309,6 +315,31 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         'Failed to get permission status: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
+      );
+    }
+  }
+
+  /// Reads an iOS user characteristic, or null when no data is available.
+  ///
+  /// Throws [AuthorizationException] for explicit HealthKit authorization
+  /// errors and [HealthConnectorException] for other platform failures.
+  @sinceV3_14_0
+  Future<T?> readUserCharacteristic<T extends Object>(
+    UserCharacteristicType<T> characteristicType,
+  ) async {
+    try {
+      final value = switch (characteristicType) {
+        BirthDateCharacteristicType() =>
+          (await _platformClient.readBirthDate())?.toDomain(),
+        BiologicalSexCharacteristicType() =>
+          (await _platformClient.readBiologicalSex())?.toDomain(),
+      };
+      return value as T?;
+    } on PlatformException catch (error, stackTrace) {
+      throw HealthConnectorException.fromCode(
+        error.code.toErrorCode(),
+        'Failed to read user characteristic.',
+        stackTrace: stackTrace,
       );
     }
   }

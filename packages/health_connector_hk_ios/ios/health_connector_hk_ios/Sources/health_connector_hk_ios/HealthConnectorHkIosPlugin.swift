@@ -140,6 +140,18 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
+    func readBirthDate(completion: @escaping (Result<BirtDateDto?, Error>) -> Void) {
+        process(operation: "readBirthDate", completion: completion) {
+            try await self.healthClient.readBirthDate()
+        }
+    }
+
+    func readBiologicalSex(completion: @escaping (Result<BiologicalSexDto?, Error>) -> Void) {
+        process(operation: "readBiologicalSex", completion: completion) {
+            try await self.healthClient.readBiologicalSex()
+        }
+    }
+
     /// Reads a single health record by ID.
     ///
     /// - Parameters:

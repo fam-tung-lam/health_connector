@@ -2,8 +2,41 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/permission_request_result_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+import 'package:parameterized_test/parameterized_test.dart';
 
 void main() {
+  group('UserCharacteristicPermissionRequestResultDtoToDomain', () {
+    parameterizedTest(
+      'restores characteristic identities and unknown authorization',
+      [
+        [UserCharacteristicTypeDto.birthDate, UserCharacteristicType.birthDate],
+        [
+          UserCharacteristicTypeDto.biologicalSex,
+          UserCharacteristicType.biologicalSex,
+        ],
+      ],
+      (
+        UserCharacteristicTypeDto dtoType,
+        UserCharacteristicType<Object> expected,
+      ) {
+        // Given a native characteristic permission result.
+        final dtos = <PermissionRequestResultDto>[
+          UserCharacteristicPermissionRequestResultDto(
+            permission: UserCharacteristicPermissionRequestDto(
+              characteristicType: dtoType,
+            ),
+            status: PermissionStatusDto.unknown,
+          ),
+        ];
+        // When converting the native result.
+        final result = dtos.toDomain().single;
+        // Then characteristic identity and hidden read status are preserved.
+        expect(result.permission, expected.readPermission);
+        expect(result.status, PermissionStatus.unknown);
+      },
+    );
+  });
+
   group(
     'PermissionRequestResultMapper',
     () {

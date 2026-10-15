@@ -11,6 +11,7 @@ final class ToolboxOperationsSection extends StatelessWidget {
     required this.onOpenPrivacy,
     required this.onOpenPermissions,
     required this.onOpenRecords,
+    required this.onOpenUserCharacteristic,
     required this.onOpenWrite,
     required this.onOpenAggregation,
     required this.onOpenSync,
@@ -22,6 +23,7 @@ final class ToolboxOperationsSection extends StatelessWidget {
   final VoidCallback onOpenPrivacy;
   final VoidCallback onOpenPermissions;
   final VoidCallback onOpenRecords;
+  final VoidCallback onOpenUserCharacteristic;
   final VoidCallback onOpenWrite;
   final VoidCallback onOpenAggregation;
   final VoidCallback onOpenSync;
@@ -65,6 +67,14 @@ final class ToolboxOperationsSection extends StatelessWidget {
           description: AppTexts.recordsApiDescription,
           color: Colors.teal,
           onTap: onOpenRecords,
+        ),
+        const SizedBox(height: 12),
+        FeatureNavigationCard(
+          icon: AppIcons.readMore,
+          title: AppTexts.readUserCharacteristic,
+          description: AppTexts.characteristicReadDescription,
+          color: Colors.teal,
+          onTap: onOpenUserCharacteristic,
         ),
         const SizedBox(height: 12),
         FeatureNavigationCard(

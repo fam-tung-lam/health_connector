@@ -5,14 +5,17 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthDataPermissionAccessType,
         HealthPlatformFeaturePermission,
         InvalidArgumentException,
-        Permission;
+        Permission,
+        UserCharacteristicPermission;
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/user_characteristic_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
         ExerciseRoutePermissionRequestDto,
         HealthDataPermissionRequestDto,
         PermissionAccessTypeDto,
-        PermissionRequestDto;
+        PermissionRequestDto,
+        UserCharacteristicPermissionRequestDto;
 import 'package:meta/meta.dart' show internal;
 
 export 'health_data_permission_access_type_mapper.dart';
@@ -33,6 +36,10 @@ extension PermissionToDto on Permission {
   /// - [HealthPlatformFeaturePermission] → throws [InvalidArgumentException]
   PermissionRequestDto toDto() {
     return switch (this) {
+      UserCharacteristicPermission(:final characteristicType) =>
+        UserCharacteristicPermissionRequestDto(
+          characteristicType: characteristicType.toDto(),
+        ),
       final HealthDataPermission p => HealthDataPermissionRequestDto(
         healthDataType: p.dataType.toDto(),
         accessType: p.accessType == HealthDataPermissionAccessType.read

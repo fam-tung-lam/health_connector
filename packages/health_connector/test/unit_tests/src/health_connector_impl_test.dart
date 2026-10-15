@@ -1,5 +1,6 @@
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector/src/health_connector_impl.dart';
+import 'package:health_connector_hk_ios/health_connector_hk_ios.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -7,6 +8,9 @@ import '../utils/fake_data.dart';
 
 class MockHealthConnectorClient extends Mock
     implements HealthConnectorPlatformClient {}
+
+class MockHealthConnectorHKClient extends Mock
+    implements HealthConnectorHKClient {}
 
 class MockHealthConnector extends Mock implements HealthConnector {}
 
@@ -398,6 +402,142 @@ void main() {
           );
         },
       );
+
+      group('readUserCharacteristic', () {
+        late MockHealthConnectorHKClient hkClient;
+        late HealthConnector connector;
+
+        setUp(() {
+          hkClient = MockHealthConnectorHKClient();
+          connector = HealthConnectorImpl(
+            config: const HealthConnectorConfig(),
+            healthPlatform: HealthPlatform.appleHealth,
+            healthPlatformClient: hkClient,
+          );
+        });
+
+        test(
+          'returns the typed birth date from the HealthKit client',
+          () async {
+            // Given a HealthKit client with a birth date.
+            final date = BirtDate(year: 2000, month: 2, day: 29);
+            when(
+              () => hkClient.readUserCharacteristic(
+                UserCharacteristicType.birthDate,
+              ),
+            ).thenAnswer((_) async => date);
+            // When reading through the public facade interface.
+            final result = await connector.readUserCharacteristic(
+              UserCharacteristicType.birthDate,
+            );
+            // Then the date is preserved.
+            expect(result, date);
+          },
+        );
+
+        test(
+          'returns the typed biological sex from the HealthKit client',
+          () async {
+            // Given a HealthKit client with biological sex set.
+            when(
+              () => hkClient.readUserCharacteristic(
+                UserCharacteristicType.biologicalSex,
+              ),
+            ).thenAnswer((_) async => BiologicalSex.other);
+            // When reading through the public facade interface.
+            final result = await connector.readUserCharacteristic(
+              UserCharacteristicType.biologicalSex,
+            );
+            // Then the biological sex is preserved.
+            expect(result, BiologicalSex.other);
+          },
+        );
+
+        test('returns null when HealthKit has no readable data', () async {
+          // Given a HealthKit client without readable data.
+          when(
+            () => hkClient.readUserCharacteristic(
+              UserCharacteristicType.birthDate,
+            ),
+          ).thenAnswer((_) async => null);
+          // When reading the characteristic.
+          final result = await connector.readUserCharacteristic(
+            UserCharacteristicType.birthDate,
+          );
+          // Then no value is returned.
+          expect(result, isNull);
+        });
+
+        test('preserves explicit authorization errors', () async {
+          // Given an explicit authorization failure from HealthKit.
+          const error = AuthorizationException(
+            HealthConnectorErrorCode.permissionNotGranted,
+            'Characteristic read permission was denied.',
+          );
+          when(
+            () => hkClient.readUserCharacteristic(
+              UserCharacteristicType.birthDate,
+            ),
+          ).thenThrow(error);
+          // When reading the characteristic, then the same failure is exposed.
+          await expectLater(
+            connector.readUserCharacteristic(UserCharacteristicType.birthDate),
+            throwsA(same(error)),
+          );
+        });
+
+        for (final platform in HealthPlatform.values) {
+          test('rejects a non-HealthKit client on $platform', () async {
+            // Given a client that does not support characteristic reads.
+            final HealthConnector connector = HealthConnectorImpl(
+              config: const HealthConnectorConfig(),
+              healthPlatform: platform,
+              healthPlatformClient: mockClient,
+            );
+            // When reading a characteristic, then the client is rejected.
+            await expectLater(
+              connector.readUserCharacteristic(
+                UserCharacteristicType.birthDate,
+              ),
+              throwsA(isA<UnsupportedOperationException>()),
+            );
+            verifyZeroInteractions(mockClient);
+          });
+        }
+      });
+
+      group('user characteristic permissions', () {
+        test(
+          'rejects status checks and mixed permission requests on Android',
+          () async {
+            // Given an Android connector.
+            final connector = HealthConnectorImpl(
+              config: const HealthConnectorConfig(),
+              healthPlatform: HealthPlatform.healthConnect,
+              healthPlatformClient: mockClient,
+            );
+            // When checking or requesting a characteristic permission.
+            final operations = <Future<Object?> Function()>[
+              () => connector.getPermissionStatus(
+                UserCharacteristicType.biologicalSex.readPermission,
+              ),
+              () => connector.requestPermissions([
+                HealthDataType.steps.readPermission,
+                UserCharacteristicType.birthDate.readPermission,
+              ]),
+            ];
+            // Then each operation fails before native dispatch.
+            for (final operation in operations) {
+              await expectLater(
+                operation(),
+                throwsA(isA<UnsupportedOperationException>()),
+              );
+            }
+            verifyNever(() => mockClient.getPermissionStatus(any()));
+            verifyNever(() => mockClient.requestPermissions(any()));
+          },
+        );
+      });
 
       group(
         'readRecord',

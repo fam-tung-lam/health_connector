@@ -9,6 +9,7 @@ import 'package:health_connector/health_connector_internal.dart'
         HealthPlatformFeatureStatus,
         Permission,
         PermissionStatus,
+        PermissionRequestResult,
         HealthConnector;
 
 /// Loading state for permission operations.
@@ -60,6 +61,7 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
   Map<Permission, PermissionStatus> _permissionResults = {};
   Map<HealthPlatformFeature, HealthPlatformFeatureStatus> _featureStatuses = {};
   String? _errorMessage;
+  List<PermissionRequestResult> _lastRequestResults = [];
 
   /// Current loading state.
   PermissionLoadingState get loadingState => _loadingState;
@@ -84,6 +86,10 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
   /// Unmodifiable view of feature statuses.
   UnmodifiableMapView<HealthPlatformFeature, HealthPlatformFeatureStatus>
   get featureStatuses => UnmodifiableMapView(_featureStatuses);
+
+  /// Results of the latest request, independent of retained permission badges.
+  List<PermissionRequestResult> get lastRequestResults =>
+      List.unmodifiable(_lastRequestResults);
 
   /// Current error message, if any.
   String? get errorMessage => _errorMessage;
@@ -166,6 +172,7 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
 
     log('Requesting ${permissions.length} permissions');
     _executeAndNotify(() {
+      _lastRequestResults = [];
       _loadingState = const LoadingRequest();
       _errorMessage = null;
     });
@@ -180,6 +187,7 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
       }
 
       _executeAndNotify(() {
+        _lastRequestResults = results;
         _permissionResults = {..._permissionResults, ...resultsMap};
         _selectedPermissions.clear();
         _loadingState = const Idle();

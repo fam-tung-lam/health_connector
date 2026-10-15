@@ -57,6 +57,8 @@ struct HealthConnectorPermissionService: Taggable {
         for permission: PermissionRequestDto
     ) async throws -> PermissionStatusDto {
         switch permission {
+        case is UserCharacteristicPermissionRequestDto:
+            return .unknown
         case let healthData as HealthDataPermissionRequestDto:
             return try getHealthDataPermissionStatus(for: healthData)
         case let exerciseRoute as ExerciseRoutePermissionRequestDto:
@@ -134,6 +136,8 @@ struct HealthConnectorPermissionService: Taggable {
 
         for permission in permissions {
             switch permission {
+            case let characteristic as UserCharacteristicPermissionRequestDto:
+                try types.insert(characteristic.characteristicType.toHKCharacteristicType())
             case let healthData as HealthDataPermissionRequestDto where healthData.accessType == .read:
                 let hkTypes = try healthData.toHKSampleTypes()
                 types.formUnion(hkTypes)
@@ -171,6 +175,10 @@ struct HealthConnectorPermissionService: Taggable {
         for permission: PermissionRequestDto
     ) throws -> PermissionRequestResultDto {
         switch permission {
+        case let characteristic as UserCharacteristicPermissionRequestDto:
+            return UserCharacteristicPermissionRequestResultDto(
+                permission: characteristic, status: .unknown
+            )
         case let healthData as HealthDataPermissionRequestDto:
             let status = try getHealthDataPermissionStatus(for: healthData)
             return HealthDataPermissionRequestResultDto(permission: healthData, status: status)

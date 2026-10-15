@@ -3,15 +3,18 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ExerciseRoutePermission,
         HealthDataPermission,
         HealthDataPermissionAccessType,
-        PermissionRequestResult;
+        PermissionRequestResult,
+        UserCharacteristicPermission;
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_status_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/user_characteristic_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
         ExerciseRoutePermissionRequestResultDto,
         HealthDataPermissionRequestResultDto,
         PermissionAccessTypeDto,
-        PermissionRequestResultDto;
+        PermissionRequestResultDto,
+        UserCharacteristicPermissionRequestResultDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts list of [PermissionRequestResultDto] to
@@ -25,6 +28,12 @@ extension PermissionRequestResultDtoListToDomain
 
   PermissionRequestResult _convertResult(PermissionRequestResultDto result) {
     return switch (result) {
+      UserCharacteristicPermissionRequestResultDto() => PermissionRequestResult(
+        permission: UserCharacteristicPermission(
+          characteristicType: result.permission.characteristicType.toDomain(),
+        ),
+        status: result.status.toDomain(),
+      ),
       HealthDataPermissionRequestResultDto() => PermissionRequestResult(
         permission: HealthDataPermission(
           dataType: result.permission.healthDataType.toDomain(),

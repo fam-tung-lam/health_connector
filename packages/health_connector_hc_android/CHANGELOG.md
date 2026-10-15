@@ -1,3 +1,8 @@
+## Unreleased
+
+- **FEAT**: Throw `UnsupportedException` on iOS-only user characteristic permissions. ([PR #251](https://github.com/fam-tung-lam/health_connector/pull/251)).
+
+
 ## 3.10.0
 
 - **FEAT**: Populate `DataOrigin.displayName` with the source app label from

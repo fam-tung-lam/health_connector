@@ -4,6 +4,16 @@ import 'package:health_connector_hc_android/src/mappers/permission_mappers/permi
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 
 void main() {
+  test('rejects characteristic permissions before channel conversion', () {
+    // Given an iOS-only read permission.
+    final permission = UserCharacteristicType.birthDate.readPermission;
+    // When converting it for Android, then it remains explicitly unsupported.
+    expect(
+      permission.toDto,
+      throwsA(isA<UnsupportedOperationException>()),
+    );
+  });
+
   group(
     'PermissionMapper',
     () {

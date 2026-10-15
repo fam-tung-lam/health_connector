@@ -4749,6 +4749,40 @@ enum PermissionStatusDto {
   unknown,
 }
 
+/// The supported read-only user characteristics.
+enum UserCharacteristicTypeDto { birthDate, biologicalSex }
+
+/// Biological sex without an unset sentinel.
+enum BiologicalSexDto { female, male, other }
+
+/// Gregorian date components, without time or timezone.
+class BirtDateDto {
+  BirtDateDto({required this.year, required this.month, required this.day});
+
+  final int year;
+  final int month;
+  final int day;
+}
+
+/// A read-only characteristic permission.
+class UserCharacteristicPermissionRequestDto extends PermissionRequestDto {
+  UserCharacteristicPermissionRequestDto({required this.characteristicType});
+
+  final UserCharacteristicTypeDto characteristicType;
+}
+
+/// The result of requesting a characteristic permission.
+class UserCharacteristicPermissionRequestResultDto
+    extends PermissionRequestResultDto {
+  UserCharacteristicPermissionRequestResultDto({
+    required this.permission,
+    required this.status,
+  });
+
+  final UserCharacteristicPermissionRequestDto permission;
+  final PermissionStatusDto status;
+}
+
 /// Base sealed class for permission request DTOs.
 sealed class PermissionRequestDto {}
 
@@ -5100,6 +5134,12 @@ abstract class HealthConnectorHKIOSApi {
 
   @async
   PermissionStatusDto getPermissionStatus(PermissionRequestDto permission);
+
+  @async
+  BirtDateDto? readBirthDate();
+
+  @async
+  BiologicalSexDto? readBiologicalSex();
 
   @async
   HealthRecordDto? readRecord(ReadRecordRequestDto request);

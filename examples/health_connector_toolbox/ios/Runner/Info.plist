@@ -29,7 +29,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Health Connector Toolbox reads the health data types you choose so you can browse your records and view health summaries on this device.</string>
+	<string>Health Connector Toolbox reads birth date, biological sex, and the health data types you choose so you can browse your records and view health summaries on this device.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Health Connector Toolbox writes only the health entries you create so you can manage them in Apple Health and delete entries created by this app.</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>

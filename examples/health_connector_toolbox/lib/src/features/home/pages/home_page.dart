@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/widgets/error_view.dart';
@@ -21,6 +20,8 @@ import 'package:health_connector_toolbox/src/features/permissions/pages/permissi
 import 'package:health_connector_toolbox/src/features/privacy/pages/privacy_policy_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/pages/read_health_records_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/read_health_records_change_notifier.dart';
+import 'package:health_connector_toolbox/src/features/read_user_characteristic/pages/read_user_characteristic_page.dart';
+import 'package:health_connector_toolbox/src/features/read_user_characteristic/read_user_characteristic_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/pages/health_data_type_selection_page.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
 import 'package:provider/provider.dart'
@@ -128,6 +129,8 @@ final class _HomeContent extends StatelessWidget {
             onOpenPrivacy: () => _navigateToPrivacyPolicy(context),
             onOpenPermissions: () => _navigateToPermissions(context),
             onOpenRecords: () => _navigateToReadRecords(context),
+            onOpenUserCharacteristic: () =>
+                _navigateToUserCharacteristic(context),
             onOpenWrite: () => _navigateToWriteRecords(context),
             onOpenAggregation: () => _navigateToAggregate(context),
             onOpenSync: () => unawaited(
@@ -154,6 +157,22 @@ final class _HomeContent extends StatelessWidget {
           value: healthConnector,
           child: PermissionsPage(
             healthPlatform: healthConnector.healthPlatform,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _navigateToUserCharacteristic(BuildContext context) {
+    Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => Provider<HealthConnector>.value(
+          value: healthConnector,
+          child: ChangeNotifierProvider(
+            create: (_) =>
+                ReadUserCharacteristicChangeNotifier(healthConnector),
+            child: const ReadUserCharacteristicPage(),
           ),
         ),
       ),

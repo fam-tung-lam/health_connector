@@ -1,3 +1,9 @@
+## Unreleased
+
+- **FEAT**: Add typed user characteristic descriptors, read-only permissions,
+  Gregorian date-only `BirtDate`, and `BiologicalSex`. ([PR #251](https://github.com/fam-tung-lam/health_connector/pull/251)).
+
+
 ## 3.12.0
 
 - **FEAT**: Add optional `DataOrigin.displayName` for descriptive source names. ([8ac36083](https://github.com/fam-tung-lam/health_connector/commit/8ac3608320e169a17122547d2df3c7419fe85f7d))

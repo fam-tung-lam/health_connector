@@ -123,3 +123,25 @@ See [Read & write exercise routes](/guide/tasks/exercise-routes).
     { text: 'Handle errors', link: '/guide/tasks/errors', description: 'Telling denial apart from misconfiguration.' },
   ]"
 />
+
+## User characteristic permissions on iOS
+
+Birth date and biological sex each have an independent, read-only permission:
+
+```dart
+await connector.requestPermissions([
+  UserCharacteristicType.birthDate.readPermission,
+  UserCharacteristicType.biologicalSex.readPermission,
+]);
+```
+
+A completed request returns `PermissionStatus.unknown` for both characteristics.
+Neither request completion nor an unknown status proves that access was granted.
+HealthKit can hide denied access as missing data. Explicit authorization failures
+from a read are propagated as `AuthorizationException`.
+
+Toolbox includes these permissions in a separate User characteristics section.
+Its request summary includes unknown results and counts only the current request.
+Android does not show these rows; SDK attempts to request them, including mixed
+lists with ordinary permissions, throw `UnsupportedOperationException` before
+the native permission request.

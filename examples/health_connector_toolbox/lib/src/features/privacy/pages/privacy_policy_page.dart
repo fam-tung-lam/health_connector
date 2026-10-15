@@ -66,7 +66,8 @@ final class PrivacyPolicyPage extends StatelessWidget {
             const _PrivacySection(
               title: 'Reading and displaying health data',
               body:
-                  'Records you choose to read are displayed in the app and '
+                  'Records and user characteristics you choose to read are '
+                  'displayed in the app and '
                   'are not uploaded or retained by the Toolbox. The operating '
                   'system controls which data types the app can access.',
             ),

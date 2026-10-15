@@ -7,8 +7,10 @@ import 'package:health_connector_core/src/models/health_platform_requirements/he
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show MeasurementUnit;
+import 'package:health_connector_core/src/models/user_characteristics/user_characteristic_type.dart';
 import 'package:meta/meta.dart' show immutable;
 
+part 'user_characteristic_permission.dart';
 part 'exercise_route_permission.dart';
 part 'health_data_permission.dart';
 part 'health_platform_feature_permission.dart';

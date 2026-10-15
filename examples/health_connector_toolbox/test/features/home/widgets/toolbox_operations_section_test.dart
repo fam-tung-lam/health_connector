@@ -13,6 +13,7 @@ void main() {
               onOpenPrivacy: () {},
               onOpenPermissions: () {},
               onOpenRecords: () {},
+              onOpenUserCharacteristic: () {},
               onOpenWrite: () {},
               onOpenAggregation: () {},
               onOpenSync: () {},
@@ -32,6 +33,7 @@ void main() {
     expect(find.text('SDK Operations'), findsOneWidget);
     expect(find.text('Request Permissions'), findsOneWidget);
     expect(find.text('Read Health Records'), findsOneWidget);
+    expect(find.text('Read user characteristic'), findsOneWidget);
     expect(find.text('Insert Health Record'), findsOneWidget);
     expect(find.text('Read Aggregate Data'), findsOneWidget);
     expect(find.text('Incremental Data Sync'), findsOneWidget);

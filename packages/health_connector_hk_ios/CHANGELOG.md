@@ -1,3 +1,9 @@
+## Unreleased
+
+- **FEAT**: Allow to read birthdate and biological sex with typed user
+  characteristics. ([PR #251](https://github.com/fam-tung-lam/health_connector/pull/251)).
+
+
 ## 3.12.0
 
 - **FEAT**: Populate `DataOrigin.displayName` with the source name from

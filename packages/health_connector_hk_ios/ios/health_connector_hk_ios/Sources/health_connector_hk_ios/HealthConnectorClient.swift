@@ -174,6 +174,16 @@ actor HealthConnectorClient: Taggable {
         return result
     }
 
+    /// Reads a birth date through the actor's store.
+    func readBirthDate() throws -> BirtDateDto? {
+        try HealthConnectorUserCharacteristicService(store: healthStore).readBirthDate()
+    }
+
+    /// Reads biological sex through the actor's store.
+    func readBiologicalSex() throws -> BiologicalSexDto? {
+        try HealthConnectorUserCharacteristicService(store: healthStore).readBiologicalSex()
+    }
+
     /// Reads a single health record by ID.
     ///
     /// - Parameter request: Contains the data type and record ID to read

@@ -583,6 +583,28 @@ abstract interface class HealthConnector {
     HealthPlatformFeature feature,
   );
 
+  /// Reads one iOS user characteristic.
+  ///
+  /// ## Returns
+  ///
+  /// The typed value, or null if no data is available. HealthKit may conceal
+  /// denied read access as no data, so null cannot distinguish unset data
+  /// from hidden access. This call does not request permissions automatically.
+  ///
+  /// ## Throws
+  ///
+  /// - [UnsupportedOperationException] when the underlying client does not
+  ///   support user characteristics.
+  /// - [AuthorizationException] when HealthKit explicitly reports an
+  ///   authorization error.
+  /// - [HealthConnectorException] for other platform or data failures.
+  ///
+  /// {@category Core API}
+  @sinceV3_14_0
+  Future<T?> readUserCharacteristic<T extends Object>(
+    UserCharacteristicType<T> characteristicType,
+  );
+
   /// Reads a single health record by ID.
   ///
   /// ## Parameters
