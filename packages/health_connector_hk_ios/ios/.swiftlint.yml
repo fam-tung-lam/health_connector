@@ -1,3 +1,7 @@
+# HealthConnectorClient is the facade layer for the HealthKit operations.
+# Its file_length and type_body_length exceptions are recorded in
+# swiftlint-baseline.json; all other rules remain active for the client.
+
 # SwiftLint Configuration
 # https://realm.github.io/SwiftLint/
 # Updated: 2025-12 - 2025 Best Practices
