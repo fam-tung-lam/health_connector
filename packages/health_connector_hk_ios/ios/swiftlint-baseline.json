@@ -9,7 +9,7 @@
         "character": 1,
         "line": 19
       },
-      "reason": "Actor body should span 500 lines or less excluding comments and whitespace: currently spans 684 lines",
+      "reason": "Actor body should span 500 lines or less excluding comments and whitespace: currently spans 690 lines",
       "ruleIdentifier": "type_body_length"
     },
     "text": "actor HealthConnectorClient: Taggable {"
@@ -138,11 +138,11 @@
     "violation": {
       "severity": "warning",
       "ruleName": "File Length",
-      "reason": "File should contain 500 lines or less: currently contains 1045",
+      "reason": "File should contain 500 lines or less: currently contains 1055",
       "ruleDescription": "Files should not span too many lines.",
       "location": {
         "file": "health_connector_hk_ios/Sources/health_connector_hk_ios/HealthConnectorClient.swift",
-        "line": 1045,
+        "line": 1055,
         "character": 1
       },
       "ruleIdentifier": "file_length"
