@@ -5,6 +5,11 @@ import 'package:health_connector_core/src/models/permissions/permission.dart';
 @sinceV1_0_0
 @internalUse
 extension PermissionListExtension on List<Permission> {
+  /// Returns only read-only user characteristic permissions.
+  @sinceV3_14_0
+  List<UserCharacteristicPermission> get userCharacteristicPermissions =>
+      whereType<UserCharacteristicPermission>().toList();
+
   /// Returns a list containing only [HealthDataPermission] instances.
   ///
   /// Filters the list to include only permissions that are instances of

@@ -2,11 +2,40 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+import 'package:parameterized_test/parameterized_test.dart';
 
 void main() {
   group(
     'PermissionMapper',
     () {
+      group('PermissionToDto - UserCharacteristicPermission', () {
+        parameterizedTest(
+          'maps read-only characteristic permissions to native requests',
+          [
+            [
+              UserCharacteristicType.birthDate,
+              UserCharacteristicTypeDto.birthDate,
+            ],
+            [
+              UserCharacteristicType.biologicalSex,
+              UserCharacteristicTypeDto.biologicalSex,
+            ],
+          ],
+          (
+            UserCharacteristicType<Object> type,
+            UserCharacteristicTypeDto expected,
+          ) {
+            // Given a read-only characteristic permission.
+            final permission = type.readPermission;
+            // When converting the permission for native authorization.
+            final dto =
+                permission.toDto() as UserCharacteristicPermissionRequestDto;
+            // Then its characteristic identifier is preserved.
+            expect(dto.characteristicType, expected);
+          },
+        );
+      });
+
       group(
         'PermissionToDto - HealthDataPermission',
         () {

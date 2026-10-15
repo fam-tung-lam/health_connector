@@ -7,7 +7,8 @@ import 'package:health_connector/health_connector_internal.dart'
         HealthDataPermission,
         HealthDataType,
         HealthDataTypeCategory,
-        HealthPlatformFeatureStatus;
+        HealthPlatformFeatureStatus,
+        UserCharacteristicType;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 import 'package:health_connector_toolbox/src/common/widgets/health_data_category_list_view.dart';
@@ -63,6 +64,8 @@ final class PermissionsContentView extends StatelessWidget {
                 _buildDataTypePermissions(context, healthConnector),
                 const SizedBox(height: 32),
 
+                ..._buildUserCharacteristicPermissions(healthConnector),
+
                 // Exercise Route Permissions Section
                 _buildSectionHeader(
                   context,
@@ -109,6 +112,48 @@ final class PermissionsContentView extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  List<Widget> _buildUserCharacteristicPermissions(
+    HealthConnector connector,
+  ) {
+    final types =
+        [
+              UserCharacteristicType.birthDate,
+              UserCharacteristicType.biologicalSex,
+            ]
+            .where(
+              (type) =>
+                  connector
+                      .getSupportStatusFor(type.healthPlatformRequirements)
+                      .isSupported &&
+                  type.displayName.toLowerCase().contains(
+                    searchQuery.toLowerCase(),
+                  ),
+            )
+            .toList();
+    if (types.isEmpty) {
+      return [];
+    }
+    return [
+      const Text(AppTexts.userCharacteristics),
+      const SizedBox(height: 8),
+      const Text(AppTexts.characteristicPermissionHint),
+      const SizedBox(height: 8),
+      for (final type in types)
+        PermissionListTile(
+          title: Text(type.displayName),
+          subtitle: const Text(AppTexts.read),
+          isSelected: notifier.isPermissionSelected(type.readPermission),
+          permissionStatus: notifier.getPermissionStatus(type.readPermission),
+          isEnabled: !notifier.isLoading,
+          onChanged: (value) => notifier.togglePermissionSelection(
+            type.readPermission,
+            isSelected: value,
+          ),
+        ),
+      const SizedBox(height: 32),
+    ];
   }
 
   /// Builds a section header with consistent styling.

@@ -51,6 +51,9 @@ export 'src/models/requests/read_requests/sort_descriptor.dart';
 export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'
     hide ReadRecordsResponse;
+export 'src/models/user_characteristics/biological_sex.dart' show BiologicalSex;
+export 'src/models/user_characteristics/birt_date.dart' show BirtDate;
+export 'src/models/user_characteristics/user_characteristic_type.dart';
 export 'src/utils/double_to_measurement_unit_extension.dart';
 export 'src/utils/health_record_data_type_extension.dart';
 export 'src/utils/permission_extension.dart';

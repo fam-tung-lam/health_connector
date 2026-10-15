@@ -126,3 +126,40 @@ For a first sync over months of data, process each page as it arrives — write 
     { text: 'Synchronize incrementally', link: '/guide/tasks/synchronize', description: 'Fetch only what changed since last time.' },
   ]"
 />
+
+## Read an iOS user characteristic
+
+Available in Health Connector 3.14.0. Characteristics are profile values without
+record IDs or time ranges. Request their read permissions on the permissions
+screen before reading them:
+
+```dart
+await connector.requestPermissions([
+  UserCharacteristicType.birthDate.readPermission,
+  UserCharacteristicType.biologicalSex.readPermission,
+]);
+
+final BirtDate? birthDate = await connector.readUserCharacteristic(
+  UserCharacteristicType.birthDate,
+);
+final BiologicalSex? sex = await connector.readUserCharacteristic(
+  UserCharacteristicType.biologicalSex,
+);
+```
+
+`BirtDate` contains Gregorian `year`, `month`, and `day` components, without a
+time or timezone. `BiologicalSex` has `female`, `male`, and `other` values.
+
+A nullable result means the characteristic is unset or HealthKit is hiding read
+access. HealthKit does not disclose read authorization, so do not use null to
+infer that permission was denied. Explicit native authorization errors still
+throw `AuthorizationException`. Other failures remain mapped SDK exceptions.
+Android throws `UnsupportedOperationException`.
+
+The operation is declared directly on `HealthConnector`. Custom implementations
+of this interface must implement `readUserCharacteristic`. The SDK facade
+delegates to its iOS HealthKit client and rejects other clients.
+
+In Toolbox, select the characteristic permissions on Request Permissions, then
+open Read user characteristic, choose a dropdown entry, and tap Read. The screen
+keeps results only in memory and never reads automatically on entry.

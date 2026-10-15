@@ -2,6 +2,8 @@ import 'package:health_connector/src/health_connector.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
+import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
+    show HealthConnectorHKClient;
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show internal, immutable;
 
@@ -281,6 +283,19 @@ final class HealthConnectorImpl implements HealthConnector {
           rethrow;
         }
     }
+  }
+
+  @override
+  Future<T?> readUserCharacteristic<T extends Object>(
+    UserCharacteristicType<T> characteristicType,
+  ) async {
+    final client = _client;
+    if (client is! HealthConnectorHKClient) {
+      throw const UnsupportedOperationException(
+        'User characteristics are available only on iOS HealthKit clients.',
+      );
+    }
+    return client.readUserCharacteristic(characteristicType);
   }
 
   @override
@@ -888,6 +903,9 @@ final class HealthConnectorImpl implements HealthConnector {
         return;
       case HealthPlatformFeaturePermission(:final feature):
         _requirePlatformSupport(feature.healthPlatformRequirements);
+        return;
+      case UserCharacteristicPermission(:final characteristicType):
+        _requirePlatformSupport(characteristicType.healthPlatformRequirements);
         return;
       case ExerciseRoutePermission():
         return;

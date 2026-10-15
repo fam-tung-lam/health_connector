@@ -195,6 +195,67 @@ void main() {
           group(
             'requestPermissions',
             () {
+              test('requests characteristic-only native permissions', () async {
+                // Given unknown native results for both characteristics.
+                when(() => mockApi.requestPermissions(any())).thenAnswer(
+                  (_) async => [
+                    UserCharacteristicPermissionRequestResultDto(
+                      permission: UserCharacteristicPermissionRequestDto(
+                        characteristicType: UserCharacteristicTypeDto.birthDate,
+                      ),
+                      status: PermissionStatusDto.unknown,
+                    ),
+                    UserCharacteristicPermissionRequestResultDto(
+                      permission: UserCharacteristicPermissionRequestDto(
+                        characteristicType:
+                            UserCharacteristicTypeDto.biologicalSex,
+                      ),
+                      status: PermissionStatusDto.unknown,
+                    ),
+                  ],
+                );
+                final permissions = [
+                  UserCharacteristicType.birthDate.readPermission,
+                  UserCharacteristicType.biologicalSex.readPermission,
+                ];
+                // When requesting characteristic-only access.
+                final results = await client.requestPermissions(permissions);
+                // Then authorization reaches native and does not imply a grant.
+                expect(results.map((result) => result.permission), permissions);
+                expect(
+                  results.map((result) => result.status),
+                  everyElement(PermissionStatus.unknown),
+                );
+                final request =
+                    verify(
+                          () => mockApi.requestPermissions(captureAny()),
+                        ).captured.single
+                        as PermissionsRequestDto;
+                expect(
+                  request.permissionRequests
+                      .cast<UserCharacteristicPermissionRequestDto>()
+                      .map((permission) => permission.characteristicType),
+                  [
+                    UserCharacteristicTypeDto.birthDate,
+                    UserCharacteristicTypeDto.biologicalSex,
+                  ],
+                );
+              });
+
+              test('maps characteristic permission request failures', () async {
+                // Given native authorization cannot complete.
+                when(() => mockApi.requestPermissions(any())).thenThrow(
+                  PlatformException(code: 'PERMISSION_NOT_GRANTED'),
+                );
+                // When requesting a characteristic, then failure is preserved.
+                await expectLater(
+                  client.requestPermissions([
+                    UserCharacteristicType.birthDate.readPermission,
+                  ]),
+                  throwsA(isA<AuthorizationException>()),
+                );
+              });
+
               test(
                 'returns empty list when empty permissions provided',
                 () async {
@@ -306,6 +367,41 @@ void main() {
           group(
             'getPermissionStatus',
             () {
+              parameterizedTest(
+                'returns unknown read authorization for characteristics',
+                [
+                  [
+                    UserCharacteristicType.birthDate,
+                    UserCharacteristicTypeDto.birthDate,
+                  ],
+                  [
+                    UserCharacteristicType.biologicalSex,
+                    UserCharacteristicTypeDto.biologicalSex,
+                  ],
+                ],
+                (
+                  UserCharacteristicType<Object> type,
+                  UserCharacteristicTypeDto expected,
+                ) async {
+                  // Given HealthKit hides characteristic read authorization.
+                  when(() => mockApi.getPermissionStatus(any())).thenAnswer(
+                    (_) async => PermissionStatusDto.unknown,
+                  );
+                  // When querying characteristic read permission.
+                  final status = await client.getPermissionStatus(
+                    type.readPermission,
+                  );
+                  // Then unknown is preserved for the correct native type.
+                  expect(status, PermissionStatus.unknown);
+                  final request =
+                      verify(
+                            () => mockApi.getPermissionStatus(captureAny()),
+                          ).captured.single
+                          as UserCharacteristicPermissionRequestDto;
+                  expect(request.characteristicType, expected);
+                },
+              );
+
               test(
                 'returns granted status for health data permission',
                 () async {
@@ -376,6 +472,87 @@ void main() {
               );
             },
           );
+
+          group('readUserCharacteristic', () {
+            test(
+              'reads a birth date through the native birth-date API',
+              () async {
+                // Given a readable native date.
+                when(() => mockApi.readBirthDate()).thenAnswer(
+                  (_) async => BirtDateDto(year: 1968, month: 2, day: 29),
+                );
+                // When reading the birth-date characteristic.
+                final value = await client.readUserCharacteristic(
+                  UserCharacteristicType.birthDate,
+                );
+                // Then the birth-date API supplies the result.
+                expect(value, BirtDate(year: 1968, month: 2, day: 29));
+                verify(() => mockApi.readBirthDate()).called(1);
+                verifyNever(() => mockApi.readBiologicalSex());
+              },
+            );
+
+            test('reads biological sex through the native sex API', () async {
+              // Given a readable native biological-sex value.
+              when(() => mockApi.readBiologicalSex()).thenAnswer(
+                (_) async => BiologicalSexDto.other,
+              );
+              // When reading the biological-sex characteristic.
+              final value = await client.readUserCharacteristic(
+                UserCharacteristicType.biologicalSex,
+              );
+              // Then the biological-sex API supplies the result.
+              expect(value, BiologicalSex.other);
+              verify(() => mockApi.readBiologicalSex()).called(1);
+              verifyNever(() => mockApi.readBirthDate());
+            });
+
+            parameterizedTest(
+              'returns null when the native characteristic is unavailable',
+              [
+                [UserCharacteristicType.birthDate],
+                [UserCharacteristicType.biologicalSex],
+              ],
+              (UserCharacteristicType<Object> type) async {
+                // Given no readable value from either native API.
+                when(
+                  () => mockApi.readBirthDate(),
+                ).thenAnswer((_) async => null);
+                when(() => mockApi.readBiologicalSex()).thenAnswer(
+                  (_) async => null,
+                );
+                // When reading a characteristic.
+                final value = await client.readUserCharacteristic(type);
+                // Then native absence remains null.
+                expect(value, isNull);
+              },
+            );
+
+            parameterizedTest(
+              'preserves explicit native authorization failures',
+              [
+                [UserCharacteristicType.birthDate],
+                [UserCharacteristicType.biologicalSex],
+              ],
+              (UserCharacteristicType<Object> type) async {
+                // Given an explicit native authorization failure.
+                final error = PlatformException(code: 'PERMISSION_NOT_GRANTED');
+                when(() => mockApi.readBirthDate()).thenThrow(error);
+                when(() => mockApi.readBiologicalSex()).thenThrow(error);
+                // When reading, then the failure must not become null.
+                await expectLater(
+                  client.readUserCharacteristic(type),
+                  throwsA(
+                    isA<AuthorizationException>().having(
+                      (error) => error.code,
+                      'code',
+                      HealthConnectorErrorCode.permissionNotGranted,
+                    ),
+                  ),
+                );
+              },
+            );
+          });
 
           group(
             'readRecord',

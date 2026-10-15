@@ -81,6 +81,7 @@ export 'src/models/permissions/permission.dart'
     show
         HealthPlatformFeaturePermission,
         HealthDataPermission,
+        UserCharacteristicPermission,
         HealthDataPermissionAccessType,
         PermissionStatus;
 export 'src/models/requests/aggregate_requests/aggregation_metric.dart'
@@ -89,3 +90,7 @@ export 'src/models/requests/read_requests/sort_descriptor.dart'
     show SortDescriptor;
 export 'src/models/responses/permission_request_result.dart'
     show PermissionRequestResult;
+export 'src/models/user_characteristics/biological_sex.dart' show BiologicalSex;
+export 'src/models/user_characteristics/birt_date.dart' show BirtDate;
+export 'src/models/user_characteristics/user_characteristic_type.dart'
+    show UserCharacteristicType;

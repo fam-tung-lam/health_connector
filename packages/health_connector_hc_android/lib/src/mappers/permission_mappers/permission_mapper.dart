@@ -5,6 +5,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthDataPermissionAccessType,
         HealthPlatformFeaturePermission,
         Permission,
+        UserCharacteristicPermission,
+        UnsupportedOperationException,
         sinceV2_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mapper.dart';
@@ -23,6 +25,10 @@ import 'package:meta/meta.dart' show internal;
 extension PermissionToDto on Permission {
   PermissionRequestDto toDto() {
     return switch (this) {
+      UserCharacteristicPermission() =>
+        throw const UnsupportedOperationException(
+          'User characteristics are available only on iOS.',
+        ),
       final HealthDataPermission p => HealthDataPermissionRequestDto(
         healthDataType: p.dataType.toDto(),
         accessType: p.accessType == HealthDataPermissionAccessType.read

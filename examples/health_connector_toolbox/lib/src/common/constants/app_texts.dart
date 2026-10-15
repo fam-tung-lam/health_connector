@@ -5,6 +5,24 @@ import 'package:health_connector/health_connector_internal.dart';
 /// This class provides a single source of truth for all UI text, making it
 /// easier to maintain, localize, and update text content.
 abstract final class AppTexts {
+  static const String userCharacteristics = 'User characteristics';
+  static const String readUserCharacteristic = 'Read user characteristic';
+  static const String userCharacteristicType = 'Characteristic type';
+  static const String characteristicReadDescription =
+      'Read birth date or biological sex from Apple Health.';
+  static const String characteristicUnsupported =
+      'User characteristics are available only on iOS.';
+  static const String characteristicPermissionHint =
+      'HealthKit does not disclose whether read access was granted. '
+      'Read results may be unavailable.';
+  static const String characteristicUnavailable =
+      'No characteristic data is available. It may be unset or HealthKit '
+      'may not allow this app to read it.';
+  static const String characteristicAuthorizationRequired =
+      'Permission is required to read this characteristic.';
+  static const String characteristicIdle =
+      'Select a characteristic and tap Read.';
+
   // region App Titles
   static const String healthConnectorToolbox = 'Health Connector Toolbox';
   static const String welcomeToToolbox = 'Welcome to Health Connector Toolbox';

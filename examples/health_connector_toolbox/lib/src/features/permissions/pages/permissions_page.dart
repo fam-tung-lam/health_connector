@@ -99,22 +99,33 @@ class _PermissionsPageState extends State<PermissionsPage>
     await process(() async {
       await notifier.requestPermissions(notifier.selectedPermissions.toList());
 
-      if (!mounted) {
+      if (!mounted || notifier.errorMessage != null) {
         return;
       }
 
-      final grantedCount = notifier.permissionResults.values
+      final grantedCount = notifier.lastRequestResults
+          .map((result) => result.status)
           .where((status) => status == PermissionStatus.granted)
           .length;
-      final deniedCount = notifier.permissionResults.values
+      final deniedCount = notifier.lastRequestResults
+          .map((result) => result.status)
           .where((status) => status == PermissionStatus.denied)
+          .length;
+
+      final unknownCount = notifier.lastRequestResults
+          .where((result) => result.status == PermissionStatus.unknown)
           .length;
 
       showAppSnackBar(
         context,
-        grantedCount > 0 ? SnackBarType.success : SnackBarType.warning,
+        unknownCount > 0
+            ? SnackBarType.info
+            : grantedCount > 0
+            ? SnackBarType.success
+            : SnackBarType.warning,
         '${AppTexts.requestCompleted} $grantedCount '
-        '${AppTexts.granted}, $deniedCount ${AppTexts.denied}',
+        '${AppTexts.granted}, $deniedCount ${AppTexts.denied}, '
+        '$unknownCount ${AppTexts.unknown}',
       );
     });
   }

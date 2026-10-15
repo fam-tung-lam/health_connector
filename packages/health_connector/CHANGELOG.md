@@ -1,3 +1,8 @@
+## Unreleased
+
+- **FEAT**(hk_ios): Allow to read birthdate and biological sex with typed user
+  characteristics on iOS. On Android `UnsupportedException` is thrown. ([PR #251](https://github.com/fam-tung-lam/health_connector/pull/251)).
+
 ## 3.13.0
 
 - **FEAT**: Add `DataOrigin.displayName` for descriptive source name.

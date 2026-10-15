@@ -96,6 +96,7 @@ extension PermissionsListToDto on List<HealthDataPermission> {
 PermissionsRequestDto createPermissionsRequestDto({
   required List<HealthDataPermission> healthDataPermissions,
   required List<ExerciseRoutePermission> exerciseRoutePermissions,
+  List<UserCharacteristicPermission> userCharacteristicPermissions = const [],
 }) {
   final healthDataDtos = healthDataPermissions
       .expand<PermissionRequestDto>(_expandHealthDataPermission)
@@ -105,6 +106,10 @@ PermissionsRequestDto createPermissionsRequestDto({
       .toList();
 
   return PermissionsRequestDto(
-    permissionRequests: [...healthDataDtos, ...exerciseRouteDtos],
+    permissionRequests: [
+      ...healthDataDtos,
+      ...exerciseRouteDtos,
+      ...userCharacteristicPermissions.map((permission) => permission.toDto()),
+    ],
   );
 }
