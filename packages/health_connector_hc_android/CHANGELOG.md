@@ -1,7 +1,8 @@
 ## 3.11.0
 
 - **FEAT**: Reject iOS-only user characteristic permissions with
-  `UnsupportedOperationException`.
+  `UnsupportedOperationException` because Android Health Connect does not provide
+  a user health profile API.
   ([7afbca1a](https://github.com/fam-tung-lam/health_connector/commit/7afbca1a9346002704c1fcd1a70a82cb238257bc)).
 
 ## 3.10.0
