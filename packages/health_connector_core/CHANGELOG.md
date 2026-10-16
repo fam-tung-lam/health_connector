@@ -1,8 +1,8 @@
-## Unreleased
+## 3.13.0
 
 - **FEAT**: Add typed user characteristic descriptors, read-only permissions,
-  Gregorian date-only `BirtDate`, and `BiologicalSex`. ([PR #251](https://github.com/fam-tung-lam/health_connector/pull/251)).
-
+  Gregorian date-only `BirtDate`, and `BiologicalSex`.
+  ([7afbca1a](https://github.com/fam-tung-lam/health_connector/commit/7afbca1a9346002704c1fcd1a70a82cb238257bc)).
 
 ## 3.12.0
 
