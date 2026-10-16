@@ -1,7 +1,9 @@
-## Unreleased
+## 3.11.0
 
-- **FEAT**: Throw `UnsupportedException` on iOS-only user characteristic permissions. ([PR #251](https://github.com/fam-tung-lam/health_connector/pull/251)).
-
+- **FEAT**: Reject iOS-only user characteristic permissions with
+  `UnsupportedOperationException` because Android Health Connect does not provide
+  a user health profile API.
+  ([7afbca1a](https://github.com/fam-tung-lam/health_connector/commit/7afbca1a9346002704c1fcd1a70a82cb238257bc)).
 
 ## 3.10.0
 
