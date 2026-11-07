@@ -1,4 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 import 'package:meta/meta.dart';
@@ -9,7 +10,7 @@ import 'package:meta/meta.dart';
 extension ElevationGainedRecordToDto on ElevationGainedRecord {
   ElevationGainedRecordDto toDto() {
     return ElevationGainedRecordDto(
-      id: id.value,
+      id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
       metadata: metadata.toDto(),

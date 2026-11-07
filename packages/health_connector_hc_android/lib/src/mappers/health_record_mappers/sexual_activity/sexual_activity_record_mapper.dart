@@ -12,7 +12,7 @@ extension SexualActivityRecordToDto on SexualActivityRecord {
   /// Converts [SexualActivityRecord] to [SexualActivityRecordDto].
   SexualActivityRecordDto toDto() {
     return SexualActivityRecordDto(
-      id: id.value,
+      id: id.toDto(),
       metadata: metadata.toDto(),
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,

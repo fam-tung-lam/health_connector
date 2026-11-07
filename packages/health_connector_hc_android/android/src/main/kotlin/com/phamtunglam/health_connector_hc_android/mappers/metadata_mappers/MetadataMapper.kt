@@ -23,7 +23,7 @@ internal fun MetadataDto.toHealthConnect(id: String? = null): Metadata {
     )
     val clientRecordVersion = clientRecordVersion ?: 0L
 
-    return if (id != null) {
+    return if (!id.isNullOrEmpty()) {
         createMetadataWithId(id, device)
     } else {
         createMetadataWithoutId(device, clientRecordVersion)

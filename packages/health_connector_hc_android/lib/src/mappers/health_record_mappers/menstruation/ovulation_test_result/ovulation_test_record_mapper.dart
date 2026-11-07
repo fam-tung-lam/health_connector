@@ -12,7 +12,7 @@ extension OvulationTestRecordToDto on OvulationTestRecord {
   /// Converts [OvulationTestRecord] to [OvulationTestRecordDto].
   OvulationTestRecordDto toDto() {
     return OvulationTestRecordDto(
-      id: id.value,
+      id: id.toDto(),
       metadata: metadata.toDto(),
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
