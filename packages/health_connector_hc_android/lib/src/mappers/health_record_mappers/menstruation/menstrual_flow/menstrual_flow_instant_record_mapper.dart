@@ -11,7 +11,7 @@ import 'package:meta/meta.dart' show internal;
 @internal
 extension MenstrualFlowInstantRecordToDto on MenstrualFlowInstantRecord {
   MenstrualFlowInstantRecordDto toDto() => MenstrualFlowInstantRecordDto(
-    id: id.value,
+    id: id.toDto(),
     time: time.millisecondsSinceEpoch,
     zoneOffsetSeconds: zoneOffsetSeconds,
     metadata: metadata.toDto(),

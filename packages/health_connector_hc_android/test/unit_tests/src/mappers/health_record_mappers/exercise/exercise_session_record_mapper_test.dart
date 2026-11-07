@@ -48,6 +48,29 @@ void main() {
           );
 
           test(
+            'converts a new ExerciseSessionRecord to a DTO with a null id, '
+            'keeping its client record id and version',
+            () {
+              final record = ExerciseSessionRecord(
+                startTime: FakeData.fakeStartTime,
+                endTime: FakeData.fakeEndTime,
+                metadata: Metadata.manualEntry(
+                  clientRecordId: 'workout-1',
+                  clientRecordVersion: 2,
+                  device: const Device.fromType(DeviceType.phone),
+                ),
+                exerciseType: ExerciseType.strengthTraining,
+              );
+
+              final dto = record.toDto();
+
+              expect(dto.id, isNull);
+              expect(dto.metadata.clientRecordId, 'workout-1');
+              expect(dto.metadata.clientRecordVersion, 2);
+            },
+          );
+
+          test(
             'converts ExerciseSessionRecord with exerciseRoute to '
             'ExerciseSessionRecordDto',
             () {

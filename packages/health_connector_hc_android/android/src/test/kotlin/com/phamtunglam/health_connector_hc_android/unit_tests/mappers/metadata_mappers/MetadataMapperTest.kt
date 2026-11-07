@@ -118,6 +118,33 @@ class MetadataMapperTest {
 
             @Test
             @DisplayName(
+                "GIVEN MetadataDto with client record ID and an empty record ID → " +
+                    "WHEN toHealthConnect called → " +
+                    "THEN keeps the client record ID and version",
+            )
+            fun whenEmptyIdAndClientRecordIdProvided_thenIncludesInMetadata() {
+                // Given
+                val dto = MetadataDto(
+                    dataOrigin = TEST_PACKAGE_NAME,
+                    recordingMethod = RecordingMethodDto.MANUAL_ENTRY,
+                    lastModifiedTime = System.currentTimeMillis(),
+                    clientRecordId = TEST_CLIENT_RECORD_ID,
+                    clientRecordVersion = TEST_CLIENT_RECORD_VERSION,
+                    deviceType = DeviceTypeDto.PHONE,
+                    deviceManufacturer = TEST_MANUFACTURER,
+                    deviceModel = TEST_MODEL,
+                )
+
+                // When
+                val result = dto.toHealthConnect(id = "")
+
+                // Then
+                result.clientRecordId shouldBe TEST_CLIENT_RECORD_ID
+                result.clientRecordVersion shouldBe TEST_CLIENT_RECORD_VERSION
+            }
+
+            @Test
+            @DisplayName(
                 "GIVEN MetadataDto without client record ID → " +
                     "WHEN toHealthConnect called → " +
                     "THEN creates Metadata without client record ID",

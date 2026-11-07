@@ -12,7 +12,7 @@ import 'package:meta/meta.dart';
 extension ExerciseSessionRecordToDto on ExerciseSessionRecord {
   ExerciseSessionRecordDto toDto() {
     return ExerciseSessionRecordDto(
-      id: id.value,
+      id: id.toDto(),
       metadata: metadata.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,

@@ -13,7 +13,7 @@ extension CervicalMucusRecordToDto on CervicalMucusRecord {
   /// Converts this [CervicalMucusRecord] to [CervicalMucusRecordDto].
   CervicalMucusRecordDto toDto() {
     return CervicalMucusRecordDto(
-      id: id.value,
+      id: id.toDto(),
       metadata: metadata.toDto(),
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,

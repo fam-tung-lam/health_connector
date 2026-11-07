@@ -13,7 +13,7 @@ extension IntermenstrualBleedingRecordToDto on IntermenstrualBleedingRecord {
   /// [IntermenstrualBleedingRecordDto].
   IntermenstrualBleedingRecordDto toDto() {
     return IntermenstrualBleedingRecordDto(
-      id: id.value,
+      id: id.toDto(),
       metadata: metadata.toDto(),
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,

@@ -12,7 +12,7 @@ import 'package:meta/meta.dart';
 extension ActivityIntensityRecordToDto on ActivityIntensityRecord {
   ActivityIntensityRecordDto toDto() {
     return ActivityIntensityRecordDto(
-      id: id.value,
+      id: id.toDto(),
       metadata: metadata.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
