@@ -16,8 +16,10 @@ extension ExerciseSessionRecordToDto on ExerciseSessionRecord {
       metadata: metadata.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-      startZoneOffsetSeconds: startTime.timeZoneOffset.inSeconds,
-      endZoneOffsetSeconds: endTime.timeZoneOffset.inSeconds,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? startTime.timeZoneOffset.inSeconds,
+      endZoneOffsetSeconds:
+          endZoneOffsetSeconds ?? endTime.timeZoneOffset.inSeconds,
       exerciseType: exerciseType.toDto(),
       title: title,
       notes: notes,
