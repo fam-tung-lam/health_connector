@@ -58,6 +58,36 @@ void main() {
               );
             },
           );
+
+          test(
+            'converts StepsCadenceSeriesRecord to DTO, keeping its zone '
+            'offsets',
+            () {
+              final record = StepsCadenceSeriesRecord(
+                startTime: FakeData.fakeStartTime,
+                endTime: FakeData.fakeEndTime,
+                startZoneOffsetSeconds: 3600,
+                endZoneOffsetSeconds: 7200,
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
+                  recordingMethod: RecordingMethod.activelyRecorded,
+                  clientRecordVersion: 1,
+                  device: const Device(type: DeviceType.watch),
+                ),
+                samples: [
+                  StepsCadenceSample(
+                    time: fakeSampleTime,
+                    cadence: Frequency.perMinute(120),
+                  ),
+                ],
+              );
+
+              final dto = record.toDto();
+
+              expect(dto.startZoneOffsetSeconds, 3600);
+              expect(dto.endZoneOffsetSeconds, 7200);
+            },
+          );
         },
       );
 

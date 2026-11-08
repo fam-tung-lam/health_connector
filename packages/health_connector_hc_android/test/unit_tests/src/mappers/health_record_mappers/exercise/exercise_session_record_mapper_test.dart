@@ -135,6 +135,31 @@ void main() {
               expect(dto.exerciseRoute!.locations[1].longitude, -122.4094);
             },
           );
+
+          test(
+            'converts ExerciseSessionRecord to ExerciseSessionRecordDto, '
+            'keeping its zone offsets',
+            () {
+              final record = ExerciseSessionRecord(
+                startTime: FakeData.fakeStartTime,
+                endTime: FakeData.fakeEndTime,
+                startZoneOffsetSeconds: 3600,
+                endZoneOffsetSeconds: 7200,
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
+                  recordingMethod: RecordingMethod.activelyRecorded,
+                  clientRecordVersion: 1,
+                  device: const Device(type: DeviceType.watch),
+                ),
+                exerciseType: ExerciseType.running,
+              );
+
+              final dto = record.toDto();
+
+              expect(dto.startZoneOffsetSeconds, 3600);
+              expect(dto.endZoneOffsetSeconds, 7200);
+            },
+          );
         },
       );
 

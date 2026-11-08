@@ -49,6 +49,31 @@ void main() {
               expect(dto.notes, notes);
             },
           );
+
+          test(
+            'converts ActivityIntensityRecord to ActivityIntensityRecordDto, '
+            'keeping its zone offsets',
+            () {
+              final record = ActivityIntensityRecord(
+                startTime: FakeData.fakeStartTime,
+                endTime: FakeData.fakeEndTime,
+                startZoneOffsetSeconds: 3600,
+                endZoneOffsetSeconds: 7200,
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
+                  recordingMethod: RecordingMethod.activelyRecorded,
+                  clientRecordVersion: 1,
+                  device: const Device(type: DeviceType.watch),
+                ),
+                activityIntensityType: ActivityIntensityType.vigorous,
+              );
+
+              final dto = record.toDto();
+
+              expect(dto.startZoneOffsetSeconds, 3600);
+              expect(dto.endZoneOffsetSeconds, 7200);
+            },
+          );
         },
       );
 

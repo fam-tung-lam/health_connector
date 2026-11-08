@@ -13,8 +13,10 @@ extension StepsCadenceSeriesRecordToDto on StepsCadenceSeriesRecord {
       id: id == HealthRecordId.none ? null : id.value,
       startTime: startTime.toUtc().millisecondsSinceEpoch,
       endTime: endTime.toUtc().millisecondsSinceEpoch,
-      startZoneOffsetSeconds: startTime.timeZoneOffset.inSeconds,
-      endZoneOffsetSeconds: endTime.timeZoneOffset.inSeconds,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? startTime.timeZoneOffset.inSeconds,
+      endZoneOffsetSeconds:
+          endZoneOffsetSeconds ?? endTime.timeZoneOffset.inSeconds,
       samples: samples
           .map(
             (e) => StepsCadenceSampleDto(
