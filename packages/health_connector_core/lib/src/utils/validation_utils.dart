@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0, internalUse;
+    show sinceV1_0_0, sinceV3_14_0, internalUse;
 
 /// Validates that a condition holds for a function argument.
 ///
@@ -51,6 +51,29 @@ void requireEndTimeAfterStartTime({
       endTime,
       'endTime',
       'endTime must be after startTime. '
+          'Got startTime=$startTime, endTime=$endTime',
+    );
+  }
+}
+
+/// Validates that [endTime] is not before [startTime].
+///
+/// Equal timestamps are allowed.
+///
+/// ## Throws
+///
+/// - [ArgumentError]: If [endTime] is before [startTime].
+@sinceV3_14_0
+@internalUse
+void requireEndTimeNotBeforeStartTime({
+  required DateTime startTime,
+  required DateTime endTime,
+}) {
+  if (endTime.isBefore(startTime)) {
+    throw ArgumentError.value(
+      endTime,
+      'endTime',
+      'endTime must not be before startTime. '
           'Got startTime=$startTime, endTime=$endTime',
     );
   }

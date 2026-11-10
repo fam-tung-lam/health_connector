@@ -38,6 +38,79 @@ void main() {
       );
     });
 
+    test(
+      'saved workout with zero duration preserves its ID and timestamps',
+      () {
+        // Given
+        final exerciseSession = ExerciseSessionRecord.internal(
+          id: HealthRecordId(FakeData.fakeId),
+          startTime: FakeData.fakeStartTime,
+          endTime: FakeData.fakeStartTime,
+          exerciseType: ExerciseType.running,
+          metadata: Metadata.manualEntry(),
+        );
+
+        // When
+        final request = HealthDataType.exerciseSession
+            .aggregateActiveEnergyBurnedFor(exerciseSession: exerciseSession);
+
+        // Then
+        expect(request.startTime, FakeData.fakeStartTime);
+        expect(request.endTime, FakeData.fakeStartTime);
+        expect(
+          (request as ExerciseSessionActiveEnergyAggregateRequest)
+              .exerciseSessionId,
+          exerciseSession.id,
+        );
+      },
+    );
+
+    test('saved workout with negative duration is rejected', () {
+      // Given
+      final exerciseSession = ExerciseSessionRecord.internal(
+        id: HealthRecordId(FakeData.fakeId),
+        startTime: FakeData.fakeEndTime,
+        endTime: FakeData.fakeStartTime,
+        exerciseType: ExerciseType.running,
+        metadata: Metadata.manualEntry(),
+      );
+
+      // When / Then
+      expect(
+        () => HealthDataType.exerciseSession.aggregateActiveEnergyBurnedFor(
+          exerciseSession: exerciseSession,
+        ),
+        throwsA(
+          isA<ArgumentError>().having((error) => error.name, 'name', 'endTime'),
+        ),
+      );
+    });
+
+    test('workout with zero duration still requires a saved ID', () {
+      // Given
+      final exerciseSession = ExerciseSessionRecord.internal(
+        id: HealthRecordId.none,
+        startTime: FakeData.fakeStartTime,
+        endTime: FakeData.fakeStartTime,
+        exerciseType: ExerciseType.running,
+        metadata: Metadata.manualEntry(),
+      );
+
+      // When / Then
+      expect(
+        () => HealthDataType.exerciseSession.aggregateActiveEnergyBurnedFor(
+          exerciseSession: exerciseSession,
+        ),
+        throwsA(
+          isA<ArgumentError>().having(
+            (error) => error.name,
+            'name',
+            'exerciseSessionId',
+          ),
+        ),
+      );
+    });
+
     test('unsaved exercise session rejects active energy aggregation', () {
       // Given
       final exerciseSession = exerciseSessionWithId(HealthRecordId.none);
