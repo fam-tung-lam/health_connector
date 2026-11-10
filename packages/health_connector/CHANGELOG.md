@@ -1,3 +1,13 @@
+## 3.14.1
+
+- **FIX**(hc_android): Preserve start and end timezone offsets when writing
+  exercise sessions, activity intensity records, and steps cadence series to
+  Health Connect.
+  ([64d6fde4](https://github.com/fam-tung-lam/health_connector/commit/64d6fde4e062747dd6cb99a6bb8f2779427cef86)).
+- **FIX**(hc_android): Preserve `clientRecordId` and `clientRecordVersion` when
+  inserting new records into Health Connect.
+  ([2c9e7015](https://github.com/fam-tung-lam/health_connector/commit/2c9e701523c654f472f09e52bb812eb47aee9f63)).
+
 ## 3.14.0
 
 - **FEAT**(hk_ios): Add typed birth-date and biological-sex reads through
