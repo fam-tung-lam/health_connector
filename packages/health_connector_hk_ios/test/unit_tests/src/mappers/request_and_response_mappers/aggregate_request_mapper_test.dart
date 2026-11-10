@@ -12,6 +12,33 @@ void main() {
       group(
         'AggregateRequestDtoMapper',
         () {
+          test('maps a workout with zero duration to an ID-only request', () {
+            // Given
+            final exerciseSession = ExerciseSessionRecord.internal(
+              id: HealthRecordId(FakeData.fakeId),
+              startTime: FakeData.fakeStartTime,
+              endTime: FakeData.fakeStartTime,
+              exerciseType: ExerciseType.running,
+              metadata: Metadata.manualEntry(),
+            );
+            final request = HealthDataType.exerciseSession
+                .aggregateActiveEnergyBurnedFor(
+                  exerciseSession: exerciseSession,
+                );
+
+            // When
+            final dto = request.toDto();
+            const codec = HealthConnectorHKIOSApi.pigeonChannelCodec;
+            final decoded = codec.decodeMessage(codec.encodeMessage(dto));
+
+            // Then
+            expect(
+              (decoded! as ExerciseSessionActiveEnergyAggregateRequestDto)
+                  .encode(),
+              [FakeData.fakeId],
+            );
+          });
+
           test('maps a saved workout to an ID-only Pigeon request', () {
             // Given
             final AggregateRequest<Energy> request =

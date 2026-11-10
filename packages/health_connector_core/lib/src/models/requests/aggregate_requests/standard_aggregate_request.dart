@@ -21,14 +21,16 @@ final class StandardAggregateRequest<U extends MeasurementUnit>
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [endTime] before [startTime]
+  /// - [ArgumentError] if [endTime] is not after [startTime]
   /// - [ArgumentError] if [dataType] does not support [aggregationMetric]
   StandardAggregateRequest({
     required super.dataType,
     required super.aggregationMetric,
     required super.startTime,
     required super.endTime,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   @override
   String toString() {

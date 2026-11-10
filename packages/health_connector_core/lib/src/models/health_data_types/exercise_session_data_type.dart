@@ -136,6 +136,8 @@ final class ExerciseSessionDataType
   /// ## Parameters
   ///
   /// - [exerciseSession]: A saved exercise session with a platform-assigned ID.
+  ///   Equal start and end timestamps are accepted for existing HealthKit
+  ///   workouts. Android requires a valid native exercise-session time range.
   ///
   /// ## Returns
   ///
@@ -144,7 +146,8 @@ final class ExerciseSessionDataType
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError]: If [exerciseSession] has no saved record ID.
+  /// - [ArgumentError]: If [exerciseSession] has no saved record ID or its end
+  ///   time is before its start time.
   ///
   /// ## Example
   ///

@@ -2,6 +2,40 @@ import 'package:health_connector_core/src/utils/validation_utils.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('requireEndTimeNotBeforeStartTime', () {
+    for (final duration in [Duration.zero, const Duration(microseconds: 1)]) {
+      test('allows nonnegative duration $duration', () {
+        // Given
+        final start = DateTime.utc(2026, 1, 1, 12);
+
+        // When / Then
+        expect(
+          () => requireEndTimeNotBeforeStartTime(
+            startTime: start,
+            endTime: start.add(duration),
+          ),
+          returnsNormally,
+        );
+      });
+    }
+
+    test('rejects negative duration and identifies the invalid parameter', () {
+      // Given
+      final start = DateTime.utc(2026, 1, 1, 12);
+      final end = start.subtract(const Duration(microseconds: 1));
+
+      // When / Then
+      expect(
+        () => requireEndTimeNotBeforeStartTime(startTime: start, endTime: end),
+        throwsA(
+          isA<ArgumentError>()
+              .having((error) => error.name, 'name', 'endTime')
+              .having((error) => error.invalidValue, 'invalidValue', end),
+        ),
+      );
+    });
+  });
+
   group(
     'require',
     () {
