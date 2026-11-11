@@ -65,6 +65,14 @@ protocol AggregatableQuantityHealthRecordHandler: AggregatableHealthRecordHandle
     ReadableHealthRecordHandler
     where SampleType == HKQuantitySample
 {
+    /// Aggregates a supported metric into complete local calendar days.
+    func aggregateByDay(
+        metric: AggregationMetricDto,
+        startTime: Date,
+        endTime: Date,
+        calendar: Calendar
+    ) async throws -> [DailyAggregateResultDto]
+
     /// Converts an HKQuantity to the handler's aggregated result DTO type.
     ///
     /// This is the only conversion method handlers need to implement.
@@ -179,7 +187,7 @@ extension AggregatableQuantityHealthRecordHandler {
     /// - Parameter metric: The aggregation metric
     /// - Returns: The corresponding HKStatisticsOptions
     /// - Throws: `HealthConnectorError.invalidArgument` for unsupported metrics
-    private func statisticsOptions(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
+    func statisticsOptions(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         switch metric {
         case .min:
             .discreteMin
@@ -189,6 +197,20 @@ extension AggregatableQuantityHealthRecordHandler {
             .discreteAverage
         case .sum:
             .cumulativeSum
+        }
+    }
+
+    /// Extracts a metric without converting an absent quantity into an error.
+    func aggregateQuantity(from statistics: HKStatistics, for metric: AggregationMetricDto) -> HKQuantity? {
+        switch metric {
+        case .min:
+            statistics.minimumQuantity()
+        case .max:
+            statistics.maximumQuantity()
+        case .avg:
+            statistics.averageQuantity()
+        case .sum:
+            statistics.sumQuantity()
         }
     }
 
@@ -203,17 +225,7 @@ extension AggregatableQuantityHealthRecordHandler {
         from statistics: HKStatistics,
         for metric: AggregationMetricDto
     ) throws -> HKQuantity {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .min:
-                statistics.minimumQuantity()
-            case .max:
-                statistics.maximumQuantity()
-            case .avg:
-                statistics.averageQuantity()
-            case .sum:
-                statistics.sumQuantity()
-            }
+        let quantity = aggregateQuantity(from: statistics, for: metric)
 
         guard let quantity else {
             throw HealthConnectorError.unknownError(

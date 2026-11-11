@@ -595,6 +595,33 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   }
 
   @override
+  Future<List<DailyAggregateResult<U>>>
+  aggregateByDay<U extends MeasurementUnit>(
+    AggregateRequest<U> request,
+  ) async {
+    validateDailyAggregateRequest(request);
+    try {
+      final days = await _platformClient.aggregateByDay(request.toDto());
+      return List.unmodifiable(
+        days.map(
+          (day) => DailyAggregateResult<U>(
+            startTime: DateTime.fromMillisecondsSinceEpoch(day.startTime),
+            endTime: DateTime.fromMillisecondsSinceEpoch(day.endTime),
+            value: day.value?.toMeasurementUnit(request.dataType) as U?,
+          ),
+        ),
+      );
+    } on PlatformException catch (e, st) {
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
+        'Daily aggregation failed.',
+        cause: e,
+        stackTrace: st,
+      );
+    }
+  }
+
+  @override
   Future<U> aggregate<U extends MeasurementUnit>(
     AggregateRequest<U> request,
   ) async {

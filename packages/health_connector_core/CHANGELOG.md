@@ -1,3 +1,8 @@
+## Unreleased
+
+- Add `aggregateByDay()` for native aggregate metrics with daily
+  grouping, complete local calendar days and nullable measurements.
+
 ## 3.13.0
 
 - **FEAT**: Add typed user characteristic descriptors, read-only permissions,

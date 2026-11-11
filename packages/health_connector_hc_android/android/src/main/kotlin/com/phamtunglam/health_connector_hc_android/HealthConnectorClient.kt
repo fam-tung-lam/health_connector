@@ -12,6 +12,7 @@ import com.phamtunglam.health_connector_hc_android.HealthConnectorClient.Compani
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.handlers.AggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandlerRegistry
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
@@ -27,6 +28,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatu
 import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureAggregateRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.DailyAggregateResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseRouteDto
@@ -912,6 +914,23 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                     context = context,
                 )
             }
+        }
+
+    /** Aggregates supported native metrics into complete local calendar days. */
+    suspend fun aggregateByDay(request: AggregateRequestDto): List<DailyAggregateResultDto> =
+        withContext(dispatchers.io) {
+            if (request is ExerciseSessionActiveEnergyAggregateRequestDto) {
+                throw HealthConnectorException.UnsupportedOperation(
+                    message = "Saved workout aggregation cannot be grouped by day",
+                )
+            }
+            val handler = recordHandlerRegistry.getRecordHandler(
+                request.dataType,
+            ) as? HealthConnectAggregatableHealthRecordHandler
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "Daily aggregation is unavailable",
+                )
+            handler.aggregateByDay(request)
         }
 
     /**
