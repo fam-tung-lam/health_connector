@@ -540,6 +540,15 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
+  Future<List<DailyAggregateResult<U>>>
+  aggregateByDay<U extends MeasurementUnit>(
+    AggregateRequest<U> request,
+  ) async {
+    _requireAggregateSupport(request);
+    return _client.aggregateByDay(request);
+  }
+
+  @override
   Future<U> aggregate<U extends MeasurementUnit>(
     AggregateRequest<U> request,
   ) async {

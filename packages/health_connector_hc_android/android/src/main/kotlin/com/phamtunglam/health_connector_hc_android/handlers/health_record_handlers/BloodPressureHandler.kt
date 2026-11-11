@@ -3,11 +3,9 @@ package com.phamtunglam.health_connector_hc_android.handlers.health_record_handl
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.records.BloodPressureRecord
-import androidx.health.connect.client.request.AggregateRequest
-import androidx.health.connect.client.time.TimeRangeFilter
 import androidx.health.connect.client.units.Pressure
-import com.phamtunglam.health_connector_hc_android.handlers.AggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
@@ -16,7 +14,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import java.time.Instant
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -30,38 +27,24 @@ internal class BloodPressureHandler(
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler {
+    HealthConnectAggregatableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.BLOOD_PRESSURE
 
     override val tag = "BloodPressureHandler"
 
-    override suspend fun aggregate(request: AggregateRequestDto): Double = process(
-        operation = "aggregate",
-        context = mapOf("request" to request),
-    ) {
+    override fun getAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> {
         require(request is BloodPressureAggregateRequestDto) {
             "Expected BloodPressureAggregateRequestDto for BloodPressureHandler"
         }
+        return getAggregateMetric(request.aggregationMetric, request.bloodPressureDataType)
+    }
 
-        require(request.startTime < request.endTime) {
-            "Invalid time range: startTime must be before endTime"
-        }
-
-        val metric = getAggregateMetric(request.aggregationMetric, request.bloodPressureDataType)
-        val aggregateRequest = AggregateRequest(
-            metrics = setOf(metric),
-            timeRangeFilter = TimeRangeFilter.between(
-                Instant.ofEpochMilli(request.startTime),
-                Instant.ofEpochMilli(request.endTime),
-            ),
+    override fun convertAggregatedValue(aggregatedValue: Any): Double {
+        val pressure = aggregatedValue as? Pressure ?: throw IllegalArgumentException(
+            "Expected Pressure",
         )
-
-        val result = client.aggregate(aggregateRequest)
-
-        val value = result[metric] ?: error("Aggregation result for $metric is null")
-
-        value.inMillimetersOfMercury
+        return pressure.inMillimetersOfMercury
     }
 
     private fun getAggregateMetric(

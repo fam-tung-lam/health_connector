@@ -48,6 +48,8 @@ export 'src/models/requests/aggregate_requests/aggregation_metric.dart';
 export 'src/models/requests/delete_requests/delete_records_request.dart';
 export 'src/models/requests/read_requests/read_records_request.dart';
 export 'src/models/requests/read_requests/sort_descriptor.dart';
+export 'src/models/responses/daily_aggregate_result.dart'
+    show DailyAggregateResult;
 export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'
     hide ReadRecordsResponse;
@@ -58,4 +60,5 @@ export 'src/utils/double_to_measurement_unit_extension.dart';
 export 'src/utils/health_record_data_type_extension.dart';
 export 'src/utils/permission_extension.dart';
 export 'src/utils/resolve_health_platform_support_status.dart';
+export 'src/utils/validate_daily_aggregate_request.dart';
 export 'src/utils/validation_utils.dart';

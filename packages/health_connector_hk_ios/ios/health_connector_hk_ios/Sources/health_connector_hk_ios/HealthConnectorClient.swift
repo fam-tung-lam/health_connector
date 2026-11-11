@@ -29,7 +29,7 @@ actor HealthConnectorClient: Taggable {
     /// Registry for handler instances
     ///
     /// **Changed:** Now stores handler instances (not static singleton)
-    private let handlerRegistry: HealthRecordHandlerRegistry
+    let handlerRegistry: HealthRecordHandlerRegistry
 
     /// Private initializer to prevent external instantiation.
     ///
@@ -885,7 +885,7 @@ actor HealthConnectorClient: Taggable {
     ///   - action: The async closure to execute
     /// - Returns: The result of the action
     /// - Throws: `HealthConnectorError` representing the failure
-    private func process<T>(
+    func process<T>(
         operation: String,
         context: [String: Any] = [:],
         action: () async throws -> T

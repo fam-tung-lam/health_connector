@@ -1,12 +1,14 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
 import androidx.health.connect.client.aggregate.AggregateMetric
+import androidx.health.connect.client.request.AggregateGroupByPeriodRequest
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.DailyAggregateResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
@@ -15,7 +17,11 @@ import com.phamtunglam.health_connector_hc_android.utils.endTime
 import com.phamtunglam.health_connector_hc_android.utils.startTime
 import java.time.Duration
 import java.time.Instant
+import java.time.Period
+import java.time.ZoneId
+import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 
 /**
@@ -30,10 +36,69 @@ internal interface AggregatableHealthRecordHandler : HealthRecordHandler {
  */
 internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHealthRecordHandler {
 
+    /** Returns native metrics grouped into every complete local calendar day. */
+    suspend fun aggregateByDay(request: AggregateRequestDto): List<DailyAggregateResultDto> =
+        process(
+            operation = "aggregateByDay",
+        ) {
+            val zone = ZoneId.systemDefault()
+            val start = Instant.ofEpochMilli(request.startTime)
+            val end = Instant.ofEpochMilli(request.endTime)
+            val startDate = start.atZone(zone).toLocalDate()
+            val endDate = end.atZone(zone).toLocalDate()
+            require(
+                start < end &&
+                    startDate.atStartOfDay(
+                        zone,
+                    ).toInstant() == start &&
+                    endDate.atStartOfDay(zone).toInstant() == end,
+            ) {
+                "Expected complete local calendar days"
+            }
+            require(request.dataType == dataType) { "Request does not match handler" }
+            val metric = getAggregateMetric(request)
+            // Health Connect groups by recorded civil time; boundaries below label those dates in the device zone.
+            val buckets = client.aggregateGroupByPeriod(
+                AggregateGroupByPeriodRequest(
+                    metrics = setOf(metric),
+                    timeRangeFilter = TimeRangeFilter.between(
+                        startDate.atStartOfDay(),
+                        endDate.atStartOfDay(),
+                    ),
+                    timeRangeSlicer = Period.ofDays(1),
+                ),
+            ).associateBy { it.startTime.toLocalDate() }
+
+            val results = mutableListOf<DailyAggregateResultDto>()
+            var day = startDate
+            while (day < endDate) {
+                coroutineContext.ensureActive()
+                val value = buckets[day]?.result?.get(metric)
+                results.add(
+                    DailyAggregateResultDto(
+                        startTime = day.atStartOfDay(zone).toInstant().toEpochMilli(),
+                        endTime = day.plusDays(1).atStartOfDay(zone).toInstant().toEpochMilli(),
+                        value = value?.let { convertAggregatedValue(it) },
+                    ),
+                )
+                day = day.plusDays(1)
+            }
+            results
+        }
+
     /**
      * Maps aggregation metrics to their Health Connect SDK equivalents.
      */
     val aggregateMetricMappings: Map<AggregationMetricDto, AggregateMetric<*>>
+        get() = emptyMap()
+
+    /** Resolves standard or specialized requests to a native metric. */
+    fun getAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
+        aggregateMetricMappings[request.aggregationMetric]
+            ?: throw IllegalArgumentException(
+                "Unsupported metric: ${request.aggregationMetric}. " +
+                    "Supported: ${aggregateMetricMappings.keys}",
+            )
 
     @Throws(IllegalArgumentException::class)
     fun convertAggregatedValue(aggregatedValue: Any): Double
@@ -60,11 +125,7 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
                 "Supported data type: $dataType"
         }
 
-        val metric = aggregateMetricMappings[request.aggregationMetric]
-            ?: throw IllegalArgumentException(
-                "Unsupported metric: ${request.aggregationMetric}. " +
-                    "Supported: ${aggregateMetricMappings.keys}",
-            )
+        val metric = getAggregateMetric(request)
         val aggregateRequest = AggregateRequest(
             metrics = setOf(metric),
             timeRangeFilter = TimeRangeFilter.between(
