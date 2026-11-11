@@ -28,13 +28,14 @@ final class ActivityIntensityAggregateRequest
   /// ## Throws
   ///
   /// - [ArgumentError] if [dataType] is not [HealthDataType.activityIntensity]
-  /// - [ArgumentError] if [endTime] is before [startTime]
+  /// - [ArgumentError] if [endTime] is not after [startTime]
   ActivityIntensityAggregateRequest({
     required super.dataType,
     required super.startTime,
     required super.endTime,
     this.intensityType,
   }) : super(aggregationMetric: AggregationMetric.sum) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: dataType == HealthDataType.activityIntensity,
       value: dataType,
