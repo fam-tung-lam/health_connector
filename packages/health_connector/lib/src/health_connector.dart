@@ -802,7 +802,8 @@ abstract interface class HealthConnector {
   ///
   /// ## Returns
   ///
-  /// - The aggregated value in the appropriate measurement unit.
+  /// - The aggregated value in the appropriate measurement unit, including
+  ///   zero when the contributing data yields zero.
   ///
   /// ## Throws
   ///
@@ -814,6 +815,7 @@ abstract interface class HealthConnector {
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] when aggregating active
   ///   energy for an exercise session whose saved record does not exist.
+  /// - [NoDataException] when no data contributes to the requested metric.
   ///
   /// ## Example
   ///

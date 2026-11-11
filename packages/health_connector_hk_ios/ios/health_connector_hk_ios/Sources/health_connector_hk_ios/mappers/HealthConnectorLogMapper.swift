@@ -65,6 +65,8 @@ extension HealthConnectorError {
             .invalidArgument
         case .unsupportedOperation:
             .unsupportedOperation
+        case .noData:
+            .noData
         case .unknownError:
             .unknownError
         case .permissionNotGranted:

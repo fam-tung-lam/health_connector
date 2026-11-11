@@ -88,6 +88,7 @@ extension HealthConnectorError {
     /// | `.errorDatabaseInaccessible` | `.healthServiceDatabaseInaccessible` |
     /// | `.errorHealthDataRestricted` | `.healthServiceRestricted` |
     /// | `.errorUserCanceled` | `.permissionNotGranted` (user cancelled = denied) |
+    /// | `.errorNoData` | `.noData` |
     /// | All others | `.unknownError` (with cause) |
     ///
     /// - Parameter error: The Error to convert
@@ -159,11 +160,7 @@ extension HealthConnectorError {
                 )
 
             case .errorNoData:
-                return .unknownError(
-                    message: "No health data available for the requested query",
-                    cause: hkError,
-                    context: context
-                )
+                return .noData
 
             @unknown default:
                 return .unknownError(

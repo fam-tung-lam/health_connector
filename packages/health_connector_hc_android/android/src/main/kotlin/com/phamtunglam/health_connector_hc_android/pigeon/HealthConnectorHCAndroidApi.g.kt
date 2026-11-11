@@ -861,7 +861,9 @@ enum class HealthConnectorErrorCodeDto(val raw: Int) {
   /** Operation or data type not supported on this platform. */
   UNSUPPORTED_OPERATION(9),
   /** An unclassified or internal system error occurred. */
-  UNKNOWN_ERROR(10);
+  UNKNOWN_ERROR(10),
+  /** No data contributed to the requested aggregation. */
+  NO_DATA(11);
 
   companion object {
     fun ofRaw(raw: Int): HealthConnectorErrorCodeDto? {

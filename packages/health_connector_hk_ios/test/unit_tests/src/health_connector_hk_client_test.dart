@@ -886,6 +886,21 @@ void main() {
                 },
               );
 
+              test('throws NoDataException for an empty aggregate', () async {
+                when(() => mockApi.aggregate(any())).thenThrow(
+                  PlatformException(code: 'NO_DATA'),
+                );
+                final request = HealthDataType.steps.aggregateSum(
+                  startTime: FakeData.fakeStartTime,
+                  endTime: FakeData.fakeEndTime,
+                );
+
+                await expectLater(
+                  client.aggregate(request),
+                  throwsA(isA<NoDataException>()),
+                );
+              });
+
               test(
                 'returns aggregated value on success',
                 () async {

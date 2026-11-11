@@ -53,6 +53,8 @@ extension HealthConnectorExceptionDtoToDomain on HealthConnectorExceptionDto {
         return HealthConnectorErrorCode.invalidArgument;
       case HealthConnectorErrorCodeDto.unsupportedOperation:
         return HealthConnectorErrorCode.unsupportedOperation;
+      case HealthConnectorErrorCodeDto.noData:
+        return HealthConnectorErrorCode.noData;
       case HealthConnectorErrorCodeDto.unknownError:
         return HealthConnectorErrorCode.unknownError;
     }

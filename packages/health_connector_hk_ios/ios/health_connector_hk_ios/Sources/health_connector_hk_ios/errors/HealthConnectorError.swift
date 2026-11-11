@@ -55,6 +55,9 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
     ///   - context: Additional key-value data for debugging.
     case unsupportedOperation(message: String, cause: Error? = nil, context: [String: Any]? = nil)
 
+    /// No data contributed to the requested aggregation.
+    case noData
+
     /// An unclassified or internal system error occurred.
     /// - Parameters:
     ///   - message: A description of the unknown error.
@@ -72,6 +75,7 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
         case .healthServiceRestricted: "HEALTH_SERVICE_RESTRICTED"
         case .healthServiceDatabaseInaccessible: "HEALTH_SERVICE_DATABASE_INACCESSIBLE"
         case .unsupportedOperation: "UNSUPPORTED_OPERATION"
+        case .noData: "NO_DATA"
         case .unknownError: "UNKNOWN_ERROR"
         }
     }
@@ -88,6 +92,8 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
              let .unsupportedOperation(msg, _, _),
              let .unknownError(msg, _, _):
             msg
+        case .noData:
+            "No data contributed to the requested aggregation"
         }
     }
 
@@ -104,6 +110,8 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
              let .unsupportedOperation(_, cause, _),
              let .unknownError(_, cause, _):
             cause
+        case .noData:
+            nil
         }
     }
 

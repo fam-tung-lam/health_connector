@@ -2,6 +2,9 @@
 
 Aggregation runs inside the platform store. For anything longer than a few days, it is dramatically cheaper than reading every record into Dart and folding it yourself.
 
+`aggregate()` throws `NoDataException` when no data contributes to the requested
+metric. A measured zero is returned in the usual measurement unit.
+
 ## The four metrics
 
 ```dart
@@ -100,7 +103,7 @@ print('${energy.inKilocalories} kcal');
 
 The record must have a platform-assigned ID. An unsaved record with
 `HealthRecordId.none` raises `ArgumentError` when building the request.
-Missing energy returns zero. A missing saved workout raises
+Missing energy raises `NoDataException`. A missing saved workout raises
 `InvalidArgumentException`.
 
 | Platform | Read permissions | How energy is calculated |
@@ -156,21 +159,25 @@ Read the individual records only when you need to display or process them one by
 There is no bucketed aggregate API. For a chart, issue one aggregate per bucket:
 
 ```dart
-Future<List<int>> dailySteps(int days) async {
-  final results = <int>[];
+Future<List<num?>> dailySteps(int days) async {
+  final results = <num?>[];
   final midnight = DateTime.now().copyWith(
     hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0,
   );
 
   for (var day = days - 1; day >= 0; day--) {
     final start = midnight.subtract(Duration(days: day));
-    final aggregate = await connector.aggregate(
-      HealthDataType.steps.aggregateSum(
-        startTime: start,
-        endTime: start.add(const Duration(days: 1)),
-      ),
-    );
-    results.add(aggregate.value);
+    try {
+      final aggregate = await connector.aggregate(
+        HealthDataType.steps.aggregateSum(
+          startTime: start,
+          endTime: start.add(const Duration(days: 1)),
+        ),
+      );
+      results.add(aggregate.value);
+    } on NoDataException {
+      results.add(null); // A gap in the chart.
+    }
   }
 
   return results;
