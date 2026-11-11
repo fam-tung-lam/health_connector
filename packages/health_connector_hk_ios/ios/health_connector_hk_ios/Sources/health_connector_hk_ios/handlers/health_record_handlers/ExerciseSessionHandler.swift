@@ -231,10 +231,11 @@ extension ExerciseSessionHandler {
     /// Reads the saved HealthKit workout by its UUID and returns its associated active energy
     /// in kilocalories. On iOS 16 and higher, prefers `HKWorkout.statistics(for:)` for
     /// `activeEnergyBurned`, then falls back to `totalEnergyBurned` when statistics are missing.
-    /// On iOS 15, uses `totalEnergyBurned`. A workout with no energy quantity returns zero.
+    /// On iOS 15, uses `totalEnergyBurned`.
     ///
     /// - Parameter exerciseSessionId: The platform-assigned UUID of the saved HealthKit workout.
-    /// - Returns: Total active energy in kilocalories, or zero when no energy is available.
+    /// - Returns: Total active energy in kilocalories.
+    /// - Throws: `HealthConnectorError.noData` when no energy is available.
     /// - Throws: `HealthConnectorError.invalidArgument` when the ID is not a valid UUID or the
     ///   workout does not exist.
     /// - Throws: `HealthConnectorError` mapped from HealthKit failures during the workout query.
@@ -296,13 +297,16 @@ extension ExerciseSessionHandler {
             }
         }
 
-        return totalEnergyBurnedKilocalories(from: workout)
+        guard let energy = totalEnergyBurnedKilocalories(from: workout) else {
+            throw HealthConnectorError.noData
+        }
+        return energy
     }
 
     /// Falls back to the deprecated workout energy summary when statistics are unavailable.
     @available(iOS, introduced: 15.0, deprecated: 16.0)
-    private func totalEnergyBurnedKilocalories(from workout: HKWorkout) -> Double {
-        workout.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0.0
+    private func totalEnergyBurnedKilocalories(from workout: HKWorkout) -> Double? {
+        workout.totalEnergyBurned?.doubleValue(for: .kilocalorie())
     }
 
     /// Performs aggregation for exercise session records.
@@ -335,6 +339,8 @@ extension ExerciseSessionHandler {
             try validateAggregationMetric(metric)
 
             let workouts = try await readAllRecords(startTime: startTime, endTime: endTime)
+
+            guard !workouts.isEmpty else { throw HealthConnectorError.noData }
 
             let result: Double
             switch metric {

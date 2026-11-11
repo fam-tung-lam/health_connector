@@ -74,7 +74,7 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
         )
 
         val result = client.aggregate(aggregateRequest)
-        val aggregatedValue = result[metric] ?: error("Aggregation result for $metric is null")
+        val aggregatedValue = result[metric] ?: throw HealthConnectorException.NoData()
 
         convertAggregatedValue(aggregatedValue)
     }
@@ -234,6 +234,8 @@ internal interface CustomAggregatableHealthRecordHandler :
 
             pageToken = nextToken
         } while (!pageToken.isNullOrEmpty())
+
+        if (count == 0) throw HealthConnectorException.NoData()
 
         val result = PaginatedAggregationResult(
             avg = if (count > 0) sum / count else 0.0,

@@ -68,6 +68,7 @@ extension MindfulnessSessionHandler {
 
             let samples = try await readAllRecords(startTime: startTime, endTime: endTime)
 
+            guard !samples.isEmpty else { throw HealthConnectorError.noData }
             return samples
                 .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
         }

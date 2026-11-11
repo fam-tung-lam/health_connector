@@ -142,7 +142,8 @@ final class ExerciseSessionDataType
   /// ## Returns
   ///
   /// A request that produces [Energy] when passed to
-  /// `HealthConnector.aggregate()`. Missing active energy produces zero.
+  /// `HealthConnector.aggregate()`. Missing active energy throws
+  /// `NoDataException`.
   ///
   /// ## Throws
   ///

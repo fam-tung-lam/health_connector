@@ -307,7 +307,12 @@ enum HealthConnectorErrorCode {
   /// - Show generic error message to user
   ///
   /// Throws [UnknownException].
-  unknownError('UNKNOWN_ERROR')
+  unknownError('UNKNOWN_ERROR'),
+
+  /// No data contributed to the requested aggregation.
+  ///
+  /// Throws [NoDataException].
+  noData('NO_DATA')
   ;
 
   const HealthConnectorErrorCode(this.code);

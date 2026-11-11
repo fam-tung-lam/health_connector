@@ -76,7 +76,43 @@ final class RunnerTests: XCTestCase {
             makeAppleStandHourSample(value: HKCategoryValueAppleStandHour.stood.rawValue),
         ]
 
-        XCTAssertEqual(AppleStandHourHandler.countStoodHours(in: samples), 2.0)
+        XCTAssertEqual(try AppleStandHourHandler.countStoodHours(in: samples), 2.0)
+    }
+
+    func testStandHourAggregationDistinguishesMissingDataFromIdleHours() throws {
+        let idle = try makeAppleStandHourSample(value: HKCategoryValueAppleStandHour.idle.rawValue)
+
+        XCTAssertThrowsError(try AppleStandHourHandler.countStoodHours(in: [])) { error in
+            XCTAssertEqual((error as? HealthConnectorError)?.toErrorDto().code, "NO_DATA")
+        }
+        XCTAssertEqual(try AppleStandHourHandler.countStoodHours(in: [idle]), 0.0)
+    }
+
+    func testHealthKitErrorMapperDistinguishesNoDataFromDatabaseAccessErrors() {
+        let empty = HealthConnectorError.create(from: HKError(.errorNoData))
+        let locked = HealthConnectorError.create(from: HKError(.errorDatabaseInaccessible))
+
+        XCTAssertEqual(empty.toErrorDto().code, "NO_DATA")
+        XCTAssertEqual(locked.toErrorDto().code, "HEALTH_SERVICE_DATABASE_INACCESSIBLE")
+    }
+
+    func testQuantityAggregationWithoutStatisticsThrowsNoData() {
+        let handler = StepsHandler(healthStore: HKHealthStore())
+
+        XCTAssertThrowsError(try handler.extractQuantity(from: nil, for: .sum)) { error in
+            XCTAssertEqual((error as? HealthConnectorError)?.code, "NO_DATA")
+        }
+    }
+
+    func testQuantityAggregationWithoutMetricValueThrowsNoData() {
+        struct EmptyStatistics: AggregationStatistics {
+            func quantity(for metric: AggregationMetricDto) -> HKQuantity? { nil }
+        }
+
+        let handler = StepsHandler(healthStore: HKHealthStore())
+        XCTAssertThrowsError(try handler.extractQuantity(from: EmptyStatistics(), for: .sum)) { error in
+            XCTAssertEqual((error as? HealthConnectorError)?.code, "NO_DATA")
+        }
     }
 
     func testOffsetsUseHistoricalWinterAndSummerTime() throws {

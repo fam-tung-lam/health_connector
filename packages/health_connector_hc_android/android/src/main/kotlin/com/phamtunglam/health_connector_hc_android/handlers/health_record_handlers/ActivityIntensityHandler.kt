@@ -5,6 +5,7 @@ import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.records.ActivityIntensityRecord
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.time.TimeRangeFilter
+import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.handlers.AggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
@@ -63,7 +64,7 @@ internal class ActivityIntensityHandler(
 
         val result = client.aggregate(aggregateRequest)
 
-        val value = result[metric] ?: error("Aggregation result for $metric is null")
+        val value = result[metric] ?: throw HealthConnectorException.NoData()
 
         // Return duration in seconds
         value.toSeconds().toDouble()
