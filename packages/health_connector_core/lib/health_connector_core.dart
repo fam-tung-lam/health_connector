@@ -17,7 +17,8 @@ export 'src/models/exceptions/health_connector_exception.dart'
         HealthServiceUnavailableException,
         HealthServiceException,
         UnsupportedOperationException,
-        UnknownException;
+        UnknownException,
+        NoDataException;
 export 'src/models/health_data_sync/health_data_sync_result.dart'
     show HealthDataSyncResult;
 export 'src/models/health_data_sync/health_data_sync_token.dart'

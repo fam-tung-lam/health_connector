@@ -45,7 +45,8 @@ internal class ExerciseSessionHandler(
      * Health Connect does not link calorie records to exercise sessions. Other active energy
      * from the same source during this interval may therefore be included.
      *
-     * @return The total active energy in kilocalories, or zero when no active energy is found.
+     * @return The total active energy in kilocalories.
+     * @throws HealthConnectorException.NoData when no active energy is found.
      * @throws HealthConnectorException.InvalidArgument when the exercise session does not exist.
      * @throws HealthConnectorException.Authorization when either required read permission is denied.
      */
@@ -95,7 +96,8 @@ internal class ExerciseSessionHandler(
             )
         }
 
-        result[ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL]?.inKilocalories ?: 0.0
+        result[ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL]?.inKilocalories
+            ?: throw HealthConnectorException.NoData()
     }
 
     override fun convertAggregatedValue(aggregatedValue: Any): Double {

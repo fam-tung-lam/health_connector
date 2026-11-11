@@ -57,9 +57,9 @@ extension SleepStageHandler {
 
             let samples = try await readAllRecords(startTime: startTime, endTime: endTime)
 
-            return samples
-                .filter(isActualSleepStage)
-                .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
+            let sleepStages = samples.filter(isActualSleepStage)
+            guard !sleepStages.isEmpty else { throw HealthConnectorError.noData }
+            return sleepStages.reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
         }
     }
 

@@ -24,6 +24,7 @@ extension HealthConnectorErrorCodeDtoToDomain on HealthConnectorErrorCodeDto {
         HealthConnectorErrorCode.healthServiceDatabaseInaccessible,
       HealthConnectorErrorCodeDto.unsupportedOperation =>
         HealthConnectorErrorCode.unsupportedOperation,
+      HealthConnectorErrorCodeDto.noData => HealthConnectorErrorCode.noData,
       HealthConnectorErrorCodeDto.unknownError =>
         HealthConnectorErrorCode.unknownError,
     };

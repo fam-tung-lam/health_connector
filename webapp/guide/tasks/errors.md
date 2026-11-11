@@ -14,6 +14,7 @@ Structuring your `catch` blocks around the hierarchy handles most cases without 
 | `HealthServiceException` | The store failed transiently | Retry with backoff |
 | `InvalidArgumentException` | Bad input, or an expired sync token | Validate; reset the token |
 | `UnsupportedOperationException` | Not available on this platform or OS version | Branch, or omit the feature |
+| `NoDataException` | No data contributed to the aggregation | Display a missing value |
 | `UnknownException` | Unclassified internal failure | Log it and report it |
 
 ## A complete handler
@@ -67,6 +68,7 @@ try {
     HealthServiceException() => 'Temporary problem — try again shortly.',
     InvalidArgumentException() => 'Invalid request: ${e.message}',
     UnsupportedOperationException() => 'Not supported on this device.',
+    NoDataException() => 'No data for this aggregation.',
     UnknownException() => 'Something went wrong.',
   };
 

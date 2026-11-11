@@ -430,6 +430,20 @@ class ActiveEnergyBurnedHandlerTest {
         }
 
         @Test
+        fun `missing native metric throws NoData`() = runTest {
+            val emptyResult = AggregationResult(metrics = emptyMap())
+            fakeHealthConnectClient.overrides.aggregate = stub(emptyResult)
+            val request = StandardAggregateRequestDto(
+                dataType = HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
+                aggregationMetric = AggregationMetricDto.SUM,
+                startTime = FIXED_NOW.minusSeconds(3600).toEpochMilli(),
+                endTime = FIXED_NOW.toEpochMilli(),
+            )
+
+            shouldThrow<HealthConnectorException.NoData> { systemUnderTest.aggregate(request) }
+        }
+
+        @Test
         @DisplayName(
             "WHEN aggregating with invalid time range → " +
                 "THEN throws HealthConnectorErrorDto",
