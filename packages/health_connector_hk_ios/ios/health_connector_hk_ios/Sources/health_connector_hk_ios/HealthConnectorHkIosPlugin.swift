@@ -229,6 +229,16 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
+    /// Performs one native grouped query for complete local days.
+    func aggregateByDay(
+        request: AggregateRequestDto,
+        completion: @escaping (Result<[DailyAggregateResultDto], Error>) -> Void
+    ) {
+        process(operation: "aggregateByDay", completion: completion) {
+            try await self.healthClient.aggregateByDay(request: request)
+        }
+    }
+
     /// Performs an aggregation query on health records.
     ///
     /// - Parameters:

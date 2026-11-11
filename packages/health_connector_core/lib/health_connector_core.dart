@@ -88,6 +88,8 @@ export 'src/models/requests/aggregate_requests/aggregation_metric.dart'
     show AggregationMetric;
 export 'src/models/requests/read_requests/sort_descriptor.dart'
     show SortDescriptor;
+export 'src/models/responses/daily_aggregate_result.dart'
+    show DailyAggregateResult;
 export 'src/models/responses/permission_request_result.dart'
     show PermissionRequestResult;
 export 'src/models/user_characteristics/biological_sex.dart' show BiologicalSex;

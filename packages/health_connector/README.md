@@ -890,6 +890,43 @@ final maxResult = await connector.aggregate(
 print('Maximum weight: ${maxResult.inKilograms} kg');
 ```
 
+#### Aggregate by calendar day
+
+`aggregateByDay()` supports the metrics of native aggregation handlers on each
+platform, including steps, hydration, active energy and weight statistics.
+It performs one native grouped query and returns a chronological result for every
+complete local calendar day, including days without readable data.
+
+```dart
+final days = await connector.aggregateByDay(
+  HealthDataType.hydration.aggregateSum(
+    startTime: DateTime(2026, 10, 1),
+    endTime: DateTime(2026, 11, 1),
+  ),
+);
+for (final day in days) {
+  final liters = day.value?.inLiters;
+  // null means no readable measurement; zero remains a measured zero.
+}
+```
+
+Both boundaries must be local day starts; the end is exclusive. The device time
+zone is captured when native execution begins. Days follow calendar boundaries,
+including 23- and 25-hour daylight saving transitions. UTC timestamps are accepted
+when they identify the same local day boundaries. Partial days are rejected.
+On Android, Health Connect uses records' local times and recorded zone offsets.
+Historical travel data is not reprojected into the current device time zone;
+returned boundaries identify each calendar date in the device calendar.
+
+Samples overlapping the outer boundaries participate in native daily statistics;
+results can differ from repeated `aggregate()` calls with strict daily filters.
+HealthKit does not reveal denied read access, so null cannot prove that no data
+exists. Native query failures are propagated as connector exceptions. Support
+follows the native handler and its existing metrics (sum, min, max or average).
+Manual aggregations and saved-workout aggregation are not grouped automatically.
+For example, Android supports native sleep-session duration aggregation, while
+iOS sleep-stage duration is calculated manually and has no native daily path.
+
 ### Synchronize Data
 
 Data synchronization is an **incremental sync API** that retrieves **only

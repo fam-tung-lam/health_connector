@@ -5873,6 +5873,61 @@ class PermissionRequestsDto {
   int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
 }
 
+/// One daily aggregate with inclusive start and exclusive end boundaries.
+/// Times are epoch milliseconds.
+class DailyAggregateResultDto {
+  DailyAggregateResultDto({
+    required this.startTime,
+    required this.endTime,
+    this.value,
+  });
+
+  int startTime;
+
+  int endTime;
+
+  double? value;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      startTime,
+      endTime,
+      value,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static DailyAggregateResultDto decode(Object result) {
+    result as List<Object?>;
+    return DailyAggregateResultDto(
+      startTime: result[0]! as int,
+      endTime: result[1]! as int,
+      value: result[2] as double?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! DailyAggregateResultDto || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(startTime, other.startTime) &&
+        _deepEquals(endTime, other.endTime) &&
+        _deepEquals(value, other.value);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
 /// Sealed class for all aggregation request DTOs.
 sealed class AggregateRequestDto {}
 
@@ -6880,38 +6935,41 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PermissionRequestsDto) {
       buffer.putUint8(224);
       writeValue(buffer, value.encode());
-    } else if (value is StandardAggregateRequestDto) {
+    } else if (value is DailyAggregateResultDto) {
       buffer.putUint8(225);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureAggregateRequestDto) {
+    } else if (value is StandardAggregateRequestDto) {
       buffer.putUint8(226);
       writeValue(buffer, value.encode());
-    } else if (value is ActivityIntensityAggregateRequestDto) {
+    } else if (value is BloodPressureAggregateRequestDto) {
       buffer.putUint8(227);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    } else if (value is ActivityIntensityAggregateRequestDto) {
       buffer.putUint8(228);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(229);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(230);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(231);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
+    } else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(232);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorExceptionDto) {
+    } else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(233);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorLogDto) {
+    } else if (value is HealthConnectorExceptionDto) {
       buffer.putUint8(234);
       writeValue(buffer, value.encode());
-    } else if (value is ExerciseSessionActiveEnergyAggregateRequestDto) {
+    } else if (value is HealthConnectorLogDto) {
       buffer.putUint8(235);
+      writeValue(buffer, value.encode());
+    } else if (value is ExerciseSessionActiveEnergyAggregateRequestDto) {
+      buffer.putUint8(236);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -7163,26 +7221,28 @@ class _PigeonCodec extends StandardMessageCodec {
       case 224:
         return PermissionRequestsDto.decode(readValue(buffer)!);
       case 225:
-        return StandardAggregateRequestDto.decode(readValue(buffer)!);
+        return DailyAggregateResultDto.decode(readValue(buffer)!);
       case 226:
-        return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
+        return StandardAggregateRequestDto.decode(readValue(buffer)!);
       case 227:
-        return ActivityIntensityAggregateRequestDto.decode(readValue(buffer)!);
+        return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
       case 228:
-        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
+        return ActivityIntensityAggregateRequestDto.decode(readValue(buffer)!);
       case 229:
-        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
+        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
       case 230:
-        return ReadRecordRequestDto.decode(readValue(buffer)!);
+        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
       case 231:
-        return ReadRecordsRequestDto.decode(readValue(buffer)!);
+        return ReadRecordRequestDto.decode(readValue(buffer)!);
       case 232:
-        return ReadRecordsResponseDto.decode(readValue(buffer)!);
+        return ReadRecordsRequestDto.decode(readValue(buffer)!);
       case 233:
-        return HealthConnectorExceptionDto.decode(readValue(buffer)!);
+        return ReadRecordsResponseDto.decode(readValue(buffer)!);
       case 234:
-        return HealthConnectorLogDto.decode(readValue(buffer)!);
+        return HealthConnectorExceptionDto.decode(readValue(buffer)!);
       case 235:
+        return HealthConnectorLogDto.decode(readValue(buffer)!);
+      case 236:
         return ExerciseSessionActiveEnergyAggregateRequestDto.decode(
           readValue(buffer)!,
         );
@@ -7332,6 +7392,30 @@ class HealthConnectorHCAndroidApi {
       isNullValid: false,
     );
     return pigeonVar_replyValue! as double;
+  }
+
+  Future<List<DailyAggregateResultDto>> aggregateByDay(
+    AggregateRequestDto request,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.aggregateByDay$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[request],
+    );
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
+    return (pigeonVar_replyValue! as List<Object?>)
+        .cast<DailyAggregateResultDto>();
   }
 
   Future<void> deleteRecords(DeleteRecordsRequestDto request) async {

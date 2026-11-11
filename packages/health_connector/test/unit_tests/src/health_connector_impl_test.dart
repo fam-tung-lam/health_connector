@@ -1083,6 +1083,94 @@ void main() {
         },
       );
 
+      test(
+        'GIVEN daily request WHEN queried THEN forwards typed results',
+        () async {
+          // Given
+          when(() => mockClient.operatingSystemInfo).thenReturn(
+            const IOSOperatingSystemInfo(version: IOSVersion(18)),
+          );
+          final connector = HealthConnectorImpl(
+            config: const HealthConnectorConfig(),
+            healthPlatform: HealthPlatform.appleHealth,
+            healthPlatformClient: mockClient,
+          );
+          final start = DateTime(2026);
+          final end = DateTime(2026, 1, 2);
+          final request = HealthDataType.hydration.aggregateSum(
+            startTime: start,
+            endTime: end,
+          );
+          final expected = [
+            DailyAggregateResult<Volume>(
+              startTime: start,
+              endTime: end,
+              value: const Volume.liters(2),
+            ),
+          ];
+          when(
+            () => mockClient.aggregateByDay(request),
+          ).thenAnswer((_) async => expected);
+          // When
+          final actual = await connector.aggregateByDay(request);
+          // Then
+          expect(actual, same(expected));
+          verify(() => mockClient.aggregateByDay(request)).called(1);
+        },
+      );
+
+      for (final platform in [
+        HealthPlatform.healthConnect,
+        HealthPlatform.appleHealth,
+      ]) {
+        test(
+          'GIVEN blood pressure WHEN aggregated on $platform '
+          'THEN routes composite request',
+          () async {
+            // Given
+            when(() => mockClient.operatingSystemInfo).thenReturn(
+              platform == HealthPlatform.healthConnect
+                  ? const AndroidOperatingSystemInfo(
+                      apiLevel: 34,
+                      sdkExtensionVersions: [],
+                    )
+                  : const IOSOperatingSystemInfo(version: IOSVersion(18)),
+            );
+            final connector = HealthConnectorImpl(
+              config: const HealthConnectorConfig(),
+              healthPlatform: platform,
+              healthPlatformClient: mockClient,
+            );
+            final start = DateTime(2026);
+            final end = DateTime(2026, 1, 2);
+            final request = HealthDataType.bloodPressure.aggregateAverage(
+              bloodPressureType: HealthDataType.systolicBloodPressure,
+              startTime: start,
+              endTime: end,
+            );
+            final expected = [
+              DailyAggregateResult<Pressure>(
+                startTime: start,
+                endTime: end,
+                value: const Pressure.millimetersOfMercury(120),
+              ),
+            ];
+            when(
+              () => mockClient.aggregateByDay(request),
+            ).thenAnswer((_) async => expected);
+            when(() => mockClient.aggregate(request)).thenAnswer(
+              (_) async => const Pressure.millimetersOfMercury(120),
+            );
+            // When / Then
+            expect(await connector.aggregateByDay(request), same(expected));
+            expect(
+              await connector.aggregate(request),
+              const Pressure.millimetersOfMercury(120),
+            );
+          },
+        );
+      }
+
       group(
         'aggregate',
         () {
