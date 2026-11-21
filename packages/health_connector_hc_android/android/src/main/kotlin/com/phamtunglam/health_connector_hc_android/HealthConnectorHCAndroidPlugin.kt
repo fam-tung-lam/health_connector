@@ -8,6 +8,7 @@ import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorExc
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.DailyAggregateResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsRequestDto
@@ -811,6 +812,18 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     message = "Deleted records.",
                     context = logContext,
                 )
+            }
+        }
+    }
+
+    /** Returns native daily sums through the existing supervised plugin scope. */
+    override fun aggregateByDay(
+        request: AggregateRequestDto,
+        callback: (Result<List<DailyAggregateResultDto>>) -> Unit,
+    ) {
+        scope.launch {
+            process(operation = "aggregateByDay", callback = callback) {
+                requireClient().aggregateByDay(request)
             }
         }
     }

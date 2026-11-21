@@ -829,6 +829,42 @@ abstract interface class HealthConnector {
   /// ```
   Future<U> aggregate<U extends MeasurementUnit>(AggregateRequest<U> request);
 
+  /// Aggregates a native metric into complete local calendar days.
+  ///
+  /// Returns one result per day in chronological order, including days without
+  /// readable data (null value). Measured zeros remain zero. HealthKit does not
+  /// disclose whether empty results are caused by denied read authorization.
+  /// The device time zone is captured when native execution starts. Calendar
+  /// days follow daylight saving time rather than fixed 24-hour durations.
+  /// On Android, Health Connect groups records by their recorded local times
+  /// and zone offsets; travel history is not reprojected into the current zone.
+  /// The returned boundaries identify those dates in the device calendar.
+  /// Samples overlapping the outer boundaries participate in native daily
+  /// statistics. Results can differ from repeated strict-range aggregate calls.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError]: If either boundary is not the start of a local day.
+  /// - [UnsupportedOperationException]: If the platform handler has no native
+  ///   daily aggregation, or the request targets a saved workout.
+  /// - [HealthConnectorException]: If the native query fails.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final days = await connector.aggregateByDay(
+  ///   HealthDataType.hydration.aggregateSum(
+  ///     startTime: DateTime(2026, 10, 1),
+  ///     endTime: DateTime(2026, 11, 1),
+  ///   ),
+  /// );
+  /// ```
+  ///
+  /// {@category Core API}
+  @sinceV3_15_0
+  Future<List<DailyAggregateResult<U>>>
+  aggregateByDay<U extends MeasurementUnit>(AggregateRequest<U> request);
+
   /// Deletes health records based on the provided request.
   ///
   /// This unified deletion method accepts either [DeleteRecordsByIdsRequest]

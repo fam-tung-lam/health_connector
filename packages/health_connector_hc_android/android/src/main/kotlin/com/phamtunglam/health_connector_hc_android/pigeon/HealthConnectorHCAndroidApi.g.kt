@@ -5107,6 +5107,53 @@ data class PermissionRequestsDto (
 }
 
 /**
+ * One daily aggregate with inclusive start and exclusive end boundaries.
+ * Times are epoch milliseconds.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class DailyAggregateResultDto (
+  val startTime: Long,
+  val endTime: Long,
+  val value: Double? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): DailyAggregateResultDto {
+      val startTime = pigeonVar_list[0] as Long
+      val endTime = pigeonVar_list[1] as Long
+      val value = pigeonVar_list[2] as Double?
+      return DailyAggregateResultDto(startTime, endTime, value)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      startTime,
+      endTime,
+      value,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as DailyAggregateResultDto
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(this.startTime, other.startTime) && HealthConnectorHCAndroidApiPigeonUtils.deepEquals(this.endTime, other.endTime) && HealthConnectorHCAndroidApiPigeonUtils.deepEquals(this.value, other.value)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + HealthConnectorHCAndroidApiPigeonUtils.deepHash(this.startTime)
+    result = 31 * result + HealthConnectorHCAndroidApiPigeonUtils.deepHash(this.endTime)
+    result = 31 * result + HealthConnectorHCAndroidApiPigeonUtils.deepHash(this.value)
+    return result
+  }
+}
+
+/**
  * Sealed class for all aggregation request DTOs.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -6202,55 +6249,60 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       225.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          StandardAggregateRequestDto.fromList(it)
+          DailyAggregateResultDto.fromList(it)
         }
       }
       226.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BloodPressureAggregateRequestDto.fromList(it)
+          StandardAggregateRequestDto.fromList(it)
         }
       }
       227.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ActivityIntensityAggregateRequestDto.fromList(it)
+          BloodPressureAggregateRequestDto.fromList(it)
         }
       }
       228.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          ActivityIntensityAggregateRequestDto.fromList(it)
         }
       }
       229.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       230.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       231.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsRequestDto.fromList(it)
+          ReadRecordRequestDto.fromList(it)
         }
       }
       232.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsResponseDto.fromList(it)
+          ReadRecordsRequestDto.fromList(it)
         }
       }
       233.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthConnectorExceptionDto.fromList(it)
+          ReadRecordsResponseDto.fromList(it)
         }
       }
       234.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthConnectorLogDto.fromList(it)
+          HealthConnectorExceptionDto.fromList(it)
         }
       }
       235.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          HealthConnectorLogDto.fromList(it)
+        }
+      }
+      236.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           ExerciseSessionActiveEnergyAggregateRequestDto.fromList(it)
         }
@@ -6644,48 +6696,52 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(224)
         writeValue(stream, value.toList())
       }
-      is StandardAggregateRequestDto -> {
+      is DailyAggregateResultDto -> {
         stream.write(225)
         writeValue(stream, value.toList())
       }
-      is BloodPressureAggregateRequestDto -> {
+      is StandardAggregateRequestDto -> {
         stream.write(226)
         writeValue(stream, value.toList())
       }
-      is ActivityIntensityAggregateRequestDto -> {
+      is BloodPressureAggregateRequestDto -> {
         stream.write(227)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is ActivityIntensityAggregateRequestDto -> {
         stream.write(228)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(229)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(230)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(231)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsResponseDto -> {
+      is ReadRecordsRequestDto -> {
         stream.write(232)
         writeValue(stream, value.toList())
       }
-      is HealthConnectorExceptionDto -> {
+      is ReadRecordsResponseDto -> {
         stream.write(233)
         writeValue(stream, value.toList())
       }
-      is HealthConnectorLogDto -> {
+      is HealthConnectorExceptionDto -> {
         stream.write(234)
         writeValue(stream, value.toList())
       }
-      is ExerciseSessionActiveEnergyAggregateRequestDto -> {
+      is HealthConnectorLogDto -> {
         stream.write(235)
+        writeValue(stream, value.toList())
+      }
+      is ExerciseSessionActiveEnergyAggregateRequestDto -> {
+        stream.write(236)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -6753,6 +6809,7 @@ interface HealthConnectorHCAndroidApi {
   fun initialize(config: HealthConnectorConfigDto, callback: (Result<OperatingSystemInfoDto>) -> Unit)
   fun launchHealthConnectPageInGooglePlay(callback: (Result<Unit>) -> Unit)
   fun aggregate(request: AggregateRequestDto, callback: (Result<Double>) -> Unit)
+  fun aggregateByDay(request: AggregateRequestDto, callback: (Result<List<DailyAggregateResultDto>>) -> Unit)
   fun deleteRecords(request: DeleteRecordsRequestDto, callback: (Result<Unit>) -> Unit)
   fun getFeatureStatus(feature: HealthPlatformFeatureDto, callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit)
   fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit)
@@ -6822,6 +6879,26 @@ interface HealthConnectorHCAndroidApi {
             val args = message as List<Any?>
             val requestArg = args[0] as AggregateRequestDto
             api.aggregate(requestArg) { result: Result<Double> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.aggregateByDay$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val requestArg = args[0] as AggregateRequestDto
+            api.aggregateByDay(requestArg) { result: Result<List<DailyAggregateResultDto>> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

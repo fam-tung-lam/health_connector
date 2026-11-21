@@ -2645,6 +2645,20 @@ enum SortOrderDto {
   timeDescending,
 }
 
+/// One daily aggregate with inclusive start and exclusive end boundaries.
+/// Times are epoch milliseconds.
+class DailyAggregateResultDto {
+  DailyAggregateResultDto({
+    required this.startTime,
+    required this.endTime,
+    this.value,
+  });
+
+  final int startTime;
+  final int endTime;
+  final double? value;
+}
+
 /// Sealed class for all aggregation request DTOs.
 sealed class AggregateRequestDto {}
 
@@ -2953,6 +2967,9 @@ abstract class HealthConnectorHCAndroidApi {
 
   @async
   double aggregate(AggregateRequestDto request);
+
+  @async
+  List<DailyAggregateResultDto> aggregateByDay(AggregateRequestDto request);
 
   @async
   void deleteRecords(DeleteRecordsRequestDto request);

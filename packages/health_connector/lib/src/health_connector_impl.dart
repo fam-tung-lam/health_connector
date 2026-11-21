@@ -540,6 +540,15 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
+  Future<List<DailyAggregateResult<U>>>
+  aggregateByDay<U extends MeasurementUnit>(
+    AggregateRequest<U> request,
+  ) async {
+    _requireAggregateSupport(request);
+    return _client.aggregateByDay(request);
+  }
+
+  @override
   Future<U> aggregate<U extends MeasurementUnit>(
     AggregateRequest<U> request,
   ) async {
@@ -556,7 +565,7 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
-      _requirePlatformSupport(request.dataType.healthPlatformRequirements);
+      _requireAggregateSupport(request);
 
       final aggregatedValue = await _client.aggregate(request);
 
@@ -910,6 +919,15 @@ final class HealthConnectorImpl implements HealthConnector {
       case ExerciseRoutePermission():
         return;
     }
+  }
+
+  void _requireAggregateSupport(AggregateRequest<MeasurementUnit> request) {
+    // Blood-pressure requests select an iOS-only component.
+    // Android aggregates the composite blood-pressure record.
+    final requirements = request is BloodPressureAggregateRequest
+        ? HealthDataType.bloodPressure.healthPlatformRequirements
+        : request.dataType.healthPlatformRequirements;
+    _requirePlatformSupport(requirements);
   }
 
   void _requirePlatformSupport(

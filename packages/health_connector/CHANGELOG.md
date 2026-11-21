@@ -1,3 +1,8 @@
+## Unreleased
+
+- Add `aggregateByDay()` for native aggregate metrics with daily
+  grouping, complete local calendar days and nullable measurements.
+
 ## 3.14.1
 
 - **FIX**(hc_android): Preserve start and end timezone offsets when writing
