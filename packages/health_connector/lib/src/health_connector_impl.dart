@@ -556,7 +556,7 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
-      _requirePlatformSupport(request.dataType.healthPlatformRequirements);
+      _requireAggregateSupport(request);
 
       final aggregatedValue = await _client.aggregate(request);
 
@@ -910,6 +910,15 @@ final class HealthConnectorImpl implements HealthConnector {
       case ExerciseRoutePermission():
         return;
     }
+  }
+
+  void _requireAggregateSupport(AggregateRequest<MeasurementUnit> request) {
+    // Blood-pressure requests select an iOS-only component.
+    // Android aggregates the composite blood-pressure record.
+    final requirements = request is BloodPressureAggregateRequest
+        ? HealthDataType.bloodPressure.healthPlatformRequirements
+        : request.dataType.healthPlatformRequirements;
+    _requirePlatformSupport(requirements);
   }
 
   void _requirePlatformSupport(

@@ -1,3 +1,8 @@
+## Unreleased
+
+- **FIX**(health_connector): Allow `aggregate()` to query systolic and
+  diastolic measurements on Android through `HealthDataType.bloodPressure`.
+
 ## 3.14.1
 
 - **FIX**(hc_android): Preserve start and end timezone offsets when writing

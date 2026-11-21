@@ -1083,6 +1083,47 @@ void main() {
         },
       );
 
+      for (final platform in [
+        HealthPlatform.healthConnect,
+        HealthPlatform.appleHealth,
+      ]) {
+        test(
+          'GIVEN blood pressure WHEN aggregated on $platform '
+          'THEN routes composite request',
+          () async {
+            // Given
+            when(() => mockClient.operatingSystemInfo).thenReturn(
+              platform == HealthPlatform.healthConnect
+                  ? const AndroidOperatingSystemInfo(
+                      apiLevel: 34,
+                      sdkExtensionVersions: [],
+                    )
+                  : const IOSOperatingSystemInfo(version: IOSVersion(18)),
+            );
+            final connector = HealthConnectorImpl(
+              config: const HealthConnectorConfig(),
+              healthPlatform: platform,
+              healthPlatformClient: mockClient,
+            );
+            final start = DateTime(2026);
+            final end = DateTime(2026, 1, 2);
+            final request = HealthDataType.bloodPressure.aggregateAverage(
+              bloodPressureType: HealthDataType.systolicBloodPressure,
+              startTime: start,
+              endTime: end,
+            );
+            when(() => mockClient.aggregate(request)).thenAnswer(
+              (_) async => const Pressure.millimetersOfMercury(120),
+            );
+            // When / Then
+            expect(
+              await connector.aggregate(request),
+              const Pressure.millimetersOfMercury(120),
+            );
+          },
+        );
+      }
+
       group(
         'aggregate',
         () {
