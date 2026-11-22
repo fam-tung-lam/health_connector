@@ -921,11 +921,18 @@ returned boundaries identify each calendar date in the device calendar.
 Samples overlapping the outer boundaries participate in native daily statistics;
 results can differ from repeated `aggregate()` calls with strict daily filters.
 HealthKit does not reveal denied read access, so null cannot prove that no data
-exists. Native query failures are propagated as connector exceptions. Support
-follows the native handler and its existing metrics (sum, min, max or average).
-Manual aggregations and saved-workout aggregation are not grouped automatically.
-For example, Android supports native sleep-session duration aggregation, while
-iOS sleep-stage duration is calculated manually and has no native daily path.
+exists. Native query failures are propagated as connector exceptions.
+
+Daily aggregation uses the metrics each platform supports for the data type.
+
+| Measurement | Android Health Connect | iOS HealthKit |
+|:------------|:-----------------------|:--------------|
+| Steps, hydration, active energy over a time range | Daily sum | Daily sum |
+| Blood glucose, oxygen saturation, respiratory rate, VO₂ max | Min, max and average via `aggregate()` only | Daily min, max and average |
+| Exercise and mindfulness session duration | Daily sum | Sum via `aggregate()` only |
+| Sleep duration | Daily sum for sleep sessions | Sleep stage duration via `aggregate()` only |
+| Apple Stand Hours | Unavailable | Sum via `aggregate()` only |
+| Active energy for one saved workout | Via `aggregate()` only | Via `aggregate()` only |
 
 ### Synchronize Data
 

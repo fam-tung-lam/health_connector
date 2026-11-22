@@ -842,6 +842,18 @@ abstract interface class HealthConnector {
   /// Samples overlapping the outer boundaries participate in native daily
   /// statistics. Results can differ from repeated strict-range aggregate calls.
   ///
+  /// ## Platform Mapping
+  ///
+  /// - Both platforms support daily totals for steps, hydration and active
+  ///   energy. Use [aggregate] for active energy from a single saved workout.
+  /// - Android Health Connect also supports total duration for exercise,
+  ///   mindfulness and sleep sessions. Blood glucose, oxygen saturation,
+  ///   respiratory rate and VO₂ max support min, max and average only through
+  ///   [aggregate].
+  /// - iOS HealthKit supports daily min, max and average for those four
+  ///   measurements. Use [aggregate] for mindfulness and exercise session
+  ///   duration, sleep stage duration and Apple Stand Hours.
+  ///
   /// ## Throws
   ///
   /// - [ArgumentError]: If either boundary is not the start of a local day.
