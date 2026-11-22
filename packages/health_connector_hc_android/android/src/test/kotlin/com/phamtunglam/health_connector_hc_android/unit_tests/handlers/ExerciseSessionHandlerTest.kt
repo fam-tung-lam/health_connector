@@ -227,9 +227,9 @@ class ExerciseSessionHandlerTest {
 
         @Test
         @DisplayName(
-            "GIVEN no active energy → WHEN aggregating exercise session energy → THEN returns zero",
+            "GIVEN no active energy → WHEN aggregating exercise session energy → THEN throws NoData",
         )
-        fun `missing energy returns zero`() = runTest {
+        fun `missing energy throws NoData`() = runTest {
             // Given
             val exerciseSession = ExerciseSessionRecord(
                 startTime = EXERCISE_SESSION_START,
@@ -253,7 +253,9 @@ class ExerciseSessionHandlerTest {
             fakeHealthConnectClient.overrides.aggregate = stub(createAggregationResult())
 
             // When / Then
-            systemUnderTest.aggregateActiveEnergy(exerciseSessionId) shouldBe 0.0
+            shouldThrow<HealthConnectorException.NoData> {
+                systemUnderTest.aggregateActiveEnergy(exerciseSessionId)
+            }
         }
 
         @Test

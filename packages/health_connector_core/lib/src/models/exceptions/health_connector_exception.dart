@@ -95,6 +95,9 @@ sealed class HealthConnectorException implements Exception {
           stackTrace: stackTrace,
         );
 
+      case HealthConnectorErrorCode.noData:
+        return NoDataException(message, cause: cause, stackTrace: stackTrace);
+
       // Unknown exception
       case HealthConnectorErrorCode.unknownError:
         return UnknownException(
@@ -298,4 +301,17 @@ final class UnknownException extends HealthConnectorException {
          cause: cause,
          stackTrace: stackTrace,
        );
+}
+
+/// Thrown when no data contributes to an aggregation.
+@immutable
+final class NoDataException extends HealthConnectorException {
+  /// Creates a [NoDataException].
+  const NoDataException(String message, {Object? cause, StackTrace? stackTrace})
+    : super(
+        HealthConnectorErrorCode.noData,
+        message,
+        cause: cause,
+        stackTrace: stackTrace,
+      );
 }

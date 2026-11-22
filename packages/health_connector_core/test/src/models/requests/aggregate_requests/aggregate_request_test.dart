@@ -3,6 +3,51 @@ import 'package:health_connector_core/src/models/requests/aggregate_requests/agg
 import 'package:test/test.dart';
 
 void main() {
+  group('Time-range aggregation', () {
+    final requests =
+        <
+          String,
+          AggregateRequest<MeasurementUnit> Function(DateTime, DateTime)
+        >{
+          'Standard': (start, end) => HealthDataType.steps.aggregateSum(
+            startTime: start,
+            endTime: end,
+          ),
+          'Blood pressure': (start, end) =>
+              HealthDataType.bloodPressure.aggregateAverage(
+                bloodPressureType: HealthDataType.systolicBloodPressure,
+                startTime: start,
+                endTime: end,
+              ),
+          'Activity intensity': (start, end) =>
+              HealthDataType.activityIntensity.aggregateSum(
+                startTime: start,
+                endTime: end,
+              ),
+        };
+    for (final entry in requests.entries) {
+      for (final duration in [Duration.zero, const Duration(seconds: -1)]) {
+        test('${entry.key} rejects duration $duration', () {
+          // Given
+          final start = DateTime.utc(2026, 1, 1, 12);
+          final end = start.add(duration);
+
+          // When / Then
+          expect(
+            () => entry.value(start, end),
+            throwsA(
+              isA<ArgumentError>().having(
+                (error) => error.name,
+                'name',
+                'endTime',
+              ),
+            ),
+          );
+        });
+      }
+    }
+  });
+
   group('StandardAggregateRequest', () {
     final now = DateTime(2026, 1, 18);
     final startTime = now.subtract(const Duration(days: 7));

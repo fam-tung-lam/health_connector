@@ -12,7 +12,10 @@ import 'package:health_connector_core/src/models/requests/aggregate_requests/agg
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
 import 'package:health_connector_core/src/utils/validation_utils.dart'
-    show requireEndTimeAfterStartTime, require;
+    show
+        requireEndTimeAfterStartTime,
+        requireEndTimeNotBeforeStartTime,
+        require;
 import 'package:meta/meta.dart';
 
 part 'activity_intensity_aggregate_request.dart';
@@ -74,7 +77,6 @@ sealed class AggregateRequest<U extends MeasurementUnit> extends Request {
           '$dataType does not support aggregation with '
           'metric $aggregationMetric',
     );
-    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
   }
 
   @override

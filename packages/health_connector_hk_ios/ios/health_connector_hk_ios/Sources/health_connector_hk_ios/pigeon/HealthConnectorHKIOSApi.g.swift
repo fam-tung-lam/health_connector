@@ -1090,6 +1090,8 @@ public enum HealthConnectorErrorCodeDto: Int {
   case unsupportedOperation = 6
   /// An unclassified or internal system error occurred.
   case unknownError = 7
+  /// No data contributed to the requested aggregation.
+  case noData = 8
 }
 
 /// Represents the status of the health platform on the device.

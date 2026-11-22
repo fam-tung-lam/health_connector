@@ -1280,6 +1280,9 @@ enum HealthConnectorErrorCodeDto {
 
   /// An unclassified or internal system error occurred.
   unknownError,
+
+  /// No data contributed to the requested aggregation.
+  noData,
 }
 
 /// Represents the status of the health platform on the device.

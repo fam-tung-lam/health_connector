@@ -162,6 +162,13 @@ sealed class HealthConnectorException : Throwable() {
             HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION
     }
 
+    /** No records contributed to the requested aggregation. */
+    class NoData : HealthConnectorException() {
+        override val code = HealthConnectorErrorCodeDto.NO_DATA
+        override val message = "No data contributed to the requested aggregation"
+        override val context: Map<String, Any>? = null
+    }
+
     /**
      * Unknown errors.
      *

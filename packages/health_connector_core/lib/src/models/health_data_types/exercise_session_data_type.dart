@@ -136,15 +136,19 @@ final class ExerciseSessionDataType
   /// ## Parameters
   ///
   /// - [exerciseSession]: A saved exercise session with a platform-assigned ID.
+  ///   Equal start and end timestamps are accepted for existing HealthKit
+  ///   workouts. Android requires a valid native exercise-session time range.
   ///
   /// ## Returns
   ///
   /// A request that produces [Energy] when passed to
-  /// `HealthConnector.aggregate()`. Missing active energy produces zero.
+  /// `HealthConnector.aggregate()`. Missing active energy throws
+  /// `NoDataException`.
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError]: If [exerciseSession] has no saved record ID.
+  /// - [ArgumentError]: If [exerciseSession] has no saved record ID or its end
+  ///   time is before its start time.
   ///
   /// ## Example
   ///

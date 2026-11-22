@@ -9,11 +9,16 @@ part of 'aggregate_request.dart';
 final class ExerciseSessionActiveEnergyAggregateRequest
     extends AggregateRequest<Energy> {
   /// Creates a request for the saved exercise session identified by
-  /// [exerciseSessionId] within [startTime] and [endTime].
+  /// [exerciseSessionId] with its recorded [startTime] and [endTime].
+  ///
+  /// Equal timestamps are allowed for saved workouts without a duration.
+  /// Both platforms read the saved workout by ID; iOS ignores these timestamps
+  /// and Android aggregates over the native workout's saved time range.
   ///
   /// ## Throws
   ///
   /// - [ArgumentError]: If [exerciseSessionId] is [HealthRecordId.none].
+  /// - [ArgumentError]: If [endTime] is before [startTime].
   ExerciseSessionActiveEnergyAggregateRequest({
     required this.exerciseSessionId,
     required super.startTime,
@@ -22,6 +27,7 @@ final class ExerciseSessionActiveEnergyAggregateRequest
          dataType: HealthDataType.activeEnergyBurned,
          aggregationMetric: AggregationMetric.sum,
        ) {
+    requireEndTimeNotBeforeStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: exerciseSessionId != HealthRecordId.none,
       value: exerciseSessionId,

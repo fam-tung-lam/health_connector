@@ -133,7 +133,7 @@ extension AggregatableQuantityHealthRecordHandler {
         )
 
         // Execute the statistics query using async/await wrapper
-        let statistics: HKStatistics = try await withCheckedThrowingContinuation { continuation in
+        let statistics: HKStatistics? = try await withCheckedThrowingContinuation { continuation in
             let query = HKStatisticsQuery(
                 quantityType: quantityType,
                 quantitySamplePredicate: predicate,
@@ -141,21 +141,8 @@ extension AggregatableQuantityHealthRecordHandler {
             ) { _, statistics, error in
                 if let error {
                     continuation.resume(throwing: error)
-                } else if let statistics {
-                    continuation.resume(returning: statistics)
                 } else {
-                    continuation.resume(
-                        throwing: HealthConnectorError.unknownError(
-                            message:
-                            "No aggregation data available for \(Self.dataType) in the specified time range",
-                            context: context.merging([
-                                "data_type": String(describing: Self.dataType),
-                                "metric": String(describing: metric),
-                                "start_time": String(describing: startTime),
-                                "end_time": String(describing: endTime),
-                            ]) { _, new in new }
-                        )
-                    )
+                    continuation.resume(returning: statistics)
                 }
             }
 
@@ -179,7 +166,7 @@ extension AggregatableQuantityHealthRecordHandler {
     }
 }
 
-// MARK: - Private Helper Methods
+// MARK: - Helper Methods
 
 extension AggregatableQuantityHealthRecordHandler {
     /// Returns the appropriate HKStatisticsOptions for the given aggregation metric.
@@ -200,43 +187,35 @@ extension AggregatableQuantityHealthRecordHandler {
         }
     }
 
-    /// Extracts a metric without converting an absent quantity into an error.
-    func aggregateQuantity(from statistics: HKStatistics, for metric: AggregationMetricDto) -> HKQuantity? {
-        switch metric {
-        case .min:
-            statistics.minimumQuantity()
-        case .max:
-            statistics.maximumQuantity()
-        case .avg:
-            statistics.averageQuantity()
-        case .sum:
-            statistics.sumQuantity()
-        }
-    }
-
     /// Extracts the appropriate HKQuantity from statistics based on the metric.
     ///
     /// - Parameters:
-    ///   - statistics: The HKStatistics result from the query
+    ///   - statistics: The optional statistics returned by the query
     ///   - metric: The aggregation metric being requested
     /// - Returns: The extracted HKQuantity
-    /// - Throws: `HealthConnectorError.unknown` if the quantity is nil
-    private func extractQuantity(
-        from statistics: HKStatistics,
+    /// - Throws: `HealthConnectorError.noData` if the statistics or quantity is missing
+    func extractQuantity(
+        from statistics: (any AggregationStatistics)?,
         for metric: AggregationMetricDto
     ) throws -> HKQuantity {
-        let quantity = aggregateQuantity(from: statistics, for: metric)
-
-        guard let quantity else {
-            throw HealthConnectorError.unknownError(
-                message: "No quantity data available for metric '\(metric)' on \(Self.dataType)",
-                context: [
-                    "data_type": String(describing: Self.dataType),
-                    "metric": String(describing: metric),
-                ]
-            )
+        guard let quantity = statistics?.quantity(for: metric) else {
+            throw HealthConnectorError.noData
         }
-
         return quantity
+    }
+}
+
+protocol AggregationStatistics {
+    func quantity(for metric: AggregationMetricDto) -> HKQuantity?
+}
+
+extension HKStatistics: AggregationStatistics {
+    func quantity(for metric: AggregationMetricDto) -> HKQuantity? {
+        switch metric {
+        case .min: minimumQuantity()
+        case .max: maximumQuantity()
+        case .avg: averageQuantity()
+        case .sum: sumQuantity()
+        }
     }
 }

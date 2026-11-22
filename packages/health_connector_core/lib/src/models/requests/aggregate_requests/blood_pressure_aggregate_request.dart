@@ -29,7 +29,7 @@ final class BloodPressureAggregateRequest extends AggregateRequest<Pressure> {
   /// ## Throws
   ///
   /// - [ArgumentError] if [dataType] is not a valid blood pressure type
-  /// - [ArgumentError] if [endTime] is before [startTime]
+  /// - [ArgumentError] if [endTime] is not after [startTime]
   /// - [ArgumentError] if [dataType] does not support [aggregationMetric]
   BloodPressureAggregateRequest({
     required super.dataType,
@@ -37,6 +37,7 @@ final class BloodPressureAggregateRequest extends AggregateRequest<Pressure> {
     required super.startTime,
     required super.endTime,
   }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
       condition: _bloodPressureDataTypes.any(
         (bloodPressureDataType) => identical(bloodPressureDataType, dataType),

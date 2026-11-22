@@ -45,12 +45,13 @@ extension AppleStandHourHandler {
                 endTime: endTime
             )
 
-            return Self.countStoodHours(in: samples)
+            return try Self.countStoodHours(in: samples)
         }
     }
 
-    static func countStoodHours(in samples: [HKCategorySample]) -> Double {
-        samples.reduce(0.0) { total, sample in
+    static func countStoodHours(in samples: [HKCategorySample]) throws -> Double {
+        guard !samples.isEmpty else { throw HealthConnectorError.noData }
+        return samples.reduce(0.0) { total, sample in
             total + (sample.value == HKCategoryValueAppleStandHour.stood.rawValue ? 1.0 : 0.0)
         }
     }

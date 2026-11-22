@@ -25,7 +25,7 @@ extension AggregatableQuantityHealthRecordHandler {
                 healthStore.execute(query)
             }
             return { day in
-                collection?.statistics(for: day).flatMap { self.aggregateQuantity(from: $0, for: metric) }
+                collection?.statistics(for: day)?.quantity(for: metric)
             }
         }
     }

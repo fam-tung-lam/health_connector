@@ -215,6 +215,7 @@ abstract interface class HealthConnectorPlatformClient {
   ///
   /// ## Throws
   ///
+  /// - [NoDataException] when no data contributes to the requested metric.
   /// - [HealthConnectorException] if:
   ///   - The platform request fails
   ///   - The aggregation metric is not supported by the data type
