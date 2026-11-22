@@ -11,6 +11,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import java.time.Duration
 import kotlinx.coroutines.CoroutineDispatcher
@@ -36,6 +37,9 @@ internal class ActivityIntensityHandler(
     override val dataType = HealthDataTypeDto.ACTIVITY_INTENSITY
 
     override val tag = "ActivityIntensityHandler"
+
+    // getAggregateMetric selects the duration metric for the requested intensity.
+    override val aggregateMetricMappings: Map<AggregationMetricDto, AggregateMetric<*>> = emptyMap()
 
     override fun getAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> {
         require(request is ActivityIntensityAggregateRequestDto) {

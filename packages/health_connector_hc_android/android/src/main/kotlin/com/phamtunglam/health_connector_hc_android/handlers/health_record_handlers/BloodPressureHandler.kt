@@ -33,6 +33,9 @@ internal class BloodPressureHandler(
 
     override val tag = "BloodPressureHandler"
 
+    // getAggregateMetric resolves the metric using the requested blood pressure component.
+    override val aggregateMetricMappings: Map<AggregationMetricDto, AggregateMetric<*>> = emptyMap()
+
     override fun getAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> {
         require(request is BloodPressureAggregateRequestDto) {
             "Expected BloodPressureAggregateRequestDto for BloodPressureHandler"

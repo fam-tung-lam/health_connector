@@ -90,7 +90,6 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
      * Maps aggregation metrics to their Health Connect SDK equivalents.
      */
     val aggregateMetricMappings: Map<AggregationMetricDto, AggregateMetric<*>>
-        get() = emptyMap()
 
     /** Resolves standard or specialized requests to a native metric. */
     fun getAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
