@@ -26,7 +26,3 @@ Future<U?> aggregateOrNull<U extends MeasurementUnit>(
 Add a `NoDataException` branch to exhaustive switches on
 `HealthConnectorException` and a `HealthConnectorErrorCode.noData` branch to
 exhaustive switches on `HealthConnectorErrorCode`.
-
-If you implement `HealthConnector` in a test double or custom adapter, add
-`aggregateByDay()` to that implementation. The new method and its
-`DailyAggregateResult` type are experimental.
