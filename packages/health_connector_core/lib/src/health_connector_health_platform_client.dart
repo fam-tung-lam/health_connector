@@ -12,6 +12,7 @@ import 'package:health_connector_core/src/models/permissions/permission.dart';
 import 'package:health_connector_core/src/models/requests/aggregate_requests/aggregate_request.dart';
 import 'package:health_connector_core/src/models/requests/delete_requests/delete_records_request.dart';
 import 'package:health_connector_core/src/models/requests/read_requests/read_records_request.dart';
+import 'package:health_connector_core/src/models/responses/daily_aggregate_result.dart';
 import 'package:health_connector_core/src/models/responses/permission_request_result.dart';
 import 'package:health_connector_core/src/models/responses/read_records_response.dart';
 
@@ -221,6 +222,54 @@ abstract interface class HealthConnectorPlatformClient {
   ///   - Required permissions are not granted
   ///   - The time range is invalid
   Future<U> aggregate<U extends MeasurementUnit>(AggregateRequest<U> request);
+
+  /// Aggregates a native metric into complete local calendar days.
+  ///
+  /// Returns one result per day in chronological order, including days without
+  /// readable data (null value). Measured zeros remain zero. HealthKit does not
+  /// disclose whether empty results are caused by denied read authorization.
+  /// The device time zone is captured when native execution starts. Calendar
+  /// days follow daylight saving time rather than fixed 24-hour durations.
+  /// On Android, Health Connect groups records by their recorded local times
+  /// and zone offsets; travel history is not reprojected into the current zone.
+  /// The returned boundaries identify those dates in the device calendar.
+  /// Samples overlapping the outer boundaries participate in native daily
+  /// statistics. Results can differ from repeated strict-range aggregate calls.
+  ///
+  /// ## Platform Mapping
+  ///
+  /// - Both platforms support daily totals for steps, hydration and active
+  ///   energy. Use [aggregate] for active energy from a single saved workout.
+  /// - Android Health Connect also supports total duration for exercise,
+  ///   mindfulness and sleep sessions. Blood glucose, oxygen saturation,
+  ///   respiratory rate and VO₂ max support min, max and average only through
+  ///   [aggregate].
+  /// - iOS HealthKit supports daily min, max and average for those four
+  ///   measurements. Use [aggregate] for mindfulness and exercise session
+  ///   duration, sleep stage duration and Apple Stand Hours.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError]: If either boundary is not the start of a local day.
+  /// - [UnsupportedOperationException]: If the platform handler has no native
+  ///   daily aggregation, or the request targets a saved workout.
+  /// - [HealthConnectorException]: If the native query fails.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final days = await connector.aggregateByDay(
+  ///   HealthDataType.hydration.aggregateSum(
+  ///     startTime: DateTime(2026, 10, 1),
+  ///     endTime: DateTime(2026, 11, 1),
+  ///   ),
+  /// );
+  /// ```
+  ///
+  /// {@category Core API}
+  @sinceV3_15_0
+  Future<List<DailyAggregateResult<U>>>
+  aggregateByDay<U extends MeasurementUnit>(AggregateRequest<U> request);
 
   /// Deletes health records based on the provided request.
   ///

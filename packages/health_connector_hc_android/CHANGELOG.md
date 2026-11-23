@@ -1,3 +1,8 @@
+## Unreleased
+
+- Add `aggregateByDay()` for native aggregate metrics with daily
+  grouping, complete local calendar days and nullable measurements.
+
 ## 3.11.1
 
 - **FIX**: Preserve start and end timezone offsets when writing exercise sessions,

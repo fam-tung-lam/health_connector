@@ -65,6 +65,14 @@ protocol AggregatableQuantityHealthRecordHandler: AggregatableHealthRecordHandle
     ReadableHealthRecordHandler
     where SampleType == HKQuantitySample
 {
+    /// Aggregates a supported metric into complete local calendar days.
+    func aggregateByDay(
+        metric: AggregationMetricDto,
+        startTime: Date,
+        endTime: Date,
+        calendar: Calendar
+    ) async throws -> [DailyAggregateResultDto]
+
     /// Converts an HKQuantity to the handler's aggregated result DTO type.
     ///
     /// This is the only conversion method handlers need to implement.
@@ -166,7 +174,7 @@ extension AggregatableQuantityHealthRecordHandler {
     /// - Parameter metric: The aggregation metric
     /// - Returns: The corresponding HKStatisticsOptions
     /// - Throws: `HealthConnectorError.invalidArgument` for unsupported metrics
-    private func statisticsOptions(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
+    func statisticsOptions(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         switch metric {
         case .min:
             .discreteMin

@@ -1,9 +1,52 @@
 import Foundation
-import HealthKit
 @testable import health_connector_hk_ios
+import HealthKit
 import XCTest
 
 final class RunnerTests: XCTestCase {
+    func testDailyAggregationAcrossSkippedMidnightInSantiago() async throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try XCTUnwrap(TimeZone(identifier: "America/Santiago"))
+        let formatter = ISO8601DateFormatter()
+        // September 6 starts at 01:00 local time. The following day starts at 00:00 again.
+        let boundaries = try [
+            "2026-09-05T00:00:00-04:00", "2026-09-06T01:00:00-03:00",
+            "2026-09-07T00:00:00-03:00", "2026-09-08T00:00:00-03:00",
+        ].map { try XCTUnwrap(formatter.date(from: $0)) }
+        let sample = try makeHydrationSample(
+            start: "2026-09-07T00:30:00-03:00",
+            end: "2026-09-07T00:30:00-03:00",
+            metadata: nil
+        )
+        let handler = HydrationHandler(healthStore: HKHealthStore())
+        let milliseconds = boundaries.map { Int64($0.timeIntervalSince1970 * 1000) }
+
+        for startIndex in 0 ... 2 {
+            let days = try await handler.dailyAggregates(
+                metric: .sum, startTime: boundaries[startIndex], endTime: boundaries[3], calendar: calendar
+            ) { query in
+                XCTAssertEqual(query.intervalComponents.day, 1)
+                XCTAssertEqual(query.intervalComponents.timeZone, calendar.timeZone)
+                let clock = calendar.dateComponents([.hour, .minute, .second], from: query.anchorDate)
+                XCTAssertEqual(clock, DateComponents(hour: 0, minute: 0, second: 0))
+                // Only the query interval containing the 00:30 sample has a quantity.
+                let lower = try XCTUnwrap(calendar.nextDate(
+                    after: sample.startDate, matching: clock, matchingPolicy: .nextTime, direction: .backward
+                ))
+                let upper = try XCTUnwrap(calendar.nextDate(
+                    after: sample.startDate, matching: clock, matchingPolicy: .nextTime
+                ))
+                return { day in
+                    (lower ..< upper).contains(day) ? sample.quantity : nil
+                }
+            }
+
+            XCTAssertEqual(days.map(\.startTime), Array(milliseconds[startIndex ..< 3]))
+            XCTAssertEqual(days.map(\.endTime), Array(milliseconds[(startIndex + 1) ... 3]))
+            XCTAssertEqual(days.map(\.value), Array(repeating: nil, count: 2 - startIndex) + [0.25])
+        }
+    }
+
     func testOperatingSystemVersionMapsEveryComponent() {
         // Given
         let version = OperatingSystemVersion(

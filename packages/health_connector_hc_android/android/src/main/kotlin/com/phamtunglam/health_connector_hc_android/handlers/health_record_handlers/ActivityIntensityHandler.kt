@@ -3,20 +3,17 @@ package com.phamtunglam.health_connector_hc_android.handlers.health_record_handl
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.records.ActivityIntensityRecord
-import androidx.health.connect.client.request.AggregateRequest
-import androidx.health.connect.client.time.TimeRangeFilter
-import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
-import com.phamtunglam.health_connector_hc_android.handlers.AggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ActivityIntensityTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import java.time.Duration
-import java.time.Instant
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -35,39 +32,28 @@ internal class ActivityIntensityHandler(
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler {
+    HealthConnectAggregatableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.ACTIVITY_INTENSITY
 
     override val tag = "ActivityIntensityHandler"
 
-    override suspend fun aggregate(request: AggregateRequestDto): Double = process(
-        operation = "aggregate",
-        context = mapOf("request" to request),
-    ) {
+    // getAggregateMetric selects the duration metric for the requested intensity.
+    override val aggregateMetricMappings: Map<AggregationMetricDto, AggregateMetric<*>> = emptyMap()
+
+    override fun getAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> {
         require(request is ActivityIntensityAggregateRequestDto) {
             "Expected ActivityIntensityAggregateRequestDto for ActivityIntensityHandler"
         }
+        return getAggregateMetric(request.intensityType)
+    }
 
-        require(request.startTime < request.endTime) {
-            "Invalid time range: startTime must be before endTime"
-        }
-
-        val metric = getAggregateMetric(request.intensityType)
-        val aggregateRequest = AggregateRequest(
-            metrics = setOf(metric),
-            timeRangeFilter = TimeRangeFilter.between(
-                Instant.ofEpochMilli(request.startTime),
-                Instant.ofEpochMilli(request.endTime),
-            ),
+    override fun convertAggregatedValue(aggregatedValue: Any): Double {
+        val duration = aggregatedValue as? Duration ?: throw IllegalArgumentException(
+            "Expected Duration",
         )
-
-        val result = client.aggregate(aggregateRequest)
-
-        val value = result[metric] ?: throw HealthConnectorException.NoData()
-
         // Return duration in seconds
-        value.toSeconds().toDouble()
+        return duration.seconds.toDouble()
     }
 
     /**

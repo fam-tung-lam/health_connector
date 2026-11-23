@@ -1,3 +1,8 @@
+## Unreleased
+
+- Add `aggregateByDay()` for native aggregate metrics with daily
+  grouping, complete local calendar days and nullable measurements.
+
 ## 3.13.0
 
 - **FEAT**: Read birth dates and biological sex from HealthKit with typed

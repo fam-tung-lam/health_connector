@@ -1,3 +1,10 @@
+## Unreleased
+
+- **FIX**(health_connector): Allow `aggregate()` to query systolic and
+  diastolic measurements on Android through `HealthDataType.bloodPressure`.
+- Add `aggregateByDay()` for native aggregate metrics with daily
+  grouping, complete local calendar days and nullable measurements.
+
 ## 3.14.1
 
 - **FIX**(hc_android): Preserve start and end timezone offsets when writing
