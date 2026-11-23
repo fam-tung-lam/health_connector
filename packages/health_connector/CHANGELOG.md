@@ -5,7 +5,7 @@
 - **BREAKING** **FIX**: Throw `NoDataException` when no data contributes to
   `aggregate()` on Android or iOS. Preserve measured zeros. Handle the new
   exception and error code in exhaustive switches.
-  ([Migration guide](https://github.com/fam-tung-lam/health_connector/blob/main/docs/guides/migration_guides/migration-guide-v3.14.1-to-v3.15.0.md),
+  ([Migration guide](https://github.com/fam-tung-lam/health_connector/blob/main/docs/guides/migration_guides/migration-guide-v3.14.x-to-v3.15.0.md),
   [c67ee697](https://github.com/fam-tung-lam/health_connector/commit/c67ee6977e2b45021b776392c2009cf59e658c3f)).
 - **BREAKING** **FEAT**: Add experimental `HealthConnector.aggregateByDay()` for
   supported native metrics. Return one result per complete local calendar day,

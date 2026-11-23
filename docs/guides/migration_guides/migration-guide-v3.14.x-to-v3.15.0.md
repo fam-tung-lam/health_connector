@@ -1,4 +1,6 @@
-# Migrate from Health Connector 3.14.1 to 3.15.0
+# Migrate from Health Connector 3.14.x to 3.15.0
+
+Use this guide when upgrading from 3.14.0 or 3.14.1.
 
 On Android and iOS, `HealthConnector.aggregate()` throws `NoDataException` when
 no data contributes to the requested metric. A measured zero still returns a
