@@ -47,12 +47,32 @@ jobs:
   publish:
     name: Publish to pub.dev
     needs: wait-for-pub-dependencies
+    runs-on: ubuntu-latest
+    environment: pub.dev
     permissions:
+      contents: read
       id-token: write
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@7654d458321ee25acccccfdb86cd48bd95768ff1 # v1.8.0
-    with:
-      environment: pub.dev
-      working-directory: ${{ inputs.package-path }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.package-path }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Configure pub.dev OIDC
+        uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.8.0
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Validate package publication
+        run: dart pub publish --dry-run
+
+      - name: Publish to pub.dev
+        run: dart pub publish --force
 
   record-pub-deployment:
     name: Record pub.dev deployment
