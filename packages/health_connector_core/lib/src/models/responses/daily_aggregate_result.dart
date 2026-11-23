@@ -14,6 +14,7 @@ import 'package:meta/meta.dart';
 ///
 /// {@category Core API}
 @sinceV3_15_0
+@experimentalApi
 @immutable
 final class DailyAggregateResult<U extends MeasurementUnit> {
   /// Creates a daily result with inclusive start and exclusive end boundaries.

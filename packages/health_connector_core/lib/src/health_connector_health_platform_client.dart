@@ -268,6 +268,7 @@ abstract interface class HealthConnectorPlatformClient {
   ///
   /// {@category Core API}
   @sinceV3_15_0
+  @experimentalApi
   Future<List<DailyAggregateResult<U>>>
   aggregateByDay<U extends MeasurementUnit>(AggregateRequest<U> request);
 

@@ -1,7 +1,16 @@
-## Unreleased
+## 3.12.0
 
-- Add `aggregateByDay()` for native aggregate metrics with daily
-  grouping, complete local calendar days and nullable measurements.
+> Note: This release has breaking changes.
+
+- **BREAKING** **FIX**: Throw `NoDataException` when Health Connect returns no
+  contributing data for `aggregate()`. Preserve measured zeros.
+  ([c67ee697](https://github.com/fam-tung-lam/health_connector/commit/c67ee6977e2b45021b776392c2009cf59e658c3f)).
+- **FEAT**: Add experimental `aggregateByDay()` using Health Connect's native
+  calendar-day grouping. Include empty days with null measurements.
+  ([e770dfac](https://github.com/fam-tung-lam/health_connector/commit/e770dfac225c11b3e1126e4885ca4adb2b5e296a)).
+- **FIX**: Require explicit mappings for Health Connect aggregation metrics and
+  reject unsupported daily metrics.
+  ([f76f2385](https://github.com/fam-tung-lam/health_connector/commit/f76f23858ab39b0237cbeba0017c3a7f8ea5bcbe)).
 
 ## 3.11.1
 

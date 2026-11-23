@@ -1,9 +1,24 @@
-## Unreleased
+## 3.15.0
 
-- **FIX**(health_connector): Allow `aggregate()` to query systolic and
+> Note: This release has breaking changes.
+
+- **BREAKING** **FIX**: Throw `NoDataException` when no data contributes to
+  `aggregate()` on Android or iOS. Preserve measured zeros. Handle the new
+  exception and error code in exhaustive switches.
+  ([Migration guide](https://github.com/fam-tung-lam/health_connector/blob/main/docs/guides/migration_guides/migration-guide-v3.14.1-to-v3.15.0.md),
+  [c67ee697](https://github.com/fam-tung-lam/health_connector/commit/c67ee6977e2b45021b776392c2009cf59e658c3f)).
+- **BREAKING** **FEAT**: Add experimental `HealthConnector.aggregateByDay()` for
+  supported native metrics. Return one result per complete local calendar day,
+  with a null measurement when no data is readable. Add this method to custom
+  `HealthConnector` implementations.
+  ([e770dfac](https://github.com/fam-tung-lam/health_connector/commit/e770dfac225c11b3e1126e4885ca4adb2b5e296a)).
+- **FIX**(hc_android): Allow `aggregate()` to query systolic and
   diastolic measurements on Android through `HealthDataType.bloodPressure`.
-- Add `aggregateByDay()` for native aggregate metrics with daily
-  grouping, complete local calendar days and nullable measurements.
+  ([34aa8897](https://github.com/fam-tung-lam/health_connector/commit/34aa8897a2c3cb876472fb1e18aec47caf811ae9)).
+- **FIX**(core): Allow active energy aggregation for saved workouts with zero
+  duration.
+- **DOCS**: List supported daily aggregation metrics by platform.
+  ([868499a2](https://github.com/fam-tung-lam/health_connector/commit/868499a2d3c4a4ca6a406a62968634a673d20f2f)).
 
 ## 3.14.1
 
