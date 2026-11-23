@@ -1,7 +1,18 @@
-## Unreleased
+## 3.14.0
 
-- Add `aggregateByDay()` for native aggregate metrics with daily
-  grouping, complete local calendar days and nullable measurements.
+> Note: This release has breaking changes.
+
+- **BREAKING** **FIX**: Throw `NoDataException` when no HealthKit data contributes
+  to `aggregate()`. Preserve measured zeros.
+  ([c67ee697](https://github.com/fam-tung-lam/health_connector/commit/c67ee6977e2b45021b776392c2009cf59e658c3f)).
+- **FEAT**: Add experimental `aggregateByDay()` using native HealthKit statistics
+  collection queries. Include unreadable days with null measurements.
+  ([e770dfac](https://github.com/fam-tung-lam/health_connector/commit/e770dfac225c11b3e1126e4885ca4adb2b5e296a)).
+- **FIX**: Align daily aggregates with calendar boundaries when a time-zone
+  transition skips midnight.
+  ([60fee4df](https://github.com/fam-tung-lam/health_connector/commit/60fee4df97c67a22e47e090d63e6913fa32ac888)).
+- **FIX**: Accept zero-duration saved workouts in the active energy request mapper.
+  ([9b899a61](https://github.com/fam-tung-lam/health_connector/commit/9b899a61b7442b55bc0c2334e8cc9ea74faaeec1)).
 
 ## 3.13.0
 

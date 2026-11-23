@@ -1,7 +1,17 @@
-## Unreleased
+## 3.14.0
 
-- Add `aggregateByDay()` for native aggregate metrics with daily
-  grouping, complete local calendar days and nullable measurements.
+> Note: This release has breaking changes.
+
+- **BREAKING** **FIX**: Throw `NoDataException` when no data contributes to
+  `aggregate()`. Handle the new subtype and `HealthConnectorErrorCode.noData`
+  in exhaustive switches.
+  ([c67ee697](https://github.com/fam-tung-lam/health_connector/commit/c67ee6977e2b45021b776392c2009cf59e658c3f)).
+- **FEAT**: Define experimental `aggregateByDay()` on the platform client and
+  add `DailyAggregateResult` for a complete local day with a nullable measurement.
+  ([e770dfac](https://github.com/fam-tung-lam/health_connector/commit/e770dfac225c11b3e1126e4885ca4adb2b5e296a)).
+- **FIX**: Accept saved workouts with zero duration in active energy aggregation
+  requests.
+  ([9b899a61](https://github.com/fam-tung-lam/health_connector/commit/9b899a61b7442b55bc0c2334e8cc9ea74faaeec1)).
 
 ## 3.13.0
 

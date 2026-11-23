@@ -833,6 +833,8 @@ abstract interface class HealthConnector {
 
   /// Aggregates a native metric into complete local calendar days.
   ///
+  /// This experimental API may change in a future release.
+  ///
   /// Returns one result per day in chronological order, including days without
   /// readable data (null value). Measured zeros remain zero. HealthKit does not
   /// disclose whether empty results are caused by denied read authorization.
@@ -876,6 +878,7 @@ abstract interface class HealthConnector {
   ///
   /// {@category Core API}
   @sinceV3_15_0
+  @experimentalApi
   Future<List<DailyAggregateResult<U>>>
   aggregateByDay<U extends MeasurementUnit>(AggregateRequest<U> request);
 

@@ -859,6 +859,7 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   }
 
   @override
+  @experimentalApi
   Future<List<DailyAggregateResult<U>>>
   aggregateByDay<U extends MeasurementUnit>(
     AggregateRequest<U> request,

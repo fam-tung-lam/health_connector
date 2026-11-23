@@ -892,7 +892,7 @@ print('Maximum weight: ${maxResult.inKilograms} kg');
 
 #### Aggregate by calendar day
 
-`aggregateByDay()` supports the metrics of native aggregation handlers on each
+The experimental `aggregateByDay()` API supports native aggregation metrics on each
 platform, including steps, hydration, active energy and weight statistics.
 It performs one native grouped query and returns a chronological result for every
 complete local calendar day, including days without readable data.
